@@ -15,7 +15,7 @@ DESCRIPTION
 SEE ALSO
      sftp(1), ssh(1), sshd_config(5), sshd(8)
 
-     T. Ylonen, and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
+     T. Ylonen and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
      filexfer-00.txt, January 2001, work in progress material.
 
 AUTHORS
@@ -24,4 +24,4 @@ AUTHORS
 HISTORY
      sftp-server first appeared in OpenBSD 2.8 .
 
-OpenBSD 3.4                     August 30, 2000                              1
+OpenBSD 3.5                     August 30, 2000                              1

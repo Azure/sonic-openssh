@@ -1,5 +1,5 @@
 /* config.h.in.  Generated automatically from configure.ac by autoheader.  */
-/* $Id: acconfig.h,v 1.173 2004/02/06 05:24:31 dtucker Exp $ */
+/* $Id: acconfig.h,v 1.177 2004/04/15 23:22:40 dtucker Exp $ */
 
 /*
  * Copyright (c) 1999-2003 Damien Miller.  All rights reserved.
@@ -132,6 +132,9 @@
 /* Define if your AIX loginfailed() function takes 4 arguments (AIX >= 5.2) */
 #undef AIX_LOGINFAILED_4ARG
 
+/* Define if your skeychallenge() function takes 4 arguments (eg NetBSD) */
+#undef SKEYCHALLENGE_4ARG
+
 /* Define if you have/want arrays (cluster-wide session managment, not C arrays) */
 #undef WITH_IRIX_ARRAY
 
@@ -202,6 +205,9 @@
 
 /* Define if you don't want to use lastlog in session.c */
 #undef NO_SSH_LASTLOG
+
+/* Define if have krb5_init_ets */
+#undef KRB5_INIT_ETS
 
 /* Define if you don't want to use utmp */
 #undef DISABLE_UTMP
@@ -347,6 +353,9 @@
 
 /* getaddrinfo is broken (if present) */
 #undef BROKEN_GETADDRINFO
+
+/* updwtmpx is broken (if present) */
+#undef BROKEN_UPDWTMPX
 
 /* Workaround more Linux IPv6 quirks */
 #undef DONT_TRY_OTHER_AF
@@ -708,6 +717,9 @@
 /* Define if you have the <paths.h> header file. */
 #undef HAVE_PATHS_H
 
+/* Define if you have the `prctl' function. */
+#undef HAVE_PRCTL
+
 /* Define if you have the `pstat' function. */
 #undef HAVE_PSTAT
 
@@ -885,6 +897,9 @@
 /* Define if you have the <sys/mman.h> header file. */
 #undef HAVE_SYS_MMAN_H
 
+/* Define if you have the <sys/prctl.h> header file. */
+#undef HAVE_SYS_PRCTL_H
+
 /* Define if you have the <sys/pstat.h> header file. */
 #undef HAVE_SYS_PSTAT_H
 
@@ -944,6 +959,9 @@
 
 /* Define if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
+
+/* Define if you have the `unsetenv' function. */
+#undef HAVE_UNSETENV
 
 /* Define if you have the `updwtmp' function. */
 #undef HAVE_UPDWTMP

@@ -82,6 +82,7 @@ DESCRIPTION
                    HostKeyAlias
                    HostName
                    IdentityFile
+                   IdentitiesOnly
                    LogLevel
                    MACs
                    NoHostAuthenticationForLocalhost
@@ -214,7 +215,7 @@ SEE ALSO
      ftp(1), scp(1), ssh(1), ssh-add(1), ssh-keygen(1), ssh_config(5),
      sftp-server(8), sshd(8)
 
-     T. Ylonen, and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
+     T. Ylonen and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
      filexfer-00.txt, January 2001, work in progress material.
 
-OpenBSD 3.4                    February 4, 2001                              4
+OpenBSD 3.5                    February 4, 2001                              4

@@ -374,6 +374,7 @@ DESCRIPTION
                    HostKeyAlias
                    HostName
                    IdentityFile
+                   IdentitiesOnly
                    LocalForward
                    LogLevel
                    MACs
@@ -665,4 +666,4 @@ AUTHORS
      created OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.4                   September 25, 1999                            11
+OpenBSD 3.5                   September 25, 1999                            11

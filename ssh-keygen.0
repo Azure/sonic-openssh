@@ -247,7 +247,7 @@ FILES
 SEE ALSO
      ssh(1), ssh-add(1), ssh-agent(1), moduli(5), sshd(8)
 
-     J. Galbraith, and R. Thayer, SECSH Public Key File Format, draft-ietf-
+     J. Galbraith and R. Thayer, SECSH Public Key File Format, draft-ietf-
      secsh-publickeyfile-01.txt, March 2001, work in progress material.
 
 AUTHORS
@@ -257,4 +257,4 @@ AUTHORS
      created OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.4                   September 25, 1999                             4
+OpenBSD 3.5                   September 25, 1999                             4

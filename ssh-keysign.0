@@ -1,4 +1,4 @@
-SSH-KEYSIGN(8)            BSD System ManagerM-bM-^@M-^Ys Manual           SSH-KEYSIGN(8)
+SSH-KEYSIGN(8)          OpenBSD System Manager's Manual         SSH-KEYSIGN(8)
 
 NAME
      ssh-keysign - ssh helper program for hostbased authentication
@@ -13,7 +13,7 @@ DESCRIPTION
 
      ssh-keysign is disabled by default and can only be enabled in the global
      client configuration file /etc/ssh/ssh_config by setting EnableSSHKeysign
-     to M-bM-^@M-^\yesM-bM-^@M-^].
+     to ``yes''.
 
      ssh-keysign is not intended to be invoked by the user, but from ssh(1).
      See ssh(1) and sshd(8) for more information about hostbased authentica-
@@ -37,6 +37,6 @@ HISTORY
      ssh-keysign first appeared in OpenBSD 3.2.
 
 AUTHORS
-     Markus Friedl M-bM-^LM-)markus@openbsd.orgM-bM-^LM-*
+     Markus Friedl <markus@openbsd.org>
 
-BSD                              May 24, 2002                              BSD
+OpenBSD 3.5                      May 24, 2002                                1

@@ -169,6 +169,11 @@ DESCRIPTION
              which allows the verification of the KDC's identity.  Default is
              ``no''.
 
+     KerberosGetAFSToken
+             If AFS is active and the user has a Kerberos 5 TGT, attempt to
+             aquire an AFS token before accessing the user's home directory.
+             Default is ``no''.
+
      KerberosOrLocalPasswd
              If set then if password authentication through Kerberos fails
              then the password will be validated via any additional local
@@ -248,7 +253,9 @@ DESCRIPTION
              ``no''.  The default is ``yes''.
 
              If this option is set to ``without-password'' password authenti-
-             cation is disabled for root.
+             cation is disabled for root.  Note that other authentication
+             methods (e.g., keyboard-interactive/PAM) may still allow root to
+             login using a password.
 
              If this option is set to ``forced-commands-only'' root login with
              public key authentication will be allowed, but only if the
@@ -456,4 +463,4 @@ AUTHORS
      versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
      for privilege separation.
 
-OpenBSD 3.4                   September 25, 1999                             7
+OpenBSD 3.5                   September 25, 1999                             8

@@ -238,6 +238,14 @@ DESCRIPTION
              fied in configuration files; all these identities will be tried
              in sequence.
 
+     IdentitiesOnly
+             Specifies that ssh should only use the authentication identity
+             files configured in the ssh_config files, even if the ssh-agent
+             offers more identities.  The argument to this keyword must be
+             ``yes'' or ``no''.  This option is intented for situations where
+             ssh-agent offers many different identities.  The default is
+             ``no''.
+
      LocalForward
              Specifies that a TCP/IP port on the local machine be forwarded
              over the secure channel to the specified host and port from the
@@ -454,4 +462,4 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.4                   September 25, 1999                             7
+OpenBSD 3.5                   September 25, 1999                             8
