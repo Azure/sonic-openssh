@@ -139,6 +139,10 @@ create_sshdconfig() {
 			/etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 		    echo >> /etc/ssh/sshd_config.dpkg-new
 		    echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
+		    chown --reference /etc/ssh/sshd_config \
+		                      /etc/ssh/sshd_config.dpkg-new
+		    chmod --reference /etc/ssh/sshd_config \
+		                      /etc/ssh/sshd_config.dpkg-new
 		    mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
 		    echo
 		fi
