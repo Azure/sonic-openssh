@@ -1,4 +1,4 @@
-openssh (1:3.8.1p1-9) UNRELEASED; urgency=low
+openssh (1:3.8.1p1-9) experimental; urgency=low
 
   * Split the ssh binary package into openssh-client and openssh-server
     (closes: #39741). openssh-server depends on openssh-client for some
@@ -20,7 +20,7 @@ openssh (1:3.8.1p1-9) UNRELEASED; urgency=low
     openssh-server package if you don't want to run the server. Add a NEWS
     item to that effect.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 31 Jul 2004 03:01:19 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon,  2 Aug 2004 20:48:54 +0100
 
 openssh (1:3.8.1p1-8) unstable; urgency=high
 
