@@ -24,13 +24,13 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: monitor_mm.c,v 1.6 2002/06/04 23:05:49 markus Exp $");
+RCSID("$OpenBSD: monitor_mm.c,v 1.8 2002/08/02 14:43:15 millert Exp $");
 
 #ifdef HAVE_SYS_MMAN_H
 #include <sys/mman.h>
 #endif
-#include <sys/shm.h>
 
+#include "openbsd-compat/xmmap.h"
 #include "ssh.h"
 #include "xmalloc.h"
 #include "log.h"
@@ -39,7 +39,14 @@ RCSID("$OpenBSD: monitor_mm.c,v 1.6 2002/06/04 23:05:49 markus Exp $");
 static int
 mm_compare(struct mm_share *a, struct mm_share *b)
 {
-	return ((char *)a->address - (char *)b->address);
+	long diff = (char *)a->address - (char *)b->address;
+
+	if (diff == 0)
+		return (0);
+	else if (diff < 0)
+		return (-1);
+	else
+		return (1);
 }
 
 RB_GENERATE(mmtree, mm_share, next, mm_compare)
@@ -85,48 +92,9 @@ mm_create(struct mm_master *mmalloc, size_t size)
 	 */
 	mm->mmalloc = mmalloc;
 
-#ifdef HAVE_MMAP_ANON_SHARED
-	mm->shm_not_mmap = 0;
-
-	address = mmap(NULL, size, PROT_WRITE|PROT_READ, MAP_ANON|MAP_SHARED,
-	    -1, 0);
-
-	if (address == MAP_FAILED) {
-		int shmid;
-
-		shmid = shmget(IPC_PRIVATE, size, IPC_CREAT|S_IRUSR|S_IWUSR);
-		if (shmid != -1) {
-			address = shmat(shmid, NULL, 0);
-			shmctl(shmid, IPC_RMID, NULL);
-			if (address != MAP_FAILED)
-				mm->shm_not_mmap = 1;
-		}
-	}
-
-	if (address == MAP_FAILED) {
-		char tmpname[sizeof(MM_SWAP_TEMPLATE)] = MM_SWAP_TEMPLATE;
-		int tmpfd;
-		int save_errno;
-
-		tmpfd = mkstemp(tmpname);
-		if (tmpfd == -1)
-			fatal("mkstemp(\"%s\"): %s",
-			   MM_SWAP_TEMPLATE, strerror(errno));
-		unlink(tmpname);
-		ftruncate(tmpfd, size);
-		address = mmap(NULL, size, PROT_WRITE|PROT_READ, MAP_SHARED,
-		   tmpfd, 0);
-		save_errno = errno;
-		close(tmpfd);
-		errno = save_errno;
-	}
-
+	address = xmmap(size);
 	if (address == MAP_FAILED)
 		fatal("mmap(%lu): %s", (u_long)size, strerror(errno));
-#else
-	fatal("%s: UsePrivilegeSeparation=yes and Compression=yes not supported",
-	    __func__);
-#endif
 
 	mm->address = address;
 	mm->size = size;
@@ -164,11 +132,7 @@ mm_destroy(struct mm_master *mm)
 	mm_freelist(mm->mmalloc, &mm->rb_free);
 	mm_freelist(mm->mmalloc, &mm->rb_allocated);
 
-#ifdef HAVE_MMAP_ANON_SHARED
-	if (mm->shm_not_mmap) {
-		if (shmdt(mm->address) == -1)
-			fatal("shmdt(%p): %s", mm->address, strerror(errno));
-	} else
+#ifdef HAVE_MMAP
 	if (munmap(mm->address, mm->size) == -1)
 		fatal("munmap(%p, %lu): %s", mm->address, (u_long)mm->size,
 		    strerror(errno));
@@ -203,8 +167,10 @@ mm_malloc(struct mm_master *mm, size_t size)
 
 	if (size == 0)
 		fatal("mm_malloc: try to allocate 0 space");
+	if (size > SIZE_T_MAX - MM_MINSIZE + 1)
+		fatal("mm_malloc: size too big");
 
-	size = ((size + MM_MINSIZE - 1) / MM_MINSIZE) * MM_MINSIZE;
+	size = ((size + (MM_MINSIZE - 1)) / MM_MINSIZE) * MM_MINSIZE;
 
 	RB_FOREACH(mms, mmtree, &mm->rb_free) {
 		if (mms->size >= size)

@@ -9,9 +9,10 @@ SYNOPSIS
 
 DESCRIPTION
      ssh obtains configuration data from the following sources in the followM--
-     ing order: command line options, user's configuration file
-     ($HOME/.ssh/config), and system-wide configuration file
-     (/etc/ssh/ssh_config).
+     ing order:
+           1.   command-line options
+           2.   user's configuration file ($HOME/.ssh/config)
+           3.   system-wide configuration file (/etc/ssh/ssh_config)
 
      For each parameter, the first obtained value will be used.  The configuM--
      ration files contain sections bracketed by ``Host'' specifications, and
@@ -133,10 +134,24 @@ DESCRIPTION
              any) will be forwarded to the remote machine.  The argument must
              be ``yes'' or ``no''.  The default is ``no''.
 
+             Agent forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             agent's Unix-domain socket) can access the local agent through
+             the forwarded connection.  An attacker cannot obtain key material
+             from the agent, however they can perform operations on the keys
+             that enable them to authenticate using the identities loaded into
+             the agent.
+
      ForwardX11
              Specifies whether X11 connections will be automatically rediM--
              rected over the secure channel and DISPLAY set.  The argument
              must be ``yes'' or ``no''.  The default is ``no''.
+
+             X11 forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             user's X authorization database) can access the local X11 display
+             through the forwarded connection.  An attacker may then be able
+             to perform activities such as keystroke monitoring.
 
      GatewayPorts
              Specifies whether remote hosts are allowed to connect to local
@@ -301,7 +316,8 @@ DESCRIPTION
              tication because it is not secure (see RhostsRSAAuthentication).
              The argument to this keyword must be ``yes'' or ``no''.  The
              default is ``no''.  This option applies to protocol version 1
-             only.
+             only and requires ssh to be setuid root and UsePrivilegedPort to
+             be set to ``yes''.
 
      RhostsRSAAuthentication
              Specifies whether to try rhosts based authentication with RSA
@@ -342,9 +358,10 @@ DESCRIPTION
      UsePrivilegedPort
              Specifies whether to use a privileged port for outgoing connecM--
              tions.  The argument must be ``yes'' or ``no''.  The default is
-             ``no''.  Note that this option must be set to ``yes'' if
-             RhostsAuthentication and RhostsRSAAuthentication authentications
-             are needed with older servers.
+             ``no''.  If set to ``yes'' ssh must be setuid root.  Note that
+             this option must be set to ``yes'' if RhostsAuthentication and
+             RhostsRSAAuthentication authentications are needed with older
+             servers.
 
      User    Specifies the user to log in as.  This can be useful when a difM--
              ferent user name is used on different machines.  This saves the
@@ -356,8 +373,8 @@ DESCRIPTION
              $HOME/.ssh/known_hosts.
 
      XAuthLocation
-             Specifies the location of the xauth(1) program.  The default is
-             /usr/X11R6/bin/xauth.
+             Specifies the full pathname of the xauth(1) program.  The default
+             is /usr/X11R6/bin/xauth.
 
 FILES
      $HOME/.ssh/config

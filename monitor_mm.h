@@ -27,7 +27,7 @@
 
 #ifndef _MM_H_
 #define _MM_H_
-#include "openbsd-compat/tree.h"
+#include "openbsd-compat/sys-tree.h"
 
 struct mm_share {
 	RB_ENTRY(mm_share) next;
@@ -40,7 +40,6 @@ struct mm_master {
 	struct mmtree rb_allocated;
 	void *address;
 	size_t size;
-	int shm_not_mmap;
 
 	struct mm_master *mmalloc;	/* Used to completely share */
 
@@ -53,8 +52,6 @@ RB_PROTOTYPE(mmtree, mm_share, next, mm_compare)
 #define MM_MINSIZE		128
 
 #define MM_ADDRESS_END(x)	(void *)((u_char *)(x)->address + (x)->size)
-
-#define MM_SWAP_TEMPLATE	"/var/run/sshd.mm.XXXXXXXX"
 
 struct mm_master *mm_create(struct mm_master *, size_t);
 void mm_destroy(struct mm_master *);

@@ -219,7 +219,7 @@ DESCRIPTION
      LoginGraceTime
              The server disconnects after this time if the user has not sucM--
              cessfully logged in.  If the value is 0, there is no time limit.
-             The default is 600 (seconds).
+             The default is 120 seconds.
 
      LogLevel
              Gives the verbosity level that is used when logging messages from
@@ -280,6 +280,13 @@ DESCRIPTION
 
              If this option is set to ``no'' root is not allowed to login.
 
+     PermitUserEnvironment
+             Specifies whether ~/.ssh/environment and environment= options in
+             ~/.ssh/authorized_keys are processed by sshd.  The default is
+             ``no''.  Enabling environment processing may enable users to
+             bypass access restrictions in some configurations using mechaM--
+             nisms such as LD_PRELOAD.
+
      PidFile
              Specifies the file that contains the process ID of the sshd daeM--
              mon.  The default is /var/run/sshd.pid.
@@ -298,9 +305,12 @@ DESCRIPTION
              /etc/profile, or equivalent.)  The default is ``yes''.
 
      Protocol
-             Specifies the protocol versions sshd should support.  The possiM--
-             ble values are ``1'' and ``2''.  Multiple versions must be comma-
-             separated.  The default is ``2,1''.
+             Specifies the protocol versions sshd supports.  The possible valM--
+             ues are ``1'' and ``2''.  Multiple versions must be comma-sepaM--
+             rated.  The default is ``2,1''.  Note that the order of the proM--
+             tocol list does not indicate preference, because the client
+             selects among multiple protocol versions offered by the server.
+             Specifying ``2,1'' is identical to ``1,2''.
 
      PubkeyAuthentication
              Specifies whether public key authentication is allowed.  The
@@ -380,11 +390,26 @@ DESCRIPTION
              servers.  The default is 10.
 
      X11Forwarding
-             Specifies whether X11 forwarding is permitted.  The default is
-             ``no''.  Note that disabling X11 forwarding does not improve
-             security in any way, as users can always install their own forM--
-             warders.  X11 forwarding is automatically disabled if UseLogin is
-             enabled.
+             Specifies whether X11 forwarding is permitted.  The argument must
+             be ``yes'' or ``no''.  The default is ``no''.
+
+             When X11 forwarding is enabled, there may be additional exposure
+             to the server and to client displays if the sshd proxy display is
+             configured to listen on the wildcard address (see X11UseLocalhost
+             below), however this is not the default.  Additionally, the
+             authentication spoofing and authentication data verification and
+             substitution occur on the client side.  The security risk of
+             using X11 forwarding is that the client's X11 display server may
+             be exposed to attack when the ssh client requests forwarding (see
+             the warnings for ForwardX11 in ssh_config(5) ). A system adminisM--
+             trator may have a stance in which they want to protect clients
+             that may expose themselves to attack by unwittingly requesting
+             X11 forwarding, which can warrant a ``no'' setting.
+
+             Note that disabling X11 forwarding does not prevent users from
+             forwarding X11 traffic, as users can always install their own
+             forwarders.  X11 forwarding is automatically disabled if UseLogin
+             is enabled.
 
      X11UseLocalhost
              Specifies whether sshd should bind the X11 forwarding server to
@@ -392,15 +417,15 @@ DESCRIPTION
              sshd binds the forwarding server to the loopback address and sets
              the hostname part of the DISPLAY environment variable to
              ``localhost''.  This prevents remote hosts from connecting to the
-             fake display.  However, some older X11 clients may not function
+             proxy display.  However, some older X11 clients may not function
              with this configuration.  X11UseLocalhost may be set to ``no'' to
              specify that the forwarding server should be bound to the wildM--
              card address.  The argument must be ``yes'' or ``no''.  The
              default is ``yes''.
 
      XAuthLocation
-             Specifies the location of the xauth(1) program.  The default is
-             /usr/X11R6/bin/xauth.
+             Specifies the full pathname of the xauth(1) program.  The default
+             is /usr/X11R6/bin/xauth.
 
    Time Formats
 

@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+#DEBHELPER#
+
 if [ "$1" = "purge" ]
 then
   rm -rf /etc/ssh
@@ -11,6 +13,7 @@ fi
 
 if [ "$1" = "purge" ] ; then
 	deluser --quiet sshd > /dev/null || true
+	delgroup --quiet ssh > /dev/null || true
 fi
 
-#DEBHELPER#
+exit 0

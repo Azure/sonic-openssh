@@ -6,7 +6,7 @@ NAME
 SYNOPSIS
      ssh [-l login_name] hostname | user@hostname [command]
 
-     ssh [-afgknqstvxACNPTX1246] [-b bind_address] [-c cipher_spec]
+     ssh [-afgknqstvxACNTX1246] [-b bind_address] [-c cipher_spec]
          [-e escape_char] [-i identity_file] [-l login_name] [-m mac_spec]
          [-o option] [-p port] [-F configfile] [-L port:host:hostport] [-R
          port:host:hostport] [-D port] hostname | user@hostname [command]
@@ -183,9 +183,10 @@ DESCRIPTION
      is opened.  The real authentication cookie is never sent to the server
      machine (and no cookies are sent in the plain).
 
-     If the user is using an authentication agent, the connection to the agent
-     is automatically forwarded to the remote side unless disabled on the comM--
-     mand line or in a configuration file.
+     If the ForwardAgent variable is set to ``yes'' (or, see the description
+     of the -A and -a options described later) and the user is using an
+     authentication agent, the connection to the agent is automatically forM--
+     warded to the remote side.
 
      Forwarding of arbitrary TCP/IP connections over the secure channel can be
      specified either on the command line or in a configuration file.  One
@@ -213,6 +214,14 @@ DESCRIPTION
      -A      Enables forwarding of the authentication agent connection.  This
              can also be specified on a per-host basis in a configuration
              file.
+
+             Agent forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             agent's Unix-domain socket) can access the local agent through
+             the forwarded connection.  An attacker cannot obtain key material
+             from the agent, however they can perform operations on the keys
+             that enable them to authenticate using the identities loaded into
+             the agent.
 
      -b bind_address
              Specify the interface to transmit from on machines with multiple
@@ -298,11 +307,6 @@ DESCRIPTION
              Port to connect to on the remote host.  This can be specified on
              a per-host basis in the configuration file.
 
-     -P      Use a non-privileged port for outgoing connections.  This can be
-             used if a firewall does not permit connections from privileged
-             ports.  Note that this option turns off RhostsAuthentication and
-             RhostsRSAAuthentication for older servers.
-
      -q      Quiet mode.  Causes all warning and diagnostic messages to be
              suppressed.
 
@@ -329,14 +333,20 @@ DESCRIPTION
      -X      Enables X11 forwarding.  This can also be specified on a per-host
              basis in a configuration file.
 
+             X11 forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             user's X authorization database) can access the local X11 display
+             through the forwarded connection.  An attacker may then be able
+             to perform activities such as keystroke monitoring.
+
      -C      Requests compression of all data (including stdin, stdout,
              stderr, and data for forwarded X11 and TCP/IP connections).  The
              compression algorithm is the same used by gzip(1), and the
-             ``level'' can be controlled by the CompressionLevel option.  ComM--
-             pression is desirable on modem lines and other slow connections,
-             but will only slow down things on fast networks.  The default
-             value can be set on a host-by-host basis in the configuration
-             files; see the Compression option.
+             ``level'' can be controlled by the CompressionLevel option for
+             protocol version 1.  Compression is desirable on modem lines and
+             other slow connections, but will only slow down things on fast
+             networks.  The default value can be set on a host-by-host basis
+             in the configuration files; see the Compression option.
 
      -F configfile
              Specifies an alternative per-user configuration file.  If a conM--
@@ -428,10 +438,10 @@ ENVIRONMENT
              Identifies the path of a unix-domain socket used to communicate
              with the agent.
 
-     SSH_CLIENT
-             Identifies the client end of the connection.  The variable conM--
-             tains three space-separated values: client ip-address, client
-             port number, and server port number.
+     SSH_CONNECTION
+             Identifies the client and server ends of the connection.  The
+             variable contains four space-separated values: client ip-address,
+             client port number, server ip-address and server port number.
 
      SSH_ORIGINAL_COMMAND
              The variable contains the original command line if a forced comM--
@@ -450,7 +460,9 @@ ENVIRONMENT
      USER    Set to the name of the user logging in.
 
      Additionally, ssh reads $HOME/.ssh/environment, and adds lines of the
-     format ``VARNAME=value'' to the environment.
+     format ``VARNAME=value'' to the environment if the file exists and if
+     users are allowed to change their environment.  See the
+     PermitUserEnvironment option in sshd_config(5).
 
 FILES
      $HOME/.ssh/known_hosts

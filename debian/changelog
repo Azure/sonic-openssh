@@ -1,3 +1,33 @@
+openssh (1:3.5p1-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fixes typo in ssh-add usage (closes: #152239).
+    - Fixes 'PermitRootLogin forced-commands-only' (closes: #166184).
+    - ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys
+      are deprecated for security reasons and will eventually go away. For
+      now they can be re-enabled by setting 'PermitUserEnvironment yes' in
+      sshd_config.
+    - ssh-agent is installed setgid to prevent ptrace() attacks. The group
+      actually doesn't matter, as it drops privileges immediately, but to
+      avoid confusion the postinst creates a new 'ssh' group for it.
+  * Obsolete patches:
+    - Solar Designer's privsep+compression patch for Linux 2.2 (see
+      1:3.3p1-0.0woody1).
+    - Hostbased auth ssh-keysign backport (see 1:3.4p1-4).
+
+  * Remove duplicated phrase in ssh_config(5) (closes: #152404).
+  * Source the debconf confmodule at the top of the postrm rather than at
+    the bottom, to avoid making future non-idempotency problems worse (see
+    #151035).
+  * Debconf templates:
+    - Add Polish (thanks, Grzegorz Kusnierz).
+    - Update French (thanks, Denis Barbier; closes: #132509).
+    - Update Spanish (thanks, Carlos Valdivia Yagüe; closes: #164716).
+  * Write a man page for gnome-ssh-askpass, and link it to ssh-askpass.1 if
+    this is the selected ssh-askpass alternative (closes: #67775).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 26 Oct 2002 19:41:51 +0100
+
 openssh (1:3.4p1-4) unstable; urgency=low
 
   * Allow ssh-krb5 in ssh-askpass-gnome's dependencies (closes: #129532).

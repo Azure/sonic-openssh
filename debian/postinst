@@ -280,6 +280,18 @@ set_sshd_permissions() {
 }
 
 
+set_ssh_agent_permissions() {
+	if ! getent group | grep -q '^ssh:'; then
+		addgroup --quiet ssh
+	fi
+	if ! [ -x /usr/sbin/dpkg-statoverride ] || \
+	    ! dpkg-statoverride --list /usr/bin/ssh-agent >/dev/null ; then
+		chgrp ssh /usr/bin/ssh-agent
+		chmod 2755 /usr/bin/ssh-agent
+	fi
+}
+
+
 setup_startup() {
 	start=yes
 	[ -e /usr/share/debconf/confmodule ] && {
@@ -311,6 +323,7 @@ fix_statoverride
 create_alternatives
 setup_sshd_user
 set_sshd_permissions
+set_ssh_agent_permissions
 setup_startup
 setup_init
 

@@ -24,7 +24,11 @@ set -e
 
 case "$1" in
     configure)
-        update-alternatives --quiet --install /usr/bin/ssh-askpass ssh-askpass /usr/lib/ssh/gnome-ssh-askpass 30
+        update-alternatives --quiet \
+	    --install /usr/bin/ssh-askpass ssh-askpass \
+	              /usr/lib/ssh/gnome-ssh-askpass 30 \
+	    --slave /usr/share/man/man1/ssh-askpass.1.gz \
+	            ssh-askpass.1.gz /usr/share/man/man1/gnome-ssh-askpass.1.gz
 
 
     ;;
