@@ -169,6 +169,7 @@ static int sshpam_cred_established = 0;
 static int sshpam_account_status = -1;
 static char **sshpam_env = NULL;
 static Authctxt *sshpam_authctxt = NULL;
+static char badpw[] = "\b\n\r\177INCORRECT";
 
 /* Some PAM implementations don't implement this */
 #ifndef HAVE_PAM_GETENVLIST
@@ -644,7 +645,10 @@ sshpam_respond(void *ctx, u_int num, char **resp)
 		return (-1);
 	}
 	buffer_init(&buffer);
-	buffer_put_cstring(&buffer, *resp);
+	if (sshpam_authctxt->valid)
+		buffer_put_cstring(&buffer, *resp);
+	else
+		buffer_put_cstring(&buffer, badpw);
 	if (ssh_msg_send(ctxt->pam_psock, PAM_AUTHTOK, &buffer) == -1) {
 		buffer_free(&buffer);
 		return (-1);

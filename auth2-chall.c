@@ -275,12 +275,9 @@ input_userauth_info_response(int type, u_int32_t seq, void *ctxt)
 	}
 	packet_check_eom();
 
-	if (authctxt->valid) {
-		res = kbdintctxt->device->respond(kbdintctxt->ctxt,
-		    nresp, response);
-	} else {
-		res = -1;
-	}
+	res = kbdintctxt->device->respond(kbdintctxt->ctxt, nresp, response);
+	if (!authctxt->valid)
+		res = 1;	/* keep going if login invalid */
 
 	for (i = 0; i < nresp; i++) {
 		memset(response[i], 'r', strlen(response[i]));
@@ -292,7 +289,7 @@ input_userauth_info_response(int type, u_int32_t seq, void *ctxt)
 	switch (res) {
 	case 0:
 		/* Success! */
-		authenticated = 1;
+		authenticated = authctxt->valid ? 1 : 0;
 		break;
 	case 1:
 		/* Authentication needs further interaction */
