@@ -28,9 +28,9 @@ check_idea_key() {
 
 
 create_key() {
-	local msg="$1"
+	msg="$1"
 	shift
-	local file="$1"
+	file="$1"
 	shift
 
 	if [ ! -f "$file" ] ; then

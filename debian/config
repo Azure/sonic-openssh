@@ -3,7 +3,7 @@
 action=$1
 version=$2
 
-if [ -d /etc/ssh-nonfree -a ! -d /etc/ssh ]; then
+if [ -d /etc/ssh-nonfree ] && [ ! -d /etc/ssh ]; then
   version=1.2.27
   cp -a /etc/ssh-nonfree /etc/ssh
 fi
@@ -30,7 +30,7 @@ else
   db_fset ssh/use_old_init_script seen true
 fi
 
-if [ -z "$version" -a ! -e /etc/ssh/sshd_config ]
+if [ -z "$version" ] && [ ! -e /etc/ssh/sshd_config ]
 then
   db_input medium ssh/protocol2_only || true
 fi
