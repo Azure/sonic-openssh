@@ -3,6 +3,9 @@ openssh (1:3.8.1p1-8.sarge.4) UNRELEASED; urgency=high
   * Fix timing information leak allowing discovery of invalid usernames in
     PAM keyboard-interactive authentication (backported from a patch by
     Darren Tucker; closes: #281595).
+  * Make sure that there's a delay in PAM keyboard-interactive
+    authentication when PermitRootLogin is not set to yes and the correct
+    root password is entered (closes: #248747).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 28 Nov 2004 12:12:55 +0000
 
