@@ -1,12 +1,12 @@
-openssh (1:3.8p1-4) UNRELEASED; urgency=low
+openssh (1:3.8.1p1-1) UNRELEASED; urgency=low
 
+  * New upstream release.
   * Make sure there's a newline at the end of sshd_config before adding
     'UsePAM yes' (closes: #244829).
-  * Remove /usr/share/doc/ssh/RFC.gz from the ssh binary package (although
-    it's still in the source, so this only addresses part of #211640 rather
-    than closing it). It isn't DFSG-free and only documents the obsolete
-    SSH1 protocol, not to mention that it was never a real RFC but only an
-    Internet-Draft. It's available from
+  * Generate a new .orig.tar.gz without RFC.nroff, and remove
+    /usr/share/doc/ssh/RFC.gz (closes: #211640). It isn't DFSG-free and only
+    documents the obsolete SSH1 protocol, not to mention that it was never a
+    real RFC but only an Internet-Draft. It's available from
     http://www.free.lp.se/bamse/draft-ylonen-ssh-protocol-00.txt if you want
     it for some reason.
 
