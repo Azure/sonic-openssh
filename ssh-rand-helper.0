@@ -1,0 +1,49 @@
+SSHM-bM-^@M-^PRANDM-bM-^@M-^PHELPER(8)        BSD System ManagerM-bM-^@M-^Ys Manual       SSHM-bM-^@M-^PRANDM-bM-^@M-^PHELPER(8)
+
+^[[1mNAME^[[0m
+     ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mM-bMM-^R Random number gatherer for OpenSSH
+
+^[[1mSYNOPSIS^[[0m
+     ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phlper ^[[22m[^[[1mM-bMM-^RvxXh^[[22m] [^[[1mM-bMM-^Rb ^[[4m^[[22mbytes^[[24m]
+
+^[[1mDESCRIPTION^[[0m
+     ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mis a small helper program used by ssh(1), sshM-bM-^@M-^Padd(1),
+     sshM-bM-^@M-^Pagent(1), sshM-bM-^@M-^Pkeygen(1), sshM-bM-^@M-^Pkeyscan(1) and sshd(8) to gather random
+     numbers of cryptographic quality if the openssl(4) library has not been
+     configured to provide them itself.
+
+     Normally ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mwill generate a strong random seed and provide
+     it to the calling program via standard output. If standard output is a
+     tty, ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mwill instead print the seed in hexidecimal format
+     unless told otherwise.
+
+     ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mwill by default gather random numbers from the system
+     commands listed in ^[[4m/etc/ssh/ssh_prng_cmds^[[24m.  The output of each of the
+     commands listed will be hashed and used to generate a random seed for the
+     calling program.  ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mwill also store seed files in
+     ^[[4m~/.ssh/prng_seed^[[24m between executions.
+
+     Alternately, ^[[1msshM-bM-^@M-^PrandM-bM-^@M-^Phelper ^[[22mmay be configured at build time to collect
+     random numbers from a EGD/PRNGd server via a unix domain or localhost tcp
+     socket.
+
+     This program is not intended to be run by the endM-bM-^@M-^Puser, so the few comM-bM-^@M-^P
+     mandline options are for debugging purposes only.
+
+     ^[[1mM-bMM-^Rb ^[[4m^[[22mbytes^[[0m
+             Specify the number of random bytes to include in the output.
+
+     ^[[1mM-bMM-^Rx      ^[[22mOutput a hexidecimal instead of a binary seed.
+
+     ^[[1mM-bMM-^RX      ^[[22mForce output of a binary seed, even if standard output is a tty
+
+     ^[[1mM-bMM-^Rv      ^[[22mTurn on debugging message. Multiple ^[[1mM-bMM-^Rv ^[[22moptions will increase the
+             debugging level.  ^[[1mM-bMM-^Rh ^[[22mDisplay a summary of options.
+
+^[[1mAUTHORS^[[0m
+     Damien Miller <djm@mindrot.org>
+
+^[[1mSEE ALSO^[[0m
+     ssh(1), sshM-bM-^@M-^Padd(1), sshM-bM-^@M-^Pkeygen(1), sshd(8)
+
+BSD                             April 14, 2002                             BSD

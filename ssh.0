@@ -1,0 +1,614 @@
+SSH(1)                    BSD General Commands Manual                   SSH(1)
+
+^[[1mNAME^[[0m
+     ^[[1mssh ^[[22mM-bMM-^R OpenSSH SSH client (remote login program)
+
+^[[1mSYNOPSIS^[[0m
+     ^[[1mssh ^[[22m[^[[1mM-bMM-^Rl ^[[4m^[[22mlogin_name^[[24m] ^[[4mhostname^[[24m | ^[[4muser@hostname^[[24m [^[[4mcommand^[[24m]
+
+     ^[[1mssh ^[[22m[^[[1mM-bMM-^RafgknqstvxACNTX1246^[[22m] [^[[1mM-bMM-^Rb ^[[4m^[[22mbind_address^[[24m] [^[[1mM-bMM-^Rc ^[[4m^[[22mcipher_spec^[[24m]
+         [^[[1mM-bMM-^Re ^[[4m^[[22mescape_char^[[24m] [^[[1mM-bMM-^Ri ^[[4m^[[22midentity_file^[[24m] [^[[1mM-bMM-^Rl ^[[4m^[[22mlogin_name^[[24m] [^[[1mM-bMM-^Rm ^[[4m^[[22mmac_spec^[[24m]
+         [^[[1mM-bMM-^Ro ^[[4m^[[22moption^[[24m] [^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[24m] [^[[1mM-bMM-^RF ^[[4m^[[22mconfigfile^[[24m] [^[[1mM-bMM-^RL ^[[4m^[[22mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m] [^[[1mM-bMM-^RR^[[0m
+         ^[[4mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m] [^[[1mM-bMM-^RD ^[[4m^[[22mport^[[24m] ^[[4mhostname^[[24m | ^[[4muser@hostname^[[24m [^[[4mcommand^[[24m]
+
+^[[1mDESCRIPTION^[[0m
+     ^[[1mssh ^[[22m(SSH client) is a program for logging into a remote machine and for
+     executing commands on a remote machine.  It is intended to replace rlogin
+     and rsh, and provide secure encrypted communications between two
+     untrusted hosts over an insecure network.  X11 connections and arbitrary
+     TCP/IP ports can also be forwarded over the secure channel.
+
+     ^[[1mssh ^[[22mconnects and logs into the specified ^[[4mhostname^[[24m.  The user must prove
+     his/her identity to the remote machine using one of several methods
+     depending on the protocol version used:
+
+   ^[[1mSSH protocol version 1^[[0m
+
+     First, if the machine the user logs in from is listed in ^[[4m/etc/hosts.equiv^[[0m
+     or ^[[4m/etc/shosts.equiv^[[24m on the remote machine, and the user names are the
+     same on both sides, the user is immediately permitted to log in.  Second,
+     if ^[[4m.rhosts^[[24m or ^[[4m.shosts^[[24m exists in the userM-bM-^@M-^Ys home directory on the remote
+     machine and contains a line containing the name of the client machine and
+     the name of the user on that machine, the user is permitted to log in.
+     This form of authentication alone is normally not allowed by the server
+     because it is not secure.
+
+     The second authentication method is the ^[[4mrhosts^[[24m or ^[[4mhosts.equiv^[[24m method comM-bM-^@M-^P
+     bined with RSAM-bM-^@M-^Pbased host authentication.  It means that if the login
+     would be permitted by ^[[4m$HOME/.rhosts^[[24m, ^[[4m$HOME/.shosts^[[24m, ^[[4m/etc/hosts.equiv^[[24m, or
+     ^[[4m/etc/shosts.equiv^[[24m, and if additionally the server can verify the clientM-bM-^@M-^Ys
+     host key (see ^[[4m/etc/ssh/ssh_known_hosts^[[24m and ^[[4m$HOME/.ssh/known_hosts^[[24m in the
+     ^[[4mFILES^[[24m section), only then login is permitted.  This authentication method
+     closes security holes due to IP spoofing, DNS spoofing and routing spoofM-bM-^@M-^P
+     ing.  [Note to the administrator: ^[[4m/etc/hosts.equiv^[[24m, ^[[4m$HOME/.rhosts^[[24m, and
+     the rlogin/rsh protocol in general, are inherently insecure and should be
+     disabled if security is desired.]
+
+     As a third authentication method, ^[[1mssh ^[[22msupports RSA based authentication.
+     The scheme is based on publicM-bM-^@M-^Pkey cryptography: there are cryptosystems
+     where encryption and decryption are done using separate keys, and it is
+     not possible to derive the decryption key from the encryption key.  RSA
+     is one such system.  The idea is that each user creates a public/private
+     key pair for authentication purposes.  The server knows the public key,
+     and only the user knows the private key.  The file
+     ^[[4m$HOME/.ssh/authorized_keys^[[24m lists the public keys that are permitted for
+     logging in.  When the user logs in, the ^[[1mssh ^[[22mprogram tells the server
+     which key pair it would like to use for authentication.  The server
+     checks if this key is permitted, and if so, sends the user (actually the
+     ^[[1mssh ^[[22mprogram running on behalf of the user) a challenge, a random number,
+     encrypted by the userM-bM-^@M-^Ys public key.  The challenge can only be decrypted
+     using the proper private key.  The userM-bM-^@M-^Ys client then decrypts the chalM-bM-^@M-^P
+     lenge using the private key, proving that he/she knows the private key
+     but without disclosing it to the server.
+
+     ^[[1mssh ^[[22mimplements the RSA authentication protocol automatically.  The user
+     creates his/her RSA key pair by running sshM-bM-^@M-^Pkeygen(1).  This stores the
+     private key in ^[[4m$HOME/.ssh/identity^[[24m and the public key in
+     ^[[4m$HOME/.ssh/identity.pub^[[24m in the userM-bM-^@M-^Ys home directory.  The user should
+     then copy the ^[[4midentity.pub^[[24m to ^[[4m$HOME/.ssh/authorized_keys^[[24m in his/her home
+     directory on the remote machine (the ^[[4mauthorized_keys^[[24m file corresponds to
+     the conventional ^[[4m$HOME/.rhosts^[[24m file, and has one key per line, though the
+     lines can be very long).  After this, the user can log in without giving
+     the password.  RSA authentication is much more secure than rhosts authenM-bM-^@M-^P
+     tication.
+
+     The most convenient way to use RSA authentication may be with an authenM-bM-^@M-^P
+     tication agent.  See sshM-bM-^@M-^Pagent(1) for more information.
+
+     If other authentication methods fail, ^[[1mssh ^[[22mprompts the user for a passM-bM-^@M-^P
+     word.  The password is sent to the remote host for checking; however,
+     since all communications are encrypted, the password cannot be seen by
+     someone listening on the network.
+
+   ^[[1mSSH protocol version 2^[[0m
+
+     When a user connects using protocol version 2 similar authentication
+     methods are available.  Using the default values for
+     ^[[1mPreferredAuthentications^[[22m, the client will try to authenticate first using
+     the hostbased method; if this method fails public key authentication is
+     attempted, and finally if this method fails keyboardM-bM-^@M-^Pinteractive and
+     password authentication are tried.
+
+     The public key method is similar to RSA authentication described in the
+     previous section and allows the RSA or DSA algorithm to be used: The
+     client uses his private key, ^[[4m$HOME/.ssh/id_dsa^[[24m or ^[[4m$HOME/.ssh/id_rsa^[[24m, to
+     sign the session identifier and sends the result to the server.  The
+     server checks whether the matching public key is listed in
+     ^[[4m$HOME/.ssh/authorized_keys^[[24m and grants access if both the key is found and
+     the signature is correct.  The session identifier is derived from a
+     shared DiffieM-bM-^@M-^PHellman value and is only known to the client and the
+     server.
+
+     If public key authentication fails or is not available a password can be
+     sent encrypted to the remote host for proving the userM-bM-^@M-^Ys identity.
+
+     Additionally, ^[[1mssh ^[[22msupports hostbased or challenge response authenticaM-bM-^@M-^P
+     tion.
+
+     Protocol 2 provides additional mechanisms for confidentiality (the trafM-bM-^@M-^P
+     fic is encrypted using 3DES, Blowfish, CAST128 or Arcfour) and integrity
+     (hmacM-bM-^@M-^Pmd5, hmacM-bM-^@M-^Psha1).  Note that protocol 1 lacks a strong mechanism for
+     ensuring the integrity of the connection.
+
+   ^[[1mLogin session and remote execution^[[0m
+
+     When the userM-bM-^@M-^Ys identity has been accepted by the server, the server
+     either executes the given command, or logs into the machine and gives the
+     user a normal shell on the remote machine.  All communication with the
+     remote command or shell will be automatically encrypted.
+
+     If a pseudoM-bM-^@M-^Pterminal has been allocated (normal login session), the user
+     may use the escape characters noted below.
+
+     If no pseudo tty has been allocated, the session is transparent and can
+     be used to reliably transfer binary data.  On most systems, setting the
+     escape character to M-bM-^@M-^\noneM-bM-^@M-^] will also make the session transparent even if
+     a tty is used.
+
+     The session terminates when the command or shell on the remote machine
+     exits and all X11 and TCP/IP connections have been closed.  The exit staM-bM-^@M-^P
+     tus of the remote program is returned as the exit status of ^[[1mssh^[[22m.
+
+   ^[[1mEscape Characters^[[0m
+
+     When a pseudo terminal has been requested, ssh supports a number of funcM-bM-^@M-^P
+     tions through the use of an escape character.
+
+     A single tilde character can be sent as ^[[1m~~ ^[[22mor by following the tilde by a
+     character other than those described below.  The escape character must
+     always follow a newline to be interpreted as special.  The escape characM-bM-^@M-^P
+     ter can be changed in configuration files using the ^[[1mEscapeChar ^[[22mconfiguraM-bM-^@M-^P
+     tion directive or on the command line by the ^[[1mM-bMM-^Re ^[[22moption.
+
+     The supported escapes (assuming the default M-bM-^@M-^X~M-bM-^@M-^Y) are:
+
+     ^[[1m~.      ^[[22mDisconnect
+
+     ^[[1m~^Z     ^[[22mBackground ssh
+
+     ^[[1m~#      ^[[22mList forwarded connections
+
+     ^[[1m~&      ^[[22mBackground ssh at logout when waiting for forwarded connection /
+             X11 sessions to terminate
+
+     ^[[1m~?      ^[[22mDisplay a list of escape characters
+
+     ^[[1m~C      ^[[22mOpen command line (only useful for adding port forwardings using
+             the ^[[1mM-bMM-^RL ^[[22mand ^[[1mM-bMM-^RR ^[[22moptions)
+
+     ^[[1m~R      ^[[22mRequest rekeying of the connection (only useful for SSH protocol
+             version 2 and if the peer supports it)
+
+   ^[[1mX11 and TCP forwarding^[[0m
+
+     If the ^[[1mForwardX11 ^[[22mvariable is set to M-bM-^@M-^\yesM-bM-^@M-^] (or, see the description of
+     the ^[[1mM-bMM-^RX ^[[22mand ^[[1mM-bMM-^Rx ^[[22moptions described later) and the user is using X11 (the
+     DISPLAY environment variable is set), the connection to the X11 display
+     is automatically forwarded to the remote side in such a way that any X11
+     programs started from the shell (or command) will go through the
+     encrypted channel, and the connection to the real X server will be made
+     from the local machine.  The user should not manually set DISPLAY.  ForM-bM-^@M-^P
+     warding of X11 connections can be configured on the command line or in
+     configuration files.
+
+     The DISPLAY value set by ^[[1mssh ^[[22mwill point to the server machine, but with a
+     display number greater than zero.  This is normal, and happens because
+     ^[[1mssh ^[[22mcreates a M-bM-^@M-^\proxyM-bM-^@M-^] X server on the server machine for forwarding the
+     connections over the encrypted channel.
+
+     ^[[1mssh ^[[22mwill also automatically set up Xauthority data on the server machine.
+     For this purpose, it will generate a random authorization cookie, store
+     it in Xauthority on the server, and verify that any forwarded connections
+     carry this cookie and replace it by the real cookie when the connection
+     is opened.  The real authentication cookie is never sent to the server
+     machine (and no cookies are sent in the plain).
+
+     If the ^[[1mForwardAgent ^[[22mvariable is set to M-bM-^@M-^\yesM-bM-^@M-^] (or, see the description of
+     the ^[[1mM-bMM-^RA ^[[22mand ^[[1mM-bMM-^Ra ^[[22moptions described later) and the user is using an authentiM-bM-^@M-^P
+     cation agent, the connection to the agent is automatically forwarded to
+     the remote side.
+
+     Forwarding of arbitrary TCP/IP connections over the secure channel can be
+     specified either on the command line or in a configuration file.  One
+     possible application of TCP/IP forwarding is a secure connection to an
+     electronic purse; another is going through firewalls.
+
+   ^[[1mServer authentication^[[0m
+
+     ^[[1mssh ^[[22mautomatically maintains and checks a database containing identificaM-bM-^@M-^P
+     tions for all hosts it has ever been used with.  Host keys are stored in
+     ^[[4m$HOME/.ssh/known_hosts^[[24m in the userM-bM-^@M-^Ys home directory.  Additionally, the
+     file ^[[4m/etc/ssh/ssh_known_hosts^[[24m is automatically checked for known hosts.
+     Any new hosts are automatically added to the userM-bM-^@M-^Ys file.  If a hostM-bM-^@M-^Ys
+     identification ever changes, ^[[1mssh ^[[22mwarns about this and disables password
+     authentication to prevent a trojan horse from getting the userM-bM-^@M-^Ys passM-bM-^@M-^P
+     word.  Another purpose of this mechanism is to prevent manM-bM-^@M-^PinM-bM-^@M-^PtheM-bM-^@M-^Pmiddle
+     attacks which could otherwise be used to circumvent the encryption.  The
+     ^[[1mStrictHostKeyChecking ^[[22moption can be used to prevent logins to machines
+     whose host key is not known or has changed.
+
+     The options are as follows:
+
+     ^[[1mM-bMM-^Ra      ^[[22mDisables forwarding of the authentication agent connection.
+
+     ^[[1mM-bMM-^RA      ^[[22mEnables forwarding of the authentication agent connection.  This
+             can also be specified on a perM-bM-^@M-^Phost basis in a configuration
+             file.
+
+             Agent forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             agentM-bM-^@M-^Ys UnixM-bM-^@M-^Pdomain socket) can access the local agent through
+             the forwarded connection.  An attacker cannot obtain key material
+             from the agent, however they can perform operations on the keys
+             that enable them to authenticate using the identities loaded into
+             the agent.
+
+     ^[[1mM-bMM-^Rb ^[[4m^[[22mbind_address^[[0m
+             Specify the interface to transmit from on machines with multiple
+             interfaces or aliased addresses.
+
+     ^[[1mM-bMM-^Rc ^[[4m^[[22mblowfish|3des|des^[[0m
+             Selects the cipher to use for encrypting the session.  ^[[4m3des^[[24m is
+             used by default.  It is believed to be secure.  ^[[4m3des^[[24m (tripleM-bM-^@M-^Pdes)
+             is an encryptM-bM-^@M-^PdecryptM-bM-^@M-^Pencrypt triple with three different keys.
+             ^[[4mblowfish^[[24m is a fast block cipher, it appears very secure and is
+             much faster than ^[[4m3des^[[24m.  ^[[4mdes^[[24m is only supported in the ^[[1mssh ^[[22mclient
+             for interoperability with legacy protocol 1 implementations that
+             do not support the ^[[4m3des^[[24m cipher.  Its use is strongly discouraged
+             due to cryptographic weaknesses.
+
+     ^[[1mM-bMM-^Rc ^[[4m^[[22mcipher_spec^[[0m
+             Additionally, for protocol version 2 a commaM-bM-^@M-^Pseparated list of
+             ciphers can be specified in order of preference.  See ^[[1mCiphers ^[[22mfor
+             more information.
+
+     ^[[1mM-bMM-^Re ^[[4m^[[22mch|^ch|none^[[0m
+             Sets the escape character for sessions with a pty (default: M-bM-^@M-^X~M-bM-^@M-^Y).
+             The escape character is only recognized at the beginning of a
+             line.  The escape character followed by a dot (M-bM-^@M-^X.M-bM-^@M-^Y) closes the
+             connection, followed by controlM-bM-^@M-^PZ suspends the connection, and
+             followed by itself sends the escape character once.  Setting the
+             character to M-bM-^@M-^\noneM-bM-^@M-^] disables any escapes and makes the session
+             fully transparent.
+
+     ^[[1mM-bMM-^Rf      ^[[22mRequests ^[[1mssh ^[[22mto go to background just before command execution.
+             This is useful if ^[[1mssh ^[[22mis going to ask for passwords or
+             passphrases, but the user wants it in the background.  This
+             implies ^[[1mM-bMM-^Rn^[[22m.  The recommended way to start X11 programs at a
+             remote site is with something like ^[[1mssh M-bM-^@M-^Pf host xterm^[[22m.
+
+     ^[[1mM-bMM-^Rg      ^[[22mAllows remote hosts to connect to local forwarded ports.
+
+     ^[[1mM-bMM-^Ri ^[[4m^[[22midentity_file^[[0m
+             Selects a file from which the identity (private key) for RSA or
+             DSA authentication is read.  The default is ^[[4m$HOME/.ssh/identity^[[0m
+             for protocol version 1, and ^[[4m$HOME/.ssh/id_rsa^[[24m and
+             ^[[4m$HOME/.ssh/id_dsa^[[24m for protocol version 2.  Identity files may
+             also be specified on a perM-bM-^@M-^Phost basis in the configuration file.
+             It is possible to have multiple ^[[1mM-bMM-^Ri ^[[22moptions (and multiple identiM-bM-^@M-^P
+             ties specified in configuration files).
+
+     ^[[1mM-bMM-^RI ^[[4m^[[22msmartcard_device^[[0m
+             Specifies which smartcard device to use. The argument is the
+             device ^[[1mssh ^[[22mshould use to communicate with a smartcard used for
+             storing the userM-bM-^@M-^Ys private RSA key.
+
+     ^[[1mM-bMM-^Rk      ^[[22mDisables forwarding of Kerberos tickets and AFS tokens.  This may
+             also be specified on a perM-bM-^@M-^Phost basis in the configuration file.
+
+     ^[[1mM-bMM-^Rl ^[[4m^[[22mlogin_name^[[0m
+             Specifies the user to log in as on the remote machine.  This also
+             may be specified on a perM-bM-^@M-^Phost basis in the configuration file.
+
+     ^[[1mM-bMM-^Rm ^[[4m^[[22mmac_spec^[[0m
+             Additionally, for protocol version 2 a commaM-bM-^@M-^Pseparated list of
+             MAC (message authentication code) algorithms can be specified in
+             order of preference.  See the ^[[1mMACs ^[[22mkeyword for more information.
+
+     ^[[1mM-bMM-^Rn      ^[[22mRedirects stdin from ^[[4m/dev/null^[[24m (actually, prevents reading from
+             stdin).  This must be used when ^[[1mssh ^[[22mis run in the background.  A
+             common trick is to use this to run X11 programs on a remote
+             machine.  For example, ^[[1mssh M-bM-^@M-^Pn shadows.cs.hut.fi emacs & ^[[22mwill
+             start an emacs on shadows.cs.hut.fi, and the X11 connection will
+             be automatically forwarded over an encrypted channel.  The ^[[1mssh^[[0m
+             program will be put in the background.  (This does not work if
+             ^[[1mssh ^[[22mneeds to ask for a password or passphrase; see also the ^[[1mM-bMM-^Rf^[[0m
+             option.)
+
+     ^[[1mM-bMM-^RN      ^[[22mDo not execute a remote command.  This is useful for just forM-bM-^@M-^P
+             warding ports (protocol version 2 only).
+
+     ^[[1mM-bMM-^Ro ^[[4m^[[22moption^[[0m
+             Can be used to give options in the format used in the configuraM-bM-^@M-^P
+             tion file.  This is useful for specifying options for which there
+             is no separate commandM-bM-^@M-^Pline flag.
+
+     ^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[0m
+             Port to connect to on the remote host.  This can be specified on
+             a perM-bM-^@M-^Phost basis in the configuration file.
+
+     ^[[1mM-bMM-^Rq      ^[[22mQuiet mode.  Causes all warning and diagnostic messages to be
+             suppressed.
+
+     ^[[1mM-bMM-^Rs      ^[[22mMay be used to request invocation of a subsystem on the remote
+             system. Subsystems are a feature of the SSH2 protocol which
+             facilitate the use of SSH as a secure transport for other appliM-bM-^@M-^P
+             cations (eg. sftp). The subsystem is specified as the remote comM-bM-^@M-^P
+             mand.
+
+     ^[[1mM-bMM-^Rt      ^[[22mForce pseudoM-bM-^@M-^Ptty allocation.  This can be used to execute arbiM-bM-^@M-^P
+             trary screenM-bM-^@M-^Pbased programs on a remote machine, which can be
+             very useful, e.g., when implementing menu services.  Multiple ^[[1mM-bMM-^Rt^[[0m
+             options force tty allocation, even if ^[[1mssh ^[[22mhas no local tty.
+
+     ^[[1mM-bMM-^RT      ^[[22mDisable pseudoM-bM-^@M-^Ptty allocation.
+
+     ^[[1mM-bMM-^Rv      ^[[22mVerbose mode.  Causes ^[[1mssh ^[[22mto print debugging messages about its
+             progress.  This is helpful in debugging connection, authenticaM-bM-^@M-^P
+             tion, and configuration problems.  Multiple ^[[1mM-bMM-^Rv ^[[22moptions increases
+             the verbosity.  Maximum is 3.
+
+     ^[[1mM-bMM-^Rx      ^[[22mDisables X11 forwarding.
+
+     ^[[1mM-bMM-^RX      ^[[22mEnables X11 forwarding.  This can also be specified on a perM-bM-^@M-^Phost
+             basis in a configuration file.
+
+             X11 forwarding should be enabled with caution.  Users with the
+             ability to bypass file permissions on the remote host (for the
+             userM-bM-^@M-^Ys X authorization database) can access the local X11 display
+             through the forwarded connection.  An attacker may then be able
+             to perform activities such as keystroke monitoring.
+
+     ^[[1mM-bMM-^RC      ^[[22mRequests compression of all data (including stdin, stdout,
+             stderr, and data for forwarded X11 and TCP/IP connections).  The
+             compression algorithm is the same used by gzip(1), and the
+             M-bM-^@M-^\levelM-bM-^@M-^] can be controlled by the ^[[1mCompressionLevel ^[[22moption for proM-bM-^@M-^P
+             tocol version 1.  Compression is desirable on modem lines and
+             other slow connections, but will only slow down things on fast
+             networks.  The default value can be set on a hostM-bM-^@M-^PbyM-bM-^@M-^Phost basis
+             in the configuration files; see the ^[[1mCompression ^[[22moption.
+
+     ^[[1mM-bMM-^RF ^[[4m^[[22mconfigfile^[[0m
+             Specifies an alternative perM-bM-^@M-^Puser configuration file.  If a conM-bM-^@M-^P
+             figuration file is given on the command line, the systemM-bM-^@M-^Pwide
+             configuration file (^[[4m/etc/ssh/ssh_config^[[24m) will be ignored.  The
+             default for the perM-bM-^@M-^Puser configuration file is ^[[4m$HOME/.ssh/config^[[24m.
+
+     ^[[1mM-bMM-^RL ^[[4m^[[22mport:host:hostport^[[0m
+             Specifies that the given port on the local (client) host is to be
+             forwarded to the given host and port on the remote side.  This
+             works by allocating a socket to listen to ^[[4mport^[[24m on the local side,
+             and whenever a connection is made to this port, the connection is
+             forwarded over the secure channel, and a connection is made to
+             ^[[4mhost^[[24m port ^[[4mhostport^[[24m from the remote machine.  Port forwardings can
+             also be specified in the configuration file.  Only root can forM-bM-^@M-^P
+             ward privileged ports.  IPv6 addresses can be specified with an
+             alternative syntax: ^[[4mport/host/hostport^[[0m
+
+     ^[[1mM-bMM-^RR ^[[4m^[[22mport:host:hostport^[[0m
+             Specifies that the given port on the remote (server) host is to
+             be forwarded to the given host and port on the local side.  This
+             works by allocating a socket to listen to ^[[4mport^[[24m on the remote
+             side, and whenever a connection is made to this port, the connecM-bM-^@M-^P
+             tion is forwarded over the secure channel, and a connection is
+             made to ^[[4mhost^[[24m port ^[[4mhostport^[[24m from the local machine.  Port forwardM-bM-^@M-^P
+             ings can also be specified in the configuration file.  Privileged
+             ports can be forwarded only when logging in as root on the remote
+             machine.  IPv6 addresses can be specified with an alternative
+             syntax: ^[[4mport/host/hostport^[[0m
+
+     ^[[1mM-bMM-^RD ^[[4m^[[22mport^[[0m
+             Specifies a local M-bM-^@M-^\dynamicM-bM-^@M-^] applicationM-bM-^@M-^Plevel port forwarding.
+             This works by allocating a socket to listen to ^[[4mport^[[24m on the local
+             side, and whenever a connection is made to this port, the connecM-bM-^@M-^P
+             tion is forwarded over the secure channel, and the application
+             protocol is then used to determine where to connect to from the
+             remote machine.  Currently the SOCKS4 protocol is supported, and
+             ^[[1mssh ^[[22mwill act as a SOCKS4 server.  Only root can forward priviM-bM-^@M-^P
+             leged ports.  Dynamic port forwardings can also be specified in
+             the configuration file.
+
+     ^[[1mM-bMM-^R1      ^[[22mForces ^[[1mssh ^[[22mto try protocol version 1 only.
+
+     ^[[1mM-bMM-^R2      ^[[22mForces ^[[1mssh ^[[22mto try protocol version 2 only.
+
+     ^[[1mM-bMM-^R4      ^[[22mForces ^[[1mssh ^[[22mto use IPv4 addresses only.
+
+     ^[[1mM-bMM-^R6      ^[[22mForces ^[[1mssh ^[[22mto use IPv6 addresses only.
+
+^[[1mCONFIGURATION FILES^[[0m
+     ^[[1mssh ^[[22mmay additionally obtain configuration data from a perM-bM-^@M-^Puser configuraM-bM-^@M-^P
+     tion file and a systemM-bM-^@M-^Pwide configuration file.  The file format and conM-bM-^@M-^P
+     figuration options are described in ssh_config(5).
+
+^[[1mENVIRONMENT^[[0m
+     ^[[1mssh ^[[22mwill normally set the following environment variables:
+
+     DISPLAY
+             The DISPLAY variable indicates the location of the X11 server.
+             It is automatically set by ^[[1mssh ^[[22mto point to a value of the form
+             M-bM-^@M-^\hostname:nM-bM-^@M-^] where hostname indicates the host where the shell
+             runs, and n is an integer >= 1.  ^[[1mssh ^[[22muses this special value to
+             forward X11 connections over the secure channel.  The user should
+             normally not set DISPLAY explicitly, as that will render the X11
+             connection insecure (and will require the user to manually copy
+             any required authorization cookies).
+
+     HOME    Set to the path of the userM-bM-^@M-^Ys home directory.
+
+     LOGNAME
+             Synonym for USER; set for compatibility with systems that use
+             this variable.
+
+     MAIL    Set to the path of the userM-bM-^@M-^Ys mailbox.
+
+     PATH    Set to the default PATH, as specified when compiling ^[[1mssh^[[22m.
+
+     SSH_ASKPASS
+             If ^[[1mssh ^[[22mneeds a passphrase, it will read the passphrase from the
+             current terminal if it was run from a terminal.  If ^[[1mssh ^[[22mdoes not
+             have a terminal associated with it but DISPLAY and SSH_ASKPASS
+             are set, it will execute the program specified by SSH_ASKPASS and
+             open an X11 window to read the passphrase.  This is particularly
+             useful when calling ^[[1mssh ^[[22mfrom a ^[[4m.Xsession^[[24m or related script.
+             (Note that on some machines it may be necessary to redirect the
+             input from ^[[4m/dev/null^[[24m to make this work.)
+
+     SSH_AUTH_SOCK
+             Identifies the path of a unixM-bM-^@M-^Pdomain socket used to communicate
+             with the agent.
+
+     SSH_CONNECTION
+             Identifies the client and server ends of the connection.  The
+             variable contains four spaceM-bM-^@M-^Pseparated values: client ipM-bM-^@M-^Paddress,
+             client port number, server ipM-bM-^@M-^Paddress and server port number.
+
+     SSH_ORIGINAL_COMMAND
+             The variable contains the original command line if a forced comM-bM-^@M-^P
+             mand is executed.  It can be used to extract the original arguM-bM-^@M-^P
+             ments.
+
+     SSH_TTY
+             This is set to the name of the tty (path to the device) associM-bM-^@M-^P
+             ated with the current shell or command.  If the current session
+             has no tty, this variable is not set.
+
+     TZ      The timezone variable is set to indicate the present timezone if
+             it was set when the daemon was started (i.e., the daemon passes
+             the value on to new connections).
+
+     USER    Set to the name of the user logging in.
+
+     Additionally, ^[[1mssh ^[[22mreads ^[[4m$HOME/.ssh/environment^[[24m, and adds lines of the
+     format M-bM-^@M-^\VARNAME=valueM-bM-^@M-^] to the environment if the file exists and if users
+     are allowed to change their environment.  See the ^[[1mPermitUserEnvironment^[[0m
+     option in sshd_config(5).
+
+^[[1mFILES^[[0m
+     $HOME/.ssh/known_hosts
+             Records host keys for all hosts the user has logged into that are
+             not in ^[[4m/etc/ssh/ssh_known_hosts^[[24m.  See sshd(8).
+
+     $HOME/.ssh/identity, $HOME/.ssh/id_dsa, $HOME/.ssh/id_rsa
+             Contains the authentication identity of the user.  They are for
+             protocol 1 RSA, protocol 2 DSA, and protocol 2 RSA, respectively.
+             These files contain sensitive data and should be readable by the
+             user but not accessible by others (read/write/execute).  Note
+             that ^[[1mssh ^[[22mignores a private key file if it is accessible by othM-bM-^@M-^P
+             ers.  It is possible to specify a passphrase when generating the
+             key; the passphrase will be used to encrypt the sensitive part of
+             this file using 3DES.
+
+     $HOME/.ssh/identity.pub, $HOME/.ssh/id_dsa.pub, $HOME/.ssh/id_rsa.pub
+             Contains the public key for authentication (public part of the
+             identity file in humanM-bM-^@M-^Preadable form).  The contents of the
+             ^[[4m$HOME/.ssh/identity.pub^[[24m file should be added to
+             ^[[4m$HOME/.ssh/authorized_keys^[[24m on all machines where the user wishes
+             to log in using protocol version 1 RSA authentication.  The conM-bM-^@M-^P
+             tents of the ^[[4m$HOME/.ssh/id_dsa.pub^[[24m and ^[[4m$HOME/.ssh/id_rsa.pub^[[24m file
+             should be added to ^[[4m$HOME/.ssh/authorized_keys^[[24m on all machines
+             where the user wishes to log in using protocol version 2 DSA/RSA
+             authentication.  These files are not sensitive and can (but need
+             not) be readable by anyone.  These files are never used automatiM-bM-^@M-^P
+             cally and are not necessary; they are only provided for the conM-bM-^@M-^P
+             venience of the user.
+
+     $HOME/.ssh/config
+             This is the perM-bM-^@M-^Puser configuration file.  The file format and
+             configuration options are described in ssh_config(5).
+
+     $HOME/.ssh/authorized_keys
+             Lists the public keys (RSA/DSA) that can be used for logging in
+             as this user.  The format of this file is described in the
+             sshd(8) manual page.  In the simplest form the format is the same
+             as the .pub identity files.  This file is not highly sensitive,
+             but the recommended permissions are read/write for the user, and
+             not accessible by others.
+
+     /etc/ssh/ssh_known_hosts
+             Systemwide list of known host keys.  This file should be prepared
+             by the system administrator to contain the public host keys of
+             all machines in the organization.  This file should be worldM-bM-^@M-^P
+             readable.  This file contains public keys, one per line, in the
+             following format (fields separated by spaces): system name, pubM-bM-^@M-^P
+             lic key and optional comment field.  When different names are
+             used for the same machine, all such names should be listed, sepaM-bM-^@M-^P
+             rated by commas.  The format is described on the sshd(8) manual
+             page.
+
+             The canonical system name (as returned by name servers) is used
+             by sshd(8) to verify the client host when logging in; other names
+             are needed because ^[[1mssh ^[[22mdoes not convert the userM-bM-^@M-^Psupplied name to
+             a canonical name before checking the key, because someone with
+             access to the name servers would then be able to fool host
+             authentication.
+
+     /etc/ssh/ssh_config
+             Systemwide configuration file.  The file format and configuration
+             options are described in ssh_config(5).
+
+     /etc/ssh/ssh_host_key, /etc/ssh/ssh_host_dsa_key,
+             /etc/ssh/ssh_host_rsa_key
+             These three files contain the private parts of the host keys and
+             are used for ^[[1mRhostsRSAAuthentication ^[[22mand ^[[1mHostbasedAuthentication^[[22m.
+             If the protocol version 1 ^[[1mRhostsRSAAuthentication ^[[22mmethod is used,
+             ^[[1mssh ^[[22mmust be setuid root, since the host key is readable only by
+             root.  For protocol version 2, ^[[1mssh ^[[22muses sshM-bM-^@M-^Pkeysign(8) to access
+             the host keys for ^[[1mHostbasedAuthentication^[[22m.  This eliminates the
+             requirement that ^[[1mssh ^[[22mbe setuid root when that authentication
+             method is used.  By default ^[[1mssh ^[[22mis not setuid root.
+
+     $HOME/.rhosts
+             This file is used in ^[[4m.rhosts^[[24m authentication to list the host/user
+             pairs that are permitted to log in.  (Note that this file is also
+             used by rlogin and rsh, which makes using this file insecure.)
+             Each line of the file contains a host name (in the canonical form
+             returned by name servers), and then a user name on that host,
+             separated by a space.  On some machines this file may need to be
+             worldM-bM-^@M-^Preadable if the userM-bM-^@M-^Ys home directory is on a NFS partiM-bM-^@M-^P
+             tion, because sshd(8) reads it as root.  Additionally, this file
+             must be owned by the user, and must not have write permissions
+             for anyone else.  The recommended permission for most machines is
+             read/write for the user, and not accessible by others.
+
+             Note that by default sshd(8) will be installed so that it
+             requires successful RSA host authentication before permitting
+             .rhosts authentication.  If the server machine does not have the
+             clientM-bM-^@M-^Ys host key in ^[[4m/etc/ssh/ssh_known_hosts^[[24m, it can be stored
+             in ^[[4m$HOME/.ssh/known_hosts^[[24m.  The easiest way to do this is to conM-bM-^@M-^P
+             nect back to the client from the server machine using ssh; this
+             will automatically add the host key to ^[[4m$HOME/.ssh/known_hosts^[[24m.
+
+     $HOME/.shosts
+             This file is used exactly the same way as ^[[4m.rhosts^[[24m.  The purpose
+             for having this file is to be able to use rhosts authentication
+             with ^[[1mssh ^[[22mwithout permitting login with ^[[1mrlogin ^[[22mor rsh(1).
+
+     /etc/hosts.equiv
+             This file is used during ^[[4m.rhosts^[[24m ^[[4mauthentication.^[[24m It contains
+             canonical hosts names, one per line (the full format is described
+             on the sshd(8) manual page).  If the client host is found in this
+             file, login is automatically permitted provided client and server
+             user names are the same.  Additionally, successful RSA host
+             authentication is normally required.  This file should only be
+             writable by root.
+
+     /etc/shosts.equiv
+             This file is processed exactly as ^[[4m/etc/hosts.equiv^[[24m.  This file
+             may be useful to permit logins using ^[[1mssh ^[[22mbut not using
+             rsh/rlogin.
+
+     /etc/ssh/sshrc
+             Commands in this file are executed by ^[[1mssh ^[[22mwhen the user logs in
+             just before the userM-bM-^@M-^Ys shell (or command) is started.  See the
+             sshd(8) manual page for more information.
+
+     $HOME/.ssh/rc
+             Commands in this file are executed by ^[[1mssh ^[[22mwhen the user logs in
+             just before the userM-bM-^@M-^Ys shell (or command) is started.  See the
+             sshd(8) manual page for more information.
+
+     $HOME/.ssh/environment
+             Contains additional definitions for environment variables, see
+             section ^[[4mENVIRONMENT^[[24m above.
+
+^[[1mDIAGNOSTICS^[[0m
+     ^[[1mssh ^[[22mexits with the exit status of the remote command or with 255 if an
+     error occurred.
+
+^[[1mAUTHORS^[[0m
+     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
+     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
+     de Raadt and Dug Song removed many bugs, reM-bM-^@M-^Padded newer features and creM-bM-^@M-^P
+     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
+     versions 1.5 and 2.0.
+
+^[[1mSEE ALSO^[[0m
+     rsh(1), scp(1), sftp(1), sshM-bM-^@M-^Padd(1), sshM-bM-^@M-^Pagent(1), sshM-bM-^@M-^Pkeygen(1),
+     telnet(1), ssh_config(5), sshM-bM-^@M-^Pkeysign(8), sshd(8)
+
+     T. Ylonen, T. Kivinen, M. Saarinen, T. Rinne, and S. Lehtinen, ^[[4mSSH^[[0m
+     ^[[4mProtocol^[[24m ^[[4mArchitecture^[[24m, draftM-bM-^@M-^PietfM-bM-^@M-^PsecshM-bM-^@M-^ParchitectureM-bM-^@M-^P12.txt, January
+     2002, work in progress material.
+
+BSD                           September 25, 1999                           BSD
