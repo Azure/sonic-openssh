@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 13:54+0100\n"
+"POT-Creation-Date: 2004-10-06 14:06+0100\n"
 "PO-Revision-Date: 2004-01-28 15:10+0100\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <provoz@debian.cz>\n"
@@ -25,13 +25,49 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-client.templates.master:4
+msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
+msgstr "Chcete /usr/lib/ssh-keysign nainstalovat jako SUID root?"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"You have the option of installing the ssh-keysign helper with the SUID bit "
+"set."
+msgstr ""
+"Mù¾ete si vybrat, zda chcete nainstalovat ssh-keysign s nastaveným SUID "
+"bitem."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
+"based authentication."
+msgstr ""
+"Pokud nastavíte ssh-keysign SUID, mù¾ete pou¾ívat 'host-based' autentizaci "
+"protokolu verze 2."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If in doubt, I suggest you install it with SUID.  If it causes problems you "
+"can change your mind later by running:   dpkg-reconfigure ssh"
+msgstr ""
+"Pokud jste na pochybách, doporuèujeme SUID bit povolit. Pokud zaznamenáte "
+"problémy, mù¾ete nastavení zmìnit spu¹tìním:   dpkg-reconfigure ssh"
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:4
 msgid "Generate new configuration file"
 msgstr "Generovat nový konfiguraèní soubor"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -47,7 +83,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -62,7 +98,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
@@ -70,13 +106,13 @@ msgstr "Je vøele doporuèeno nechat mì vyrobit konfiguraèní soubor."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid "Allow SSH protocol 2 only"
 msgstr "Povolit pouze SSH protokol verze 2"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "This version of OpenSSH supports version 2 of the ssh protocol, which is "
 "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
@@ -90,7 +126,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
@@ -100,7 +136,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
@@ -108,33 +144,15 @@ msgstr ""
 "Pokud se pozdìji rozhodnete jinak, v README.Debian se nachází pøesný návod, "
 "jak upravit soubor sshd_config."
 
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid "ssh2 keys merged in configuration files"
-msgstr "Klíèe ssh2 v konfiguraèních souborech byly spojeny"
-
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid ""
-"As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-"keys. This means the authorized_keys2 and known_hosts2 files are no longer "
-"needed. They will still be read in order to maintain backwards compatibility"
-msgstr ""
-"OpenSSH verze 3 ji¾ nepou¾ívá oddìlené soubory pro klíèe verze ssh1 a ssh2. "
-"To znamená, ¾e soubory authorized_keys2 a known_hosts2 ji¾ nejsou potøeba, "
-"ov¹em z dùvodù zachování zpìtné kompatibility jsou stále naèítány."
-
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Chcete pokraèovat (a riskovat ukonèení aktivních ssh spojení)?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -146,7 +164,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -156,13 +174,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "POZNÁMKA: Autorizace a pøesmìrování X11 je standardnì vypnuto."
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
@@ -172,7 +190,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
@@ -182,19 +200,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "Více naleznete v /usr/share/doc/ssh/README.Debian"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Varování: je nainstalován rsh-server --- to není dobrý nápad"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -204,13 +222,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varování: je nainstalován telnetd --- to není dobrý nápad"
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -223,13 +241,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "Warning: you must create a new host key"
 msgstr "Varování: musíte vytvoøit nový serverový klíè"
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -241,120 +259,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
 msgstr "Musíte vygenerovat nový serverový klíè"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:92
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Chcete /usr/lib/ssh-keysign nainstalovat jako SUID root?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"Mù¾ete si vybrat, zda chcete nainstalovat ssh-keysign s nastaveným SUID "
-"bitem."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Pokud nastavíte ssh-keysign SUID, mù¾ete pou¾ívat 'host-based' autentizaci "
-"protokolu verze 2."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Pokud jste na pochybách, doporuèujeme SUID bit povolit. Pokud zaznamenáte "
-"problémy, mù¾ete nastavení zmìnit spu¹tìním:   dpkg-reconfigure ssh"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "Do you want to run the sshd server?"
-msgstr "Chcete spustit sshd server?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "This package contains both the ssh client, and the sshd server."
-msgstr "Tento balík obsahuje jak klienta ssh, tak server sshd."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"Normally the sshd Secure Shell Server will be run to allow remote logins via "
-"ssh."
-msgstr ""
-"Obvykle se sshd (Secure Shell Server) spou¹tí, aby se vzdálení u¾ivatelé "
-"mohli pøihla¹ovat pøes ssh."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"If you are only interested in using the ssh client for outbound connections "
-"on this machine, and don't want to log into it at all using ssh, then you "
-"can disable sshd here."
-msgstr ""
-"Pokud na tomto poèítaèi chcete vyu¾ívat pouze ssh klienta pro odchozí "
-"spojení, mù¾ete zde sshd zakázat."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid "Environment options on keys have been deprecated"
-msgstr "Volby prostøedí spojené s klíèi jsou zakázány"
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"This version of OpenSSH disables the environment option for public keys by "
-"default, in order to avoid certain attacks (for example, LD_PRELOAD). If you "
-"are using this option in an authorized_keys file, beware that the keys in "
-"question will no longer work until the option is removed."
-msgstr ""
-"Pro zamezení urèitých typù útokù (napø. LD_PRELOAD), tato verze OpenSSH "
-"standardnì zabraòuje pou¾ívat volbu prostøedí u veøejných klíèù. Pokud tuto "
-"volbu pou¾íváte v souboru authorized_keys, tak posti¾ené klíèe nebudou "
-"fungovat, dokud jim tuto volbu nesma¾ete."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-"sshd_config after the upgrade is complete, taking note of the warning in the "
-"sshd_config(5) manual page."
-msgstr ""
-"Pro znovupovolení této volby si po aktualizaci pøeètìte varování v manuálové "
-"stránce sshd_config(5) a v souboru /etc/ssh/sshd_config zadejte "
-"\"PermitUserEnvironment yes\"."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -366,13 +283,71 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "ssh2 keys merged in configuration files"
+#~ msgstr "Klíèe ssh2 v konfiguraèních souborech byly spojeny"
+
+#~ msgid ""
+#~ "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
+#~ "keys. This means the authorized_keys2 and known_hosts2 files are no "
+#~ "longer needed. They will still be read in order to maintain backwards "
+#~ "compatibility"
+#~ msgstr ""
+#~ "OpenSSH verze 3 ji¾ nepou¾ívá oddìlené soubory pro klíèe verze ssh1 a "
+#~ "ssh2. To znamená, ¾e soubory authorized_keys2 a known_hosts2 ji¾ nejsou "
+#~ "potøeba, ov¹em z dùvodù zachování zpìtné kompatibility jsou stále "
+#~ "naèítány."
+
+#~ msgid "Do you want to run the sshd server?"
+#~ msgstr "Chcete spustit sshd server?"
+
+#~ msgid "This package contains both the ssh client, and the sshd server."
+#~ msgstr "Tento balík obsahuje jak klienta ssh, tak server sshd."
+
+#~ msgid ""
+#~ "Normally the sshd Secure Shell Server will be run to allow remote logins "
+#~ "via ssh."
+#~ msgstr ""
+#~ "Obvykle se sshd (Secure Shell Server) spou¹tí, aby se vzdálení u¾ivatelé "
+#~ "mohli pøihla¹ovat pøes ssh."
+
+#~ msgid ""
+#~ "If you are only interested in using the ssh client for outbound "
+#~ "connections on this machine, and don't want to log into it at all using "
+#~ "ssh, then you can disable sshd here."
+#~ msgstr ""
+#~ "Pokud na tomto poèítaèi chcete vyu¾ívat pouze ssh klienta pro odchozí "
+#~ "spojení, mù¾ete zde sshd zakázat."
+
+#~ msgid "Environment options on keys have been deprecated"
+#~ msgstr "Volby prostøedí spojené s klíèi jsou zakázány"
+
+#~ msgid ""
+#~ "This version of OpenSSH disables the environment option for public keys "
+#~ "by default, in order to avoid certain attacks (for example, LD_PRELOAD). "
+#~ "If you are using this option in an authorized_keys file, beware that the "
+#~ "keys in question will no longer work until the option is removed."
+#~ msgstr ""
+#~ "Pro zamezení urèitých typù útokù (napø. LD_PRELOAD), tato verze OpenSSH "
+#~ "standardnì zabraòuje pou¾ívat volbu prostøedí u veøejných klíèù. Pokud "
+#~ "tuto volbu pou¾íváte v souboru authorized_keys, tak posti¾ené klíèe "
+#~ "nebudou fungovat, dokud jim tuto volbu nesma¾ete."
+
+#~ msgid ""
+#~ "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
+#~ "sshd_config after the upgrade is complete, taking note of the warning in "
+#~ "the sshd_config(5) manual page."
+#~ msgstr ""
+#~ "Pro znovupovolení této volby si po aktualizaci pøeètìte varování v "
+#~ "manuálové stránce sshd_config(5) a v souboru /etc/ssh/sshd_config zadejte "
+#~ "\"PermitUserEnvironment yes\"."
 
 #~ msgid "Privilege separation"
 #~ msgstr "Oddìlení privilegií"

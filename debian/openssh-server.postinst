@@ -14,7 +14,6 @@ if [ "$action" != configure ]
 fi
 
 
-
 check_idea_key() {
     #check for old host_key files using IDEA, which openssh does not support
 	if [ -f /etc/ssh/ssh_host_key ] ; then
@@ -121,6 +120,7 @@ check_password_auth() {
 	fi
 }
 
+
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
 	    if dpkg --compare-versions "$oldversion" lt-nl 1:1.3 ; then
@@ -129,10 +129,16 @@ create_sshdconfig() {
 	    else
 		# Upgrade sshd configuration from a sane version.
 
-		if dpkg --compare-versions "$oldversion" lt-nl 1:3.8p1-1 && \
-		     ! grep -iq ^UsePAM /etc/ssh/sshd_config ; then
+		if (dpkg --compare-versions "$oldversion" lt-nl 1:3.8p1-1 && \
+		    ! grep -iq ^UsePAM /etc/ssh/sshd_config) || \
+		   grep -Eiq '^(PAMAuthenticationViaKbdInt|RhostsAuthentication)' \
+		     /etc/ssh/sshd_config ; then
 		    # Upgrade from pre-3.7: UsePAM needed to maintain standard
 		    # Debian configuration.
+		    # Note that --compare-versions is sadly not reliable enough
+		    # here due to the package split of ssh into openssh-client
+		    # and openssh-server. The extra grep for some deprecated
+		    # options should with any luck be a good enough heuristic.
 		    echo -n 'Upgrading sshd_config (old version in .dpkg-old) ...'
 		    cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
 		    perl -pe 's/^(PAMAuthenticationViaKbdInt|RhostsAuthentication)\b/#$1/i' \
@@ -147,7 +153,9 @@ create_sshdconfig() {
 		    echo
 		fi
 
-		if dpkg --compare-versions "$oldversion" lt-nl 1:3.8.1p1-8.sarge.1; then
+		# An empty version means we're upgrading from before the
+		# package split, so check.
+		if dpkg --compare-versions "$oldversion" lt 1:3.8.1p1-11; then
 		    check_password_auth
 		fi
 
@@ -254,27 +262,6 @@ UsePAM yes
 EOF
 }
 
-
-fix_rsh_diversion() {
-# get rid of mistaken rsh diversion (circa 1.2.27-1)
-
-	if [ -L /usr/bin/rsh ] &&
-		dpkg-divert --list '/usr/bin/rsh.real/rsh' | grep -q ' ssh$' ; then
-		for cmd in rlogin  rsh rcp ; do
-			[ -L /usr/bin/$cmd ] && rm /usr/bin/$cmd
-			dpkg-divert --package ssh --remove --rename \
-				--divert /usr/bin/rsh.real/$cmd /usr/bin/$cmd
-
-			[ -L /usr/man/man1/$cmd.1.gz ] && rm /usr/man/man1/$$cmd.1.gz
-			dpkg-divert --package ssh --remove --rename \
-				--divert /usr/man/man1/$cmd.real.1.gz /usr/man/man1/$cmd.1.gz
-		done
-
-		rmdir /usr/bin/rsh.real
-	fi
-}
-
-
 fix_statoverride() {
 # Remove an erronous override for sshd (we should have overridden ssh)
 	if [ -x /usr/sbin/dpkg-statoverride ]; then
@@ -284,92 +271,17 @@ fix_statoverride() {
 	fi
 }
 
-
-create_alternatives() {
-# Create alternatives for the various r* tools.
-# Make sure we don't change existing alternatives that a user might have
-# changed, but clean up after some old alternatives that mistakenly pointed
-# rlogin and rcp to ssh.
-	update-alternatives --quiet --remove rlogin /usr/bin/ssh
-	update-alternatives --quiet --remove rcp /usr/bin/ssh
-	for cmd in rsh rlogin rcp; do
-		scmd="s${cmd#r}"
-		if ! update-alternatives --display "$cmd" | \
-				grep -q "$scmd"; then
-			update-alternatives --quiet --install "/usr/bin/$cmd" "$cmd" "/usr/bin/$scmd" 20 \
-				--slave "/usr/share/man/man1/$cmd.1.gz" "$cmd.1.gz" "/usr/share/man/man1/$scmd.1.gz"
-		fi
-	done
-}
-
 setup_sshd_user() {
 	if ! getent passwd sshd >/dev/null; then
 		adduser --quiet --system --no-create-home --home /var/run/sshd sshd
 	fi
 }
 
-set_sshd_permissions() {
-	if dpkg --compare-versions "$oldversion" lt-nl 1:3.4p1-1 ; then
-	    if [ -x /usr/sbin/dpkg-statoverride ] ; then
-		if dpkg-statoverride --list /usr/bin/ssh >/dev/null; then
-		    dpkg-statoverride --remove /usr/bin/ssh >/dev/null
-		fi 
-	    fi
-	fi
-
-	if [ ! -x /usr/sbin/dpkg-statoverride ] || \
-	     ! dpkg-statoverride --list /usr/lib/ssh-keysign >/dev/null ; then
-		db_get ssh/SUID_client
-		if [ "$RET" = "false" ] ; then
-			chmod 0755 /usr/lib/ssh-keysign
-		elif [ "$RET" = "true" ] ; then
-			chmod 4755 /usr/lib/ssh-keysign
-		fi
-	fi
-}
-
-
-fix_ssh_group() {
-	# Try to remove non-system group mistakenly created by 1:3.5p1-1.
-	# set_ssh_agent_permissions() below will re-create it properly.
-	if getent group ssh >/dev/null; then
-		delgroup --quiet ssh || true
-	fi
-}
-
-
-set_ssh_agent_permissions() {
-	if ! getent group ssh >/dev/null; then
-		addgroup --system --quiet ssh
-	fi
-	if ! [ -x /usr/sbin/dpkg-statoverride ] || \
-	    ! dpkg-statoverride --list /usr/bin/ssh-agent >/dev/null ; then
-		chgrp ssh /usr/bin/ssh-agent
-		chmod 2755 /usr/bin/ssh-agent
-	fi
-}
-
-
 fix_conffile_permissions() {
 	# Clean up after executable /etc/default/ssh in 1:3.5p1-5. dpkg
 	# doesn't do this for us; see bug #192981.
 	chmod 644 /etc/default/ssh
 }
-
-setup_startup() {
-	db_get ssh/run_sshd
-	if [ "$RET" = "false" ] ; then
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d --quiet ssh stop
-		else
-			/etc/init.d/ssh stop
-		fi
-		touch /etc/ssh/sshd_not_to_be_run
-	else
-		rm -f /etc/ssh/sshd_not_to_be_run 2>/dev/null
-	fi
-}
-
 
 setup_init() {
 	if [ -x /etc/init.d/ssh ]; then
@@ -382,26 +294,18 @@ setup_init() {
 	fi
 }
 
+
 create_sshdconfig
 check_idea_key
 create_keys
-fix_rsh_diversion
 fix_statoverride
-create_alternatives
 setup_sshd_user
-set_sshd_permissions
-if [ "$2" = "1:3.5p1-1" ]; then
-    fix_ssh_group
-fi
-set_ssh_agent_permissions
 if dpkg --compare-versions "$2" lt 1:3.6.1p2-2; then
     fix_conffile_permissions
 fi
-setup_startup
 setup_init
 
 
 db_stop
 
 exit 0
-

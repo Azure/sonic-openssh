@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.8.1p1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 13:54+0100\n"
+"POT-Creation-Date: 2004-10-06 14:06+0100\n"
 "PO-Revision-Date: 2004-10-10 21:04+0200\n"
 "Last-Translator: Morten Brix Pedersen <morten@wtf.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -25,13 +25,49 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-client.templates.master:4
+msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
+msgstr "Vil du have, at /usr/bin/ssh-keysign bliver installeret 'SUID root'?"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"You have the option of installing the ssh-keysign helper with the SUID bit "
+"set."
+msgstr ""
+"Du har mulighed for at installere ssh-keysign hjælperen med SUID-flaget sat."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
+"based authentication."
+msgstr ""
+"Hvis du gør ssh-keysign SUID, vil du blive i stand til at benytte SSH "
+"protokol 2's værtsnavn-baserede autentifikation."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If in doubt, I suggest you install it with SUID.  If it causes problems you "
+"can change your mind later by running:   dpkg-reconfigure ssh"
+msgstr ""
+"Hvis du er i tvivl, vil jeg råde dig til at installere den med SUID. Hvis "
+"det skaber problemer, kan du ændre det tilbage igen ved at køre: dpkg-"
+"reconfigure ssh"
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:4
 msgid "Generate new configuration file"
 msgstr "Opret ny opsætningsfil"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -47,7 +83,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -63,7 +99,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
@@ -71,13 +107,13 @@ msgstr "Du rådes stærkt til at lade mig oprette en ny opsætningsfil for dig."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid "Allow SSH protocol 2 only"
 msgstr "Tillad kun SSH protokol 2"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "This version of OpenSSH supports version 2 of the ssh protocol, which is "
 "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
@@ -91,7 +127,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
@@ -102,7 +138,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
@@ -110,34 +146,15 @@ msgstr ""
 "Hvis du senere ændrer din mening om denne indstilling, har README.Debian "
 "instruktioner på hvad du skal gøre ved din sshd_config fil."
 
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid "ssh2 keys merged in configuration files"
-msgstr "ssh2-nøgler flettet i opsætningsfilerne"
-
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid ""
-"As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-"keys. This means the authorized_keys2 and known_hosts2 files are no longer "
-"needed. They will still be read in order to maintain backwards compatibility"
-msgstr ""
-"Siden version 3 har OpenSSH ikke længere separate filer for ssh1- og ssh2-"
-"nøgler. Det betyder, at filerne authorized_keys2 og known_hosts2 ikke "
-"længere er nødvendige. De vil stadig dog stadig blive læst for "
-"bagudkompatilitetens skyld."
-
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -149,7 +166,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -159,14 +176,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr ""
 "BEMÆRK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret."
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
@@ -176,7 +193,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
@@ -186,19 +203,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "Flere detaljer kan findes i /usr/share/doc/ssh/README.Debian"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -209,13 +226,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Advarsel: telnetd er installeret --- sikkert ikke en god idé"
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -229,13 +246,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "Warning: you must create a new host key"
 msgstr "Advarsel: du skal oprette en ny værtsnøgle"
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -247,121 +264,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
 msgstr "Du skal oprette en ny værtsnøgle."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:92
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Vil du have, at /usr/bin/ssh-keysign bliver installeret 'SUID root'?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"Du har mulighed for at installere ssh-keysign hjælperen med SUID-flaget sat."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Hvis du gør ssh-keysign SUID, vil du blive i stand til at benytte SSH "
-"protokol 2's værtsnavn-baserede autentifikation."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Hvis du er i tvivl, vil jeg råde dig til at installere den med SUID. Hvis "
-"det skaber problemer, kan du ændre det tilbage igen ved at køre: dpkg-"
-"reconfigure ssh"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "Do you want to run the sshd server?"
-msgstr "Vil du køre sshd-serveren?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "This package contains both the ssh client, and the sshd server."
-msgstr "Denne pakke indeholder både ssh-klienten og sshd-serveren."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"Normally the sshd Secure Shell Server will be run to allow remote logins via "
-"ssh."
-msgstr ""
-"Normalt vil sshd sikker skalserver ('Secure Shell Server') blive aktiveret "
-"og tillade fjerne brugere i at logge på via ssh."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"If you are only interested in using the ssh client for outbound connections "
-"on this machine, and don't want to log into it at all using ssh, then you "
-"can disable sshd here."
-msgstr ""
-"Hvis du udelukkende er interesseret i at bruge ssh-klienten til udgående "
-"forbindelser fra denne maskine, og ikke ønsker at tilgå denne maskine udefra "
-"via ssh, kan du nu deaktivere sshd."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid "Environment options on keys have been deprecated"
-msgstr "Miljø-variabler for nøgler er ikke længere understøttet"
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"This version of OpenSSH disables the environment option for public keys by "
-"default, in order to avoid certain attacks (for example, LD_PRELOAD). If you "
-"are using this option in an authorized_keys file, beware that the keys in "
-"question will no longer work until the option is removed."
-msgstr ""
-"Denne version af OpenSSH deaktiverer miljø-variabler for offentlige nøgler "
-"som standard, for at undgå angreb (f.eks., LD_PRELOAD). Hvis du bruger denne "
-"mulighed i en authorized_keys fil, så skal du bemærke at nøglerne ikke "
-"længere vil virke før miljø-variablen er blevet slettet."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-"sshd_config after the upgrade is complete, taking note of the warning in the "
-"sshd_config(5) manual page."
-msgstr ""
-"For at re-aktivere dette tilvalg, sæt \"PermitUserEnvironment yes\" i /etc/"
-"ssh/sshd_config efter opgraderingen er færdig, men bemærk advarslen som står "
-"skrevet i sshd_config(5) manual-siden."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
 msgstr "Slå udfordrings-svar godkendelse fra?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -378,7 +293,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "

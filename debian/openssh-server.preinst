@@ -3,11 +3,11 @@
 action=$1
 version=$2
 
-if [ -d /etc/ssh-nonfree ] && [ ! -d /etc/ssh ]; then
+if [ -d /etc/ssh-nonfree -a ! -d /etc/ssh ]; then
   version=1.2.27
 fi
 
-if [ "$action" = upgrade ] || [ "$action" = install ]
+if [ "$action" = upgrade -o "$action" = install ]
 then
   # check if debconf is missing
   if ! test -f /usr/share/debconf/confmodule
@@ -39,7 +39,7 @@ EOF
     # work around for missing debconf
     db_get() { : ; }
     RET=true
-    if [ -d /etc/ssh-nonfree ] && [ ! -d /etc/ssh ]; then
+    if [ -d /etc/ssh-nonfree -a ! -d /etc/ssh ]; then
       cp -a /etc/ssh-nonfree /etc/ssh
     fi
   else

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 13:54+0100\n"
+"POT-Creation-Date: 2004-10-06 14:06+0100\n"
 "PO-Revision-Date: 2004-08-12 21:25+0300\n"
 "Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -28,13 +28,47 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-client.templates.master:4
+msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
+msgstr "Haluatko, että /usr/lib/ssh-keygen asennetaan SUID root -oikeuksin?"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"You have the option of installing the ssh-keysign helper with the SUID bit "
+"set."
+msgstr "Voit valinnaisesti asentaa ssh-keysign-apuohjelman SUID-bitillä."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
+"based authentication."
+msgstr ""
+"Jos SUID on päällä, voit käyttää SSH-protokollan version 2 konekohtaista \n"
+"todennusta."
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If in doubt, I suggest you install it with SUID.  If it causes problems you "
+"can change your mind later by running:   dpkg-reconfigure ssh"
+msgstr ""
+"Jos olet epävarma, SUID-bitin käyttämistä suositellaan. Jos se aiheuttaa \n"
+"ongelmia, voit myöhemmin muuttaa mielesi komennolla \"dpkg-reconfigure ssh\"."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:4
 msgid "Generate new configuration file"
 msgstr "Luo uusi asetustiedosto"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -50,7 +84,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -69,7 +103,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
@@ -77,13 +111,13 @@ msgstr "Uuden asetustiedoston luominen on erittäin suositeltavaa."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid "Allow SSH protocol 2 only"
 msgstr "Salli ainoastaan SSH-protokollan versio 2"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "This version of OpenSSH supports version 2 of the ssh protocol, which is "
 "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
@@ -102,7 +136,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
@@ -112,7 +146,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
@@ -120,34 +154,15 @@ msgstr ""
 "Jos muutat myöhemmin mielesi tämän asetuksen suhteen, tiedostossa \n"
 "README.Debian on ohjeet tiedoston sshd_config muokkaamiseen."
 
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid "ssh2 keys merged in configuration files"
-msgstr "ssh2-avaimet yhdistetty asetustiedostoissa"
-
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid ""
-"As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-"keys. This means the authorized_keys2 and known_hosts2 files are no longer "
-"needed. They will still be read in order to maintain backwards compatibility"
-msgstr ""
-"OpenSSH:n versio 3 ei enää käytä erillisiä tiedostoja ssh1- ja ssh2-"
-"avaimille. \n"
-"Tästä johtuen tiedostoja authorized_keys2 ja known_hosts2 ei enää tarvita. \n"
-"Tiedostot silti luetaan, jotta yhteensopivuus vanhempiin versioihin säilyy."
-
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Haluatko jatkaa (ja mahdollisesti lopettaa aktiiviset ssh-istunnot)?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -161,7 +176,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -171,7 +186,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr ""
 "HUOMAA: X11:n ja valtuuksien (Authorization) edelleenlähettäminen on \n"
@@ -179,7 +194,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
@@ -189,7 +204,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
@@ -199,19 +214,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "Lisätietoja tiedostossa /usr/share/doc/ssh/README.Debian"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -221,13 +236,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea"
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -241,13 +256,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "Warning: you must create a new host key"
 msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -260,118 +275,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
 msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:92
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Haluatko, että /usr/lib/ssh-keygen asennetaan SUID root -oikeuksin?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr "Voit valinnaisesti asentaa ssh-keysign-apuohjelman SUID-bitillä."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Jos SUID on päällä, voit käyttää SSH-protokollan version 2 konekohtaista \n"
-"todennusta."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Jos olet epävarma, SUID-bitin käyttämistä suositellaan. Jos se aiheuttaa \n"
-"ongelmia, voit myöhemmin muuttaa mielesi komennolla \"dpkg-reconfigure ssh\"."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "Do you want to run the sshd server?"
-msgstr "Haluatko ajaa sshd-palvelinta?"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "This package contains both the ssh client, and the sshd server."
-msgstr "Tämä paketti sisältää ssh-asiakasohjelman ja sshd-palvelimen."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"Normally the sshd Secure Shell Server will be run to allow remote logins via "
-"ssh."
-msgstr "Normaalisti sshd-palvelinta käytetään ssh-etäyhteyksien tarjoamiseen."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"If you are only interested in using the ssh client for outbound connections "
-"on this machine, and don't want to log into it at all using ssh, then you "
-"can disable sshd here."
-msgstr ""
-"Jos haluat ottaa ssh-yhteyksiä vain ulos tältä koneelta etkä halua ottaa \n"
-"tähän koneeseen ssh-yhteyksiä muualta, voit poistaa sshd:n käytöstä."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid "Environment options on keys have been deprecated"
-msgstr "Avaimien ympäristövalitsimia ei enää käytetä"
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"This version of OpenSSH disables the environment option for public keys by "
-"default, in order to avoid certain attacks (for example, LD_PRELOAD). If you "
-"are using this option in an authorized_keys file, beware that the keys in "
-"question will no longer work until the option is removed."
-msgstr ""
-"Tässä OpenSSH-versiossa julkisten avaimien ympäristövalitsin on poissa \n"
-"käytöstä, jotta tietynlaisilta hyökkäyksiltä vältyttäisiin (esim. "
-"LD_PRELOAD). \n"
-"Jos käytät tätä valitsinta authorized_keys-tiedostossa, huomioi, että \n"
-"nämä avaimet eivät toimi niin kauan kuin valitsinta ei poisteta."
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-"sshd_config after the upgrade is complete, taking note of the warning in the "
-"sshd_config(5) manual page."
-msgstr ""
-"Ottaaksesi tämän toiminnon uudelleen käyttöön, lisää tiedostoon \n"
-"/etc/ssh/sshd_config rivi \"PermitUserEnvironment yes\" kun päivitys on "
-"valmis. \n"
-"Huomioi varoitus man-ohjesivuilla sshd_config(5)."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -383,7 +299,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:130
+#: ../openssh-server.templates.master:84
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "

@@ -1,5 +1,3 @@
-/etc/ssh/ssh_config
-/etc/ssh/moduli
 /etc/init.d/ssh
 /etc/pam.d/ssh
 /etc/default/ssh

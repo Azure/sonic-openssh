@@ -1,0 +1,12 @@
+Template: ssh/SUID_client
+Type: boolean
+Default: true
+_Description: Do you want /usr/lib/ssh-keysign to be installed SUID root?
+ You have the option of installing the ssh-keysign helper with the SUID bit
+ set.
+ .
+ If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2
+ host-based authentication.
+ .
+ If in doubt, I suggest you install it with SUID.  If it causes problems
+ you can change your mind later by running:   dpkg-reconfigure ssh

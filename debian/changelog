@@ -1,3 +1,91 @@
+openssh (1:3.8.1p1-15) UNRELEASED; urgency=low
+
+  * Build ssh in binary-indep, not binary-arch (thanks, LaMont Jones).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  1 Dec 2004 16:23:23 +0000
+
+openssh (1:3.8.1p1-14) experimental; urgency=low
+
+  * We use DH_COMPAT=2, so build-depend on debhelper (>= 2).
+  * Fix timing information leak allowing discovery of invalid usernames in
+    PAM keyboard-interactive authentication (backported from a patch by
+    Darren Tucker; closes: #281595).
+  * Make sure that there's a delay in PAM keyboard-interactive
+    authentication when PermitRootLogin is not set to yes and the correct
+    root password is entered (closes: #248747).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 28 Nov 2004 18:09:37 +0000
+
+openssh (1:3.8.1p1-13) experimental; urgency=low
+
+  * Enable threading for PAM, on Sam Hartman's advice (closes: #278394).
+  * debconf template translations:
+    - Update Dutch (thanks, cobaco; closes: #278715).
+  * Correct README.Debian's ForwardX11Trusted description (closes: #280190).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 12 Nov 2004 12:03:13 +0000
+
+openssh (1:3.8.1p1-12) experimental; urgency=low
+
+  * Preserve /etc/ssh/sshd_config ownership/permissions (closes: #276754).
+  * Shorten the version string from the form "OpenSSH_3.8.1p1 Debian
+    1:3.8.1p1-8.sarge.1" to "OpenSSH_3.8.1p1 Debian-8.sarge.1", as some SSH
+    implementations apparently have problems with the long version string.
+    This is of course a bug in those implementations, but since the extent
+    of the problem is unknown it's best to play safe (closes: #275731).
+  * debconf template translations:
+    - Add Finnish (thanks, Matti Pöllä; closes: #265339).
+    - Update Danish (thanks, Morten Brix Pedersen; closes: #275895).
+    - Update French (thanks, Denis Barbier; closes: #276703).
+    - Update Japanese (thanks, Kenshi Muto; closes: #277438).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 24 Oct 2004 19:21:17 +0100
+
+openssh (1:3.8.1p1-11) experimental; urgency=high
+
+  * Move sshd_config(5) to openssh-server, where it belongs.
+  * If PasswordAuthentication is disabled, then offer to disable
+    ChallengeResponseAuthentication too. The current PAM code will attempt
+    password-style authentication if ChallengeResponseAuthentication is
+    enabled (closes: #250369).
+  * This will ask a question of anyone who installed fresh with 1:3.8p1-2 or
+    later and then upgraded. Sorry about that ... for this reason, the
+    default answer is to leave ChallengeResponseAuthentication enabled.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  6 Oct 2004 14:28:20 +0100
+
+openssh (1:3.8.1p1-10) experimental; urgency=low
+
+  * Don't install the ssh-askpass-gnome .desktop file by default; I've had
+    too many GNOME people tell me it's the wrong thing to be doing. I've
+    left it in /usr/share/doc/ssh-askpass-gnome/examples/ for now.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 25 Aug 2004 18:18:14 +0100
+
+openssh (1:3.8.1p1-9) experimental; urgency=low
+
+  * Split the ssh binary package into openssh-client and openssh-server
+    (closes: #39741). openssh-server depends on openssh-client for some
+    common functionality; it didn't seem worth creating yet another package
+    for this. openssh-client is priority standard, openssh-server optional.
+  * New transitional ssh package, priority optional, depending on
+    openssh-client and openssh-server. May be removed once nothing depends
+    on it.
+  * When upgrading from ssh to openssh-{client,server}, it's very difficult
+    for the maintainer scripts to find out what version we're upgrading from
+    without dodgy dpkg hackery. I've therefore taken the opportunity to move
+    a couple of debconf notes into NEWS files, namely ssh/ssh2_keys_merged
+    and ssh/user_environment_tell.
+  * Add a heuristic to try to make sure the sshd_config upgrade to >= 3.7
+    happens even though we don't know what version we're upgrading from.
+  * Remove /etc/ssh/sshd_not_to_be_run on purge of openssh-server. For now
+    (until sarge+2) it's still honoured to avoid breaking existing
+    configurations, but the right approach is now to remove the
+    openssh-server package if you don't want to run the server. Add a NEWS
+    item to that effect.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  2 Aug 2004 20:48:54 +0100
+
 openssh (1:3.8.1p1-8.sarge.4) unstable; urgency=high
 
   * Fix timing information leak allowing discovery of invalid usernames in

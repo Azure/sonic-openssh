@@ -9,21 +9,11 @@ then
     # other files in there. Conffiles have already been removed at this
     # point.
     rm -f /etc/ssh/moduli /etc/ssh/primes
-    rm -f /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.pub
-    rm -f /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key.pub
-    rm -f /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_dsa_key.pub
     rm -f /etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts2
-    rm -f /etc/ssh/sshd_config
-    rm -f /etc/ssh/sshd_not_to_be_run
     rmdir --ignore-fail-on-non-empty /etc/ssh
 fi
 
 if [ "$1" = "purge" ] ; then
-    update-rc.d ssh remove >/dev/null
-fi
-
-if [ "$1" = "purge" ] ; then
-	deluser --quiet sshd > /dev/null || true
 	delgroup --quiet ssh > /dev/null || true
 fi
 
