@@ -22,9 +22,8 @@ session    optional     pam_motd.so # [1]
 # Print the status of the user's mailbox upon successful login.
 session    optional     pam_mail.so standard noenv # [1]
 
-# Set up user limits. Uncomment this and read /etc/security/limits.conf to
-# enable this functionality.
-# session    required     pam_limits.so
+# Set up user limits from /etc/security/limits.conf.
+session    required     pam_limits.so
 
 # Standard Un*x password updating.
 @include common-password
