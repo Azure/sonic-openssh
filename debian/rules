@@ -215,6 +215,7 @@ binary-openssh-client-udeb: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
+	cp -a debian/openssh-client-udeb.isinstallable debian/openssh-client-udeb/DEBIAN/isinstallable
 	dh_shlibdeps
 	dh_gencontrol -- -fdebian/files~
 	dpkg-distaddfile $(CLIENT_UDEB) debian-installer optional
