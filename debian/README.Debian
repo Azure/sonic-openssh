@@ -33,15 +33,11 @@ Privilege Separation
 
 As of 3.3, openssh has employed privilege separation to reduce the
 quantity of code that runs as root, thereby reducing the impact of
-some security holes in sshd.
+some security holes in sshd. This now also works properly with PAM.
 
-Unfortunately, privilege separation interacts badly with PAM. Any PAM
-session modules that need to run as root (pam_mkhomedir, for example)
-will fail, and PAM keyboard-interactive authentication won't work.
-
-Privilege separation is turned on by default, so if you decide you
+Privilege separation is turned on by default, so, if you decide you
 want it turned off, you need to add "UsePrivilegeSeparation no" to
-/etc/ssh/sshd_config
+/etc/ssh/sshd_config.
 
 PermitRootLogin set to yes
 --------------------------
