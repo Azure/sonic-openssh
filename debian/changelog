@@ -1,4 +1,4 @@
-openssh (1:3.6.1p2-6) UNRELEASED; urgency=medium
+openssh (1:3.6.1p2-6) unstable; urgency=medium
 
   * Use a more CVS-friendly means of setting SSH_VERSION.
   * Update Brazilian Portuguese debconf template translation (thanks, Andre
@@ -10,7 +10,7 @@ openssh (1:3.6.1p2-6) UNRELEASED; urgency=medium
     update (thanks, Darren Tucker; closes: #99168, #192207, #193546).
   * Policy version 3.6.1: recode this changelog to UTF-8.
 
- -- Colin Watson <cjwatson@debian.org>  Mon,  1 Sep 2003 23:56:57 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed,  3 Sep 2003 19:14:02 +0100
 
 openssh (1:3.6.1p2-5) unstable; urgency=low
 
