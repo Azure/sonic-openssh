@@ -1,83 +1,469 @@
 Template: ssh/privsep_tell
 Type: note
 Description: Privilege separation
- This version of OpenSSH contains the new privilege separation
- option. This significantly reduces the quantity of code that runs as
- root, and therefore reduces the impact of security holes in sshd.
+ This version of OpenSSH contains the new privilege separation option. This
+ significantly reduces the quantity of code that runs as root, and
+ therefore reduces the impact of security holes in sshd.
  .
- Unfortunately, privilege separation interacts badly with PAM. Any
- PAM session modules that need to run as root (pam_mkhomedir, for
- example) will fail, and PAM keyboard-interactive authentication 
- won't work.
+ Unfortunately, privilege separation interacts badly with PAM. Any PAM
+ session modules that need to run as root (pam_mkhomedir, for example) will
+ fail, and PAM keyboard-interactive authentication won't work.
  .
- Privilege separation is turned on by default, so if you decide you
- want it turned off, you need to add "UsePrivilegeSeparation no" to
+ Privilege separation is turned on by default, so if you decide you want it
+ turned off, you need to add "UsePrivilegeSeparation no" to
  /etc/ssh/sshd_config.
  .
  NB! If you are running a 2.0 series Linux kernel, then privilege
- separation will not work at all, and your sshd will fail to start
- unless you explicitly turn privilege separation off.
+ separation will not work at all, and your sshd will fail to start unless
+ you explicitly turn privilege separation off.
+Description-es: Separación de privilegios
+ Esta versión de OpenSSH incluye una nueva opción de separación de
+ privilegios que reduce significativamente la cantidad de código que se
+ ejecuta como root, por lo que reduce el impacto de posibles agujeros de
+ seguridad en sshd.
+ .
+ Desafortunadamente, la separación de privilegios no interactúa
+ correctamente con PAM. Cualquier módulo PAM que necesite ejecutarse como
+ root (como, por ejemplo, pam_mkhomedir) y la autentificación interactiva
+ PAM con teclado no funcionarán.
+ .
+ La separación de privilegios está activa por defecto, por lo que si decide
+ desactivarla, tiene que añadir "UsePrivilegeSeparation no" al fichero
+ /etc/ssh/sshd_config.
+ .
+ Nota: Si utiliza un núcleo Linux de la serie 2.0, la separación de
+ privilegios fallará estrepitosamente y sshd no funcionará a no ser que la
+ desactive.
+Description-fr: Séparation des privilèges
+ Cette version d'OpenSSH est livrée avec la nouvelle option de séparation
+ des privilèges. Cela réduit de manière significative la quantité de code
+ s'exécutant en tant que super-utilisateur, et donc réduit l'impact des
+ trous de sécurité dans sshd.
+ .
+ Malheureusement, la séparation des privilèges interagit mal avec PAM. Tous
+ les modules de session PAM qui doivent être exécutés en tant que
+ super-utilisateur (pam_mkhomedir, par exemple) ne s'exécuteront pas, et
+ l'authentification interactive au clavier ne fonctionnera pas.
+ .
+ La séparation des privilèges est activée par défaut ; si vous souhaitez la
+ désactiver, vous devez ajouter « UsePrivilegeSeparation no » dans
+ /etc/ssh/sshd_config.
+ .
+ NB ! Si vous avez un noyau Linux de la série des 2.0, la séparation des
+ privilèges ne fonctionne pas, et votre démon sshd ne se lancera que si
+ vous avez explicitement désactivé la séparation des privilèges.
+Description-ja: ÆÃ¸¢¤ÎÊ¬Î¥
+ ËÜ¥Ğ¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¿·¤·¤¤ÆÃ¸¢Ê¬Î¥¥ª¥×¥·¥ç¥ó¤ò»ı¤Ã¤Æ¤¤¤Ş¤¹¡£
+ ¤³¤ì¤Ë¤è¤Ã¤Æ¡¢root ¸¢¸Â¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¡¼¥É¤ÎÎÌ¤òÂçÉı¤Ë¸º¤é¤¹¤³¤È¤¬
+ ¤Ç¤­¡¢sshd ¤Î¥»¥­¥å¥ê¥Æ¥£¥Û¡¼¥ë¤Î±Æ¶Á¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ »ÄÇ°¤Ê¤³¤È¤Ë¡¢ÆÃ¸¢Ê¬Î¥¤Ï PAM ¤Ë°­±Æ¶Á¤òÍ¿¤¨¤Ş¤¹¡£root ¤Ç¼Â¹Ô¤µ¤ì¤ë Á´¤Æ¤Î
+ PAM ¥»¥Ã¥·¥ç¥ó¥â¥¸¥å¡¼¥ë (Îã¤¨¤Ğ pam_mkhomedir) ¤ÏÆ°¤«¤Ê¤¯
+ ¤Ê¤ê¤Ş¤¹¡£¤Ş¤¿¡¢PAM ¥­¡¼¥Ü¡¼¥ÉÂĞÏÃÅªÇ§¾Ú¤âÆ°ºî¤·¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£
+ .
+ ÆÃ¸¢Ê¬Î¥¤Ï¥Ç¥Õ¥©¥ë¥È¤ÇÍ­¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤Ş¤¹¡£Ìµ¸ú¤Ë¤·¤¿¤¤¾ì¹ç¤Ï¡¢
+ /etc/ssh/sshd_conf ¤Ë¡ÖUsePrivilegeSeparation no¡×¤È¤¤¤¦¹Ô¤òÄÉ²Ã
+ ¤·¤Æ¤¯¤À¤µ¤¤¡£
+ .
+ Ãí°Õ! Linux ¥«¡¼¥Í¥ë¤Î¥Ğ¡¼¥¸¥ç¥ó 2.0 ·ÏÎó¤ò»È¤Ã¤Æ¤¤¤ë¾ì¹ç¡¢ÆÃ¸¢
+ Ê¬Î¥¤ÏÁ´¤¯Æ°ºî¤·¤Ş¤»¤ó¡£ÌÀ¼¨Åª¤ËÆÃ¸¢Ê¬Î¥¤òÌµ¸ú¤Ë¤·¤Ê¤¤¸Â¤ê¡¢sshd
+ ¤Ïµ¯Æ°¤Ë¼ºÇÔ¤·¤Ş¤¹¡£
+Description-pl: Separacja uprawnieñ
+ Ta wersja OpenSSH zawiera now± opcjê separacji uprawnieñ. Znacz±co
+ zmniejsza ona ilo¶æ kodu, który jest uruchamiany jako root i co za tym
+ idzie redukuje efekty luk bezpieczeñstwa w sshd.
+ .
+ Niestety separacja uprawnieñ ¼le reaguje z PAMem. Jakikolwiek modu³ sesji
+ PAM, który musi byæ uruchamiany jako root (pam_mkhomedir, na przyk³ad)
+ zawiedzie. Nie bêdzie dzia³aæ równie¿ interaktywna autentykacja z
+ klawiatury (keyboard-interactive authentication).
+ .
+ Separacja uprawnieñ jest domy¶lnie w³±czona, wiêc je¶li zdecydujesz siê j±
+ wy³±czyæ, musisz dodaæ "UsePrivilegeSeparation no" do pliku
+ /etc/ssh/sshd_config.
+ .
+ UWAGA! Je¿eli u¿ywasz j±dra Linux'a z serii 2.0, to separacja uprawnieñ w
+ ogóle nie bêdzie dzia³aæ i sshd nie wystartuje dopóki w³asnorêcznie nie
+ wy³±czysz separacji uprawnieñ w /etc/ssh/sshd_config.
+Description-pt_BR: Separação de Previlégios
+ Esta versão do OpenSSH contém a nova opção de separação de privilégios.
+ Esta opção reduz significativamente a quantidade de código que é executada
+ como root e portanto reduz o impacto de falhas de segurança no sshd.
+ .
+ Infelizmente, a separação de privilégios interage de maneira ruim com o
+ PAM. Quaisquer módulos de sessão PAM que precisem ser executados como root
+ (pam_mkhomedir, por exemplo) irão falhar e autenticação interativa com
+ teclado do PAM não funcionará.
+ .
+ A separação de previlégios está habilitado por padrão, portanto caso você
+ decida que deseja desabilitá-la você precisará adicionar a linha
+ "UsePrivilegeSeparation no" ao arquivo /etc/ssh/sshd_config.
+ .
+ NB ! Caso você esteja executando um kernel Linux da séria 2.0 o recurso de
+ separação de privilégios não funcionará e seu daemon sshd irá falhar ao
+ iniciar a menos que você explicitamente desabilite o recurso de separação
+ de privilégios.
 
 Template: ssh/privsep_ask
 Type: boolean
 Default: true
 Description: Enable Privilege separation
- This version of OpenSSH contains the new privilege separation
- option. This significantly reduces the quantity of code that runs as
- root, and therefore reduces the impact of security holes in sshd.
+ This version of OpenSSH contains the new privilege separation option. This
+ significantly reduces the quantity of code that runs as root, and
+ therefore reduces the impact of security holes in sshd.
  .
- Unfortunately, privilege separation interacts badly with PAM. Any
- PAM session modules that need to run as root (pam_mkhomedir, for
- example) will fail, and PAM keyboard-interactive authentication 
- won't work.
+ Unfortunately, privilege separation interacts badly with PAM. Any PAM
+ session modules that need to run as root (pam_mkhomedir, for example) will
+ fail, and PAM keyboard-interactive authentication won't work.
  .
- Since you've opted to have me generate an sshd_config file for you,
- you can choose whether or not to have Privilege Separation turned on
- or not. Unless you are running 2.0 (in which case you *must* say no
- here or your sshd won't start at all) or know you need to use PAM
- features that won't work with this option, you should say yes here.
+ Since you've opted to have me generate an sshd_config file for you, you
+ can choose whether or not to have Privilege Separation turned on or not.
+ Unless you are running 2.0 (in which case you *must* say no here or your
+ sshd won't start at all) or know you need to use PAM features that won't
+ work with this option, you should say yes here.
+Description-da: Aktiver Privilegie adskillelse
+ Denne version af OpenSSH indeholder den nye privilegie adskillelses
+ mulighed. Det reducerer markant mængden af kode der kører som root, og
+ derfor reducerer det impakten på sikkerheds huller i sshd.
+ .
+ Desværre, arbejder det ikke godt sammen med PAM. Ethvert PAM session modul
+ der skal køres som root (pam_mkhomedir, f.eks.) vil fejle, og PAM
+ tastatur-interaktive autentifikationer vil ikke virke.
+ .
+ Siden du har bedt mig om at lave en sshd_config fil til dig, kan du vælge
+ om du vil have privilegie adskillelse slået til eller ej. Medmindre du
+ kører 2.0 (i hvilket tilfælde du *skal* sige nej her, ellers vil din sshd
+ slet ikke starte) eller ved at du skal bruge PAM funktioner som ikke vil
+ virke med dette tilvalg, skal du sige ja her.
+Description-es: Activar separación de privilegios
+ Esta versión de OpenSSH incluye una nueva opción de separación de
+ privilegios que reduce significativamente la cantidad de código que se
+ ejecuta como root, por lo que reduce el impacto de posibles agujeros de
+ seguridad en sshd.
+ .
+ Desafortunadamente, la separación de privilegios no interactúa
+ correctamente con PAM. Cualquier módulo PAM que necesite ejecutarse como
+ root (como, por ejemplo, pam_mkhomedir) y la autentificación interactiva
+ PAM con teclado no funcionarán.
+ .
+ Puesto que ha elegido crear automáticamente el fichero sshd_config, puede
+ decidir ahora si quiere activar la opción de separación de privilegios. A
+ menos que utilice la versión 2.0 (en cuyo caso debe responer no aquí o
+ sshd no arrancará) o sepa que necesita usar ciertas características de PAM
+ que funcionan con esta opción, debería responder sí a esta pregunta.
+Description-fr: Activer la séparation des privilèges
+ Cette version d'OpenSSH est livrée avec la nouvelle option de séparation
+ des privilèges. Cela réduit de manière significative la quantité de code
+ s'exécutant en tant que super-utilisateur, et donc réduit l'impact des
+ trous de sécurité dans sshd.
+ .
+ Malheureusement, la séparation des privilèges interagit mal avec PAM. Tous
+ les modules de session PAM qui doivent être exécutés en tant que
+ super-utilisateur (pam_mkhomedir, par exemple) ne s'exécuteront pas, et
+ l'authentification interactive au clavier ne fonctionnera pas.
+ .
+ Comme vous souhaitez que je génère le fichier de configuration sshd_config
+ à votre place, vous pouvez choisir d'activer ou non l'option de séparation
+ des privilèges. Si vous utilisez un noyau 2.0 (dans ce cas vous *devez*
+ désactiver cette option ou alors sshd ne se lancera pas) ou bien si vous
+ avez besoin de fonctionnalités PAM, cela ne fonctionnera pas si cette
+ option est activée, dans le cas contraire vous devriez l'activer.
+Description-ja: ÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹¤ë
+ ËÜ¥Ğ¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¿·¤·¤¤ÆÃ¸¢Ê¬Î¥¥ª¥×¥·¥ç¥ó¤ò»ı¤Ã¤Æ¤¤¤Ş¤¹¡£
+ ¤³¤ì¤Ë¤è¤Ã¤Æ¡¢root ¸¢¸Â¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¡¼¥É¤ÎÎÌ¤òÂçÉı¤Ë¸º¤é¤¹¤³¤È¤¬
+ ¤Ç¤­¡¢sshd ¤Î¥»¥­¥å¥ê¥Æ¥£¥Û¡¼¥ë¤Î±Æ¶Á¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ »ÄÇ°¤Ê¤³¤È¤Ë¡¢ÆÃ¸¢Ê¬Î¥¤Ï PAM ¤Ë°­±Æ¶Á¤òÍ¿¤¨¤Ş¤¹¡£root ¤Ç¼Â¹Ô¤µ¤ì¤ë Á´¤Æ¤Î
+ PAM ¥»¥Ã¥·¥ç¥ó¥â¥¸¥å¡¼¥ë (Îã¤¨¤Ğ pam_mkhomedir) ¤ÏÆ°¤«¤Ê¤¯
+ ¤Ê¤ê¤Ş¤¹¡£¤Ş¤¿¡¢PAM ¥­¡¼¥Ü¡¼¥ÉÂĞÏÃÅªÇ§¾Ú¤âÆ°ºî¤·¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£
+ .
+ ¤¢¤Ê¤¿¤Ï sshd_config ¥Õ¥¡¥¤¥ë¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤òÁªÂò¤·¤Ş¤·¤¿¤Î¤Ç¡¢
+ ¤³¤³¤ÇÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹¤ë¤«¤·¤Ê¤¤¤«¤òÁªÂò¤Ç¤­¤Ş¤¹¡£2.0 ·ÏÎó¤Î
+ ¥«¡¼¥Í¥ë¤ò»È¤Ã¤Æ¤¤¤ë¤« (¤³¤Î¾ì¹ç¤Ë¤Ï¡Ö¤¤¤¤¤¨¡×¤òÁª¤Ğ¤Ê¤¤¤È sshd
+ ¤Ïµ¯Æ°¤¹¤é¤·¤Ş¤»¤ó)¡¢PAM ¤Îµ¡Ç½¤Î¤¦¤ÁÆÃ¸¢Ê¬Î¥¤È¶¦Â¸¤Ç¤­¤Ê¤¤µ¡Ç½¤ò
+ »È¤¤¤¿¤¤¾ì¹ç°Ê³°¤Ï¡¢¡Ö¤Ï¤¤¡×¤òÁª¤Ö¤Ù¤­¤Ç¤¹¡£
+Description-pl: W³±czenie separacji uprawnieñ
+ Ta wersja OpenSSH zawiera now± opcjê separacji uprawnieñ. Znacz±co
+ zmniejsza ona ilo¶æ kodu, który jest uruchamiany jako root i co za tym
+ idzie redukuje efekty luk bezpieczeñstwa w sshd.
+ .
+ Niestety separacja uprawnieñ ¼le reaguje z PAMem. Jakikolwiek modu³ sesji
+ PAM, który musi byæ uruchamiany jako root (pam_mkhomedir, na przyk³ad)
+ zawiedzie. Nie bêdzie dzia³aæ równie¿ interaktywna autentykacja z
+ klawiatury (keyboard-interactive authentication).
+ .
+ Zdecydowa³e¶ siê na to abym wygenerowa³ dla ciebie plik sshd_config, i
+ mo¿esz wybraæ czy chcesz w³±czyæ Separacjê Uprawnieñ, czy te¿ nie. Je¶li
+ nie u¿ywasz j±dra z serii 2.0 (w którym to przypadku *musisz* odpowiedzieæ
+ tutaj 'nie' albo sshd w ogóle nie ruszy) i je¶li nie musisz korzystaæ z
+ mo¿liwo¶ci PAMa, które nie bêd± dzia³a³y z t± opcj±, powiniene¶
+ odpowiedzieæ tutaj 'tak'.
+Description-pt_BR: Habilitar Separação de Privilégios
+ Esta versão do OpenSSH contém a nova opção de separação de privilégios.
+ Esta opção reduz significativamente a quantidade de código que é executada
+ como root e portanto reduz o impacto de falhas de segurança no sshd.
+ .
+ Infelizmente, a separação de privilégios interage de maneira ruim com o
+ PAM. Quaisquer módulos de sessão PAM que precisem ser executados como root
+ (pam_mkhomedir, por exemplo) irão falhar e autenticação interativa com
+ teclado do PAM não funcionará.
+ .
+ Uma vez que você optou por permitir que o debconf gere o arquivo
+ sshd_config para você, é possível escolher se você deseja ter ou não o
+ recurso de separação de privilégios habilitada. A menos que você esteja
+ executando um kernel Linux da série 2.0 (neste caso você *deve* responder
+ negativamente a esta pergunta ou seu daemon sshd não será iniciado) ou
+ saiba que você precisa utilizar recursos do PAM que não funcionam com esta
+ opção habilitada você deve responder sim aqui.
 
 Template: ssh/new_config
 Type: boolean
 Default: true
 Description: Generate new configuration file
- This version of OpenSSH has a considerably changed configuration file from 
- the version shipped in Debian 'Potato', which you appear to be upgrading from.
- I can now generate you a new configuration file (/etc/ssh/sshd.config), which
- will work with the new server version, but will not contain any customisations
- you made with the old version. 
+ This version of OpenSSH has a considerably changed configuration file from
+ the version shipped in Debian 'Potato', which you appear to be upgrading
+ from. I can now generate you a new configuration file
+ (/etc/ssh/sshd.config), which will work with the new server version, but
+ will not contain any customisations you made with the old version.
  .
- Please note that this new configuration file will set the value of 
- 'PermitRootLogin' to yes (meaning that anyone knowing the root password can
- ssh directly in as root). It is the opinion of the maintainer that this is
- the correct default (see README.Debian for more details), but you can always
- edit sshd_config and set it to no if you wish.
+ Please note that this new configuration file will set the value of
+ 'PermitRootLogin' to yes (meaning that anyone knowing the root password
+ can ssh directly in as root). It is the opinion of the maintainer that
+ this is the correct default (see README.Debian for more details), but you
+ can always edit sshd_config and set it to no if you wish.
  .
- It is strongly recommended that you let me generate a new configuration file 
- for you.
+ It is strongly recommended that you let me generate a new configuration
+ file for you.
+Description-da: Opret ny konfigurations fil
+ Denne version af OpenSSH har en betydeligt ændret konfigurations fil fra
+ den version der kom med Debian 'Potato', som du ser ud til at opgradere
+ fra. Jeg kan nu oprette en ny konfigurations fil (//etc/ssh/sshd.config),
+ som vil virke med den nye server version, men det vil ikke beholde
+ eventuelle ændringer du lavede med den gamle version.
+ .
+ Venligst bemærk at den nye konfigurations fil vil sætte værdien af
+ 'PermitRootLogin' til ja (som betyder at alle der kender roots password,
+ kan tilgå maskinen via ssh direkte). Det er vedligeholderens mening, at
+ det er den korrekte standard-værdi (se README.Debian for flere detaljer),
+ men du kan altid redigere sshd_config og slå det fra, hvis du ønsker.
+ .
+ Du rådes stærkt til at lade mig genere en ny konfigurations fil for dig.
+Description-es: Generar un nuevo fichero de configuración
+ Esta versión de OpenSSH tiene un fichero de configuración
+ considerablemente diferente del incluido en Debian Potato, que es la
+ versión desde la que parece estar actualizando. Puede crear
+ automáticamente un nuevo fichero de configuración (/etc/ssh/sshd_config),
+ que funcionará con la nueva versión del servidor, pero no incuirá las
+ modificaciones que hiciera en la versión antigua.
+ .
+ Además, recuerde que este nuevo fichero de configuración dirá sí en la
+ opción 'PermitRootLogin', por lo que cualquiera que conozca la contraseña
+ de root podrá entrar mediante ssh directamente como root. En opinión del
+ mantenedor ésta es la opción predeterminada más adecuada (puede leer
+ README.Debian si quiere conocer más detalles), pero siempre puede editar
+ sshd_config y poner no si lo desea.
+ .
+ Es muy recomendable que permita que se genere un nuevo fichero de
+ configuración ahora.
+Description-fr: Créer un nouveau fichier de configuration
+ Cette version d'OpenSSH utilise un fichier de configuration qui a
+ énormément changé depuis la version contenue dans la distribution Debian
+ « Potato », depuis laquelle vous semblez faire une mise à jour. Je peux
+ générer maintenant pour vous un nouveau fichier de configuration
+ (/etc/ssh/sshd.config) qui marchera avec la nouvelle version du serveur,
+ mais ne contiendra aucun des réglages que vous avez faits sur l'ancienne
+ version.
+ .
+ Veuillez noter que ce nouveau fichier de configuration positionnera la
+ valeur de « PermitRootLogin » à « yes » (ce qui signifie que quiconque
+ connaissant le mot de passe du super-utilisateur peut se connecter en tant
+ que tel sur la machine). Le responsable du paquet pense que c'est là un
+ comportement par défaut normal (lisez README.Debian pour plus
+ d'informations), mais vous pouvez toujours éditer le fichier sshd_config
+ et changer cela.
+ .
+ Il est fortement recommandé que vous me laissiez générer le nouveau
+ fichier de configuration.
+Description-ja: ¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤òºî¤ê¤Ş¤¹
+ OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢Debian 'Potato' ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¥Ğ¡¼¥¸¥ç¥ó
+ (¤¤¤Ş¡¢¤½¤Î¥Ğ¡¼¥¸¥ç¥ó¤«¤é¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò»î¤ß¤Æ¤¤¤ë¤È¤³¤í) ¤«¤é¡¢
+ ÀßÄê¥Õ¥¡¥¤¥ë¤¬ÂçÉı¤ËÊÑ²½¤·¤Æ¤¤¤Ş¤¹¡£¤¤¤Ş¡¢¿·¤·¤¤¥Ğ¡¼¥¸¥ç¥ó¤Î¥µ¡¼¥Ğ¤Ç
+ »È¤¦¤³¤È¤¬¤Ç¤­¤ë¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë (/etc/ssh/sshd/config) ¤ò¼«Æ°À¸À®
+ ¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¤¬¡¢¤½¤Î¥Õ¥¡¥¤¥ë¤Ï¡¢¸Å¤¤¥Ğ¡¼¥¸¥ç¥ó¤ÎÀßÄê¥Õ¥¡¥¤¥ë¤Ë
+ ´Ş¤Ş¤ì¤ë¤¢¤Ê¤¿¤ÎÀßÄê¤¬Á´¤¯´Ş¤Ş¤ì¤Ş¤»¤ó¡£
+ .
+ ¤³¤Î¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤Ï¡¢¡ÖPermitRootLogin¡×¤ò¡Öyes¡×¤ËÀßÄê¤·¤Ş¤¹¡£
+ (¤Ä¤Ş¤ê¡¢root ¤Î¥Ñ¥¹¥ï¡¼¥É¤òÃÎ¤Ã¤Æ¤¤¤ë¿Í¤Ê¤éÃ¯¤Ç¤âÄ¾ÀÜ¥í¥°¥¤¥ó¤Ç¤­¤Ş
+ ¤¹)¡£¤³¤ì¤Ç¤è¤¤¡¢¤È¤¤¤¦¤Î¤¬¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Î¥á¥ó¥Æ¥Ê¤Î°Õ¸«¤Ç¤¹¤¬ (¾Ü¤· ¤¯¤Ï
+ README.Debian ¤òÆÉ¤ó¤Ç²¼¤µ¤¤)¡¢sshd_config ¤òÊÔ½¸¤·¤Æ¡Öno¡×¤ËÀß
+ Äê¤¹¤ë¤³¤È¤â¤Ç¤­¤Ş¤¹¡£
+ .
+ ¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤ò¶¯¤¯¤ª´«¤á¤·¤Ş¤¹¡£
+Description-pl: Wygeneruj nowy plik konfiguracyjny
+ W tej wersji OpenSSH zmieni³ siê plik konfiguracyjny w stosunku do wersji
+ dostarczanej z Debianem 'Potato', któr± zdajesz siê aktualizowaæ. Mogê
+ teraz wygenerowaæ nowy plik konfiguracyjny (/etc/ssh/sshd.config), który
+ bêdzie dzia³a³ z now± wersj± serwera, ale nie bêdzie zawiera³ ¿adnych
+ dokonanych przez ciebie w starej wersji zmian.
+ .
+ Zauwa¿ proszê, ¿e nowy plik konfiguracyjny bêdzie ustawia³ warto¶æ opcji
+ 'PermitRootLogin' na 'tak' (co oznacza, ¿e ka¿dy kto zna has³o root'a mo¿e
+ zdalnie zalogowaæ siê przez ssh jako root). W opinii opiekuna pakietu to
+ jest poprawna warto¶æ domy¶lna (szczegó³y w README.Debian), ale mo¿esz
+ sobie wyedytowaæ sshd_config i ustawiæ tê opcjê na 'nie' je¶li siê z t±
+ opini± nie zgadzasz.
+ .
+ Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik
+ konfiguracyjny.
+Description-pt_BR: Gerar novo arquivo de configuração
+ Esta versão do OpenSSH possui um arquivo de configuração consideravelmente
+ diferente da versão fornecida com o Debian 'Potato' (Debian versão 2.2), a
+ versão do Debian da qual você parece estar atualizando. Esse assistente de
+ confgiuração inicial pode agora gerar um novo arquivo de configuração
+ (/etc/ssh/sshd_config) que irá funcionar com o nova versão do servidor
+ sshd mas não irá conter nenhuma personalização que você possa ter feito na
+ versão anterior.
+ .
+ Por favor note que este novo arquivo de configuração irá definir o valor
+ da opção 'PermitRootLogin' para "yes" (o que significa que qualquer pessoa
+ que conheça a senha de root poderá conectar via ssh diretamente como root
+ no servidor onde este pacote esta sendo instalado). A opinião do
+ mantenedor do pacote é que esse é o comportamente padrão correto (consulte
+ o arquivo README.Debian deste pacote para maiores detalhes), mas você
+ poderá sempre editar o arquivo sshd_config e definir esta opção para "no"
+ caso você não concorde com o mantenedor do OpenSSH.
+ .
+ É fortemente recomendado que você permita que o novo arquivo de
+ configuração será gerado automaticamente para você.
 
 Template: ssh/protocol2_only
 Type: boolean
 Default: true
 Description: Allow SSH protocol 2 only
- This version of OpenSSH supports version 2 of the ssh protocol, which
- is much more secure.  Disabling ssh 1 is encouraged, however this
- will slow things down on low end machines and might prevent older
- clients from connecting (the ssh client shipped with "potato" is affected).
+ This version of OpenSSH supports version 2 of the ssh protocol, which is
+ much more secure.  Disabling ssh 1 is encouraged, however this will slow
+ things down on low end machines and might prevent older clients from
+ connecting (the ssh client shipped with "potato" is affected).
  .
  Also please note that keys used for protocol 1 are different so you will
  not be able to use them if you only allow protocol 2 connections.
  .
- If you later change your mind about this setting, README.Debian has 
+ If you later change your mind about this setting, README.Debian has
  instructions on what to do to your sshd_config file.
+Description-da: Tillad kun SSH protokol 2
+ Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er
+ betydeligt mere sikker. Det anbefales af deaktivere version 1. Dog kan det
+ sløve langsomme maskiner, og forhindre ældre klienter i at opnå
+ forbindelse (ssh klienten der kommer med "potato" er en af dem).
+ .
+ Du skal også bemærke at de nøgler som bliver anvendt til protokol 1 er
+ forskellige, så du vil ikke ævre i stand til at bruge dem, hvis du kun
+ tillader protokol 2 forbindelser.
+ .
+ Hvis du senere ændrer din mening om denne indstilling, har README.Debian
+ instruktioner på hvad du skal gøre ved din sshd_config fil.
+Description-es: Permitir sólo la versión 2 del protocolo SSH
+ Esta versión de OpenSSH soporta la versión 2 del protocolo ssh, que es
+ mucho más segura que la anterior. Se recomienda desactivar la versión 1,
+ aunque funcionará más lento en máquinas modestas y puede impedir que se
+ conecten clientes antiguos, como, por ejemplo, el incluido en "potato".
+ .
+ También tenga en cuenta que las claves utilizadas para el protocolo 1 son
+ diferentes, por lo que no podrá usarlas si únicamente permite conexiones
+ mediante la versión 2 del protocolo.
+ .
+ Si más tarde cambia de opinión, el fichero README.Debian contiene
+ instrucciones sobre cómo modificar en el fichero sshd_config.
+Description-fr: Permettre seulement la version 2 du protocole SSH
+ Cette version d'OpenSSH connaît la version 2 du protocole ssh, qui est
+ bien plus sûre. Désactiver ssh 1 est une bonne chose, cependant cela peut
+ ralentir les machines peu puissantes et pourrait empêcher ceux qui
+ utilisent des vieilles versions de la partie cliente de se connecter (le
+ client ssh de la distribution Debian « Potato » en fait partie).
+ .
+ De plus, les clés utilisées par la version 1 du protocole sont différentes
+ et vous ne pourrez pas les utiliser si vous n'autorisez que les connexions
+ utilisant la version 2 du protocole.
+ .
+ Si vous changez d'avis ultérieurement et décidez de modifier ce réglage,
+ les instructions fournies dans le fichier README.Debian vous indiquent
+ comment modifier le fichier sshd_config.
+Description-ja: SSH ¥×¥í¥È¥³¥ë 2 ¤Î¤ß¤òµö²Ä¤·¤Ş¤¹
+ OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢¤º¤Ã¤È°ÂÁ´¤Ê¡¢ssh ¥×¥í¥È¥³¥ë¤Î¥Ğ¡¼¥¸¥ç¥ó 2
+ ¤ò¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤¹¡£ssh 1 ¤ò¶Ø»ß¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¤¬¡¢ÃÙ¤¤¥Ş
+ ¥·¥ó¤Ç¤ÏÆ°ºî¤¬ÃÙ¤¯¤Ê¤Ã¤¿¤ê¡¢¸Å¤¤¥¯¥é¥¤¥¢¥ó¥È¤«¤éÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤Ã¤¿¤ê
+ ¤·¤Ş¤¹ ("potato" ¤Î ssh ¥¯¥é¥¤¥¢¥ó¥È¤âÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤ê¤Ş¤¹)¡£
+ .
+ ¤Ş¤¿¡¢¥×¥í¥È¥³¥ë 1 ¤Ç»È¤¦¥­¡¼¤Ï°Û¤Ê¤ë¤¿¤á¡¢¥×¥í¥È¥³¥ë 2 ¤òÍ­¸ú¤Ë¤·¤¿
+ ¤À¤±¤Ç¤Ï¤½¤Î¥­¡¼¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó¡£
+ .
+ ¤â¤·º£¸å¤¢¤Ê¤¿¤¬¹Í¤¨¤òÊÑ¤¨¤¿¤é¡¢README.Debian ¤òÆÉ¤à¤È sshd_config ¤ò
+ ¤É¤Î¤è¤¦¤ËÊÑ¹¹¤·¤¿¤é¤è¤¤¤«¤¬Ê¬¤«¤ê¤Ş¤¹¡£
+Description-pl: Zezwalaj wy³±cznie na wersjê 2 protoko³u SSH
+ Ta wersja OpenSSH wspiera drug± wersjê protoko³u ssh, która jest znacznie
+ bardziej bezpieczna. Wy³±czenie ssh 1 jest zalecane, choæ spowalnia to
+ dzia³anie na starych maszynach i mo¿e uniemo¿liwiæ po³±czenie starszym
+ wersjom klientów (dotyczy to np. klienta ssh do³±czanego do "potato").
+ .
+ Ponadto, zauwa¿ proszê, ¿e klucze u¿ywane przez protokó³ 1 s± inne, wiêc
+ nie bêdziesz móg³ ich u¿ywaæ je¶li zezwolisz na korzystanie wy³±cznie z
+ wersji 2 protoko³u.
+ .
+ Je¶li pó¼niej zmienisz zdanie co do tego ustawienia, to instrukcje co
+ zmieniæ w sshd_config znajduj± siê w README.Debian.
+Description-pt_BR: Permitir somente protocolo SSH versão 2
+ Esta versão do OpenSSH suporta a versão 2 do protocolo ssh, a qual é muito
+ mais segura que a versão anterior. É recomendado desabilitar o suporte ao
+ protocolo ssh versão 1, porém isto fará com que conexões fiquem mais
+ lentas em máquinas mais antigas e pode impedir que clientes antigos
+ consigam se conectar (o cliente ssh fornecido com a versão do Debian 2.2
+ "potato" é afetada.)
+ .
+ Por favor note também que as chaves usadas para o protocolo 1 são
+ diferentes portanto você não poderá usá-las caso você somente permita
+ conexões usando o protocolo 2.
+ .
+ Caso você posteriormente mude de idéia sobre esta configuração, o arquivo
+ README.Debian deste pacote possui instruções sobre o que mudar em seu
+ arquivo de configuração sshd_config.
 
 Template: ssh/ssh2_keys_merged
 Type: note
 Description: ssh2 keys merged in configuration files
- As of version 3 OpenSSH no longer uses separate files for ssh1 and
- ssh2 keys. This means the authorized_keys2 and known_hosts2 files
- are no longer needed. They will still be read in order to maintain
- backwards compatibility
+ As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2
+ keys. This means the authorized_keys2 and known_hosts2 files are no longer
+ needed. They will still be read in order to maintain backwards
+ compatibility
+Description-da: ssh2-nøgler flettet i opsætningsfilerne
+ Siden version 3 har OpenSSH ikke længere separate filer for ssh1- og
+ ssh2-nøgler. Det betyder, at filerne authorized_keys2 og known_hosts2 ikke
+ længere er nødvendige. De vil stadig dog stadig blive læst for
+ bagudkompatilitetens skyld.
+Description-es: Las claves ssh2 ya se incluyen en los ficheros de configuración
+ A partir de la versión 3, OpenSSH ya no utiliza ficheros diferentes para
+ las claves ssh1 y ssh2. Esto quiere decir que ya no son necesarios los
+ ficheros authorized_keys2 y known_hosts2, aunque aún se seguirán leyendo
+ para mantener compatibilidad hacia atrás.
+Description-fr: Clés pour ssh2 fusionnées dans les fichiers de configuration
+ OpenSSH, depuis sa version 3, n'utilise plus de fichiers distincts pour
+ les clés ssh1 et ssh2. Cela signifie que les fichiers authorized_keys2 et
+ known_hosts2 ne sont plus utiles. Ils seront néanmoins lus afin de
+ préserver la compatibilité descendante.
+Description-ja: ssh2 ¥­¡¼¤ÏÀßÄê¥Õ¥¡¥¤¥ë¤ËÅı¹ç¤µ¤ì¤Ş¤¹
+ OpenSSH ¤Î¥Ğ¡¼¥¸¥ç¥ó 3 ¤Ï¡¢ssh1 ¤È ssh2 ¤Î¥­¡¼¤Ë¸ÄÊÌ¤Î¥Õ¥¡¥¤¥ë¤ò»È¤¤
+ ¤Ş¤»¤ó¡£¤Ä¤Ş¤ê¡¢authorized_keys2 ¥Õ¥¡¥¤¥ë¤È known_hosts2 ¥Õ¥¡¥¤¥ë¤Ï¤â
+ ¤Ï¤äÉÔÍ×¤È¤Ê¤ê¤Ş¤·¤¿¡£¸åÊı¸ß´¹À­¤òÊİ¤Ä¤¿¤á¤Ë¤Ï¤³¤ì¤é¤Î¥Õ¥¡¥¤¥ë¤¬É¬Í×
+ ¤Ç¤¹¡£
+Description-pl: klucze ssh2 w³±czone do plików konfiguracyjnych
+ Pocz±wszy od wersji 3 OpenSSH nie u¿ywa ju¿ osobnych plików dla kluczy
+ ssh1 i ssh2. Oznacza to, ¿e pliki authorized_keys2 i known_hosts2 nie s±
+ ju¿ potrzebne. Bêd± one jednak odczytywane aby zachowaæ wsteczn±
+ kompatybilno¶æ.
+Description-pt_BR: Chaves ssh2 incluídas nos arquivos de configuração
+ A partir do versão 3 o OpenSSH não usa mais arquivos separados para as
+ chaves ssh1 e ssh2. Isto significa que os arquivos "authorized_keys2" e
+ "know_hosts2" não são mais necessários. Os mesmos continuarão a ser lidos
+ para manter a compatibilidade com versões anteriores.
 
 Template: ssh/use_old_init_script
 Type: boolean
@@ -89,6 +475,64 @@ Description: Do you want to continue (and risk killing active ssh sessions) ?
  .
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
+Description-da: Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?
+ Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis
+ afbryde alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er
+ ved at opgradering via en ssh-forbindelse.
+ .
+ Du kan afhjælpe dette ved at tilføje "--pidfile /var/run/sshd.pid" til
+ 'start-stop-daemon'-linjen i stop-afsnittet af filen.
+Description-de: Wollen Sie weitermachen (und das Killen der Session riskieren)?
+ Die Version von /etc/init.d/ssh, die Sie installiert haben, wird
+ vermutlich Ihre aktiven ssh-Instanzen killen. Wenn Sie das Upgrade via ssh
+ erledigen, dann ist das ein Problem.
+ .
+ Sie können das Problem beheben, indem sie "--pidfile /var/run/sshd.pid" an
+ die start-stop-daemon Zeile in dem Bereich stop der Datei /etc/init.d/ssh
+ ergänzen.
+Description-es: ¿Desea continuar, aún a riesgo de matar las sesiones ssh activas?
+ La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate
+ el demonio ssh. Si está actualizando a través de una sesión ssh, puede que
+ no sea muy buena idea.
+ .
+ Puede arreglarlo añadiendo "--pidfile /var/run/sshd.pid" a la línea
+ 'start-stop-daemon', en la sección 'stop' del fichero.
+Description-fr: Voulez-vous continuer (et risquer de rompre les sessions ssh actives) ?
+ Il est probable que la version de /etc/init.d/ssh installée en ce moment
+ tue toutes les instances de sshd en cours. En cas de mise à jour par ssh,
+ ça serait une mauvaise idée.
+ .
+ Vous pouvez corriger cela en ajoutant dans /etc/init.d/ssh « --pidfile
+ /var/run/sshd.pid » à la ligne « start-stop-daemon » dans la section
+ « stop » du fichier.
+Description-ja: Â³¤±¤Æ¤¤¤¤¤Ç¤¹¤« (ÀÜÂ³Ãæ¤Î ssh ¥»¥Ã¥·¥ç¥ó¤¬ÀÚ¤ì¤ë¤«¤â¤·¤ì¤Ş¤»¤ó)
+ ¤¤¤Ş¥¤¥ó¥¹¥È¡¼¥ë¤·¤¿ /etc/init.d/ssh ¤Ï¡¢¤ª¤½¤é¤¯¼Â¹ÔÃæ¤Î sshd ¤òÁ´¤Æ
+ Ää»ß¤µ¤»¤Ş¤¹¡£¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò ssh ¥»¥Ã¥·¥ç¥ó¤òÍÑ¤¤¤Æ¹Ô¤¦¤Î¤Ï´Ö
+ °ã¤Ã¤¿¤ä¤ê¤«¤¿¤Ç¤¹¡£
+ .
+ ¤³¤Î¾õ¶·¤ò½¤Àµ¤¹¤ë¤Ë¤Ï¡¢/etc/init.d/ssh ¤Î stop ¥»¥¯¥·¥ç¥ó¤Î
+ start-stop-daemon ¤Î¹Ô¤Ë¡Ö--pidfile /var/run/sshd.pid¡×¤ÈÄÉ²Ã¤·¤Ş¤¹¡£
+Description-pl: Czy chcesz kontynuowaæ (i ryzykowaæ zabicie aktywnych sesji ssh) ?
+ Zainstalowana w³a¶nie wersja /etc/init.d/ssh mo¿e zabiæ wszystkie
+ dzia³aj±ce obecnie kopie sshd. Je¶li robisz ten upgrade via ssh, to by³aby
+ Z³a Rzecz(tm).
+ .
+ Mo¿esz to naprawiæ dodaj±c "--pidfile /var/run/sshd.pid" do linijki
+ start-stop-daemon w sekcji stop tego pliku.
+Description-pt_BR: Deseja continuar (e arriscar acabar com sessões ssh ativas) ?
+ A versão de /etc/init.d/ssh que você possui instalada está prestes a matar
+ todas as instâncias sshd sendo executadas. Se você está fazendo esta
+ atualização através de uma sessão ssh, isto seria uma Coisa Ruim(tm).
+ .
+ Você pode corrigir isto adicionando "--pidfile /var/run/sshd.pid" na linha
+ start-stop-daemon na seção stop deste arquivo.
+Description-ru: ÷Ù ÈÏÔÉÔÅ ĞÒÏÄÏÌÖÉÔØ (ÒÉÓËÕÑ ĞÏÔÅÒÑÔØ ÁËÔÉ×ÎÙÅ ssh-ÓÏÅÄÉÎÅÎÉÑ)?
+ ÷ÅÒÓÉÑ  /etc/init.d/ssh,  ËÏÔÏÒÕÀ  ×Ù  ÕÓÔÁÎÁ×ÌÉ×ÁÅÔÅ, ÍÏÖÅÔ ÕÂÉÔØ ×ÓÅ
+ ÚÁĞÕİÅÎÎÙÅ  ĞÒÏÃÅÓÓÙ  ssh.  åÓÌÉ ×Ù ÏÓÕİÅÓÔ×ÌÑÅÔÅ ÜÔÏ ÏÂÎÏ×ÌÅÎÉÅ ŞÅÒÅÚ ssh
+ ÓÅÓÓÉÀ, ÔÏ ÜÔÏ ğÌÏÈÁÑ ÷ÅİØ (tm).
+ .
+ üÔÏ ÍÏÖÎÏ ÉÓĞÒÁ×ÉÔØ ÄÏÂÁ×ÌÅÎÉÅÍ "--pidfile /var/run/sshd.pid" × ÓÔÒÏËÅ
+ start-stop-daemon × ÒÁÚÄÅÌÅ stop ÜÔÏÇÏ ÆÁÊÌÁ.
 
 Template: ssh/forward_warning
 Type: note
@@ -96,16 +540,106 @@ Description: NOTE: Forwarding of X11 and Authorization disabled by default.
  For security reasons, the Debian version of ssh has ForwardX11 and
  ForwardAgent set to ``off'' by default.
  .
- You can enable it for servers you trust, either
- in one of the configuration files, or with the -X command line option.
+ You can enable it for servers you trust, either in one of the
+ configuration files, or with the -X command line option.
  .
  More details can be found in /usr/share/doc/ssh/README.Debian
+Description-de: HINWEIS: Forwarden von X11 und Authorisierung ist abgeschaltet.
+ Aus Sicherheitsgründen sind die Debian Pakete von ssh ForwardX11 und
+ ForwardAgent auf "off" gesetzt.
+ .
+ Sie können dies für Server, denen Sie trauen, entweder per Eintrag in die
+ Konfigurations Dateien oder per Kommando-Zeilen Option -X ändern.
+ .
+ Weitere Details koennen Sie in /usr/share/doc/ssh/README.Debian finden.
+Description-es: NOTA: Reenvío de X11 y Autorización desactivadas por defecto.
+ Por razones de seguridad, la versión de ssh de Debian tiene por defecto
+ ForwardX11 y ForwardAgent desactivadas.
+ .
+ Puede activar estas opciones para los servidores en los que confíe, en los
+ ficheros de configuración o con la opción -X en línea de comandos.
+ .
+ Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian.
+Description-fr: NOTE : suivi de session X11 et d'agent d'autorisation désactivés par défaut.
+ Pour des raisons de sécurité, la version Debian de ssh positionne les
+ options ForwardX11 et ForwardAgent à « Off » par défaut.
+ .
+ Vous pouvez activer ces options pour les serveurs en qui vous avez
+ confiance, soit dans un des fichiers de configuration, soit avec l'option
+ -X de la ligne de commande.
+ .
+ Plus d'informations sont disponibles dans
+ /usr/share/doc/ssh/README.Debian.
+Description-ja: Ãí°Õ: X11 ¤ÈÇ§¾Ú¤Î¥Õ¥©¥ï¡¼¥Ç¥£¥ó¥°¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¶Ø»ß¤µ¤ì¤Ş¤¹
+ ¥»¥­¥å¥ê¥Æ¥£¾å¤ÎÍıÍ³¤«¤é¡¢Debian ¤Î ssh ¤Ç¤Ï ForwardX11 ¤È ForwardAgent
+ ¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡Öoff¡×¤ËÀßÄê¤µ¤ì¤Ş¤¹¡£
+ .
+ ÀßÄê¥Õ¥¡¥¤¥ë¤ò»È¤Ã¤¿¤ê¡¢-X ¥³¥Ş¥ó¥É¥é¥¤¥ó¥ª¥×¥·¥ç¥ó¤ò»È¤Ã¤¿¤ê¤¹¤ë
+ ¤³¤È¤Ç¡¢¿®ÍÑ¤Ç¤­¤ë¥µ¡¼¥Ğ¤ËÂĞ¤·¤Æµö²Ä¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ ¾ÜºÙ¤Ï /usr/share/doc/ssh/README.Debian ¤òÆÉ¤ó¤Ç²¼¤µ¤¤¡£
+Description-pl: UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone.
+ Ze wzglêdów bezpieczeñstwa Debianowa wersja ssh ma ForwardX11 i
+ ForwardAgent ustawione  domy¶lnie na 'off'.
+ .
+ Dla zaufanych serwerów mo¿esz w³±czyæ te opcje w pliku konfiguracyjnym lub
+ przy pomocy opcji -X z linii komend.
+ .
+ Wiêcej szczegó³ów znajdziesz w /usr/share/doc/ssh/README.Debian.
+Description-pt_BR: NOTA: Encaminhamento de X11 e Autorização desabilitados por padrão.
+ Por razôes de segurança, a versão Debian do ssh tem as opções ForwardX11 e
+ ForwardAgent definidas como ``off'' por padrão.
+ .
+ Você pode habilitar isso para servidores que você confia, ou em um dos
+ arquivos de configuração, ou com a opção de linha de comando -X.
+ .
+ Maiores detalhes podem ser encontrados em
+ /usr/share/doc/ssh/README.Debian.
+Description-ru: ğòéíåşáîéå: æÏÒ×ÁÒÄÉÎÇ X11 É Authorization ÚÁĞÒÅİÅÎ ĞÏ ÕÍÏÌŞÁÎÉÀ.
+ ğÏ ĞÒÉŞÉÎÁÍ ÂÅÚÏĞÁÓÎÏÓÔÉ, × ×ÅÒÓÉÉ ÄÌÑ Debian ssh ÉÍÅÅÔ ForwardX11 É
+ ForwardAgent ÕÓÔÁÎÏ×ÌÅÎÎÙÍÉ × ``off'' ĞÏ ÕÍÏÌŞÁÎÉÀ.
+ .
+ ÷Ù ÍÏÖÅÔÅ ÒÁÚÒÅÛÉÔØ ÉÈ ÄÌÑ ÓÅÒ×ÅÒÏ×, ËÏÔÏÒÙÍ ÄÏ×ÅÒÑÅÔÅ ÌÉÂÏ × ÏÄÎÏÍ ÉÚ
+ ÎÁÓÔÒÏÅŞÎÙÈ ÆÁÊÌÏ×, ÉÌÉ ĞÁÒÁÍÅÔÒÏÍ ËÏÍÁÎÄÎÏÊ ÓÔÒÏËÉ -X.
+ .
+ äÏĞÏÌÎÉÔÅÌØÕÀ ÉÎÆÏÒÍÁÃÉÀ ÍÏÖÎÏ ÎÁÊÔÉ × /usr/share/doc/ssh/README.Debian
 
 Template: ssh/insecure_rshd
 Type: note
 Description: Warning: rsh-server is installed --- probably not a good idea
  having rsh-server installed undermines the security that you were probably
- wanting to obtain by installing ssh.  I'd advise you to remove that package.
+ wanting to obtain by installing ssh.  I'd advise you to remove that
+ package.
+Description-da: Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé
+ Den sikkerhed, du nok ønskede at opnå ved at installere ssh undermineres
+ ved, at du har rsh-server installeret. Jeg vil råde dig til at fjerne
+ pakken rsh-server.
+Description-de: Warnung: rsh-server ist installiert --- möglicherweise
+ ist es eine schlechte Idee, den rsh-server installiert zu haben, da er die
+ Sicherheit untergräbt. Wir empfehlen, das Paket zu entfernen.
+Description-es: Aviso: tiene rsh-server instalado
+ Tener rsh-server instalado representa un menoscabo de la seguridad que
+ probablemente desea obtener instalando ssh. Es muy aconsejable que borre
+ ese paquete.
+Description-fr: Attention : rsh-server est installé -- ce n'est probablement pas une bonne idée
+ Avoir un serveur rsh installé affaiblit la sécurité que vous vouliez
+ probablement obtenir en installant ssh. Je vous conseille de supprimer ce
+ paquet.
+Description-ja: ·Ù¹ğ: rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó
+ rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¤È¡¢¤¢¤Ê¤¿¤¬ ssh ¤Ë¤è¤Ã¤ÆÆÀ¤¿¤¤¤È
+ »×¤Ã¤Æ¤¤¤ë¤Ç¤¢¤í¤¦¥»¥­¥å¥ê¥Æ¥£¤¬Â»¤Ê¤ï¤ì¤Ş¤¹¡£¤½¤Î¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤
+ ¥ó¥¹¥È¡¼¥ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
+Description-pl: Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³
+ Posiadanie zainstalowanego serwera rsh podminowuje zabezpieczenia, które
+ prawdopodobnie starasz siê uzyskaæ instaluj±c ssh. Radzi³bym usun±æ ten
+ pakiet.
+Description-pt_BR: Aviso: rsh-server está instalado --- provavelmente não é uma boa idéia
+ Possuir o rsh-server instalado minará a segurança que você estava
+ provavelmente querendo obter instalando o ssh. Eu recomendaria a você
+ remover este pacote.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ rsh-server --- ×ÉÄÉÍÏ, ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
+ õÓÔÁÎÏ×ÌÅÎÎÙÊ  rsh-server  ÓÎÉÖÁÅÔ  ÂÅÚÏĞÁÓÎÏÓÔØ,  ËÏÔÏÒÕÀ ×Ù ×ÅÒÏÑÔÎÏ
+ ÈÏÔÉÔÅ ĞÏ×ÙÓÉÔØ ÕÓÔÁÎÁ×ÌÉ×ÁÑ ssh. òÅËÏÍÅÎÄÕÅÔÓÑ ÕÄÁÌÉÔØ ÜÔÏÔ ĞÁËÅÔ.
 
 Template: ssh/insecure_telnetd
 Type: note
@@ -114,28 +648,166 @@ Description: Warning: telnetd is installed --- probably not a good idea
  need to offer telnet access) or install telnetd-ssl so that there is at
  least some chance that telnet sessions will not be sending unencrypted
  login/password and session information over the network.
+Description-da: Advarsel: telnetd er installeret --- sikkert ikke en god idé
+ Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i
+ virkeligheden ikke har brug for at tilbyde telnet-adgang) eller installere
+ telnetd-ssl, så der i det mindste er en mulighed for, at telnet-sessioner
+ ikke sender adgangskoder og sessions-oplysninger ukrypteret over
+ netværket.
+Description-de: Warnung: telnetd ist installiert --- schlechte Idee
+ Wir empfehlen das telnetd Paket zu entfernen (falls Sie keinen telnet
+ Zugang anbieten) oder telnetd-ssl zu installieren, so daß Sie verhindern
+ können, daß Login und Password unverschlüsselt durch das Netz gesendet
+ werden.
+Description-es: Aviso: tiene telnetd instalado
+ Es muy aconsejable que borre el paquete telnetd si no necesita realmente
+ ofrecer acceso mediante telnet o instalar telnetd-ssl para que las
+ contraseñas, nombres de usuario y demás información de las sesiones telnet
+ no viajen sin cifrar por la red.
+Description-fr: Attention : telnetd est installé -- ce n'est probablement pas une bonne idée
+ Je vous conseille soit d'enlever le paquet telnetd (si ce service n'est
+ pas nécessaire), soit de le remplacer par le paquet telnetd-ssl pour qu'il
+ y ait au moins une chance que les sessions telnet soient chiffrées et que
+ les mots de passe et noms d'utilisateurs ne passent pas en clair sur le
+ réseau.
+Description-ja: ·Ù¹ğ: telnetd ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó
+ (¤â¤· telnet ¥¢¥¯¥»¥¹¤òÄó¶¡¤·¤¿¤¤¤È»×¤Ã¤Æ¤¤¤Ê¤¤¤Î¤Ç¤·¤¿¤é) telnetd
+ ¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤Ş¤¿¤Ï¡¢telnetd-ssh ¥Ñ¥Ã¥±¡¼¥¸¤ò
+ ¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¾¯¤Ê¤¯¤È¤â¥Í¥Ã¥È¥ï¡¼¥¯¾å¤ò°Å¹æ²½¤µ¤ì¤Æ¤¤¤Ê¤¤¥æ¡¼¥¶Ì¾
+ ¤ä¥Ñ¥¹¥ï¡¼¥É¤ä¥»¥Ã¥·¥ç¥ó¾ğÊó¤¬Î®¤ì¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
+Description-pl: Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³
+ Radzi³bym albo usun±æ pakiet telnetd (je¶li nie potrzebujesz koniecznie
+ udostêpniaæ telnet'a) albo zainstalowaæ telnetd-ssl aby by³a choæ szansza,
+ ¿e sesje telnet nie bêd± przesy³aæ niezaszyfrowanego loginu/has³a oraz
+ danych sesji przez sieæ.
+Description-pt_BR: Aviso: telnetd está instalado --- provavelmente não é uma boa idéia
+ Eu recomendaria a você ou remover o pacote telnetd (se você atualmente não
+ precisa oferecer acesso telnet) ou instalar telnetd-ssl. Assim existe pelo
+ menos uma chance das sessões telnet não enviarem login/senha não
+ encriptados e informações de sessão através da rede.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ telnetd --- ×ÉÄÉÍÏ, ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
+ ñ ÒÅËÏÍÅÎÄÏ×ÁÌ ÂÙ ×ÁÍ ÕÄÁÌÉÔØ ĞÁËÅÔ telnetd (ÅÓÌÉ ×ÁÍ ÄÅÊÓÔ×ÉÔÅÌØÎÏ ÎÅ
+ ÎÕÖÅÎ ÄÏÓÔÕĞ telnet) ÉÌÉ ÕÓÔÁÎÏ×ÉÔØ  telnet-ssl,  ŞÔÏÂÙ  ÉÍÅÔØ ÈÏÔÑ ÂÙ
+ ×ÏÚÍÏÖÎÏÓÔØ  ÎÅ  ĞÅÒÅÄÁ×ÁÔØ  ĞÏ  ÓÅÔÉ  ÎÅÚÁÛÉÆÒÏ×ÁÎÎÙÅ  ÉÍÅÎÁ É ĞÁÒÏÌÉ
+ ĞÏÌØÚÏ×ÁÔÅÌÅÊ É ĞÒÏŞÕÀ ÉÎÆÏÒÍÁÃÉÀ × telnet-ÓÅÓÓÉÑÈ.
 
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
 Description: Warning: you must create a new host key
- There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted.
- OpenSSH can not handle this host key file, and I can't find the
- ssh-keygen utility from the old (non-free) SSH installation.
+ There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH
+ can not handle this host key file, and I can't find the ssh-keygen utility
+ from the old (non-free) SSH installation.
  .
  You will need to generate a new host key.
+Description-es: Aviso: debe crear una nueva clave para su servidor
+ Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA.
+ OpenSSH no puede manejar este fichero de claves y tampoco se encuentra la
+ utilidad ssh-keygen incluida en el paquete ssh no libre.
+ .
+ Necesitará generar una nueva clave para su servidor.
+Description-fr: Attention : vous devez créer une nouvelle clé d'hôte
+ Il existe un vieux /etc/ssh/ssh_host_key qui est chiffré avec IDEA.
+ OpenSSH ne peut utiliser ce fichier de clé, et je ne peux trouver
+ l'utilitaire ssh-keygen de l'installation précédente (non libre) de SSH.
+ .
+ Vous aurez besoin de générer une nouvelle clé d'hôte.
+Description-ja: ·Ù¹ğ: ¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤é¤Ê¤¤¤È¤¤¤±¤Ş¤»¤ó
+ IDEA ¤Ç°Å¹æ²½¤µ¤ì¤¿¸Å¤¤¥­¡¼¤¬ /etc/ssh/ssh_host_key ¤Ë¤¢¤ê¤Ş¤¹¡£ OpenSSH
+ ¤Ï¤³¤Î¥Û¥¹¥È¥­¡¼¥Õ¥¡¥¤¥ë¤ò°·¤¨¤Ş¤»¤ó¡£¤Ş¤¿¡¢º£¥¤¥ó¥¹¥È¡¼¥ë ¤µ¤ì¤Æ¤¤¤ë¸Å¤¤
+ (¥Õ¥ê¡¼¤Ç¤Ï¤Ê¤¤) SSH ¤Ë¤Ï ssh-keygen ¥æ¡¼¥Æ¥£¥ê¥Æ¥£ ¤¬´Ş¤Ş¤ì¤Æ¤¤¤Ş¤»¤ó¡£
+ .
+ ¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤ëÉ¬Í×¤¬¤¢¤ê¤Ş¤¹¡£
+Description-pl: Uwaga: musisz utworzyæ nowy klucz hosta
+ Istnieje stary /etc/ssh/ssh_host_key, który jest zaszyfrowany przez IDEA.
+ OpenSSH nie umie korzystaæ z tak zaszyfrowanego klucza, a nie mo¿e znale¼æ
+ polecenia ssh-keygen ze starego SSH (non-free).
+ .
+ Bêdziesz musia³ wygenerowaæ nowy klucz hosta.
+Description-pt_BR: Aviso: você deve criar uma nova host key
+ Existe uma antiga /etc/ssh/ssh_host_key, a qual é encriptada usando IDEA.
+ O OpenSSH não pode gerenciar este arquivo host key e eu não consigo
+ encontrar o utilitário ssh-keygen da antiga (non-free) instalação SSH.
+ .
+ Você precisará gerar uma nova host key.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ×Ù ÄÏÌÖÎÙ ÓÏÚÄÁÔØ ÎÏ×ÙÊ ËÌÀŞ ÍÁÛÉÎÙ.
+ åÓÔØ ÓÔÁÒÙÊ /etc/ssh/ssh_host_key, ËÏÔÏÒÙÊ ÚÁÛÉÆÒÏ×ÁÎ IDEA. OpenSSH ÎÅ
+ ÍÏÖÅÔ  ÒÁÂÏÔÁÔØ  Ó  ÜÔÉÍ  ËÌÀŞÏÍ  ÍÁÛÉÎÙ,  É  Ñ  ÎÅ ÍÏÇÕ ÎÁÊÔÉ ÕÔÉÌÉÔÕ
+ ssh-keygen ÏÔ ÓÔÁÒÏÊ (ÎÅÓ×ÏÂÏÄÎÏÊ) ÉÎÓÔÁÌÌÑÃÉÉ SSH.
+ .
+ ÷ÁÍ ÎÁÄÏ ÂÕÄÅÔ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÎÏ×ÙÊ ËÌÀŞ ÈÏÓÔÁ.
 
 Template: ssh/SUID_client
 Type: boolean
 Default: true
 Description: Do you want /usr/lib/ssh-keysign to be installed SUID root?
- You have the option of installing the ssh-keysign helper with the SUID
- bit set.
+ You have the option of installing the ssh-keysign helper with the SUID bit
+ set.
  .
  If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2
  host-based authentication.
  .
- If in doubt, I suggest you install it with SUID.  If it causes
- problems you can change your mind later by running:   dpkg-reconfigure ssh 
+ If in doubt, I suggest you install it with SUID.  If it causes problems
+ you can change your mind later by running:   dpkg-reconfigure ssh
+Description-da: Vil du have, at /usr/bin/ssh-keysign bliver installeret 'SUID root'?
+ Du har mulighed for at installere ssh-keysign hjælperen med SUID-flaget
+ sat.
+ .
+ Hvis du gør ssh-keysign SUID, vil du blive i stand til at benytte SSH
+ protokol 2's værtsnavn-baserede autentifikation.
+ .
+ Hvis du er i tvivl, vil jeg råde dig til at installere den med SUID. Hvis
+ det skaber problemer, kan du ændre det tilbage igen ved at køre:
+ dpkg-reconfigure ssh
+Description-es: ¿Quiere instalar /usr/lib/ssh-keysign SUID root?
+ Puede instalar ssh-keysign con el bit SUID (se ejecutará con privilegios
+ de root).
+ .
+ Si hace ssh-keysign SUID, podrá usar la autentificiación basada en
+ servidor de la versión 2 del protocolo SSH.
+ .
+ Si duda, se recomienda que lo instale SUID. Si surgen problemas puede
+ cambiar de opinión posteriormente ejecutando «dpkg-reconfigure ssh».
+Description-fr: Voulez-vous que /usr/lib/ssh-keysign soit installé avec le bit SETUID activé ?
+ Vous avez la possibilité d'installer ssh-keysign avec le bit SETUID
+ activé.
+ .
+ Si vous mettez ssh-keysign avec le bit SETUID, vous permettrez
+ l'authentification basée sur les hôtes, disponible dans la version 2 du
+ protocole SSH.
+ .
+ Dans le doute, je vous suggère de l'installer avec le bit SETUID activé.
+ Si cela vous cause des problèmes, vous pourrez revenir sur votre décision
+ avec « dpkg-reconfigure ssh ».
+Description-ja: /usr/bin/ssh-keysign ¤ò SUID root ¤Ç¥¤¥ó¥¹¥È¡¼¥ë¤·¤Ş¤¹¤«?
+ ssh-keysign ¥Ø¥ë¥Ñ¡¼¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ëºİ¡¢SUID ¥Ó¥Ã¥È¤òÀßÄê¤¹¤ë¤«
+ ¤·¤Ê¤¤¤«¤òÁª¤Ö¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ ssh-keysign ¤ò SUID ¤ËÀßÄê¤·¤¿¾ì¹ç¡¢SSH ¥×¥í¥È¥³¥ë 2 ¤Î¥Û¥¹¥È¤Ë
+ ´ğ¤Å¤¯Ç§¾Ú¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ ¤è¤¯Ê¬¤«¤é¤Ê¤¤¾ì¹ç¤Ï¡¢SUID ¤òÍ­¸ú¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£¤â¤·
+ ÌäÂê¤¬µ¯¤³¤ì¤Ğ¡¢dpkg-reconfigure ssh ¤ò¼Â¹Ô¤¹¤ë¤³¤È¤ÇÀßÄê¤òÊÑ¹¹
+ ¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+Description-pl: Czy chcesz aby /usr/lib/ssh-keysign by³ zainstalowany jako SUID root?
+ Masz mo¿liwo¶æ zainstalowania pomocniczego programu ssh-keysign z
+ w³±czonym bitem SETUID.
+ .
+ Je¶li uczynisz ssh-keysign SUIDowym, bêdziesz móg³ u¿ywaæ opartej na
+ hostach autentykacji drugiej wersji protoko³u SSH.
+ .
+ Je¶li masz w±tpliwo¶ci, radzê zainstalowaæ go z SUIDem. Je¶li to sprawia
+ problemy, mo¿esz zmieniæ swoje zdanie uruchamiaj±c pó¼niej polecenie:
+ dpkg-reconfigure ssh
+Description-pt_BR: Deseja que que /usr/lib/ssh-keysign seja instalado SUID root ?
+ Existe a opção de instalar o cliente auxiliar ssh-keysign com o bit SUID
+ definido.
+ .
+ Caso você instale o ssh-keysign com o bit SUID ativado, você será capaz de
+ usar a autenticação baseada em host do protocolo SSH 2.
+ .
+ Caso esteja em dúvida, é sugerido que você instale com o bit SUID ativado.
+ Caso isso cause problemas e você mude de idéia posteriormente execute o
+ comando : dpkg-reconfigure ssh
 
 Template: ssh/run_sshd
 Type: boolean
@@ -143,12 +815,84 @@ Default: true
 Description: Do you want to run the sshd server ?
  This package contains both the ssh client, and the sshd server.
  .
- Normally the sshd Secure Shell Server will be run to allow remote
- logins via ssh.
+ Normally the sshd Secure Shell Server will be run to allow remote logins
+ via ssh.
  .
  If you are only interested in using the ssh client for outbound
- connections on this machine, and don't want to log into it at all
- using ssh, then you can disable sshd here.
+ connections on this machine, and don't want to log into it at all using
+ ssh, then you can disable sshd here.
+Description-da: Vil du køre sshd-serveren?
+ Denne pakke indeholder både ssh-klienten og sshd-serveren.
+ .
+ Normalt vil sshd sikker skalserver ('Secure Shell Server') blive aktiveret
+ og tillade fjerne brugere i at logge på via ssh.
+ .
+ Hvis du udelukkende er interesseret i at bruge ssh-klienten til udgående
+ forbindelser fra denne maskine, og ikke ønsker at tilgå denne maskine
+ udefra via ssh, kan du nu deaktivere sshd.
+Description-de: Möchten Sie den sshd Server starten?
+ Das Paket enthält sowohl den Client als auch den sshd Server.
+ .
+ Normal wird der sshd Secure Shell Server für Remote Logins per ssh
+ gestartet.
+ .
+ Wenn Sie nur den ssh client nutzen wollen, um sich mit anderen Rechnern zu
+ verbinden und sich nicht per ssh in diesen Computer einloggen wollen, dann
+ können Sie hier den sshd abschalten.
+Description-es: ¿Quiere ejecutar el servidor sshd?
+ Este paquete contiene el cliente ssh y el servidor sshd.
+ .
+ Generalmente, el servidor de ssh (Secure Shell Server) se ejecuta para
+ permitir el acceso remoto mediante ssh.
+ .
+ Si sólo está interesado en usar el cliente ssh en conexiones salientes del
+ sistema y no quiere acceder a él mediante ssh, entonces puede desactivar
+ sshd.
+Description-fr: Voulez-vous utiliser le serveur sshd ?
+ Ce paquet contient à la fois le client ssh et le serveur sshd.
+ .
+ Normalement le serveur sshd est lancé pour permettre les connexions
+ distantes via ssh.
+ .
+ Si vous désirez seulement utiliser le client ssh pour des connexions vers
+ l'extérieur, ou si vous ne voulez pas vous connecter sur cette machine via
+ ssh, vous pouvez désactiver sshd maintenant.
+Description-ja: sshd ¥µ¡¼¥Ğ¤ò¼Â¹Ô¤·¤Ş¤¹¤«?
+ ¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Ï¡¢ssh ¥¯¥é¥¤¥¢¥ó¥È¤È sshd ¥µ¡¼¥Ğ¤ÎÎ¾Êı¤ò´Ş¤ó¤Ç¤¤¤Ş¤¹¡£
+ .
+ ÄÌ¾ï¡¢sshd ¥»¥­¥å¥¢¥·¥§¥ë¥µ¡¼¥Ğ¤Ï¡¢ssh ¤òÍÑ¤¤¤¿¥ê¥â¡¼¥È¤«¤é¤Î¥í¥°¥¤¥ó
+ ¤ò²ÄÇ½¤Ë¤¹¤ë¤¿¤á¤Ë¼Â¹Ô¤·¤Ş¤¹¡£
+ .
+ ¤â¤· ssh ¥¯¥é¥¤¥¢¥ó¥È¤ò»È¤Ã¤Æ¤³¤Î¥Ş¥·¥ó¤«¤éÂ¾¥Ş¥·¥ó¤Ø¤ÈÀÜÂ³¤¹¤ë¤À¤±¤Ç
+ ¤Ç¡¢¤³¤Î¥Ş¥·¥ó¤Ø¤È ssh ¤ò»È¤Ã¤Æ¥í¥°¥¤¥ó¤·¤Ê¤¤¤Î¤Ç¤·¤¿¤é¡¢¤³¤³¤Ç sshd
+ ¤ò¼Â¹Ô¤·¤Ê¤¤¤Ç¤ª¤­¤Ş¤¹¡£
+Description-pl: Czy chcesz uruchamiaæ serwer sshd ?
+ Ten pakiet zawiera zarówno klienta ssh, jak i serwer sshd.
+ .
+ Normalnie serwer sshd (Secure Shell Server) bêdzie uruchomiony aby
+ umo¿liwiæ zdalny dostêp przez ssh.
+ .
+ Je¶li jeste¶ zainteresowny u¿ywaniem wy³±cznie klienta ssh dla po³±czeñ
+ wychodz±cych z tej maszyny, i nie chcesz siê na ni± logowaæ przy pomocy
+ ssh, to mo¿esz teraz wy³±czyæ serwer sshd.
+Description-pt_BR: Você quer executar o servidor sshd ?
+ Este pacote contém ambos o cliente ssh e o servidor sshd.
+ .
+ Normalmente o sshd Secure Shell Server será executado para permitir logins
+ remotos via ssh.
+ .
+ Se você está interessado somente em usar o cliente ssh para conexões para
+ fora desta máquina, e não quer logar na mesma usando ssh, então você pode
+ desabilitar o sshd aqui.
+Description-ru: èÏÔÉÔÅ ÚÁĞÕÓÔÉÔØ ÓÅÒ×ÅÒ sshd?
+ üÔÏÔ ĞÁËÅÔ ÓÏÄÅÒÖÉÔ É ssh-ËÌÉÅÎÔ, É ssh-ÓÅÒ×ÅÒ.
+ .
+ ïÂÙŞÎÏ  sshd  Secure Shell Server  ÚÁĞÕÓËÁÅÔÓÑ  ÄÌÑ ÕÄÁÌÅÎÎÏÇÏ ×ÈÏÄÁ ×
+ ÒÅÇÉÓÔÒÁÃÉÉ × ÓÉÓÔÅÍÅ ŞÅÒÅÚ ssh.
+ .
+ åÓÌÉ  ×ÁÓ  ÉÎÔÅÒÅÓÕÅÔ  ÔÏÌØËÏ  ÉÓĞÏÌØÚÏ×ÁÎÉÅ ssh-ËÌÉÅÎÔÁ ÄÌÑ ÉÓÈÏÄÑİÉÈ
+ ÓÏÅÄÉÎÅÎÉÊ Ó  ÜÔÏÊ  ÍÁÛÉÎÙ, É ×Ù  ÎÅ ÈÏÔÉÔÅ ×ÈÏÄÉÔØ × ÅÅ ÓÉÓÔÅÍÕ ŞÅÒÅÚ
+ ssh, ÔÏ ×Ù ÍÏÖÅÔÅ ÓÅÊŞÁÓ ÚÁĞÒÅÔÉÔØ sshd.
 
 Template: ssh/user_environment_tell
 Type: note
@@ -161,3 +905,23 @@ Description: Environment options on keys have been deprecated
  To re-enable this option, set "PermitUserEnvironment yes" in
  /etc/ssh/sshd_config after the upgrade is complete, taking note of the
  warning in the sshd_config(5) manual page.
+Description-ja: ¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ÏÌµ¸ú¤ËÀßÄê¤µ¤ì¤Ş¤·¤¿
+ ËÜ¥Ğ¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¸ø³«¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ò¥Ç¥Õ¥©¥ë¥È¤Ç
+ Ìµ¸ú¤ËÀßÄê¤·¤Æ¤¤¤Ş¤¹¡£LD_PRELOAD ¤Ê¤É¤Î¹¶·â¤òÈò¤±¤ë¤¿¤á¤Ç¤¹¡£ ¤â¤·
+ authorized_keys ¥Õ¥¡¥¤¥ë¤Ç¤³¤Î¥ª¥×¥·¥ç¥ó¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¡¢
+ ¤³¤Î¥ª¥×¥·¥ç¥ó¤ò½üµî¤·¤Ê¤¤¸Â¤ê¤Ï¤½¤Î¸°¤ÏÍøÍÑ¤Ç¤­¤Ê¤¤¤³¤È¤ËÃí°Õ
+ ¤·¤Æ¤¯¤À¤µ¤¤¡£
+ .
+ ¤³¤Î¥ª¥×¥·¥ç¥ó¤òºÆ¤ÓÍ­¸ú¤Ë¤¹¤ë¤Ë¤Ï¡¢¥¢¥Ã¥×¥°¥ì¡¼¥É½ªÎ»¸å¤Ë¡¢
+ sshd_config(5) ¥Ş¥Ë¥å¥¢¥ë¥Ú¡¼¥¸¤Î·Ù¹ğ»ö¹à¤òÆÉ¤ó¤Ç¡¢ /etc/ssh/sshd_config
+ ¥Õ¥¡¥¤¥ë¤Ë¡ÖPermitUserEnvironment yes¡×¤È ÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£
+Description-pt_BR: Opções ed ambiente sobre chaves estão obsoletas
+ Esta versão do OpenSSH desabilita a opção de ambiente para chaves públicas
+ por padrão par evitar certos ataques (por exemplo, LD_PRELOAD). Caso você
+ esteja usando esta opção em um arquivo authorized_keys, tenha cuidado pois
+ as chaves em questão não irão mais funcionar até que esta opção seja
+ removida.
+ .
+ Para reabilitar esta opção, defina a opção "PermitUserEnvironment yes" no
+ arquivo /et/ssh/sshd_config depois da a atualização terminar, atentando
+ para o aviso na página de manual do sshd_config(5).

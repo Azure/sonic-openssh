@@ -19,7 +19,7 @@ fi
 
 if [ -e /etc/init.d/ssh ] && ! grep -q pidfile /etc/init.d/ssh
 then
-  db_fset ssh/use_old_init_script isdefault true
+  db_fset ssh/use_old_init_script seen false
   db_input medium ssh/use_old_init_script || true
   db_go
 
@@ -27,7 +27,7 @@ then
   [ "$RET" = "false" ] && exit 0
 else
   db_set ssh/use_old_init_script true
-  db_fset ssh/use_old_init_script isdefault false
+  db_fset ssh/use_old_init_script seen true
 fi
 
 if [ -z "$version" -a ! -e /etc/ssh/sshd_config ]

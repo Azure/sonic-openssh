@@ -1,3 +1,22 @@
+openssh (1:3.6.1p2-2) unstable; urgency=low
+
+  * Force /etc/default/ssh to be non-executable, since dpkg apparently
+    doesn't deal with permissions changes on conffiles (closes: #192966).
+  * Use debconf 0.5's seen flag rather than the deprecated isdefault.
+  * Add GPL location to copyright file.
+  * Remove debian/postinst.old.
+  * Switch to po-debconf, with some careful manual use of po2debconf to
+    ensure that the source package continues to build smoothly on woody
+    (closes: #183986).
+  * Update debconf template translations:
+    - Brazilian Portugese (thanks, Andre Luis Lopes; see #183986).
+    - Japanese (thanks, Tomohiro KUBOTA; closes: #192429).
+  * Compile with -fno-builtin-log for now, otherwise gcc-3.3 complains
+    "log.h:59: warning: conflicting types for built-in function `log'". The
+    OpenSSH log() function has been renamed in upstream CVS.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 19 May 2003 01:52:38 +0100
+
 openssh (1:3.6.1p2-1) unstable; urgency=medium
 
   * New upstream release, including fix for PAM user-discovery security hole

@@ -10,7 +10,8 @@ worldwide mirrors are listed here:
 The Debian specific parts of the package are mostly taken from the
 original ssh package, which has since been renamed as ssh-nonfree.
 
-The Debian patch is distributed under the terms of the GPL.
+The Debian patch is distributed under the terms of the GPL, which you
+can find in /usr/share/common-licenses/GPL.
 
 The upstream source for this package is a combination of the ssh
 branch that is being maintained by the OpenBSD team (starting from

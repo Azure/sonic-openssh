@@ -17,6 +17,14 @@ endif
 
 #PKG_VER = $(shell perl -e 'print <> =~ /\((.*)\)/' debian/changelog)
 
+ifeq (,$(wildcard /usr/bin/po2debconf))
+PO2DEBCONF := no
+MINDEBCONFVER := 0.5
+else
+PO2DEBCONF := yes
+MINDEBCONFVER := 1.2.0
+endif
+
 build: build-stamp
 build-stamp:
 	dh_testdir
@@ -27,7 +35,7 @@ build-stamp:
 	fi
 	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 \
 		--with-privsep-path=/var/run/sshd  --without-rand-helper
-	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DHAVE_MMAP_ANON_SHARED' \
+	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -fno-builtin-log -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DHAVE_MMAP_ANON_SHARED' \
 		SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
@@ -46,6 +54,17 @@ clean:
 	rm -f config.log
 	if [ -f version.h.upstream ]; then mv version.h.upstream version.h; \
 	fi
+ifeq ($(PO2DEBCONF),yes)
+	# Hack for woody compatibility. This makes sure that the
+	# debian/templates file shipped in the source package doesn't
+	# specify encodings, which woody's debconf can't handle. If building
+	# on a system with po-debconf installed (conveniently debhelper (>=
+	# 4.1.16) depends on it), the binary-arch target will generate a
+	# better version for sarge.
+	echo 1 > debian/po/output
+	po2debconf debian/templates.master > debian/templates
+	rm -f debian/po/output
+endif
 	dh_clean
 
 install: DH_OPTIONS=
@@ -88,6 +107,9 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
+ifeq ($(PO2DEBCONF),yes)
+	po2debconf -e utf8 debian/templates.master > debian/templates
+endif
 	dh_installdebconf
 	dh_installdocs OVERVIEW README
 	cat debian/copyright.head LICENCE > debian/tmp/usr/share/doc/ssh/copyright
@@ -103,7 +125,7 @@ binary-arch: build install
 	test ! -e debian/tmp/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/tmp/DEBIAN/conffiles
 	dh_shlibdeps
-	dh_gencontrol
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))'
 	dh_md5sums
 	dh_builddeb
 
