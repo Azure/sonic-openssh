@@ -33,7 +33,7 @@ build-stamp:
 	dh_testdir
 	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 \
 		--with-privsep-path=/var/run/sshd  --without-rand-helper
-	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -fno-builtin-log -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DHAVE_MMAP_ANON_SHARED -DSSH_VERSION="\"$(SSH_VERSION)\""' \
+	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DSSH_VERSION="\"$(SSH_VERSION)\""' \
 		SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
