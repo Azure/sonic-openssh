@@ -26,9 +26,9 @@ _Description: Enable Privilege separation
  fail, and PAM keyboard-interactive authentication won't work.
  .
  Since you've opted to have me generate an sshd_config file for you, you
- can choose whether or not to have Privilege Separation turned on or not.
+ can choose whether or not to have privilege separation turned on or not.
  Unless you know you need to use PAM features that won't work with this
- option, you should say yes here.
+ option, you should enable it.
 
 Template: ssh/new_config
 Type: boolean
@@ -75,7 +75,7 @@ _Description: ssh2 keys merged in configuration files
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false
-_Description: Do you want to continue (and risk killing active ssh sessions) ?
+_Description: Do you want to continue (and risk killing active ssh sessions)?
  The version of /etc/init.d/ssh that you have installed, is likely to kill
  all running sshd instances.  If you are doing this upgrade via an ssh
  session, that would be a Bad Thing(tm).
@@ -134,7 +134,7 @@ _Description: Do you want /usr/lib/ssh-keysign to be installed SUID root?
 Template: ssh/run_sshd
 Type: boolean
 Default: true
-_Description: Do you want to run the sshd server ?
+_Description: Do you want to run the sshd server?
  This package contains both the ssh client, and the sshd server.
  .
  Normally the sshd Secure Shell Server will be run to allow remote logins

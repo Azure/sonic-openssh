@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-27 02:20+0100\n"
+"POT-Creation-Date: 2003-09-12 21:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,9 +62,9 @@ msgstr ""
 #: ../templates.master:19
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
-"choose whether or not to have Privilege Separation turned on or not. Unless "
+"choose whether or not to have privilege separation turned on or not. Unless "
 "you know you need to use PAM features that won't work with this option, you "
-"should say yes here."
+"should enable it."
 msgstr ""
 
 #. Description
@@ -142,7 +142,7 @@ msgstr ""
 
 #. Description
 #: ../templates.master:78
-msgid "Do you want to continue (and risk killing active ssh sessions) ?"
+msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr ""
 
 #. Description
@@ -256,7 +256,7 @@ msgstr ""
 
 #. Description
 #: ../templates.master:137
-msgid "Do you want to run the sshd server ?"
+msgid "Do you want to run the sshd server?"
 msgstr ""
 
 #. Description

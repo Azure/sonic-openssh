@@ -3,6 +3,9 @@ openssh (1:3.6.1p2-7) UNRELEASED; urgency=low
   * Update debconf template translations:
     - French (thanks, Christian Perrier; closes: #208801).
     - Japanese (thanks, Kenshi Muto; closes: #210380).
+  * Some small improvements to the English templates courtesy of Christian
+    Perrier. I've manually unfuzzied a few translations where it was
+    obvious, on Christian's advice, but the others will have to be updated.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 11 Sep 2003 11:45:35 +0100
 
