@@ -1,0 +1,157 @@
+Template: ssh/protocol2_only
+Type: boolean
+Default: true
+Description: Allow SSH protocol 2 only
+ This version of OpenSSH supports version 2 of the ssh protocol, which is
+ much more secure.  Disabling ssh 1 is encouraged, however this will slow
+ things down on low end machines and might prevent older clients from
+ connecting.
+ .
+ Also please note that keys used for protocol 1 are different so you will
+ not be able to use them if you only allow protocol 2 connections.
+Description-da: Tillad kun SSH protokol 2
+ Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er
+ betydeligt mere sikker. Det anbefales af deaktivere version 1. Dog kan det
+ sløve langsomme maskiner, og forhindre ældre klienter i at opnå forbindelse.
+
+Template: ssh/ssh2_keys_merged
+Type: note
+Description: ssh2 keys merged in configuration files
+ As of version 3 OpenSSH no longer uses seperate files for ssh1 and ssh2
+ keys. This means the authorized_keys2 and known_hosts2 files are no longer
+ needed. They will still be read in order to maintain backwards
+ compatibility
+Description-da: ssh2-nøgler flettet i opsætningsfilerne
+ Siden version 3 har OpenSSH ikke længere separate filer for ssh1- og
+ ssh2-nøgler. Det betyder, at filerne authorized_keys2 og known_hosts2 ikke
+ længere er nødvendige. De vil stadig dog stadig blive læst for
+ bagudkompatilitetens skyld.
+
+Template: ssh/use_old_init_script
+Type: boolean
+Default: false
+Description: Do you want to continue (and risk killing active ssh sessions) ?
+ The version of /etc/init.d/ssh that you have installed, is likely to kill
+ all running sshd instances.  If you are doing this upgrade via an ssh
+ session, that would be a Bad Thing(tm).
+ .
+ You can fix this by adding "--pidfile /var/run/sshd.pid" to the
+ start-stop-daemon line in the stop section of the file.
+Description-da: Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?
+ Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis afbryde
+ alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er ved at
+ opgradering via en ssh-forbindelse.
+ .
+ Du kan afhjælpe dette ved at tilføje "--pidfile /var/run/sshd.pid" til
+ 'start-stop-daemon'-linjen i stop-afsnittet af filen.
+
+
+Template: ssh/forward_warning
+Type: note
+Description: NOTE: Forwarding of X11 and Authorization disabled by default.
+ For security reasons, the Debian version of ssh has ForwardX11 and
+ ForwardAgent set to ``off'' by default.
+ .
+ You can enable it for servers you trust, either in one of the
+ configuration files, or with the -X command line option.
+ .
+ More details can be found in /usr/share/doc/ssh/README.Debian
+Description-da: BEMÆRK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret.
+ Af sikkerhedsgrunde har Debianudgaven af ssh sat ForwardX11 og ForwardAgent
+ til 'off' som standard.
+ .
+ Du kan aktivere dem for servere, du stoler på i en af opsætningsfilerne
+ eller med kommandolinjetilvalget '-X'.
+
+Template: ssh/insecure_rshd
+Type: note
+Description: Warning: rsh-server is installed --- probably not a good idea
+ having rsh-server installed undermines the security that you were probably
+ wanting to obtain by installing ssh.  I'd advise you to remove that
+ package.
+Description-da: Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé
+ Den sikkerhed, du nok ønskede at opnå ved at installere ssh undermineres
+ ved, at du har rsh-server installeret. Jeg vil råde dig til at fjerne
+ pakken rsh-server.
+
+Template: ssh/insecure_telnetd
+Type: note
+Description: Warning: telnetd is installed --- probably not a good idea
+ I'd advise you to either remove the telnetd package (if you don't actually
+ need to offer telnet access) or install telnetd-ssl so that there is at
+ least some chance that telnet sessions will not be sending unencrypted
+ login/password and session information over the network.
+Description-da: Advarsel: telnetd er installeret --- sikkert ikke en god idé
+ Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i virkeligheden
+ ikke har brug for at tilbyde telnet-adgang) eller installere telnetd-ssl, så
+ der i det mindste er en mulighed for, at telnet-sessioner ikke sender
+ adgangskoder og sessions-oplysninger ukrypteret over netværket.
+
+Template: ssh/encrypted_host_key_but_no_keygen
+Type: note
+Description: Warning: you must create a new host key
+ There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH
+ can not handle this host key file, and I can't find the ssh-keygen utility
+ from the old (non-free) SSH installation.
+ .
+ You will need to generate a new host key.
+Description-da: Advarsel: du skal oprette en ny værtsnøgle
+ Der ligger en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan
+ ikke håndtere sådan en værtsnøglefil, og jeg kan ikke finde værktøjet
+ ssh-keygen fra den gamle (ikke-frie, 'non-free') SSH-installation.
+
+Template: ssh/SUID_client
+Type: boolean
+Default: false
+Description: Do you want /usr/bin/ssh to be installed SUID root?
+ You have the option of installing the ssh client with the SUID bit set.
+ .
+ If you make ssh SUID, you will be able to use Rhosts/RhostsRSA
+ authentication, but will not be able to use socks via the LD_PRELOAD
+ trick.  This is the traditional approach.
+ .
+ If you do not make ssh SUID, you will be able to use socks, but
+ Rhosts/RhostsRSA authentication will stop working, which may stop you
+ logging in to remote systems.  It will also mean that the source port will
+ be above 1024, which may confound firewall rules you've set up.
+ .
+ If in doubt, I suggest you install it with SUID.  If it causes problems
+ you can change your mind later by running:   dpkg-reconfigure ssh 
+Description-da: Vil du have, at /usr/bin/ssh bliver installeret 'SUID root'?
+ Du har mulighed for at installere ssh-klienten med SUID-flaget sat.
+ .
+ Hvis du gør ssh SUID, vil du kunne bruge adgangskontrollen
+ Rhosts/RhostsRSA, men vil ikke kunne bruge socks med LD_PRELOAD-tricket.
+ Det vil være den almindelige fremgangsmåde.
+ .
+ Hvis du ikke gør ssh SUID, vil du kunne bruge socks, men adgangskontrol
+ med Rhosts/RhostRSA vil holde op med at virke, hvilket kan forhindre dig
+ i at logge ind på fjerne systemer. Det vil også betyde, at kildeporten
+ vil ligge over 1024, hvilket kan kollidere med eventuelle brandmure, du
+ har sat op.
+ .
+ Hvis du er i tvivl, foreslår jeg, at du installerer den med SUID. Hvis det
+ giver problemer, kan du senere ombestemme dig ved at køre:
+ 'dpkg-reconfigure ssh'.
+
+Template: ssh/run_sshd
+Type: boolean
+Default: true
+Description: Do you want to run the sshd server ?
+ This package contains both the ssh client, and the sshd server.
+ .
+ Normally the sshd Secure Shell Server will be run to allow remote logins
+ via ssh.
+ .
+ If you are only interested in using the ssh client for outbound
+ connections on this machine, and don't want to log into it at all using
+ ssh, then you can disable sshd here.
+Description-da: Vil du køre sshd-serveren?
+ Denne pakke indeholder både ssh-klienten og sshd-serveren.
+ .
+ Normalt vil sshd sikker skalserver ('Secure Shell Server') blive aktiveret
+ og tillade fjerne brugere i at logge på via ssh.
+ .
+ Hvis du udelukkende er interesseret i at bruge ssh-klienten til udgående
+ forbindelser fra denne maskine, og ikke ønsker at tilgå denne maskine
+ udefra via ssh, kan du nu deaktivere sshd.

@@ -315,15 +315,6 @@ setup_startup
 setup_init
 
 
-# Automatically added by dh_installdocs
-if [ "$1" = "configure" ]; then
-	if [ -d /usr/doc -a ! -e /usr/doc/ssh -a -d /usr/share/doc/ssh ]; then
-		ln -sf ../share/doc/ssh /usr/doc/ssh
-	fi
-fi
-# End automatically added section
-
-
 [ -e /usr/share/debconf/confmodule ] && db_stop
 
 exit 0

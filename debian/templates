@@ -12,11 +12,11 @@ Description: Privilege separation
  .
  Privilege separation is turned on by default, so if you decide you
  want it turned off, you need to add "UsePrivilegeSeparation no" to
- /etc/ssh/sshd_config 
+ /etc/ssh/sshd_config.
  .
  NB! If you are running a 2.0 series Linux kernel, then privilege
  separation will not work at all, and your sshd will fail to start
- unless you explicity turn privilege separation off.
+ unless you explicitly turn privilege separation off.
 
 Template: ssh/privsep_ask
 Type: boolean
@@ -54,7 +54,7 @@ Description: Generate new configuration file
  edit sshd_config and set it to no if you wish.
  .
  It is strongly recommended that you let me generate a new configuration file 
- for you 
+ for you.
 
 Template: ssh/protocol2_only
 Type: boolean
@@ -89,21 +89,6 @@ Description: Do you want to continue (and risk killing active ssh sessions) ?
  .
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
-Description-de: Wollen Sie weitermachen (und das Killen der Session riskieren)?
- Die Version von /etc/init.d/ssh, die sie installiert haben, wird 
- vermutlich ihre aktiven ssh-Instanzen killen. Wenn Sie das Upgrade
- via ssh erledigen, dann ist das ein Problem.
- .
- Sie koennen das Problem beheben, indem sie "--pidfile /var/run/sshd.pid"
- an die start-stop-daemon Zeile in dem Bereich stop der Datei 
- /etc/init.d/ssh ergaenzen.
-Description-fr: Voulez vous continuer (et risquer de rompre les sessions ssh actives) ?
- Il est probable que la version de /etc/init.d/ssh install=E9e en ce moment
- tue toutes les instances de sshd lanc=E9es en ce moment. Si vous faite une
- mise =E0 jour via ssh, ca serait une Mauvaise Chose(tm).
- .
- Vous pouvez corriger /etc/init.d/ssh en ajoutant '--pidfile /var/run/sshd.pid'
- a la ligne 'start-stop-daemon' dans la section 'stop' du fichier.
 
 Template: ssh/forward_warning
 Type: note
@@ -115,36 +100,12 @@ Description: NOTE: Forwarding of X11 and Authorization disabled by default.
  in one of the configuration files, or with the -X command line option.
  .
  More details can be found in /usr/share/doc/ssh/README.Debian
-Description-de: HINWEIS: Forwarden von X11 und Authorisierung ist abgeschaltet.
- Aus Sicherheitsgruenden haben die Debian Pakete von ssh ForwardX11 und
- ForwardAgent auf "off" gesetzt.
- .
- Sie koenne dies fuer Server denen Sie trauen, entweder per Eintrag im
- den Konfigurations Dateien oder per -X Kommando-Zeilen Option aendern.
- .
- Weitere Details koennen Sie in /usr/share/doc/ssh/README.Debian finden.
-Description-fr: NOTE: Suivi de session X11 et d'agent d'autorisation d=E9sactiv=E9s par d=E9faut.
- Pour des raisons de s=E9curit=E9, la version Debian de ssh positionne les
- options ForwardX11 et ForwardAgent a ``Off'' par d=E9faut.
- .
- Vous pouvez activer ces options pour les serveurs en lesquels vous avez
- confiance, soit dans un des fichiers de configuration, soit avec l'option
- -X de la ligne de commande.
- .
- Plus d'informations sont disponibles dans /usr/share/doc/ssh/README.Debian.
 
 Template: ssh/insecure_rshd
 Type: note
 Description: Warning: rsh-server is installed --- probably not a good idea
  having rsh-server installed undermines the security that you were probably
  wanting to obtain by installing ssh.  I'd advise you to remove that package.
-Description-de: Warnung: rsh-server ist installiert --- moeglicherweise
- ist es eine schlechte Idee den rsh-server installiert zu haben, da er 
- die Sicherheit untergraebt. Wir empfehlen das Paket zu entfernen.
-Description-fr: Attention: le paquet rsh-server est install=E9 --- ce n'estprobablement pas une bonne id=E9e
- Avoir un serveur rsh install=E9 affaibli la s=E9curit=E9 que vous vouliez
- probablement obtenir en installant ssh. Je vous conseillerais de
- d=E9installer ce paquet.
 
 Template: ssh/insecure_telnetd
 Type: note
@@ -153,17 +114,6 @@ Description: Warning: telnetd is installed --- probably not a good idea
  need to offer telnet access) or install telnetd-ssl so that there is at
  least some chance that telnet sessions will not be sending unencrypted
  login/password and session information over the network.
-Description-de: Warnung: telnetd ist installiert --- schlechte Idee
- Wir empfehlen das telnetd Paket zu entfernen (wenn sie keine telnet Zugang
- anbieten) oder telnetd-ssl zu installieren, so dass die Moeglichkeit besteht
- dass das Login und Password nicht unverschluesselt durch das Netz gesendet
- werden.
-Description-fr: Attention: le paquet telnetd est install=E9 --- ce n'est probablement pas une bonne id=E9e
- Je vous conseillerais de, soit enlever le paquet telnetd (si ce service
- n'est pas n=E9cessaire), soit de le remplacer par le paquet telnetd-ssl
- pour qu'il y ait au moins une chance que les sessions telnet soient
- encrypt=E9es et que les mot de passes et logins ne passent pas en clair sur
- le r=E9seau.
 
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
@@ -173,15 +123,6 @@ Description: Warning: you must create a new host key
  ssh-keygen utility from the old (non-free) SSH installation.
  .
  You will need to generate a new host key.
-Description-de: Warnung: Sie muessen einen neuen Host Key erzeugen
- Es existiert eine alte Variante von /etc/ssh/ssh_host_key welche
- per IDEA verschluesselt ist. OpenSSH kann eine solche Host Key Datei
- nicht lesen und ssh-keygen von der alten (nicht-freien) ssh Installation
- kann nicht gefunden werden.
-Description-fr: Attention: vous devez cr=E9er une nouvelle cl=E9 d'h=F4te
- Il existe un vieux /etc/ssh/ssh_host_key qui est encrypt=E9 avec IDEA.
- OpenSSH ne peut utiliser ce fichier de cl=E9, et je ne peux trouver
- l'utilitaire ssh-keygen de l'installation pr=E9c=E9dente (non libre) de SSH.
 
 Template: ssh/SUID_client
 Type: boolean
@@ -208,22 +149,3 @@ Description: Do you want to run the sshd server ?
  If you are only interested in using the ssh client for outbound
  connections on this machine, and don't want to log into it at all
  using ssh, then you can disable sshd here.
-Description-de: Wollen Sie den sshd Server starten?
- Das Paket enthaelt sowohl den client als auch den sshd server.
- .
- Normal wird der sshd Secure Shell Server fuer Remote Logins per ssh
- gestartet.
- .
- Wenn Sie nur den ssh client nutzen wollen, um sich mit anderen Rechner
- zu verbinden und sich nicht per ssh in diesen Computer einloggen wollen, 
- dann koennen Sie hier den sshd abschalten.
-Description-fr: Voulez vous utiliser le serveur sshd ?
- Ce paquet contient a la fois le client ssh et le serveur sshd.
- .
- Normalement le serveur sshd sera lanc=E9 pour permettre les logins distants
- via ssh.
- .
- Si vous d=E9sirez seulement utiliser le client ssh pour vous connecter a
- distance sur d'autres machines a partir de celle-ci, et que vous ne
- voulez pas vous logguer sur cette machine a distance via ssh, alors vous
- pouvez d=E9sactiver sshd maintenant.

@@ -1,3 +1,25 @@
+openssh (1:3.4p1-3) unstable; urgency=low
+
+  * Add myself to Uploaders: and begin acting as temporary maintainer, at
+    Matthew's request. (Normal service will resume in some months' time.)
+  * Add sharutils to Build-Depends (closes: #138465).
+  * Stop creating the /usr/doc/ssh symlink.
+
+  * Fix some debconf template typos (closes: #160358).
+  * Split debconf templates into one file per language.
+  * Add debconf template translations:
+    - Brazilian Portuguese (thanks, Andre Luis Lopes; closes: #106173).
+    - Danish (thanks, Claus Hindsgaul; closes: #126607).
+    - Japanese (thanks, Tomohiro KUBOTA; closes: #137427).
+    - Russian (thanks, Ilgiz Kalmetev; closes: #136610).
+    - Spanish (thanks, Carlos Valdivia Yagüe; closes: #129041).
+  * Update debconf template translations:
+    - French (thanks, Igor Genibel; closes: #151361).
+    - German (thanks, Axel Noetzold; closes: #147069).
+  * Some of these translations are fuzzy. Please send updates.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 13 Oct 2002 14:09:57 +0100
+
 openssh (1:3.4p1-2) unstable; urgency=high
 
   * Get a security-fixed version into unstable
