@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-06 17:54+0000\n"
+"POT-Creation-Date: 2004-10-05 20:41+0100\n"
 "PO-Revision-Date: 2003-09-27 14:43+0100\n"
 "Last-Translator: Bart Cornelis <cobaco@linux.be>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -365,6 +365,34 @@ msgstr ""
 "Om deze optie opnieuw in te schakelen dient u \"PermitUserEnvironment yes\" "
 "in /etc/ssh/sshd_config aan te zetten in nadat de opwaardering compleet is; "
 "houd hierbij rekening met de waarschuwing in de sshd_config(5) man-pagina."
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid "Disable challenge-response authentication?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid ""
+"Password authentication appears to be disabled in your current OpenSSH "
+"server configuration. In order to prevent users from logging in using "
+"passwords (perhaps using only public key authentication instead) with recent "
+"versions of OpenSSH, you must disable challenge-response authentication, or "
+"else ensure that your PAM configuration does not allow Unix password file "
+"authentication."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid ""
+"If you disable challenge-response authentication (the default answer), then "
+"users will not be able to log in using passwords. If you leave it enabled, "
+"then the 'PasswordAuthentication no' option will have no useful effect "
+"unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+msgstr ""
 
 #~ msgid "Privilege separation"
 #~ msgstr "Rechtenscheiding"

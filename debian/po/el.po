@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-06 17:54+0000\n"
+"POT-Creation-Date: 2004-10-05 20:41+0100\n"
 "PO-Revision-Date: 2004-02-15 14:14EEST\n"
 "Last-Translator: Konstantinos Margaritis <markos@debian.org>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -369,6 +369,34 @@ msgstr ""
 "Για να επανενεργοποιήσετε αυτήν την επιλογή, ορίστε \"PermitUserEnvironment "
 "yes\" στο αρχείο /etc/ssh/sshd_config μετά το τέλος της αναβάθμισης, έχοντας "
 "υπόψιν την προειδοποίηση στη σελίδα οδηγιών του sshd_config(5)."
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid "Disable challenge-response authentication?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid ""
+"Password authentication appears to be disabled in your current OpenSSH "
+"server configuration. In order to prevent users from logging in using "
+"passwords (perhaps using only public key authentication instead) with recent "
+"versions of OpenSSH, you must disable challenge-response authentication, or "
+"else ensure that your PAM configuration does not allow Unix password file "
+"authentication."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates.master:130
+msgid ""
+"If you disable challenge-response authentication (the default answer), then "
+"users will not be able to log in using passwords. If you leave it enabled, "
+"then the 'PasswordAuthentication no' option will have no useful effect "
+"unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+msgstr ""
 
 #~ msgid "Privilege separation"
 #~ msgstr "Διαχωρισμός Προνομίων"
