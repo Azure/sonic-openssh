@@ -40,11 +40,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"Diese Version von OpenSSH hat eine deutlich geänderte Konfigurationsdatei von "
-"der in 'Potato' ausgelieferten Version, von der Sie anscheinend "
-"aktualisieren. Ich kann nun eine neue Konfigurationsdatei "
-"(/etc/ssh/sshd.config) erzeugen, die mit der neuen Server-Version "
-"zusammenarbeitet, aber keine Anpassung aus der alten Version enthält."
+"Diese Version von OpenSSH hat eine deutlich geänderte Konfigurationsdatei "
+"von der in 'Potato' ausgelieferten Version, von der Sie anscheinend "
+"aktualisieren. Ich kann nun eine neue Konfigurationsdatei (/etc/ssh/sshd."
+"config) erzeugen, die mit der neuen Server-Version zusammenarbeitet, aber "
+"keine Anpassung aus der alten Version enthält."
 
 #. Type: boolean
 #. Description
@@ -56,12 +56,12 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"Bitte beachten Sie, daß die neue Konfigurationsdatei 'PermitRootLogin' auf"
-"yes setzt (was bedeutet, daß jeder, der das Root-Paßwort kennt, sich direkt "
-"per ssh als root anmelden kann). Es ist die Meinung des Betreuers, daß dies "
-"die richtige Standardeinstellung ist (bitte lesen Sie README.Debian für "
-"weitergehende Informationen), aber Sie können jederzeit sshd_config editieren "
-"und dies auf no setzen, falls Sie dies wünschen."
+"Bitte beachten Sie, daß die neue Konfigurationsdatei 'PermitRootLogin' "
+"aufyes setzt (was bedeutet, daß jeder, der das Root-Paßwort kennt, sich "
+"direkt per ssh als root anmelden kann). Es ist die Meinung des Betreuers, "
+"daß dies die richtige Standardeinstellung ist (bitte lesen Sie README.Debian "
+"für weitergehende Informationen), aber Sie können jederzeit sshd_config "
+"editieren und dies auf no setzen, falls Sie dies wünschen."
 
 #. Type: boolean
 #. Description
@@ -89,8 +89,8 @@ msgid ""
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
 "Diese Version von OpenSSH unterstützt Version 2 des SSH-Protokolls, die "
-"sicherer ist. Es wird empfohlen, Version 1 zu deaktivieren, allerdings "
-"kann dies Vorgänge auf langsamen Maschinen verzögern und alte Clients an der "
+"sicherer ist. Es wird empfohlen, Version 1 zu deaktivieren, allerdings kann "
+"dies Vorgänge auf langsamen Maschinen verzögern und alte Clients an der "
 "Verbindungsaufnahme hindern (der ssh-Client von \"potato\" ist davon "
 "betroffen)."
 
@@ -112,9 +112,8 @@ msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
 msgstr ""
-"Falls Sie später Ihre Meinung über diese Einstellung ändern, finden Sie "
-"in README.Debian eine Anleitung was Sie mit der sshd_config-Datei machen "
-"müssen."
+"Falls Sie später Ihre Meinung über diese Einstellung ändern, finden Sie in "
+"README.Debian eine Anleitung was Sie mit der sshd_config-Datei machen müssen."
 
 #. Type: note
 #. Description
@@ -130,10 +129,10 @@ msgid ""
 "keys. This means the authorized_keys2 and known_hosts2 files are no longer "
 "needed. They will still be read in order to maintain backwards compatibility"
 msgstr ""
-"Mit Version 3 verwendet OpenSSH nicht mehr seperate Dateien für ssh1 und ssh2 "
-"Schlüssel. Dies bedeutet, daß authorized_keys2 und known_hosts2 nicht mehr "
-"benötigt werden. Sie werden noch eingelesen, um Abwärtskompatibilität zu "
-"gewähren."
+"Mit Version 3 verwendet OpenSSH nicht mehr seperate Dateien für ssh1 und "
+"ssh2 Schlüssel. Dies bedeutet, daß authorized_keys2 und known_hosts2 nicht "
+"mehr benötigt werden. Sie werden noch eingelesen, um Abwärtskompatibilität "
+"zu gewähren."
 
 #. Type: boolean
 #. Description
@@ -195,8 +194,7 @@ msgstr ""
 #. Description
 #: ../templates.master:56
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr ""
-"Weitere Details können Sie in /usr/share/doc/ssh/README.Debian finden."
+msgstr "Weitere Details können Sie in /usr/share/doc/ssh/README.Debian finden."
 
 #. Type: note
 #. Description
@@ -292,8 +290,8 @@ msgid ""
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
 "Falls Sie unsicher sind, empfehle ich, mit SUID zu installieren. Falls es "
-"Probleme gibt, können Sie später Ihre Meinung ändern, indem Sie "
-"dpkg-reconfigure ssh aufrufen."
+"Probleme gibt, können Sie später Ihre Meinung ändern, indem Sie dpkg-"
+"reconfigure ssh aufrufen."
 
 #. Type: boolean
 #. Description
@@ -314,8 +312,8 @@ msgid ""
 "Normally the sshd Secure Shell Server will be run to allow remote logins via "
 "ssh."
 msgstr ""
-"Normalerweise wird der sshd Secure Shell Server für Remote Logins per ssh"
-"gestartet."
+"Normalerweise wird der sshd Secure Shell Server für Remote Logins per "
+"sshgestartet."
 
 #. Type: boolean
 #. Description
@@ -344,10 +342,10 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
-"Diese Version von OpenSSH deaktiviert standardmäßig die Umgebungsoption für"
-"öffentliche Schlüssel um bestimmte Angriffe (zum Beispiel über LD_PRELOAD) "
-"zu vermeiden. Falls Sie diese Option in einer authorized_keys-Datei "
-"verwenden, beachten Sie, daß die in Frage kommenden Schlüssel nicht "
+"Diese Version von OpenSSH deaktiviert standardmäßig die Umgebungsoption "
+"füröffentliche Schlüssel um bestimmte Angriffe (zum Beispiel über "
+"LD_PRELOAD) zu vermeiden. Falls Sie diese Option in einer authorized_keys-"
+"Datei verwenden, beachten Sie, daß die in Frage kommenden Schlüssel nicht "
 "funktionieren werden bis diese Option entfernt wurde."
 
 #. Type: note
@@ -359,5 +357,5 @@ msgid ""
 "sshd_config(5) manual page."
 msgstr ""
 "Um diese Option wieder zu reaktivieren, setzen Sie, unter Berücksichtigung "
-"der Warnung in der sshd_config(5)-Handbuchseite, \"PermitUserEnvironment "
-"yes\" in /etc/ssh/sshd_config nachdem die Aktualisierung erfolgt ist."
+"der Warnung in der sshd_config(5)-Handbuchseite, \"PermitUserEnvironment yes"
+"\" in /etc/ssh/sshd_config nachdem die Aktualisierung erfolgt ist."
