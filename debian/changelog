@@ -12,6 +12,7 @@ openssh (1:3.9p1-1) UNRELEASED; urgency=low
     accept them to the server by default in new installs, although not on
     upgrade (closes: #264024).
   * Build ssh in binary-indep, not binary-arch (thanks, LaMont Jones).
+  * Expand on openssh-client package description (closes: #273831).
 
  -- Colin Watson <cjwatson@debian.org>  Wed,  1 Dec 2004 16:23:23 +0000
 

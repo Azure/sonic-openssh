@@ -26,7 +26,9 @@ Description: Secure shell client, an rlogin/rsh/rcp replacement
  It is intended as a replacement for rlogin, rsh and rcp, and can be
  used to provide applications with a secure communication channel.
  .
- This package provides the ssh client.
+ This package provides the ssh, scp and sftp clients, the ssh-agent
+ and ssh-add programs to make public key authentication more convenient,
+ and the ssh-keygen, ssh-keyscan, ssh-copy-id and ssh-argv0 utilities.
  .
  --------------------------------------------------------------------
  .
