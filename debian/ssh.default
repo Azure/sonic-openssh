@@ -1,0 +1,6 @@
+#! /bin/sh
+# Default settings for ssh. This file is sourced by the shell from
+# /etc/init.d/ssh.
+
+# Options to pass to sshd
+SSHD_OPTS=

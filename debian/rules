@@ -19,11 +19,16 @@ build-stamp:
 	then mv version.h version.h.upstream; mv version.h.new version.h; \
 	else echo "Version number change failed"; exit 1; \
 	fi
-	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-ipv4-default \
+	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-ipv4-default \
 		--with-privsep-path=/var/run/sshd  --without-rand-helper
 	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-O2 -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DHAVE_MMAP_ANON_SHARED' \
 		SSH_KEYSIGN='/usr/lib/ssh-keysign'
-	$(MAKE) -C contrib gnome-ssh-askpass1 CC='gcc -O2'
+	# Support building on Debian 3.0 (with GNOME 1.4) and later.
+	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
+		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc -O2'; \
+	elif [ -f /usr/include/gnome-1.0/gnome.h ]; then \
+		$(MAKE) -C contrib gnome-ssh-askpass1 CC='gcc -O2'; \
+	fi
 
 	touch build-stamp
 
@@ -54,13 +59,18 @@ install: build
 	install -m 755 contrib/ssh-copy-id debian/tmp/usr/bin/ssh-copy-id
 	install -m 644 -c contrib/ssh-copy-id.1 debian/tmp/usr/share/man/man1/ssh-copy-id.1
 
-	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass1 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass
+	if [ -f contrib/gnome-ssh-askpass2 ]; then \
+		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
+	elif [ -f contrib/gnome-ssh-askpass1 ]; then \
+		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass1 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
+	fi
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
 
 	install -m 755 debian/ssh-argv0 debian/tmp/usr/bin/ssh-argv0
 	install -m 644 debian/ssh-argv0.1 debian/tmp/usr/share/man/man1/ssh-argv0.1
 
 	install -o root -g root debian/init debian/tmp/etc/init.d/ssh
+	install -o root -g root debian/ssh.default debian/tmp/etc/default/ssh
 
 	install -o root -g root -m 755 -d debian/tmp/var/run/sshd
 

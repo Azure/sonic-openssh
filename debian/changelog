@@ -1,3 +1,17 @@
+openssh (1:3.5p1-5) unstable; urgency=low
+
+  * Add /etc/default/ssh (closes: #161049).
+  * Run the init script under 'set -e' (closes: #175010).
+  * Change the default superuser path to include /sbin, /usr/sbin, and
+    /usr/local/sbin (closes: #128235, #151267). Using login.defs would be
+    nice, but that belongs to another package. Without a defined API to
+    retrieve its settings, parsing it is off-limits.
+  * Build ssh-askpass-gnome with GNOME 2. The source package should still
+    support building on stable with GNOME 1, using the alternate
+    libgnome-dev build-dependency (thanks, Colin Walters; closes: #167582).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun,  9 Mar 2003 20:12:10 +0000
+
 openssh (1:3.5p1-4) unstable; urgency=low
 
   * Point rlogin and rcp alternatives at slogin and scp respectively rather
