@@ -52,6 +52,14 @@ fi
 
 db_input medium ssh/SUID_client || true
 
+# To be correct during initial installation, this relies on the desired
+# default for run_sshd being "true".
+if [ -e /etc/ssh/sshd_not_to_be_run ]
+then
+    db_set ssh/run_sshd false
+else
+    db_set ssh/run_sshd true
+fi
 db_input medium ssh/run_sshd || true
 
 if [ -x /usr/sbin/in.telnetd ] && grep -q "^telnet\b" /etc/inetd.conf

@@ -30,7 +30,7 @@ X11-style license (see source file for details).
 make-ssh-known-hosts is Copyright Tero Kivinen <Tero.Kivinen@hut.fi>,
 and is distributed under the GPL (see source file for details).
 
-The copyright for the orignal SSH version follows.  It has been
+The copyright for the original SSH version follows.  It has been
 modified with [comments] to reflect the changes that the OpenBSD folks
 have made:
 

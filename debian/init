@@ -5,25 +5,32 @@
 test -x /usr/sbin/sshd || exit 0
 ( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
 
-# forget it if we're trying to start, and /etc/ssh/sshd_not_to_be_run exists
-if [ -e /etc/ssh/sshd_not_to_be_run ]; then 
-    echo "OpenBSD Secure Shell server not in use (/etc/ssh/sshd_not_to_be_run)"
-    exit 0
-fi
+check_for_no_start() {
+    # forget it if we're trying to start, and /etc/ssh/sshd_not_to_be_run exists
+    if [ -e /etc/ssh/sshd_not_to_be_run ]; then 
+	echo "OpenBSD Secure Shell server not in use (/etc/ssh/sshd_not_to_be_run)"
+	exit 0
+    fi
+}
+
+check_privsep_dir() {
+    # Create the PrivSep empty dir if necessary
+    if [ ! -d /var/run/sshd ]; then
+	mkdir /var/run/sshd
+	chmod 0755 /var/run/sshd
+    fi
+}
 
 check_config() {
 	/usr/sbin/sshd -t || exit 1
 }
 
-# Configurable options:
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
 case "$1" in
   start)
-	test -f /etc/ssh/sshd_not_to_be_run && exit 0
-#Create the PrivSep empty dir if necessary
-	if [ ! -d /var/run/sshd ]; then
-	    mkdir /var/run/sshd; chmod 0755 /var/run/sshd
-	fi
+	check_for_no_start
+	check_privsep_dir
         echo -n "Starting OpenBSD Secure Shell server: sshd"
 	start-stop-daemon --start --quiet --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd
         echo "."
@@ -35,7 +42,7 @@ case "$1" in
 	;;
 
   reload|force-reload)
-  	test -f /etc/ssh/sshd_not_to_be_run && exit 0
+	check_for_no_start
 	check_config
         echo -n "Reloading OpenBSD Secure Shell server's configuration"
 	start-stop-daemon --stop --signal 1 --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd
@@ -43,10 +50,11 @@ case "$1" in
 	;;
 
   restart)
-  	test -f /etc/ssh/sshd_not_to_be_run && exit 0
 	check_config
         echo -n "Restarting OpenBSD Secure Shell server: sshd"
 	start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid
+	check_for_no_start
+	check_privsep_dir
 	sleep 2
 	start-stop-daemon --start --quiet --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd
 	echo "."

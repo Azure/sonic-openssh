@@ -37,7 +37,7 @@ create_key() {
 
 	if [ ! -f "$file" ] ; then
 		echo -n $msg
-		ssh-keygen -f "$file" -N '' "$@" > /dev/null
+		ssh-keygen -q -f "$file" -N '' "$@"
 		echo
 	fi
 }
@@ -50,11 +50,14 @@ create_keys() {
 	}
 
 	if [ "$RET" = "false" ] ; then
-		create_key "Creating SSH1 key" /etc/ssh/ssh_host_key -t rsa1
+		create_key "Creating SSH1 key; this may take some time ..." \
+			/etc/ssh/ssh_host_key -t rsa1
 	fi
 
-	create_key "Creating SSH2 RSA key" /etc/ssh/ssh_host_rsa_key -t rsa
-	create_key "Creating SSH2 DSA key" /etc/ssh/ssh_host_dsa_key -t dsa
+	create_key "Creating SSH2 RSA key; this may take some time ..." \
+		/etc/ssh/ssh_host_rsa_key -t rsa
+	create_key "Creating SSH2 DSA key; this may take some time ..." \
+		/etc/ssh/ssh_host_dsa_key -t dsa
 }
 
 
@@ -182,7 +185,7 @@ PasswordAuthentication yes
 X11Forwarding no
 X11DisplayOffset 10
 PrintMotd no
-#PrintLastLog no
+PrintLastLog yes
 KeepAlive yes
 #UseLogin no
 
@@ -219,7 +222,7 @@ fix_rsh_diversion() {
 fix_statoverride() {
 # Remove an erronous override for sshd (we should have overridden ssh)
 	if [ -x /usr/sbin/dpkg-statoverride ]; then
-		if dpkg-statoverride --list /usr/sbin/sshd 2>/dev/null ; then
+		if dpkg-statoverride --list /usr/sbin/sshd >/dev/null ; then
 			dpkg-statoverride --remove /usr/sbin/sshd
 		fi
 	fi
@@ -227,17 +230,20 @@ fix_statoverride() {
 
 
 create_alternatives() {
-# Create alternatives for the various r* tools
+# Create alternatives for the various r* tools.
 # Make sure we don't change existing alternatives that a user might have
-# changed
-	for cmd in rsh rlogin rcp ; do
-		if ! update-alternatives --display $cmd | \
-				grep -q ssh ; then
-			update-alternatives --quiet --install /usr/bin/$cmd $cmd /usr/bin/ssh 20 \
-				--slave /usr/share/man/man1/$cmd.1.gz $cmd.1.gz /usr/share/man/man1/ssh.1.gz
+# changed, but clean up after some old alternatives that mistakenly pointed
+# rlogin and rcp to ssh.
+	update-alternatives --quiet --remove rlogin /usr/bin/ssh
+	update-alternatives --quiet --remove rcp /usr/bin/ssh
+	for cmd in rsh rlogin rcp; do
+		scmd="s${cmd#r}"
+		if ! update-alternatives --display "$cmd" | \
+				grep -q "$scmd"; then
+			update-alternatives --quiet --install "/usr/bin/$cmd" "$cmd" "/usr/bin/$scmd" 20 \
+				--slave "/usr/share/man/man1/$cmd.1.gz" "$cmd.1.gz" "/usr/share/man/man1/$scmd.1.gz"
 		fi
 	done
-	
 }
 
 setup_sshd_user() {

@@ -6,7 +6,6 @@ auth       required     pam_env.so # [1]
 account    required     pam_unix.so
 
 session    required     pam_unix.so
-session    optional     pam_lastlog.so # [1]
 session    optional     pam_motd.so # [1]
 session    optional     pam_mail.so standard noenv # [1]
 session    required     pam_limits.so

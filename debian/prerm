@@ -17,12 +17,12 @@ set -e
 
 case "$1" in
     remove|deconfigure)
-	update-alternatives --quiet --remove ssh /usr/bin/ssh
-	update-alternatives --quiet --remove ssh /usr/bin/slogin
-	update-alternatives --quiet --remove ssh /usr/bin/scp
-    if [ -e /etc/init.d/ssh ]; then
-	/etc/init.d/ssh stop
-    fi
+	update-alternatives --quiet --remove rsh /usr/bin/ssh
+	update-alternatives --quiet --remove rlogin /usr/bin/slogin
+	update-alternatives --quiet --remove rcp /usr/bin/scp
+	if [ -e /etc/init.d/ssh ]; then
+		/etc/init.d/ssh stop
+	fi
 #       install-info --quiet --remove /usr/info/ssh-askpass.info.gz
 	;;
     upgrade)

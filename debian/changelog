@@ -1,3 +1,32 @@
+openssh (1:3.5p1-4) unstable; urgency=low
+
+  * Point rlogin and rcp alternatives at slogin and scp respectively rather
+    than ssh (closes: #121103, #151666). Fix alternative removal to match;
+    previously it was completely wrong anyway.
+  * Find out whether /etc/ssh/sshd_not_to_be_run exists and set the debconf
+    question's default using that information, rather than using debconf as
+    a registry. Other solutions may be better in the long run, but this is
+    at least correct (thanks, Matthew Woodcraft; closes: #84725).
+  * Stop using pam_lastlog, as it doesn't currently work well as a session
+    module when privilege separation is enabled; it can usually read
+    /var/log/lastlog but can't write to it. Instead, just use sshd's
+    built-in support, already enabled by default (closes: #151297, #169938).
+  * Use 'ssh-keygen -q' rather than redirecting output to /dev/null.
+  * Add a "this may take some time" warning when creating host keys on
+    installation (part of #110094).
+  * When restarting via the init script, check for sshd_not_to_be_run after
+    stopping sshd (idea from Tomas Pospisek; closes: #149850).
+  * Append /usr/sbin:/sbin to the init script's $PATH, just in case of
+    strangeness (closes: #115138).
+  * Fix a dpkg-statoverride call to redirect stdout to /dev/null, not
+    stderr.
+  * Correct copyright file typo: "orignal" -> "original" (closes: #176490).
+  * Rebuild with libssl0.9.7 (closes: #176983).
+  * We're up to policy version 3.5.6. DEB_BUILD_OPTIONS stuff still needs to
+    be looked at.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 Jan 2003 01:37:23 +0000
+
 openssh (1:3.5p1-3) unstable; urgency=low
 
   * Happy new year!
