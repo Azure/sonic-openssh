@@ -16,6 +16,9 @@ Debian don't ship it.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+UPGRADE ISSUES
+==============
+
 Privilege Separation
 --------------------
 
@@ -33,8 +36,7 @@ want it turned off, you need to add "UsePrivilegeSeparation no" to
 
 NB! If you are running a 2.0 series Linux kernel, then privilege
 separation will not work at all, and your sshd will fail to start
-unless you explicity turn privilege separation off.
-
+unless you explicitly turn privilege separation off.
 
 PermitRootLogin set to yes
 --------------------------
@@ -91,21 +93,9 @@ HostKey /etc/ssh/ssh_host_key
 
 (you may need to generate a host key if you do not already have one)
 
-/usr/bin/ssh not SUID:
-----------------------
-If you have not installed debconf, you'll have missed the chance to
-install ssh SUID, which means you won't be able to do Rhosts
-authentication.  If that upsets you, use:
+X11 Forwarding
+--------------
 
-   dpkg-statoverride 
-
-or if that's also missing, use this:
-
-   chown root.root /usr/bin/ssh
-   chmod 04755 /usr/bin/ssh
-
-X11 Forwarding:
----------------
 ssh's default for ForwardX11 has been changed to ``no'' because it has
 been pointed out that logging into remote systems administered by
 untrusted people is likely to open you up to X11 attacks, so you
@@ -117,8 +107,60 @@ host settings.
 In order for X11 forwarding to work, you need to install xauth on the
 server. In Debian this is in the xbase-clients package.
 
-Authorization Forwarding:
--------------------------
+As of OpenSSH 3.1, the remote $DISPLAY uses localhost by default to reduce
+the security risks of X11 forwarding. Look up X11UseLocalhost in
+sshd_config(8) if this is a problem.
+
+Fallback to RSH
+---------------
+
+The default for this setting has been changed from Yes to No, for
+security reasons, and to stop the delay attempting to rsh to machines
+that don't offer the service.  Simply switch it back on in either
+/etc/ssh/ssh_config or ~/.ssh/config for those machines that you need
+it for.
+
+Setgid ssh-agent and environment variables
+------------------------------------------
+
+As of version 1:3.5p1-1, ssh-agent is installed setgid to prevent ptrace()
+attacks retrieving private key material. This has the side-effect of causing
+glibc to remove certain environment variables which might have security
+implications for set-id programs, including LD_PRELOAD, LD_LIBRARY_PATH, and
+TMPDIR.
+
+If you need to set any of these environment variables, you will need to do
+so in the program exec()ed by ssh-agent. This may involve creating a small
+wrapper script.
+
+Symlink Hostname invocation
+---------------------------
+
+This version of ssh no longer includes support for invoking ssh with the
+hostname as the name of the file run.  People wanting this support should
+use the ssh-argv0 script.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+OTHER ISSUES
+============
+
+/usr/bin/ssh not SUID
+---------------------
+
+Due to Debian bug #164325, RhostsRSAAuthentication can only be used if ssh
+is SUID.  Until this is fixed, if that is a problem, use:
+
+   dpkg-statoverride 
+
+or if that's also missing, use this:
+
+   chown root.root /usr/bin/ssh
+   chmod 04755 /usr/bin/ssh
+
+Authorization Forwarding
+------------------------
+
 Similarly, root on a remote server could make use of your ssh-agent
 (while you're logged into their machine) to obtain access to machines
 which trust your keys.  This feature is therefore disabled by default.
@@ -126,16 +168,9 @@ You should only re-enable it for those hosts (in your ~/.ssh/config or
 /etc/ssh/ssh_config) where you are confident that the remote machine
 is not a threat.
 
-Fallback to RSH:
-----------------
-The default for this setting has been changed from Yes to No, for
-security reasons, and to stop the delay attempting to rsh to machines
-that don't offer the service.  Simply switch it back on in either
-/etc/ssh/ssh_config or ~/.ssh/config for those machines that you need
-it for.
+Problems logging in with RSA authentication
+-------------------------------------------
 
-Problems logging in with RSA authentication:
---------------------------------------------
 If you have trouble logging in with RSA authentication then the
 problem is probably caused by the fact that you have your home
 directory writable by group, as well as user (this is the default on
@@ -151,46 +186,32 @@ as yourself:
 to remove group write permissions.  If you use ssh-copy-id to install your
 keys, it does this for you.
 
--L option of ssh nonfree:
--------------------------
+-L option of ssh nonfree
+------------------------
+
 non-free ssh supported the usage of the option -L to use a non privileged
 port for scp. This option will not be supported by scp from openssh. 
 
 Please use instead scp -o "UsePrivilegedPort=no" as documented in the 
 manpage to scp itself. 
 
-Problem logging in because of TCP-Wrappers:
--------------------------------------------
+Problem logging in because of TCP-Wrappers
+------------------------------------------
+
 ssh is compiled with support for tcp-wrappers. So if you can no longer
 log into your system, please check that /etc/hosts.allow and /etc/hosts.deny
 are configured so that ssh is not blocked. 
 
-Kerberos Authentication:
-------------------------
+Kerberos Authentication
+-----------------------
+
 ssh is compiled without support for kerberos authentication, and there are
 no current plans to support this.  Thus the KerberosAuthentication and 
 KerberosTgtPassing options will not be recognised.
 
-Setgid ssh-agent and environment variables:
--------------------------------------------
-ssh-agent is installed setgid as of version 1:3.5p1-1 to prevent ptrace()
-attacks retrieving private key material. This has the side-effect of causing
-glibc to remove certain environment variables which might have security
-implications for set-id programs, including LD_PRELOAD, LD_LIBRARY_PATH, and
-TMPDIR.
+Interoperability between scp and the ssh.com SSH server
+-------------------------------------------------------
 
-If you need to set any of these environment variables, you will need to do
-so in the program exec()ed by ssh-agent. This may involve creating a small
-wrapper script.
-
-Symlink Hostname invocation:
-----------------------------
-This version of ssh no longer includes support for invoking ssh with the
-hostname as the name of the file run.  People wanting this support should
-use the ssh-argv0 script.
-
-Interoperability between scp and the ssh.com SSH server:
---------------------------------------------------------
 In version 2 and greater of the commercial SSH server produced by SSH
 Communications Security, scp was changed to use SFTP (SSH2's file transfer
 protocol) instead of the traditional rcp-over-ssh, thereby breaking

@@ -1,180 +1,180 @@
 SFTP(1)                   BSD General Commands Manual                  SFTP(1)
 
-^[[1mNAME^[[0m
-     ^[[1msftp ^[[22mM-bMM-^R Secure file transfer program
+NAME
+     sftp - Secure file transfer program
 
-^[[1mSYNOPSIS^[[0m
-     ^[[1msftp ^[[22m[^[[1mM-bMM-^RvC1^[[22m] [^[[1mM-bMM-^Rb ^[[4m^[[22mbatchfile^[[24m] [^[[1mM-bMM-^Ro ^[[4m^[[22mssh_option^[[24m] [^[[1mM-bMM-^Rs ^[[4m^[[22msubsystem^[[24m | ^[[4msftp_server^[[24m]
-          [^[[1mM-bMM-^RB ^[[4m^[[22mbuffer_size^[[24m] [^[[1mM-bMM-^RF ^[[4m^[[22mssh_config^[[24m] [^[[1mM-bMM-^RP ^[[4m^[[22msftp_server^[[24m ^[[4mpath^[[24m]
-          [^[[1mM-bMM-^RR ^[[4m^[[22mnum_requests^[[24m] [^[[1mM-bMM-^RS ^[[4m^[[22mprogram^[[24m] ^[[4mhost^[[0m
-     ^[[1msftp ^[[22m[[^[[4muser^[[24m@]^[[4mhost^[[24m[:^[[4mfile^[[24m [^[[4mfile^[[24m]]]
-     ^[[1msftp ^[[22m[[^[[4muser^[[24m@]^[[4mhost^[[24m[:^[[4mdir^[[24m[^[[4m/^[[24m]]]
+SYNOPSIS
+     sftp [-vC1] [-b batchfile] [-o ssh_option] [-s subsystem | sftp_server]
+          [-B buffer_size] [-F ssh_config] [-P sftp_server path]
+          [-R num_requests] [-S program] host
+     sftp [[user@]host[:file [file]]]
+     sftp [[user@]host[:dir[/]]]
 
-^[[1mDESCRIPTION^[[0m
-     ^[[1msftp ^[[22mis an interactive file transfer program, similar to ftp(1), which
+DESCRIPTION
+     sftp is an interactive file transfer program, similar to ftp(1), which
      performs all operations over an encrypted ssh(1) transport.  It may also
-     use many features of ssh, such as public key authentication and compresM-bM-^@M-^P
-     sion.  ^[[1msftp ^[[22mconnects and logs into the specified ^[[4mhost^[[24m, then enters an
+     use many features of ssh, such as public key authentication and compres-
+     sion.  sftp connects and logs into the specified host, then enters an
      interactive command mode.
 
-     The second usage format will retrieve files automatically if a nonM-bM-^@M-^PinterM-bM-^@M-^P
-     active authentication method is used; otherwise it will do so after sucM-bM-^@M-^P
+     The second usage format will retrieve files automatically if a non-inter-
+     active authentication method is used; otherwise it will do so after suc-
      cessful interactive authentication.
 
-     The last usage format allows the sftp client to start in a remote direcM-bM-^@M-^P
+     The last usage format allows the sftp client to start in a remote direc-
      tory.
 
      The options are as follows:
 
-     ^[[1mM-bMM-^Rb ^[[4m^[[22mbatchfile^[[0m
-             Batch mode reads a series of commands from an input ^[[4mbatchfile^[[0m
-             instead of ^[[4mstdin^[[24m.  Since it lacks user interaction it should be
-             used in conjunction with nonM-bM-^@M-^Pinteractive authentication.  ^[[1msftp^[[0m
-             will abort if any of the following commands fail: ^[[1mget^[[22m, ^[[1mput^[[22m,
-             ^[[1mrename^[[22m, ^[[1mln^[[22m, ^[[1mrm^[[22m, ^[[1mmkdir^[[22m, ^[[1mchdir^[[22m, ^[[1mls^[[22m, ^[[1mlchdir^[[22m, ^[[1mchmod^[[22m, ^[[1mchown^[[22m, ^[[1mchgrp^[[22m,
-             ^[[1mlpwd ^[[22mand ^[[1mlmkdir^[[22m.  Termination on error can be suppressed on a
-             command by command basis by prefixing the command with a ^[[1mM-bM-^@M-^YM-bM-^@M-^PM-bM-^@M-^Y^[[0m
-             character (For example, ^[[1mM-bM-^@M-^Prm /tmp/blah* ^[[22m).
+     -b batchfile
+             Batch mode reads a series of commands from an input batchfile
+             instead of stdin.  Since it lacks user interaction it should be
+             used in conjunction with non-interactive authentication.  sftp
+             will abort if any of the following commands fail: get, put,
+             rename, ln, rm, mkdir, chdir, ls, lchdir, chmod, chown, chgrp,
+             lpwd and lmkdir.  Termination on error can be suppressed on a
+             command by command basis by prefixing the command with a M-bM-^@M-^M-bM-^@M-^Y-M-bM-^@M-^M-bM-^@M-^Y
+             character (For example, -rm /tmp/blah* ).
 
-     ^[[1mM-bMM-^Ro ^[[4m^[[22mssh_option^[[0m
-             Can be used to pass options to ^[[1mssh ^[[22min the format used in
+     -o ssh_option
+             Can be used to pass options to ssh in the format used in
              ssh_config(5).  This is useful for specifying options for which
-             there is no separate ^[[1msftp ^[[22mcommandM-bM-^@M-^Pline flag. For example, to
-             specify an alternate port use: ^[[1msftp M-bM-^@M-^PoPort=24^[[22m.
+             there is no separate sftp command-line flag. For example, to
+             specify an alternate port use: sftp -oPort=24.
 
-     ^[[1mM-bMM-^Rs ^[[4m^[[22msubsystem^[[24m | ^[[4msftp_server^[[0m
+     -s subsystem | sftp_server
              Specifies the SSH2 subsystem or the path for an sftp server on
              the remote host. A path is useful for using sftp over protocol
-             version 1, or when the remote ^[[1msshd ^[[22mdoes not have an sftp subsysM-bM-^@M-^P
+             version 1, or when the remote sshd does not have an sftp subsys-
              tem configured.
 
-     ^[[1mM-bMM-^Rv      ^[[22mRaise logging level. This option is also passed to ssh.
+     -v      Raise logging level. This option is also passed to ssh.
 
-     ^[[1mM-bMM-^RB ^[[4m^[[22mbuffer_size^[[0m
-             Specify the size of the buffer that ^[[1msftp ^[[22muses when transferring
+     -B buffer_size
+             Specify the size of the buffer that sftp uses when transferring
              files. Larger buffers require fewer round trips at the cost of
              higher memory consumption. The default is 32768 bytes.
 
-     ^[[1mM-bMM-^RC      ^[[22mEnables compression (via sshM-bM-^@M-^Ys ^[[1mM-bMM-^RC ^[[22mflag).
+     -C      Enables compression (via sshM-bM-^@M-^Ys -C flag).
 
-     ^[[1mM-bMM-^RF ^[[4m^[[22mssh_config^[[0m
-             Specifies an alternative perM-bM-^@M-^Puser configuration file for ^[[1mssh^[[22m.
+     -F ssh_config
+             Specifies an alternative per-user configuration file for ssh.
              This option is directly passed to ssh(1).
 
-     ^[[1mM-bMM-^RP ^[[4m^[[22msftp_server^[[24m ^[[4mpath^[[0m
-             Connect directly to a local ^[[1msftpM-bM-^@M-^Pserver ^[[22m(rather than via ^[[1mssh^[[22m)
+     -P sftp_server path
+             Connect directly to a local sftp-server (rather than via ssh)
              This option may be useful in debugging the client and server.
 
-     ^[[1mM-bMM-^RR ^[[4m^[[22mnum_requests^[[0m
+     -R num_requests
              Specify how many requests may be outstanding at any one time.
              Increasing this may slightly improve file transfer speed but will
              increase memory usage. The default is 16 outstanding requests.
 
-     ^[[1mM-bMM-^RS ^[[4m^[[22mprogram^[[0m
-             Name of the ^[[4mprogram^[[24m to use for the encrypted connection.  The
+     -S program
+             Name of the program to use for the encrypted connection.  The
              program must understand ssh(1) options.
 
-     ^[[1mM-bMM-^R1      ^[[22mSpecify the use of protocol version 1.
+     -1      Specify the use of protocol version 1.
 
-^[[1mINTERACTIVE COMMANDS^[[0m
-     Once in interactive mode, ^[[1msftp ^[[22munderstands a set of commands similar to
+INTERACTIVE COMMANDS
+     Once in interactive mode, sftp understands a set of commands similar to
      those of ftp(1).  Commands are case insensitive and pathnames may be
      enclosed in quotes if they contain spaces.
 
-     ^[[1mbye     ^[[22mQuit sftp.
+     bye     Quit sftp.
 
-     ^[[1mcd ^[[4m^[[22mpath^[[0m
-             Change remote directory to ^[[4mpath^[[24m.
+     cd path
+             Change remote directory to path.
 
-     ^[[1mlcd ^[[4m^[[22mpath^[[0m
-             Change local directory to ^[[4mpath^[[24m.
+     lcd path
+             Change local directory to path.
 
-     ^[[1mchgrp ^[[4m^[[22mgrp^[[24m ^[[4mpath^[[0m
-             Change group of file ^[[4mpath^[[24m to ^[[4mgrp^[[24m.  ^[[4mgrp^[[24m must be a numeric GID.
+     chgrp grp path
+             Change group of file path to grp.  grp must be a numeric GID.
 
-     ^[[1mchmod ^[[4m^[[22mmode^[[24m ^[[4mpath^[[0m
-             Change permissions of file ^[[4mpath^[[24m to ^[[4mmode^[[24m.
+     chmod mode path
+             Change permissions of file path to mode.
 
-     ^[[1mchown ^[[4m^[[22mown^[[24m ^[[4mpath^[[0m
-             Change owner of file ^[[4mpath^[[24m to ^[[4mown^[[24m.  ^[[4mown^[[24m must be a numeric UID.
+     chown own path
+             Change owner of file path to own.  own must be a numeric UID.
 
-     ^[[1mexit    ^[[22mQuit sftp.
+     exit    Quit sftp.
 
-     ^[[1mget ^[[22m[^[[4mflags^[[24m] ^[[4mremoteM-bM-^@M-^Ppath^[[24m [^[[4mlocalM-bM-^@M-^Ppath^[[24m]
-             Retrieve the ^[[4mremoteM-bM-^@M-^Ppath^[[24m and store it on the local machine.  If
+     get [flags] remote-path [local-path]
+             Retrieve the remote-path and store it on the local machine.  If
              the local path name is not specified, it is given the same name
-             it has on the remote machine. If the ^[[1mM-bMM-^RP ^[[22mflag is specified, then
+             it has on the remote machine. If the -P flag is specified, then
              the fileM-bM-^@M-^Ys full permission and access time are copied too.
 
-     ^[[1mhelp    ^[[22mDisplay help text.
+     help    Display help text.
 
-     ^[[1mlls ^[[22m[^[[4mlsM-bM-^@M-^Poptions^[[24m [^[[4mpath^[[24m]]
-             Display local directory listing of either ^[[4mpath^[[24m or current direcM-bM-^@M-^P
-             tory if ^[[4mpath^[[24m is not specified.
+     lls [ls-options [path]]
+             Display local directory listing of either path or current direc-
+             tory if path is not specified.
 
-     ^[[1mlmkdir ^[[4m^[[22mpath^[[0m
-             Create local directory specified by ^[[4mpath^[[24m.
+     lmkdir path
+             Create local directory specified by path.
 
-     ^[[1mln ^[[4m^[[22moldpath^[[24m ^[[4mnewpath^[[0m
-             Create a symbolic link from ^[[4moldpath^[[24m to ^[[4mnewpath^[[24m.
+     ln oldpath newpath
+             Create a symbolic link from oldpath to newpath.
 
-     ^[[1mlpwd    ^[[22mPrint local working directory.
+     lpwd    Print local working directory.
 
-     ^[[1mls ^[[22m[^[[4mflags^[[24m] [^[[4mpath^[[24m]
-             Display remote directory listing of either ^[[4mpath^[[24m or current direcM-bM-^@M-^P
-             tory if ^[[4mpath^[[24m is not specified. If the ^[[1mM-bMM-^Rl ^[[22mflag is specified, then
+     ls [flags] [path]
+             Display remote directory listing of either path or current direc-
+             tory if path is not specified. If the -l flag is specified, then
              display additional details including permissions and ownership
              information.
 
-     ^[[1mlumask ^[[4m^[[22mumask^[[0m
-             Set local umask to ^[[4mumask^[[24m.
+     lumask umask
+             Set local umask to umask.
 
-     ^[[1mmkdir ^[[4m^[[22mpath^[[0m
-             Create remote directory specified by ^[[4mpath^[[24m.
+     mkdir path
+             Create remote directory specified by path.
 
-     ^[[1mprogress^[[0m
+     progress
              Toggle display of progress meter.
 
-     ^[[1mput ^[[22m[^[[4mflags^[[24m] ^[[4mlocalM-bM-^@M-^Ppath^[[24m [^[[4mremoteM-bM-^@M-^Ppath^[[24m]
-             Upload ^[[4mlocalM-bM-^@M-^Ppath^[[24m and store it on the remote machine. If the
+     put [flags] local-path [remote-path]
+             Upload local-path and store it on the remote machine. If the
              remote path name is not specified, it is given the same name it
-             has on the local machine. If the ^[[1mM-bMM-^RP ^[[22mflag is specified, then the
+             has on the local machine. If the -P flag is specified, then the
              fileM-bM-^@M-^Ys full permission and access time are copied too.
 
-     ^[[1mpwd     ^[[22mDisplay remote working directory.
+     pwd     Display remote working directory.
 
-     ^[[1mquit    ^[[22mQuit sftp.
+     quit    Quit sftp.
 
-     ^[[1mrename ^[[4m^[[22moldpath^[[24m ^[[4mnewpath^[[0m
-             Rename remote file from ^[[4moldpath^[[24m to ^[[4mnewpath^[[24m.
+     rename oldpath newpath
+             Rename remote file from oldpath to newpath.
 
-     ^[[1mrmdir ^[[4m^[[22mpath^[[0m
-             Remove remote directory specified by ^[[4mpath^[[24m.
+     rmdir path
+             Remove remote directory specified by path.
 
-     ^[[1mrm ^[[4m^[[22mpath^[[0m
-             Delete remote file specified by ^[[4mpath^[[24m.
+     rm path
+             Delete remote file specified by path.
 
-     ^[[1msymlink ^[[4m^[[22moldpath^[[24m ^[[4mnewpath^[[0m
-             Create a symbolic link from ^[[4moldpath^[[24m to ^[[4mnewpath^[[24m.
+     symlink oldpath newpath
+             Create a symbolic link from oldpath to newpath.
 
-     ^[[1mversion^[[0m
-             Display the ^[[1msftp ^[[22mprotocol version.
+     version
+             Display the sftp protocol version.
 
-     ! ^[[4mcommand^[[0m
-             Execute ^[[4mcommand^[[24m in local shell.
+     ! command
+             Execute command in local shell.
 
      !       Escape to local shell.
 
      ?       Synonym for help.
 
-^[[1mAUTHORS^[[0m
+AUTHORS
      Damien Miller <djm@mindrot.org>
 
-^[[1mSEE ALSO^[[0m
-     scp(1), ssh(1), sshM-bM-^@M-^Padd(1), sshM-bM-^@M-^Pkeygen(1), ssh_config(5), sftpM-bM-^@M-^Pserver(8),
+SEE ALSO
+     scp(1), ssh(1), ssh-add(1), ssh-keygen(1), ssh_config(5), sftp-server(8),
      sshd(8)
 
-     T. Ylonen and S. Lehtinen, ^[[4mSSH^[[24m ^[[4mFile^[[24m ^[[4mTransfer^[[24m ^[[4mProtocol^[[24m, draftM-bM-^@M-^PietfM-bM-^@M-^PsecshM-bM-^@M-^P
-     filexferM-bM-^@M-^P00.txt, January 2001, work in progress material.
+     T. Ylonen and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
+     filexfer-00.txt, January 2001, work in progress material.
 
 BSD                            February 4, 2001                            BSD

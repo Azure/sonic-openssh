@@ -1,100 +1,100 @@
-SSHM-bM-^@M-^PKEYSCAN(1)            BSD General Commands Manual           SSHM-bM-^@M-^PKEYSCAN(1)
+SSH-KEYSCAN(1)            BSD General Commands Manual           SSH-KEYSCAN(1)
 
-^[[1mNAME^[[0m
-     ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mM-bMM-^R gather ssh public keys
+NAME
+     ssh-keyscan - gather ssh public keys
 
-^[[1mSYNOPSIS^[[0m
-     ^[[1msshM-bM-^@M-^Pkeyscan ^[[22m[^[[1mM-bMM-^Rv46^[[22m] [^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[24m] [^[[1mM-bMM-^RT ^[[4m^[[22mtimeout^[[24m] [^[[1mM-bMM-^Rt ^[[4m^[[22mtype^[[24m] [^[[1mM-bMM-^Rf ^[[4m^[[22mfile^[[24m]
-                 [^[[4mhost^[[24m | ^[[4maddrlist^[[24m ^[[4mnamelist^[[24m] [^[[4m...^[[24m]
+SYNOPSIS
+     ssh-keyscan [-v46] [-p port] [-T timeout] [-t type] [-f file]
+                 [host | addrlist namelist] [...]
 
-^[[1mDESCRIPTION^[[0m
-     ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mis a utility for gathering the public ssh host keys of a numM-bM-^@M-^P
+DESCRIPTION
+     ssh-keyscan is a utility for gathering the public ssh host keys of a num-
      ber of hosts.  It was designed to aid in building and verifying
-     ^[[4mssh_known_hosts^[[24m files.  ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mprovides a minimal interface suitable
+     ssh_known_hosts files.  ssh-keyscan provides a minimal interface suitable
      for use by shell and perl scripts.
 
-     ^[[1msshM-bM-^@M-^Pkeyscan ^[[22muses nonM-bM-^@M-^Pblocking socket I/O to contact as many hosts as posM-bM-^@M-^P
+     ssh-keyscan uses non-blocking socket I/O to contact as many hosts as pos-
      sible in parallel, so it is very efficient.  The keys from a domain of
      1,000 hosts can be collected in tens of seconds, even when some of those
      hosts are down or do not run ssh.  For scanning, one does not need login
-     access to the machines that are being scanned, nor does the scanning proM-bM-^@M-^P
+     access to the machines that are being scanned, nor does the scanning pro-
      cess involve any encryption.
 
      The options are as follows:
 
-     ^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[0m
+     -p port
              Port to connect to on the remote host.
 
-     ^[[1mM-bMM-^RT ^[[4m^[[22mtimeout^[[0m
-             Set the timeout for connection attempts.  If ^[[4mtimeout^[[24m seconds have
+     -T timeout
+             Set the timeout for connection attempts.  If timeout seconds have
              elapsed since a connection was initiated to a host or since the
              last time anything was read from that host, then the connection
              is closed and the host in question considered unavailable.
              Default is 5 seconds.
 
-     ^[[1mM-bMM-^Rt ^[[4m^[[22mtype^[[0m
+     -t type
              Specifies the type of the key to fetch from the scanned hosts.
              The possible values are M-bM-^@M-^\rsa1M-bM-^@M-^] for protocol version 1 and M-bM-^@M-^\rsaM-bM-^@M-^]
-             or M-bM-^@M-^\dsaM-bM-^@M-^] for protocol version 2.  Multiple values may be speciM-bM-^@M-^P
+             or M-bM-^@M-^\dsaM-bM-^@M-^] for protocol version 2.  Multiple values may be speci-
              fied by separating them with commas.  The default is M-bM-^@M-^\rsa1M-bM-^@M-^].
 
-     ^[[1mM-bMM-^Rf ^[[4m^[[22mfilename^[[0m
-             Read hosts or ^[[4maddrlist^[[24m ^[[4mnamelist^[[24m pairs from this file, one per
-             line.  If ^[[4mM-bM-^@M-^P^[[24m is supplied instead of a filename, ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mwill
-             read hosts or ^[[4maddrlist^[[24m ^[[4mnamelist^[[24m pairs from the standard input.
+     -f filename
+             Read hosts or addrlist namelist pairs from this file, one per
+             line.  If - is supplied instead of a filename, ssh-keyscan will
+             read hosts or addrlist namelist pairs from the standard input.
 
-     ^[[1mM-bMM-^Rv      ^[[22mVerbose mode.  Causes ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mto print debugging messages
+     -v      Verbose mode.  Causes ssh-keyscan to print debugging messages
              about its progress.
 
-     ^[[1mM-bMM-^R4      ^[[22mForces ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mto use IPv4 addresses only.
+     -4      Forces ssh-keyscan to use IPv4 addresses only.
 
-     ^[[1mM-bMM-^R6      ^[[22mForces ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mto use IPv6 addresses only.
+     -6      Forces ssh-keyscan to use IPv6 addresses only.
 
-^[[1mSECURITY^[[0m
-     If a ssh_known_hosts file is constructed using ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mwithout veriM-bM-^@M-^P
+SECURITY
+     If a ssh_known_hosts file is constructed using ssh-keyscan without veri-
      fying the keys, users will be vulnerable to attacks.  On the other hand,
-     if the security model allows such a risk, ^[[1msshM-bM-^@M-^Pkeyscan ^[[22mcan help in the
+     if the security model allows such a risk, ssh-keyscan can help in the
      detection of tampered keyfiles or man in the middle attacks which have
      begun after the ssh_known_hosts file was created.
 
-^[[1mEXAMPLES^[[0m
-     Print the ^[[4mrsa1^[[24m host key for machine ^[[4mhostname^[[24m:
+EXAMPLES
+     Print the rsa1 host key for machine hostname:
 
-     $ sshM-bM-^@M-^Pkeyscan hostname
+     $ ssh-keyscan hostname
 
-     Find all hosts from the file ^[[4mssh_hosts^[[24m which have new or different keys
-     from those in the sorted file ^[[4mssh_known_hosts^[[24m:
+     Find all hosts from the file ssh_hosts which have new or different keys
+     from those in the sorted file ssh_known_hosts:
 
-     $ sshM-bM-^@M-^Pkeyscan M-bM-^@M-^Pt rsa,dsa M-bM-^@M-^Pf ssh_hosts | \
-             sort M-bM-^@M-^Pu M-bM-^@M-^P ssh_known_hosts | diff ssh_known_hosts M-bM-^@M-^P
+     $ ssh-keyscan -t rsa,dsa -f ssh_hosts | \
+             sort -u - ssh_known_hosts | diff ssh_known_hosts -
 
-^[[1mFILES^[[0m
-     ^[[4mInput^[[24m ^[[4mformat:^[[0m
+FILES
+     Input format:
 
      1.2.3.4,1.2.4.4 name.my.domain,name,n.my.domain,n,1.2.3.4,1.2.4.4
 
-     ^[[4mOutput^[[24m ^[[4mformat^[[24m ^[[4mfor^[[24m ^[[4mrsa1^[[24m ^[[4mkeys:^[[0m
+     Output format for rsa1 keys:
 
-     hostM-bM-^@M-^PorM-bM-^@M-^Pnamelist bits exponent modulus
+     host-or-namelist bits exponent modulus
 
-     ^[[4mOutput^[[24m ^[[4mformat^[[24m ^[[4mfor^[[24m ^[[4mrsa^[[24m ^[[4mand^[[24m ^[[4mdsa^[[24m ^[[4mkeys:^[[0m
+     Output format for rsa and dsa keys:
 
-     hostM-bM-^@M-^PorM-bM-^@M-^Pnamelist keytype base64M-bM-^@M-^PencodedM-bM-^@M-^Pkey
+     host-or-namelist keytype base64-encoded-key
 
-     Where ^[[4mkeytype^[[24m is either M-bM-^@M-^\sshM-bM-^@M-^PrsaM-bM-^@M-^] or M-bM-^@M-^\sshM-bM-^@M-^PdsaM-bM-^@M-^].
+     Where keytype is either M-bM-^@M-^\ssh-rsaM-bM-^@M-^] or M-bM-^@M-^\ssh-dsaM-bM-^@M-^].
 
-     ^[[4m/etc/ssh/ssh_known_hosts^[[0m
+     /etc/ssh/ssh_known_hosts
 
-^[[1mBUGS^[[0m
+BUGS
      It generates "Connection closed by remote host" messages on the consoles
      of all the machines it scans if the server is older than version 2.9.
      This is because it opens a connection to the ssh port, reads the public
      key, and drops the connection as soon as it gets the key.
 
-^[[1mSEE ALSO^[[0m
+SEE ALSO
      ssh(1), sshd(8)
 
-^[[1mAUTHORS^[[0m
+AUTHORS
      David Mazieres <dm@lcs.mit.edu> wrote the initial version, and Wayne
      Davison <wayned@users.sourceforge.net> added support for protocol version
      2.

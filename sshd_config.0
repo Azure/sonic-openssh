@@ -1,25 +1,25 @@
 SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
 
-^[[1mNAME^[[0m
-     ^[[1msshd_config ^[[22mM-bMM-^R OpenSSH SSH daemon configuration file
+NAME
+     sshd_config - OpenSSH SSH daemon configuration file
 
-^[[1mSYNOPSIS^[[0m
-     ^[[4m/etc/ssh/sshd_config^[[0m
+SYNOPSIS
+     /etc/ssh/sshd_config
 
-^[[1mDESCRIPTION^[[0m
-     ^[[1msshd ^[[22mreads configuration data from ^[[4m/etc/ssh/sshd_config^[[24m (or the file
-     specified with ^[[1mM-bMM-^Rf ^[[22mon the command line).  The file contains keywordM-bM-^@M-^ParguM-bM-^@M-^P
+DESCRIPTION
+     sshd reads configuration data from /etc/ssh/sshd_config (or the file
+     specified with -f on the command line).  The file contains keyword-argu-
      ment pairs, one per line.  Lines starting with M-bM-^@M-^X#M-bM-^@M-^Y and empty lines are
      interpreted as comments.
 
-     The possible keywords and their meanings are as follows (note that keyM-bM-^@M-^P
-     words are caseM-bM-^@M-^Pinsensitive and arguments are caseM-bM-^@M-^Psensitive):
+     The possible keywords and their meanings are as follows (note that key-
+     words are case-insensitive and arguments are case-sensitive):
 
-     ^[[1mAFSTokenPassing^[[0m
+     AFSTokenPassing
              Specifies whether an AFS token may be forwarded to the server.
              Default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mAllowGroups^[[0m
+     AllowGroups
              This keyword can be followed by a list of group name patterns,
              separated by spaces.  If specified, login is allowed only for
              users whose primary group or supplementary group list matches one
@@ -27,13 +27,13 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
              patterns.  Only group names are valid; a numerical group ID is
              not recognized.  By default, login is allowed for all groups.
 
-     ^[[1mAllowTcpForwarding^[[0m
+     AllowTcpForwarding
              Specifies whether TCP forwarding is permitted.  The default is
-             M-bM-^@M-^\yesM-bM-^@M-^].  Note that disabling TCP forwarding does not improve secuM-bM-^@M-^P
+             M-bM-^@M-^\yesM-bM-^@M-^].  Note that disabling TCP forwarding does not improve secu-
              rity unless users are also denied shell access, as they can
              always install their own forwarders.
 
-     ^[[1mAllowUsers^[[0m
+     AllowUsers
              This keyword can be followed by a list of user name patterns,
              separated by spaces.  If specified, login is allowed only for
              user names that match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be
@@ -43,64 +43,64 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
              then USER and HOST are separately checked, restricting logins to
              particular users from particular hosts.
 
-     ^[[1mAuthorizedKeysFile^[[0m
+     AuthorizedKeysFile
              Specifies the file that contains the public keys that can be used
-             for user authentication.  ^[[1mAuthorizedKeysFile ^[[22mmay contain tokens
-             of the form %T which are substituted during connection setM-bM-^@M-^Pup.
+             for user authentication.  AuthorizedKeysFile may contain tokens
+             of the form %T which are substituted during connection set-up.
              The following tokens are defined: %% is replaced by a literal
              M-bM-^@M-^Y%M-bM-^@M-^Y, %h is replaced by the home directory of the user being
              authenticated and %u is replaced by the username of that user.
-             After expansion, ^[[1mAuthorizedKeysFile ^[[22mis taken to be an absolute
+             After expansion, AuthorizedKeysFile is taken to be an absolute
              path or one relative to the userM-bM-^@M-^Ys home directory.  The default
              is M-bM-^@M-^\.ssh/authorized_keysM-bM-^@M-^].
 
-     ^[[1mBanner  ^[[22mIn some jurisdictions, sending a warning message before authentiM-bM-^@M-^P
-             cation may be relevant for getting legal protection.  The conM-bM-^@M-^P
+     Banner  In some jurisdictions, sending a warning message before authenti-
+             cation may be relevant for getting legal protection.  The con-
              tents of the specified file are sent to the remote user before
              authentication is allowed.  This option is only available for
              protocol version 2.  By default, no banner is displayed.
 
-     ^[[1mChallengeResponseAuthentication^[[0m
+     ChallengeResponseAuthentication
              Specifies whether challenge response authentication is allowed.
              All authentication styles from login.conf(5) are supported.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mCiphers^[[0m
+     Ciphers
              Specifies the ciphers allowed for protocol version 2.  Multiple
-             ciphers must be commaM-bM-^@M-^Pseparated.  The default is
+             ciphers must be comma-separated.  The default is
 
-               M-bM-^@M-^XM-bM-^@M-^Xaes128M-bM-^@M-^Pcbc,3desM-bM-^@M-^Pcbc,blowfishM-bM-^@M-^Pcbc,cast128M-bM-^@M-^Pcbc,arcfour,
-                 aes192M-bM-^@M-^Pcbc,aes256M-bM-^@M-^PcbcM-bM-^@M-^YM-bM-^@M-^Y
+               M-bM-^@M-^XM-bM-^@M-^Xaes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,
+                 aes192-cbc,aes256-cbcM-bM-^@M-^YM-bM-^@M-^Y
 
-     ^[[1mClientAliveInterval^[[0m
+     ClientAliveInterval
              Sets a timeout interval in seconds after which if no data has
-             been received from the client, ^[[1msshd ^[[22mwill send a message through
+             been received from the client, sshd will send a message through
              the encrypted channel to request a response from the client.  The
              default is 0, indicating that these messages will not be sent to
              the client.  This option applies to protocol version 2 only.
 
-     ^[[1mClientAliveCountMax^[[0m
+     ClientAliveCountMax
              Sets the number of client alive messages (see above) which may be
-             sent without ^[[1msshd ^[[22mreceiving any messages back from the client. If
+             sent without sshd receiving any messages back from the client. If
              this threshold is reached while client alive messages are being
-             sent, ^[[1msshd ^[[22mwill disconnect the client, terminating the session.
+             sent, sshd will disconnect the client, terminating the session.
              It is important to note that the use of client alive messages is
-             very different from ^[[1mKeepAlive ^[[22m(below). The client alive messages
+             very different from KeepAlive (below). The client alive messages
              are sent through the encrypted channel and therefore will not be
-             spoofable. The TCP keepalive option enabled by ^[[1mKeepAlive ^[[22mis
+             spoofable. The TCP keepalive option enabled by KeepAlive is
              spoofable. The client alive mechanism is valuable when the client
-             or server depend on knowing when a connection has become inacM-bM-^@M-^P
+             or server depend on knowing when a connection has become inac-
              tive.
 
-             The default value is 3. If ^[[1mClientAliveInterval ^[[22m(above) is set to
-             15, and ^[[1mClientAliveCountMax ^[[22mis left at the default, unresponsive
+             The default value is 3. If ClientAliveInterval (above) is set to
+             15, and ClientAliveCountMax is left at the default, unresponsive
              ssh clients will be disconnected after approximately 45 seconds.
 
-     ^[[1mCompression^[[0m
+     Compression
              Specifies whether compression is allowed.  The argument must be
              M-bM-^@M-^\yesM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].  The default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mDenyGroups^[[0m
+     DenyGroups
              This keyword can be followed by a list of group name patterns,
              separated by spaces.  Login is disallowed for users whose primary
              group or supplementary group list matches one of the patterns.
@@ -108,7 +108,7 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
              group names are valid; a numerical group ID is not recognized.
              By default, login is allowed for all groups.
 
-     ^[[1mDenyUsers^[[0m
+     DenyUsers
              This keyword can be followed by a list of user name patterns,
              separated by spaces.  Login is disallowed for user names that
              match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be used as wildcards
@@ -118,50 +118,50 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
              separately checked, restricting logins to particular users from
              particular hosts.
 
-     ^[[1mGatewayPorts^[[0m
+     GatewayPorts
              Specifies whether remote hosts are allowed to connect to ports
-             forwarded for the client.  By default, ^[[1msshd ^[[22mbinds remote port
+             forwarded for the client.  By default, sshd binds remote port
              forwardings to the loopback address.  This prevents other remote
-             hosts from connecting to forwarded ports.  ^[[1mGatewayPorts ^[[22mcan be
-             used to specify that ^[[1msshd ^[[22mshould bind remote port forwardings to
+             hosts from connecting to forwarded ports.  GatewayPorts can be
+             used to specify that sshd should bind remote port forwardings to
              the wildcard address, thus allowing remote hosts to connect to
              forwarded ports.  The argument must be M-bM-^@M-^\yesM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].  The
              default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mHostbasedAuthentication^[[0m
+     HostbasedAuthentication
              Specifies whether rhosts or /etc/hosts.equiv authentication
              together with successful public key client host authentication is
              allowed (hostbased authentication).  This option is similar to
-             ^[[1mRhostsRSAAuthentication ^[[22mand applies to protocol version 2 only.
+             RhostsRSAAuthentication and applies to protocol version 2 only.
              The default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mHostKey^[[0m
+     HostKey
              Specifies a file containing a private host key used by SSH.  The
-             default is ^[[4m/etc/ssh/ssh_host_key^[[24m for protocol version 1, and
-             ^[[4m/etc/ssh/ssh_host_rsa_key^[[24m and ^[[4m/etc/ssh/ssh_host_dsa_key^[[24m for proM-bM-^@M-^P
-             tocol version 2.  Note that ^[[1msshd ^[[22mwill refuse to use a file if it
-             is group/worldM-bM-^@M-^Paccessible.  It is possible to have multiple host
+             default is /etc/ssh/ssh_host_key for protocol version 1, and
+             /etc/ssh/ssh_host_rsa_key and /etc/ssh/ssh_host_dsa_key for pro-
+             tocol version 2.  Note that sshd will refuse to use a file if it
+             is group/world-accessible.  It is possible to have multiple host
              key files.  M-bM-^@M-^\rsa1M-bM-^@M-^] keys are used for version 1 and M-bM-^@M-^\dsaM-bM-^@M-^] or M-bM-^@M-^\rsaM-bM-^@M-^]
              are used for version 2 of the SSH protocol.
 
-     ^[[1mIgnoreRhosts^[[0m
-             Specifies that ^[[4m.rhosts^[[24m and ^[[4m.shosts^[[24m files will not be used in
-             ^[[1mRhostsAuthentication^[[22m, ^[[1mRhostsRSAAuthentication ^[[22mor
-             ^[[1mHostbasedAuthentication^[[22m.
+     IgnoreRhosts
+             Specifies that .rhosts and .shosts files will not be used in
+             RhostsAuthentication, RhostsRSAAuthentication or
+             HostbasedAuthentication.
 
-             ^[[4m/etc/hosts.equiv^[[24m and ^[[4m/etc/shosts.equiv^[[24m are still used.  The
+             /etc/hosts.equiv and /etc/shosts.equiv are still used.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mIgnoreUserKnownHosts^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould ignore the userM-bM-^@M-^Ys
-             ^[[4m$HOME/.ssh/known_hosts^[[24m during ^[[1mRhostsRSAAuthentication ^[[22mor
-             ^[[1mHostbasedAuthentication^[[22m.  The default is M-bM-^@M-^\noM-bM-^@M-^].
+     IgnoreUserKnownHosts
+             Specifies whether sshd should ignore the userM-bM-^@M-^Ys
+             $HOME/.ssh/known_hosts during RhostsRSAAuthentication or
+             HostbasedAuthentication.  The default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mKeepAlive^[[0m
+     KeepAlive
              Specifies whether the system should send TCP keepalive messages
              to the other side.  If they are sent, death of the connection or
              crash of one of the machines will be properly noticed.  However,
-             this means that connections will die if the route is down temM-bM-^@M-^P
+             this means that connections will die if the route is down tem-
              porarily, and some people find it annoying.  On the other hand,
              if keepalives are not sent, sessions may hang indefinitely on the
              server, leaving M-bM-^@M-^\ghostM-bM-^@M-^] users and consuming server resources.
@@ -172,273 +172,272 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
 
              To disable keepalives, the value should be set to M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mKerberosAuthentication^[[0m
+     KerberosAuthentication
              Specifies whether Kerberos authentication is allowed.  This can
-             be in the form of a Kerberos ticket, or if ^[[1mPasswordAuthentication^[[0m
+             be in the form of a Kerberos ticket, or if PasswordAuthentication
              is yes, the password provided by the user will be validated
              through the Kerberos KDC.  To use this option, the server needs a
-             Kerberos servtab which allows the verification of the KDCM-bM-^@M-^Ys idenM-bM-^@M-^P
+             Kerberos servtab which allows the verification of the KDCM-bM-^@M-^Ys iden-
              tity.  Default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mKerberosOrLocalPasswd^[[0m
+     KerberosOrLocalPasswd
              If set then if password authentication through Kerberos fails
              then the password will be validated via any additional local
-             mechanism such as ^[[4m/etc/passwd^[[24m.  Default is M-bM-^@M-^\yesM-bM-^@M-^].
+             mechanism such as /etc/passwd.  Default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mKerberosTgtPassing^[[0m
+     KerberosTgtPassing
              Specifies whether a Kerberos TGT may be forwarded to the server.
              Default is M-bM-^@M-^\noM-bM-^@M-^], as this only works when the Kerberos KDC is
              actually an AFS kaserver.
 
-     ^[[1mKerberosTicketCleanup^[[0m
+     KerberosTicketCleanup
              Specifies whether to automatically destroy the userM-bM-^@M-^Ys ticket
              cache file on logout.  Default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mKeyRegenerationInterval^[[0m
+     KeyRegenerationInterval
              In protocol version 1, the ephemeral server key is automatically
              regenerated after this many seconds (if it has been used).  The
-             purpose of regeneration is to prevent decrypting captured sesM-bM-^@M-^P
+             purpose of regeneration is to prevent decrypting captured ses-
              sions by later breaking into the machine and stealing the keys.
              The key is never stored anywhere.  If the value is 0, the key is
              never regenerated.  The default is 3600 (seconds).
 
-     ^[[1mListenAddress^[[0m
-             Specifies the local addresses ^[[1msshd ^[[22mshould listen on.  The followM-bM-^@M-^P
+     ListenAddress
+             Specifies the local addresses sshd should listen on.  The follow-
              ing forms may be used:
 
-                   ^[[1mListenAddress ^[[4m^[[22mhost^[[24m|^[[4mIPv4_addr^[[24m|^[[4mIPv6_addr^[[0m
-                   ^[[1mListenAddress ^[[4m^[[22mhost^[[24m|^[[4mIPv4_addr^[[24m:^[[4mport^[[0m
-                   ^[[1mListenAddress ^[[22m[^[[4mhost^[[24m|^[[4mIPv6_addr^[[24m]:^[[4mport^[[0m
+                   ListenAddress host|IPv4_addr|IPv6_addr
+                   ListenAddress host|IPv4_addr:port
+                   ListenAddress [host|IPv6_addr]:port
 
-             If ^[[4mport^[[24m is not specified, ^[[1msshd ^[[22mwill listen on the address and all
-             prior ^[[1mPort ^[[22moptions specified. The default is to listen on all
-             local addresses.  Multiple ^[[1mListenAddress ^[[22moptions are permitted.
-             Additionally, any ^[[1mPort ^[[22moptions must precede this option for non
+             If port is not specified, sshd will listen on the address and all
+             prior Port options specified. The default is to listen on all
+             local addresses.  Multiple ListenAddress options are permitted.
+             Additionally, any Port options must precede this option for non
              port qualified addresses.
 
-     ^[[1mLoginGraceTime^[[0m
-             The server disconnects after this time if the user has not sucM-bM-^@M-^P
+     LoginGraceTime
+             The server disconnects after this time if the user has not suc-
              cessfully logged in.  If the value is 0, there is no time limit.
              The default is 120 seconds.
 
-     ^[[1mLogLevel^[[0m
+     LogLevel
              Gives the verbosity level that is used when logging messages from
-             ^[[1msshd^[[22m.  The possible values are: QUIET, FATAL, ERROR, INFO, VERM-bM-^@M-^P
+             sshd.  The possible values are: QUIET, FATAL, ERROR, INFO, VER-
              BOSE, DEBUG, DEBUG1, DEBUG2 and DEBUG3.  The default is INFO.
              DEBUG and DEBUG1 are equivalent.  DEBUG2 and DEBUG3 each specify
              higher levels of debugging output.  Logging with a DEBUG level
              violates the privacy of users and is not recommended.
 
-     ^[[1mMACs    ^[[22mSpecifies the available MAC (message authentication code) algoM-bM-^@M-^P
+     MACs    Specifies the available MAC (message authentication code) algo-
              rithms.  The MAC algorithm is used in protocol version 2 for data
-             integrity protection.  Multiple algorithms must be commaM-bM-^@M-^PsepaM-bM-^@M-^P
+             integrity protection.  Multiple algorithms must be comma-sepa-
              rated.  The default is
-             M-bM-^@M-^\hmacM-bM-^@M-^Pmd5,hmacM-bM-^@M-^Psha1,hmacM-bM-^@M-^Pripemd160,hmacM-bM-^@M-^Psha1M-bM-^@M-^P96,hmacM-bM-^@M-^Pmd5M-bM-^@M-^P96M-bM-^@M-^].
+             M-bM-^@M-^\hmac-md5,hmac-sha1,hmac-ripemd160,hmac-sha1-96,hmac-md5-96M-bM-^@M-^].
 
-     ^[[1mMaxStartups^[[0m
-             Specifies the maximum number of concurrent unauthenticated conM-bM-^@M-^P
-             nections to the ^[[1msshd ^[[22mdaemon.  Additional connections will be
-             dropped until authentication succeeds or the ^[[1mLoginGraceTime^[[0m
+     MaxStartups
+             Specifies the maximum number of concurrent unauthenticated con-
+             nections to the sshd daemon.  Additional connections will be
+             dropped until authentication succeeds or the LoginGraceTime
              expires for a connection.  The default is 10.
 
              Alternatively, random early drop can be enabled by specifying the
              three colon separated values M-bM-^@M-^\start:rate:fullM-bM-^@M-^] (e.g.,
-             "10:30:60").  ^[[1msshd ^[[22mwill refuse connection attempts with a probaM-bM-^@M-^P
+             "10:30:60").  sshd will refuse connection attempts with a proba-
              bility of M-bM-^@M-^\rate/100M-bM-^@M-^] (30%) if there are currently M-bM-^@M-^\startM-bM-^@M-^] (10)
              unauthenticated connections.  The probability increases linearly
-             and all connection attempts are refused if the number of unauM-bM-^@M-^P
+             and all connection attempts are refused if the number of unau-
              thenticated connections reaches M-bM-^@M-^\fullM-bM-^@M-^] (60).
 
-     ^[[1mPAMAuthenticationViaKbdInt^[[0m
+     PAMAuthenticationViaKbdInt
              Specifies whether PAM challenge response authentication is
              allowed. This allows the use of most PAM challenge response
              authentication modules, but it will allow password authentication
-             regardless of whether ^[[1mPasswordAuthentication ^[[22mis enabled.
+             regardless of whether PasswordAuthentication is enabled.
 
-     ^[[1mPasswordAuthentication^[[0m
+     PasswordAuthentication
              Specifies whether password authentication is allowed.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mPermitEmptyPasswords^[[0m
+     PermitEmptyPasswords
              When password authentication is allowed, it specifies whether the
              server allows login to accounts with empty password strings.  The
              default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mPermitRootLogin^[[0m
+     PermitRootLogin
              Specifies whether root can login using ssh(1).  The argument must
-             be M-bM-^@M-^\yesM-bM-^@M-^], M-bM-^@M-^\withoutM-bM-^@M-^PpasswordM-bM-^@M-^], M-bM-^@M-^\forcedM-bM-^@M-^PcommandsM-bM-^@M-^PonlyM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].
+             be M-bM-^@M-^\yesM-bM-^@M-^], M-bM-^@M-^\without-passwordM-bM-^@M-^], M-bM-^@M-^\forced-commands-onlyM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].
              The default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-             If this option is set to M-bM-^@M-^\withoutM-bM-^@M-^PpasswordM-bM-^@M-^] password authenticaM-bM-^@M-^P
+             If this option is set to M-bM-^@M-^\without-passwordM-bM-^@M-^] password authentica-
              tion is disabled for root.
 
-             If this option is set to M-bM-^@M-^\forcedM-bM-^@M-^PcommandsM-bM-^@M-^PonlyM-bM-^@M-^] root login with
+             If this option is set to M-bM-^@M-^\forced-commands-onlyM-bM-^@M-^] root login with
              public key authentication will be allowed, but only if the
-             ^[[4mcommand^[[24m option has been specified (which may be useful for taking
+             command option has been specified (which may be useful for taking
              remote backups even if root login is normally not allowed). All
              other authentication methods are disabled for root.
 
              If this option is set to M-bM-^@M-^\noM-bM-^@M-^] root is not allowed to login.
 
-     ^[[1mPermitUserEnvironment^[[0m
-             Specifies whether ^[[4m~/.ssh/environment^[[24m and ^[[1menvironment= ^[[22moptions in
-             ^[[4m~/.ssh/authorized_keys^[[24m are processed by ^[[1msshd^[[22m.  The default is
+     PermitUserEnvironment
+             Specifies whether ~/.ssh/environment and environment= options in
+             ~/.ssh/authorized_keys are processed by sshd.  The default is
              M-bM-^@M-^\noM-bM-^@M-^].  Enabling environment processing may enable users to bypass
              access restrictions in some configurations using mechanisms such
              as LD_PRELOAD.
 
-     ^[[1mPidFile^[[0m
-             Specifies the file that contains the process ID of the ^[[1msshd ^[[22mdaeM-bM-^@M-^P
-             mon.  The default is ^[[4m/var/run/sshd.pid^[[24m.
+     PidFile
+             Specifies the file that contains the process ID of the sshd dae-
+             mon.  The default is /var/run/sshd.pid.
 
-     ^[[1mPort    ^[[22mSpecifies the port number that ^[[1msshd ^[[22mlistens on.  The default is
+     Port    Specifies the port number that sshd listens on.  The default is
              22.  Multiple options of this type are permitted.  See also
-             ^[[1mListenAddress^[[22m.
+             ListenAddress.
 
-     ^[[1mPrintLastLog^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould print the date and time when the
+     PrintLastLog
+             Specifies whether sshd should print the date and time when the
              user last logged in.  The default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mPrintMotd^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould print ^[[4m/etc/motd^[[24m when a user logs in
+     PrintMotd
+             Specifies whether sshd should print /etc/motd when a user logs in
              interactively.  (On some systems it is also printed by the shell,
-             ^[[4m/etc/profile^[[24m, or equivalent.)  The default is M-bM-^@M-^\yesM-bM-^@M-^].
+             /etc/profile, or equivalent.)  The default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mProtocol^[[0m
-             Specifies the protocol versions ^[[1msshd ^[[22msupports.  The possible valM-bM-^@M-^P
-             ues are M-bM-^@M-^\1M-bM-^@M-^] and M-bM-^@M-^\2M-bM-^@M-^].  Multiple versions must be commaM-bM-^@M-^Pseparated.
+     Protocol
+             Specifies the protocol versions sshd supports.  The possible val-
+             ues are M-bM-^@M-^\1M-bM-^@M-^] and M-bM-^@M-^\2M-bM-^@M-^].  Multiple versions must be comma-separated.
              The default is M-bM-^@M-^\2,1M-bM-^@M-^].  Note that the order of the protocol list
              does not indicate preference, because the client selects among
              multiple protocol versions offered by the server.  Specifying
              M-bM-^@M-^\2,1M-bM-^@M-^] is identical to M-bM-^@M-^\1,2M-bM-^@M-^].
 
-     ^[[1mPubkeyAuthentication^[[0m
+     PubkeyAuthentication
              Specifies whether public key authentication is allowed.  The
-             default is M-bM-^@M-^\yesM-bM-^@M-^].  Note that this option applies to protocol verM-bM-^@M-^P
+             default is M-bM-^@M-^\yesM-bM-^@M-^].  Note that this option applies to protocol ver-
              sion 2 only.
 
-     ^[[1mRhostsAuthentication^[[0m
+     RhostsAuthentication
              Specifies whether authentication using rhosts or /etc/hosts.equiv
-             files is sufficient.  Normally, this method should not be permitM-bM-^@M-^P
-             ted because it is insecure.  ^[[1mRhostsRSAAuthentication ^[[22mshould be
-             used instead, because it performs RSAM-bM-^@M-^Pbased host authentication
+             files is sufficient.  Normally, this method should not be permit-
+             ted because it is insecure.  RhostsRSAAuthentication should be
+             used instead, because it performs RSA-based host authentication
              in addition to normal rhosts or /etc/hosts.equiv authentication.
              The default is M-bM-^@M-^\noM-bM-^@M-^].  This option applies to protocol version 1
              only.
 
-     ^[[1mRhostsRSAAuthentication^[[0m
+     RhostsRSAAuthentication
              Specifies whether rhosts or /etc/hosts.equiv authentication
              together with successful RSA host authentication is allowed.  The
              default is M-bM-^@M-^\noM-bM-^@M-^].  This option applies to protocol version 1 only.
 
-     ^[[1mRSAAuthentication^[[0m
+     RSAAuthentication
              Specifies whether pure RSA authentication is allowed.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].  This option applies to protocol version 1
              only.
 
-     ^[[1mServerKeyBits^[[0m
+     ServerKeyBits
              Defines the number of bits in the ephemeral protocol version 1
              server key.  The minimum value is 512, and the default is 768.
 
-     ^[[1mStrictModes^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould check file modes and ownership of
+     StrictModes
+             Specifies whether sshd should check file modes and ownership of
              the userM-bM-^@M-^Ys files and home directory before accepting login.  This
              is normally desirable because novices sometimes accidentally
-             leave their directory or files worldM-bM-^@M-^Pwritable.  The default is
+             leave their directory or files world-writable.  The default is
              M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mSubsystem^[[0m
+     Subsystem
              Configures an external subsystem (e.g., file transfer daemon).
              Arguments should be a subsystem name and a command to execute
-             upon subsystem request.  The command sftpM-bM-^@M-^Pserver(8) implements
+             upon subsystem request.  The command sftp-server(8) implements
              the M-bM-^@M-^\sftpM-bM-^@M-^] file transfer subsystem.  By default no subsystems are
              defined.  Note that this option applies to protocol version 2
              only.
 
-     ^[[1mSyslogFacility^[[0m
+     SyslogFacility
              Gives the facility code that is used when logging messages from
-             ^[[1msshd^[[22m.  The possible values are: DAEMON, USER, AUTH, LOCAL0,
+             sshd.  The possible values are: DAEMON, USER, AUTH, LOCAL0,
              LOCAL1, LOCAL2, LOCAL3, LOCAL4, LOCAL5, LOCAL6, LOCAL7.  The
              default is AUTH.
 
-     ^[[1mUseLogin^[[0m
-             Specifies whether login(1) is used for interactive login sesM-bM-^@M-^P
+     UseLogin
+             Specifies whether login(1) is used for interactive login ses-
              sions.  The default is M-bM-^@M-^\noM-bM-^@M-^].  Note that login(1) is never used
              for remote command execution.  Note also, that if this is
-             enabled, ^[[1mX11Forwarding ^[[22mwill be disabled because login(1) does not
-             know how to handle xauth(1) cookies.  If ^[[1mUsePrivilegeSeparation^[[0m
+             enabled, X11Forwarding will be disabled because login(1) does not
+             know how to handle xauth(1) cookies.  If UsePrivilegeSeparation
              is specified, it will be disabled after authentication.
 
-     ^[[1mUsePrivilegeSeparation^[[0m
-             Specifies whether ^[[1msshd ^[[22mseparates privileges by creating an
+     UsePrivilegeSeparation
+             Specifies whether sshd separates privileges by creating an
              unprivileged child process to deal with incoming network traffic.
              After successful authentication, another process will be created
              that has the privilege of the authenticated user.  The goal of
-             privilege separation is to prevent privilege escalation by conM-bM-^@M-^P
+             privilege separation is to prevent privilege escalation by con-
              taining any corruption within the unprivileged processes.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mVerifyReverseMapping^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould try to verify the remote host name
+     VerifyReverseMapping
+             Specifies whether sshd should try to verify the remote host name
              and check that the resolved host name for the remote IP address
              maps back to the very same IP address.  The default is M-bM-^@M-^\noM-bM-^@M-^].
 
-     ^[[1mX11DisplayOffset^[[0m
-             Specifies the first display number available for ^[[1msshd^[[22mM-bM-^@M-^Ys X11 forM-bM-^@M-^P
-             warding.  This prevents ^[[1msshd ^[[22mfrom interfering with real X11
+     X11DisplayOffset
+             Specifies the first display number available for sshdM-bM-^@M-^Ys X11 for-
+             warding.  This prevents sshd from interfering with real X11
              servers.  The default is 10.
 
-     ^[[1mX11Forwarding^[[0m
+     X11Forwarding
              Specifies whether X11 forwarding is permitted.  The argument must
              be M-bM-^@M-^\yesM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].  The default is M-bM-^@M-^\noM-bM-^@M-^].
 
              When X11 forwarding is enabled, there may be additional exposure
-             to the server and to client displays if the ^[[1msshd ^[[22mproxy display is
-             configured to listen on the wildcard address (see ^[[1mX11UseLocalhost^[[0m
+             to the server and to client displays if the sshd proxy display is
+             configured to listen on the wildcard address (see X11UseLocalhost
              below), however this is not the default.  Additionally, the
              authentication spoofing and authentication data verification and
              substitution occur on the client side.  The security risk of
              using X11 forwarding is that the clientM-bM-^@M-^Ys X11 display server may
              be exposed to attack when the ssh client requests forwarding (see
-             the warnings for ^[[1mForwardX11 ^[[22min ssh_config(5) ). A system adminisM-bM-^@M-^P
+             the warnings for ForwardX11 in ssh_config(5) ). A system adminis-
              trator may have a stance in which they want to protect clients
              that may expose themselves to attack by unwittingly requesting
              X11 forwarding, which can warrant a M-bM-^@M-^\noM-bM-^@M-^] setting.
 
              Note that disabling X11 forwarding does not prevent users from
              forwarding X11 traffic, as users can always install their own
-             forwarders.  X11 forwarding is automatically disabled if ^[[1mUseLogin^[[0m
+             forwarders.  X11 forwarding is automatically disabled if UseLogin
              is enabled.
 
-     ^[[1mX11UseLocalhost^[[0m
-             Specifies whether ^[[1msshd ^[[22mshould bind the X11 forwarding server to
+     X11UseLocalhost
+             Specifies whether sshd should bind the X11 forwarding server to
              the loopback address or to the wildcard address.  By default,
-             ^[[1msshd ^[[22mbinds the forwarding server to the loopback address and sets
+             sshd binds the forwarding server to the loopback address and sets
              the hostname part of the DISPLAY environment variable to
              M-bM-^@M-^\localhostM-bM-^@M-^].  This prevents remote hosts from connecting to the
              proxy display.  However, some older X11 clients may not function
-             with this configuration.  ^[[1mX11UseLocalhost ^[[22mmay be set to M-bM-^@M-^\noM-bM-^@M-^] to
-             specify that the forwarding server should be bound to the wildM-bM-^@M-^P
+             with this configuration.  X11UseLocalhost may be set to M-bM-^@M-^\noM-bM-^@M-^] to
+             specify that the forwarding server should be bound to the wild-
              card address.  The argument must be M-bM-^@M-^\yesM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].  The default
              is M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ^[[1mXAuthLocation^[[0m
+     XAuthLocation
              Specifies the full pathname of the xauth(1) program.  The default
-             is ^[[4m/usr/X11R6/bin/xauth^[[24m.
+             is /usr/X11R6/bin/xauth.
 
-   ^[[1mTime Formats^[[0m
-
-     ^[[1msshd ^[[22mcommandM-bM-^@M-^Pline arguments and configuration file options that specify
-     time may be expressed using a sequence of the form: ^[[4mtime^[[24m[^[[4mqualifier^[[24m],
-     where ^[[4mtime^[[24m is a positive integer value and ^[[4mqualifier^[[24m is one of the folM-bM-^@M-^P
+   Time Formats
+     sshd command-line arguments and configuration file options that specify
+     time may be expressed using a sequence of the form: time[qualifier],
+     where time is a positive integer value and qualifier is one of the fol-
      lowing:
 
-           ^[[1m<none>  ^[[22mseconds
-           ^[[1ms ^[[22m| ^[[1mS   ^[[22mseconds
-           ^[[1mm ^[[22m| ^[[1mM   ^[[22mminutes
-           ^[[1mh ^[[22m| ^[[1mH   ^[[22mhours
-           ^[[1md ^[[22m| ^[[1mD   ^[[22mdays
-           ^[[1mw ^[[22m| ^[[1mW   ^[[22mweeks
+           <none>  seconds
+           s | S   seconds
+           m | M   minutes
+           h | H   hours
+           d | D   days
+           w | W   weeks
 
      Each member of the sequence is added together to calculate the total time
      value.
@@ -449,21 +448,21 @@ SSHD_CONFIG(5)              BSD File Formats Manual             SSHD_CONFIG(5)
            10m     10 minutes
            1h30m   1 hour 30 minutes (90 minutes)
 
-^[[1mFILES^[[0m
+FILES
      /etc/ssh/sshd_config
-             Contains configuration data for ^[[1msshd^[[22m.  This file should be
-             writable by root only, but it is recommended (though not necesM-bM-^@M-^P
-             sary) that it be worldM-bM-^@M-^Preadable.
+             Contains configuration data for sshd.  This file should be
+             writable by root only, but it is recommended (though not neces-
+             sary) that it be world-readable.
 
-^[[1mAUTHORS^[[0m
+AUTHORS
      OpenSSH is a derivative of the original and free ssh 1.2.12 release by
      Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
-     de Raadt and Dug Song removed many bugs, reM-bM-^@M-^Padded newer features and creM-bM-^@M-^P
+     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
      for privilege separation.
 
-^[[1mSEE ALSO^[[0m
+SEE ALSO
      sshd(8)
 
 BSD                           September 25, 1999                           BSD

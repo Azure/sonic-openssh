@@ -364,9 +364,10 @@ identities will be tried in sequence.
 Specifies whether the system should send TCP keepalive messages to the
 other side.
 If they are sent, death of the connection or crash of one
-of the machines will be properly noticed.  This option only uses TCP
-keepalives (as opposed to using ssh level keepalives), so takes a long
-time to notice when the connection dies.  As such, you probably want
+of the machines will be properly noticed.
+This option only uses TCP keepalives (as opposed to using ssh level
+keepalives), so takes a long time to notice when the connection dies.
+As such, you probably want
 the
 .Cm ProtocolKeepAlives
 option as well.
@@ -471,9 +472,10 @@ tries version 2 and falls back to version 1
 if version 2 is not available.
 .It Cm ProtocolKeepAlives
 Specifies the interval in seconds at which IGNORE packets will be sent to
-the server during idle periods. Use this option in scripts to detect
-when the network fails. The argument must be an integer. The default
-is 0 (disabled), or 300 if the 
+the server during idle periods.
+Use this option in scripts to detect when the network fails.
+The argument must be an integer.
+The default is 0 (disabled), or 300 if the 
 .Cm BatchMode
 option is set.
 .It Cm ProxyCommand
@@ -571,13 +573,16 @@ Note that this option applies to protocol version 1 only.
 Normally,
 .Nm ssh
 blocks indefinitely whilst waiting to receive the ssh banner and other
-setup protocol from the server, during the session setup.  This can cause
+setup protocol from the server, during the session setup.
+This can cause
 .Nm ssh
-to hang under certain circumstances.  If this option is set,
+to hang under certain circumstances.
+If this option is set,
 .Nm ssh
 will give up if no data from the server is received for the specified
-number of seconds. The argument must be an integer. The default is 0
-(disabled), or 300 if
+number of seconds.
+The argument must be an integer.
+The default is 0 (disabled), or 300 if
 .Cm BatchMode
 is set.
 .It Cm SmartcardDevice
