@@ -1,3 +1,9 @@
+openssh (1:3.8.1p1-8.sarge.2) UNRELEASED; urgency=low
+
+  * Preserve /etc/ssh/sshd_config ownership/permissions (closes: #276754).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 24 Oct 2004 15:25:05 +0100
+
 openssh (1:3.8.1p1-8.sarge.1) unstable; urgency=high
 
   * If PasswordAuthentication is disabled, then offer to disable
