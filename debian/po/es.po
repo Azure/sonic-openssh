@@ -293,7 +293,7 @@ msgstr "Necesitará generar una nueva clave para su servidor."
 #. Description
 #: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
-msgstr "¿Deshabilitar la autenticación de prueba-respuesta?"
+msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
@@ -306,12 +306,13 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"La autenticación de clave parece estar deshabilitada en la configuración de "
-"su servidor OpenSSH. Para prevenir que usuarios ingresen sin clave con "
-"versiones recientes de OpenSSH (por ahí usando solamente autenticación de "
-"clave pública), usted debe deshabilitar la autenticación prueba-respuesta, o "
-"asegurarse que su configuración de PAM no permite la autenticación con "
-"archivos de claves UNIX."
+"Parece que la configuración actual de su servidor de OpenSSH tiene "
+"deshabilitada la autenticación mediante contraseñas. En las versiones "
+"recientes de OpenSSH para impedir que los usuarios se puedan conectar con "
+"contraseñas (y obligar la utilización de sistemas de autenticació con clave "
+"pública) debe deshabilitar la autenticación basada en desafío-respuesta o "
+"asegurarse de que su configuración PAM no permite autenticación basada en el "
+"fichero de contraseñas Unix."
 
 #. Type: boolean
 #. Description
@@ -322,11 +323,10 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Si deshabilita la autenticación de prueba-respuesta, los usuarios no podrán "
-"ingresar utilizando claves. Si lo deja habilitado (la respuesta por "
-"defecto), entonces la opción 'PasswordAuthentication no' no tendrá efecto "
-"útil alguno a no ser que usted también ajuste su configuración de PAM en /"
-"etc/pam.d/ssh."
+"Si deshabilita la autenticación mediante desafío-respuesta los usuarios no "
+"podrán acceder con contraseñas. Si la deja habilitada (respuesta por "
+"omisión) entonces la opción «PasswordAuthentication no» no tendrá ninguna "
+"utilidad a menos que ajuste su configuración de PAM en «/etc/pam.d/ssh»."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "Las claves ssh2 ya se incluyen en los ficheros de configuración"

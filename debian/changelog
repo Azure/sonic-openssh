@@ -2,6 +2,9 @@ openssh (1:3.9p1-4) UNRELEASED; urgency=low
 
   * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
     closes: #296487).
+  * debconf template translations:
+    - Synchronise Spanish with sarge branch (thanks, Javier
+      Fernández-Sanguino Peña; closes: #298536).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 22 Feb 2005 22:14:03 +0000
 
