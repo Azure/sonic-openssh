@@ -15,7 +15,7 @@
 
 # Site-wide defaults for various options
 
-# Host *
+Host *
 #   ForwardAgent no
 #   ForwardX11 no
 #   ForwardX11Trusted yes
@@ -36,3 +36,4 @@
 #   Cipher 3des
 #   Ciphers aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,aes192-cbc,aes256-cbc
 #   EscapeChar ~
+    SendEnv LANG LC_ALL
