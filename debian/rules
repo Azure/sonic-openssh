@@ -158,11 +158,10 @@ install: build
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
 # Build architecture-independent files here.
-binary-indep: build install
-	# nothing to do
+binary-indep: binary-ssh
 
 # Build architecture-dependent files here.
-binary-arch: binary-openssh-client binary-openssh-server binary-ssh
+binary-arch: binary-openssh-client binary-openssh-server
 binary-arch: binary-ssh-askpass-gnome
 binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
 
