@@ -75,7 +75,7 @@ build-udeb: build-udeb-stamp
 build-udeb-stamp:
 	dh_testdir
 	mkdir -p build-udeb
-	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --without-shadow
+	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status

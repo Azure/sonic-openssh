@@ -1,3 +1,10 @@
+openssh (1:3.8.1p1-7) unstable; urgency=low
+
+  * Re-enable shadow password support in openssh-server-udeb, at Bastian
+    Blank's request (closes: #260800).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 22 Jul 2004 10:56:06 +0100
+
 openssh (1:3.8.1p1-6) unstable; urgency=low
 
   * Implement hack in
