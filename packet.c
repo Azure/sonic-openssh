@@ -77,6 +77,8 @@ RCSID("$OpenBSD: packet.c,v 1.96 2002/06/23 21:10:02 deraadt Exp $");
 static int connection_in = -1;
 static int connection_out = -1;
 
+static int setup_timeout = -1;
+
 /* Protocol flags for the remote side. */
 static u_int remote_protocol_flags = 0;
 
@@ -131,13 +133,14 @@ static u_char extra_pad = 0;
  * packet_set_encryption_key is called.
  */
 void
-packet_set_connection(int fd_in, int fd_out)
+packet_set_connection(int fd_in, int fd_out, int new_setup_timeout)
 {
 	Cipher *none = cipher_by_name("none");
 	if (none == NULL)
 		fatal("packet_set_connection: cannot load cipher 'none'");
 	connection_in = fd_in;
 	connection_out = fd_out;
+	setup_timeout = new_setup_timeout;
 	cipher_init(&send_context, none, "", 0, NULL, 0, CIPHER_ENCRYPT);
 	cipher_init(&receive_context, none, "", 0, NULL, 0, CIPHER_DECRYPT);
 	newkeys[MODE_IN] = newkeys[MODE_OUT] = NULL;
@@ -742,6 +745,7 @@ packet_read_seqnr(u_int32_t *seqnr_p)
 	int type, len;
 	fd_set *setp;
 	char buf[8192];
+	struct timeval tv, *tvp;
 	DBG(debug("packet_read()"));
 
 	setp = (fd_set *)xmalloc(howmany(connection_in+1, NFDBITS) *
@@ -773,10 +777,20 @@ packet_read_seqnr(u_int32_t *seqnr_p)
 		    sizeof(fd_mask));
 		FD_SET(connection_in, setp);
 
+		if (setup_timeout > 0) {
+		  tvp = &tv;
+		  tv.tv_sec = setup_timeout;
+		  tv.tv_usec = 0;
+		} else
+		  tvp = 0;
+
 		/* Wait for some data to arrive. */
-		while (select(connection_in + 1, setp, NULL, NULL, NULL) == -1 &&
+		while (select(connection_in + 1, setp, NULL, NULL, tvp) == -1 &&
 		    (errno == EAGAIN || errno == EINTR))
 			;
+
+		if (!FD_ISSET(connection_in, setp))
+		  fatal("packet_read: Setup timeout expired, giving up");
 
 		/* Read data from the socket. */
 		len = read(connection_in, buf, sizeof(buf));

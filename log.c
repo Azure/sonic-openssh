@@ -76,8 +76,9 @@ static struct {
 	LogLevel val;
 } log_levels[] =
 {
-	{ "QUIET",	SYSLOG_LEVEL_QUIET },
+	{ "SILENT",	SYSLOG_LEVEL_SILENT },
 	{ "FATAL",	SYSLOG_LEVEL_FATAL },
+	{ "QUIET",	SYSLOG_LEVEL_QUIET },
 	{ "ERROR",	SYSLOG_LEVEL_ERROR },
 	{ "INFO",	SYSLOG_LEVEL_INFO },
 	{ "VERBOSE",	SYSLOG_LEVEL_VERBOSE },
@@ -246,8 +247,9 @@ log_init(char *av0, LogLevel level, SyslogFacility facility, int on_stderr)
 	argv0 = av0;
 
 	switch (level) {
-	case SYSLOG_LEVEL_QUIET:
+	case SYSLOG_LEVEL_SILENT:
 	case SYSLOG_LEVEL_FATAL:
+	case SYSLOG_LEVEL_QUIET:
 	case SYSLOG_LEVEL_ERROR:
 	case SYSLOG_LEVEL_INFO:
 	case SYSLOG_LEVEL_VERBOSE:

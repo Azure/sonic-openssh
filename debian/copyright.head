@@ -1,0 +1,36 @@
+This package was debianized by Philip Hands <phil@hands.com> on 31 Oct 1999
+(with help from  Dan Brosemer <odin@linuxfreak.com>)
+
+It was downloaded from here:
+  ftp://ftp.fu-berlin.de/unix/security/openssh/openssh-2.3.0p1.tar.gz
+
+worldwide mirrors are listed here:
+  http://www.openssh.com/ftp.html
+
+The Debian specific parts of the package are mostly taken from the
+original ssh package, which has since been renamed as ssh-nonfree.
+
+The Debian patch is distributed under the terms of the GPL.
+
+The upstream source for this package is a combination of the ssh
+branch that is being maintained by the OpenBSD team (starting from
+the last version of SSH that was distributed under a free license),
+and porting work by Damien Miller <damien@ibs.com.au> to get it
+working on Linux.  Other people also contributed to this, and are
+credited in README.openssh.
+
+Copyright:
+
+Code in helper.[ch] is Copyright Internet Business Solutions and is
+released under a X11-style license (see source file for details).
+
+(A)RC4 code in rc4.[ch] is Copyright Damien Miller. It too is under a
+X11-style license (see source file for details).
+
+make-ssh-known-hosts is Copyright Tero Kivinen <Tero.Kivinen@hut.fi>,
+and is distributed under the GPL (see source file for details).
+
+The copyright for the orignal SSH version follows.  It has been
+modified with [comments] to reflect the changes that the OpenBSD folks
+have made:
+

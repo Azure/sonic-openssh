@@ -317,10 +317,14 @@ client_check_window_change(void)
  * one of the file descriptors).
  */
 
-static void
+static int
 client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
     int *maxfdp, int *nallocp, int rekeying)
 {
+	struct timeval tv, *tvp;
+	int n;
+	extern Options options;
+
 	/* Add any selections by the channel mechanism. */
 	channel_prepare_select(readsetp, writesetp, maxfdp, nallocp, rekeying);
 
@@ -349,7 +353,7 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
 			/* clear mask since we did not call select() */
 			memset(*readsetp, 0, *nallocp);
 			memset(*writesetp, 0, *nallocp);
-			return;
+			return 0;
 		} else {
 			FD_SET(connection_in, *readsetp);
 		}
@@ -368,7 +372,21 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
 	 * SSH_MSG_IGNORE packet when the timeout expires.
 	 */
 
-	if (select((*maxfdp)+1, *readsetp, *writesetp, NULL, NULL) < 0) {
+	/*
+	 * We don't do the 'random' bit, but we want periodic ignored
+	 * message anyway, so as to notice when the other ends TCP
+	 * has given up during an outage.
+	 */
+
+	if (options.protocolkeepalives > 0) {
+	        tvp = &tv;
+		tv.tv_sec = options.protocolkeepalives;
+		tv.tv_usec = 0;
+	} else
+	        tvp = 0;
+
+	n = select((*maxfdp)+1, *readsetp, *writesetp, NULL, tvp);
+	if (n < 0) {
 		char buf[100];
 
 		/*
@@ -380,12 +398,13 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
 		memset(*writesetp, 0, *nallocp);
 
 		if (errno == EINTR)
-			return;
+			return 0;
 		/* Note: we might still have data in the buffers. */
 		snprintf(buf, sizeof buf, "select: %s\r\n", strerror(errno));
 		buffer_append(&stderr_buffer, buf, strlen(buf));
 		quit_pending = 1;
 	}
+	return n == 0;
 }
 
 static void
@@ -844,6 +863,7 @@ client_loop(int have_pty, int escape_char_arg, int ssh2_chan_id)
 {
 	fd_set *readset = NULL, *writeset = NULL;
 	double start_time, total_time;
+	int timed_out;
 	int max_fd = 0, max_fd2 = 0, len, rekeying = 0, nalloc = 0;
 	char buf[100];
 
@@ -951,7 +971,7 @@ client_loop(int have_pty, int escape_char_arg, int ssh2_chan_id)
 		 * available on one of the descriptors).
 		 */
 		max_fd2 = max_fd;
-		client_wait_until_can_do_something(&readset, &writeset,
+		timed_out = client_wait_until_can_do_something(&readset, &writeset,
 		    &max_fd2, &nalloc, rekeying);
 
 		if (quit_pending)
@@ -974,6 +994,21 @@ client_loop(int have_pty, int escape_char_arg, int ssh2_chan_id)
 
 		if (quit_pending)
 			break;
+
+		if(timed_out) {
+		        /*
+			 * Nothing is happening, so synthesize some
+			 * bogus activity
+			 */
+		        packet_start(compat20
+				     ? SSH2_MSG_IGNORE
+				     : SSH_MSG_IGNORE);
+			packet_put_cstring("");
+			packet_send();
+			if (FD_ISSET(connection_out, writeset))
+			        packet_write_poll();
+			continue;
+		}
 
 		if (!compat20) {
 			/* Buffer data from stdin */

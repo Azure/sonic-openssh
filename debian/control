@@ -1,0 +1,43 @@
+Source: openssh
+Section: net
+Priority: standard
+Maintainer: Matthew Vernon <matthew@debian.org>
+Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev | libz-dev, libssl-dev, libpam0g-dev | libpam-dev, libgnome-dev, groff, debhelper (>=1.1.17)
+Standards-Version: 3.5.2
+
+Package: ssh
+Architecture: any
+Depends: ${shlibs:Depends}, ${pam-depend}, debconf, adduser
+Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, debconf (<<0.2.17), debconf-tiny (<<0.2.17), sftp, rsh-client (<<0.16.1-1)
+Suggests: ssh-askpass, xbase-clients, dpkg (>=1.8.3.1), dnsutils
+Provides: rsh-client
+Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
+ This is the portable version of OpenSSH, a free implementation of
+ the Secure Shell protocol as specified by the IETF secsh working
+ group.
+ .
+ Ssh (Secure Shell) is a program for logging into a remote machine
+ and for executing commands on a remote machine.
+ It provides secure encrypted communications between two untrusted
+ hosts over an insecure network.  X11 connections and arbitrary TCP/IP
+ ports can also be forwarded over the secure channel.
+ It is intended as a replacement for rlogin, rsh and rcp, and can be
+ used to provide applications with a secure communication channel.
+ .
+ --------------------------------------------------------------------
+ .
+ In some countries, particularly Iraq, and Pakistan, it may be illegal 
+ to use any encryption at all without a special permit.
+
+Package: ssh-askpass-gnome
+Section: x11
+Architecture: any
+Depends: ${shlibs:Depends}, ssh (>=1:1.2pre7-4)
+Provides: ssh-askpass
+Description: under X, asks user for a passphrase for ssh-add
+ This has been split out of the main ssh package, so that the ssh will
+ not need to depend upon the Gnome libraries.
+ .
+ You probably want the ssh-askpass package instead, but this is
+ provided to add to your choice and/or confusion.
+

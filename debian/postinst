@@ -1,0 +1,330 @@
+#!/bin/sh -e
+
+action="$1"
+oldversion="$2"
+
+test -e /usr/share/debconf/confmodule && {
+  . /usr/share/debconf/confmodule
+    db_version 2.0
+}
+
+umask 022
+
+if [ "$action" != configure ]
+  then
+  exit 0
+fi
+
+
+
+check_idea_key() {
+    #check for old host_key files using IDEA, which openssh does not support
+	if [ -f /etc/ssh/ssh_host_key ] ; then
+		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key 2>&1 | \
+				grep -q 'unknown cipher' 2>/dev/null ; then
+      mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
+      mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
+  fi
+	fi
+}
+
+
+create_key() {
+	local msg="$1"
+	shift
+	local file="$1"
+	shift
+
+	if [ ! -f "$file" ] ; then
+		echo -n $msg
+		ssh-keygen -f "$file" -N '' "$@" > /dev/null
+		echo
+	fi
+}
+
+
+create_keys() {
+	RET=true
+	test -e /usr/share/debconf/confmodule && {
+		db_get ssh/protocol2_only
+	}
+
+	if [ "$RET" = "false" ] ; then
+		create_key "Creating SSH1 key" /etc/ssh/ssh_host_key -t rsa1
+	fi
+
+	create_key "Creating SSH2 RSA key" /etc/ssh/ssh_host_rsa_key -t rsa
+	create_key "Creating SSH2 DSA key" /etc/ssh/ssh_host_dsa_key -t dsa
+}
+
+
+create_sshdconfig() {
+	if [ -e /etc/ssh/sshd_config ] ; then
+	    if dpkg --compare-versions "$oldversion" lt-nl 1:1.3 ; then
+		RET=true
+		test -e /usr/share/debconf/confmodule && {
+		    db_get ssh/new_config
+		}
+		if [ "$RET" = "false" ] ; then return 0; fi
+	    else return 0
+	    fi
+	fi
+	RET=true
+	test -e /usr/share/debconf/confmodule && {
+		db_get ssh/protocol2_only
+	}
+
+	#Preserve old sshd_config before generating a new on
+	if [ -e /etc/ssh/sshd_config ] ; then 
+	    mv /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
+	fi
+
+	cat <<EOF > /etc/ssh/sshd_config
+# Package generated configuration file
+# See the sshd(8) manpage for defails
+
+# What ports, IPs and protocols we listen for
+Port 22
+# Use these options to restrict which interfaces/protocols sshd will bind to
+#ListenAddress ::
+#ListenAddress 0.0.0.0
+EOF
+if [ "$RET" = "false" ]; then
+		cat <<EOF >> /etc/ssh/sshd_config
+Protocol 2,1
+# HostKeys for protocol version 1
+HostKey /etc/ssh/ssh_host_key
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+EOF
+else
+	cat <<EOF >> /etc/ssh/sshd_config
+Protocol 2
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+EOF
+fi
+
+test -e /usr/share/debconf/confmodule && {
+    db_get ssh/privsep_ask
+}
+if [ "$RET" = "false" ]; then
+    cat <<EOF >> /etc/ssh/sshd_config
+#Explicitly set PrivSep off, as requested
+UsePrivilegeSeparation no
+
+# Use PAM authentication via keyboard-interactive so PAM modules can
+# properly interface with the user
+PAMAuthenticationViaKbdInt yes
+EOF
+else
+	cat <<EOF >> /etc/ssh/sshd_config
+#Privilege Separation is turned on for security
+UsePrivilegeSeparation yes
+
+# ...but breaks Pam auth via kbdint, so we have to turn it off
+# Use PAM authentication via keyboard-interactive so PAM modules can
+# properly interface with the user (off due to PrivSep)
+PAMAuthenticationViaKbdInt no
+EOF
+fi
+
+	cat <<EOF >> /etc/ssh/sshd_config
+# Lifetime and size of ephemeral version 1 server key
+KeyRegenerationInterval 3600
+ServerKeyBits 768
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication:
+LoginGraceTime 600
+PermitRootLogin yes
+StrictModes yes
+
+RSAAuthentication yes
+PubkeyAuthentication yes
+#AuthorizedKeysFile	%h/.ssh/authorized_keys
+
+# rhosts authentication should not be used
+RhostsAuthentication no
+# Don't read the user's ~/.rhosts and ~/.shosts files
+IgnoreRhosts yes
+# For this to work you will also need host keys in /etc/ssh_known_hosts
+RhostsRSAAuthentication no
+# similar for protocol version 2
+HostbasedAuthentication no
+# Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+#IgnoreUserKnownHosts yes
+
+# To enable empty passwords, change to yes (NOT RECOMMENDED)
+PermitEmptyPasswords no
+
+# Uncomment to disable s/key passwords 
+#ChallengeResponseAuthentication no
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+
+
+# To change Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#AFSTokenPassing no
+#KerberosTicketCleanup no
+
+# Kerberos TGT Passing does only work with the AFS kaserver
+#KerberosTgtPassing yes
+
+X11Forwarding no
+X11DisplayOffset 10
+PrintMotd no
+#PrintLastLog no
+KeepAlive yes
+#UseLogin no
+
+#MaxStartups 10:30:60
+#Banner /etc/issue.net
+#ReverseMappingCheck yes
+
+Subsystem	sftp	/usr/lib/sftp-server
+
+EOF
+}
+
+
+fix_rsh_diversion() {
+# get rid of mistaken rsh diversion (circa 1.2.27-1)
+
+	if [ -L /usr/bin/rsh ] &&
+		dpkg-divert --list '/usr/bin/rsh.real/rsh' | grep -q ' ssh$' ; then
+		for cmd in rlogin  rsh rcp ; do
+			[ -L /usr/bin/$cmd ] && rm /usr/bin/$cmd
+			dpkg-divert --package ssh --remove --rename \
+				--divert /usr/bin/rsh.real/$cmd /usr/bin/$cmd
+
+			[ -L /usr/man/man1/$cmd.1.gz ] && rm /usr/man/man1/$$cmd.1.gz
+			dpkg-divert --package ssh --remove --rename \
+				--divert /usr/man/man1/$cmd.real.1.gz /usr/man/man1/$cmd.1.gz
+		done
+
+		rmdir /usr/bin/rsh.real
+	fi
+}
+
+
+fix_statoverride() {
+# Remove an erronous override for sshd (we should have overridden ssh)
+	if [ -x /usr/sbin/dpkg-statoverride ]; then
+		if dpkg-statoverride --list /usr/sbin/sshd 2>/dev/null ; then
+			dpkg-statoverride --remove /usr/sbin/sshd
+		fi
+	fi
+}
+
+
+create_alternatives() {
+# Create alternatives for the various r* tools
+# Make sure we don't change existing alternatives that a user might have
+# changed
+	for cmd in rsh rlogin rcp ; do
+		if ! update-alternatives --display $cmd | \
+				grep -q ssh ; then
+			update-alternatives --quiet --install /usr/bin/$cmd $cmd /usr/bin/ssh 20 \
+				--slave /usr/share/man/man1/$cmd.1.gz $cmd.1.gz /usr/share/man/man1/ssh.1.gz
+		fi
+	done
+	
+}
+
+setup_sshd_user() {
+        if ! id sshd > /dev/null 2>&1 ; then
+		adduser --quiet --system --no-create-home --home /var/run/sshd sshd
+	fi
+}
+
+set_sshd_permissions() {
+	suid=false
+
+	if dpkg --compare-versions "$oldversion" lt-nl 1:3.4p1-1 ; then
+	    if [ -x /usr/sbin/dpkg-statoverride ] ; then
+		if dpkg-statoverride --list /usr/bin/ssh >/dev/null; then
+		    dpkg-statoverride --remove /usr/bin/ssh >/dev/null
+		fi 
+	    fi
+	fi
+
+	[ -e /usr/share/debconf/confmodule ] && {
+		db_get ssh/SUID_client
+		suid="$RET"
+	}
+       if [ -x /usr/sbin/dpkg-statoverride ] ; then
+               if ! dpkg-statoverride --list /usr/lib/ssh-keysign >/dev/null ; then
+                       if [ "$suid" = "false" ] ; then
+                               chmod 0755 /usr/lib/ssh-keysign
+                       elif [ "$suid" = "true" ] ; then
+                               chmod 4755 /usr/lib/ssh-keysign
+                       fi
+               fi
+       else
+               if [ "$suid" = "false" ] ; then
+                       chmod 0755 /usr/lib/ssh-keysign
+               elif [ "$suid" = "true" ] ; then
+                       chmod 4755 /usr/lib/ssh-keysign
+               fi
+
+	fi
+}
+
+
+setup_startup() {
+	start=yes
+	[ -e /usr/share/debconf/confmodule ] && {
+		db_get ssh/run_sshd
+		start="$RET"
+	}
+
+	if [ "$start" != "true" ] ; then
+		/etc/init.d/ssh stop 2>&1 >/dev/null
+		touch /etc/ssh/sshd_not_to_be_run
+	else
+		rm -f /etc/ssh/sshd_not_to_be_run 2>/dev/null
+	fi
+}
+
+
+setup_init() {
+	if [ -e /etc/init.d/ssh ]; then
+		update-rc.d ssh defaults >/dev/null
+		/etc/init.d/ssh restart
+	fi
+}
+
+check_idea_key
+create_keys
+create_sshdconfig
+fix_rsh_diversion
+fix_statoverride
+create_alternatives
+setup_sshd_user
+set_sshd_permissions
+setup_startup
+setup_init
+
+
+# Automatically added by dh_installdocs
+if [ "$1" = "configure" ]; then
+	if [ -d /usr/doc -a ! -e /usr/doc/ssh -a -d /usr/share/doc/ssh ]; then
+		ln -sf ../share/doc/ssh /usr/doc/ssh
+	fi
+fi
+# End automatically added section
+
+
+[ -e /usr/share/debconf/confmodule ] && db_stop
+
+exit 0
+

@@ -18,7 +18,7 @@
 
 #include <openssl/bn.h>
 
-void     packet_set_connection(int, int);
+void     packet_set_connection(int, int, int);
 void     packet_set_nonblocking(void);
 int      packet_get_connection_in(void);
 int      packet_get_connection_out(void);

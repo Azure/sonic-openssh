@@ -860,7 +860,12 @@ main(int ac, char **av)
 			/* ignored */
 			break;
 		case 'q':
-			options.log_level = SYSLOG_LEVEL_QUIET;
+		        if (options.log_level == SYSLOG_LEVEL_QUIET) { 
+		                options.log_level = SYSLOG_LEVEL_SILENT; 
+		        } 
+		        else if (options.log_level != SYSLOG_LEVEL_SILENT) { 
+		                options.log_level = SYSLOG_LEVEL_QUIET; 
+		        } 
 			break;
 		case 'b':
 			options.server_key_bits = atoi(optarg);
@@ -1151,7 +1156,7 @@ main(int ac, char **av)
 
 			/* Bind the socket to the desired port. */
 			if (bind(listen_sock, ai->ai_addr, ai->ai_addrlen) < 0) {
-				if (!ai->ai_next)
+				if (!num_listen_socks && !ai->ai_next)
 				    error("Bind to port %s on %s failed: %.200s.",
 					    strport, ntop, strerror(errno));
 				close(listen_sock);
@@ -1414,7 +1419,7 @@ main(int ac, char **av)
 	 * Register our connection.  This turns encryption off because we do
 	 * not have a key.
 	 */
-	packet_set_connection(sock_in, sock_out);
+	packet_set_connection(sock_in, sock_out, -1);
 
 	remote_port = get_remote_port();
 	remote_ip = get_remote_ipaddr();

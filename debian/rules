@@ -1,0 +1,106 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+# This is the debhelper compatability version to use.
+export DH_COMPAT=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+#PKG_VER = $(shell perl -e 'print <> =~ /\((.*)\)/' debian/changelog)
+
+DEB_HOST_ARCH = $(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+#Change the version string to include the Debian Version
+	if <version.h sed -e "/define/s/\"\(.*\)\"/\"\1 Debian `dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p'`\"/" >version.h.new; \
+	then mv version.h version.h.upstream; mv version.h.new version.h; \
+	else echo "Version number change failed"; exit 1; \
+	fi
+	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-ipv4-default \
+		--with-privsep-path=/var/run/sshd  --without-rand-helper
+	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-O2 -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DSSHD_PAM_SERVICE=\"ssh\" -D__FILE_OFFSET_BITS=64 -DHAVE_MMAP_ANON_SHARED' \
+		SSH_KEYSIGN='/usr/lib/ssh-keysign'
+	gcc -O2 `gnome-config --cflags gnome gnomeui` \
+	   contrib/gnome-ssh-askpass.c -o contrib/gnome-ssh-askpass \
+	   `gnome-config --libs gnome gnomeui`
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	rm -f build-stamp
+	-$(MAKE) -i distclean
+	rm -f contrib/gnome-ssh-askpass config.log
+	if [ -f version.h.upstream ]; then mv version.h.upstream version.h; \
+	fi
+	dh_clean
+
+install: DH_OPTIONS=
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# Add here commands to install the package into debian/tmp.
+	$(MAKE) DESTDIR=`pwd`/debian/tmp install
+
+	rm -f debian/tmp/etc/ssh/ssh_host_*key*
+	rm -f debian/tmp/etc/ssh/sshd_config
+	#Temporary hack: remove /usr/share/Ssh.bin, since we have no smartcard support anyway.
+	rm -f debian/tmp/usr/share/Ssh.bin
+
+	install -m 755 contrib/ssh-copy-id debian/tmp/usr/bin/ssh-copy-id
+	install -m644 -c contrib/ssh-copy-id.1 debian/tmp/usr/share/man/man1/ssh-copy-id.1
+
+	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass
+
+	install -o root -g root debian/init debian/tmp/etc/init.d/ssh
+
+	install -o root -g root -m 755 -d debian/tmp/var/run/sshd
+
+	dh_movefiles
+
+# Build architecture-independent files here.
+binary-indep: build install
+	# nothing to do
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdebconf
+	dh_installdocs OVERVIEW README
+	cat debian/copyright.head LICENCE > debian/tmp/usr/share/doc/ssh/copyright
+	dh_installexamples
+	dh_installmenu
+	nroff RFC.nroff > debian/tmp/usr/share/doc/ssh/RFC
+	gzip -9 debian/tmp/usr/share/doc/ssh/RFC
+	rm -rf debian/tmp/usr/share/doc/ssh/RFC.nroff.gz
+	dh_installpam
+	dh_installcron
+	dh_installchangelogs ChangeLog
+	dh_strip
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	test ! -e debian/tmp/etc/ssh/ssh_prng_cmds \
+	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/tmp/DEBIAN/conffiles
+	dh_shlibdeps
+ifeq ($(DEB_HOST_ARCH),hurd-i386)
+	echo "pam-depend=" >> debian/substvars
+else
+	echo "pam-depend=libpam-modules (>= 0.72-9), " >> debian/substvars
+endif
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

@@ -81,6 +81,8 @@ RCSID("$OpenBSD: readconf.c,v 1.100 2002/06/19 00:27:55 deraadt Exp $");
      RhostsRSAAuthentication yes
      StrictHostKeyChecking yes
      KeepAlives no
+     ProtocolKeepAlives 0
+     SetupTimeOut 0
      IdentityFile ~/.ssh/identity
      Port 22
      EscapeChar ~
@@ -114,6 +116,7 @@ typedef enum {
 	oDynamicForward, oPreferredAuthentications, oHostbasedAuthentication,
 	oHostKeyAlgorithms, oBindAddress, oSmartcardDevice,
 	oClearAllForwardings, oNoHostAuthenticationForLocalhost,
+	oProtocolKeepAlives, oSetupTimeOut,
 	oDeprecated
 } OpCodes;
 
@@ -186,6 +189,8 @@ static struct {
 	{ "smartcarddevice", oSmartcardDevice },
 	{ "clearallforwardings", oClearAllForwardings },
 	{ "nohostauthenticationforlocalhost", oNoHostAuthenticationForLocalhost },
+	{ "protocolkeepalives", oProtocolKeepAlives },
+	{ "setuptimeout", oSetupTimeOut },
 	{ NULL, oBadOption }
 };
 
@@ -410,6 +415,14 @@ parse_flag:
 	case oNoHostAuthenticationForLocalhost:
 		intptr = &options->no_host_authentication_for_localhost;
 		goto parse_flag;
+
+	case oProtocolKeepAlives:
+	        intptr = &options->protocolkeepalives;
+		goto parse_int;
+
+	case oSetupTimeOut:
+	        intptr = &options->setuptimeout;
+		goto parse_int;
 
 	case oNumberOfPasswordPrompts:
 		intptr = &options->number_of_password_prompts;
@@ -766,6 +779,8 @@ initialize_options(Options * options)
 	options->strict_host_key_checking = -1;
 	options->compression = -1;
 	options->keepalives = -1;
+	options->protocolkeepalives = -1;
+	options->setuptimeout = -1;
 	options->compression_level = -1;
 	options->port = -1;
 	options->connection_attempts = -1;
@@ -853,6 +868,14 @@ fill_default_options(Options * options)
 		options->compression = 0;
 	if (options->keepalives == -1)
 		options->keepalives = 1;
+	if (options->protocolkeepalives == -1){
+	  if (options->batch_mode == 1) /*in batch mode, default is 5mins */
+	        options->protocolkeepalives = 300;
+	  else  options->protocolkeepalives = 0;}
+	if (options->setuptimeout == -1){
+	  if (options->batch_mode == 1) /*in batch mode, default is 5mins */
+	        options->setuptimeout = 300;
+	  else  options->setuptimeout = 0;}
 	if (options->compression_level == -1)
 		options->compression_level = 6;
 	if (options->port == -1)

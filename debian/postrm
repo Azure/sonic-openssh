@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+if [ "$1" = "purge" ]
+then
+  rm -rf /etc/ssh
+fi
+
+if [ "$1" = "purge" ] ; then
+    update-rc.d ssh remove >/dev/null
+fi
+
+if [ "$1" = "purge" ] ; then
+	deluser --quiet sshd > /dev/null || true
+fi
+
+#DEBHELPER#

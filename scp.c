@@ -233,9 +233,11 @@ main(argc, argv)
 	addargs(&args, "-oClearAllForwardings yes");
 
 	fflag = tflag = 0;
-	while ((ch = getopt(argc, argv, "dfprtvBCc:i:P:q46S:o:F:")) != -1)
+	while ((ch = getopt(argc, argv, "dfprtvBCc:i:P:q1246S:o:F:")) != -1)
 		switch (ch) {
 		/* User-visible flags. */
+		case '1':
+		case '2':
 		case '4':
 		case '6':
 		case 'C':

@@ -1,0 +1,7 @@
+usr/bin
+usr/sbin
+usr/lib
+etc/ssh
+etc/init.d
+usr/share/man/man1
+usr/share/man/man8

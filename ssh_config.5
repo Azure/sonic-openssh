@@ -120,8 +120,15 @@ This option applies to protocol version 1 only.
 If set to
 .Dq yes ,
 passphrase/password querying will be disabled.
+In addition, the 
+.Cm ProtocolKeepAlives 
+and
+.Cm SetupTimeOut
+options will both be set to 300 seconds by default.
 This option is useful in scripts and other batch jobs where no user
-is present to supply the password.
+is present to supply the password,
+and where it is desirable to detect a
+broken network swiftly.
 The argument must be
 .Dq yes
 or
@@ -336,6 +343,12 @@ Specifies whether the system should send TCP keepalive messages to the
 other side.
 If they are sent, death of the connection or crash of one
 of the machines will be properly noticed.
+of the machines will be properly noticed.  This option only uses TCP
+keepalives (as opposed to using ssh level keepalives), so takes a long
+time to notice when the connection dies.  As such, you probably want
+the
+.Cm ProtocolKeepAlives
+option as well.
 However, this means that
 connections will die if the route is down temporarily, and some people
 find it annoying.
@@ -434,6 +447,13 @@ This means that
 .Nm ssh
 tries version 2 and falls back to version 1
 if version 2 is not available.
+.It Cm ProtocolKeepAlives
+Specifies the interval at which IGNORE packets will be sent to
+the server during dile periods. Use this option in scripts to detect
+when the network fails. The argument must be an integer. The default
+is 0 (disabled), or 300 if the 
+.Cm BatchMode
+option is set.
 .It Cm ProxyCommand
 Specifies the command to use to connect to the server.
 The command
@@ -517,6 +537,19 @@ running.
 The default is
 .Dq yes .
 Note that this option applies to protocol version 1 only.
+.It Cm SetupTimeOut
+Normally,
+.Nm ssh
+blocks indefinitly whilst waiting to receive the ssh banner and other
+setup protocol from the server, during the session setup.  This can cause
+.Nm ssh
+to hang under certain circumstances.  If this option is set,
+.Nm ssh
+will give up if no data from the server is received for the specified
+number of seconds. The argument must be an integer. The default is 0
+(disabled), or 300 if
+.Cm BatchMode
+is set.
 .It Cm SmartcardDevice
 Specifies which smartcard device to use. The argument to this keyword is
 the device

@@ -19,7 +19,7 @@
 .Nd secure copy (remote file copy program)
 .Sh SYNOPSIS
 .Nm scp
-.Op Fl pqrvBC46
+.Op Fl pqrvBC1246
 .Op Fl F Ar ssh_config
 .Op Fl S Ar program
 .Op Fl P Ar port
@@ -125,6 +125,14 @@ for which there is no separate
 command-line flag.  For example, forcing the use of protocol
 version 1 is specified using
 .Ic scp -oProtocol=1 .
+.It Fl 1
+Forces
+.Nm
+to try protocol version 1 only.
+.It Fl 2
+Forces
+.Nm
+to try protocol version 2 only.
 .It Fl 4
 Forces
 .Nm

@@ -343,7 +343,7 @@ keygrab_ssh2(con *c)
 {
 	int j;
 
-	packet_set_connection(c->c_fd, c->c_fd);
+	packet_set_connection(c->c_fd, c->c_fd, timeout);
 	enable_compat20();
 	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = c->c_keytype == KT_DSA?
 	    "ssh-dss": "ssh-rsa";

@@ -46,6 +46,8 @@ extern uid_t original_effective_uid;
 #define INET6_ADDRSTRLEN 46
 #endif
 
+static sig_atomic_t banner_timedout;
+
 static const char *
 sockaddr_ntop(struct sockaddr *sa, socklen_t salen)
 {
@@ -55,6 +57,11 @@ sockaddr_ntop(struct sockaddr *sa, socklen_t salen)
 	    NI_NUMERICHOST) != 0)
 		fatal("sockaddr_ntop: getnameinfo NI_NUMERICHOST failed");
 	return addrbuf;
+}
+
+static void banner_alarm_catch (int signum)
+{
+        banner_timedout = 1;
 }
 
 /*
@@ -152,7 +159,7 @@ ssh_proxy_connect(const char *host, u_short port, const char *proxy_command)
 	buffer_free(&command);
 
 	/* Set the connection file descriptors. */
-	packet_set_connection(pout[0], pin[1]);
+	packet_set_connection(pout[0], pin[1], options.setuptimeout);
 
 	/* Indicate OK return */
 	return 0;
@@ -353,7 +360,7 @@ ssh_connect(const char *host, struct sockaddr_storage * hostaddr,
 		error("setsockopt SO_KEEPALIVE: %.100s", strerror(errno));
 
 	/* Set the connection. */
-	packet_set_connection(sock, sock);
+	packet_set_connection(sock, sock, options.setuptimeout);
 
 	return 0;
 }
@@ -370,24 +377,41 @@ ssh_exchange_identification(void)
 	int connection_in = packet_get_connection_in();
 	int connection_out = packet_get_connection_out();
 	int minor1 = PROTOCOL_MINOR_1;
+	struct sigaction sa, osa;
 
-	/* Read other side\'s version identification. */
+	/* Read other side's version identification.
+	 * If SetupTimeOut has been set, give up after
+	 * the specified amount of time
+	 */
+	if(options.setuptimeout > 0){
+        	memset(&sa, 0, sizeof(sa));
+		sa.sa_handler = banner_alarm_catch;
+		/*throw away any pending alarms, since we'd block otherwise*/
+		alarm(0);
+		sigaction(SIGALRM, &sa, &osa);
+		alarm(options.setuptimeout);
+	}
 	for (;;) {
-		for (i = 0; i < sizeof(buf) - 1; i++) {
-			int len = atomicio(read, connection_in, &buf[i], 1);
-			if (len < 0)
+		for (i = 0; i < sizeof(buf) - 1; ) {
+			int len = read(connection_in, &buf[i], 1);
+			if (banner_timedout)
+				fatal("ssh_exchange_identification: Timeout waiting for version information.");
+			if (len < 0) {
+				if (errno == EINTR)
+					continue;
 				fatal("ssh_exchange_identification: read: %.100s", strerror(errno));
+			}
 			if (len != 1)
 				fatal("ssh_exchange_identification: Connection closed by remote host");
-			if (buf[i] == '\r') {
-				buf[i] = '\n';
-				buf[i + 1] = 0;
-				continue;		/**XXX wait for \n */
-			}
 			if (buf[i] == '\n') {
 				buf[i + 1] = 0;
 				break;
 			}
+			if (buf[i] == '\r') {
+				buf[i] = '\n';
+				buf[i + 1] = 0;		/**XXX wait for \n */
+			}
+			i++;
 		}
 		buf[sizeof(buf) - 1] = 0;
 		if (strncmp(buf, "SSH-", 4) == 0)
@@ -395,6 +419,14 @@ ssh_exchange_identification(void)
 		debug("ssh_exchange_identification: %s", buf);
 	}
 	server_version_string = xstrdup(buf);
+
+	/* If SetupTimeOut has been set, unset the alarm now, and
+	 * put the correct handler for SIGALRM back.
+	 */
+	if (options.setuptimeout > 0) {
+	        alarm(0);
+		sigaction(SIGALRM,&osa,NULL);
+	}
 
 	/*
 	 * Check that the versions match.  In future this might accept

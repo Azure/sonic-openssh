@@ -61,6 +61,8 @@ typedef struct {
 	int     compression_level;	/* Compression level 1 (fast) to 9
 					 * (best). */
 	int     keepalives;	/* Set SO_KEEPALIVE. */
+        int     protocolkeepalives; /* ssh-level keepalives */
+        int     setuptimeout; /* timeout in the protocol banner exchange */
 	LogLevel log_level;	/* Level for logging. */
 
 	int     port;		/* Port to connect. */

@@ -364,7 +364,12 @@ again:
 				exit(0);
 			break;
 		case 'q':
-			options.log_level = SYSLOG_LEVEL_QUIET;
+    		        if (options.log_level == SYSLOG_LEVEL_QUIET) {
+		                options.log_level = SYSLOG_LEVEL_SILENT;
+		        }
+		        else if (options.log_level != SYSLOG_LEVEL_SILENT) {
+		                options.log_level = SYSLOG_LEVEL_QUIET;
+		        }
 			break;
 		case 'e':
 			if (optarg[0] == '^' && optarg[2] == 0 &&

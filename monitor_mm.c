@@ -29,6 +29,7 @@ RCSID("$OpenBSD: monitor_mm.c,v 1.6 2002/06/04 23:05:49 markus Exp $");
 #ifdef HAVE_SYS_MMAN_H
 #include <sys/mman.h>
 #endif
+#include <sys/shm.h>
 
 #include "ssh.h"
 #include "xmalloc.h"
@@ -85,8 +86,41 @@ mm_create(struct mm_master *mmalloc, size_t size)
 	mm->mmalloc = mmalloc;
 
 #ifdef HAVE_MMAP_ANON_SHARED
+	mm->shm_not_mmap = 0;
+
 	address = mmap(NULL, size, PROT_WRITE|PROT_READ, MAP_ANON|MAP_SHARED,
 	    -1, 0);
+
+	if (address == MAP_FAILED) {
+		int shmid;
+
+		shmid = shmget(IPC_PRIVATE, size, IPC_CREAT|S_IRUSR|S_IWUSR);
+		if (shmid != -1) {
+			address = shmat(shmid, NULL, 0);
+			shmctl(shmid, IPC_RMID, NULL);
+			if (address != MAP_FAILED)
+				mm->shm_not_mmap = 1;
+		}
+	}
+
+	if (address == MAP_FAILED) {
+		char tmpname[sizeof(MM_SWAP_TEMPLATE)] = MM_SWAP_TEMPLATE;
+		int tmpfd;
+		int save_errno;
+
+		tmpfd = mkstemp(tmpname);
+		if (tmpfd == -1)
+			fatal("mkstemp(\"%s\"): %s",
+			   MM_SWAP_TEMPLATE, strerror(errno));
+		unlink(tmpname);
+		ftruncate(tmpfd, size);
+		address = mmap(NULL, size, PROT_WRITE|PROT_READ, MAP_SHARED,
+		   tmpfd, 0);
+		save_errno = errno;
+		close(tmpfd);
+		errno = save_errno;
+	}
+
 	if (address == MAP_FAILED)
 		fatal("mmap(%lu): %s", (u_long)size, strerror(errno));
 #else
@@ -131,6 +165,10 @@ mm_destroy(struct mm_master *mm)
 	mm_freelist(mm->mmalloc, &mm->rb_allocated);
 
 #ifdef HAVE_MMAP_ANON_SHARED
+	if (mm->shm_not_mmap) {
+		if (shmdt(mm->address) == -1)
+			fatal("shmdt(%p): %s", mm->address, strerror(errno));
+	} else
 	if (munmap(mm->address, mm->size) == -1)
 		fatal("munmap(%p, %lu): %s", mm->address, (u_long)mm->size,
 		    strerror(errno));
