@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-06 17:54+0000\n"
+"POT-Creation-Date: 2004-07-31 03:10+0100\n"
 "PO-Revision-Date: 2003-09-24 09:32+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -25,13 +25,49 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-client.templates.master:4
+msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
+msgstr "/usr/bin/ssh-keysign を SUID root でインストールしますか?"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"You have the option of installing the ssh-keysign helper with the SUID bit "
+"set."
+msgstr ""
+"ssh-keysign ヘルパーをインストールする際、SUID ビットを設定するかしないかを選"
+"ぶことができます。"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
+"based authentication."
+msgstr ""
+"ssh-keysign を SUID に設定した場合、SSH プロトコル 2 のホストに基づく認証を使"
+"うことができます。"
+
+#. Type: boolean
+#. Description
+#: ../openssh-client.templates.master:4
+msgid ""
+"If in doubt, I suggest you install it with SUID.  If it causes problems you "
+"can change your mind later by running:   dpkg-reconfigure ssh"
+msgstr ""
+"よく分からない場合は、SUID を有効にすることをお勧めします。もし 問題が起これ"
+"ば、dpkg-reconfigure ssh を実行することで設定を変更することができます。"
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:4
 msgid "Generate new configuration file"
 msgstr "新しい設定ファイルを作ります"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -48,7 +84,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -63,7 +99,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:4
+#: ../openssh-server.templates.master:4
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
@@ -71,13 +107,13 @@ msgstr "新しい設定ファイルを自動生成することを強くお勧めします。"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid "Allow SSH protocol 2 only"
 msgstr "SSH プロトコル 2 のみを許可します"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "This version of OpenSSH supports version 2 of the ssh protocol, which is "
 "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
@@ -91,7 +127,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
@@ -101,7 +137,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:23
+#: ../openssh-server.templates.master:23
 msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
@@ -109,33 +145,15 @@ msgstr ""
 "もし今後あなたが考えを変えたら、README.Debian を読むと sshd_config をどのよう"
 "に変更したらよいかが分かります。"
 
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid "ssh2 keys merged in configuration files"
-msgstr "ssh2 キーは設定ファイルに統合されます"
-
-#. Type: note
-#. Description
-#: ../templates.master:37
-msgid ""
-"As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-"keys. This means the authorized_keys2 and known_hosts2 files are no longer "
-"needed. They will still be read in order to maintain backwards compatibility"
-msgstr ""
-"OpenSSH のバージョン 3 は、ssh1 と ssh2 のキーに個別のファイルを使いません。"
-"つまり、authorized_keys2 ファイルと known_hosts2 ファイルはもはや不要となりま"
-"した。後方互換性を保つためにはこれらのファイルが必要です。"
-
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "続けてよいですか (接続中の ssh セッションが切れるかもしれません)"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -147,7 +165,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:46
+#: ../openssh-server.templates.master:38
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -157,13 +175,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "注意: X11 と認証のフォワーディングはデフォルトでは禁止されます"
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
@@ -173,7 +191,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
@@ -183,20 +201,20 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:56
+#: ../openssh-server.templates.master:48
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "詳細は /usr/share/doc/ssh/README.Debian を読んでください。"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "警告: rsh-server がインストールされています。たぶん良い考えではありません"
 
 #. Type: note
 #. Description
-#: ../templates.master:67
+#: ../openssh-server.templates.master:59
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -207,13 +225,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "警告: telnetd がインストールされています。たぶん良い考えではありません"
 
 #. Type: note
 #. Description
-#: ../templates.master:74
+#: ../openssh-server.templates.master:66
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -227,13 +245,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "Warning: you must create a new host key"
 msgstr "警告: 新しいホストキーを作らないといけません"
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -245,111 +263,68 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:82
+#: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
 msgstr "新しいホストキーを作る必要があります。"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "/usr/bin/ssh-keysign を SUID root でインストールしますか?"
+#~ msgid "ssh2 keys merged in configuration files"
+#~ msgstr "ssh2 キーは設定ファイルに統合されます"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"ssh-keysign ヘルパーをインストールする際、SUID ビットを設定するかしないかを選"
-"ぶことができます。"
+#~ msgid ""
+#~ "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
+#~ "keys. This means the authorized_keys2 and known_hosts2 files are no "
+#~ "longer needed. They will still be read in order to maintain backwards "
+#~ "compatibility"
+#~ msgstr ""
+#~ "OpenSSH のバージョン 3 は、ssh1 と ssh2 のキーに個別のファイルを使いませ"
+#~ "ん。つまり、authorized_keys2 ファイルと known_hosts2 ファイルはもはや不要"
+#~ "となりました。後方互換性を保つためにはこれらのファイルが必要です。"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"ssh-keysign を SUID に設定した場合、SSH プロトコル 2 のホストに基づく認証を使"
-"うことができます。"
+#~ msgid "Do you want to run the sshd server?"
+#~ msgstr "sshd サーバを実行しますか?"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:92
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"よく分からない場合は、SUID を有効にすることをお勧めします。もし 問題が起これ"
-"ば、dpkg-reconfigure ssh を実行することで設定を変更することができます。"
+#~ msgid "This package contains both the ssh client, and the sshd server."
+#~ msgstr ""
+#~ "このパッケージは、ssh クライアントと sshd サーバの両方を含んでいます。"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "Do you want to run the sshd server?"
-msgstr "sshd サーバを実行しますか?"
+#~ msgid ""
+#~ "Normally the sshd Secure Shell Server will be run to allow remote logins "
+#~ "via ssh."
+#~ msgstr ""
+#~ "通常、sshd セキュアシェルサーバは、ssh を用いたリモートからのログインを可"
+#~ "能にするために実行します。"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid "This package contains both the ssh client, and the sshd server."
-msgstr "このパッケージは、ssh クライアントと sshd サーバの両方を含んでいます。"
+#~ msgid ""
+#~ "If you are only interested in using the ssh client for outbound "
+#~ "connections on this machine, and don't want to log into it at all using "
+#~ "ssh, then you can disable sshd here."
+#~ msgstr ""
+#~ "もし ssh クライアントを使ってこのマシンから他マシンへと接続するだけで、こ"
+#~ "のマシンへと ssh を使ってログインしないのでしたら、ここで sshd を実行しな"
+#~ "いでおきます。"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"Normally the sshd Secure Shell Server will be run to allow remote logins via "
-"ssh."
-msgstr ""
-"通常、sshd セキュアシェルサーバは、ssh を用いたリモートからのログインを可能に"
-"するために実行します。"
+#~ msgid "Environment options on keys have been deprecated"
+#~ msgstr "鍵の環境オプションは無効に設定されました"
 
-#. Type: boolean
-#. Description
-#: ../templates.master:105
-msgid ""
-"If you are only interested in using the ssh client for outbound connections "
-"on this machine, and don't want to log into it at all using ssh, then you "
-"can disable sshd here."
-msgstr ""
-"もし ssh クライアントを使ってこのマシンから他マシンへと接続するだけで、このマ"
-"シンへと ssh を使ってログインしないのでしたら、ここで sshd を実行しないでおき"
-"ます。"
+#~ msgid ""
+#~ "This version of OpenSSH disables the environment option for public keys "
+#~ "by default, in order to avoid certain attacks (for example, LD_PRELOAD). "
+#~ "If you are using this option in an authorized_keys file, beware that the "
+#~ "keys in question will no longer work until the option is removed."
+#~ msgstr ""
+#~ "本バージョンの OpenSSH は、公開鍵の環境オプションをデフォルトで無効に設定"
+#~ "しています。LD_PRELOAD などの攻撃を避けるためです。もし authorized_keys "
+#~ "ファイルでこのオプションを使用している場合、このオプションを除去しない限り"
+#~ "はその鍵は利用できないことに注意してください。"
 
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid "Environment options on keys have been deprecated"
-msgstr "鍵の環境オプションは無効に設定されました"
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"This version of OpenSSH disables the environment option for public keys by "
-"default, in order to avoid certain attacks (for example, LD_PRELOAD). If you "
-"are using this option in an authorized_keys file, beware that the keys in "
-"question will no longer work until the option is removed."
-msgstr ""
-"本バージョンの OpenSSH は、公開鍵の環境オプションをデフォルトで無効に設定して"
-"います。LD_PRELOAD などの攻撃を避けるためです。もし authorized_keys ファイル"
-"でこのオプションを使用している場合、このオプションを除去しない限りはその鍵は"
-"利用できないことに注意してください。"
-
-#. Type: note
-#. Description
-#: ../templates.master:117
-msgid ""
-"To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-"sshd_config after the upgrade is complete, taking note of the warning in the "
-"sshd_config(5) manual page."
-msgstr ""
-"このオプションを再び有効にするには、アップグレード終了後に、sshd_config(5) マ"
-"ニュアルページの警告事項を読んで、 /etc/ssh/sshd_config ファイルに"
-"「PermitUserEnvironment yes」と設定してください。"
+#~ msgid ""
+#~ "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
+#~ "sshd_config after the upgrade is complete, taking note of the warning in "
+#~ "the sshd_config(5) manual page."
+#~ msgstr ""
+#~ "このオプションを再び有効にするには、アップグレード終了後に、sshd_config"
+#~ "(5) マニュアルページの警告事項を読んで、 /etc/ssh/sshd_config ファイルに"
+#~ "「PermitUserEnvironment yes」と設定してください。"
 
 #~ msgid "Privilege separation"
 #~ msgstr "特権の分離"

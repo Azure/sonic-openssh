@@ -96,7 +96,8 @@ ifeq ($(PO2DEBCONF),yes)
 	# 4.1.16) depends on it), the binary-arch target will generate a
 	# better version for sarge.
 	echo 1 > debian/po/output
-	po2debconf debian/templates.master > debian/templates
+	po2debconf debian/openssh-client.templates.master > debian/openssh-client.templates
+	po2debconf debian/openssh-server.templates.master > debian/openssh-server.templates
 	rm -f debian/po/output
 endif
 ifeq ($(PAMSUBST),yes)
@@ -114,16 +115,22 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
-	# Add here commands to install the package into debian/ssh.
-	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/ssh install-nokeys
+	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/openssh-client install-nokeys
 
-	rm -f debian/ssh/etc/ssh/sshd_config
+	rm -f debian/openssh-client/etc/ssh/sshd_config
 	#Temporary hack: remove /usr/share/Ssh.bin, since we have no smartcard support anyway.
-	rm -f debian/ssh/usr/share/Ssh.bin
+	rm -f debian/openssh-client/usr/share/Ssh.bin
 
-	install -m 755 contrib/ssh-copy-id debian/ssh/usr/bin/ssh-copy-id
-	install -m 644 -c contrib/ssh-copy-id.1 debian/ssh/usr/share/man/man1/ssh-copy-id.1
-	install -m 644 debian/moduli.5 debian/ssh/usr/share/man/man5/moduli.5
+	# Split off the server.
+	mv debian/openssh-client/usr/sbin/sshd debian/openssh-server/usr/sbin/
+	mv debian/openssh-client/usr/lib/sftp-server debian/openssh-server/usr/lib/
+	mv debian/openssh-client/usr/share/man/man8/sshd.8 debian/openssh-server/usr/share/man/man8/
+	mv debian/openssh-client/usr/share/man/man8/sftp-server.8 debian/openssh-server/usr/share/man/man8/
+	rmdir debian/openssh-client/var/run/sshd
+
+	install -m 755 contrib/ssh-copy-id debian/openssh-client/usr/bin/ssh-copy-id
+	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
+	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
@@ -134,13 +141,11 @@ install: build
 	install -m 644 debian/ssh-askpass-gnome.desktop debian/ssh-askpass-gnome/usr/share/applications/ssh-askpass-gnome.desktop
 	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
 
-	install -m 755 debian/ssh-argv0 debian/ssh/usr/bin/ssh-argv0
-	install -m 644 debian/ssh-argv0.1 debian/ssh/usr/share/man/man1/ssh-argv0.1
+	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
+	install -m 644 debian/ssh-argv0.1 debian/openssh-client/usr/share/man/man1/ssh-argv0.1
 
-	install -o root -g root debian/init debian/ssh/etc/init.d/ssh
-	install -o root -g root -m 644 debian/ssh.default debian/ssh/etc/default/ssh
-
-	install -o root -g root -m 755 -d debian/ssh/var/run/sshd
+	install -o root -g root debian/openssh-server.init debian/openssh-server/etc/init.d/ssh
+	install -o root -g root -m 644 debian/openssh-server.default debian/openssh-server/etc/default/ssh
 
 	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
 	install -m 755 build-udeb/scp debian/openssh-client-udeb/usr/bin/scp
@@ -153,42 +158,76 @@ binary-indep: build install
 	# nothing to do
 
 # Build architecture-dependent files here.
-binary-arch: binary-ssh binary-ssh-askpass-gnome
+binary-arch: binary-openssh-client binary-openssh-server binary-ssh
+binary-arch: binary-ssh-askpass-gnome
 binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
 
-binary-ssh: DH_OPTIONS=-pssh
-binary-ssh: build install
+binary-openssh-client: DH_OPTIONS=-popenssh-client
+binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
 ifeq ($(PO2DEBCONF),yes)
-	po2debconf -e utf8 debian/templates.master > debian/templates
+	po2debconf -e utf8 debian/openssh-client.templates.master > debian/openssh-client.templates
 endif
 	dh_installdebconf
 	dh_installdocs OVERVIEW README
-	cat debian/copyright.head LICENCE > debian/ssh/usr/share/doc/ssh/copyright
-ifeq ($(PAMSUBST),yes)
-	# Clean up if we've done this already, to ensure idempotency.
-	if [ -f debian/ssh.pam.new-style ]; then \
-		mv debian/ssh.pam.new-style debian/ssh.pam; \
-	fi
-	cp -a debian/ssh.pam debian/ssh.pam.new-style
-	sed -e "s/@include common-auth/auth       required     pam_unix.so/" \
-	    -e "s/@include common-account/account    required     pam_unix.so/" \
-	    -e "s/@include common-session/session    required     pam_unix.so/" \
-	    -e "s/@include common-password/password   required     pam_unix.so/" \
-	    debian/ssh.pam.new-style > debian/ssh.pam
-endif
-	dh_installpam
+	cat debian/copyright.head LICENCE > debian/openssh-client/usr/share/doc/openssh-client/copyright
 	dh_installchangelogs ChangeLog
 	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
-	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/ssh/DEBIAN/conffiles
+	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
+	dh_shlibdeps
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))'
+	dh_md5sums
+	dh_builddeb
+
+binary-openssh-server: DH_OPTIONS=-popenssh-server
+binary-openssh-server: build install
+	dh_testdir
+	dh_testroot
+ifeq ($(PO2DEBCONF),yes)
+	po2debconf -e utf8 debian/openssh-server.templates.master > debian/openssh-server.templates
+endif
+	dh_installdebconf
+	dh_installdocs OVERVIEW README
+	cat debian/copyright.head LICENCE > debian/openssh-server/usr/share/doc/openssh-server/copyright
+ifeq ($(PAMSUBST),yes)
+	# Clean up if we've done this already, to ensure idempotency.
+	if [ -f debian/openssh-server.ssh.pam.new-style ]; then \
+		mv debian/openssh-server.ssh.pam.new-style debian/openssh-server.ssh.pam; \
+	fi
+	cp -a debian/openssh-server.ssh.pam debian/openssh-server.ssh.pam.new-style
+	sed -e "s/@include common-auth/auth       required     pam_unix.so/" \
+	    -e "s/@include common-account/account    required     pam_unix.so/" \
+	    -e "s/@include common-session/session    required     pam_unix.so/" \
+	    -e "s/@include common-password/password   required     pam_unix.so/" \
+	    debian/openssh-server.ssh.pam.new-style > debian/openssh-server.ssh.pam
+endif
+	dh_installpam --name ssh # TODO: breaks woody backports
+	dh_installchangelogs ChangeLog
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))' \
 	                 -V'pam-depends=$(PAMDEP)'
+	dh_md5sums
+	dh_builddeb
+
+binary-ssh: DH_OPTIONS=-pssh
+binary-ssh: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installchangelogs
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 
@@ -237,5 +276,7 @@ binary-openssh-server-udeb: build install
 binary: binary-indep binary-arch
 
 .PHONY: build clean binary-indep binary-arch binary install
-.PHONY: build-deb build-udeb binary-ssh binary-ssh-askpass-gnome
+.PHONY: build-deb build-udeb
+.PHONY: binary-openssh-client binary-openssh-server binary-ssh
+.PHONY: binary-ssh-askpass-gnome
 .PHONY: binary-openssh-client-udeb binary-openssh-server-udeb

@@ -1,8 +1,0 @@
-usr/bin
-usr/sbin
-usr/lib
-etc/ssh
-etc/init.d
-etc/default
-usr/share/man/man1
-usr/share/man/man8

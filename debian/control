@@ -6,13 +6,14 @@ Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev | libz-dev, libssl-dev, li
 Standards-Version: 3.6.1
 Uploaders: Colin Watson <cjwatson@debian.org>
 
-Package: ssh
+Package: openssh-client
 Architecture: any
-Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0)
-Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1)
+Depends: ${shlibs:Depends}, ${debconf-depends}, adduser (>= 3.10), dpkg (>= 1.7.0)
+Conflicts: sftp, rsh-client (<<0.16.1-1)
+Replaces: ssh (<< 1:3.8.1p1-9)
 Suggests: ssh-askpass, xbase-clients
-Provides: rsh-client
-Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
+Provides: rsh-client, ssh-client
+Description: Secure shell client, an rlogin/rsh/rcp replacement
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
  group.
@@ -25,18 +26,53 @@ Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
  It is intended as a replacement for rlogin, rsh and rcp, and can be
  used to provide applications with a secure communication channel.
  .
- This package provides both the ssh client and the sshd server.
+ This package provides the ssh client.
  .
  --------------------------------------------------------------------
  .
  In some countries it may be illegal to use any encryption at all
  without a special permit.
 
+Package: openssh-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0), openssh-client (= ${Source-Version})
+Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1)
+Replaces: ssh (<< 1:3.8.1p1-9)
+Suggests: ssh-askpass, xbase-clients
+Provides: ssh-server
+Description: Secure shell server, an rshd replacement
+ This is the portable version of OpenSSH, a free implementation of
+ the Secure Shell protocol as specified by the IETF secsh working
+ group.
+ .
+ Ssh (Secure Shell) is a program for logging into a remote machine
+ and for executing commands on a remote machine.
+ It provides secure encrypted communications between two untrusted
+ hosts over an insecure network.  X11 connections and arbitrary TCP/IP
+ ports can also be forwarded over the secure channel.
+ It is intended as a replacement for rlogin, rsh and rcp, and can be
+ used to provide applications with a secure communication channel.
+ .
+ This package provides the sshd server.
+ .
+ --------------------------------------------------------------------
+ .
+ In some countries it may be illegal to use any encryption at all
+ without a special permit.
+
+Package: ssh
+Architecture: all
+Depends: openssh-client, openssh-server
+Description: Secure shell client and server (transitional package)
+ This is a transitional package depending on both the OpenSSH client and
+ the OpenSSH server, which are now in separate packages. You may remove
+ it once the upgrade is complete and nothing depends on it.
+
 Package: ssh-askpass-gnome
 Section: gnome
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, ssh (>=1:1.2pre7-4) | ssh-krb5
+Depends: ${shlibs:Depends}, openssh-client | ssh (>= 1:1.2pre7-4) | ssh-krb5
 Replaces: ssh (<< 1:3.5p1-3)
 Provides: ssh-askpass
 Description: under X, asks user for a passphrase for ssh-add

@@ -32,14 +32,6 @@ _Description: Allow SSH protocol 2 only
  If you later change your mind about this setting, README.Debian has
  instructions on what to do to your sshd_config file.
 
-Template: ssh/ssh2_keys_merged
-Type: note
-_Description: ssh2 keys merged in configuration files
- As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2
- keys. This means the authorized_keys2 and known_hosts2 files are no longer
- needed. They will still be read in order to maintain backwards
- compatibility
-
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false
@@ -85,41 +77,3 @@ _Description: Warning: you must create a new host key
  from the old (non-free) SSH installation.
  .
  You will need to generate a new host key.
-
-Template: ssh/SUID_client
-Type: boolean
-Default: true
-_Description: Do you want /usr/lib/ssh-keysign to be installed SUID root?
- You have the option of installing the ssh-keysign helper with the SUID bit
- set.
- .
- If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2
- host-based authentication.
- .
- If in doubt, I suggest you install it with SUID.  If it causes problems
- you can change your mind later by running:   dpkg-reconfigure ssh
-
-Template: ssh/run_sshd
-Type: boolean
-Default: true
-_Description: Do you want to run the sshd server?
- This package contains both the ssh client, and the sshd server.
- .
- Normally the sshd Secure Shell Server will be run to allow remote logins
- via ssh.
- .
- If you are only interested in using the ssh client for outbound
- connections on this machine, and don't want to log into it at all using
- ssh, then you can disable sshd here.
-
-Template: ssh/user_environment_tell
-Type: note
-_Description: Environment options on keys have been deprecated
- This version of OpenSSH disables the environment option for public keys by
- default, in order to avoid certain attacks (for example, LD_PRELOAD). If
- you are using this option in an authorized_keys file, beware that the keys
- in question will no longer work until the option is removed.
- .
- To re-enable this option, set "PermitUserEnvironment yes" in
- /etc/ssh/sshd_config after the upgrade is complete, taking note of the
- warning in the sshd_config(5) manual page.
