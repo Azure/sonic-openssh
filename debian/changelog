@@ -1,3 +1,11 @@
+openssh (1:3.8.1p1-10) experimental; urgency=low
+
+  * Don't install the ssh-askpass-gnome .desktop file by default; I've had
+    too many GNOME people tell me it's the wrong thing to be doing. I've
+    left it in /usr/share/doc/ssh-askpass-gnome/examples/ for now.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 25 Aug 2004 18:18:14 +0100
+
 openssh (1:3.8.1p1-9) experimental; urgency=low
 
   * Split the ssh binary package into openssh-client and openssh-server

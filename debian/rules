@@ -138,7 +138,6 @@ install: build
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass1 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
 	fi
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
-	install -m 644 debian/ssh-askpass-gnome.desktop debian/ssh-askpass-gnome/usr/share/applications/ssh-askpass-gnome.desktop
 	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
 
 	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
@@ -237,6 +236,7 @@ binary-ssh-askpass-gnome: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
+	dh_installexamples debian/ssh-askpass-gnome.desktop
 	dh_installchangelogs ChangeLog
 	dh_strip
 	dh_compress
