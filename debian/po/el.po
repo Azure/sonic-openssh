@@ -287,7 +287,7 @@ msgstr "Πρέπει να δημιουργήσετε ένα νέο κλειδί 
 #. Description
 #: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Να απενεργοποιηθεί η πιστοποίηση challenge-response;"
 
 #. Type: boolean
 #. Description
@@ -300,6 +300,12 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Η πιστοποίηση με κωδικό είναι απενεργοποιημένη στο τωρινό OpenSSH "
+"εξυπηρετητή. Για να αποτρέψετε την είσοδο τον χρηστών με χρήση κωδικού (για "
+"παράδειγμα να γίνεται χρήση μόνο του δημοσίου κλειδιού) με την πρόσφατες "
+"εκδόσεις του OpenSSH, θα πρέπει να απενεργοποιήσετε την πιστοποίηση "
+"challenge-response ή να επιβεβαιώσετε ότι η διαμόρφωση του PAM δεν επιτρέπει "
+"την πιστοποίηση με αρχείο κωδικών."
 
 #. Type: boolean
 #. Description
@@ -310,6 +316,10 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Εάν απενεργοποιήσετε την πιστοποίηση challenge-response, οι χρήστες δεν θα "
+"μπορούν να εισέλθουν χρησιμοποιώντας τον κωδικό τους. Εάν το αφήσετε "
+"ενεργοποιημένο (προεπιλογή), τότε η επιλογή 'PasswordAuthetication no' δεν "
+"θα επιδρά εκτός και εάν ρυθμίσετε και το PAM στο αρχείο /etc/pam.d/ssh."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "Τα κλειδιά ssh2 συγχωνεύτηκαν στα αρχεία ρυθμίσεων"
