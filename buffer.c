@@ -39,6 +39,7 @@ buffer_free(Buffer *buffer)
 {
 	if (buffer->alloc > 0) {
 		memset(buffer->buf, 0, buffer->alloc);
+		buffer->alloc = 0;
 		xfree(buffer->buf);
 	}
 }
