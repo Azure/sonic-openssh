@@ -1,4 +1,4 @@
-openssh (1:3.8.1p1-6) UNRELEASED; urgency=low
+openssh (1:3.8.1p1-6) unstable; urgency=low
 
   * Implement hack in
     http://lists.debian.org/debian-boot/2004/07/msg01207.html to get
@@ -7,7 +7,7 @@ openssh (1:3.8.1p1-6) UNRELEASED; urgency=low
   * Generate host keys in postinst only if the relevant HostKey directives
     are found in sshd_config (closes: #87946).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 19 Jul 2004 20:22:39 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 21 Jul 2004 15:14:46 +0100
 
 openssh (1:3.8.1p1-5) unstable; urgency=medium
 
