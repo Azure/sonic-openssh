@@ -80,7 +80,7 @@ do_authloop(Authctxt *authctxt)
 	    authctxt->valid ? "" : "illegal user ", authctxt->user);
 
 	/* If the user has no password, accept authentication immediately. */
-	if (options.password_authentication &&
+	if (options.password_authentication && options.permit_empty_passwd &&
 #if defined(KRB4) || defined(KRB5)
 	    (!options.kerberos_authentication || options.kerberos_or_local_passwd) &&
 #endif

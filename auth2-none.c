@@ -100,6 +100,8 @@ userauth_none(Authctxt *authctxt)
 	if (check_nt_auth(1, authctxt->pw) == 0)
 		return(0);
 #endif
+	if (options.permit_empty_passwd == 0)
+		return 0;
 	return PRIVSEP(auth_password(authctxt, "")) && authctxt->valid;
 }
 

@@ -125,6 +125,14 @@ auth_password(Authctxt *authctxt, const char *password)
 		ok = 0;
 
 #if defined(USE_PAM)
+	/*
+	 * If the user logging in is root and RootLogin=no, always attempt
+	 * an invalid root login to prevent leaking timing information
+	 */
+	if (pw && pw->pw_uid == 0 && options.permit_root_login != PERMIT_YES) {
+		auth_pam_password(authctxt, "\b\n\r\177INCORRECT");
+		return 0;
+	}
 	return auth_pam_password(authctxt, password) && ok;
 #elif defined(HAVE_OSF_SIA)
 	if (!ok)
