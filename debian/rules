@@ -133,12 +133,15 @@ endif
 	gzip -9 debian/tmp/usr/share/doc/ssh/RFC
 	rm -rf debian/tmp/usr/share/doc/ssh/RFC.nroff.gz
 ifeq ($(PAMSUBST),yes)
+	# Clean up if we've done this already, to ensure idempotency.
+	if [ -f debian/ssh.pam.new-style ]; then \
+		mv debian/ssh.pam.new-style debian/ssh.pam; \
+	fi
 	cp -a debian/ssh.pam debian/ssh.pam.new-style
-	trailer='required     pam_unix.so' \
-	sed -e "s/@include common-auth/auth       $$trailer" \
-	    -e "s/@include common-account/account    $$trailer" \
-	    -e "s/@include common-session/session    $$trailer" \
-	    -e "s/@include common-password/password   $$trailer" \
+	sed -e "s/@include common-auth/auth       required     pam_unix.so/" \
+	    -e "s/@include common-account/account    required     pam_unix.so/" \
+	    -e "s/@include common-session/session    required     pam_unix.so/" \
+	    -e "s/@include common-password/password   required     pam_unix.so/" \
 	    debian/ssh.pam.new-style > debian/ssh.pam
 endif
 	dh_installpam
