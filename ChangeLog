@@ -1,20 +1,58 @@
+20030401
+ - (djm) OpenBSD CVS Sync
+   - jmc@cvs.openbsd.org 2003/03/28 10:11:43
+     [scp.1 sftp.1 ssh.1 ssh-add.1 ssh-agent.1 ssh_config.5 sshd_config.5]
+     [ssh-keygen.1 ssh-keyscan.1 ssh-keysign.8]
+     - killed whitespace
+     - new sentence new line
+     - .Bk for arguments
+     ok markus@
+   - markus@cvs.openbsd.org 2003/04/01 10:10:23
+     [clientloop.c monitor.c monitor_wrap.c packet.c packet.h readconf.c]
+     [readconf.h serverloop.c sshconnect2.c]
+     rekeying bugfixes and automatic rekeying:
+     * both client and server rekey _automatically_
+           (a) after 2^31 packets, because after 2^32 packets
+               the sequence number for packets wraps
+           (b) after 2^(blocksize_in_bits/4) blocks
+       (see: draft-ietf-secsh-newmodes-00.txt)
+       (a) and (b) are _enabled_ by default, and only disabled for known
+       openssh versions, that don't support rekeying properly.
+     * client option 'RekeyLimit'
+     * do not reply to requests during rekeying
+   - markus@cvs.openbsd.org 2003/04/01 10:22:21
+     [clientloop.c monitor.c monitor_wrap.c packet.c packet.h readconf.c]
+     [readconf.h serverloop.c sshconnect2.c]
+     backout rekeying changes (for 3.6.1)
+   - markus@cvs.openbsd.org 2003/04/01 10:31:26
+     [compat.c compat.h kex.c]
+     bugfix causes stalled connections for ssh.com < 3.0; noticed by ho@; 
+     tested by ho@ and myself
+   - markus@cvs.openbsd.org 2003/04/01 10:56:46
+     [version.h]
+     3.6.1
+ - (djm) Crank spec file versions
+ - (djm) Release 3.6.1p1
+
 20030326
  - (djm) OpenBSD CVS Sync
    - deraadt@cvs.openbsd.org 2003/03/26 04:02:51
      [sftp-server.c]
      one last fix to the tree: race fix broke stuff; pr 3169; 
      srp@srparish.net, help from djm
+
+20030325
  - (djm) Fix getpeerid support for 64 bit BE systems. From 
     Arnd Bergmann <arndb@de.ibm.com>
- - Fix sshd BindAddress and -b options for systems using fake-getaddrinfo.
-   Report from murple@murple.net, diagnosis from dtucker@zip.com.au
- - Release 3.6p1
 
 20030324
  - (djm) OpenBSD CVS Sync
    - markus@cvs.openbsd.org 2003/03/23 19:02:00
      [monitor.c]
      unbreak rekeying for privsep; ok millert@
+ - Release 3.6p1
+ - Fix sshd BindAddress and -b options for systems using fake-getaddrinfo.
+   Report from murple@murple.net, diagnosis from dtucker@zip.com.au
 
 20030320
  - (djm) OpenBSD CVS Sync
@@ -29,10 +67,9 @@
  - (bal) Collection of Cray patches (bsd-cray.h fix for CRAYT3E and improved
    guessing rules)
  - (bal) Disable Privsep for Tru64 after pre-authentication due to issues
-   with SIA.  Also, clean up of tru64 support patch by Chris Adams 
+   with SIA.  Also, clean up of tru64 support patch by Chris Adams
    <cmadams@hiwaay.net>
  - (tim) [contrib/caldera/openssh.spec] workaround RPM quirk. Fix %files
-   section.
 
 20030318
  - (tim) [configure.ac openbsd-compat/bsd-misc.c openbsd-compat/bsd-misc.h]
@@ -1258,4 +1295,4 @@
      save auth method before monitor_reset_key_state(); bugzilla bug #284;
      ok provos@
 
-$Id: ChangeLog,v 1.2633.2.9 2003/03/26 05:03:05 djm Exp $
+$Id: ChangeLog,v 1.2648 2003/04/01 11:47:16 djm Exp $

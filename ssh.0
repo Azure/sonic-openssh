@@ -8,8 +8,8 @@ SSH(1)                    BSD General Commands Manual                   SSH(1)
 
      ^[[1mssh ^[[22m[^[[1mM-bMM-^RafgknqstvxACNTX1246^[[22m] [^[[1mM-bMM-^Rb ^[[4m^[[22mbind_address^[[24m] [^[[1mM-bMM-^Rc ^[[4m^[[22mcipher_spec^[[24m]
          [^[[1mM-bMM-^Re ^[[4m^[[22mescape_char^[[24m] [^[[1mM-bMM-^Ri ^[[4m^[[22midentity_file^[[24m] [^[[1mM-bMM-^Rl ^[[4m^[[22mlogin_name^[[24m] [^[[1mM-bMM-^Rm ^[[4m^[[22mmac_spec^[[24m]
-         [^[[1mM-bMM-^Ro ^[[4m^[[22moption^[[24m] [^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[24m] [^[[1mM-bMM-^RF ^[[4m^[[22mconfigfile^[[24m] [^[[1mM-bMM-^RL ^[[4m^[[22mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m] [^[[1mM-bMM-^RR^[[0m
-         ^[[4mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m] [^[[1mM-bMM-^RD ^[[4m^[[22mport^[[24m] ^[[4mhostname^[[24m | ^[[4muser@hostname^[[24m [^[[4mcommand^[[24m]
+         [^[[1mM-bMM-^Ro ^[[4m^[[22moption^[[24m] [^[[1mM-bMM-^Rp ^[[4m^[[22mport^[[24m] [^[[1mM-bMM-^RF ^[[4m^[[22mconfigfile^[[24m] [^[[1mM-bMM-^RL ^[[4m^[[22mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m]
+         [^[[1mM-bMM-^RR ^[[4m^[[22mport^[[24m:^[[4mhost^[[24m:^[[4mhostport^[[24m] [^[[1mM-bMM-^RD ^[[4m^[[22mport^[[24m] ^[[4mhostname^[[24m | ^[[4muser@hostname^[[24m [^[[4mcommand^[[24m]
 
 ^[[1mDESCRIPTION^[[0m
      ^[[1mssh ^[[22m(SSH client) is a program for logging into a remote machine and for

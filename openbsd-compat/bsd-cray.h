@@ -1,5 +1,5 @@
 /* 
- * $Id: bsd-cray.h,v 1.6.2.1 2003/03/21 01:07:45 mouring Exp $
+ * $Id: bsd-cray.h,v 1.7 2003/03/21 01:05:38 mouring Exp $
  *
  * bsd-cray.h
  *

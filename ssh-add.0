@@ -43,8 +43,8 @@ SSHM-bM-^@M-^PADD(1)                BSD General Commands Manual               SS
              fied in sshd_config(5).
 
      ^[[1mM-bMM-^Rc      ^[[22mIndicates that added identities should be subject to confirmation
-             before being used for authentication. Confirmation is performed
-             by the SSH_ASKPASS program mentioned below. Successful confirmaM-bM-^@M-^P
+             before being used for authentication.  Confirmation is performed
+             by the SSH_ASKPASS program mentioned below.  Successful confirmaM-bM-^@M-^P
              tion is signaled by a zero exit status from the SSH_ASKPASS proM-bM-^@M-^P
              gram, rather than text entered into the requester.
 

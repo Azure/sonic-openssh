@@ -12,7 +12,7 @@
 #include "includes.h"
 #include "ssh.h"
 
-RCSID("$Id: fake-getaddrinfo.c,v 1.4.2.1 2003/03/26 05:03:06 djm Exp $");
+RCSID("$Id: fake-getaddrinfo.c,v 1.5 2003/03/24 02:35:59 djm Exp $");
 
 #ifndef HAVE_GAI_STRERROR
 char *gai_strerror(int ecode)

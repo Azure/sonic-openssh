@@ -39,19 +39,19 @@ SFTP(1)                   BSD General Commands Manual                  SFTP(1)
      ^[[1mM-bMM-^Ro ^[[4m^[[22mssh_option^[[0m
              Can be used to pass options to ^[[1mssh ^[[22min the format used in
              ssh_config(5).  This is useful for specifying options for which
-             there is no separate ^[[1msftp ^[[22mcommandM-bM-^@M-^Pline flag.  For example, to
+             there is no separate ^[[1msftp ^[[22mcommandM-bM-^@M-^Pline flag. For example, to
              specify an alternate port use: ^[[1msftp M-bM-^@M-^PoPort=24^[[22m.
 
      ^[[1mM-bMM-^Rs ^[[4m^[[22msubsystem^[[24m | ^[[4msftp_server^[[0m
              Specifies the SSH2 subsystem or the path for an sftp server on
-             the remote host.  A path is useful for using sftp over protocol
+             the remote host. A path is useful for using sftp over protocol
              version 1, or when the remote ^[[1msshd ^[[22mdoes not have an sftp subsysM-bM-^@M-^P
              tem configured.
 
      ^[[1mM-bMM-^Rv      ^[[22mRaise logging level. This option is also passed to ssh.
 
      ^[[1mM-bMM-^RB ^[[4m^[[22mbuffer_size^[[0m
-             Specify  the size of the buffer that ^[[1msftp ^[[22muses when transferring
+             Specify the size of the buffer that ^[[1msftp ^[[22muses when transferring
              files. Larger buffers require fewer round trips at the cost of
              higher memory consumption. The default is 32768 bytes.
 

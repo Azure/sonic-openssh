@@ -33,7 +33,7 @@ Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
  be illegal to use any encryption at all without a special permit.
 
 Package: ssh-askpass-gnome
-Section: x11
+Section: gnome
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, ssh (>=1:1.2pre7-4) | ssh-krb5

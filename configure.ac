@@ -1,4 +1,4 @@
-# $Id: configure.ac,v 1.111.2.2 2003/03/21 01:15:18 mouring Exp $
+# $Id: configure.ac,v 1.113 2003/03/21 01:18:09 mouring Exp $
 
 AC_INIT
 AC_CONFIG_SRCDIR([ssh.c])
