@@ -183,7 +183,7 @@ endif
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
 	dh_shlibdeps
-	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))'
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0'
 	dh_md5sums
 	dh_builddeb
 
@@ -216,7 +216,7 @@ endif
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))' \
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0' \
 	                 -V'pam-depends=$(PAMDEP)'
 	dh_md5sums
 	dh_builddeb
