@@ -1,7 +1,6 @@
-/*	$OpenBSD: ssh-rsa.h,v 1.6 2002/02/24 19:14:59 markus Exp $	*/
-
+/*	$OpenBSD: progressmeter.h,v 1.1 2003/01/10 08:19:07 fgsch Exp $	*/
 /*
- * Copyright (c) 2000 Markus Friedl.  All rights reserved.
+ * Copyright (c) 2002 Nils Nordman.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,10 +22,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef SSH_RSA_H
-#define SSH_RSA_H
 
-int	 ssh_rsa_sign(Key *, u_char **, u_int *, u_char *, u_int);
-int	 ssh_rsa_verify(Key *, u_char *, u_int, u_char *, u_int);
-
-#endif
+void	start_progress_meter(char *, off_t, off_t *);
+void	stop_progress_meter(void);

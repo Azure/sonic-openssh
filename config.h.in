@@ -1,5 +1,5 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
-/* $Id: acconfig.h,v 1.145 2002/09/26 00:38:48 tim Exp $ */
+/* $Id: acconfig.h,v 1.149 2003/03/10 00:38:10 djm Exp $ */
 
 #ifndef _CONFIG_H
 #define _CONFIG_H
@@ -364,6 +364,19 @@
 /* Define if your platform needs to skip post auth file descriptor passing */
 #undef DISABLE_FD_PASSING
 
+/* Silly mkstemp() */
+#undef HAVE_STRICT_MKSTEMP
+
+/* Setproctitle emulation */
+#undef SETPROCTITLE_STRATEGY
+#undef SETPROCTITLE_PS_PADDING
+
+/* Some systems put this outside of libc */
+#undef HAVE_NANOSLEEP
+
+/* Pushing STREAMS modules incorrectly acquires a controlling TTY */
+#undef STREAMS_PUSH_ACQUIRES_CTTY
+
 
 /* Define to 1 if the `getpgrp' function requires zero arguments. */
 #undef GETPGRP_VOID
@@ -373,6 +386,12 @@
 
 /* Define to 1 if you have the `b64_ntop' function. */
 #undef HAVE_B64_NTOP
+
+/* Define to 1 if you have the `b64_pton' function. */
+#undef HAVE_B64_PTON
+
+/* Define to 1 if you have the `basename' function. */
+#undef HAVE_BASENAME
 
 /* Define to 1 if you have the `bcopy' function. */
 #undef HAVE_BCOPY
@@ -599,6 +618,9 @@
 /* Define to 1 if you have the `ngetaddrinfo' function. */
 #undef HAVE_NGETADDRINFO
 
+/* Define to 1 if you have the `nsleep' function. */
+#undef HAVE_NSLEEP
+
 /* Define to 1 if you have the `ogetaddrinfo' function. */
 #undef HAVE_OGETADDRINFO
 
@@ -610,6 +632,9 @@
 
 /* Define to 1 if you have the <paths.h> header file. */
 #undef HAVE_PATHS_H
+
+/* Define to 1 if you have the `pstat' function. */
+#undef HAVE_PSTAT
 
 /* Define to 1 if you have the <pty.h> header file. */
 #undef HAVE_PTY_H
@@ -743,11 +768,17 @@
 /* Define to 1 if you have the `strmode' function. */
 #undef HAVE_STRMODE
 
+/* Define to 1 if you have the `strnvis' function. */
+#undef HAVE_STRNVIS
+
 /* Define to 1 if you have the `strsep' function. */
 #undef HAVE_STRSEP
 
 /* Define to 1 if `st_blksize' is member of `struct stat'. */
 #undef HAVE_STRUCT_STAT_ST_BLKSIZE
+
+/* Define to 1 if the system has the type `struct timespec'. */
+#undef HAVE_STRUCT_TIMESPEC
 
 /* Define to 1 if you have the `sysconf' function. */
 #undef HAVE_SYSCONF
@@ -764,6 +795,9 @@
 /* Define to 1 if you have the <sys/mman.h> header file. */
 #undef HAVE_SYS_MMAN_H
 
+/* Define to 1 if you have the <sys/pstat.h> header file. */
+#undef HAVE_SYS_PSTAT_H
+
 /* Define to 1 if you have the <sys/select.h> header file. */
 #undef HAVE_SYS_SELECT_H
 
@@ -775,6 +809,9 @@
 
 /* Define to 1 if you have the <sys/sysmacros.h> header file. */
 #undef HAVE_SYS_SYSMACROS_H
+
+/* Define to 1 if you have the <sys/timers.h> header file. */
+#undef HAVE_SYS_TIMERS_H
 
 /* Define to 1 if you have the <sys/time.h> header file. */
 #undef HAVE_SYS_TIME_H
@@ -847,6 +884,9 @@
 
 /* Define to 1 if you have the `__b64_ntop' function. */
 #undef HAVE___B64_NTOP
+
+/* Define to 1 if you have the `__b64_pton' function. */
+#undef HAVE___B64_PTON
 
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT

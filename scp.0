@@ -1,17 +1,17 @@
-SCP(1)                  System General Commands Manual                  SCP(1)
+SCP(1)                    BSD General Commands Manual                   SCP(1)
 
-NAME
-     scp - secure copy (remote file copy program)
+^[[1mNAME^[[0m
+     ^[[1mscp ^[[22mM-bMM-^R secure copy (remote file copy program)
 
-SYNOPSIS
-     scp [-pqrvBC46] [-F ssh_config] [-S program] [-P port] [-c cipher]
-         [-i identity_file] [-o ssh_option] [[user@]host1:]file1 [...]
-         [[user@]host2:]file2
+^[[1mSYNOPSIS^[[0m
+     ^[[1mscp ^[[22m[^[[1mM-bMM-^RpqrvBC1246^[[22m] [^[[1mM-bMM-^RF ^[[4m^[[22mssh_config^[[24m] [^[[1mM-bMM-^RS ^[[4m^[[22mprogram^[[24m] [^[[1mM-bMM-^RP ^[[4m^[[22mport^[[24m] [^[[1mM-bMM-^Rc ^[[4m^[[22mcipher^[[24m]
+         [^[[1mM-bMM-^Ri ^[[4m^[[22midentity_file^[[24m] [^[[1mM-bMM-^Rl ^[[4m^[[22mlimit^[[24m] [^[[1mM-bMM-^Ro ^[[4m^[[22mssh_option^[[24m] [[^[[4muser@^[[24m]^[[4mhost1^[[24m:]^[[4mfile1^[[0m
+         [^[[4m...^[[24m] [[^[[4muser@^[[24m]^[[4mhost2^[[24m:]^[[4mfile2^[[0m
 
-DESCRIPTION
-     scp copies files between hosts on a network.  It uses ssh(1) for data
+^[[1mDESCRIPTION^[[0m
+     ^[[1mscp ^[[22mcopies files between hosts on a network.  It uses ssh(1) for data
      transfer, and uses the same authentication and provides the same security
-     as ssh(1).  Unlike rcp(1), scp will ask for passwords or passphrases if
+     as ssh(1).  Unlike rcp(1), ^[[1mscp ^[[22mwill ask for passwords or passphrases if
      they are needed for authentication.
 
      Any file name may contain a host and user specification to indicate that
@@ -20,69 +20,74 @@ DESCRIPTION
 
      The options are as follows:
 
-     -c cipher
+     ^[[1mM-bMM-^Rc ^[[4m^[[22mcipher^[[0m
              Selects the cipher to use for encrypting the data transfer.  This
              option is directly passed to ssh(1).
 
-     -i identity_file
+     ^[[1mM-bMM-^Ri ^[[4m^[[22midentity_file^[[0m
              Selects the file from which the identity (private key) for RSA
              authentication is read.  This option is directly passed to
              ssh(1).
 
-     -p      Preserves modification times, access times, and modes from the
+     ^[[1mM-bMM-^Rl ^[[4m^[[22mlimit^[[0m
+             Limits the used bandwidth, specified in Kbit/s.
+
+     ^[[1mM-bMM-^Rp      ^[[22mPreserves modification times, access times, and modes from the
              original file.
 
-     -r      Recursively copy entire directories.
+     ^[[1mM-bMM-^Rr      ^[[22mRecursively copy entire directories.
 
-     -v      Verbose mode.  Causes scp and ssh(1) to print debugging messages
+     ^[[1mM-bMM-^Rv      ^[[22mVerbose mode.  Causes ^[[1mscp ^[[22mand ssh(1) to print debugging messages
              about their progress.  This is helpful in debugging connection,
              authentication, and configuration problems.
 
-     -B      Selects batch mode (prevents asking for passwords or
+     ^[[1mM-bMM-^RB      ^[[22mSelects batch mode (prevents asking for passwords or
              passphrases).
 
-     -q      Disables the progress meter.
+     ^[[1mM-bMM-^Rq      ^[[22mDisables the progress meter.
 
-     -C      Compression enable.  Passes the -C flag to ssh(1) to enable comM--
+     ^[[1mM-bMM-^RC      ^[[22mCompression enable.  Passes the ^[[1mM-bMM-^RC ^[[22mflag to ssh(1) to enable comM-bM-^@M-^P
              pression.
 
-     -F ssh_config
-             Specifies an alternative per-user configuration file for ssh.
+     ^[[1mM-bMM-^RF ^[[4m^[[22mssh_config^[[0m
+             Specifies an alternative perM-bM-^@M-^Puser configuration file for ^[[1mssh^[[22m.
              This option is directly passed to ssh(1).
 
-     -P port
+     ^[[1mM-bMM-^RP ^[[4m^[[22mport^[[0m
              Specifies the port to connect to on the remote host.  Note that
-             this option is written with a capital `P', because -p is already
+             this option is written with a capital M-bM-^@M-^XPM-bM-^@M-^Y, because ^[[1mM-bMM-^Rp ^[[22mis already
              reserved for preserving the times and modes of the file in
              rcp(1).
 
-     -S program
-             Name of program to use for the encrypted connection.  The program
+     ^[[1mM-bMM-^RS ^[[4m^[[22mprogram^[[0m
+             Name of ^[[4mprogram^[[24m to use for the encrypted connection.  The program
              must understand ssh(1) options.
 
-     -o ssh_option
-             Can be used to pass options to ssh in the format used in
+     ^[[1mM-bMM-^Ro ^[[4m^[[22mssh_option^[[0m
+             Can be used to pass options to ^[[1mssh ^[[22min the format used in
              ssh_config(5).  This is useful for specifying options for which
-             there is no separate scp command-line flag.  For example, forcing
-             the use of protocol version 1 is specified using scp
-             -oProtocol=1.
+             there is no separate ^[[1mscp ^[[22mcommandM-bM-^@M-^Pline flag.
 
-     -4      Forces scp to use IPv4 addresses only.
+     ^[[1mM-bMM-^R1      ^[[22mForces ^[[1mscp ^[[22mto use protocol 1.
 
-     -6      Forces scp to use IPv6 addresses only.
+     ^[[1mM-bMM-^R2      ^[[22mForces ^[[1mscp ^[[22mto use protocol 2.
 
-DIAGNOSTICS
-     scp exits with 0 on success or >0 if an error occurred.
+     ^[[1mM-bMM-^R4      ^[[22mForces ^[[1mscp ^[[22mto use IPv4 addresses only.
 
-AUTHORS
+     ^[[1mM-bMM-^R6      ^[[22mForces ^[[1mscp ^[[22mto use IPv6 addresses only.
+
+^[[1mDIAGNOSTICS^[[0m
+     ^[[1mscp ^[[22mexits with 0 on success or >0 if an error occurred.
+
+^[[1mAUTHORS^[[0m
      Timo Rinne <tri@iki.fi> and Tatu Ylonen <ylo@cs.hut.fi>
 
-HISTORY
-     scp is based on the rcp(1) program in BSD source code from the Regents of
+^[[1mHISTORY^[[0m
+     ^[[1mscp ^[[22mis based on the rcp(1) program in BSD source code from the Regents of
      the University of California.
 
-SEE ALSO
-     rcp(1), sftp(1), ssh(1), ssh-add(1), ssh-agent(1), ssh-keygen(1),
+^[[1mSEE ALSO^[[0m
+     rcp(1), sftp(1), ssh(1), sshM-bM-^@M-^Padd(1), sshM-bM-^@M-^Pagent(1), sshM-bM-^@M-^Pkeygen(1),
      ssh_config(5), sshd(8)
 
 BSD                           September 25, 1999                           BSD

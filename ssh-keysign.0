@@ -1,42 +1,42 @@
-SSH-KEYSIGN(8)              System Manager's Manual             SSH-KEYSIGN(8)
+SSHM-bM-^@M-^PKEYSIGN(8)            BSD System ManagerM-bM-^@M-^Ys Manual           SSHM-bM-^@M-^PKEYSIGN(8)
 
-NAME
-     ssh-keysign - ssh helper program for hostbased authentication
+^[[1mNAME^[[0m
+     ^[[1msshM-bM-^@M-^Pkeysign ^[[22mM-bMM-^R ssh helper program for hostbased authentication
 
-SYNOPSIS
-     ssh-keysign
+^[[1mSYNOPSIS^[[0m
+     ^[[1msshM-bM-^@M-^Pkeysign^[[0m
 
-DESCRIPTION
-     ssh-keysign is used by ssh(1) to access the local host keys and generate
+^[[1mDESCRIPTION^[[0m
+     ^[[1msshM-bM-^@M-^Pkeysign ^[[22mis used by ssh(1) to access the local host keys and generate
      the digital signature required during hostbased authentication with SSH
      protocol version 2.
 
-     ssh-keysign is disabled by default and can only be enabled in the the
-     global client configuration file /etc/ssh/ssh_config by setting
-     HostbasedAuthentication to ``yes''.
+     ^[[1msshM-bM-^@M-^Pkeysign ^[[22mis disabled by default and can only be enabled in the global
+     client configuration file ^[[4m/etc/ssh/ssh_config^[[24m by setting ^[[1mEnableSSHKeysign^[[0m
+     to M-bM-^@M-^\yesM-bM-^@M-^].
 
-     ssh-keysign is not intended to be invoked by the user, but from ssh(1).
-     See ssh(1) and sshd(8) for more information about hostbased authenticaM--
+     ^[[1msshM-bM-^@M-^Pkeysign ^[[22mis not intended to be invoked by the user, but from ssh(1).
+     See ssh(1) and sshd(8) for more information about hostbased authenticaM-bM-^@M-^P
      tion.
 
-FILES
+^[[1mFILES^[[0m
      /etc/ssh/ssh_config
-             Controls whether ssh-keysign is enabled.
+             Controls whether ^[[1msshM-bM-^@M-^Pkeysign ^[[22mis enabled.
 
      /etc/ssh/ssh_host_dsa_key, /etc/ssh/ssh_host_rsa_key
              These files contain the private parts of the host keys used to
              generate the digital signature.  They should be owned by root,
              readable only by root, and not accessible to others.  Since they
-             are readable only by root, ssh-keysign must be set-uid root if
+             are readable only by root, ^[[1msshM-bM-^@M-^Pkeysign ^[[22mmust be setM-bM-^@M-^Puid root if
              hostbased authentication is used.
 
-SEE ALSO
-     ssh(1), ssh-keygen(1), ssh_config(5), sshd(8)
+^[[1mSEE ALSO^[[0m
+     ssh(1), sshM-bM-^@M-^Pkeygen(1), ssh_config(5), sshd(8)
 
-AUTHORS
+^[[1mAUTHORS^[[0m
      Markus Friedl <markus@openbsd.org>
 
-HISTORY
-     ssh-keysign first appeared in OpenBSD 3.2.
+^[[1mHISTORY^[[0m
+     ^[[1msshM-bM-^@M-^Pkeysign ^[[22mfirst appeared in OpenBSD 3.2.
 
 BSD                              May 24, 2002                              BSD
