@@ -806,7 +806,7 @@ check_host_key(char *host, struct sockaddr *hostaddr, Key *host_key,
 			    host_file, host_line);
 		}
 		if (options.strict_host_key_checking == 1) {
-			log(msg);
+			log("%s", msg);
 			error("Exiting, you have requested strict checking.");
 			goto fail;
 		} else if (options.strict_host_key_checking == 2) {
@@ -815,7 +815,7 @@ check_host_key(char *host, struct sockaddr *hostaddr, Key *host_key,
 			if (!confirm(msg))
 				goto fail;
 		} else {
-			log(msg);
+			log("%s", msg);
 		}
 	}
 
