@@ -27,7 +27,9 @@ check_privsep_dir() {
 }
 
 check_config() {
+    if [ ! -e /etc/ssh/sshd_not_to_be_run ]; then
 	/usr/sbin/sshd -t || exit 1
+    fi
 }
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
