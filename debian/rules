@@ -130,9 +130,6 @@ endif
 	dh_installdebconf
 	dh_installdocs OVERVIEW README
 	cat debian/copyright.head LICENCE > debian/tmp/usr/share/doc/ssh/copyright
-	nroff RFC.nroff > debian/tmp/usr/share/doc/ssh/RFC
-	gzip -9 debian/tmp/usr/share/doc/ssh/RFC
-	rm -rf debian/tmp/usr/share/doc/ssh/RFC.nroff.gz
 ifeq ($(PAMSUBST),yes)
 	# Clean up if we've done this already, to ensure idempotency.
 	if [ -f debian/ssh.pam.new-style ]; then \
