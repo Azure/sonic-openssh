@@ -1,3 +1,11 @@
+openssh (1:3.8.1p1-8) unstable; urgency=high
+
+  * Matthew Vernon:
+    - Add a GPL exception to the licensing terms of the Debian patch
+      (closes: #211644).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 Jul 2004 13:28:47 +0100
+
 openssh (1:3.8.1p1-7) unstable; urgency=low
 
   * Re-enable shadow password support in openssh-server-udeb, at Bastian
