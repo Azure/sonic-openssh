@@ -5,6 +5,7 @@ openssh (1:3.6.1p2-6) UNRELEASED; urgency=low
     Luis Lopes; closes: #208036).
   * Don't run 'sshd -t' in init script if the server isn't to be run
     (closes: #197576).
+  * Policy version 3.6.1: recode this changelog to UTF-8.
 
  -- Colin Watson <cjwatson@debian.org>  Mon,  1 Sep 2003 23:56:57 +0100
 
@@ -28,7 +29,7 @@ openssh (1:3.6.1p2-4) unstable; urgency=low
   * Remove specifics of problematic countries from package description
     (closes: #197040).
   * Update Spanish debconf template translation (thanks, Carlos Valdivia
-    Yagüe; closes: #198456).
+    YagÃ¼e; closes: #198456).
   * Backport upstream patch to pass monitor signals through to child
     (closes: #164797).
 
@@ -219,7 +220,7 @@ openssh (1:3.5p1-1) unstable; urgency=low
   * Debconf templates:
     - Add Polish (thanks, Grzegorz Kusnierz).
     - Update French (thanks, Denis Barbier; closes: #132509).
-    - Update Spanish (thanks, Carlos Valdivia Yagüe; closes: #164716).
+    - Update Spanish (thanks, Carlos Valdivia YagÃ¼e; closes: #164716).
   * Write a man page for gnome-ssh-askpass, and link it to ssh-askpass.1 if
     this is the selected ssh-askpass alternative (closes: #67775).
 
@@ -256,7 +257,7 @@ openssh (1:3.4p1-3) unstable; urgency=low
     - Danish (thanks, Claus Hindsgaul; closes: #126607).
     - Japanese (thanks, Tomohiro KUBOTA; closes: #137427).
     - Russian (thanks, Ilgiz Kalmetev; closes: #136610).
-    - Spanish (thanks, Carlos Valdivia Yagüe; closes: #129041).
+    - Spanish (thanks, Carlos Valdivia YagÃ¼e; closes: #129041).
   * Update debconf template translations:
     - French (thanks, Igor Genibel; closes: #151361).
     - German (thanks, Axel Noetzold; closes: #147069).
