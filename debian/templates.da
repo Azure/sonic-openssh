@@ -1,3 +1,99 @@
+Template: ssh/privsep_tell
+Type: note
+Description: Privilege separation
+ This version of OpenSSH contains the new privilege separation option. This
+ significantly reduces the quantity of code that runs as root, and
+ therefore reduces the impact of security holes in sshd.
+ .
+ Unfortunately, privilege separation interacts badly with PAM. Any PAM
+ session modules that need to run as root (pam_mkhomedir, for example) will
+ fail, and PAM keyboard-interactive authentication won't work.
+ .
+ Privilege separation is turned on by default, so if you decide you want it
+ turned off, you need to add "UsePrivilegeSeparation no" to
+ /etc/ssh/sshd_config.
+ .
+ NB! If you are running a 2.0 series Linux kernel, then privilege
+ separation will not work at all, and your sshd will fail to start unless
+ you explicitly turn privilege separation off.
+Description-da: Privilegie adskillelse
+ Denne version af OpenSSH indeholder den nye privilegie adskillelses
+ mulighed. Det reducerer markant mængden af kode der kører som root, og
+ derfor reducerer det impakten på sikkerheds huller i sshd.
+ .
+ Desværre, arbejder det ikke godt sammen med PAM. Ethvert PAM session modul
+ der skal køres som root (pam_mkhomedir, f.eks.) vil fejle, og PAM
+ tastatur-interaktive autentifikationer vil ikke virke.
+ .
+ Privilegie adskillelse er slået til som standard, så hvis du beslutter at
+ slå det fra, skal du bruge "UsePrivilegeSeparation no" i
+ /etc/ssh/sshd_config.
+
+Template: ssh/privsep_ask
+Type: boolean
+Default: true
+Description: Enable Privilege separation
+ This version of OpenSSH contains the new privilege separation option. This
+ significantly reduces the quantity of code that runs as root, and
+ therefore reduces the impact of security holes in sshd.
+ .
+ Unfortunately, privilege separation interacts badly with PAM. Any PAM
+ session modules that need to run as root (pam_mkhomedir, for example) will
+ fail, and PAM keyboard-interactive authentication won't work.
+ .
+ Since you've opted to have me generate an sshd_config file for you, you
+ can choose whether or not to have Privilege Separation turned on or not.
+ Unless you are running 2.0 (in which case you *must* say no here or your
+ sshd won't start at all) or know you need to use PAM features that won't
+ work with this option, you should say yes here.
+Description-da: Aktiver Privilegie adskillelse
+ Denne version af OpenSSH indeholder den nye privilegie adskillelses
+ mulighed. Det reducerer markant mængden af kode der kører som root, og
+ derfor reducerer det impakten på sikkerheds huller i sshd.
+ .
+ Desværre, arbejder det ikke godt sammen med PAM. Ethvert PAM session modul
+ der skal køres som root (pam_mkhomedir, f.eks.) vil fejle, og PAM
+ tastatur-interaktive autentifikationer vil ikke virke.
+ .
+ Siden du har bedt mig om at lave en sshd_config fil til dig, kan du vælge
+ om du vil have privilegie adskillelse slået til eller ej. Medmindre du
+ kører 2.0 (i hvilket tilfælde du *skal* sige nej her, ellers vil din sshd
+ slet ikke starte) eller ved at du skal bruge PAM funktioner som ikke vil
+ virke med dette tilvalg, skal du sige ja her.
+
+Template: ssh/new_config
+Type: boolean
+Default: true
+Description: Generate new configuration file
+ This version of OpenSSH has a considerably changed configuration file from
+ the version shipped in Debian 'Potato', which you appear to be upgrading
+ from. I can now generate you a new configuration file
+ (/etc/ssh/sshd.config), which will work with the new server version, but
+ will not contain any customisations you made with the old version.
+ .
+ Please note that this new configuration file will set the value of
+ 'PermitRootLogin' to yes (meaning that anyone knowing the root password
+ can ssh directly in as root). It is the opinion of the maintainer that
+ this is the correct default (see README.Debian for more details), but you
+ can always edit sshd_config and set it to no if you wish.
+ .
+ It is strongly recommended that you let me generate a new configuration
+ file for you.
+Description-da: Opret ny konfigurations fil
+ Denne version af OpenSSH har en betydeligt ændret konfigurations fil fra
+ den version der kom med Debian 'Potato', som du ser ud til at opgradere fra.
+ Jeg kan nu oprette en ny konfigurations fil (//etc/ssh/sshd.config), som
+ vil virke med den nye server version, men det vil ikke beholde eventuelle
+ ændringer du lavede med den gamle version.
+ .
+ Venligst bemærk at den nye konfigurations fil vil sætte værdien af
+ 'PermitRootLogin' til ja (som betyder at alle der kender roots password,
+ kan tilgå maskinen via ssh direkte). Det er vedligeholderens mening, at det
+ er den korrekte standard-værdi (se README.Debian for flere detaljer), men
+ du kan altid redigere sshd_config og slå det fra, hvis du ønsker.
+ .
+ Du rådes stærkt til at lade mig genere en ny konfigurations fil for dig.
+
 Template: ssh/protocol2_only
 Type: boolean
 Default: true
@@ -5,19 +101,30 @@ Description: Allow SSH protocol 2 only
  This version of OpenSSH supports version 2 of the ssh protocol, which is
  much more secure.  Disabling ssh 1 is encouraged, however this will slow
  things down on low end machines and might prevent older clients from
- connecting.
+ connecting (the ssh client shipped with "potato" is affected).
  .
  Also please note that keys used for protocol 1 are different so you will
  not be able to use them if you only allow protocol 2 connections.
+ .
+ If you later change your mind about this setting, README.Debian has
+ instructions on what to do to your sshd_config file.
 Description-da: Tillad kun SSH protokol 2
  Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er
  betydeligt mere sikker. Det anbefales af deaktivere version 1. Dog kan det
- sløve langsomme maskiner, og forhindre ældre klienter i at opnå forbindelse.
+ sløve langsomme maskiner, og forhindre ældre klienter i at opnå
+ forbindelse (ssh klienten der kommer med "potato" er en af dem).
+ .
+ Du skal også bemærke at de nøgler som bliver anvendt til protokol 1 er
+ forskellige, så du vil ikke ævre i stand til at bruge dem, hvis du kun
+ tillader protokol 2 forbindelser.
+ .
+ Hvis du senere ændrer din mening om denne indstilling, har README.Debian
+ instruktioner på hvad du skal gøre ved din sshd_config fil.
 
 Template: ssh/ssh2_keys_merged
 Type: note
 Description: ssh2 keys merged in configuration files
- As of version 3 OpenSSH no longer uses seperate files for ssh1 and ssh2
+ As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2
  keys. This means the authorized_keys2 and known_hosts2 files are no longer
  needed. They will still be read in order to maintain backwards
  compatibility
@@ -38,13 +145,12 @@ Description: Do you want to continue (and risk killing active ssh sessions) ?
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
 Description-da: Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?
- Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis afbryde
- alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er ved at
- opgradering via en ssh-forbindelse.
+ Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis
+ afbryde alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er
+ ved at opgradering via en ssh-forbindelse.
  .
  Du kan afhjælpe dette ved at tilføje "--pidfile /var/run/sshd.pid" til
  'start-stop-daemon'-linjen i stop-afsnittet af filen.
-
 
 Template: ssh/forward_warning
 Type: note
@@ -57,8 +163,8 @@ Description: NOTE: Forwarding of X11 and Authorization disabled by default.
  .
  More details can be found in /usr/share/doc/ssh/README.Debian
 Description-da: BEMÆRK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret.
- Af sikkerhedsgrunde har Debianudgaven af ssh sat ForwardX11 og ForwardAgent
- til 'off' som standard.
+ Af sikkerhedsgrunde har Debianudgaven af ssh sat ForwardX11 og
+ ForwardAgent til 'off' som standard.
  .
  Du kan aktivere dem for servere, du stoler på i en af opsætningsfilerne
  eller med kommandolinjetilvalget '-X'.
@@ -82,10 +188,11 @@ Description: Warning: telnetd is installed --- probably not a good idea
  least some chance that telnet sessions will not be sending unencrypted
  login/password and session information over the network.
 Description-da: Advarsel: telnetd er installeret --- sikkert ikke en god idé
- Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i virkeligheden
- ikke har brug for at tilbyde telnet-adgang) eller installere telnetd-ssl, så
- der i det mindste er en mulighed for, at telnet-sessioner ikke sender
- adgangskoder og sessions-oplysninger ukrypteret over netværket.
+ Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i
+ virkeligheden ikke har brug for at tilbyde telnet-adgang) eller installere
+ telnetd-ssl, så der i det mindste er en mulighed for, at telnet-sessioner
+ ikke sender adgangskoder og sessions-oplysninger ukrypteret over
+ netværket.
 
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
@@ -102,37 +209,26 @@ Description-da: Advarsel: du skal oprette en ny værtsnøgle
 
 Template: ssh/SUID_client
 Type: boolean
-Default: false
-Description: Do you want /usr/bin/ssh to be installed SUID root?
- You have the option of installing the ssh client with the SUID bit set.
+Default: true
+Description: Do you want /usr/lib/ssh-keysign to be installed SUID root?
+ You have the option of installing the ssh-keysign helper with the SUID bit
+ set.
  .
- If you make ssh SUID, you will be able to use Rhosts/RhostsRSA
- authentication, but will not be able to use socks via the LD_PRELOAD
- trick.  This is the traditional approach.
- .
- If you do not make ssh SUID, you will be able to use socks, but
- Rhosts/RhostsRSA authentication will stop working, which may stop you
- logging in to remote systems.  It will also mean that the source port will
- be above 1024, which may confound firewall rules you've set up.
+ If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2
+ host-based authentication.
  .
  If in doubt, I suggest you install it with SUID.  If it causes problems
- you can change your mind later by running:   dpkg-reconfigure ssh 
-Description-da: Vil du have, at /usr/bin/ssh bliver installeret 'SUID root'?
- Du har mulighed for at installere ssh-klienten med SUID-flaget sat.
+ you can change your mind later by running:   dpkg-reconfigure ssh
+Description-da: Vil du have, at /usr/bin/ssh-keysign bliver installeret 'SUID root'?
+ Du har mulighed for at installere ssh-keysign hjælperen med SUID-flaget
+ sat.
  .
- Hvis du gør ssh SUID, vil du kunne bruge adgangskontrollen
- Rhosts/RhostsRSA, men vil ikke kunne bruge socks med LD_PRELOAD-tricket.
- Det vil være den almindelige fremgangsmåde.
+ Hvis du gør ssh-keysign SUID, vil du blive i stand til at benytte SSH
+ protokol 2's værtsnavn-baserede autentifikation.
  .
- Hvis du ikke gør ssh SUID, vil du kunne bruge socks, men adgangskontrol
- med Rhosts/RhostRSA vil holde op med at virke, hvilket kan forhindre dig
- i at logge ind på fjerne systemer. Det vil også betyde, at kildeporten
- vil ligge over 1024, hvilket kan kollidere med eventuelle brandmure, du
- har sat op.
- .
- Hvis du er i tvivl, foreslår jeg, at du installerer den med SUID. Hvis det
- giver problemer, kan du senere ombestemme dig ved at køre:
- 'dpkg-reconfigure ssh'.
+ Hvis du er i tvivl, vil jeg råde dig til at installere den med SUID. Hvis
+ det skaber problemer, kan du ændre det tilbage igen ved at køre:
+ dpkg-reconfigure ssh
 
 Template: ssh/run_sshd
 Type: boolean

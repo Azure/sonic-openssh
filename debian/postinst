@@ -241,7 +241,7 @@ create_alternatives() {
 }
 
 setup_sshd_user() {
-        if ! id sshd > /dev/null 2>&1 ; then
+	if ! getent passwd | grep -q '^sshd:'; then
 		adduser --quiet --system --no-create-home --home /var/run/sshd sshd
 	fi
 }
@@ -261,21 +261,13 @@ set_sshd_permissions() {
 		db_get ssh/SUID_client
 		suid="$RET"
 	}
-       if [ -x /usr/sbin/dpkg-statoverride ] ; then
-               if ! dpkg-statoverride --list /usr/lib/ssh-keysign >/dev/null ; then
-                       if [ "$suid" = "false" ] ; then
-                               chmod 0755 /usr/lib/ssh-keysign
-                       elif [ "$suid" = "true" ] ; then
-                               chmod 4755 /usr/lib/ssh-keysign
-                       fi
-               fi
-       else
+        if [ ! -x /usr/sbin/dpkg-statoverride ] || \
+             ! dpkg-statoverride --list /usr/lib/ssh-keysign >/dev/null ; then
                if [ "$suid" = "false" ] ; then
                        chmod 0755 /usr/lib/ssh-keysign
                elif [ "$suid" = "true" ] ; then
                        chmod 4755 /usr/lib/ssh-keysign
                fi
-
 	fi
 }
 

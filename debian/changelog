@@ -1,3 +1,29 @@
+openssh (1:3.5p1-3) unstable; urgency=low
+
+  * Happy new year!
+  * Use getent rather than id to find out whether the sshd user exists
+    (closes: #150974).
+  * Remove some duplication from the postinst's ssh-keysign setuid code.
+  * Replace db_text with db_input throughout debian/config. (db_text has
+    been a compatibility wrapper since debconf 0.1.5.)
+  * Warn about PermitUserEnvironment on upgrade (closes: #167895).
+  * Use 'make install-nokeys', and disable unused debhelper commands,
+    thereby forward-porting the last pieces of Zack Weinberg's patch
+    (closes: #68341).
+  * Move the man page for gnome-ssh-askpass from the ssh package to
+    ssh-askpass-gnome (closes: #174449).
+  * Build with -DLOGIN_NO_ENDOPT, since Debian's /bin/login doesn't accept
+    '--' to terminate the list of options (closes: #171554).
+  * Add Jonathan Amery's ssh-argv0 script (closes: #111341).
+  * Update Danish debconf template (thanks, Morten Brix Pedersen;
+    closes: #174757).
+  * Document setgid ssh-agent's effect on certain environment variables in
+    README.Debian (closes: #167974).
+  * Document interoperability problems between scp and ssh.com's server in
+    README.Debian, and suggest some workarounds (closes: #174662).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  1 Jan 2003 14:18:30 +0000
+
 openssh (1:3.5p1-2) unstable; urgency=low
 
   * Mention in the ssh package description that it provides both ssh and

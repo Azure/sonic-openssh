@@ -171,6 +171,39 @@ ssh is compiled without support for kerberos authentication, and there are
 no current plans to support this.  Thus the KerberosAuthentication and 
 KerberosTgtPassing options will not be recognised.
 
+Setgid ssh-agent and environment variables:
+-------------------------------------------
+ssh-agent is installed setgid as of version 1:3.5p1-1 to prevent ptrace()
+attacks retrieving private key material. This has the side-effect of causing
+glibc to remove certain environment variables which might have security
+implications for set-id programs, including LD_PRELOAD, LD_LIBRARY_PATH, and
+TMPDIR.
+
+If you need to set any of these environment variables, you will need to do
+so in the program exec()ed by ssh-agent. This may involve creating a small
+wrapper script.
+
+Symlink Hostname invocation:
+----------------------------
+This version of ssh no longer includes support for invoking ssh with the
+hostname as the name of the file run.  People wanting this support should
+use the ssh-argv0 script.
+
+Interoperability between scp and the ssh.com SSH server:
+--------------------------------------------------------
+In version 2 and greater of the commercial SSH server produced by SSH
+Communications Security, scp was changed to use SFTP (SSH2's file transfer
+protocol) instead of the traditional rcp-over-ssh, thereby breaking
+compatibility. The OpenSSH developers regard this as a bug in the ssh.com
+server, and do not currently intend to change OpenSSH's scp to match.
+
+Workarounds for this problem are to install scp1 on the server (scp2 will
+fall back to it), to use sftp, or to use some other transfer mechanism such
+as rsync-over-ssh or tar-over-ssh.
+
 --
 Matthew Vernon
 <matthew@debian.org>
+and
+Colin Watson
+<cjwatson@debian.org>

@@ -149,3 +149,15 @@ Description: Do you want to run the sshd server ?
  If you are only interested in using the ssh client for outbound
  connections on this machine, and don't want to log into it at all
  using ssh, then you can disable sshd here.
+
+Template: ssh/user_environment_tell
+Type: note
+Description: Environment options on keys have been deprecated
+ This version of OpenSSH disables the environment option for public keys by
+ default, in order to avoid certain attacks (for example, LD_PRELOAD). If
+ you are using this option in an authorized_keys file, beware that the keys
+ in question will no longer work until the option is removed.
+ .
+ To re-enable this option, set "PermitUserEnvironment yes" in
+ /etc/ssh/sshd_config after the upgrade is complete, taking note of the
+ warning in the sshd_config(5) manual page.
