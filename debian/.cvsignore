@@ -1,0 +1,5 @@
+files
+ssh-askpass-gnome
+tmp
+*.debhelper
+*substvars
