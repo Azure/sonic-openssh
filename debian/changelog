@@ -1,3 +1,9 @@
+openssh (1:3.8.1p1-11) UNRELEASED; urgency=low
+
+  * Move sshd_config(5) to openssh-server, where it belongs.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 31 Aug 2004 04:30:34 +0100
+
 openssh (1:3.8.1p1-10) experimental; urgency=low
 
   * Don't install the ssh-askpass-gnome .desktop file by default; I've had
