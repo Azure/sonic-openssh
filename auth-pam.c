@@ -645,7 +645,9 @@ sshpam_respond(void *ctx, u_int num, char **resp)
 		return (-1);
 	}
 	buffer_init(&buffer);
-	if (sshpam_authctxt->valid)
+	if (sshpam_authctxt->valid &&
+	    (sshpam_authctxt->pw->pw_uid != 0 ||
+	     options.permit_root_login == PERMIT_YES))
 		buffer_put_cstring(&buffer, *resp);
 	else
 		buffer_put_cstring(&buffer, badpw);
