@@ -11,15 +11,14 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-06 17:54+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2004-04-08 18:28+0200\n"
+"Last-Translator: Emil Nowak <emil5@go2.pl>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -69,8 +68,7 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
-msgstr ""
-"Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik konfiguracyjny."
+msgstr "Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik konfiguracyjny."
 
 #. Type: boolean
 #. Description
@@ -134,9 +132,8 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.master:46
-#, fuzzy
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Czy chcesz kontynuowaæ (i ryzykowaæ zabicie aktywnych sesji ssh) ?"
+msgstr "Czy chcesz kontynuowaæ (i ryzykowaæ przerwaniem aktywnych sesji ssh) ?"
 
 #. Type: boolean
 #. Description
@@ -147,7 +144,7 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Zainstalowana w³a¶nie wersja /etc/init.d/ssh mo¿e zabiæ wszystkie dzia³aj±ce "
-"obecnie kopie sshd. Je¶li robisz ten upgrade via ssh, to by³aby Z³a Rzecz"
+"obecnie kopie sshd. Je¶li wykonujesz t± aktualizacjê przez ssh, to by³aby Z³a Rzecz"
 "(tm)."
 
 #. Type: boolean
@@ -164,8 +161,7 @@ msgstr ""
 #. Description
 #: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr ""
-"UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone."
+msgstr "UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone."
 
 #. Type: note
 #. Description
@@ -197,8 +193,7 @@ msgstr "Wiêcej szczegó³ów znajdziesz w /usr/share/doc/ssh/README.Debian."
 #. Description
 #: ../templates.master:67
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr ""
-"Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
+msgstr "Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
 
 #. Type: note
 #. Description
@@ -215,8 +210,7 @@ msgstr ""
 #. Description
 #: ../templates.master:74
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr ""
-"Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
+msgstr "Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
 
 #. Type: note
 #. Description
@@ -280,7 +274,7 @@ msgid ""
 "based authentication."
 msgstr ""
 "Je¶li uczynisz ssh-keysign SUIDowym, bêdziesz móg³ u¿ywaæ opartej na hostach "
-"autentykacji drugiej wersji protoko³u SSH."
+"autoryzacji drugiej wersji protoko³u SSH."
 
 #. Type: boolean
 #. Description
@@ -296,7 +290,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.master:105
-#, fuzzy
 msgid "Do you want to run the sshd server?"
 msgstr "Czy chcesz uruchamiaæ serwer sshd ?"
 
@@ -324,7 +317,7 @@ msgid ""
 "on this machine, and don't want to log into it at all using ssh, then you "
 "can disable sshd here."
 msgstr ""
-"Je¶li jeste¶ zainteresowny u¿ywaniem wy³±cznie klienta ssh dla po³±czeñ "
+"Je¶li jeste¶ zainteresowany u¿ywaniem wy³±cznie klienta ssh dla po³±czeñ "
 "wychodz±cych z tej maszyny, i nie chcesz siê na ni± logowaæ przy pomocy ssh, "
 "to mo¿esz teraz wy³±czyæ serwer sshd."
 
@@ -332,7 +325,7 @@ msgstr ""
 #. Description
 #: ../templates.master:117
 msgid "Environment options on keys have been deprecated"
-msgstr ""
+msgstr "Odradzamy stosowanie ustawieñ ¶rodowiskowych dla kluczy."
 
 #. Type: note
 #. Description
@@ -343,6 +336,10 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
+"Ta wersja OpenSSH ma wy³±czon± opcjê wykorzystywania ustawieñ ¶rodowiskowych dla "
+"kluczy publicznych. Mo¿na dziêki temu unikn±æ pewnych ataków (jak np.: LD_PRELOAD). "
+"Je¿eli u¿ywasz tej opcji w pliku authorized_keys, to zawarte w nim klucze nie bêd± dzia³aæ "
+"dopóki ta opcja nie zostanie usuniêta."
 
 #. Type: note
 #. Description
@@ -352,6 +349,10 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
+"Aby ponownie w³±czyæ tê opcjê, nale¿y dodaæ wpis \"PermitUserEnvironment yes\" "
+"do pliku /etc/ssh/sshd_config po ukoñczeniu aktualizacji. Przy zmianie konfiguracji "
+"nale¿y zapoznaæ siê z informacjami zawartymi na stronie podrêcznika systemowego "
+"sshd_config(5)."
 
 #~ msgid "Privilege separation"
 #~ msgstr "Separacja uprawnieñ"
@@ -409,3 +410,4 @@ msgstr ""
 #~ "UWAGA! Je¿eli u¿ywasz j±dra Linux'a z serii 2.0, to separacja uprawnieñ w "
 #~ "ogóle nie bêdzie dzia³aæ i sshd nie wystartuje dopóki w³asnorêcznie nie "
 #~ "wy³±czysz separacji uprawnieñ w /etc/ssh/sshd_config."
+
