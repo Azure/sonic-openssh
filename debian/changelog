@@ -1,4 +1,4 @@
-openssh (1:3.8.1p1-8.sarge.1) UNRELEASED; urgency=high
+openssh (1:3.8.1p1-8.sarge.1) unstable; urgency=high
 
   * If PasswordAuthentication is disabled, then offer to disable
     ChallengeResponseAuthentication too. The current PAM code will attempt
@@ -8,7 +8,7 @@ openssh (1:3.8.1p1-8.sarge.1) UNRELEASED; urgency=high
     later and then upgraded. Sorry about that ... for this reason, the
     default answer is to leave ChallengeResponseAuthentication enabled.
 
- -- Colin Watson <cjwatson@debian.org>  Tue,  5 Oct 2004 19:05:08 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed,  6 Oct 2004 14:21:55 +0100
 
 openssh (1:3.8.1p1-8) unstable; urgency=high
 
