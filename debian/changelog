@@ -12,6 +12,8 @@ openssh (1:3.8.1p1-1) UNRELEASED; urgency=low
   * Fix grammar in sshd(8) (closes: #238753).
   * Update Polish debconf template translation (thanks, Emil Nowak;
     closes: #242808).
+  * Add Turkish debconf template translation (thanks, Recai Oktaş;
+    closes: #246068).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 20 Apr 2004 08:48:53 +0100
 
