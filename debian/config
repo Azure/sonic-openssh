@@ -57,6 +57,17 @@ then
 	then db_input medium ssh/protocol2_only ||true
 	fi
     fi
+
+    if dpkg --compare-versions "$version" lt-nl 1:3.8.1p1-8.sarge.1
+    then
+	passwordauth="$(get_config_option PasswordAuthentication)"
+	crauth="$(get_config_option ChallengeResponseAuthentication)"
+	if [ "$passwordauth" = no ] && \
+	   ([ -z "$crauth" ] || [ "$crauth" = yes ])
+	then
+	    db_input critical ssh/disable_cr_auth || true
+	fi
+    fi
 fi 
 
 db_input medium ssh/SUID_client || true
@@ -101,15 +112,6 @@ db_input low ssh/forward_warning || true
 
 if dpkg --compare-versions "$version" lt-nl 1:3.5p1-3; then
     db_input high ssh/user_environment_tell || true
-fi
-
-if dpkg --compare-versions "$version" lt-nl 1:3.8.1p1-8.sarge.1; then
-    passwordauth="$(get_config_option PasswordAuthentication)"
-    crauth="$(get_config_option ChallengeResponseAuthentication)"
-    if [ "$passwordauth" = no ] && \
-       ([ -z "$crauth" ] || [ "$crauth" = yes ]); then
-	db_input critical ssh/disable_cr_auth || true
-    fi
 fi
 
 db_go
