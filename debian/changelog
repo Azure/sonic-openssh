@@ -1,3 +1,20 @@
+openssh (1:3.4p1-4) unstable; urgency=low
+
+  * Allow ssh-krb5 in ssh-askpass-gnome's dependencies (closes: #129532).
+  * Restore Russia to list of countries where encryption is problematic (see
+    #148951 and http://www.average.org/freecrypto/).
+  * Drop ssh-askpass-gnome's priority to optional, per the override file.
+  * Drop the PAM special case for hurd-i386 (closes: #99157).
+  * s/dile/idle/ in ssh_config(5) (closes: #118331).
+  * Note in README.Debian that you need xauth from xbase-clients on the
+    server for X11 forwarding (closes: #140269).
+  * Use correct path to upstream README in copyright file (closes: #146037).
+  * Document the units for ProtocolKeepAlives (closes: #159479).
+  * Backport upstream patch to fix hostbased auth (closes: #117114).
+  * Add -g to CFLAGS.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 13 Oct 2002 18:58:53 +0100
+
 openssh (1:3.4p1-3) unstable; urgency=low
 
   * Add myself to Uploaders: and begin acting as temporary maintainer, at

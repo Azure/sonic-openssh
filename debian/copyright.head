@@ -17,7 +17,7 @@ branch that is being maintained by the OpenBSD team (starting from
 the last version of SSH that was distributed under a free license),
 and porting work by Damien Miller <damien@ibs.com.au> to get it
 working on Linux.  Other people also contributed to this, and are
-credited in README.openssh.
+credited in /usr/share/doc/ssh/README.
 
 Copyright:
 

@@ -114,6 +114,9 @@ root, before enabling X11.  I strongly recommend that you do this on a
 machine-by-machine basis, rather than just enabling it in the default
 host settings.
 
+In order for X11 forwarding to work, you need to install xauth on the
+server. In Debian this is in the xbase-clients package.
+
 Authorization Forwarding:
 -------------------------
 Similarly, root on a remote server could make use of your ssh-agent
