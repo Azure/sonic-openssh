@@ -50,7 +50,7 @@ FORCE_LIBS = LIBS=-lresolv
 endif
 
 # Change the version string to include the Debian version
-SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
+SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
 
 build: build-deb build-udeb
 
