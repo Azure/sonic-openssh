@@ -50,7 +50,7 @@ Package: openssh-client-udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, libnss-files-udeb
 Description: Secure shell client for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
@@ -62,7 +62,7 @@ Package: openssh-server-udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, libnss-files-udeb
 Description: Secure shell server for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
