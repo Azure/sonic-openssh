@@ -286,6 +286,13 @@ process_config_line(Options *options, const char *host,
 	u_short fwd_port, fwd_host_port;
 	char sfwd_host_port[6];
 
+	/* Strip trailing whitespace */
+	for(len = strlen(line) - 1; len > 0; len--) {
+		if (strchr(WHITESPACE, line[len]) == NULL)
+			break;
+		line[len] = '\0';
+	}
+
 	s = line;
 	/* Get the keyword. (Each line is supposed to begin with a keyword). */
 	keyword = strdelim(&s);

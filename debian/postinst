@@ -71,7 +71,7 @@ create_sshdconfig() {
 
 	cat <<EOF > /etc/ssh/sshd_config
 # Package generated configuration file
-# See the sshd(8) manpage for defails
+# See the sshd(8) manpage for details
 
 # What ports, IPs and protocols we listen for
 Port 22

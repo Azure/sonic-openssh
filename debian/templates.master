@@ -12,10 +12,6 @@ _Description: Privilege separation
  Privilege separation is turned on by default, so if you decide you want it
  turned off, you need to add "UsePrivilegeSeparation no" to
  /etc/ssh/sshd_config.
- .
- NB! If you are running a 2.0 series Linux kernel, then privilege
- separation will not work at all, and your sshd will fail to start unless
- you explicitly turn privilege separation off.
 
 Template: ssh/privsep_ask
 Type: boolean
@@ -31,9 +27,8 @@ _Description: Enable Privilege separation
  .
  Since you've opted to have me generate an sshd_config file for you, you
  can choose whether or not to have Privilege Separation turned on or not.
- Unless you are running 2.0 (in which case you *must* say no here or your
- sshd won't start at all) or know you need to use PAM features that won't
- work with this option, you should say yes here.
+ Unless you know you need to use PAM features that won't work with this
+ option, you should say yes here.
 
 Template: ssh/new_config
 Type: boolean

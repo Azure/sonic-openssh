@@ -27,9 +27,33 @@
 RCSID("$OpenBSD: monitor_fdpass.c,v 1.4 2002/06/26 14:50:04 deraadt Exp $");
 
 #include <sys/uio.h>
+#include <sys/utsname.h>
 
 #include "log.h"
 #include "monitor_fdpass.h"
+
+static int
+cmsg_type_is_broken(void)
+{
+	static int broken_cmsg_type = -1;
+
+	if (broken_cmsg_type != -1)
+		return broken_cmsg_type;
+	else {
+		struct utsname uts;
+		/* If uname() fails, play safe and assume that cmsg_type
+		 * isn't broken.
+		 */
+		if (!uname(&uts) &&
+		    strcmp(uts.sysname, "Linux") == 0 &&
+		    strncmp(uts.release, "2.0.", 4) == 0)
+			broken_cmsg_type = 1;
+		else
+			broken_cmsg_type = 0;
+	}
+
+	return broken_cmsg_type;
+}
 
 void
 mm_send_fd(int socket, int fd)
@@ -113,7 +137,7 @@ mm_receive_fd(int socket)
 		fatal("%s: no fd", __func__);
 #else
 	cmsg = CMSG_FIRSTHDR(&msg);
-	if (cmsg->cmsg_type != SCM_RIGHTS)
+	if (!cmsg_type_is_broken() && cmsg->cmsg_type != SCM_RIGHTS)
 		fatal("%s: expected type %d got %d", __func__,
 		    SCM_RIGHTS, cmsg->cmsg_type);
 	fd = (*(int *)CMSG_DATA(cmsg));

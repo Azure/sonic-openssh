@@ -12,10 +12,6 @@ Description: Privilege separation
  Privilege separation is turned on by default, so if you decide you want it
  turned off, you need to add "UsePrivilegeSeparation no" to
  /etc/ssh/sshd_config.
- .
- NB! If you are running a 2.0 series Linux kernel, then privilege
- separation will not work at all, and your sshd will fail to start unless
- you explicitly turn privilege separation off.
 Description-es: Separación de privilegios
  Esta versión de OpenSSH incluye una nueva opción de separación de
  privilegios que reduce significativamente la cantidad de código que se
@@ -30,9 +26,6 @@ Description-es: Separación de privilegios
  La separación de privilegios está activa por defecto, por lo que si decide
  desactivarla, tiene que añadir "UsePrivilegeSeparation no" al fichero
  /etc/ssh/sshd_config.
- .
- Nota: Si utiliza un núcleo Linux 2.0, la separación de privilegios fallará
- estrepitosamente y sshd no funcionará a no ser que la desactive.
 Description-fr: Séparation des privilèges
  Cette version d'OpenSSH est livrée avec la nouvelle option de séparation
  des privilèges. Cela réduit de manière significative la quantité de code
@@ -47,10 +40,6 @@ Description-fr: Séparation des privilèges
  La séparation des privilèges est activée par défaut ; si vous souhaitez la
  désactiver, vous devez ajouter « UsePrivilegeSeparation no » dans
  /etc/ssh/sshd_config.
- .
- N. B. ! Si vous avez un noyau Linux de la série des 2.0, la séparation des
- privilèges ne fonctionne pas, et votre démon sshd ne se lancera que si
- vous avez explicitement désactivé la séparation des privilèges.
 Description-ja: ÆÃ¸¢¤ÎÊ¬Î¥
  ËÜ¥Ð¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¿·¤·¤¤ÆÃ¸¢Ê¬Î¥¥ª¥×¥·¥ç¥ó¤ò»ý¤Ã¤Æ¤¤¤Þ¤¹¡£
  ¤³¤ì¤Ë¤è¤Ã¤Æ¡¢root ¸¢¸Â¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¡¼¥É¤ÎÎÌ¤òÂçÉý¤Ë¸º¤é¤¹¤³¤È¤¬
@@ -63,10 +52,6 @@ Description-ja: ÆÃ¸¢¤ÎÊ¬Î¥
  ÆÃ¸¢Ê¬Î¥¤Ï¥Ç¥Õ¥©¥ë¥È¤ÇÍ­¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£Ìµ¸ú¤Ë¤·¤¿¤¤¾ì¹ç¤Ï¡¢
  /etc/ssh/sshd_conf ¤Ë¡ÖUsePrivilegeSeparation no¡×¤È¤¤¤¦¹Ô¤òÄÉ²Ã
  ¤·¤Æ¤¯¤À¤µ¤¤¡£
- .
- Ãí°Õ! Linux ¥«¡¼¥Í¥ë¤Î¥Ð¡¼¥¸¥ç¥ó 2.0 ·ÏÎó¤ò»È¤Ã¤Æ¤¤¤ë¾ì¹ç¡¢ÆÃ¸¢
- Ê¬Î¥¤ÏÁ´¤¯Æ°ºî¤·¤Þ¤»¤ó¡£ÌÀ¼¨Åª¤ËÆÃ¸¢Ê¬Î¥¤òÌµ¸ú¤Ë¤·¤Ê¤¤¸Â¤ê¡¢sshd
- ¤Ïµ¯Æ°¤Ë¼ºÇÔ¤·¤Þ¤¹¡£
 Description-pl: Separacja uprawnieñ
  Ta wersja OpenSSH zawiera now± opcjê separacji uprawnieñ. Znacz±co
  zmniejsza ona ilo¶æ kodu, który jest uruchamiany jako root i co za tym
@@ -80,10 +65,6 @@ Description-pl: Separacja uprawnieñ
  Separacja uprawnieñ jest domy¶lnie w³±czona, wiêc je¶li zdecydujesz siê j±
  wy³±czyæ, musisz dodaæ "UsePrivilegeSeparation no" do pliku
  /etc/ssh/sshd_config.
- .
- UWAGA! Je¿eli u¿ywasz j±dra Linux'a z serii 2.0, to separacja uprawnieñ w
- ogóle nie bêdzie dzia³aæ i sshd nie wystartuje dopóki w³asnorêcznie nie
- wy³±czysz separacji uprawnieñ w /etc/ssh/sshd_config.
 Description-pt_BR: Separação de Previlégios
  Esta versão do OpenSSH contém a nova opção de separação de privilégios.
  Esta opção reduz significativamente a quantidade de código que é executada
@@ -97,11 +78,6 @@ Description-pt_BR: Separação de Previlégios
  A separação de previlégios está habilitado por padrão, portanto caso você
  decida que deseja desabilitá-la você precisará adicionar a linha
  "UsePrivilegeSeparation no" ao arquivo /etc/ssh/sshd_config.
- .
- NB ! Caso você esteja executando um kernel Linux da séria 2.0 o recurso de
- separação de privilégios não funcionará e seu daemon sshd irá falhar ao
- iniciar a menos que você explicitamente desabilite o recurso de separação
- de privilégios.
 
 Template: ssh/privsep_ask
 Type: boolean
@@ -117,103 +93,8 @@ Description: Enable Privilege separation
  .
  Since you've opted to have me generate an sshd_config file for you, you
  can choose whether or not to have Privilege Separation turned on or not.
- Unless you are running 2.0 (in which case you *must* say no here or your
- sshd won't start at all) or know you need to use PAM features that won't
- work with this option, you should say yes here.
-Description-da: Aktiver Privilegie adskillelse
- Denne version af OpenSSH indeholder den nye privilegie adskillelses
- mulighed. Det reducerer markant mængden af kode der kører som root, og
- derfor reducerer det impakten på sikkerheds huller i sshd.
- .
- Desværre, arbejder det ikke godt sammen med PAM. Ethvert PAM session modul
- der skal køres som root (pam_mkhomedir, f.eks.) vil fejle, og PAM
- tastatur-interaktive autentifikationer vil ikke virke.
- .
- Siden du har bedt mig om at lave en sshd_config fil til dig, kan du vælge
- om du vil have privilegie adskillelse slået til eller ej. Medmindre du
- kører 2.0 (i hvilket tilfælde du *skal* sige nej her, ellers vil din sshd
- slet ikke starte) eller ved at du skal bruge PAM funktioner som ikke vil
- virke med dette tilvalg, skal du sige ja her.
-Description-es: Activar separación de privilegios
- Esta versión de OpenSSH incluye una nueva opción de separación de
- privilegios que reduce significativamente la cantidad de código que se
- ejecuta como root, por lo que reduce el impacto de posibles agujeros de
- seguridad en sshd.
- .
- Desafortunadamente, la separación de privilegios no funciona correctamente
- con PAM. Cualquier módulo PAM que necesite ejecutarse como root (como, por
- ejemplo, pam_mkhomedir) y la autentificación interactiva PAM con teclado
- no funcionarán.
- .
- Puesto que ha elegido crear automáticamente el fichero sshd_config, puede
- decidir ahora si quiere activar la opción de separación de privilegios. A
- menos que utilice la versión 2.0 (en cuyo caso debe responer no aquí o
- sshd no arrancará) o sepa que necesita usar ciertas características de PAM
- que funcionan con esta opción, debería responder sí a esta pregunta.
-Description-fr: Activer la séparation des privilèges
- Cette version d'OpenSSH est livrée avec la nouvelle option de séparation
- des privilèges. Cela réduit de manière significative la quantité de code
- s'exécutant en tant que super-utilisateur, et donc réduit l'impact des
- trous de sécurité dans sshd.
- .
- Malheureusement, la séparation des privilèges interagit mal avec PAM. Tous
- les modules de session PAM qui doivent être exécutés en tant que
- super-utilisateur (pam_mkhomedir, par exemple) ne s'exécuteront pas, et
- l'authentification interactive au clavier ne fonctionnera pas.
- .
- Comme vous souhaitez que je génère le fichier de configuration sshd_config
- à votre place, vous pouvez choisir d'activer ou non l'option de séparation
- des privilèges. Si vous utilisez un noyau 2.0 (dans ce cas vous *devez*
- désactiver cette option ou alors sshd ne se lancera pas) ou bien si vous
- avez besoin de fonctionnalités PAM, cela ne fonctionnera pas si cette
- option est activée, dans le cas contraire vous devriez l'activer.
-Description-ja: ÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹¤ë
- ËÜ¥Ð¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¿·¤·¤¤ÆÃ¸¢Ê¬Î¥¥ª¥×¥·¥ç¥ó¤ò»ý¤Ã¤Æ¤¤¤Þ¤¹¡£
- ¤³¤ì¤Ë¤è¤Ã¤Æ¡¢root ¸¢¸Â¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¡¼¥É¤ÎÎÌ¤òÂçÉý¤Ë¸º¤é¤¹¤³¤È¤¬
- ¤Ç¤­¡¢sshd ¤Î¥»¥­¥å¥ê¥Æ¥£¥Û¡¼¥ë¤Î±Æ¶Á¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£
- .
- »ÄÇ°¤Ê¤³¤È¤Ë¡¢ÆÃ¸¢Ê¬Î¥¤Ï PAM ¤Ë°­±Æ¶Á¤òÍ¿¤¨¤Þ¤¹¡£root ¤Ç¼Â¹Ô¤µ¤ì¤ë Á´¤Æ¤Î
- PAM ¥»¥Ã¥·¥ç¥ó¥â¥¸¥å¡¼¥ë (Îã¤¨¤Ð pam_mkhomedir) ¤ÏÆ°¤«¤Ê¤¯
- ¤Ê¤ê¤Þ¤¹¡£¤Þ¤¿¡¢PAM ¥­¡¼¥Ü¡¼¥ÉÂÐÏÃÅªÇ§¾Ú¤âÆ°ºî¤·¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£
- .
- ¤¢¤Ê¤¿¤Ï sshd_config ¥Õ¥¡¥¤¥ë¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤òÁªÂò¤·¤Þ¤·¤¿¤Î¤Ç¡¢
- ¤³¤³¤ÇÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹¤ë¤«¤·¤Ê¤¤¤«¤òÁªÂò¤Ç¤­¤Þ¤¹¡£2.0 ·ÏÎó¤Î
- ¥«¡¼¥Í¥ë¤ò»È¤Ã¤Æ¤¤¤ë¤« (¤³¤Î¾ì¹ç¤Ë¤Ï¡Ö¤¤¤¤¤¨¡×¤òÁª¤Ð¤Ê¤¤¤È sshd
- ¤Ïµ¯Æ°¤¹¤é¤·¤Þ¤»¤ó)¡¢PAM ¤Îµ¡Ç½¤Î¤¦¤ÁÆÃ¸¢Ê¬Î¥¤È¶¦Â¸¤Ç¤­¤Ê¤¤µ¡Ç½¤ò
- »È¤¤¤¿¤¤¾ì¹ç°Ê³°¤Ï¡¢¡Ö¤Ï¤¤¡×¤òÁª¤Ö¤Ù¤­¤Ç¤¹¡£
-Description-pl: W³±czenie separacji uprawnieñ
- Ta wersja OpenSSH zawiera now± opcjê separacji uprawnieñ. Znacz±co
- zmniejsza ona ilo¶æ kodu, który jest uruchamiany jako root i co za tym
- idzie redukuje efekty luk bezpieczeñstwa w sshd.
- .
- Niestety separacja uprawnieñ ¼le reaguje z PAMem. Jakikolwiek modu³ sesji
- PAM, który musi byæ uruchamiany jako root (pam_mkhomedir, na przyk³ad)
- zawiedzie. Nie bêdzie dzia³aæ równie¿ interaktywna autentykacja z
- klawiatury (keyboard-interactive authentication).
- .
- Zdecydowa³e¶ siê na to abym wygenerowa³ dla ciebie plik sshd_config, i
- mo¿esz wybraæ czy chcesz w³±czyæ Separacjê Uprawnieñ, czy te¿ nie. Je¶li
- nie u¿ywasz j±dra z serii 2.0 (w którym to przypadku *musisz* odpowiedzieæ
- tutaj 'nie' albo sshd w ogóle nie ruszy) i je¶li nie musisz korzystaæ z
- mo¿liwo¶ci PAMa, które nie bêd± dzia³a³y z t± opcj±, powiniene¶
- odpowiedzieæ tutaj 'tak'.
-Description-pt_BR: Habilitar Separação de Privilégios
- Esta versão do OpenSSH contém a nova opção de separação de privilégios.
- Esta opção reduz significativamente a quantidade de código que é executada
- como root e portanto reduz o impacto de falhas de segurança no sshd.
- .
- Infelizmente, a separação de privilégios interage de maneira ruim com o
- PAM. Quaisquer módulos de sessão PAM que precisem ser executados como root
- (pam_mkhomedir, por exemplo) irão falhar e autenticação interativa com
- teclado do PAM não funcionará.
- .
- Uma vez que você optou por permitir que o debconf gere o arquivo
- sshd_config para você, é possível escolher se você deseja ter ou não o
- recurso de separação de privilégios habilitada. A menos que você esteja
- executando um kernel Linux da série 2.0 (neste caso você *deve* responder
- negativamente a esta pergunta ou seu daemon sshd não será iniciado) ou
- saiba que você precisa utilizar recursos do PAM que não funcionam com esta
- opção habilitada você deve responder sim aqui.
+ Unless you know you need to use PAM features that won't work with this
+ option, you should say yes here.
 
 Template: ssh/new_config
 Type: boolean

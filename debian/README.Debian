@@ -34,10 +34,6 @@ Privilege separation is turned on by default, so if you decide you
 want it turned off, you need to add "UsePrivilegeSeparation no" to
 /etc/ssh/sshd_config
 
-NB! If you are running a 2.0 series Linux kernel, then privilege
-separation will not work at all, and your sshd will fail to start
-unless you explicitly turn privilege separation off.
-
 PermitRootLogin set to yes
 --------------------------
 
