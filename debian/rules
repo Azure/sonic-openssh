@@ -79,7 +79,7 @@ build-udeb-stamp:
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status
-	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh sshd
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh sshd ssh-keygen
 	touch build-udeb-stamp
 
 clean:
@@ -144,6 +144,7 @@ install: build
 
 	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
 	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
+	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
 # Build architecture-independent files here.
 binary-indep: build install
