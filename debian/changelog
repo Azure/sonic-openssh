@@ -1621,7 +1621,3 @@ openssh (1.2.0.19991027-3) unstable; urgency=low
   * Initial release
 
  -- Dan Brosemer <odin@linuxfreak.com>  Wed, 27 Oct 1999 19:39:46 -0500
-  
-Local variables:
-mode: debian-changelog
-End:
