@@ -68,6 +68,7 @@ create_sshdconfig() {
 		cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
 		perl -pe 's/^(PAMAuthenticationViaKbdInt|RhostsAuthentication)\b/#$1/i' \
 		    /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
+		echo >> /etc/ssh/sshd_config.dpkg-new
 		echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
 		mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
 		echo
