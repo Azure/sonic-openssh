@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 14:06+0100\n"
+"POT-Creation-Date: 2005-03-15 12:48+0000\n"
 "PO-Revision-Date: 2004-10-12 00:00-0500\n"
 "Last-Translator: Santiago Erquicia <santiago_erquicia@yahoo.com.ar>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -198,45 +198,13 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "NOTA: Reenvío de X11 y Autorización desactivadas por defecto."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"For security reasons, the Debian version of ssh has ForwardX11 and "
-"ForwardAgent set to ``off'' by default."
-msgstr ""
-"Por razones de seguridad, la versión de ssh de Debian tiene por defecto "
-"ForwardX11 y ForwardAgent desactivadas."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"You can enable it for servers you trust, either in one of the configuration "
-"files, or with the -X command line option."
-msgstr ""
-"Puede activar estas opciones para los servidores en los que confíe, en los "
-"ficheros de configuración o con la opción -X en línea de comandos."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr "Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:48
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -247,13 +215,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -267,13 +235,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: debe crear una nueva clave para su servidor"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -285,19 +253,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "You will need to generate a new host key."
 msgstr "Necesitará generar una nueva clave para su servidor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -316,7 +284,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -327,6 +295,26 @@ msgstr ""
 "podrán acceder con contraseñas. Si la deja habilitada (respuesta por "
 "omisión) entonces la opción «PasswordAuthentication no» no tendrá ninguna "
 "utilidad a menos que ajuste su configuración de PAM en «/etc/pam.d/ssh»."
+
+#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
+#~ msgstr "NOTA: Reenvío de X11 y Autorización desactivadas por defecto."
+
+#~ msgid ""
+#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
+#~ "ForwardAgent set to ``off'' by default."
+#~ msgstr ""
+#~ "Por razones de seguridad, la versión de ssh de Debian tiene por defecto "
+#~ "ForwardX11 y ForwardAgent desactivadas."
+
+#~ msgid ""
+#~ "You can enable it for servers you trust, either in one of the "
+#~ "configuration files, or with the -X command line option."
+#~ msgstr ""
+#~ "Puede activar estas opciones para los servidores en los que confíe, en "
+#~ "los ficheros de configuración o con la opción -X en línea de comandos."
+
+#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
+#~ msgstr "Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "Las claves ssh2 ya se incluyen en los ficheros de configuración"

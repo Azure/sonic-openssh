@@ -43,17 +43,6 @@ _Description: Do you want to continue (and risk killing active ssh sessions)?
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
 
-Template: ssh/forward_warning
-Type: note
-_Description: NOTE: Forwarding of X11 and Authorization disabled by default.
- For security reasons, the Debian version of ssh has ForwardX11 and
- ForwardAgent set to ``off'' by default.
- .
- You can enable it for servers you trust, either in one of the
- configuration files, or with the -X command line option.
- .
- More details can be found in /usr/share/doc/ssh/README.Debian
-
 Template: ssh/insecure_rshd
 Type: note
 _Description: Warning: rsh-server is installed --- probably not a good idea

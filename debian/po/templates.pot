@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 14:06+0100\n"
+"POT-Creation-Date: 2005-03-15 12:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,40 +148,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"For security reasons, the Debian version of ssh has ForwardX11 and "
-"ForwardAgent set to ``off'' by default."
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"You can enable it for servers you trust, either in one of the configuration "
-"files, or with the -X command line option."
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr ""
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:48
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -189,13 +161,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -205,13 +177,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "Warning: you must create a new host key"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -220,19 +192,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "You will need to generate a new host key."
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -244,7 +216,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "

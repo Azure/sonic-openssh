@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 14:06+0100\n"
+"POT-Creation-Date: 2005-03-15 12:48+0000\n"
 "PO-Revision-Date: 2004-10-28 23:21+0100\n"
 "Last-Translator: Bart Cornelis <cobaco@linux.be>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -183,39 +183,6 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr ""
-"OPMERKING: Doorsturen van X11 en Authorisatie is standaard uitgeschakeld."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"For security reasons, the Debian version of ssh has ForwardX11 and "
-"ForwardAgent set to ``off'' by default."
-msgstr ""
-"Om beveiligingsredenen zijn, in de Debian versie van ssh, ForwardX11 en "
-"ForwardAgent standaard uitgeschakeld."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"You can enable it for servers you trust, either in one of the configuration "
-"files, or with the -X command line option."
-msgstr ""
-"U kunt dit, voor vertrouwde servers, inschakelen in de "
-"configuratiebestanden, of met de -X commandoregeloptie."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr "Meer details vindt u in /usr/share/doc/ssh/README.Debian.gz"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Waarschuwing: rsh-server is geïnstalleerd -- dit is waarschijnlijk geen goed "
@@ -223,7 +190,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:48
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -234,7 +201,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr ""
 "Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed "
@@ -242,7 +209,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:55
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -256,13 +223,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "Warning: you must create a new host key"
 msgstr "Waarschuwing: u dient een nieuwe computersleutel aan te maken"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -274,19 +241,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:63
 msgid "You will need to generate a new host key."
 msgstr "Het zal nodig zijn om een nieuwe computersleutel te genereren"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid "Disable challenge-response authentication?"
 msgstr "Challenge-response-authenticatie deactiveren?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -305,7 +272,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:73
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -316,3 +283,24 @@ msgstr ""
 "niet meer inloggen met behulp van wachtwoorden. Als u het geactiveerd laat "
 "(de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig) "
 "effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh."
+
+#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
+#~ msgstr ""
+#~ "OPMERKING: Doorsturen van X11 en Authorisatie is standaard uitgeschakeld."
+
+#~ msgid ""
+#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
+#~ "ForwardAgent set to ``off'' by default."
+#~ msgstr ""
+#~ "Om beveiligingsredenen zijn, in de Debian versie van ssh, ForwardX11 en "
+#~ "ForwardAgent standaard uitgeschakeld."
+
+#~ msgid ""
+#~ "You can enable it for servers you trust, either in one of the "
+#~ "configuration files, or with the -X command line option."
+#~ msgstr ""
+#~ "U kunt dit, voor vertrouwde servers, inschakelen in de "
+#~ "configuratiebestanden, of met de -X commandoregeloptie."
+
+#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
+#~ msgstr "Meer details vindt u in /usr/share/doc/ssh/README.Debian.gz"

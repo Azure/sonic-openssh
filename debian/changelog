@@ -2,6 +2,7 @@ openssh (1:3.9p1-4) UNRELEASED; urgency=low
 
   * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
     closes: #296487).
+  * Remove obsolete and unnecessary ssh/forward_warning debconf note.
   * debconf template translations:
     - Synchronise Spanish with sarge branch (thanks, Javier
       Fernández-Sanguino Peña; closes: #298536).
