@@ -42,9 +42,9 @@ msgstr ""
 "Cette version d'OpenSSH utilise un fichier de configuration qui a fortement "
 "changé depuis la version contenue dans la distribution Debian « Potato », "
 "depuis laquelle vous semblez faire une mise à jour. Un nouveau fichier de "
-"configuration (/etc/ssh/sshd.config) qui fonctionnera avec la nouvelle version "
-"du serveur peut être créé, mais ne contiendra aucun des réglages que vous "
-"aviez faits avec la version précédente."
+"configuration (/etc/ssh/sshd.config) qui fonctionnera avec la nouvelle "
+"version du serveur peut être créé, mais ne contiendra aucun des réglages que "
+"vous aviez faits avec la version précédente."
 
 #. Type: boolean
 #. Description
@@ -61,8 +61,8 @@ msgstr ""
 "connaissant le mot de passe du superutilisateur peut se connecter en tant "
 "que tel sur la machine). Le responsable du paquet pense que c'est là un "
 "comportement par défaut normal (lisez README.Debian pour plus "
-"d'informations), mais vous pouvez toujours modifier le fichier sshd_config et "
-"changer cela."
+"d'informations), mais vous pouvez toujours modifier le fichier sshd_config "
+"et changer cela."
 
 #. Type: boolean
 #. Description
@@ -151,8 +151,9 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "La version de /etc/init.d/ssh que vous venez d'installer va "
-"vraisemblablement interrompre toutes les instances de sshd en cours. Si vous êtes "
-"en train de faire cette mise à niveau à l'aide de SSH, ce serait regrettable."
+"vraisemblablement interrompre toutes les instances de sshd en cours. Si vous "
+"êtes en train de faire cette mise à niveau à l'aide de SSH, ce serait "
+"regrettable."
 
 #. Type: boolean
 #. Description
@@ -169,8 +170,7 @@ msgstr ""
 #. Description
 #: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr ""
-"Suivi de session X11 et d'agent d'autorisation désactivés par défaut."
+msgstr "Suivi de session X11 et d'agent d'autorisation désactivés par défaut."
 
 #. Type: note
 #. Description
@@ -251,9 +251,9 @@ msgid ""
 "not handle this host key file, and I can't find the ssh-keygen utility from "
 "the old (non-free) SSH installation."
 msgstr ""
-"Un ancien fichier /etc/ssh/ssh_host_key, chiffré avec IDEA, est actuellement utilisé. OpenSSH "
-"ne peut utiliser ce fichier de clé, et l'utilitaire ssh-keygen de "
-"l'installation précédente (non libre) de SSH n'a pas été trouvé."
+"Un ancien fichier /etc/ssh/ssh_host_key, chiffré avec IDEA, est actuellement "
+"utilisé. OpenSSH ne peut utiliser ce fichier de clé, et l'utilitaire ssh-"
+"keygen de l'installation précédente (non libre) de SSH n'a pas été trouvé."
 
 #. Type: note
 #. Description
@@ -273,8 +273,7 @@ msgstr "Faut-il installer /usr/lib/ssh-keysign avec le bit SETUID activé ?"
 msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
-msgstr ""
-"Vous pouvez installer ssh-keysign avec le bit SETUID activé."
+msgstr "Vous pouvez installer ssh-keysign avec le bit SETUID activé."
 
 #. Type: boolean
 #. Description
@@ -283,9 +282,8 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Si vous choisissez cette option, vous permettrez "
-"l'authentification basée sur les hôtes, disponible dans la version 2 du "
-"protocole SSH."
+"Si vous choisissez cette option, vous permettrez l'authentification basée "
+"sur les hôtes, disponible dans la version 2 du protocole SSH."
 
 #. Type: boolean
 #. Description
@@ -294,9 +292,9 @@ msgid ""
 "If in doubt, I suggest you install it with SUID.  If it causes problems you "
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
-"Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si "
-"cela vous pose des problèmes, vous pourrez revenir sur votre décision avec "
-"« dpkg-reconfigure ssh »."
+"Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si cela "
+"vous pose des problèmes, vous pourrez revenir sur votre décision avec « dpkg-"
+"reconfigure ssh »."
 
 #. Type: boolean
 #. Description
