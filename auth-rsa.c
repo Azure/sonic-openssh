@@ -187,7 +187,7 @@ auth_rsa_key_allowed(struct passwd *pw, BIGNUM *client_n, Key **rkey)
 	    secure_filename(f, file, pw, line, sizeof(line)) != 0) {
 		xfree(file);
 		fclose(f);
-		logit("Authentication refused: %s", line);
+		log("Authentication refused: %s", line);
 		restore_uid();
 		return (0);
 	}
@@ -246,7 +246,7 @@ auth_rsa_key_allowed(struct passwd *pw, BIGNUM *client_n, Key **rkey)
 
 		/* check the real bits  */
 		if (bits != BN_num_bits(key->rsa->n))
-			logit("Warning: %s, line %lu: keysize mismatch: "
+			log("Warning: %s, line %lu: keysize mismatch: "
 			    "actual %d vs. announced %d.",
 			    file, linenum, BN_num_bits(key->rsa->n), bits);
 

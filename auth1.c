@@ -297,7 +297,7 @@ do_authloop(Authctxt *authctxt)
 			 * Any unknown messages will be ignored (and failure
 			 * returned) during authentication.
 			 */
-			logit("Unknown message during authentication: type %d", type);
+			log("Unknown message during authentication: type %d", type);
 			break;
 		}
 #ifdef BSD_AUTH
@@ -349,8 +349,9 @@ do_authloop(Authctxt *authctxt)
 		if (authenticated)
 			return;
 
-		if (authctxt->failures++ > AUTH_FAIL_MAX)
+		if (authctxt->failures++ > AUTH_FAIL_MAX) {
 			packet_disconnect(AUTH_FAIL_MSG, authctxt->user);
+		}
 
 		packet_start(SSH_SMSG_FAILURE);
 		packet_send();

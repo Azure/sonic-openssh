@@ -23,7 +23,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshconnect2.c,v 1.115 2003/04/02 09:48:07 markus Exp $");
+RCSID("$OpenBSD: sshconnect2.c,v 1.114 2003/04/01 10:22:21 markus Exp $");
 
 #include "ssh.h"
 #include "ssh2.h"
@@ -82,7 +82,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	xxx_hostaddr = hostaddr;
 
 	if (options.ciphers == (char *)-1) {
-		logit("No valid ciphers for protocol version 2 given, using defaults.");
+		log("No valid ciphers for protocol version 2 given, using defaults.");
 		options.ciphers = NULL;
 	}
 	if (options.ciphers != NULL) {
@@ -107,9 +107,6 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	if (options.hostkeyalgorithms != NULL)
 		myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] =
 		    options.hostkeyalgorithms;
-
-	if (options.rekey_limit)
-		packet_set_rekey_limit(options.rekey_limit);
 
 	/* start key exchange */
 	kex = kex_setup(myproposal);
@@ -349,7 +346,7 @@ input_userauth_failure(int type, u_int32_t seq, void *ctxt)
 	packet_check_eom();
 
 	if (partial != 0)
-		logit("Authenticated with partial success.");
+		log("Authenticated with partial success.");
 	debug("Authentications that can continue: %s", authlist);
 
 	clear_auth_state(authctxt);
@@ -494,7 +491,7 @@ input_userauth_passwd_changereq(int type, u_int32_t seqnr, void *ctxt)
 	info = packet_get_string(NULL);
 	lang = packet_get_string(NULL);
 	if (strlen(info) > 0)
-		logit("%s", info);
+		log("%s", info);
 	xfree(info);
 	xfree(lang);
 	packet_start(SSH2_MSG_USERAUTH_REQUEST);
@@ -526,7 +523,7 @@ input_userauth_passwd_changereq(int type, u_int32_t seqnr, void *ctxt)
 		if (strcmp(password, retype) != 0) {
 			memset(password, 0, strlen(password));
 			xfree(password);
-			logit("Mismatch; try again, EOF to quit.");
+			log("Mismatch; try again, EOF to quit.");
 			password = NULL;
 		}
 		memset(retype, 0, strlen(retype));
@@ -865,9 +862,9 @@ input_userauth_info_req(int type, u_int32_t seq, void *ctxt)
 	inst = packet_get_string(NULL);
 	lang = packet_get_string(NULL);
 	if (strlen(name) > 0)
-		logit("%s", name);
+		log("%s", name);
 	if (strlen(inst) > 0)
-		logit("%s", inst);
+		log("%s", inst);
 	xfree(name);
 	xfree(inst);
 	xfree(lang);

@@ -102,19 +102,19 @@ allowed_user(struct passwd * pw)
 		 * day after the day specified.
 		 */
 		if (spw->sp_expire != -1 && today > spw->sp_expire) {
-			logit("Account %.100s has expired", pw->pw_name);
+			log("Account %.100s has expired", pw->pw_name);
 			return 0;
 		}
 
 		if (spw->sp_lstchg == 0) {
-			logit("User %.100s password has expired (root forced)",
+			log("User %.100s password has expired (root forced)",
 			    pw->pw_name);
 			return 0;
 		}
 
 		if (spw->sp_max != -1 &&
 		    today > spw->sp_lstchg + spw->sp_max) {
-			logit("User %.100s password has expired (password aged)",
+			log("User %.100s password has expired (password aged)",
 			    pw->pw_name);
 			return 0;
 		}
@@ -129,13 +129,13 @@ allowed_user(struct passwd * pw)
 
 	/* deny if shell does not exists or is not executable */
 	if (stat(shell, &st) != 0) {
-		logit("User %.100s not allowed because shell %.100s does not exist",
+		log("User %.100s not allowed because shell %.100s does not exist",
 		    pw->pw_name, shell);
 		return 0;
 	}
 	if (S_ISREG(st.st_mode) == 0 ||
 	    (st.st_mode & (S_IXOTH|S_IXUSR|S_IXGRP)) == 0) {
-		logit("User %.100s not allowed because shell %.100s is not executable",
+		log("User %.100s not allowed because shell %.100s is not executable",
 		    pw->pw_name, shell);
 		return 0;
 	}
@@ -150,7 +150,7 @@ allowed_user(struct passwd * pw)
 		for (i = 0; i < options.num_deny_users; i++)
 			if (match_user(pw->pw_name, hostname, ipaddr,
 			    options.deny_users[i])) {
-				logit("User %.100s not allowed because listed in DenyUsers",
+				log("User %.100s not allowed because listed in DenyUsers",
 				    pw->pw_name);
 				return 0;
 			}
@@ -163,7 +163,7 @@ allowed_user(struct passwd * pw)
 				break;
 		/* i < options.num_allow_users iff we break for loop */
 		if (i >= options.num_allow_users) {
-			logit("User %.100s not allowed because not listed in AllowUsers",
+			log("User %.100s not allowed because not listed in AllowUsers",
 			    pw->pw_name);
 			return 0;
 		}
@@ -171,7 +171,7 @@ allowed_user(struct passwd * pw)
 	if (options.num_deny_groups > 0 || options.num_allow_groups > 0) {
 		/* Get the user's group access list (primary and supplementary) */
 		if (ga_init(pw->pw_name, pw->pw_gid) == 0) {
-			logit("User %.100s not allowed because not in any group",
+			log("User %.100s not allowed because not in any group",
 			    pw->pw_name);
 			return 0;
 		}
@@ -181,7 +181,7 @@ allowed_user(struct passwd * pw)
 			if (ga_match(options.deny_groups,
 			    options.num_deny_groups)) {
 				ga_free();
-				logit("User %.100s not allowed because a group is listed in DenyGroups",
+				log("User %.100s not allowed because a group is listed in DenyGroups",
 				    pw->pw_name);
 				return 0;
 			}
@@ -193,7 +193,7 @@ allowed_user(struct passwd * pw)
 			if (!ga_match(options.allow_groups,
 			    options.num_allow_groups)) {
 				ga_free();
-				logit("User %.100s not allowed because none of user's groups are listed in AllowGroups",
+				log("User %.100s not allowed because none of user's groups are listed in AllowGroups",
 				    pw->pw_name);
 				return 0;
 			}
@@ -219,7 +219,7 @@ allowed_user(struct passwd * pw)
 			}
 			/* Remove trailing newline */
 			*--p = '\0';
-			logit("Login restricted for %s: %.100s", pw->pw_name, 
+			log("Login restricted for %s: %.100s", pw->pw_name, 
 			    loginmsg);
 		}
 		/* Don't fail if /etc/nologin  set */
@@ -252,7 +252,7 @@ auth_log(Authctxt *authctxt, int authenticated, char *method, char *info)
 	    !authctxt->valid ||
 	    authctxt->failures >= AUTH_FAIL_LOG ||
 	    strcmp(method, "password") == 0)
-		authlog = logit;
+		authlog = log;
 
 	if (authctxt->postponed)
 		authmsg = "Postponed";
@@ -293,12 +293,12 @@ auth_root_allowed(char *method)
 		break;
 	case PERMIT_FORCED_ONLY:
 		if (forced_command) {
-			logit("Root login accepted for forced command.");
+			log("Root login accepted for forced command.");
 			return 1;
 		}
 		break;
 	}
-	logit("ROOT LOGIN REFUSED FROM %.200s", get_remote_ipaddr());
+	log("ROOT LOGIN REFUSED FROM %.200s", get_remote_ipaddr());
 	return 0;
 }
 
@@ -390,7 +390,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
 		    (stat(user_hostfile, &st) == 0) &&
 		    ((st.st_uid != 0 && st.st_uid != pw->pw_uid) ||
 		    (st.st_mode & 022) != 0)) {
-			logit("Authentication refused for %.100s: "
+			log("Authentication refused for %.100s: "
 			    "bad owner or modes for %.200s",
 			    pw->pw_name, user_hostfile);
 		} else {
@@ -494,7 +494,7 @@ getpwnamallow(const char *user)
 
 	pw = getpwnam(user);
 	if (pw == NULL) {
-		logit("Illegal user %.100s from %.100s",
+		log("Illegal user %.100s from %.100s",
 		    user, get_remote_ipaddr());
 #ifdef WITH_AIXAUTHENTICATE
 		loginfailed(user,

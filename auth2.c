@@ -160,7 +160,7 @@ input_userauth_request(int type, u_int32_t seq, void *ctxt)
 			PRIVSEP(start_pam(authctxt->pw->pw_name));
 #endif
 		} else {
-			logit("input_userauth_request: illegal user %s", user);
+			log("input_userauth_request: illegal user %s", user);
 #ifdef USE_PAM
 			PRIVSEP(start_pam("NOUSER"));
 #endif
@@ -238,8 +238,9 @@ userauth_finish(Authctxt *authctxt, int authenticated, char *method)
 		/* now we can break out */
 		authctxt->success = 1;
 	} else {
-		if (authctxt->failures++ > AUTH_FAIL_MAX)
+		if (authctxt->failures++ > AUTH_FAIL_MAX) {
 			packet_disconnect(AUTH_FAIL_MSG, authctxt->user);
+		}
 #ifdef _UNICOS
 		if (strcmp(method, "password") == 0)
 			cray_login_failure(authctxt->user, IA_UDBERR);

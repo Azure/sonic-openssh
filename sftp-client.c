@@ -507,7 +507,7 @@ do_lstat(struct sftp_conn *conn, char *path, int quiet)
 		if (quiet)
 			debug("Server version does not support lstat operation");
 		else
-			logit("Server version does not support lstat operation");
+			log("Server version does not support lstat operation");
 		return(do_stat(conn, path, quiet));
 	}
 

@@ -127,7 +127,7 @@ error(const char *fmt,...)
 /* Log this message (information that usually should go to the log). */
 
 void
-logit(const char *fmt,...)
+log(const char *fmt,...)
 {
 	va_list args;
 

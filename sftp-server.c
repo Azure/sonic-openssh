@@ -442,7 +442,7 @@ process_read(void)
 	    (u_int64_t)off, len);
 	if (len > sizeof buf) {
 		len = sizeof buf;
-		logit("read change len %d", len);
+		log("read change len %d", len);
 	}
 	fd = handle_to_fd(handle);
 	if (fd >= 0) {
@@ -495,7 +495,7 @@ process_write(void)
 			} else if (ret == len) {
 				status = SSH2_FX_OK;
 			} else {
-				logit("nothing at all written");
+				log("nothing at all written");
 			}
 		}
 	}

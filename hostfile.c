@@ -77,10 +77,10 @@ hostfile_check_key(int bits, Key *key, const char *host, const char *filename, i
 	if (key == NULL || key->type != KEY_RSA1 || key->rsa == NULL)
 		return 1;
 	if (bits != BN_num_bits(key->rsa->n)) {
-		logit("Warning: %s, line %d: keysize mismatch for host %s: "
+		log("Warning: %s, line %d: keysize mismatch for host %s: "
 		    "actual %d vs. announced %d.",
 		    filename, linenum, host, BN_num_bits(key->rsa->n), bits);
-		logit("Warning: replace %d with %d in %s, line %d.",
+		log("Warning: replace %d with %d in %s, line %d.",
 		    bits, BN_num_bits(key->rsa->n), filename, linenum);
 	}
 	return 1;
