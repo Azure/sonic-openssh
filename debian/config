@@ -16,6 +16,8 @@ db_version 2.0
 get_config_option() {
 	option="$1"
 
+	[ -f /etc/ssh/sshd_config ] || return
+
 	# TODO: actually only one '=' allowed after option
 	perl -ne 'print if s/^[[:space:]]*'"$option"'[[:space:]=]+//i' \
 	   /etc/ssh/sshd_config
