@@ -17,9 +17,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-09-12 21:03+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2003-10-02 17:20+0500\n"
+"Last-Translator: Ilgiz Kalmetev <translator@ilgiz.pp.ru>\n"
+"Language-Team: russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgstr ""
 #. Description
 #: ../templates.master:3
 msgid "Privilege separation"
-msgstr ""
+msgstr "Разделение привилегий"
 
 #. Description
 #: ../templates.master:3
@@ -36,11 +36,14 @@ msgid ""
 "turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
 "sshd_config."
 msgstr ""
+"Разделение привилегий по умолчанию включено, поэтому если Вы захотите "
+"его отключить, то необходимо добавить в файл /etc/ssh/sshd_config "
+"строку \"UsePrivilegeSeparation no\"."
 
 #. Description
 #: ../templates.master:19
 msgid "Enable Privilege separation"
-msgstr ""
+msgstr "Разрешить разделение привилегий"
 
 #. Description
 #: ../templates.master:19
@@ -49,6 +52,9 @@ msgid ""
 "significantly reduces the quantity of code that runs as root, and therefore "
 "reduces the impact of security holes in sshd."
 msgstr ""
+"Эта версия OpenSSH содержит новую опцию - возможность разделения привелегий. "
+"Это значительно сокращает размер кода, работающего с правами root, и "
+"в целом снижает потенциальную уязвимость sshd."
 
 #. Description
 #: ../templates.master:19
@@ -57,6 +63,10 @@ msgid ""
 "session modules that need to run as root (pam_mkhomedir, for example) will "
 "fail, and PAM keyboard-interactive authentication won't work."
 msgstr ""
+"К сожалению, разделение привилегий плохо работает с PAM. Это относится к "
+"любым содялм сессий PAM, которым нужно работать с правами root (например, "
+"pam_mkhomedir), и PAM-аутентификация в интерактивном режиме с клавиатуры "
+"работать не будет."
 
 #. Description
 #: ../templates.master:19
@@ -66,11 +76,15 @@ msgid ""
 "you know you need to use PAM features that won't work with this option, you "
 "should enable it."
 msgstr ""
+"Так как Вы разрешили мне сгенерировать для Вас файл sshd_config, то вы "
+"можете выбрать, нужно ли включить или выключить опцию разделения привилегий."
+"Если Вы не знаете, нужно ли Вам использовать функции PAM, которые не "
+"работают с этой опцией, то лучше разрешить ее."
 
 #. Description
 #: ../templates.master:36
 msgid "Generate new configuration file"
-msgstr ""
+msgstr "Сгенерировать новый конфигурационный файл"
 
 #. Description
 #: ../templates.master:36
@@ -81,6 +95,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
+"В этой версии OpenSSH значительно переработан файл настроек, в отличии от "
+" версии, которая поставлялась с Debian 'Potato', и которую Вы, кажется, "
+"обновляете. Я могу сгенерировать для Вас новый файл настроек (/etc/ssh/"
+"sshd.config), который будет работать с новой версией сервера, но не будет "
+"содержать настроек, которые Вы сделали в старой версии."
 
 #. Description
 #: ../templates.master:36
@@ -91,6 +110,11 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
+"Обратите внимание на то, что этот новый файл настроек установит значение "
+"параметра 'PermitRootLogin' в yes (означающего, что любой человек, знающий "
+"пароль суперпользователя может войти в систему через ssh). По мнению "
+"сопровождающего этого пакета - это разумно, но Вы всегда можете установить "
+"значение этого параметра в файле sshd_config так, как Вам кажется правильным."
 
 #. Description
 #: ../templates.master:36
@@ -98,11 +122,13 @@ msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
 msgstr ""
+"Настоятельно рекомендуется, разрешить сгенерировать для Вас новый файл "
+"настроек."
 
 #. Description
 #: ../templates.master:55
 msgid "Allow SSH protocol 2 only"
-msgstr ""
+msgstr "Разрешить использование только SSH-протокола версии 2."
 
 #. Description
 #: ../templates.master:55
@@ -112,6 +138,11 @@ msgid ""
 "things down on low end machines and might prevent older clients from "
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
+"Эта версия OpenSSH поддерживает протокол ssh версии 2, который обеспечивает "
+"большую степень защиты. Лучше запретить протокол версии 1, но это может "
+"привести к замедлению работы малопроизводительных машин и может сделать "
+"невозможным подключение с помощью старых клиентских программ (в частности, "
+"это относится к клиенту ssh, поставляемого с \"potato\"."
 
 #. Description
 #: ../templates.master:55
@@ -119,6 +150,9 @@ msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
 msgstr ""
+"Обратите внимание на то, что ключи для протокола версии 1 имеют другой "
+"формат, и поэтому Вы не сможете использовать их, если разрешите только "
+"соединения по протоколу версии 2."
 
 #. Description
 #: ../templates.master:55
@@ -126,11 +160,13 @@ msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
 msgstr ""
+"Если позже Вы измените свое мнение, то в файле README.Debian содержатся "
+"инструкции о том, что нужно сделать в файле sshd_config."
 
 #. Description
 #: ../templates.master:69
 msgid "ssh2 keys merged in configuration files"
-msgstr ""
+msgstr "Ключи ssh2 добавлены в файлы настроек"
 
 #. Description
 #: ../templates.master:69
@@ -139,6 +175,10 @@ msgid ""
 "keys. This means the authorized_keys2 and known_hosts2 files are no longer "
 "needed. They will still be read in order to maintain backwards compatibility"
 msgstr ""
+"Начиная с версии 3 OpenSSH не поддерживает раздельные файлы для ключей "
+"ssh1 и ssh2. Это означает, что файлы authorized_keys2 и known_hosts2 больше "
+"не нужны. Программа по-прежнему будет их считывать для обеспечения обратной "
+"совместимости."
 
 #. Description
 #: ../templates.master:78
@@ -197,7 +237,7 @@ msgstr ""
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Предупреждение: установлен rsh-server --- видимо, не очень хорошо"
+msgstr "Предупреждение: установлен rsh-server --- пожалуй, это не очень хорошо"
 
 #. Description
 #: ../templates.master:99
@@ -205,13 +245,13 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"Установленный  rsh-server  снижает  безопасность,  которую вы вероятно "
+"Установленный rsh-сервер снижает безопасность, которую Вы вероятно "
 "хотите повысить устанавливая ssh. Рекомендуется удалить этот пакет."
 
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Предупреждение: установлен telnetd --- видимо, не очень хорошо"
+msgstr "Предупреждение: установлен telnetd --- пожалуй, это не очень хорошо"
 
 #. Description
 #: ../templates.master:106
@@ -221,15 +261,15 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"Я рекомендовал бы вам удалить пакет telnetd (если вам действительно не нужен "
-"доступ telnet) или установить  telnet-ssl,  чтобы  иметь хотя бы "
-"возможность  не  передавать  по  сети  незашифрованные  имена и пароли "
+"Я рекомендовал бы Вам удалить пакет telnetd (если Вам действительно не нужен "
+"доступ telnet) или установить telnet-ssl, чтобы иметь хотя бы "
+"возможность не передавать по сети незашифрованные имена и пароли "
 "пользователей и прочую информацию в telnet-сессиях."
 
 #. Description
 #: ../templates.master:114
 msgid "Warning: you must create a new host key"
-msgstr "Предупреждение: вы должны создать новый ключ машины."
+msgstr "Предупреждение: Вы должны создать новый хостовый ключ."
 
 #. Description
 #: ../templates.master:114
@@ -238,8 +278,8 @@ msgid ""
 "not handle this host key file, and I can't find the ssh-keygen utility from "
 "the old (non-free) SSH installation."
 msgstr ""
-"Есть старый /etc/ssh/ssh_host_key, который зашифрован IDEA. OpenSSH не "
-"может  работать  с  этим  ключом  машины,  и  я  не могу найти утилиту ssh-"
+"Найден старый /etc/ssh/ssh_host_key, который зашифрован IDEA. OpenSSH не "
+"может работать с этим хостовым ключом, и я не могу найти утилиту ssh-"
 "keygen от старой (несвободной) инсталляции SSH."
 
 #. Description
@@ -249,42 +289,34 @@ msgstr "Вам надо будет сгенерировать новый ключ хоста."
 
 #. Description
 #: ../templates.master:124
-#, fuzzy
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Хотите установить /usr/bin/ssh как SUID root?"
+msgstr "Хотите установить /usr/lib/ssh-keysign как SUID root?"
 
 #. Description
 #: ../templates.master:124
-#, fuzzy
 msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
 msgstr ""
-"Вы  имеете  возможность  установить /usr/bin/ssh с установленным битом SUID."
+"Вы имеете возможность установить бит SUID для утилиты ssh-keysign."
 
 #. Description
 #: ../templates.master:124
-#, fuzzy
 msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Если  вы  делаете  ssh SUID, то вы сможете использовать аутентификацию "
-"Rhosts/RhostsRSA,  но  не сможете использовать socks через LD_PRELOAD. Это "
-"традиционное поведение."
+"Если вы установите бит SUID для ssh, то вы сможете использовать хостовую "
+"аутентификацию для SSH-протокола версии 2."
 
 #. Description
 #: ../templates.master:124
-#, fuzzy
 msgid ""
 "If in doubt, I suggest you install it with SUID.  If it causes problems you "
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
-"Если  вы  сделаете ssh SUID, то вы сможете использовать socks, но зато "
-"аутентификация  Rhosts/RhostsRSA  не будет работать, что может сделать "
-"невозможным вашу регистрацию на удаленных системах. Также это означает что "
-"номер источникового порта будет больше 1024, что может не нарушить работу "
-"установленных вами правил файрвола."
+"Если Вы не знаете, что выбрать, то рекомендую установить SUID для ssh. "
+"В дальнейшем, Вы можете изменить свой выбор командой: dpkg-reconfigure ssh"
 
 #. Description
 #: ../templates.master:137
@@ -302,8 +334,8 @@ msgid ""
 "Normally the sshd Secure Shell Server will be run to allow remote logins via "
 "ssh."
 msgstr ""
-"Обычно  sshd  Secure Shell Server  запускается  для удаленного входа в "
-"регистрации в системе через ssh."
+"Обычно sshd Secure Shell Server запускается для удаленного входа в "
+"систему через ssh."
 
 #. Description
 #: ../templates.master:137
@@ -312,14 +344,14 @@ msgid ""
 "on this machine, and don't want to log into it at all using ssh, then you "
 "can disable sshd here."
 msgstr ""
-"Если  вас  интересует  только  использование ssh-клиента для исходящих "
-"соединений с  этой  машины, и вы  не хотите входить в ее систему через ssh, "
-"то вы можете сейчас запретить sshd."
+"Если вас интересует только использование ssh-клиента для исходящих "
+"соединений с этой машины, и вы не хотите входить в ее систему через ssh, "
+"то сейчас Вы можете запретить sshd."
 
 #. Description
 #: ../templates.master:149
 msgid "Environment options on keys have been deprecated"
-msgstr ""
+msgstr "Опции окружения для ключей были запрещены"
 
 #. Description
 #: ../templates.master:149
@@ -329,6 +361,10 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
+"Эта версия OpenSSH по умолчанию запрещает опцию окружения для публичных "
+"ключей, чтобы избежать атак (например, LD_PRELOAD). Если Вы используете "
+"эту опцию в файле authorized_keys, то будьте внимательны, данные ключи "
+"больше не будут работать, пока опция не удалена."
 
 #. Description
 #: ../templates.master:149
@@ -336,4 +372,6 @@ msgid ""
 "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
-msgstr ""
+msgstr "Чтобы вновь  разрешить эту опцию, установите параметр "
+"\"PermitUserEnvironment yes\" в файле sshd_config после завершения обновления,"
+"и обратите внимание на предупреждение в странице руководства sshd_config(5)."
