@@ -899,7 +899,7 @@ fill_default_options(Options * options)
 	if (options->forward_x11 == -1)
 		options->forward_x11 = 0;
 	if (options->forward_x11_trusted == -1)
-		options->forward_x11_trusted = 0;
+		options->forward_x11_trusted = 1;
 	if (options->xauth_location == NULL)
 		options->xauth_location = _PATH_XAUTH;
 	if (options->gateway_ports == -1)
