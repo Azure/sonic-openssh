@@ -17,9 +17,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-06 17:54+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2004-05-30 09:49-0200\n"
+"Last-Translator: Helge Kreutzmann <kreutzm@itp.uni-hannover.de>\n"
+"Language-Team: de <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +28,7 @@ msgstr ""
 #. Description
 #: ../templates.master:4
 msgid "Generate new configuration file"
-msgstr ""
+msgstr "Erzeuge eine neue Konfigurationsdatei"
 
 #. Type: boolean
 #. Description
@@ -40,6 +40,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
+"Diese Version von OpenSSH hat eine deutlich geänderte Konfigurationsdatei "
+"von der in 'Potato' ausgelieferten Version, von der Sie anscheinend "
+"aktualisieren. Ich kann nun eine neue Konfigurationsdatei (/etc/ssh/sshd."
+"config) erzeugen, die mit der neuen Server-Version zusammenarbeitet, aber "
+"keine Anpassung aus der alten Version enthält."
 
 #. Type: boolean
 #. Description
@@ -51,6 +56,12 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
+"Bitte beachten Sie, daß die neue Konfigurationsdatei 'PermitRootLogin' "
+"aufyes setzt (was bedeutet, daß jeder, der das Root-Paßwort kennt, sich "
+"direkt per ssh als root anmelden kann). Es ist die Meinung des Betreuers, "
+"daß dies die richtige Standardeinstellung ist (bitte lesen Sie README.Debian "
+"für weitergehende Informationen), aber Sie können jederzeit sshd_config "
+"editieren und dies auf no setzen, falls Sie dies wünschen."
 
 #. Type: boolean
 #. Description
@@ -59,12 +70,14 @@ msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
 msgstr ""
+"Es wird stark empfohlen, daß Sie mich eine neue Konfigurationsdatei erzeugen "
+"lassen."
 
 #. Type: boolean
 #. Description
 #: ../templates.master:23
 msgid "Allow SSH protocol 2 only"
-msgstr ""
+msgstr "Nur SSH-Protokoll Version 2 erlauben"
 
 #. Type: boolean
 #. Description
@@ -75,6 +88,11 @@ msgid ""
 "things down on low end machines and might prevent older clients from "
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
+"Diese Version von OpenSSH unterstützt Version 2 des SSH-Protokolls, die "
+"sicherer ist. Es wird empfohlen, Version 1 zu deaktivieren, allerdings kann "
+"dies Vorgänge auf langsamen Maschinen verzögern und alte Clients an der "
+"Verbindungsaufnahme hindern (der ssh-Client von \"potato\" ist davon "
+"betroffen)."
 
 #. Type: boolean
 #. Description
@@ -83,6 +101,9 @@ msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
 msgstr ""
+"Bitte beachten Sie auch, daß sich die für Protokoll 1 verwendeten Schlüssel "
+"unterscheiden und Sie diese daher nicht verwenden können, wenn Sie nur "
+"Protokoll Version 2-Verbindungen erlauben."
 
 #. Type: boolean
 #. Description
@@ -91,12 +112,14 @@ msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
 msgstr ""
+"Falls Sie später Ihre Meinung über diese Einstellung ändern, finden Sie in "
+"README.Debian eine Anleitung was Sie mit der sshd_config-Datei machen müssen."
 
 #. Type: note
 #. Description
 #: ../templates.master:37
 msgid "ssh2 keys merged in configuration files"
-msgstr ""
+msgstr "ssh2-Schlüssel in die Konfigurationsdateien eingefügt"
 
 #. Type: note
 #. Description
@@ -106,12 +129,17 @@ msgid ""
 "keys. This means the authorized_keys2 and known_hosts2 files are no longer "
 "needed. They will still be read in order to maintain backwards compatibility"
 msgstr ""
+"Mit Version 3 verwendet OpenSSH nicht mehr seperate Dateien für ssh1 und "
+"ssh2 Schlüssel. Dies bedeutet, daß authorized_keys2 und known_hosts2 nicht "
+"mehr benötigt werden. Sie werden noch eingelesen, um Abwärtskompatibilität "
+"zu gewähren."
 
 #. Type: boolean
 #. Description
 #: ../templates.master:46
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Wollen Sie weitermachen (und das Killen der Session riskieren)?"
+msgstr ""
+"Wollen Sie weitermachen (und das Beenden der aktiven Sitzung riskieren)?"
 
 #. Type: boolean
 #. Description
@@ -122,8 +150,8 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Die Version von /etc/init.d/ssh, die Sie installiert haben, wird vermutlich "
-"Ihre aktiven ssh-Instanzen killen. Wenn Sie das Upgrade via ssh erledigen, "
-"dann ist das ein Problem."
+"Ihre aktiven ssh-Instanzen beenden. Wenn Sie die Aktualisierung über ssh "
+"erledigen, dann wäre das keine Gute Idee(tm)."
 
 #. Type: boolean
 #. Description
@@ -133,14 +161,14 @@ msgid ""
 "daemon line in the stop section of the file."
 msgstr ""
 "Sie können das Problem beheben, indem sie \"--pidfile /var/run/sshd.pid\" an "
-"die start-stop-daemon Zeile in dem Bereich stop der Datei /etc/init.d/ssh "
-"ergänzen."
+"die start-stop-daemon Zeile in dem Abschnitt stop der Datei /etc/init.d/ssh "
+"hinzufügen."
 
 #. Type: note
 #. Description
 #: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "HINWEIS: Forwarden von X11 und Authorisierung ist abgeschaltet."
+msgstr "HINWEIS: Weiterleiten von X11 und Berechtigungen ist abgeschaltet."
 
 #. Type: note
 #. Description
@@ -149,7 +177,7 @@ msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
 msgstr ""
-"Aus Sicherheitsgründen sind die Debian Pakete von ssh ForwardX11 und "
+"Aus Sicherheitsgründen ist bei der Debian-Version von ssh ForwardX11 und "
 "ForwardAgent auf \"off\" gesetzt."
 
 #. Type: note
@@ -160,20 +188,19 @@ msgid ""
 "files, or with the -X command line option."
 msgstr ""
 "Sie können dies für Server, denen Sie trauen, entweder per Eintrag in die "
-"Konfigurations Dateien oder per Kommando-Zeilen Option -X ändern."
+"Konfigurations-Dateien oder per Kommando-Zeilen Option -X ändern."
 
 #. Type: note
 #. Description
 #: ../templates.master:56
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr ""
-"Weitere Details koennen Sie in /usr/share/doc/ssh/README.Debian finden."
+msgstr "Weitere Details können Sie in /usr/share/doc/ssh/README.Debian finden."
 
 #. Type: note
 #. Description
 #: ../templates.master:67
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Warnung: rsh-server ist installiert --- möglicherweise"
+msgstr "Warnung: rsh-server ist installiert --- wahrscheinlich keine gute Idee"
 
 #. Type: note
 #. Description
@@ -189,7 +216,7 @@ msgstr ""
 #. Description
 #: ../templates.master:74
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Warnung: telnetd ist installiert --- schlechte Idee"
+msgstr "Warnung: telnetd ist installiert --- wahrscheinlich keine gute Idee"
 
 #. Type: note
 #. Description
@@ -208,33 +235,32 @@ msgstr ""
 #. Description
 #: ../templates.master:82
 msgid "Warning: you must create a new host key"
-msgstr "Warnung: Sie müssen einen neuen Host Key erzeugen"
+msgstr "Warnung: Sie müssen einen neuen Host-Schlüssel erzeugen"
 
 #. Type: note
 #. Description
 #: ../templates.master:82
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
 "the old (non-free) SSH installation."
 msgstr ""
 "Es existiert eine alte Variante von /etc/ssh/ssh_host_key welche per IDEA "
-"verschlüsselt ist. OpenSSH kann eine solche Host Key Datei nicht lesen und "
-"ssh-keygen von der alten (nicht-freien) ssh Installation kann nicht gefunden "
-"werden."
+"verschlüsselt ist. OpenSSH kann eine solche Host-Schlüssel-Datei nicht "
+"verarbeiten und ssh-keygen von der alten (nicht-freien) ssh Installation "
+"kann nicht gefunden werden."
 
 #. Type: note
 #. Description
 #: ../templates.master:82
 msgid "You will need to generate a new host key."
-msgstr ""
+msgstr "Sie müssen einen neuen Host-Schlüssel erzeugen."
 
 #. Type: boolean
 #. Description
 #: ../templates.master:92
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr ""
+msgstr "Möchten Sie /usr/lib/ssh-keysign SUID-Root installieren?"
 
 #. Type: boolean
 #. Description
@@ -243,6 +269,8 @@ msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
 msgstr ""
+"Sie haben die Möglichkeit, den ssh-keysign-Helfer mit gesetzten SUID-Bit zu "
+"installieren."
 
 #. Type: boolean
 #. Description
@@ -251,6 +279,8 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
+"Falls Sie ssh-keysign SUID installieren, können Sie die Host-basierende "
+"Authentisierung von SSH-Protokoll Version 2 verwenden."
 
 #. Type: boolean
 #. Description
@@ -259,6 +289,9 @@ msgid ""
 "If in doubt, I suggest you install it with SUID.  If it causes problems you "
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
+"Falls Sie unsicher sind, empfehle ich, mit SUID zu installieren. Falls es "
+"Probleme gibt, können Sie später Ihre Meinung ändern, indem Sie dpkg-"
+"reconfigure ssh aufrufen."
 
 #. Type: boolean
 #. Description
@@ -279,7 +312,8 @@ msgid ""
 "Normally the sshd Secure Shell Server will be run to allow remote logins via "
 "ssh."
 msgstr ""
-"Normal wird der sshd Secure Shell Server für Remote Logins per ssh gestartet."
+"Normalerweise wird der sshd Secure Shell Server für Remote Logins per "
+"sshgestartet."
 
 #. Type: boolean
 #. Description
@@ -290,14 +324,14 @@ msgid ""
 "can disable sshd here."
 msgstr ""
 "Wenn Sie nur den ssh client nutzen wollen, um sich mit anderen Rechnern zu "
-"verbinden und sich nicht per ssh in diesen Computer einloggen wollen, dann "
+"verbinden, und sich nicht per ssh in diesen Computer einloggen wollen, dann "
 "können Sie hier den sshd abschalten."
 
 #. Type: note
 #. Description
 #: ../templates.master:117
 msgid "Environment options on keys have been deprecated"
-msgstr ""
+msgstr "Umgebungs-Optionen für Schlüssel wurden missbilligt"
 
 #. Type: note
 #. Description
@@ -308,6 +342,11 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
+"Diese Version von OpenSSH deaktiviert standardmäßig die Umgebungsoption "
+"füröffentliche Schlüssel um bestimmte Angriffe (zum Beispiel über "
+"LD_PRELOAD) zu vermeiden. Falls Sie diese Option in einer authorized_keys-"
+"Datei verwenden, beachten Sie, daß die in Frage kommenden Schlüssel nicht "
+"funktionieren werden bis diese Option entfernt wurde."
 
 #. Type: note
 #. Description
@@ -317,3 +356,6 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
+"Um diese Option wieder zu reaktivieren, setzen Sie, unter Berücksichtigung "
+"der Warnung in der sshd_config(5)-Handbuchseite, \"PermitUserEnvironment yes"
+"\" in /etc/ssh/sshd_config nachdem die Aktualisierung erfolgt ist."

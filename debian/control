@@ -10,7 +10,7 @@ Package: ssh
 Architecture: any
 Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0)
 Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1)
-Suggests: ssh-askpass, xbase-clients, dnsutils
+Suggests: ssh-askpass, xbase-clients
 Provides: rsh-client
 Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
  This is the portable version of OpenSSH, a free implementation of
@@ -51,6 +51,7 @@ Section: debian-installer
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, libnss-files-udeb
+XB-Installer-Menu-Item: 999
 Description: Secure shell client for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working

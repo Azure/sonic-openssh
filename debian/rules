@@ -79,7 +79,7 @@ build-udeb-stamp:
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status
-	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh sshd ssh-keygen
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh scp sftp sshd ssh-keygen
 	touch build-udeb-stamp
 
 clean:
@@ -143,6 +143,8 @@ install: build
 	install -o root -g root -m 755 -d debian/ssh/var/run/sshd
 
 	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
+	install -m 755 build-udeb/scp debian/openssh-client-udeb/usr/bin/scp
+	install -m 755 build-udeb/sftp debian/openssh-client-udeb/usr/bin/sftp
 	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
@@ -213,6 +215,7 @@ binary-openssh-client-udeb: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
+	install -p -o root -g root -m 755 debian/openssh-client-udeb.isinstallable debian/openssh-client-udeb/DEBIAN/isinstallable
 	dh_shlibdeps
 	dh_gencontrol -- -fdebian/files~
 	dpkg-distaddfile $(CLIENT_UDEB) debian-installer optional
