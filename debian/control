@@ -29,8 +29,8 @@ Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
  .
  --------------------------------------------------------------------
  .
- In some countries, particularly Russia, Iraq, and Pakistan, it may
- be illegal to use any encryption at all without a special permit.
+ In some countries it may be illegal to use any encryption at all
+ without a special permit.
 
 Package: ssh-askpass-gnome
 Section: gnome

@@ -22,18 +22,17 @@ Description-es: Separación de privilegios
  ejecuta como root, por lo que reduce el impacto de posibles agujeros de
  seguridad en sshd.
  .
- Desafortunadamente, la separación de privilegios no interactúa
- correctamente con PAM. Cualquier módulo PAM que necesite ejecutarse como
- root (como, por ejemplo, pam_mkhomedir) y la autentificación interactiva
- PAM con teclado no funcionarán.
+ Desafortunadamente, la separación de privilegios no funciona correctamente
+ con PAM. Cualquier módulo PAM que necesite ejecutarse como root (como, por
+ ejemplo, pam_mkhomedir) y la autentificación interactiva PAM con teclado
+ no funcionarán.
  .
  La separación de privilegios está activa por defecto, por lo que si decide
  desactivarla, tiene que añadir "UsePrivilegeSeparation no" al fichero
  /etc/ssh/sshd_config.
  .
- Nota: Si utiliza un núcleo Linux de la serie 2.0, la separación de
- privilegios fallará estrepitosamente y sshd no funcionará a no ser que la
- desactive.
+ Nota: Si utiliza un núcleo Linux 2.0, la separación de privilegios fallará
+ estrepitosamente y sshd no funcionará a no ser que la desactive.
 Description-fr: Séparation des privilèges
  Cette version d'OpenSSH est livrée avec la nouvelle option de séparation
  des privilèges. Cela réduit de manière significative la quantité de code
@@ -141,10 +140,10 @@ Description-es: Activar separación de privilegios
  ejecuta como root, por lo que reduce el impacto de posibles agujeros de
  seguridad en sshd.
  .
- Desafortunadamente, la separación de privilegios no interactúa
- correctamente con PAM. Cualquier módulo PAM que necesite ejecutarse como
- root (como, por ejemplo, pam_mkhomedir) y la autentificación interactiva
- PAM con teclado no funcionarán.
+ Desafortunadamente, la separación de privilegios no funciona correctamente
+ con PAM. Cualquier módulo PAM que necesite ejecutarse como root (como, por
+ ejemplo, pam_mkhomedir) y la autentificación interactiva PAM con teclado
+ no funcionarán.
  .
  Puesto que ha elegido crear automáticamente el fichero sshd_config, puede
  decidir ahora si quiere activar la opción de separación de privilegios. A
@@ -765,7 +764,7 @@ Description-es: ¿Quiere instalar /usr/lib/ssh-keysign SUID root?
  Si hace ssh-keysign SUID, podrá usar la autentificiación basada en
  servidor de la versión 2 del protocolo SSH.
  .
- Si duda, se recomienda que lo instale SUID. Si surgen problemas puede
+ Si duda, se recomienda que lo instale SUID. Si le causa problemas puede
  cambiar de opinión posteriormente ejecutando «dpkg-reconfigure ssh».
 Description-fr: Voulez-vous que /usr/lib/ssh-keysign soit installé avec le bit SETUID activé ?
  Vous avez la possibilité d'installer ssh-keysign avec le bit SETUID
@@ -905,6 +904,16 @@ Description: Environment options on keys have been deprecated
  To re-enable this option, set "PermitUserEnvironment yes" in
  /etc/ssh/sshd_config after the upgrade is complete, taking note of the
  warning in the sshd_config(5) manual page.
+Description-es: Las opciones de entorno para las claves, en desuso
+ Esta versión de OpenSSH tiene desactivada por defecto la opción de entorno
+ para las claves públicas, para evitar ciertos ataques (por ejemplo,
+ basados en LD_PRELOAD). Si utiliza esta opción en un fichero
+ authorized_keys, las claves implicadas no funcionarán hasta que borre la
+ opción.
+ .
+ Para volver a activar esta opción, escriba "PermitUserEnvironment yes" en
+ /etc/ssh/sshd_config al terminar la actualización, teniendo en cuenta el
+ aviso de la página de manual de sshd_config(5).
 Description-fr: Les options d'environnement sur les clés sont déconseillées
  Dans cette version d'OpenSSH, l'option d'environnement est, par défaut,
  désactivée pour les clés publiques. Cela est destiné à la prévention de

@@ -1,3 +1,17 @@
+openssh (1:3.6.1p2-4) unstable; urgency=low
+
+  * getent can get just one key; no need to use grep (thanks, James Troup).
+  * Move /usr/local/bin to the front of the default path, following
+    /etc/login.defs (closes: #201150).
+  * Remove specifics of problematic countries from package description
+    (closes: #197040).
+  * Update Spanish debconf template translation (thanks, Carlos Valdivia
+    Yagüe; closes: #198456).
+  * Backport upstream patch to pass monitor signals through to child
+    (closes: #164797).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 27 Jul 2003 17:31:15 +0100
+
 openssh (1:3.6.1p2-3) unstable; urgency=low
 
   * Update French debconf template translation (thanks, Christian Perrier;

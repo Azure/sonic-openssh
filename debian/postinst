@@ -233,7 +233,7 @@ create_alternatives() {
 }
 
 setup_sshd_user() {
-	if ! getent passwd | grep -q '^sshd:'; then
+	if ! getent passwd sshd >/dev/null; then
 		adduser --quiet --system --no-create-home --home /var/run/sshd sshd
 	fi
 }
@@ -262,14 +262,14 @@ set_sshd_permissions() {
 fix_ssh_group() {
 	# Try to remove non-system group mistakenly created by 1:3.5p1-1.
 	# set_ssh_agent_permissions() below will re-create it properly.
-	if getent group | grep -q '^ssh:'; then
+	if getent group ssh >/dev/null; then
 		delgroup --quiet ssh || true
 	fi
 }
 
 
 set_ssh_agent_permissions() {
-	if ! getent group | grep -q '^ssh:'; then
+	if ! getent group ssh >/dev/null; then
 		addgroup --system --quiet ssh
 	fi
 	if ! [ -x /usr/sbin/dpkg-statoverride ] || \
