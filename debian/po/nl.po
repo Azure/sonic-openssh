@@ -370,7 +370,7 @@ msgstr ""
 #. Description
 #: ../templates.master:130
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Challenge-response-authenticatie deactiveren?"
 
 #. Type: boolean
 #. Description
@@ -383,6 +383,13 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Zo te zien is wachtwoord-authenticatie momenteel gedeactiveert in uw OpenSSH-"
+"serverconfiguratie. Om te voorkomen dat gebruikers met recente versies van "
+"OpenSSH inloggen met behulp van wachtwoorden (mogelijk door in plaats "
+"daarvan enkel publieke-sleutel authenticatie te gebruiken) dient challenge-"
+"response-authenticatie gedeactiveerd te woren. Zoniet dient u ervoor te "
+"zorgen dat uw PAM-configuratie geen Unix 'password'-bestand-authenticatie "
+"toe laat."
 
 #. Type: boolean
 #. Description
@@ -393,6 +400,10 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Wanneer u challenge-response-authenticatie deactiveerd kunnen gebruikers "
+"niet meer inloggen met behulp van wachtwoorden. Als u het geactiveerd laat "
+"(de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig) "
+"effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh."
 
 #~ msgid "Privilege separation"
 #~ msgstr "Rechtenscheiding"
