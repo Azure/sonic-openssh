@@ -570,7 +570,8 @@ is 0, indicating that these messages will not be sent to the server,
 or 300 if the
 .Cm BatchMode
 option is set.
-This option applies to protocol version 2 only.
+.Cm ProtocolKeepAlives
+is a Debian-specific compatibility alias for this option.
 .It Cm ServerAliveCountMax
 Sets the number of server alive messages (see above) which may be
 sent without
@@ -598,6 +599,10 @@ If, for example,
 .Cm ServerAliveCountMax
 is left at the default, if the server becomes unresponsive ssh
 will disconnect after approximately 45 seconds.
+This option works when using protocol version 2 only; in protocol version
+1 there is no mechanism to request a response from the server to the
+server alive messages, so disconnection is the responsibility of the TCP
+stack.
 .It Cm SetupTimeOut
 Normally,
 .Nm ssh

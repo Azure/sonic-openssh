@@ -324,12 +324,17 @@ client_global_request_reply(int type, u_int32_t seq, void *ctxt)
 static void
 server_alive_check(void)
 {
-	if (++server_alive_timeouts > options.server_alive_count_max)
-		packet_disconnect("Timeout, server not responding.");
-	packet_start(SSH2_MSG_GLOBAL_REQUEST);
-	packet_put_cstring("keepalive@openssh.com");
-	packet_put_char(1);     /* boolean: want reply */
-	packet_send();
+	if (compat20) {
+		if (++server_alive_timeouts > options.server_alive_count_max)
+			packet_disconnect("Timeout, server not responding.");
+		packet_start(SSH2_MSG_GLOBAL_REQUEST);
+		packet_put_cstring("keepalive@openssh.com");
+		packet_put_char(1);     /* boolean: want reply */
+		packet_send();
+	} else {
+		packet_send_ignore(0);
+		packet_send();
+	}
 }
 
 /*
@@ -388,7 +393,7 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
 	 * event pending.
 	 */
 
-	if (options.server_alive_interval == 0 || !compat20)
+	if (options.server_alive_interval == 0)
 		tvp = NULL;
 	else {  
 		tv.tv_sec = options.server_alive_interval;

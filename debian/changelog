@@ -19,6 +19,8 @@ openssh (1:3.8p1-1) UNRELEASED; urgency=low
   * ServerAliveInterval implemented upstream, so ProtocolKeepAlives is now a
     compatibility alias. The semantics differ slightly, though; see
     ssh_config(5) for details.
+  * Implement SSH1 support for ServerAliveInterval using SSH_MSG_IGNORE. As
+    documented in ssh_config(5), it's not as good as the SSH2 version.
   * Remove -fno-builtin-log, -DHAVE_MMAP_ANON_SHARED, and
     -D__FILE_OFFSET_BITS=64 compiler options, which are no longer necessary.
   * Update config.guess and config.sub from autotools-dev 20040105.1.
