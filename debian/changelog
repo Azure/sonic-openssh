@@ -8,6 +8,7 @@ openssh (1:3.9p1-1) UNRELEASED; urgency=low
     - Fix ssh-keyscan breakage when remote server doesn't speak SSH protocol
       (closes: #228828).
     - Fix res_query detection (closes: #242462).
+    - 'ssh -c' documentation improved (closes: #265627).
   * Pass LANG and LC_* environment variables from the client by default, and
     accept them to the server by default in new installs, although not on
     upgrade (closes: #264024).
