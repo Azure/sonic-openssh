@@ -1,25 +1,40 @@
 #
-#    Translators, if you are not familiar with the PO format, gettext
-#    documentation is worth reading, especially sections dedicated to
-#    this format, e.g. by running:
+# openssh debconf translation to spanish
+# Copyright (C) 2003 Software in the Public Interest
+# This file is distributed under the same license as the XXXX package.
+#
+# Changes:
+# - Initial translation
+#    Carlos Valdivia Yagüe <valyag@dat,etsit.upm.es>, 2003
+# - Revision
+#    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2004
+#
+#
+#  Traductores, si no conoce el formato PO, merece la pena leer la 
+#  documentación de gettext, especialmente las secciones dedicadas a este
+#  formato, por ejemplo ejecutando:
 #         info -n '(gettext)PO Files'
 #         info -n '(gettext)Header Entry'
 #
-#    Some information specific to po-debconf are available at
-#            /usr/share/doc/po-debconf/README-trans
-#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+# 
+# - El proyecto de traducción de Debian al español
+#   http://www.debian.org/intl/spanish/coordinacion
+#   especialmente las notas de traducción en
+#   http://www.debian.org/intl/spanish/notas
 #
-#    Developers do not need to manually edit POT or PO files.
-#
-# Carlos Valdivia Yagüe <valyag@dat,etsit.upm.es>, 2003
+# - La guía de traducción de po's de debconf:
+#   /usr/share/doc/po-debconf/README-trans
+#   o http://www.debian.org/intl/l10n/po-debconf/README-trans
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 3.6.1p2-9\n"
+"Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-15 15:36+0000\n"
-"PO-Revision-Date: 2003-09-20 16:40+0200\n"
-"Last-Translator: Carlos Valdivia Yagüe <valyag@dat.etsit.upm.es>\n"
+"PO-Revision-Date: 2004-01-17 17:47+0200\n"
+"Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
@@ -40,7 +55,7 @@ msgid ""
 "sshd_config."
 msgstr ""
 "La separación de privilegios está activa por defecto, por lo que si decide "
-"desactivarla, tiene que añadir \"UsePrivilegeSeparation no\" al fichero /etc/"
+"desactivarla, tiene que añadir «UsePrivilegeSeparation no» al fichero /etc/"
 "ssh/sshd_config."
 
 #. Type: boolean
@@ -72,7 +87,7 @@ msgid ""
 msgstr ""
 "Desafortunadamente, la separación de privilegios no funciona correctamente "
 "con PAM. Cualquier módulo PAM que necesite ejecutarse como root (como, por "
-"ejemplo, pam_mkhomedir) y la autentificación interactiva PAM con teclado no "
+"ejemplo, pam_mkhomedir) y la autenticación interactiva PAM con teclado no "
 "funcionarán."
 
 #. Type: boolean
@@ -106,7 +121,7 @@ msgid ""
 "any customisations you made with the old version."
 msgstr ""
 "Esta versión de OpenSSH tiene un fichero de configuración considerablemente "
-"diferente del incluido en Debian Potato, que es la versión desde la que "
+"diferente del incluido en Debian 'Potato', que es la versión desde la que "
 "parece estar actualizando. Puede crear automáticamente un nuevo fichero de "
 "configuración (/etc/ssh/sshd_config), que funcionará con la nueva versión "
 "del servidor, pero no incuirá las modificaciones que hiciera en la versión "
@@ -123,7 +138,7 @@ msgid ""
 "edit sshd_config and set it to no if you wish."
 msgstr ""
 "Además, recuerde que este nuevo fichero de configuración dirá sí en la "
-"opción 'PermitRootLogin', por lo que cualquiera que conozca la contraseña de "
+"opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña de "
 "root podrá entrar mediante ssh directamente como root. En opinión del "
 "mantenedor ésta es la opción predeterminada más adecuada (puede leer README."
 "Debian si quiere conocer más detalles), pero siempre puede editar "
@@ -157,7 +172,7 @@ msgstr ""
 "Esta versión de OpenSSH soporta la versión 2 del protocolo ssh, que es mucho "
 "más segura que la anterior. Se recomienda desactivar la versión 1, aunque "
 "funcionará más lento en máquinas modestas y puede impedir que se conecten "
-"clientes antiguos, como, por ejemplo, el incluido en \"potato\"."
+"clientes antiguos, como, por ejemplo, el incluido en «potato»."
 
 #. Type: boolean
 #. Description
@@ -224,7 +239,7 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Puede arreglarlo añadiendo \"--pidfile /var/run/sshd.pid\" a la línea 'start-"
+"Puede arreglarlo añadiendo «--pidfile /var/run/sshd.pid» a la línea 'start-"
 "stop-daemon', en la sección 'stop' del fichero."
 
 #. Type: note
@@ -263,7 +278,7 @@ msgstr "Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian."
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Aviso: tiene rsh-server instalado"
+msgstr "Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
 
 #. Type: note
 #. Description
@@ -280,7 +295,7 @@ msgstr ""
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Aviso: tiene telnetd instalado"
+msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
 
 #. Type: note
 #. Description
@@ -343,7 +358,7 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Si hace ssh-keysign SUID, podrá usar la autentificiación basada en servidor "
+"Si hace ssh-keysign SUID, podrá usar la autenticación basada en servidor "
 "de la versión 2 del protocolo SSH."
 
 #. Type: boolean
@@ -418,7 +433,7 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
-"Para volver a activar esta opción, escriba \"PermitUserEnvironment yes\" en /"
+"Para volver a activar esta opción, escriba «PermitUserEnvironment yes» en /"
 "etc/ssh/sshd_config al terminar la actualización, teniendo en cuenta el "
 "aviso de la página de manual de sshd_config(5)."
 
