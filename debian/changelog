@@ -3,9 +3,10 @@ openssh (1:3.8.1p1-9) UNRELEASED; urgency=low
   * Split the ssh binary package into openssh-client and openssh-server
     (closes: #39741). openssh-server depends on openssh-client for some
     common functionality; it didn't seem worth creating yet another package
-    for this.
-  * New transitional ssh package, depending on openssh-client and
-    openssh-server. May be removed once nothing depends on it.
+    for this. openssh-client is priority standard, openssh-server optional.
+  * New transitional ssh package, priority optional, depending on
+    openssh-client and openssh-server. May be removed once nothing depends
+    on it.
   * When upgrading from ssh to openssh-{client,server}, it's very difficult
     for the maintainer scripts to find out what version we're upgrading from
     without dodgy dpkg hackery. I've therefore taken the opportunity to move

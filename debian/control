@@ -34,6 +34,7 @@ Description: Secure shell client, an rlogin/rsh/rcp replacement
  without a special permit.
 
 Package: openssh-server
+Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0), openssh-client (= ${Source-Version})
 Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1)
@@ -61,6 +62,7 @@ Description: Secure shell server, an rshd replacement
  without a special permit.
 
 Package: ssh
+Priority: optional
 Architecture: all
 Depends: openssh-client, openssh-server
 Description: Secure shell client and server (transitional package)
