@@ -1,6 +1,6 @@
 openssh (1:3.7.1p2-1) UNRELEASED; urgency=low
 
-  * New upstream release.
+  * New upstream release (closes: #232281):
     - New PAM implementation based on that in FreeBSD. This runs PAM session
       modules before dropping privileges (closes: #132681, #150968).
     - sshd doesn't lie to PAM about invalid usernames (closes: #157078).
