@@ -25,6 +25,8 @@ Description: Secure rlogin/rsh/rcp replacement (OpenSSH)
  It is intended as a replacement for rlogin, rsh and rcp, and can be
  used to provide applications with a secure communication channel.
  .
+ This package provides both the ssh client and the sshd server.
+ .
  --------------------------------------------------------------------
  .
  In some countries, particularly Russia, Iraq, and Pakistan, it may
