@@ -121,7 +121,7 @@ forwarded X11 connection can't become attacks on X clients on the remote
 machine. However, this has some problems in implementation - notably a
 very short timeout of the untrusted cookie - breaks large numbers of
 existing setups, and generally seems immature. The Debian package
-therefore sets the default for this option to "no" (in ssh itself,
+therefore sets the default for this option to "yes" (in ssh itself,
 rather than in ssh_config).
 
 Fallback to RSH
