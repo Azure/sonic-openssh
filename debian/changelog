@@ -1,4 +1,4 @@
-openssh (1:3.8p1-3) UNRELEASED; urgency=low
+openssh (1:3.8p1-3) unstable; urgency=low
 
   * Remove deprecated ReverseMappingCheck option from newly generated
     sshd_config files (closes: #239987).
@@ -8,7 +8,7 @@ openssh (1:3.8p1-3) UNRELEASED; urgency=low
     to use them. setreuid() and setregid() will do well enough for our
     purposes (closes: #239999).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 25 Mar 2004 11:29:55 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon,  5 Apr 2004 21:23:43 +0100
 
 openssh (1:3.8p1-2) unstable; urgency=medium
 
