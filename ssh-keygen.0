@@ -82,7 +82,8 @@ DESCRIPTION
              This option allows exporting keys for use by several commercial
              SSH implementations.
 
-     -g      Use generic DNS resource record format.
+     -g      Use generic DNS format when printing fingerprint resource records
+             using the -r command.
 
      -f filename
              Specifies the filename of the key file.
@@ -156,7 +157,8 @@ DESCRIPTION
              is 3.
 
      -r hostname
-             Print DNS resource record with the specified hostname.
+             Print the SSHFP fingerprint resource record named hostname for
+             the specified public key file.
 
 MODULI GENERATION
      ssh-keygen may be used to generate groups for the Diffie-Hellman Group
@@ -257,4 +259,4 @@ AUTHORS
      created OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.5                   September 25, 1999                             4
+OpenBSD 3.6                   September 25, 1999                             4

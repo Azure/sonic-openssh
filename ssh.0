@@ -4,10 +4,10 @@ NAME
      ssh - OpenSSH SSH client (remote login program)
 
 SYNOPSIS
-     ssh [-1246AaCfgkNnqsTtVvXxY] [-b bind_address] [-c cipher_spec] [-D port]
-         [-e escape_char] [-F configfile] [-i identity_file]
+     ssh [-1246AaCfgkMNnqsTtVvXxY] [-b bind_address] [-c cipher_spec]
+         [-D port] [-e escape_char] [-F configfile] [-i identity_file]
          [-L port:host:hostport] [-l login_name] [-m mac_spec] [-o option]
-         [-p port] [-R port:host:hostport] [user@]hostname [command]
+         [-p port] [-R port:host:hostport] [-S ctl] [user@]hostname [command]
 
 DESCRIPTION
      ssh (SSH client) is a program for logging into a remote machine and for
@@ -106,9 +106,9 @@ DESCRIPTION
      tion.
 
      Protocol 2 provides additional mechanisms for confidentiality (the traf-
-     fic is encrypted using 3DES, Blowfish, CAST128 or Arcfour) and integrity
-     (hmac-md5, hmac-sha1).  Note that protocol 1 lacks a strong mechanism for
-     ensuring the integrity of the connection.
+     fic is encrypted using AES, 3DES, Blowfish, CAST128 or Arcfour) and in-
+     tegrity (hmac-md5, hmac-sha1, hmac-ripemd160).  Note that protocol 1
+     lacks a strong mechanism for ensuring the integrity of the connection.
 
    Login session and remote execution
      When the user's identity has been accepted by the server, the server ei-
@@ -154,8 +154,10 @@ DESCRIPTION
      ~B      Send a BREAK to the remote system (only useful for SSH protocol
              version 2 and if the peer supports it).
 
-     ~C      Open command line (only useful for adding port forwardings using
-             the -L and -R options).
+     ~C      Open command line.  Currently this allows the addition of port
+             forwardings using the -L and -R options (see below).  It also al-
+             lows the cancellation of existing remote port-forwardings using
+             -KR hostport.  Basic help is available, using the -h option.
 
      ~R      Request rekeying of the connection (only useful for SSH protocol
              version 2 and if the peer supports it).
@@ -206,6 +208,11 @@ DESCRIPTION
      StrictHostKeyChecking option can be used to prevent logins to machines
      whose host key is not known or has changed.
 
+     ssh can be configured to verify host identification using fingerprint re-
+     source records (SSHFP) published in DNS.  The VerifyHostKeyDNS option can
+     be used to control how DNS lookups are performed.  SSHFP resource records
+     can be generated using ssh-keygen(1).
+
      The options are as follows:
 
      -1      Forces ssh to try protocol version 1 only.
@@ -243,20 +250,27 @@ DESCRIPTION
              networks.  The default value can be set on a host-by-host basis
              in the configuration files; see the Compression option.
 
-     -c blowfish | 3des | des
-             Selects the cipher to use for encrypting the session.  3des is
-             used by default.  It is believed to be secure.  3des (triple-des)
-             is an encrypt-decrypt-encrypt triple with three different keys.
-             blowfish is a fast block cipher; it appears very secure and is
-             much faster than 3des.  des is only supported in the ssh client
-             for interoperability with legacy protocol 1 implementations that
-             do not support the 3des cipher.  Its use is strongly discouraged
-             due to cryptographic weaknesses.
-
      -c cipher_spec
-             Additionally, for protocol version 2 a comma-separated list of
-             ciphers can be specified in order of preference.  See Ciphers for
-             more information.
+             Selects the cipher specification for encrypting the session.
+
+             Protocol version 1 allows specification of a single cipher.  The
+             suported values are ``3des'', ``blowfish'' and ``des''.  3des
+             (triple-des) is an encrypt-decrypt-encrypt triple with three dif-
+             ferent keys.  It is believed to be secure.  blowfish is a fast
+             block cipher; it appears very secure and is much faster than
+             3des.  des is only supported in the ssh client for interoperabil-
+             ity with legacy protocol 1 implementations that do not support
+             the 3des cipher.  Its use is strongly discouraged due to crypto-
+             graphic weaknesses.  The default is ``3des''.
+
+             For protocol version 2 cipher_spec is a comma-separated list of
+             ciphers listed in order of preference.  The supported ciphers are
+             ``3des-cbc'', ``aes128-cbc'', ``aes192-cbc'', ``aes256-cbc'',
+             ``aes128-ctr'', ``aes192-ctr'', ``aes256-ctr'', ``arcfour'',
+             ``blowfish-cbc'', and ``cast128-cbc''.  The default is
+
+               ``aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,
+                 aes192-cbc,aes256-cbc''
 
      -D port
              Specifies a local ``dynamic'' application-level port forwarding.
@@ -324,6 +338,10 @@ DESCRIPTION
              Specifies the user to log in as on the remote machine.  This also
              may be specified on a per-host basis in the configuration file.
 
+     -M      Places the ssh client into ``master'' mode for connection shar-
+             ing.  Refer to the description of ControlMaster in ssh_config(5)
+             for details.
+
      -m mac_spec
              Additionally, for protocol version 2 a comma-separated list of
              MAC (message authentication code) algorithms can be specified in
@@ -358,7 +376,9 @@ DESCRIPTION
                    Compression
                    CompressionLevel
                    ConnectionAttempts
-                   ConnectionTimeout
+                   ConnectTimeout
+                   ControlMaster
+                   ControlPath
                    DynamicForward
                    EscapeChar
                    ForwardAgent
@@ -389,6 +409,7 @@ DESCRIPTION
                    RemoteForward
                    RhostsRSAAuthentication
                    RSAAuthentication
+                   SendEnv
                    ServerAliveInterval
                    ServerAliveCountMax
                    SmartcardDevice
@@ -418,6 +439,10 @@ DESCRIPTION
              ports can be forwarded only when logging in as root on the remote
              machine.  IPv6 addresses can be specified with an alternative
              syntax: port/host/hostport.
+
+     -S ctl  Specifies the location of a control socket for connection shar-
+             ing.  Refer to the description of ControlPath and ControlMaster
+             in ssh_config(5) for details.
 
      -s      May be used to request invocation of a subsystem on the remote
              system.  Subsystems are a feature of the SSH2 protocol which fa-
@@ -549,7 +574,9 @@ FILES
 
      $HOME/.ssh/config
              This is the per-user configuration file.  The file format and
-             configuration options are described in ssh_config(5).
+             configuration options are described in ssh_config(5).  Because of
+             the potential for abuse, this file must have strict permissions:
+             read/write for the user, and not accessible by others.
 
      $HOME/.ssh/authorized_keys
              Lists the public keys (RSA/DSA) that can be used for logging in
@@ -666,4 +693,4 @@ AUTHORS
      created OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.5                   September 25, 1999                            11
+OpenBSD 3.6                   September 25, 1999                            11

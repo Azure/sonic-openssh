@@ -60,12 +60,16 @@ DESCRIPTION
      can thus use the privileges given by the identities anywhere in the net-
      work in a secure way.
 
-     There are two main ways to get an agent set up: Either the agent starts a
-     new subcommand into which some environment variables are exported, or the
-     agent prints the needed shell commands (either sh(1) or csh(1) syntax can
-     be generated) which can be evalled in the calling shell.  Later ssh(1)
-     looks at these variables and uses them to establish a connection to the
-     agent.
+     There are two main ways to get an agent set up: The first is that the
+     agent starts a new subcommand into which some environment variables are
+     exported, eg ssh-agent xterm &.  The second is that the agent prints the
+     needed shell commands (either sh(1) or csh(1) syntax can be generated)
+     which can be evalled in the calling shell, eg eval `ssh-agent -s` for
+     Bourne-type shells such as sh(1) or ksh(1) and eval `ssh-agent -c` for
+     csh(1) and derivatives.
+
+     Later ssh(1) looks at these variables and uses them to establish a con-
+     nection to the agent.
 
      The agent will never send a private key over its request channel.  In-
      stead, operations that require a private key will be performed by the
@@ -111,4 +115,4 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.5                   September 25, 1999                             2
+OpenBSD 3.6                   September 25, 1999                             2

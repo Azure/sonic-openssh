@@ -72,7 +72,9 @@ DESCRIPTION
                    Compression
                    CompressionLevel
                    ConnectionAttempts
-                   ConnectionTimeout
+                   ConnectTimeout
+                   ControlMaster
+                   ControlPath
                    GlobalKnownHostsFile
                    GSSAPIAuthentication
                    GSSAPIDelegateCredentials
@@ -95,6 +97,7 @@ DESCRIPTION
                    PubkeyAuthentication
                    RhostsRSAAuthentication
                    RSAAuthentication
+                   SendEnv
                    ServerAliveInterval
                    ServerAliveCountMax
                    SmartcardDevice
@@ -173,7 +176,15 @@ INTERACTIVE COMMANDS
                  Display remote directory listing of either path or current
                  directory if path is not specified.  If the -l flag is speci-
                  fied, then display additional details including permissions
-                 and ownership information.
+                 and ownership information.  The -n flag will produce a long
+                 listing with user and group information presented numerical-
+                 ly.
+
+                 By default, ls listings are sorted in lexicographical order.
+                 This may be changed by specifying the -S (sort by file size),
+                 -t (sort by last modification time), or -f (don't sort at
+                 all) flags.  Additionally, the sort order may be reversed us-
+                 ing the -r flag.
 
      lumask umask
                  Set local umask to umask.
@@ -218,4 +229,4 @@ SEE ALSO
      T. Ylonen and S. Lehtinen, SSH File Transfer Protocol, draft-ietf-secsh-
      filexfer-00.txt, January 2001, work in progress material.
 
-OpenBSD 3.5                    February 4, 2001                              4
+OpenBSD 3.6                    February 4, 2001                              4

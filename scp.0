@@ -67,7 +67,9 @@ DESCRIPTION
                    Compression
                    CompressionLevel
                    ConnectionAttempts
-                   ConnectionTimeout
+                   ConnectTimeout
+                   ControlMaster
+                   ControlPath
                    GlobalKnownHostsFile
                    GSSAPIAuthentication
                    GSSAPIDelegateCredentials
@@ -90,6 +92,7 @@ DESCRIPTION
                    PubkeyAuthentication
                    RhostsRSAAuthentication
                    RSAAuthentication
+                   SendEnv
                    ServerAliveInterval
                    ServerAliveCountMax
                    SmartcardDevice
@@ -136,4 +139,4 @@ AUTHORS
      Timo Rinne <tri@iki.fi>
      Tatu Ylonen <ylo@cs.hut.fi>
 
-OpenBSD 3.5                   September 25, 1999                             3
+OpenBSD 3.6                   September 25, 1999                             3
