@@ -11,10 +11,30 @@ ssh that is going to make it into Debian proper, being the only one
 that complies with the Debian Free Software Guidelines.
 
 If you were expecting to get the non-free version of ssh (1.2.27 or
-whatever) when you installed this package, please install ssh-nonfree
-instead, which is what we're now calling the non-free version.
+whatever) when you installed this package, then you're out of luck, as
+Debian don't ship it.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Privilege Separation
+--------------------
+
+As of 3.3, openssh has employed privilege separation to reduce the
+quantity of code that runs as root, thereby reducing the impact of
+some security holes in sshd.
+
+Unfortunately, privilege separation interacts badly with PAM. Any PAM
+session modules that need to run as root (pam_mkhomedir, for example)
+will fail, and PAM keyboard-interactive authentication won't work.
+
+Privilege separation is turned on by default, so if you decide you
+want it turned off, you need to add "UsePrivilegeSeparation no" to
+/etc/ssh/sshd_config
+
+NB! If you are running a 2.0 series Linux kernel, then privilege
+separation will not work at all, and your sshd will fail to start
+unless you explicity turn privilege separation off.
+
 
 PermitRootLogin set to yes
 --------------------------
