@@ -4,6 +4,9 @@ openssh (1:3.8p1-3) UNRELEASED; urgency=low
     sshd_config files (closes: #239987).
   * Build everything apart from contrib in a subdirectory, to allow for
     multiple builds.
+  * Some older kernels are missing setresuid() and setresgid(), so don't try
+    to use them. setreuid() and setregid() will do well enough for our
+    purposes (closes: #239999).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 25 Mar 2004 11:29:55 +0000
 

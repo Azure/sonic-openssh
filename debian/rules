@@ -47,6 +47,8 @@ build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
 	cd build-deb && ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
+	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
+	perl -pi -e 's/.*#undef (BROKEN_SETRES[UG]ID).*/#define $$1 1/' build-deb/config.h
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
