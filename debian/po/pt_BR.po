@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh_3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-15 15:36+0000\n"
+"POT-Creation-Date: 2004-03-06 17:54+0000\n"
 "PO-Revision-Date: 2003-11-09 16:29-0300\n"
 "Last-Translator: André Luís Lopes <andrelop@debian.org>\n"
 "Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
@@ -23,79 +23,15 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: note
-#. Description
-#: ../templates.master:3
-msgid "Privilege separation"
-msgstr "Separação de Previlégios"
-
-#. Type: note
-#. Description
-#: ../templates.master:3
-msgid ""
-"Privilege separation is turned on by default, so if you decide you want it "
-"turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
-"sshd_config."
-msgstr ""
-"A separação de previlégios está habilitado por padrão, portanto caso você "
-"decida que deseja desabilitá-la você precisará adicionar a linha "
-"\"UsePrivilegeSeparation no\" ao arquivo /etc/ssh/sshd_config."
-
 #. Type: boolean
 #. Description
-#: ../templates.master:19
-msgid "Enable Privilege separation"
-msgstr "Habilitar Separação de Privilégios"
-
-#. Type: boolean
-#. Description
-#: ../templates.master:19
-msgid ""
-"This version of OpenSSH contains the new privilege separation option. This "
-"significantly reduces the quantity of code that runs as root, and therefore "
-"reduces the impact of security holes in sshd."
-msgstr ""
-"Esta versão do OpenSSH contém a nova opção de separação de privilégios. Esta "
-"opção reduz significativamente a quantidade de código que é executada como "
-"root e portanto reduz o impacto de falhas de segurança no sshd."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:19
-msgid ""
-"Unfortunately, privilege separation interacts badly with PAM. Any PAM "
-"session modules that need to run as root (pam_mkhomedir, for example) will "
-"fail, and PAM keyboard-interactive authentication won't work."
-msgstr ""
-"Infelizmente, a separação de privilégios interage de maneira ruim com o PAM. "
-"Quaisquer módulos de sessão PAM que precisem ser executados como root "
-"(pam_mkhomedir, por exemplo) irão falhar e autenticação interativa com "
-"teclado do PAM não funcionará."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:19
-msgid ""
-"Since you've opted to have me generate an sshd_config file for you, you can "
-"choose whether or not to have privilege separation turned on or not. Unless "
-"you know you need to use PAM features that won't work with this option, you "
-"should enable it."
-msgstr ""
-"Uma vez que você optou por permitir que o debconf gere um arquivo "
-"sshd_config para você, é possível escolher se você deseja ter ou não o "
-"recurso de separação de privilégios habilitado. A menos que você saiba que "
-"utiliza recursos PAM que não funcionarão com esta opção habilitada, você "
-"deverá habilitar esse recurso."
-
-#. Type: boolean
-#. Description
-#: ../templates.master:36
+#: ../templates.master:4
 msgid "Generate new configuration file"
 msgstr "Gerar novo arquivo de configuração"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:36
+#: ../templates.master:4
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -113,7 +49,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:36
+#: ../templates.master:4
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -132,7 +68,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:36
+#: ../templates.master:4
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
@@ -142,13 +78,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:55
+#: ../templates.master:23
 msgid "Allow SSH protocol 2 only"
 msgstr "Permitir somente protocolo SSH versão 2"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:55
+#: ../templates.master:23
 msgid ""
 "This version of OpenSSH supports version 2 of the ssh protocol, which is "
 "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
@@ -164,7 +100,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:55
+#: ../templates.master:23
 msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
@@ -175,7 +111,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:55
+#: ../templates.master:23
 msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
@@ -186,13 +122,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:69
+#: ../templates.master:37
 msgid "ssh2 keys merged in configuration files"
 msgstr "Chaves ssh2 incluídas nos arquivos de configuração"
 
 #. Type: note
 #. Description
-#: ../templates.master:69
+#: ../templates.master:37
 msgid ""
 "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
 "keys. This means the authorized_keys2 and known_hosts2 files are no longer "
@@ -205,13 +141,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:78
+#: ../templates.master:46
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Deseja continuar (e arriscar acabar com sessões ssh ativas) ?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:78
+#: ../templates.master:46
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -223,7 +159,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:78
+#: ../templates.master:46
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -233,13 +169,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:88
+#: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "NOTA: Encaminhamento de X11 e Autorização desabilitados por padrão."
 
 #. Type: note
 #. Description
-#: ../templates.master:88
+#: ../templates.master:56
 msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
@@ -249,7 +185,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:88
+#: ../templates.master:56
 msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
@@ -259,20 +195,20 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:88
+#: ../templates.master:56
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr ""
 "Maiores detalhes podem ser encontrados em /usr/share/doc/ssh/README.Debian."
 
 #. Type: note
 #. Description
-#: ../templates.master:99
+#: ../templates.master:67
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Aviso: rsh-server está instalado --- provavelmente não é uma boa idéia"
 
 #. Type: note
 #. Description
-#: ../templates.master:99
+#: ../templates.master:67
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -283,13 +219,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:106
+#: ../templates.master:74
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: telnetd está instalado --- provavelmente não é uma boa idéia"
 
 #. Type: note
 #. Description
-#: ../templates.master:106
+#: ../templates.master:74
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -303,13 +239,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:114
+#: ../templates.master:82
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: você deve criar uma nova host key"
 
 #. Type: note
 #. Description
-#: ../templates.master:114
+#: ../templates.master:82
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -321,19 +257,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:114
+#: ../templates.master:82
 msgid "You will need to generate a new host key."
 msgstr "Você precisará gerar uma nova host key."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:124
+#: ../templates.master:92
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
 msgstr "Deseja que que /usr/lib/ssh-keysign seja instalado SUID root ?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:124
+#: ../templates.master:92
 msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
@@ -343,7 +279,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:124
+#: ../templates.master:92
 msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
@@ -353,7 +289,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:124
+#: ../templates.master:92
 msgid ""
 "If in doubt, I suggest you install it with SUID.  If it causes problems you "
 "can change your mind later by running:   dpkg-reconfigure ssh"
@@ -364,19 +300,19 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:137
+#: ../templates.master:105
 msgid "Do you want to run the sshd server?"
 msgstr "Você deseja executar o servidor sshd ?"
 
 #. Type: boolean
 #. Description
-#: ../templates.master:137
+#: ../templates.master:105
 msgid "This package contains both the ssh client, and the sshd server."
 msgstr "Este pacote contém ambos o cliente ssh e o servidor sshd."
 
 #. Type: boolean
 #. Description
-#: ../templates.master:137
+#: ../templates.master:105
 msgid ""
 "Normally the sshd Secure Shell Server will be run to allow remote logins via "
 "ssh."
@@ -386,7 +322,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../templates.master:137
+#: ../templates.master:105
 msgid ""
 "If you are only interested in using the ssh client for outbound connections "
 "on this machine, and don't want to log into it at all using ssh, then you "
@@ -398,13 +334,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:149
+#: ../templates.master:117
 msgid "Environment options on keys have been deprecated"
 msgstr "Opções ed ambiente sobre chaves estão obsoletas"
 
 #. Type: note
 #. Description
-#: ../templates.master:149
+#: ../templates.master:117
 msgid ""
 "This version of OpenSSH disables the environment option for public keys by "
 "default, in order to avoid certain attacks (for example, LD_PRELOAD). If you "
@@ -419,7 +355,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../templates.master:149
+#: ../templates.master:117
 msgid ""
 "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
 "sshd_config after the upgrade is complete, taking note of the warning in the "
@@ -428,6 +364,53 @@ msgstr ""
 "Para reabilitar esta opção, defina a opção \"PermitUserEnvironment yes\" no "
 "arquivo /et/ssh/sshd_config depois da a atualização terminar, atentando para "
 "o aviso na página de manual do sshd_config(5)."
+
+#~ msgid "Privilege separation"
+#~ msgstr "Separação de Previlégios"
+
+#~ msgid ""
+#~ "Privilege separation is turned on by default, so if you decide you want "
+#~ "it turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
+#~ "sshd_config."
+#~ msgstr ""
+#~ "A separação de previlégios está habilitado por padrão, portanto caso você "
+#~ "decida que deseja desabilitá-la você precisará adicionar a linha "
+#~ "\"UsePrivilegeSeparation no\" ao arquivo /etc/ssh/sshd_config."
+
+#~ msgid "Enable Privilege separation"
+#~ msgstr "Habilitar Separação de Privilégios"
+
+#~ msgid ""
+#~ "This version of OpenSSH contains the new privilege separation option. "
+#~ "This significantly reduces the quantity of code that runs as root, and "
+#~ "therefore reduces the impact of security holes in sshd."
+#~ msgstr ""
+#~ "Esta versão do OpenSSH contém a nova opção de separação de privilégios. "
+#~ "Esta opção reduz significativamente a quantidade de código que é "
+#~ "executada como root e portanto reduz o impacto de falhas de segurança no "
+#~ "sshd."
+
+#~ msgid ""
+#~ "Unfortunately, privilege separation interacts badly with PAM. Any PAM "
+#~ "session modules that need to run as root (pam_mkhomedir, for example) "
+#~ "will fail, and PAM keyboard-interactive authentication won't work."
+#~ msgstr ""
+#~ "Infelizmente, a separação de privilégios interage de maneira ruim com o "
+#~ "PAM. Quaisquer módulos de sessão PAM que precisem ser executados como "
+#~ "root (pam_mkhomedir, por exemplo) irão falhar e autenticação interativa "
+#~ "com teclado do PAM não funcionará."
+
+#~ msgid ""
+#~ "Since you've opted to have me generate an sshd_config file for you, you "
+#~ "can choose whether or not to have privilege separation turned on or not. "
+#~ "Unless you know you need to use PAM features that won't work with this "
+#~ "option, you should enable it."
+#~ msgstr ""
+#~ "Uma vez que você optou por permitir que o debconf gere um arquivo "
+#~ "sshd_config para você, é possível escolher se você deseja ter ou não o "
+#~ "recurso de separação de privilégios habilitado. A menos que você saiba "
+#~ "que utiliza recursos PAM que não funcionarão com esta opção habilitada, "
+#~ "você deverá habilitar esse recurso."
 
 #~ msgid ""
 #~ "NB! If you are running a 2.0 series Linux kernel, then privilege "

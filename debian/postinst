@@ -110,20 +110,10 @@ HostKey /etc/ssh/ssh_host_dsa_key
 EOF
 fi
 
-db_get ssh/privsep_ask
-if [ "$RET" = "false" ]; then
-    cat <<EOF >> /etc/ssh/sshd_config
-#Explicitly set PrivSep off, as requested
-UsePrivilegeSeparation no
-EOF
-else
 	cat <<EOF >> /etc/ssh/sshd_config
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
-EOF
-fi
 
-	cat <<EOF >> /etc/ssh/sshd_config
 # Lifetime and size of ephemeral version 1 server key
 KeyRegenerationInterval 3600
 ServerKeyBits 768

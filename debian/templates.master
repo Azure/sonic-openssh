@@ -1,35 +1,3 @@
-Template: ssh/privsep_tell
-Type: note
-_Description: Privilege separation
- This version of OpenSSH contains the new privilege separation option. This
- significantly reduces the quantity of code that runs as root, and
- therefore reduces the impact of security holes in sshd.
- .
- Unfortunately, privilege separation interacts badly with PAM. Any PAM
- session modules that need to run as root (pam_mkhomedir, for example) will
- fail, and PAM keyboard-interactive authentication won't work.
- .
- Privilege separation is turned on by default, so if you decide you want it
- turned off, you need to add "UsePrivilegeSeparation no" to
- /etc/ssh/sshd_config.
-
-Template: ssh/privsep_ask
-Type: boolean
-Default: true
-_Description: Enable Privilege separation
- This version of OpenSSH contains the new privilege separation option. This
- significantly reduces the quantity of code that runs as root, and
- therefore reduces the impact of security holes in sshd.
- .
- Unfortunately, privilege separation interacts badly with PAM. Any PAM
- session modules that need to run as root (pam_mkhomedir, for example) will
- fail, and PAM keyboard-interactive authentication won't work.
- .
- Since you've opted to have me generate an sshd_config file for you, you
- can choose whether or not to have privilege separation turned on or not.
- Unless you know you need to use PAM features that won't work with this
- option, you should enable it.
-
 Template: ssh/new_config
 Type: boolean
 Default: true

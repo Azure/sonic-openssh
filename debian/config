@@ -43,12 +43,8 @@ then
 	db_get ssh/new_config
 	if [ "$RET" = "true" ];
 	then db_input medium ssh/protocol2_only ||true
-	     db_input high ssh/privsep_ask ||true
-	else db_input high ssh/privsep_tell ||true
 	fi
-    else db_input high ssh/privsep_tell ||true
     fi
-else db_input high ssh/privsep_tell ||true
 fi 
 
 db_input medium ssh/SUID_client || true
