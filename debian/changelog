@@ -10,6 +10,11 @@ openssh (1:3.6.1p2-10) UNRELEASED; urgency=low
     closes: #215372).
   * Update config.guess and config.sub from autotools-dev 20031007.1
     (closes: #217696).
+  * Implement New World Order for PAM configuration, including
+    /etc/pam.d/common-* from /etc/pam.d/ssh (closes: #212959).
+    - To backport this release to woody, you need to set DEB_BUILD_SSH_WOODY
+      in your environment. See README.Debian.
+  * Add more commentary to /etc/pam.d/ssh.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 15 Nov 2003 14:07:29 +0000
 

@@ -8,7 +8,7 @@ Uploaders: Colin Watson <cjwatson@debian.org>
 
 Package: ssh
 Architecture: any
-Depends: ${shlibs:Depends}, ${debconf-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9)
+Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9)
 Conflicts: ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1)
 Suggests: ssh-askpass, xbase-clients, dpkg (>=1.8.3.1), dnsutils
 Provides: rsh-client
