@@ -1,11 +1,11 @@
-openssh (1:3.8.1p1-8.sarge.3) UNRELEASED; urgency=low
+openssh (1:3.8.1p1-8.sarge.3) unstable; urgency=low
 
   * Enable threading for PAM, on Sam Hartman's advice (closes: #278394).
   * debconf template translations:
     - Update Dutch (thanks, cobaco; closes: #278715).
   * Correct README.Debian's ForwardX11Trusted description (closes: #280190).
 
- -- Colin Watson <cjwatson@debian.org>  Mon,  1 Nov 2004 18:11:07 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 12 Nov 2004 10:31:12 +0000
 
 openssh (1:3.8.1p1-8.sarge.2) unstable; urgency=low
 
