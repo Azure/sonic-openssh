@@ -147,7 +147,8 @@ binary-indep: build install
 	# nothing to do
 
 # Build architecture-dependent files here.
-binary-arch: binary-ssh binary-openssh-client-udeb binary-openssh-server-udeb
+binary-arch: binary-ssh binary-ssh-askpass-gnome
+binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
 
 binary-ssh: DH_OPTIONS=-pssh
 binary-ssh: build install
@@ -185,6 +186,21 @@ endif
 	dh_md5sums
 	dh_builddeb
 
+binary-ssh-askpass-gnome: DH_OPTIONS=-pssh-askpass-gnome
+binary-ssh-askpass-gnome: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installchangelogs ChangeLog
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
 binary-openssh-client-udeb: DH_OPTIONS=-popenssh-client-udeb
 binary-openssh-client-udeb: build install
 	dh_testdir
@@ -214,5 +230,5 @@ binary-openssh-server-udeb: build install
 binary: binary-indep binary-arch
 
 .PHONY: build clean binary-indep binary-arch binary install
-.PHONY: build-deb build-udeb binary-ssh
+.PHONY: build-deb build-udeb binary-ssh binary-ssh-askpass-gnome
 .PHONY: binary-openssh-client-udeb binary-openssh-server-udeb
