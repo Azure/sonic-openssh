@@ -64,7 +64,7 @@ create_sshdconfig() {
 	    fi
 	fi
 
-	#Preserve old sshd_config before generating a new on
+	#Preserve old sshd_config before generating a new one
 	if [ -e /etc/ssh/sshd_config ] ; then 
 	    mv /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
 	fi

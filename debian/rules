@@ -83,6 +83,7 @@ install: build
 
 	install -m 755 contrib/ssh-copy-id debian/tmp/usr/bin/ssh-copy-id
 	install -m 644 -c contrib/ssh-copy-id.1 debian/tmp/usr/share/man/man1/ssh-copy-id.1
+	install -m 644 debian/moduli.5 debian/tmp/usr/share/man/man5/moduli.5
 
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \

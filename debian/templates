@@ -45,11 +45,11 @@ Description-fr: Séparation des privilèges
  super-utilisateur (pam_mkhomedir, par exemple) ne s'exécuteront pas, et
  l'authentification interactive au clavier ne fonctionnera pas.
  .
- La séparation des privilèges est activée par défaut ; si vous souhaitez la
+ La séparation des privilèges est activée par défaut ; si vous souhaitez la
  désactiver, vous devez ajouter « UsePrivilegeSeparation no » dans
  /etc/ssh/sshd_config.
  .
- NB ! Si vous avez un noyau Linux de la série des 2.0, la séparation des
+ N. B. ! Si vous avez un noyau Linux de la série des 2.0, la séparation des
  privilèges ne fonctionne pas, et votre démon sshd ne se lancera que si
  vous avez explicitement désactivé la séparation des privilèges.
 Description-ja: ÆÃ¸¢¤ÎÊ¬Î¥
@@ -374,11 +374,11 @@ Description-es: Permitir sólo la versión 2 del protocolo SSH
  .
  Si más tarde cambia de opinión, el fichero README.Debian contiene
  instrucciones sobre cómo modificar en el fichero sshd_config.
-Description-fr: Permettre seulement la version 2 du protocole SSH
+Description-fr: Autoriser la version 2 du protocole SSH uniquement
  Cette version d'OpenSSH connaît la version 2 du protocole ssh, qui est
  bien plus sûre. Désactiver ssh 1 est une bonne chose, cependant cela peut
  ralentir les machines peu puissantes et pourrait empêcher ceux qui
- utilisent des vieilles versions de la partie cliente de se connecter (le
+ utilisent de vieilles versions de la partie cliente de se connecter (le
  client ssh de la distribution Debian « Potato » en fait partie).
  .
  De plus, les clés utilisées par la version 1 du protocole sont différentes
@@ -498,9 +498,10 @@ Description-es: ¿Desea continuar, aún a riesgo de matar las sesiones ssh activas
  Puede arreglarlo añadiendo "--pidfile /var/run/sshd.pid" a la línea
  'start-stop-daemon', en la sección 'stop' del fichero.
 Description-fr: Voulez-vous continuer (et risquer de rompre les sessions ssh actives) ?
- Il est probable que la version de /etc/init.d/ssh installée en ce moment
- tue toutes les instances de sshd en cours. En cas de mise à jour par ssh,
- ça serait une mauvaise idée.
+ La version de /etc/init.d/ssh que vous venez d'installer va
+ vraisemblablement tuer toutes les instances de sshd en cours. Si vous
+ étiez en train de faire cette mise à niveau à l'aide de ssh, ce serait
+ regrettable.
  .
  Vous pouvez corriger cela en ajoutant dans /etc/init.d/ssh « --pidfile
  /var/run/sshd.pid » à la ligne « start-stop-daemon » dans la section
@@ -568,8 +569,7 @@ Description-fr: NOTE : suivi de session X11 et d'agent d'autorisation désactivés
  confiance, soit dans un des fichiers de configuration, soit avec l'option
  -X de la ligne de commande.
  .
- Plus d'informations sont disponibles dans
- /usr/share/doc/ssh/README.Debian.
+ Vous trouverez plus d'informations dans /usr/share/doc/ssh/README.Debian.
 Description-ja: Ãí°Õ: X11 ¤ÈÇ§¾Ú¤Î¥Õ¥©¥ï¡¼¥Ç¥£¥ó¥°¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¶Ø»ß¤µ¤ì¤Þ¤¹
  ¥»¥­¥å¥ê¥Æ¥£¾å¤ÎÍýÍ³¤«¤é¡¢Debian ¤Î ssh ¤Ç¤Ï ForwardX11 ¤È ForwardAgent
  ¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡Öoff¡×¤ËÀßÄê¤µ¤ì¤Þ¤¹¡£
@@ -776,7 +776,7 @@ Description-fr: Voulez-vous que /usr/lib/ssh-keysign soit installé avec le bit S
  protocole SSH.
  .
  Dans le doute, je vous suggère de l'installer avec le bit SETUID activé.
- Si cela vous cause des problèmes, vous pourrez revenir sur votre décision
+ Si cela vous pose des problèmes, vous pourrez revenir sur votre décision
  avec « dpkg-reconfigure ssh ».
 Description-ja: /usr/bin/ssh-keysign ¤ò SUID root ¤Ç¥¤¥ó¥¹¥È¡¼¥ë¤·¤Þ¤¹¤«?
  ssh-keysign ¥Ø¥ë¥Ñ¡¼¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ëºÝ¡¢SUID ¥Ó¥Ã¥È¤òÀßÄê¤¹¤ë¤«
@@ -905,6 +905,16 @@ Description: Environment options on keys have been deprecated
  To re-enable this option, set "PermitUserEnvironment yes" in
  /etc/ssh/sshd_config after the upgrade is complete, taking note of the
  warning in the sshd_config(5) manual page.
+Description-fr: Les options d'environnement sur les clés sont déconseillées
+ Dans cette version d'OpenSSH, l'option d'environnement est, par défaut,
+ désactivée pour les clés publiques. Cela est destiné à la prévention de
+ certaines attaques (par exemple, LD_PRELOAD). Si vous utilisez cette
+ option dans un fichier « authorized_keys », sachez que les clés concernées
+ ne fonctionneront plus tant que l'option ne sera pas retirée.
+ .
+ Pour la réactiver, veuillez indiquer «PermitUserEnvironment yes » dans
+ /etc/ssh/sshd_config lorsque la mise à niveau est terminée. Veuillez tenir
+ compte de l'avertissement donné dans la page de manuel sshd_config(5).
 Description-ja: ¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ÏÌµ¸ú¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿
  ËÜ¥Ð¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¸ø³«¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ò¥Ç¥Õ¥©¥ë¥È¤Ç
  Ìµ¸ú¤ËÀßÄê¤·¤Æ¤¤¤Þ¤¹¡£LD_PRELOAD ¤Ê¤É¤Î¹¶·â¤òÈò¤±¤ë¤¿¤á¤Ç¤¹¡£ ¤â¤·

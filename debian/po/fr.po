@@ -11,14 +11,13 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssh 3.6.1p2-2\n"
 "POT-Creation-Date: 2003-05-18 03:08+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2003-05-22 10:34+0200\n"
+"Last-Translator: Denis Barbier <barbier@debian.org>\n"
+"Language-Team: French <Debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +34,7 @@ msgid ""
 "turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
 "sshd_config."
 msgstr ""
-"La séparation des privilèges est activée par défaut ; si vous souhaitez la "
+"La séparation des privilèges est activée par défaut ; si vous souhaitez la "
 "désactiver, vous devez ajouter « UsePrivilegeSeparation no » dans /etc/ssh/"
 "sshd_config."
 
@@ -46,7 +45,7 @@ msgid ""
 "will not work at all, and your sshd will fail to start unless you explicitly "
 "turn privilege separation off."
 msgstr ""
-"NB ! Si vous avez un noyau Linux de la série des 2.0, la séparation des "
+"N. B. ! Si vous avez un noyau Linux de la série des 2.0, la séparation des "
 "privilèges ne fonctionne pas, et votre démon sshd ne se lancera que si vous "
 "avez explicitement désactivé la séparation des privilèges."
 
@@ -145,7 +144,7 @@ msgstr ""
 #. Description
 #: ../templates:60
 msgid "Allow SSH protocol 2 only"
-msgstr "Permettre seulement la version 2 du protocole SSH"
+msgstr "Autoriser la version 2 du protocole SSH uniquement"
 
 #. Description
 #: ../templates:60
@@ -158,7 +157,7 @@ msgstr ""
 "Cette version d'OpenSSH connaît la version 2 du protocole ssh, qui est bien "
 "plus sûre. Désactiver ssh 1 est une bonne chose, cependant cela peut "
 "ralentir les machines peu puissantes et pourrait empêcher ceux qui utilisent "
-"des vieilles versions de la partie cliente de se connecter (le client ssh de "
+"de vieilles versions de la partie cliente de se connecter (le client ssh de "
 "la distribution Debian « Potato » en fait partie)."
 
 #. Description
@@ -211,9 +210,9 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"Il est probable que la version de /etc/init.d/ssh installée en ce moment tue "
-"toutes les instances de sshd en cours. En cas de mise à jour par ssh, ça "
-"serait une mauvaise idée."
+"La version de /etc/init.d/ssh que vous venez d'installer va "
+"vraisemblablement tuer toutes les instances de sshd en cours. Si vous étiez "
+"en train de faire cette mise à niveau à l'aide de ssh, ce serait regrettable."
 
 #. Description
 #: ../templates:83
@@ -254,7 +253,7 @@ msgstr ""
 #: ../templates:93
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr ""
-"Plus d'informations sont disponibles dans /usr/share/doc/ssh/README.Debian."
+"Vous trouverez plus d'informations dans /usr/share/doc/ssh/README.Debian."
 
 #. Description
 #: ../templates:104
@@ -345,7 +344,7 @@ msgid ""
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
 "Dans le doute, je vous suggère de l'installer avec le bit SETUID activé. Si "
-"cela vous cause des problèmes, vous pourrez revenir sur votre décision avec "
+"cela vous pose des problèmes, vous pourrez revenir sur votre décision avec "
 "« dpkg-reconfigure ssh »."
 
 #. Description
@@ -381,7 +380,7 @@ msgstr ""
 #. Description
 #: ../templates:154
 msgid "Environment options on keys have been deprecated"
-msgstr ""
+msgstr "Les options d'environnement sur les clés sont déconseillées"
 
 #. Description
 #: ../templates:154
@@ -391,6 +390,11 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
+"Dans cette version d'OpenSSH, l'option d'environnement est, par défaut, "
+"désactivée pour les clés publiques. Cela est destiné à la prévention de "
+"certaines attaques (par exemple, LD_PRELOAD). Si vous utilisez cette option "
+"dans un fichier « authorized_keys », sachez que les clés concernées ne "
+"fonctionneront plus tant que l'option ne sera pas retirée."
 
 #. Description
 #: ../templates:154
@@ -399,3 +403,6 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
+"Pour la réactiver, veuillez indiquer «PermitUserEnvironment yes » dans /etc/"
+"ssh/sshd_config lorsque la mise à niveau est terminée. Veuillez tenir compte "
+"de l'avertissement donné dans la page de manuel sshd_config(5)."

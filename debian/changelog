@@ -1,3 +1,14 @@
+openssh (1:3.6.1p2-3) unstable; urgency=low
+
+  * Update French debconf template translation (thanks, Christian Perrier;
+    closes: #194323).
+  * Version the adduser dependency for --no-create-home (closes: #195756).
+  * Add a version of moduli(5), namely revision 1.7 of
+    http://www.openbsd.org/cgi-bin/cvsweb/src/share/man/man5/moduli.5 with
+    '/etc/moduli' changed to '/etc/ssh/moduli' throughout (closes: #196061).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  9 Jun 2003 02:51:35 +0100
+
 openssh (1:3.6.1p2-2) unstable; urgency=low
 
   * Force /etc/default/ssh to be non-executable, since dpkg apparently
