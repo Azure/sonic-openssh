@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-15 15:36+0000\n"
-"PO-Revision-Date: 2003-09-11 13:11+0900\n"
+"PO-Revision-Date: 2003-09-24 09:32+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -73,16 +73,15 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.master:19
-#, fuzzy
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
 "choose whether or not to have privilege separation turned on or not. Unless "
 "you know you need to use PAM features that won't work with this option, you "
 "should enable it."
 msgstr ""
-"sshd_config ファイルを自動生成することを選択したので、 ここで特権分離を有効に"
-"するかしないかを選択できます。PAM の機能のうち特権分離と共存できない機能を使"
-"いたい場合以外は、「はい」を選ぶべきです。"
+"sshd_config ファイルを生成することを選択したので、ここで特権分離を有効にする"
+"かしないかを選択できます。この選択で動作しない PAM 機能を使いたい場合以外は、"
+"「はい」を選ぶべきです。"
 
 #. Type: boolean
 #. Description
