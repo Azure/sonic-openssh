@@ -1,3 +1,5 @@
+# translation of fi.po to Finnish
+# openssh translation
 #
 #    Translators, if you are not familiar with the PO format, gettext
 #    documentation is worth reading, especially sections dedicated to
@@ -11,23 +13,24 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
+# Matti P√∂ll√§ <mpo@iki.fi>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 3.8.1p1-8.sarge.1\n"
+"Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-10-06 14:06+0100\n"
-"PO-Revision-Date: 2004-10-13 22:39+0200\n"
-"Last-Translator: Denis Barbier <barbier@linuxfr.org>\n"
-"Language-Team: French <Debian-l10n-french@lists.debian.org>\n"
+"PO-Revision-Date: 2004-08-12 21:25+0300\n"
+"Last-Translator: Matti P√∂ll√§ <mpo@iki.fi>\n"
+"Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-client.templates.master:4
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Faut-il installer /usr/lib/ssh-keysign avec le bit SETUID activÈ†?"
+msgstr "Haluatko, ett√§ /usr/lib/ssh-keygen asennetaan SUID root -oikeuksin?"
 
 #. Type: boolean
 #. Description
@@ -35,7 +38,7 @@ msgstr "Faut-il installer /usr/lib/ssh-keysign avec le bit SETUID activÈ†?"
 msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
-msgstr "Vous pouvez installer ssh-keysign avec le bit SETUID activÈ."
+msgstr "Voit valinnaisesti asentaa ssh-keysign-apuohjelman SUID-bitill√§."
 
 #. Type: boolean
 #. Description
@@ -44,8 +47,8 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Si vous choisissez cette option, vous permettrez l'authentification basÈe "
-"sur les hÙtes, disponible dans la version 2 du protocole SSH."
+"Jos SUID on p√§√§ll√§, voit k√§ytt√§√§ SSH-protokollan version 2 konekohtaista \n"
+"todennusta."
 
 #. Type: boolean
 #. Description
@@ -54,15 +57,14 @@ msgid ""
 "If in doubt, I suggest you install it with SUID.  If it causes problems you "
 "can change your mind later by running:   dpkg-reconfigure ssh"
 msgstr ""
-"Dans le doute, vous devriez l'installer avec le bit SETUID activÈ. Si cela "
-"vous pose des problËmes, vous pourrez revenir sur votre dÈcision avec ´†dpkg-"
-"reconfigure ssh†ª."
+"Jos olet ep√§varma, SUID-bitin k√§ytt√§mist√§ suositellaan. Jos se aiheuttaa \n"
+"ongelmia, voit my√∂hemmin muuttaa mielesi komennolla \"dpkg-reconfigure ssh\"."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
 msgid "Generate new configuration file"
-msgstr "Faut-il crÈer un nouveau fichier de configuration†?"
+msgstr "Luo uusi asetustiedosto"
 
 #. Type: boolean
 #. Description
@@ -74,12 +76,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"Cette version d'OpenSSH utilise un fichier de configuration qui a fortement "
-"changÈ depuis la version contenue dans la distribution Debian ´†Potato†ª, "
-"depuis laquelle vous semblez faire une mise ‡ jour. Un nouveau fichier de "
-"configuration (/etc/ssh/sshd.config) qui fonctionnera avec la nouvelle "
-"version du serveur peut Ítre crÈÈ, mais ne contiendra aucun des rÈglages que "
-"vous aviez faits avec la version prÈcÈdente."
+"T√§m√§n OpenSSH-version k√§ytt√§m√§n asetustiedoston muoto poikkeaa \n"
+"huomattavasti Debian \"Potato\":n mukana toimitetusta versiosta, jota olet \n"
+"p√§ivitt√§m√§ss√§. Uusi asetustiedosto (/etc/ssh/sshd.config) voidaan \n"
+"luoda nyt. Uudet asetukset toimivat uuden palvelinversion kanssa, mutta \n"
+"vanhaan versioon itse tehdyt mukautukset menetet√§√§n."
 
 #. Type: boolean
 #. Description
@@ -91,13 +92,14 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"Veuillez noter que ce nouveau fichier de configuration positionnera la "
-"valeur de ´†PermitRootLogin†ª ‡ ´†yes†ª (ce qui signifie que quiconque "
-"connaissant le mot de passe du superutilisateur peut se connecter en tant "
-"que tel sur la machine). Le responsable du paquet pense que c'est l‡ un "
-"comportement par dÈfaut normal (lisez README.Debian pour plus "
-"d'informations), mais vous pouvez toujours modifier le fichier sshd_config "
-"et changer cela."
+"Huomaa, ett√§ uudessa asetustiedostossa muuttujalla \"PermitRootLogin\" \n"
+"on arvo \"yes\" (tarkoittaen, ett√§ kuka tahansa p√§√§k√§ytt√§j√§n salasanan "
+"tiet√§v√§ \n"
+"voi kirjautua suoraan ssh:n avulla p√§√§k√§ytt√§j√§n√§). Paketin yll√§pit√§j√§n "
+"mielest√§ \n"
+"t√§m√§ on sopiva oletusarvo (lis√§tietoa tiedostossa README.Debian), mutta "
+"t√§m√§n \n"
+"voi halutessaan muuttaa arvoon \"no\" muokkaamalla tiedostoa sshd_config."
 
 #. Type: boolean
 #. Description
@@ -105,14 +107,13 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
-msgstr ""
-"Il est fortement recommandÈ de crÈer un nouveau fichier de configuration."
+msgstr "Uuden asetustiedoston luominen on eritt√§in suositeltavaa."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
 msgid "Allow SSH protocol 2 only"
-msgstr "Faut-il autoriser uniquement la version 2 du protocole SSH†?"
+msgstr "Salli ainoastaan SSH-protokollan versio 2"
 
 #. Type: boolean
 #. Description
@@ -123,11 +124,15 @@ msgid ""
 "things down on low end machines and might prevent older clients from "
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
-"Cette version d'OpenSSH gËre la version†2 du protocole SSH, qui est bien "
-"plus s˚re. DÈsactiver la version†1 est recommandÈ, cependant cela peut "
-"ralentir les machines peu puissantes et pourrait empÍcher ceux qui utilisent "
-"de vieilles versions de la partie cliente de se connecter (le client ssh de "
-"la distribution Debian ´†Potato†ª en fait partie)."
+"T√§m√§ OpenSSH:n versio tukee ssh-protokollan versiota 2, joka on "
+"huomattavasti \n"
+"turvallisempi. Protokollan ykk√∂sversion k√§yt√∂st√§ poistamista suositellaan, "
+"mutta \n"
+"se voi aiheuttaa toiminnan hitautta pienitehoisissa koneissa ja est√§√§ "
+"yhteyden \n"
+"ottamisen vanhemmilla asiakasohjelmilla. (T√§m√§ koskee mm. Debian \"potaton\":"
+"n \n"
+"mukana toimitettua ssh-asiakasohjelmaa.)"
 
 #. Type: boolean
 #. Description
@@ -136,9 +141,8 @@ msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
 msgstr ""
-"De plus, les clÈs utilisÈes par la version†1 du protocole sont diffÈrentes "
-"et vous ne pourrez pas les utiliser si vous n'autorisez que les connexions "
-"utilisant la version†2 du protocole."
+"Huomaa my√∂s, ett√§ version 1 kanssa k√§ytetyt avaimet ovat erilaisia, joten \n"
+"et voi k√§ytt√§√§ niit√§, jos sallit yhteydet vain versiolla 2."
 
 #. Type: boolean
 #. Description
@@ -147,16 +151,14 @@ msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
 msgstr ""
-"Si vous changez d'avis ultÈrieurement et dÈcidez de modifier ce rÈglage, les "
-"instructions fournies dans le fichier README.Debian vous indiquent comment "
-"modifier le fichier sshd_config."
+"Jos muutat my√∂hemmin mielesi t√§m√§n asetuksen suhteen, tiedostossa \n"
+"README.Debian on ohjeet tiedoston sshd_config muokkaamiseen."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr ""
-"Voulez-vous continuer (et risquer de rompre les sessions SSH actives)†?"
+msgstr "Haluatko jatkaa (ja mahdollisesti lopettaa aktiiviset ssh-istunnot)?"
 
 #. Type: boolean
 #. Description
@@ -166,10 +168,11 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"La version de /etc/init.d/ssh que vous venez d'installer va "
-"vraisemblablement interrompre toutes les instances de sshd en cours. Si vous "
-"Ítes en train de faire cette mise ‡ niveau ‡ l'aide de SSH, ce serait "
-"regrettable."
+"Asennettu versio tiedostosta /etc/init.d/ssh lopettaa todenn√§k√∂isesti "
+"kaikki \n"
+"k√§ynniss√§ olevat sshd-prosessit. Jos teet t√§t√§ p√§ivityst√§ ssh-yhteyden "
+"yli, \n"
+"t√§m√§ on Huono Juttu(tm)."
 
 #. Type: boolean
 #. Description
@@ -178,15 +181,16 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Vous pouvez corriger cela en ajoutant dans /etc/init.d/ssh ´†--pidfile /var/"
-"run/sshd.pid†ª ‡ la ligne ´†start-stop-daemon†ª dans la section ´†stop†ª du "
-"fichier."
+"Voit korjata t√§m√§n lis√§√§m√§ll√§ \"--pidfile /var/run/sshd.pid\" tiedoston \n"
+"stop-osion start-stop-daemon -riville."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "Suivi de session X11 et d'agent d'autorisation dÈsactivÈs par dÈfaut."
+msgstr ""
+"HUOMAA: X11:n ja valtuuksien (Authorization) edelleenl√§hett√§minen on \n"
+"oletusarvoisesti pois k√§yt√∂st√§."
 
 #. Type: note
 #. Description
@@ -195,8 +199,8 @@ msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
 msgstr ""
-"Pour des raisons de sÈcuritÈ, la version Debian de ssh positionne les "
-"options ForwardX11 et ForwardAgent ‡ ´†Off†ª par dÈfaut."
+"Turvallisuussyist√§ Debianin ssh:ssa muuttujilla ForwardX11 ja \n"
+"ForwardAgent on oletuksena arvo \"off\"."
 
 #. Type: note
 #. Description
@@ -205,22 +209,20 @@ msgid ""
 "You can enable it for servers you trust, either in one of the configuration "
 "files, or with the -X command line option."
 msgstr ""
-"Vous pouvez activer ces options pour les serveurs en qui vous avez "
-"confiance, soit dans un des fichiers de configuration, soit avec l'option -X "
-"de la ligne de commande."
+"Voit sallia sen luotetuille palvelimille joko asetustiedostossa tai\n"
+"komentorivill√§ k√§ytt√§m√§ll√§ -X -valitsinta."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr ""
-"Vous trouverez plus d'informations dans /usr/share/doc/ssh/README.Debian."
+msgstr "Lis√§tietoja tiedostossa /usr/share/doc/ssh/README.Debian"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:59
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Rsh-server installÈ†: paquet dÈconseillÈ"
+msgstr "Varoitus: rsh-palvelin on asennettu --- t√§m√§ ei liene hyv√§ idea"
 
 #. Type: note
 #. Description
@@ -229,15 +231,14 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"Avoir un serveur rsh installÈ affaiblit la sÈcuritÈ que vous vouliez "
-"probablement obtenir en installant SSH. Il est conseillÈ de supprimer ce "
-"paquet."
+"Rsh-palvelimen pit√§minen vie pohjan turvallisuudelta, jota todenn√§k√∂isesti \n"
+"halusit asentamalla ssh:n. Paketin poistaminen on suositeltavaa."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:66
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Telnetd installÈ†: paquet dÈconseillÈ"
+msgstr "Varoitus: telnetd on asennettu --- t√§m√§ ei liene hyv√§ idea"
 
 #. Type: note
 #. Description
@@ -248,16 +249,16 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"Vous devriez soit enlever le paquet telnetd (si ce service n'est pas "
-"nÈcessaire), soit le remplacer par le paquet telnetd-ssl pour qu'il y ait au "
-"moins une chance que les sessions telnet soient chiffrÈes et que les mots de "
-"passe et noms d'utilisateurs ne passent pas en clair sur le rÈseau."
+"On suositeltavaa joko poistaa telnetd-paketti (jos telnet-yhteyksien "
+"tarjoaminen \n"
+"ei ole tarpeellista) tai asentaa paketti telnetd-ssl, jotta salaamattomia \n"
+"k√§ytt√§j√§tunnuksia/salasanoja ja istunnon tietoja ei l√§hetett√§isi verkon yli."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:74
 msgid "Warning: you must create a new host key"
-msgstr "Nouvelle clÈ d'hÙte nÈcessaire"
+msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
 
 #. Type: note
 #. Description
@@ -267,21 +268,22 @@ msgid ""
 "not handle this host key file, and I can't find the ssh-keygen utility from "
 "the old (non-free) SSH installation."
 msgstr ""
-"Un ancien fichier /etc/ssh/ssh_host_key, chiffrÈ avec IDEA, est actuellement "
-"utilisÈ. OpenSSH ne peut utiliser ce fichier de clÈ, et l'utilitaire ssh-"
-"keygen de l'installation prÈcÈdente (non libre) de SSH n'a pas ÈtÈ trouvÈ."
+"Olemassa oleva tiedosto /etc/ssh/ssh_host_key on salattu \n"
+"IDEA-algoritmilla. OpenSSH ei voi k√§sitell√§ t√§t√§ konekohtaista "
+"avaintiedostoa, \n"
+"eik√§ vanhan (ei-vapaan) SSH-asennuksen ssh-keygen-ohjelmaa l√∂ydy."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
-msgstr "Vous devez gÈnÈrer une nouvelle clÈ d'hÙte."
+msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:84
 msgid "Disable challenge-response authentication?"
-msgstr "Faut-il dÈsactiver l'authentification par dÈfi-rÈponse†?"
+msgstr ""
 
 #. Type: boolean
 #. Description
@@ -294,13 +296,6 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"L'authentification par mots de passe semble Ítre dÈsactivÈe dans la "
-"configuration actuelle de votre serveur OpenSSH. Afin de vraiment empÍcher "
-"les utilisateurs de se connecter avec un mot de passe (par exemple en "
-"n'autorisant que l'authentification par clÈ publique), vous devez aussi "
-"dÈsactiver l'authentification par dÈfi-rÈponse dans les versions rÈcentes "
-"d'OpenSSH, ou alors vous assurer que votre configuration de PAM n'autorise "
-"pas l'authentification avec le fichier de mots de passe."
 
 #. Type: boolean
 #. Description
@@ -311,8 +306,3 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Si vous dÈsactivez l'authentification par dÈfi-rÈponse, alors les "
-"utilisateurs ne pourront pas se connecter en entrant un mot de passe. Si "
-"vous la laissez active (ce qui est le dÈfaut), alors l'option "
-"´†PasswordAuthentication no†ª n'aura d'effet que si vous ajustez aussi la "
-"configuration de PAM dans /etc/pam.d/ssh."
