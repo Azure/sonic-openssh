@@ -20,3 +20,5 @@ buildit.sh
 ssh-rand-helper
 build-deb
 build-deb-stamp
+build-udeb
+build-udeb-stamp

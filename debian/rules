@@ -3,8 +3,8 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
-# This is the debhelper compatability version to use.
-export DH_COMPAT=1
+# This is the debhelper compatibility version to use.
+export DH_COMPAT=2
 
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
@@ -15,7 +15,11 @@ else
 OPTFLAGS := -O0
 endif
 
-#PKG_VER = $(shell perl -e 'print <> =~ /\((.*)\)/' debian/changelog)
+VERSION := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2 | sed 's/.*://')
+DEB_HOST_ARCH := $(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+CLIENT_UDEB := openssh-client-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
+SERVER_UDEB := openssh-server-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
 
 ifeq (,$(wildcard /usr/bin/po2debconf))
 PO2DEBCONF := no
@@ -42,7 +46,9 @@ endif
 # Change the version string to include the Debian version
 SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
 
-build: build-deb-stamp
+build: build-deb build-udeb
+
+build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
@@ -59,10 +65,18 @@ build-deb-stamp:
 
 	touch build-deb-stamp
 
+build-udeb: build-udeb-stamp
+build-udeb-stamp:
+	dh_testdir
+	mkdir -p build-udeb
+	cd build-udeb && ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh sshd
+	touch build-udeb-stamp
+
 clean:
 	dh_testdir
-	rm -f build-deb-stamp
-	rm -rf build-deb
+	rm -f build-deb-stamp build-udeb-stamp
+	rm -rf build-deb build-udeb
 	-$(MAKE) -C contrib clean
 	rm -f config.log
 ifeq ($(PO2DEBCONF),yes)
@@ -84,23 +98,23 @@ endif
 	rm -f debian/ssh-askpass-gnome.png
 	dh_clean
 
-install: DH_OPTIONS=
+install: DH_OPTIONS=-a
 install: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
 
-	# Add here commands to install the package into debian/tmp.
-	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/tmp install-nokeys
+	# Add here commands to install the package into debian/ssh.
+	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/ssh install-nokeys
 
-	rm -f debian/tmp/etc/ssh/sshd_config
+	rm -f debian/ssh/etc/ssh/sshd_config
 	#Temporary hack: remove /usr/share/Ssh.bin, since we have no smartcard support anyway.
-	rm -f debian/tmp/usr/share/Ssh.bin
+	rm -f debian/ssh/usr/share/Ssh.bin
 
-	install -m 755 contrib/ssh-copy-id debian/tmp/usr/bin/ssh-copy-id
-	install -m 644 -c contrib/ssh-copy-id.1 debian/tmp/usr/share/man/man1/ssh-copy-id.1
-	install -m 644 debian/moduli.5 debian/tmp/usr/share/man/man5/moduli.5
+	install -m 755 contrib/ssh-copy-id debian/ssh/usr/bin/ssh-copy-id
+	install -m 644 -c contrib/ssh-copy-id.1 debian/ssh/usr/share/man/man1/ssh-copy-id.1
+	install -m 644 debian/moduli.5 debian/ssh/usr/share/man/man5/moduli.5
 
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
@@ -111,20 +125,26 @@ install: build
 	install -m 644 debian/ssh-askpass-gnome.desktop debian/ssh-askpass-gnome/usr/share/applications/ssh-askpass-gnome.desktop
 	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
 
-	install -m 755 debian/ssh-argv0 debian/tmp/usr/bin/ssh-argv0
-	install -m 644 debian/ssh-argv0.1 debian/tmp/usr/share/man/man1/ssh-argv0.1
+	install -m 755 debian/ssh-argv0 debian/ssh/usr/bin/ssh-argv0
+	install -m 644 debian/ssh-argv0.1 debian/ssh/usr/share/man/man1/ssh-argv0.1
 
-	install -o root -g root debian/init debian/tmp/etc/init.d/ssh
-	install -o root -g root -m 644 debian/ssh.default debian/tmp/etc/default/ssh
+	install -o root -g root debian/init debian/ssh/etc/init.d/ssh
+	install -o root -g root -m 644 debian/ssh.default debian/ssh/etc/default/ssh
 
-	install -o root -g root -m 755 -d debian/tmp/var/run/sshd
+	install -o root -g root -m 755 -d debian/ssh/var/run/sshd
+
+	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
+	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
 
 # Build architecture-independent files here.
 binary-indep: build install
 	# nothing to do
 
 # Build architecture-dependent files here.
-binary-arch: build install
+binary-arch: binary-ssh binary-openssh-client-udeb binary-openssh-server-udeb
+
+binary-ssh: DH_OPTIONS=-pssh
+binary-ssh: build install
 	dh_testdir
 	dh_testroot
 ifeq ($(PO2DEBCONF),yes)
@@ -132,7 +152,7 @@ ifeq ($(PO2DEBCONF),yes)
 endif
 	dh_installdebconf
 	dh_installdocs OVERVIEW README
-	cat debian/copyright.head LICENCE > debian/tmp/usr/share/doc/ssh/copyright
+	cat debian/copyright.head LICENCE > debian/ssh/usr/share/doc/ssh/copyright
 ifeq ($(PAMSUBST),yes)
 	# Clean up if we've done this already, to ensure idempotency.
 	if [ -f debian/ssh.pam.new-style ]; then \
@@ -151,13 +171,42 @@ endif
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	test ! -e debian/tmp/etc/ssh/ssh_prng_cmds \
-	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/tmp/DEBIAN/conffiles
+	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
+	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/ssh/DEBIAN/conffiles
 	dh_shlibdeps
 	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))' \
 	                 -V'pam-depends=$(PAMDEP)'
 	dh_md5sums
 	dh_builddeb
 
+binary-openssh-client-udeb: DH_OPTIONS=-popenssh-client-udeb
+binary-openssh-client-udeb: build install
+	dh_testdir
+	dh_testroot
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol -- -fdebian/files~
+	dpkg-distaddfile $(CLIENT_UDEB) debian-installer optional
+	dh_builddeb --filename=$(CLIENT_UDEB)
+
+binary-openssh-server-udeb: DH_OPTIONS=-popenssh-server-udeb
+binary-openssh-server-udeb: build install
+	dh_testdir
+	dh_testroot
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol -- -fdebian/files~
+	dpkg-distaddfile $(SERVER_UDEB) debian-installer optional
+	dh_builddeb --filename=$(SERVER_UDEB)
+
 binary: binary-indep binary-arch
+
 .PHONY: build clean binary-indep binary-arch binary install
+.PHONY: build-deb build-udeb binary-ssh
+.PHONY: binary-openssh-client-udeb binary-openssh-server-udeb

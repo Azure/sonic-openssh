@@ -1,6 +1,8 @@
 files
 ssh-askpass-gnome
 templates
-tmp
+openssh-client-udeb
+openssh-server-udeb
+ssh
 *.debhelper
 *substvars
