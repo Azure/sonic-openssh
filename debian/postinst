@@ -60,15 +60,17 @@ create_sshdconfig() {
 	    if dpkg --compare-versions "$oldversion" lt-nl 1:1.3 ; then
 		db_get ssh/new_config
 		if [ "$RET" = "false" ] ; then return 0; fi
-	    elif dpkg --compare-versions "$oldversion" lt-nl 1:3.7.1p2-1 && \
+	    elif dpkg --compare-versions "$oldversion" lt-nl 1:3.8p1-1 && \
 		 ! grep -iq ^UsePAM /etc/ssh/sshd_config ; then
 		# Upgrade from pre-3.7: UsePAM needed to maintain standard
 		# Debian configuration.
+		echo -n 'Upgrading sshd_config (old version in .dpkg-old) ...'
 		cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
 		perl -pe 's/^(PAMAuthenticationViaKbdInt|RhostsAuthentication)\b/#$1/i' \
 		    /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 		echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
 		mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
+		echo
 		return 0
 	    else return 0
 	    fi
