@@ -20,8 +20,12 @@ case "$1" in
 	update-alternatives --quiet --remove rsh /usr/bin/ssh
 	update-alternatives --quiet --remove rlogin /usr/bin/slogin
 	update-alternatives --quiet --remove rcp /usr/bin/scp
-	if [ -e /etc/init.d/ssh ]; then
-		/etc/init.d/ssh stop
+	if [ -x /etc/init.d/ssh ]; then
+		if [ -x /usr/sbin/invoke-rc.d ]; then
+			invoke-rc.d ssh stop
+		else
+			/etc/init.d/ssh stop
+		fi
 	fi
 #       install-info --quiet --remove /usr/info/ssh-askpass.info.gz
 	;;

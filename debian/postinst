@@ -289,7 +289,11 @@ fix_conffile_permissions() {
 setup_startup() {
 	db_get ssh/run_sshd
 	if [ "$RET" = "false" ] ; then
-		/etc/init.d/ssh stop 2>&1 >/dev/null
+		if [ -x /usr/sbin/invoke-rc.d ]; then
+			invoke-rc.d --quiet ssh stop
+		else
+			/etc/init.d/ssh stop
+		fi
 		touch /etc/ssh/sshd_not_to_be_run
 	else
 		rm -f /etc/ssh/sshd_not_to_be_run 2>/dev/null
@@ -298,9 +302,13 @@ setup_startup() {
 
 
 setup_init() {
-	if [ -e /etc/init.d/ssh ]; then
+	if [ -x /etc/init.d/ssh ]; then
 		update-rc.d ssh defaults >/dev/null
-		/etc/init.d/ssh restart
+		if [ -x /usr/sbin/invoke-rc.d ]; then
+			invoke-rc.d ssh restart
+		else
+			/etc/init.d/ssh restart
+		fi
 	fi
 }
 
