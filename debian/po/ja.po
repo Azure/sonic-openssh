@@ -13,10 +13,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-10-06 13:54+0100\n"
-"PO-Revision-Date: 2003-09-24 09:32+0900\n"
+"PO-Revision-Date: 2004-10-20 08:53+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -355,7 +355,7 @@ msgstr ""
 #. Description
 #: ../templates.master:130
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "チャレンジ-レスポンス認証を無効にしますか?"
 
 #. Type: boolean
 #. Description
@@ -367,7 +367,7 @@ msgid ""
 "versions of OpenSSH, you must disable challenge-response authentication, or "
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
-msgstr ""
+msgstr "現在の OpenSSH サーバの設定ではパスワード認証が無効になっているようです。OpenSSH の最近のバージョンでパスワードを使ってユーザがログインするのを防ぐ (多分公開鍵認証だけを代わりに使う) ためには、チャレンジ-レスポンス認証を無効にするか、PAM 設定で Unix パスワードファイル認証を絶対に許可しないようにする必要があります。"
 
 #. Type: boolean
 #. Description
@@ -377,7 +377,7 @@ msgid ""
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
+msgstr "チャレンジ-レスポンス認証を無効にする場合、ユーザはパスワードを使ってログインできなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/ssh にある PAM 設定を調節しない限り、'PasswordAuthentication no' オプションは効果を持たなくなります。"
 
 #~ msgid "Privilege separation"
 #~ msgstr "特権の分離"
