@@ -162,10 +162,10 @@ case $os in
 		os=-chorusos
 		basic_machine=$1
 		;;
- 	-chorusrdb)
- 		os=-chorusrdb
+	-chorusrdb)
+		os=-chorusrdb
 		basic_machine=$1
- 		;;
+		;;
 	-hiux*)
 		os=-hiuxwe2
 		;;
@@ -926,6 +926,10 @@ case $basic_machine in
 		basic_machine=sv1-cray
 		os=-unicos
 		;;
+	sx*-nec)
+		basic_machine=sx6-nec
+		os=-sysv
+		;;
 	symmetry)
 		basic_machine=i386-sequent
 		os=-dynix
@@ -1005,6 +1009,10 @@ case $basic_machine in
 	w89k-*)
 		basic_machine=hppa1.1-winbond
 		os=-proelf
+		;;
+	windows32)
+		basic_machine=i386-pc
+		os=-windows32-msvcrt
 		;;
 	xps | xps100)
 		basic_machine=xps100-honeywell
@@ -1102,8 +1110,8 @@ esac
 if [ x"$os" != x"" ]
 then
 case $os in
-        # First match some system type aliases
-        # that might get confused with valid system types.
+	# First match some system type aliases
+	# that might get confused with valid system types.
 	# -solaris* is a basic system type, with this one exception.
 	-solaris1 | -solaris1.*)
 		os=`echo $os | sed -e 's|solaris1|sunos4|'`

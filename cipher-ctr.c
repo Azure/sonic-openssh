@@ -14,12 +14,16 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 #include "includes.h"
-RCSID("$OpenBSD: cipher-ctr.c,v 1.2 2003/06/17 18:14:23 markus Exp $");
+RCSID("$OpenBSD: cipher-ctr.c,v 1.4 2004/02/06 23:41:13 dtucker Exp $");
 
 #include <openssl/evp.h>
 
 #include "log.h"
 #include "xmalloc.h"
+
+#if OPENSSL_VERSION_NUMBER < 0x00906000L
+#define SSH_OLD_EVP
+#endif
 
 #if OPENSSL_VERSION_NUMBER < 0x00907000L
 #include "rijndael.h"
@@ -90,7 +94,8 @@ ssh_aes_ctr_init(EVP_CIPHER_CTX *ctx, const u_char *key, const u_char *iv,
 		EVP_CIPHER_CTX_set_app_data(ctx, c);
 	}
 	if (key != NULL)
-                AES_set_encrypt_key(key, ctx->key_len * 8, &c->aes_ctx);
+		AES_set_encrypt_key(key, EVP_CIPHER_CTX_key_length(ctx) * 8,
+		     &c->aes_ctx);
 	if (iv != NULL)
 		memcpy(c->aes_counter, iv, AES_BLOCK_SIZE);
 	return (1);
@@ -135,7 +140,9 @@ evp_aes_128_ctr(void)
 	aes_ctr.init = ssh_aes_ctr_init;
 	aes_ctr.cleanup = ssh_aes_ctr_cleanup;
 	aes_ctr.do_cipher = ssh_aes_ctr;
+#ifndef SSH_OLD_EVP
 	aes_ctr.flags = EVP_CIPH_CBC_MODE | EVP_CIPH_VARIABLE_LENGTH |
 	    EVP_CIPH_ALWAYS_CALL_INIT | EVP_CIPH_CUSTOM_IV;
+#endif
 	return (&aes_ctr);
 }

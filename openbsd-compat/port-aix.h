@@ -1,4 +1,4 @@
-/* $Id: port-aix.h,v 1.14 2003/08/29 16:59:52 mouring Exp $ */
+/* $Id: port-aix.h,v 1.19 2004/02/10 04:27:35 dtucker Exp $ */
 
 /*
  *
@@ -30,10 +30,10 @@
 #ifdef WITH_AIXAUTHENTICATE
 # include <login.h>
 # include <userpw.h>
-# include <usersec.h>
-# ifdef HAVE_SYS_AUDIT_H
+# if defined(HAVE_SYS_AUDIT_H) && defined(AIX_LOGINFAILED_4ARG)
 #  include <sys/audit.h>
 # endif
+# include <usersec.h>
 #endif
 
 /* Some versions define r_type in the above headers, which causes a conflict */
@@ -51,12 +51,23 @@
 # include <sys/timers.h>
 #endif
 
-#ifdef WITH_AIXAUTHENTICATE
-# define CUSTOM_FAILED_LOGIN 1
-void record_failed_login(const char *, const char *);
-void aix_setauthdb(const char *);
+/*
+ * According to the setauthdb man page, AIX password registries must be 15
+ * chars or less plus terminating NUL.
+ */
+#ifdef HAVE_SETAUTHDB
+# define REGISTRY_SIZE	16
 #endif
 
 void aix_usrinfo(struct passwd *);
+
+#ifdef WITH_AIXAUTHENTICATE
+# define CUSTOM_SYS_AUTH_PASSWD 1
+# define CUSTOM_FAILED_LOGIN 1
+void record_failed_login(const char *, const char *);
+#endif
+
+void aix_setauthdb(const char *);
+void aix_restoreauthdb(void);
 void aix_remove_embedded_newlines(char *);
 #endif /* _AIX */

@@ -1,3 +1,5 @@
+/* OPENBSD ORIGINAL: lib/libc/net/inet_ntoa.c */
+
 /*
  * Copyright (c) 1983, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -43,7 +45,6 @@ static char rcsid[] = "$OpenBSD: inet_ntoa.c,v 1.4 2003/06/02 20:18:35 millert E
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdio.h>
-#include "inet_ntoa.h"
 
 char *inet_ntoa(struct in_addr in)
 {

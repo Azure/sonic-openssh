@@ -37,7 +37,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: packet.c,v 1.110 2003/09/19 09:02:02 markus Exp $");
+RCSID("$OpenBSD: packet.c,v 1.112 2003/09/23 20:17:11 markus Exp $");
 
 #include "openbsd-compat/sys-queue.h"
 
@@ -168,8 +168,6 @@ packet_set_connection(int fd_in, int fd_out, int new_setup_timeout)
 		buffer_init(&incoming_packet);
 		TAILQ_INIT(&outgoing);
 	}
-	/* Kludge: arrange the close function to be called from fatal(). */
-	fatal_add_cleanup((void (*) (void *)) packet_close, NULL);
 }
 
 /* Returns 1 if remote host is connected via socket, 0 if not. */
@@ -309,7 +307,7 @@ packet_connection_is_ipv4(void)
 	if (to.ss_family == AF_INET)
 		return 1;
 #ifdef IPV4_IN_IPV6
-	if (to.ss_family == AF_INET6 && 
+	if (to.ss_family == AF_INET6 &&
 	    IN6_IS_ADDR_V4MAPPED(&((struct sockaddr_in6 *)&to)->sin6_addr))
 		return 1;
 #endif
@@ -884,7 +882,7 @@ packet_read_seqnr(u_int32_t *seqnr_p)
 		len = read(connection_in, buf, sizeof(buf));
 		if (len == 0) {
 			logit("Connection closed by %.200s", get_remote_ipaddr());
-			fatal_cleanup();
+			cleanup_exit(255);
 		}
 		if (len < 0)
 			fatal("Read from socket failed: %.100s", strerror(errno));
@@ -1150,7 +1148,7 @@ packet_read_poll_seqnr(u_int32_t *seqnr_p)
 				logit("Received disconnect from %s: %u: %.400s",
 				    get_remote_ipaddr(), reason, msg);
 				xfree(msg);
-				fatal_cleanup();
+				cleanup_exit(255);
 				break;
 			case SSH2_MSG_UNIMPLEMENTED:
 				seqnr = packet_get_int();
@@ -1175,7 +1173,7 @@ packet_read_poll_seqnr(u_int32_t *seqnr_p)
 				msg = packet_get_string(NULL);
 				logit("Received disconnect from %s: %.400s",
 				    get_remote_ipaddr(), msg);
-				fatal_cleanup();
+				cleanup_exit(255);
 				xfree(msg);
 				break;
 			default:
@@ -1352,8 +1350,7 @@ packet_disconnect(const char *fmt,...)
 
 	/* Close the connection. */
 	packet_close();
-
-	fatal_cleanup();
+	cleanup_exit(255);
 }
 
 /* Checks if there is any buffered output, and tries to write some of the output. */
@@ -1420,10 +1417,10 @@ packet_not_very_much_data_to_write(void)
 }
 
 
-#if defined(IP_TOS) && !defined(IP_TOS_IS_BROKEN)
 static void
 packet_set_tos(int interactive)
 {
+#if defined(IP_TOS) && !defined(IP_TOS_IS_BROKEN)
 	int tos = interactive ? IPTOS_LOWDELAY : IPTOS_THROUGHPUT;
 
 	if (!packet_connection_is_on_socket() ||
@@ -1433,8 +1430,8 @@ packet_set_tos(int interactive)
 	    sizeof(tos)) < 0)
 		error("setsockopt IP_TOS %d: %.100s:",
 		    tos, strerror(errno));
-}
 #endif
+}
 
 /* Informs that the current session is interactive.  Sets IP flags for that. */
 
@@ -1455,10 +1452,7 @@ packet_set_interactive(int interactive)
 		return;
 	if (interactive)
 		set_nodelay(connection_in);
-#if defined(IP_TOS) && !defined(IP_TOS_IS_BROKEN)
 	packet_set_tos(interactive);
-#endif
-
 }
 
 /* Returns true if the current connection is interactive. */

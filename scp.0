@@ -1,12 +1,12 @@
-SCP(1)                    BSD General Commands Manual                   SCP(1)
+SCP(1)                     OpenBSD Reference Manual                     SCP(1)
 
 NAME
      scp - secure copy (remote file copy program)
 
 SYNOPSIS
-     scp [-pqrvBC1246] [-F ssh_config] [-S program] [-P port] [-c cipher]
-         [-i identity_file] [-l limit] [-o ssh_option] [[user@]host1:]file1
-         [...] [[user@]host2:]file2
+     scp [-1246BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+         [-l limit] [-o ssh_option] [-P port] [-S program]
+         [[user@]host1:]file1 [...] [[user@]host2:]file2
 
 DESCRIPTION
      scp copies files between hosts on a network.  It uses ssh(1) for data
@@ -20,9 +20,27 @@ DESCRIPTION
 
      The options are as follows:
 
+     -1      Forces scp to use protocol 1.
+
+     -2      Forces scp to use protocol 2.
+
+     -4      Forces scp to use IPv4 addresses only.
+
+     -6      Forces scp to use IPv6 addresses only.
+
+     -B      Selects batch mode (prevents asking for passwords or passphras-
+             es).
+
+     -C      Compression enable.  Passes the -C flag to ssh(1) to enable com-
+             pression.
+
      -c cipher
              Selects the cipher to use for encrypting the data transfer.  This
              option is directly passed to ssh(1).
+
+     -F ssh_config
+             Specifies an alternative per-user configuration file for ssh.
+             This option is directly passed to ssh(1).
 
      -i identity_file
              Selects the file from which the identity (private key) for RSA
@@ -32,49 +50,75 @@ DESCRIPTION
      -l limit
              Limits the used bandwidth, specified in Kbit/s.
 
-     -p      Preserves modification times, access times, and modes from the
-             original file.
+     -o ssh_option
+             Can be used to pass options to ssh in the format used in
+             ssh_config(5).  This is useful for specifying options for which
+             there is no separate scp command-line flag.  For full details of
+             the options listed below, and their possible values, see
+             ssh_config(5).
 
-     -r      Recursively copy entire directories.
-
-     -v      Verbose mode.  Causes scp and ssh(1) to print debugging messages
-             about their progress.  This is helpful in debugging connection,
-             authentication, and configuration problems.
-
-     -B      Selects batch mode (prevents asking for passwords or
-             passphrases).
-
-     -q      Disables the progress meter.
-
-     -C      Compression enable.  Passes the -C flag to ssh(1) to enable com-
-             pression.
-
-     -F ssh_config
-             Specifies an alternative per-user configuration file for ssh.
-             This option is directly passed to ssh(1).
+                   AddressFamily
+                   BatchMode
+                   BindAddress
+                   ChallengeResponseAuthentication
+                   CheckHostIP
+                   Cipher
+                   Ciphers
+                   Compression
+                   CompressionLevel
+                   ConnectionAttempts
+                   ConnectionTimeout
+                   GlobalKnownHostsFile
+                   GSSAPIAuthentication
+                   GSSAPIDelegateCredentials
+                   Host
+                   HostbasedAuthentication
+                   HostKeyAlgorithms
+                   HostKeyAlias
+                   HostName
+                   IdentityFile
+                   LogLevel
+                   MACs
+                   NoHostAuthenticationForLocalhost
+                   NumberOfPasswordPrompts
+                   PasswordAuthentication
+                   Port
+                   PreferredAuthentications
+                   Protocol
+                   ProxyCommand
+                   PubkeyAuthentication
+                   RhostsRSAAuthentication
+                   RSAAuthentication
+                   ServerAliveInterval
+                   ServerAliveCountMax
+                   SmartcardDevice
+                   StrictHostKeyChecking
+                   TCPKeepAlive
+                   UsePrivilegedPort
+                   User
+                   UserKnownHostsFile
+                   VerifyHostKeyDNS
 
      -P port
              Specifies the port to connect to on the remote host.  Note that
-             this option is written with a capital M-bM-^@M-^XPM-bM-^@M-^Y, because -p is already
+             this option is written with a capital `P', because -p is already
              reserved for preserving the times and modes of the file in
              rcp(1).
+
+     -p      Preserves modification times, access times, and modes from the
+             original file.
+
+     -q      Disables the progress meter.
+
+     -r      Recursively copy entire directories.
 
      -S program
              Name of program to use for the encrypted connection.  The program
              must understand ssh(1) options.
 
-     -o ssh_option
-             Can be used to pass options to ssh in the format used in
-             ssh_config(5).  This is useful for specifying options for which
-             there is no separate scp command-line flag.
-
-     -1      Forces scp to use protocol 1.
-
-     -2      Forces scp to use protocol 2.
-
-     -4      Forces scp to use IPv4 addresses only.
-
-     -6      Forces scp to use IPv6 addresses only.
+     -v      Verbose mode.  Causes scp and ssh(1) to print debugging messages
+             about their progress.  This is helpful in debugging connection,
+             authentication, and configuration problems.
 
 DIAGNOSTICS
      scp exits with 0 on success or >0 if an error occurred.
@@ -88,7 +132,7 @@ HISTORY
      the University of California.
 
 AUTHORS
-     Timo Rinne M-bM-^LM-)tri@iki.fiM-bM-^LM-* and
-     Tatu Ylonen M-bM-^LM-)ylo@cs.hut.fiM-bM-^LM-*
+     Timo Rinne <tri@iki.fi>
+     Tatu Ylonen <ylo@cs.hut.fi>
 
-BSD                           September 25, 1999                           BSD
+OpenBSD 3.4                   September 25, 1999                             3
