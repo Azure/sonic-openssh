@@ -1,5 +1,6 @@
 files
 ssh-askpass-gnome
+templates
 tmp
 *.debhelper
 *substvars
