@@ -42,11 +42,12 @@ endif
 # Change the version string to include the Debian version
 SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
 
-build: build-stamp
-build-stamp:
+build: build-deb-stamp
+build-deb-stamp:
 	dh_testdir
-	./configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
-	$(MAKE) -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
+	mkdir -p build-deb
+	cd build-deb && ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \
@@ -54,12 +55,12 @@ build-stamp:
 		$(MAKE) -C contrib gnome-ssh-askpass1 CC='gcc $(OPTFLAGS) -g -Wall'; \
 	fi
 
-	touch build-stamp
+	touch build-deb-stamp
 
 clean:
 	dh_testdir
-	rm -f build-stamp
-	-$(MAKE) -i distclean
+	rm -f build-deb-stamp
+	rm -rf build-deb
 	-$(MAKE) -C contrib clean
 	rm -f config.log
 ifeq ($(PO2DEBCONF),yes)
@@ -88,7 +89,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp.
-	$(MAKE) DESTDIR=`pwd`/debian/tmp install-nokeys
+	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/tmp install-nokeys
 
 	rm -f debian/tmp/etc/ssh/sshd_config
 	#Temporary hack: remove /usr/share/Ssh.bin, since we have no smartcard support anyway.

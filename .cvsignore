@@ -18,4 +18,5 @@ ssh_prng_cmds
 *.out
 buildit.sh
 ssh-rand-helper
-build-stamp
+build-deb
+build-deb-stamp
