@@ -1,3 +1,9 @@
+openssh (1:3.9p1-3) UNRELEASED; urgency=low
+
+  * Explain how to run sshd from inittab in README.Debian (closes: #147360).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 16 Jan 2005 11:42:41 +0000
+
 openssh (1:3.9p1-2) experimental; urgency=low
 
   * Remove pam_nologin from /etc/pam.d/ssh, as sshd's built-in support
