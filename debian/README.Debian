@@ -87,7 +87,10 @@ Protocol 2,1
 Also add the line:
 HostKey /etc/ssh/ssh_host_key
 
-(you may need to generate a host key if you do not already have one)
+If you do not already have an RSA1 host key in /etc/ssh/ssh_host_key,
+you will need to generate one. To do so, run this command as root:
+
+  ssh-keygen -f /etc/ssh/ssh_host_key -N '' -t rsa1
 
 X11 Forwarding
 --------------
