@@ -15,10 +15,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 3.6.1p2-3\n"
+"Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-11-15 15:36+0000\n"
-"PO-Revision-Date: 2003-06-21 15:30+0200\n"
+"PO-Revision-Date: 2003-09-20 16:40+0200\n"
 "Last-Translator: Carlos Valdivia Yagüe <valyag@dat.etsit.upm.es>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../templates.master:19
-#, fuzzy
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
 "choose whether or not to have privilege separation turned on or not. Unless "
@@ -87,9 +86,8 @@ msgid ""
 msgstr ""
 "Puesto que ha elegido crear automáticamente el fichero sshd_config, puede "
 "decidir ahora si quiere activar la opción de separación de privilegios. A "
-"menos que utilice la versión 2.0 (en cuyo caso debe responer no aquí o sshd "
-"no arrancará) o sepa que necesita usar ciertas características de PAM que "
-"funcionan con esta opción, debería responder sí a esta pregunta."
+"menos que necesite usar ciertas características de PAM que no funcionan con "
+"esta opción, debería responder sí a esta pregunta."
 
 #. Type: boolean
 #. Description

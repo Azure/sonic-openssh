@@ -7,6 +7,7 @@ openssh (1:3.6.1p2-10) UNRELEASED; urgency=low
     - Brazilian Portuguese (thanks, Andre Luis Lopes; closes: #219844).
     - Danish (thanks, Morten Brix Pedersen; closes: #217964).
     - Russian (thanks, Ilgiz Kalmetev).
+    - Spanish (thanks, Carlos Valdivia Yagüe; closes: #211832).
   * Add Dutch debconf template translation (thanks, cobaco;
     closes: #215372).
   * Update config.guess and config.sub from autotools-dev 20031007.1
