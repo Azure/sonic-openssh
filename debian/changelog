@@ -1,3 +1,30 @@
+openssh (1:3.6.1p2-8) unstable; urgency=high
+
+  * Merge more buffer allocation fixes from new upstream version 3.7.1p1
+    (closes: #211324).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 17 Sep 2003 03:07:19 +0100
+
+openssh (1:3.6.1p2-7) unstable; urgency=high
+
+  * Update debconf template translations:
+    - French (thanks, Christian Perrier; closes: #208801).
+    - Japanese (thanks, Kenshi Muto; closes: #210380).
+  * Some small improvements to the English templates courtesy of Christian
+    Perrier. I've manually unfuzzied a few translations where it was
+    obvious, on Christian's advice, but the others will have to be updated.
+  * Document how to generate an RSA1 host key (closes: #141703).
+  * Incorporate NMU fix for early buffer expansion vulnerability,
+    CAN-2003-0693 (closes: #211205). Thanks to Michael Stone.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 16 Sep 2003 14:32:28 +0100
+
+openssh (1:3.6.1p2-6.0) unstable; urgency=high
+
+  * SECURITY: fix for CAN-2003-0693, buffer allocation error
+
+ -- Michael Stone <mstone@debian.org>  Tue, 16 Sep 2003 08:27:07 -0400
+
 openssh (1:3.6.1p2-6) unstable; urgency=medium
 
   * Use a more CVS-friendly means of setting SSH_VERSION.
