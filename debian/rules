@@ -223,6 +223,7 @@ binary-ssh: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
+	cat debian/copyright.head LICENCE > debian/ssh/usr/share/doc/ssh/copyright
 	dh_installchangelogs
 	dh_compress
 	dh_fixperms
