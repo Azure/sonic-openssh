@@ -1,6 +1,9 @@
 openssh (1:3.8.1p1-14) UNRELEASED; urgency=low
 
   * We use DH_COMPAT=2, so build-depend on debhelper (>= 2).
+  * Fix timing information leak allowing discovery of invalid usernames in
+    PAM keyboard-interactive authentication (backported from a patch by
+    Darren Tucker; closes: #281595).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 28 Nov 2004 17:52:23 +0000
 
