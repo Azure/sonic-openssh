@@ -25,6 +25,20 @@ PO2DEBCONF := yes
 MINDEBCONFVER := 1.2.0
 endif
 
+# We need a new libpam-runtime for sane PAM handling
+# (http://lists.debian.org/debian-devel-announce-0308/msg00012.html).
+# Unfortunately it's hard to detect during the build whether this is
+# appropriate, so woody-compatibility is a pain. I've had to punt and go for
+# a DEB_BUILD_SSH_WOODY environment variable. We can remove this hack once
+# we no longer care about woody.
+ifeq ($(DEB_BUILD_SSH_WOODY),)
+PAMSUBST := no
+PAMDEP := libpam-runtime (>= 0.76-14)
+else
+PAMSUBST := yes
+PAMDEP := libpam-runtime
+endif
+
 # Change the version string to include the Debian version
 SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
 
@@ -60,6 +74,11 @@ ifeq ($(PO2DEBCONF),yes)
 	echo 1 > debian/po/output
 	po2debconf debian/templates.master > debian/templates
 	rm -f debian/po/output
+endif
+ifeq ($(PAMSUBST),yes)
+	if [ -f debian/ssh.pam.new-style ]; then \
+		mv debian/ssh.pam.new-style debian/ssh.pam; \
+	fi
 endif
 	dh_clean
 
@@ -113,6 +132,18 @@ endif
 	nroff RFC.nroff > debian/tmp/usr/share/doc/ssh/RFC
 	gzip -9 debian/tmp/usr/share/doc/ssh/RFC
 	rm -rf debian/tmp/usr/share/doc/ssh/RFC.nroff.gz
+ifeq ($(PAMSUBST),yes)
+	# Clean up if we've done this already, to ensure idempotency.
+	if [ -f debian/ssh.pam.new-style ]; then \
+		mv debian/ssh.pam.new-style debian/ssh.pam; \
+	fi
+	cp -a debian/ssh.pam debian/ssh.pam.new-style
+	sed -e "s/@include common-auth/auth       required     pam_unix.so/" \
+	    -e "s/@include common-account/account    required     pam_unix.so/" \
+	    -e "s/@include common-session/session    required     pam_unix.so/" \
+	    -e "s/@include common-password/password   required     pam_unix.so/" \
+	    debian/ssh.pam.new-style > debian/ssh.pam
+endif
 	dh_installpam
 	dh_installchangelogs ChangeLog
 	dh_strip
@@ -122,7 +153,8 @@ endif
 	test ! -e debian/tmp/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/tmp/DEBIAN/conffiles
 	dh_shlibdeps
-	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))'
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))' \
+	                 -V'pam-depends=$(PAMDEP)'
 	dh_md5sums
 	dh_builddeb
 

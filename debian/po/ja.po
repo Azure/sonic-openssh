@@ -15,19 +15,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-12 21:03+0100\n"
-"PO-Revision-Date: 2003-09-11 13:11+0900\n"
+"POT-Creation-Date: 2003-11-15 15:36+0000\n"
+"PO-Revision-Date: 2003-09-24 09:32+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid "Privilege separation"
 msgstr "特権の分離"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid ""
@@ -38,11 +40,13 @@ msgstr ""
 "特権分離はデフォルトで有効になっています。無効にしたい場合は、/etc/ssh/"
 "sshd_conf に「UsePrivilegeSeparation no」という行を追加してください。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid "Enable Privilege separation"
 msgstr "特権分離を有効にする"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -54,6 +58,7 @@ msgstr ""
 "よって、root 権限で実行されるコードの量を大幅に減らすことができ、sshd のセ"
 "キュリティホールの影響を減らすことができます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -65,24 +70,26 @@ msgstr ""
 "PAM セッションモジュール (たとえば pam_mkhomedir) は動かなくなります。また、"
 "PAM キーボード対話的認証も動作しなくなります。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
-#, fuzzy
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
 "choose whether or not to have privilege separation turned on or not. Unless "
 "you know you need to use PAM features that won't work with this option, you "
 "should enable it."
 msgstr ""
-"sshd_config ファイルを自動生成することを選択したので、 ここで特権分離を有効に"
-"するかしないかを選択できます。PAM の機能のうち特権分離と共存できない機能を使"
-"いたい場合以外は、「はい」を選ぶべきです。"
+"sshd_config ファイルを生成することを選択したので、ここで特権分離を有効にする"
+"かしないかを選択できます。この選択で動作しない PAM 機能を使いたい場合以外は、"
+"「はい」を選ぶべきです。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid "Generate new configuration file"
 msgstr "新しい設定ファイルを作ります"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -99,6 +106,7 @@ msgstr ""
 "イルは、古いバージョンの設定ファイルに含まれるあなたの設定がまったく含まれま"
 "せん。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -113,6 +121,7 @@ msgstr ""
 "というのがこのパッケージのメンテナの意見ですが (詳しくは README.Debian を読ん"
 "でください)、sshd_config を編集して「no」に設定することもできます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -120,11 +129,13 @@ msgid ""
 "for you."
 msgstr "新しい設定ファイルを自動生成することを強くお勧めします。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid "Allow SSH protocol 2 only"
 msgstr "SSH プロトコル 2 のみを許可します"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -138,6 +149,7 @@ msgstr ""
 "遅くなったり、古いクライアントから接続できなくなったりします (\"potato\" の "
 "ssh クライアントも接続できなくなります)。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -147,6 +159,7 @@ msgstr ""
 "また、プロトコル 1 で使うキーは異なるため、プロトコル 2 を有効にしただけでは"
 "そのキーを使うことができません。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -156,11 +169,13 @@ msgstr ""
 "もし今後あなたが考えを変えたら、README.Debian を読むと sshd_config をどのよう"
 "に変更したらよいかが分かります。"
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid "ssh2 keys merged in configuration files"
 msgstr "ssh2 キーは設定ファイルに統合されます"
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid ""
@@ -172,11 +187,13 @@ msgstr ""
 "つまり、authorized_keys2 ファイルと known_hosts2 ファイルはもはや不要となりま"
 "した。後方互換性を保つためにはこれらのファイルが必要です。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "続けてよいですか (接続中の ssh セッションが切れるかもしれません)"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -188,6 +205,7 @@ msgstr ""
 "せます。このバージョンアップを ssh セッションを用いて行うのは間違ったやりかた"
 "です。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -197,11 +215,13 @@ msgstr ""
 "この状況を修正するには、/etc/init.d/ssh の stop セクションの start-stop-"
 "daemon の行に「--pidfile /var/run/sshd.pid」と追加します。"
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "注意: X11 と認証のフォワーディングはデフォルトでは禁止されます"
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -211,6 +231,7 @@ msgstr ""
 "セキュリティ上の理由から、Debian の ssh では ForwardX11 と ForwardAgent はデ"
 "フォルトでは「off」に設定されます。"
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -220,17 +241,20 @@ msgstr ""
 "設定ファイルを使ったり、-X コマンドラインオプションを使ったりすることで、信用"
 "できるサーバに対して許可することができます。"
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "詳細は /usr/share/doc/ssh/README.Debian を読んでください。"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "警告: rsh-server がインストールされています。たぶん良い考えではありません"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid ""
@@ -241,11 +265,13 @@ msgstr ""
 "るであろうセキュリティが損なわれます。そのパッケージをアンインストールするこ"
 "とをお勧めします。"
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "警告: telnetd がインストールされています。たぶん良い考えではありません"
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid ""
@@ -259,11 +285,13 @@ msgstr ""
 "なくともネットワーク上を暗号化されていないユーザ名やパスワードやセッション情"
 "報が流れないようにすることをお勧めします。"
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "Warning: you must create a new host key"
 msgstr "警告: 新しいホストキーを作らないといけません"
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid ""
@@ -275,16 +303,19 @@ msgstr ""
 "のホストキーファイルを扱えません。また、今インストールされている古い (フリー"
 "ではない) SSH には ssh-keygen ユーティリティが含まれていません。"
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "You will need to generate a new host key."
 msgstr "新しいホストキーを作る必要があります。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
 msgstr "/usr/bin/ssh-keysign を SUID root でインストールしますか?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -294,6 +325,7 @@ msgstr ""
 "ssh-keysign ヘルパーをインストールする際、SUID ビットを設定するかしないかを選"
 "ぶことができます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -303,6 +335,7 @@ msgstr ""
 "ssh-keysign を SUID に設定した場合、SSH プロトコル 2 のホストに基づく認証を使"
 "うことができます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -312,16 +345,19 @@ msgstr ""
 "よく分からない場合は、SUID を有効にすることをお勧めします。もし 問題が起これ"
 "ば、dpkg-reconfigure ssh を実行することで設定を変更することができます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "Do you want to run the sshd server?"
 msgstr "sshd サーバを実行しますか?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "This package contains both the ssh client, and the sshd server."
 msgstr "このパッケージは、ssh クライアントと sshd サーバの両方を含んでいます。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -331,6 +367,7 @@ msgstr ""
 "通常、sshd セキュアシェルサーバは、ssh を用いたリモートからのログインを可能に"
 "するために実行します。"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -342,11 +379,13 @@ msgstr ""
 "シンへと ssh を使ってログインしないのでしたら、ここで sshd を実行しないでおき"
 "ます。"
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid "Environment options on keys have been deprecated"
 msgstr "鍵の環境オプションは無効に設定されました"
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""
@@ -360,6 +399,7 @@ msgstr ""
 "でこのオプションを使用している場合、このオプションを除去しない限りはその鍵は"
 "利用できないことに注意してください。"
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-12 21:03+0100\n"
+"POT-Creation-Date: 2003-11-15 15:36+0000\n"
 "PO-Revision-Date: 2003-09-27 14:43+0100\n"
 "Last-Translator: Bart Cornelis <cobaco@linux.be>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -23,11 +23,13 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid "Privilege separation"
 msgstr "Rechtenscheiding"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid ""
@@ -38,11 +40,13 @@ msgstr ""
 "Rechtenscheiding is standaard ingeschakeld; mocht u dit niet willen, dan "
 "dient u \"UsePrivilegeSeparation no\" toe te voegen in /etc/ssh/sshd_config."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid "Enable Privilege separation"
 msgstr "Rechtenscheiding inschakelen"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -54,6 +58,7 @@ msgstr ""
 "de hoeveelheid code die als root uitgevoerd wordt substantieel, en "
 "vermindert op die manier de invloed van veiligheidslekken in sshd."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -66,6 +71,7 @@ msgstr ""
 "zullen falen, en de interactieve PAM-toetsenbord-authenticatie zal ook niet "
 "werken."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -79,11 +85,13 @@ msgstr ""
 "U kunt dit het best activeren, tenzij u PAM-mogelijkheden nodig heeft die "
 "niet met rechtenscheiding samenwerken."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid "Generate new configuration file"
 msgstr "Genereer het nieuwe configuratiebestand"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -100,6 +108,7 @@ msgstr ""
 "gegenereerde bestand zal echter de aanpassingen die u wellicht gemaakt had "
 "niet overnemen."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -116,6 +125,7 @@ msgstr ""
 "Indien u dit niet wenst kunt u sshd_config handmatig aanpassen en de waarde "
 "op 'no' zetten."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -125,11 +135,13 @@ msgstr ""
 "Het wordt ten zeerste aangeraden om mij het nieuwe configuratiebestand voor "
 "u te laten genereren."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid "Allow SSH protocol 2 only"
 msgstr "Laat enkel versie 2 van het SSH-protocol toe."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -143,6 +155,7 @@ msgstr ""
 "dingen op zwakkere machines zal vertragen, en mogelijk verbindingen van "
 "oudere clients (b.v. de ssh-client uit \"potato\") onmogelijk maakt."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -153,6 +166,7 @@ msgstr ""
 "verschillend zijn, waardoor u deze niet kunt gebruiken indien u enkel "
 "protocolversie 2 verbindingen toelaat."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -162,11 +176,13 @@ msgstr ""
 "Instructies over wat te veranderen in sshd_config om deze instelling later "
 "nog te veranderen, vindt u in /usr/share/doc/ssh/README.Debian.gz."
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid "ssh2 keys merged in configuration files"
 msgstr "ssh2 sleutels zijn samengevoegd in de configuratiebestanden"
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid ""
@@ -179,11 +195,13 @@ msgstr ""
 "bestanden niet langer nodig zijn. Wel worden ze nog steeds gelezen om "
 "achterwaartse compabiliteit te behouden."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Wilt u verder gaan (waarbij u mogelijk actieve ssh sessies afschiet)?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -195,6 +213,7 @@ msgstr ""
 "alle lopende sshd-instanties af. Dit is Niet Goed wanneer u deze "
 "opwaardering via een ssh-sessie doet."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -204,12 +223,14 @@ msgstr ""
 "U kunt dit repareren door \"--pidfile /var/run/sshd.pid\" toe te voegen aan "
 "de start-stop-daemon regel in de stop-sectie van het bestand."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr ""
 "OPMERKING: Doorsturen van X11 en Authorisatie is standaard uitgeschakeld."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -219,6 +240,7 @@ msgstr ""
 "Om beveiligingsredenen zijn, in de Debian versie van ssh, ForwardX11 en "
 "ForwardAgent standaard uitgeschakeld."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -228,11 +250,13 @@ msgstr ""
 "U kunt dit, voor vertrouwde servers, inschakelen in de "
 "configuratiebestanden, of met de -X commandoregeloptie."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "Meer details vindt u in /usr/share/doc/ssh/README.Debian.gz"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
@@ -240,6 +264,7 @@ msgstr ""
 "Waarschuwing: rsh-server is geïnstalleerd -- dit is waarschijnlijk geen goed "
 "idee"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid ""
@@ -250,6 +275,7 @@ msgstr ""
 "waarschijnlijk, net probeerde te verkrijgen door ssh te installeren. We "
 "raden u aan om dat pakket te verwijderen."
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
@@ -257,6 +283,7 @@ msgstr ""
 "Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed "
 "idee"
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid ""
@@ -270,11 +297,13 @@ msgstr ""
 "enige kans is dat telnetsessies geen onversleutelde gebruikersnaam/"
 "wachtwoord en sessie informatie over het netwerk versturen."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "Warning: you must create a new host key"
 msgstr "Waarschuwing: u dient een nieuwe computersleutel aan te maken"
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid ""
@@ -286,16 +315,19 @@ msgstr ""
 "dit computersleutelbestand niet aan, en ik kan het ssh-keygen programma van "
 "de oude (niet-vrije) SSH installatie niet vinden."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "You will need to generate a new host key."
 msgstr "Het zal nodig zijn om een nieuwe computersleutel te genereren"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
 msgstr "Wilt u /usr/lib/ssh-keysign met SUID root installeren?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -305,6 +337,7 @@ msgstr ""
 "U heeft de mogelijkheid om het ssh-keysign hulpprogramma te installeren met "
 "de SUID-bit aan."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -315,6 +348,7 @@ msgstr ""
 "de computer-gebaseerde authenticatie van het versie 2 SSH-protocol te "
 "gebruiken."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -325,16 +359,19 @@ msgstr ""
 "veroorzaakt kunt u dit altijd later nog veranderen door \"dpkg-reconfigure "
 "ssh\" uit te voeren"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "Do you want to run the sshd server?"
 msgstr "Wilt u de sshd server opstarten?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "This package contains both the ssh client, and the sshd server."
 msgstr "Dit pakket bevat zowel de ssh-client, als de sshd-server."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -344,6 +381,7 @@ msgstr ""
 "Normaal wordt de sshd-server uitgevoerd om aanmelden vanop een andere "
 "computer via ssh toe te laten."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -355,6 +393,7 @@ msgstr ""
 "verbindingen, en ook lokaal niet wilt inloggen via ssh, kunt u sshd hier "
 "uitschakelen."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid "Environment options on keys have been deprecated"
@@ -362,6 +401,7 @@ msgstr ""
 "Omgevingsopties voor sleutels zullen in de toekomst niet meer ondersteund "
 "worden."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""
@@ -376,6 +416,7 @@ msgstr ""
 "te zijn dat de betreffende sleutels niet langer zullen werken totdat de "
 "optie verwijderd wordt."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""

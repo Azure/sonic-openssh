@@ -15,21 +15,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 3.6.1p2-3\n"
+"Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-12 21:03+0100\n"
-"PO-Revision-Date: 2003-06-21 15:30+0200\n"
+"POT-Creation-Date: 2003-11-15 15:36+0000\n"
+"PO-Revision-Date: 2003-09-20 16:40+0200\n"
 "Last-Translator: Carlos Valdivia Yagüe <valyag@dat.etsit.upm.es>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid "Privilege separation"
 msgstr "Separación de privilegios"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid ""
@@ -41,11 +43,13 @@ msgstr ""
 "desactivarla, tiene que añadir \"UsePrivilegeSeparation no\" al fichero /etc/"
 "ssh/sshd_config."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid "Enable Privilege separation"
 msgstr "Activar separación de privilegios"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -58,6 +62,7 @@ msgstr ""
 "ejecuta como root, por lo que reduce el impacto de posibles agujeros de "
 "seguridad en sshd."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -70,9 +75,9 @@ msgstr ""
 "ejemplo, pam_mkhomedir) y la autentificación interactiva PAM con teclado no "
 "funcionarán."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
-#, fuzzy
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
 "choose whether or not to have privilege separation turned on or not. Unless "
@@ -81,15 +86,16 @@ msgid ""
 msgstr ""
 "Puesto que ha elegido crear automáticamente el fichero sshd_config, puede "
 "decidir ahora si quiere activar la opción de separación de privilegios. A "
-"menos que utilice la versión 2.0 (en cuyo caso debe responer no aquí o sshd "
-"no arrancará) o sepa que necesita usar ciertas características de PAM que "
-"funcionan con esta opción, debería responder sí a esta pregunta."
+"menos que necesite usar ciertas características de PAM que no funcionan con "
+"esta opción, debería responder sí a esta pregunta."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid "Generate new configuration file"
 msgstr "Generar un nuevo fichero de configuración"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -106,6 +112,7 @@ msgstr ""
 "del servidor, pero no incuirá las modificaciones que hiciera en la versión "
 "antigua."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -122,6 +129,7 @@ msgstr ""
 "Debian si quiere conocer más detalles), pero siempre puede editar "
 "sshd_config y poner no si lo desea."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -131,11 +139,13 @@ msgstr ""
 "Es muy recomendable que permita que se genere un nuevo fichero de "
 "configuración ahora."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid "Allow SSH protocol 2 only"
 msgstr "Permitir sólo la versión 2 del protocolo SSH"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -149,6 +159,7 @@ msgstr ""
 "funcionará más lento en máquinas modestas y puede impedir que se conecten "
 "clientes antiguos, como, por ejemplo, el incluido en \"potato\"."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -159,6 +170,7 @@ msgstr ""
 "diferentes, por lo que no podrá usarlas si únicamente permite conexiones "
 "mediante la versión 2 del protocolo."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -168,11 +180,13 @@ msgstr ""
 "Si más tarde cambia de opinión, el fichero README.Debian contiene "
 "instrucciones sobre cómo modificar en el fichero sshd_config."
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid "ssh2 keys merged in configuration files"
 msgstr "Las claves ssh2 ya se incluyen en los ficheros de configuración"
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid ""
@@ -185,11 +199,13 @@ msgstr ""
 "authorized_keys2 y known_hosts2, aunque aún se seguirán leyendo para "
 "mantener compatibilidad hacia atrás."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "¿Desea continuar, aún a riesgo de matar las sesiones ssh activas?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -201,6 +217,7 @@ msgstr ""
 "el demonio ssh. Si está actualizando a través de una sesión ssh, puede que "
 "no sea muy buena idea."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -210,11 +227,13 @@ msgstr ""
 "Puede arreglarlo añadiendo \"--pidfile /var/run/sshd.pid\" a la línea 'start-"
 "stop-daemon', en la sección 'stop' del fichero."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "NOTA: Reenvío de X11 y Autorización desactivadas por defecto."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -224,6 +243,7 @@ msgstr ""
 "Por razones de seguridad, la versión de ssh de Debian tiene por defecto "
 "ForwardX11 y ForwardAgent desactivadas."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -233,16 +253,19 @@ msgstr ""
 "Puede activar estas opciones para los servidores en los que confíe, en los "
 "ficheros de configuración o con la opción -X en línea de comandos."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr "Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian."
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Aviso: tiene rsh-server instalado"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid ""
@@ -253,11 +276,13 @@ msgstr ""
 "probablemente desea obtener instalando ssh. Es muy aconsejable que borre ese "
 "paquete."
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: tiene telnetd instalado"
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid ""
@@ -271,11 +296,13 @@ msgstr ""
 "contraseñas, nombres de usuario y demás información de las sesiones telnet "
 "no viajen sin cifrar por la red."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: debe crear una nueva clave para su servidor"
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid ""
@@ -287,16 +314,19 @@ msgstr ""
 "OpenSSH no puede manejar este fichero de claves y tampoco se encuentra la "
 "utilidad ssh-keygen incluida en el paquete ssh no libre."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "You will need to generate a new host key."
 msgstr "Necesitará generar una nueva clave para su servidor."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
 msgstr "¿Quiere instalar /usr/lib/ssh-keysign SUID root?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -306,6 +336,7 @@ msgstr ""
 "Puede instalar ssh-keysign con el bit SUID (se ejecutará con privilegios de "
 "root)."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -315,6 +346,7 @@ msgstr ""
 "Si hace ssh-keysign SUID, podrá usar la autentificiación basada en servidor "
 "de la versión 2 del protocolo SSH."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -324,16 +356,19 @@ msgstr ""
 "Si duda, se recomienda que lo instale SUID. Si le causa problemas puede "
 "cambiar de opinión posteriormente ejecutando «dpkg-reconfigure ssh»."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "Do you want to run the sshd server?"
 msgstr "¿Quiere ejecutar el servidor sshd?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "This package contains both the ssh client, and the sshd server."
 msgstr "Este paquete contiene el cliente ssh y el servidor sshd."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -343,6 +378,7 @@ msgstr ""
 "Generalmente, el servidor de ssh (Secure Shell Server) se ejecuta para "
 "permitir el acceso remoto mediante ssh."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -354,11 +390,13 @@ msgstr ""
 "sistema y no quiere acceder a él mediante ssh, entonces puede desactivar "
 "sshd."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid "Environment options on keys have been deprecated"
 msgstr "Las opciones de entorno para las claves, en desuso"
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""
@@ -372,6 +410,7 @@ msgstr ""
 "en LD_PRELOAD). Si utiliza esta opción en un fichero authorized_keys, las "
 "claves implicadas no funcionarán hasta que borre la opción."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""

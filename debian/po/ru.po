@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-12 21:03+0100\n"
+"POT-Creation-Date: 2003-11-15 15:36+0000\n"
 "PO-Revision-Date: 2003-10-02 17:20+0500\n"
 "Last-Translator: Ilgiz Kalmetev <translator@ilgiz.pp.ru>\n"
 "Language-Team: russian <ru@li.org>\n"
@@ -24,11 +24,13 @@ msgstr ""
 "Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid "Privilege separation"
 msgstr "Разделение привилегий"
 
+#. Type: note
 #. Description
 #: ../templates.master:3
 msgid ""
@@ -40,11 +42,13 @@ msgstr ""
 "отключить, то необходимо добавить в файл /etc/ssh/sshd_config строку "
 "\"UsePrivilegeSeparation no\"."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid "Enable Privilege separation"
 msgstr "Разрешить разделение привилегий"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -56,6 +60,7 @@ msgstr ""
 "Это значительно сокращает размер кода, работающего с правами root, и в целом "
 "снижает потенциальную уязвимость sshd."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -68,6 +73,7 @@ msgstr ""
 "pam_mkhomedir), и PAM-аутентификация в интерактивном режиме с клавиатуры "
 "работать не будет."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:19
 msgid ""
@@ -81,11 +87,13 @@ msgstr ""
 "Если Вы не знаете, нужно ли Вам использовать функции PAM, которые не "
 "работают с этой опцией, то лучше разрешить ее."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid "Generate new configuration file"
 msgstr "Сгенерировать новый конфигурационный файл"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -101,6 +109,7 @@ msgstr ""
 "config), который будет работать с новой версией сервера, но не будет "
 "содержать настроек, которые Вы сделали в старой версии."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -116,6 +125,7 @@ msgstr ""
 "сопровождающего этого пакета - это разумно, но Вы всегда можете установить "
 "значение этого параметра в файле sshd_config так, как Вам кажется правильным."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:36
 msgid ""
@@ -125,11 +135,13 @@ msgstr ""
 "Настоятельно рекомендуется, разрешить сгенерировать для Вас новый файл "
 "настроек."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid "Allow SSH protocol 2 only"
 msgstr "Разрешить использование только SSH-протокола версии 2."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -144,6 +156,7 @@ msgstr ""
 "невозможным подключение с помощью старых клиентских программ (в частности, "
 "это относится к клиенту ssh, поставляемого с \"potato\"."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -154,6 +167,7 @@ msgstr ""
 "формат, и поэтому Вы не сможете использовать их, если разрешите только "
 "соединения по протоколу версии 2."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:55
 msgid ""
@@ -163,11 +177,13 @@ msgstr ""
 "Если позже Вы измените свое мнение, то в файле README.Debian содержатся "
 "инструкции о том, что нужно сделать в файле sshd_config."
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid "ssh2 keys merged in configuration files"
 msgstr "Ключи ssh2 добавлены в файлы настроек"
 
+#. Type: note
 #. Description
 #: ../templates.master:69
 msgid ""
@@ -180,11 +196,13 @@ msgstr ""
 "нужны. Программа по-прежнему будет их считывать для обеспечения обратной "
 "совместимости."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Вы хотите продолжить (рискуя потерять активные ssh-соединения)?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -196,6 +214,7 @@ msgstr ""
 "запущенные  процессы  ssh.  Если вы осуществляете это обновление через ssh "
 "сессию, то это Плохая Вещь (tm)."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:78
 msgid ""
@@ -205,11 +224,13 @@ msgstr ""
 "Это можно исправить добавлением \"--pidfile /var/run/sshd.pid\" в строке "
 "start-stop-daemon в разделе stop этого файла."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 msgstr "ПРИМЕЧАНИЕ: Форвардинг X11 и Authorization запрещен по умолчанию."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -219,6 +240,7 @@ msgstr ""
 "По причинам безопасности, в версии для Debian ssh имеет ForwardX11 и "
 "ForwardAgent установленными в ``off'' по умолчанию."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid ""
@@ -228,17 +250,20 @@ msgstr ""
 "Вы можете разрешить их для серверов, которым доверяете либо в одном из "
 "настроечных файлов, или параметром командной строки -X."
 
+#. Type: note
 #. Description
 #: ../templates.master:88
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 msgstr ""
 "Дополнительую информацию можно найти в /usr/share/doc/ssh/README.Debian"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Предупреждение: установлен rsh-server --- пожалуй, это не очень хорошо"
 
+#. Type: note
 #. Description
 #: ../templates.master:99
 msgid ""
@@ -248,11 +273,13 @@ msgstr ""
 "Установленный rsh-сервер снижает безопасность, которую Вы вероятно хотите "
 "повысить устанавливая ssh. Рекомендуется удалить этот пакет."
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Предупреждение: установлен telnetd --- пожалуй, это не очень хорошо"
 
+#. Type: note
 #. Description
 #: ../templates.master:106
 msgid ""
@@ -266,11 +293,13 @@ msgstr ""
 "передавать по сети незашифрованные имена и пароли пользователей и прочую "
 "информацию в telnet-сессиях."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "Warning: you must create a new host key"
 msgstr "Предупреждение: Вы должны создать новый хостовый ключ."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid ""
@@ -282,16 +311,19 @@ msgstr ""
 "может работать с этим хостовым ключом, и я не могу найти утилиту ssh-keygen "
 "от старой (несвободной) инсталляции SSH."
 
+#. Type: note
 #. Description
 #: ../templates.master:114
 msgid "You will need to generate a new host key."
 msgstr "Вам надо будет сгенерировать новый ключ хоста."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
 msgstr "Хотите установить /usr/lib/ssh-keysign как SUID root?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -299,6 +331,7 @@ msgid ""
 "set."
 msgstr "Вы имеете возможность установить бит SUID для утилиты ssh-keysign."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -308,6 +341,7 @@ msgstr ""
 "Если вы установите бит SUID для ssh, то вы сможете использовать хостовую "
 "аутентификацию для SSH-протокола версии 2."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:124
 msgid ""
@@ -317,16 +351,19 @@ msgstr ""
 "Если Вы не знаете, что выбрать, то рекомендую установить SUID для ssh. В "
 "дальнейшем, Вы можете изменить свой выбор командой: dpkg-reconfigure ssh"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "Do you want to run the sshd server?"
 msgstr "Хотите запустить сервер sshd?"
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid "This package contains both the ssh client, and the sshd server."
 msgstr "Этот пакет содержит и ssh-клиент, и ssh-сервер."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -336,6 +373,7 @@ msgstr ""
 "Обычно sshd Secure Shell Server запускается для удаленного входа в систему "
 "через ssh."
 
+#. Type: boolean
 #. Description
 #: ../templates.master:137
 msgid ""
@@ -347,11 +385,13 @@ msgstr ""
 "соединений с этой машины, и вы не хотите входить в ее систему через ssh, то "
 "сейчас Вы можете запретить sshd."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid "Environment options on keys have been deprecated"
 msgstr "Опции окружения для ключей были запрещены"
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""
@@ -365,6 +405,7 @@ msgstr ""
 "опцию в файле authorized_keys, то будьте внимательны, данные ключи больше не "
 "будут работать, пока опция не удалена."
 
+#. Type: note
 #. Description
 #: ../templates.master:149
 msgid ""
