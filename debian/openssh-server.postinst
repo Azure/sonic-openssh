@@ -210,7 +210,7 @@ SyslogFacility AUTH
 LogLevel INFO
 
 # Authentication:
-LoginGraceTime 600
+LoginGraceTime 120
 PermitRootLogin yes
 StrictModes yes
 
