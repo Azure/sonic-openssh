@@ -10,6 +10,7 @@ openssh (1:3.8.1p1-1) UNRELEASED; urgency=low
     http://www.free.lp.se/bamse/draft-ylonen-ssh-protocol-00.txt if you want
     it for some reason.
   * Fix grammar in sshd(8) (closes: #238753).
+  * Add .desktop file and icon for ssh-askpass-gnome (closes: #232333).
   * Update Polish debconf template translation (thanks, Emil Nowak;
     closes: #242808).
   * Add Turkish debconf template translation (thanks, Recai Oktaş;
