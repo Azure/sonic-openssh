@@ -146,8 +146,8 @@ PermitEmptyPasswords no
 # Change to no to disable s/key passwords
 #ChallengeResponseAuthentication yes
 
-# To disable tunneled clear text passwords, change to no here!
-PasswordAuthentication yes
+# Change to yes to enable tunnelled clear text passwords
+PasswordAuthentication no
 
 
 # To change Kerberos options
