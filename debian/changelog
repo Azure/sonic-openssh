@@ -3,6 +3,7 @@ openssh (1:3.6.1p2-10) UNRELEASED; urgency=low
   * Use --retry in init script when restarting rather than sleeping, to make
     sure the old process is dead (thanks, Herbert Xu; closes: #212117).
   * Update debconf template translations:
+    - Brazilian Portuguese (thanks, Andre Luis Lopes; closes: #219844).
     - Danish (thanks, Morten Brix Pedersen; closes: #217964).
     - Russian (thanks, Ilgiz Kalmetev).
   * Add Dutch debconf template translation (thanks, cobaco;

@@ -13,10 +13,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh-3.6.1p2-5\n"
+"Project-Id-Version: openssh_3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-27 02:20+0100\n"
-"PO-Revision-Date: 2003-03-08 16:56+0300\n"
+"POT-Creation-Date: 2003-09-12 21:03+0100\n"
+"PO-Revision-Date: 2003-11-09 16:29-0300\n"
 "Last-Translator: André Luís Lopes <andrelop@debian.org>\n"
 "Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,15 +71,15 @@ msgstr ""
 #: ../templates.master:19
 msgid ""
 "Since you've opted to have me generate an sshd_config file for you, you can "
-"choose whether or not to have Privilege Separation turned on or not. Unless "
+"choose whether or not to have privilege separation turned on or not. Unless "
 "you know you need to use PAM features that won't work with this option, you "
-"should say yes here."
+"should enable it."
 msgstr ""
-"Uma vez que você optou por permitir que o debconf gere o arquivo sshd_config "
-"para você, é possível escolher se você deseja ter ou não o recurso de "
-"Separação de Privilégios habilitado. A menos que você saiba que utiliza "
-"recursos PAM que não funcionarão com esta opção, você deve responder "
-"positivamente aqui."
+"Uma vez que você optou por permitir que o debconf gere um arquivo "
+"sshd_config para você, é possível escolher se você deseja ter ou não o "
+"recurso de separação de privilégios habilitado. A menos que você saiba "
+"que utiliza recursos PAM que não funcionarão com esta opção habilitada, "
+"você deverá habilitar esse recurso."
 
 #. Description
 #: ../templates.master:36
@@ -189,7 +189,7 @@ msgstr ""
 
 #. Description
 #: ../templates.master:78
-msgid "Do you want to continue (and risk killing active ssh sessions) ?"
+msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Deseja continuar (e arriscar acabar com sessões ssh ativas) ?"
 
 #. Description
@@ -330,8 +330,8 @@ msgstr ""
 
 #. Description
 #: ../templates.master:137
-msgid "Do you want to run the sshd server ?"
-msgstr "Você quer executar o servidor sshd ?"
+msgid "Do you want to run the sshd server?"
+msgstr "Você deseja executar o servidor sshd ?"
 
 #. Description
 #: ../templates.master:137
