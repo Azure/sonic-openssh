@@ -1,3 +1,14 @@
+openssh (1:3.8.1p1-9) UNRELEASED; urgency=low
+
+  The ssh package has been split into openssh-client and openssh-server. If
+  you had previously requested that the sshd server should not be run, then
+  that request will still be honoured. However, the recommended approach is
+  now to remove the openssh-server package if you do not want to run sshd.
+  You can remove the old /etc/ssh/sshd_not_to_be_run marker file after doing
+  that.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 31 Jul 2004 03:01:19 +0100
+
 openssh (1:3.5p1-1) unstable; urgency=low
 
   This version of OpenSSH disables the environment option for public keys by
