@@ -31,8 +31,9 @@ openssh (1:3.8p1-1) UNRELEASED; urgency=low
     - Reset signal status when starting pam auth thread, prevent hanging
       during PAM keyboard-interactive authentications.
     - Fix a non-security-critical segfault in PAM authentication.
-  * Add Italian debconf template translation (thanks, Renato Gini;
-    closes: #234777).
+  * Add debconf template translations:
+    - Greek (thanks, Konstantinos Margaritis; closes: #232843).
+    - Italian (thanks, Renato Gini; closes: #234777).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 23 Sep 2003 19:22:38 +0100
 
