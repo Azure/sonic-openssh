@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-11 11:27+0000\n"
+"POT-Creation-Date: 2004-03-06 17:54+0000\n"
 "PO-Revision-Date: 2004-04-27 06:50+0300\n"
 "Last-Translator: Recai Oktaş <roktas@omu.edu.tr>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -32,10 +32,10 @@ msgid ""
 "any customisations you made with the old version."
 msgstr ""
 "Debian 'Potato' dağıtımından yükseltme yaptığınız görünüyor. OpenSSH'ın bu "
-"sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı bir yapılandırma "
-"dosyası kullanmaktadır. Şimdi sizin için yeni bir yapılandırma dosyası (/etc/"
-"ssh/sshd.config) üretebilirim.  Bu dosya yeni sunucu sürümüyle çalışacak, fakat "
-"eski sürümde yaptığınız özelleştirmeleri içermeyecektir."
+"sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı bir "
+"yapılandırma dosyası kullanmaktadır. Şimdi sizin için yeni bir yapılandırma "
+"dosyası (/etc/ssh/sshd.config) üretebilirim.  Bu dosya yeni sunucu sürümüyle "
+"çalışacak, fakat eski sürümde yaptığınız özelleştirmeleri içermeyecektir."
 
 #. Type: boolean
 #. Description
@@ -48,11 +48,11 @@ msgid ""
 "edit sshd_config and set it to no if you wish."
 msgstr ""
 "Yeni yapılandırma dosyasının 'PermitRootLogin' seçeneğini 'yes' olarak "
-"ayarlayacağını (yani root parolasını bilen herhangi birisinin ssh ile doğrudan "
-"sisteme girebileceğini) unutmayın. Öntanımlı ayarın böyle olması gerektiği paket "
-"geliştiricisinin kanaatidir (ayrıntılar için README.Debian dosyasını okuyun). "
-"Aksi kanaate sahipseniz sshd_config dosyasını düzenleyerek bu seçeneği 'no' "
-"olarak ayarlama imkânınız her zaman vardır."
+"ayarlayacağını (yani root parolasını bilen herhangi birisinin ssh ile "
+"doğrudan sisteme girebileceğini) unutmayın. Öntanımlı ayarın böyle olması "
+"gerektiği paket geliştiricisinin kanaatidir (ayrıntılar için README.Debian "
+"dosyasını okuyun). Aksi kanaate sahipseniz sshd_config dosyasını "
+"düzenleyerek bu seçeneği 'no' olarak ayarlama imkânınız her zaman vardır."
 
 #. Type: boolean
 #. Description
@@ -60,7 +60,8 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
-msgstr "Yeni bir yapılandırma dosyası üretmeme izin vermeniz kuvvetle tavsiye edilir."
+msgstr ""
+"Yeni bir yapılandırma dosyası üretmeme izin vermeniz kuvvetle tavsiye edilir."
 
 #. Type: boolean
 #. Description
@@ -77,11 +78,11 @@ msgid ""
 "things down on low end machines and might prevent older clients from "
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
-"OpenSSH'ın bu sürümü ssh'ın çok daha güvenli olan sürüm 2 protokolünü destekler. "
-"Sürüm 1 protokolünün etkisizleştirilmesini teşvik ediyoruz, bununla beraber böyle "
-"yapılması halinde düşük düzeyli makinelerde işlemler yavaşlayacak ve eski sürüm "
-"ssh istemcilerinden (\"potato\" ile birlikte gelen ssh istemcisi gibi) bağlantı "
-"kurulamayacaktır."
+"OpenSSH'ın bu sürümü ssh'ın çok daha güvenli olan sürüm 2 protokolünü "
+"destekler. Sürüm 1 protokolünün etkisizleştirilmesini teşvik ediyoruz, "
+"bununla beraber böyle yapılması halinde düşük düzeyli makinelerde işlemler "
+"yavaşlayacak ve eski sürüm ssh istemcilerinden (\"potato\" ile birlikte "
+"gelen ssh istemcisi gibi) bağlantı kurulamayacaktır."
 
 #. Type: boolean
 #. Description
@@ -90,8 +91,9 @@ msgid ""
 "Also please note that keys used for protocol 1 are different so you will not "
 "be able to use them if you only allow protocol 2 connections."
 msgstr ""
-"Protokol 1 anahtarları çok farklı olduğundan, sadece protokol 2 bağlantılarına "
-"izin vermeniz halinde bu anahtarları kullanamayacağınızı da lütfen not edin."
+"Protokol 1 anahtarları çok farklı olduğundan, sadece protokol 2 "
+"bağlantılarına izin vermeniz halinde bu anahtarları kullanamayacağınızı da "
+"lütfen not edin."
 
 #. Type: boolean
 #. Description
@@ -100,8 +102,9 @@ msgid ""
 "If you later change your mind about this setting, README.Debian has "
 "instructions on what to do to your sshd_config file."
 msgstr ""
-"Bu ayar hakkındaki fikriniz ileride değişirse, sshd_config dosyasında yapacağınız "
-"işlemlerle ilgili talimatları README.Debian dosyasında bulabilirsiniz."
+"Bu ayar hakkındaki fikriniz ileride değişirse, sshd_config dosyasında "
+"yapacağınız işlemlerle ilgili talimatları README.Debian dosyasında "
+"bulabilirsiniz."
 
 #. Type: note
 #. Description
@@ -117,15 +120,17 @@ msgid ""
 "keys. This means the authorized_keys2 and known_hosts2 files are no longer "
 "needed. They will still be read in order to maintain backwards compatibility"
 msgstr ""
-"Sürüm 3 itibarıyla OpenSSH artık, ssh1 ve ssh2 için ayrı yapılandırma dosyaları "
-"kullanmamaktadır. Bu, authorized_keys2 ve known_hosts2 dosyalarının artık gerekmediği "
-"anlamına gelir. Geriye doğru uyumluluğu korumak için bu dosyalar yine de okunacaktır."
+"Sürüm 3 itibarıyla OpenSSH artık, ssh1 ve ssh2 için ayrı yapılandırma "
+"dosyaları kullanmamaktadır. Bu, authorized_keys2 ve known_hosts2 "
+"dosyalarının artık gerekmediği anlamına gelir. Geriye doğru uyumluluğu "
+"korumak için bu dosyalar yine de okunacaktır."
 
 #. Type: boolean
 #. Description
 #: ../templates.master:46
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Devam etmek istiyor musunuz? (Etkin ssh oturumlarının öldürülmesi riski var.)"
+msgstr ""
+"Devam etmek istiyor musunuz? (Etkin ssh oturumlarının öldürülmesi riski var.)"
 
 #. Type: boolean
 #. Description
@@ -136,8 +141,8 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Kurmuş olduğunuz /etc/init.d/ssh sürümü büyük olasılıkla, çalışıyor olan tüm "
-"sshd süreçlerini öldürür. Bu yükseltmeyi bir ssh oturumu üzerinden yapıyorsanız "
-"bu gerçekten Berbat bir Şey olacaktır."
+"sshd süreçlerini öldürür. Bu yükseltmeyi bir ssh oturumu üzerinden "
+"yapıyorsanız bu gerçekten Berbat bir Şey olacaktır."
 
 #. Type: boolean
 #. Description
@@ -146,14 +151,16 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Bu sorunu dosyanın stop bölümündeki start-stop-daemon satırına \"--pidfile /var"
-"/run/sshd.pid\" ekleyerek düzeltebilirsiniz."
+"Bu sorunu dosyanın stop bölümündeki start-stop-daemon satırına \"--pidfile /"
+"var/run/sshd.pid\" ekleyerek düzeltebilirsiniz."
 
 #. Type: note
 #. Description
 #: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "NOT: X11 yönlendirme ve yetkilendirmesi öntanımlı olarak etkisizleştirilmiştir."
+msgstr ""
+"NOT: X11 yönlendirme ve yetkilendirmesi öntanımlı olarak "
+"etkisizleştirilmiştir."
 
 #. Type: note
 #. Description
@@ -162,8 +169,8 @@ msgid ""
 "For security reasons, the Debian version of ssh has ForwardX11 and "
 "ForwardAgent set to ``off'' by default."
 msgstr ""
-"Güvenlik gerekçeleriyle ssh'ın Debian sürümünde ForwardX11 ve "
-"ForwardAgent seçenekleri öntanımlı ``off'' değerine ayarlıdır."
+"Güvenlik gerekçeleriyle ssh'ın Debian sürümünde ForwardX11 ve ForwardAgent "
+"seçenekleri öntanımlı ``off'' değerine ayarlıdır."
 
 #. Type: note
 #. Description
@@ -179,7 +186,8 @@ msgstr ""
 #. Description
 #: ../templates.master:56
 msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr "Daha ayrıntılı bilgi /usr/share/doc/ssh/README.Debian dosyasında bulunabilir."
+msgstr ""
+"Daha ayrıntılı bilgi /usr/share/doc/ssh/README.Debian dosyasında bulunabilir."
 
 #. Type: note
 #. Description
@@ -194,8 +202,8 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"rsh-server'ın kurulu durumda olması muhtemelen ssh'ı kurmakla elde edilmesini "
-"istediğiniz güvenliği gölgeliyor. Bu paketi kaldırmanızı öneririm."
+"rsh-server'ın kurulu durumda olması muhtemelen ssh'ı kurmakla elde "
+"edilmesini istediğiniz güvenliği gölgeliyor. Bu paketi kaldırmanızı öneririm."
 
 #. Type: note
 #. Description
@@ -212,10 +220,10 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir zorunluluğunuz "
-"yoksa) kaldırmanızı veya en azından, telnet oturumlarında şifrelenmemiş "
-"giriş/parola ve oturum bilgilerinin ağ üzerinden gönderilmemesi olanağını "
-"sunan telnetd-ssl paketini kurmanızı öneririm."
+"Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir "
+"zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında "
+"şifrelenmemiş giriş/parola ve oturum bilgilerinin ağ üzerinden "
+"gönderilmemesi olanağını sunan telnetd-ssl paketini kurmanızı öneririm."
 
 #. Type: note
 #. Description
@@ -232,8 +240,8 @@ msgid ""
 "the old (non-free) SSH installation."
 msgstr ""
 "IDEA ile şifrelenmiş eski bir /ect/ssh/ssh_host_key dosyanız var. OpenSSH bu "
-"anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait ssh-keygen "
-"aracını da bulamıyorum."
+"anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait ssh-"
+"keygen aracını da bulamıyorum."
 
 #. Type: note
 #. Description
@@ -245,7 +253,9 @@ msgstr "Yeni bir makine anahtarı oluşturmanız gerekiyor."
 #. Description
 #: ../templates.master:92
 msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "/usr/lib/ssh-keysign'ın root haklarıyla kurulmasını (SUID root) ister misiniz?"
+msgstr ""
+"/usr/lib/ssh-keysign'ın root haklarıyla kurulmasını (SUID root) ister "
+"misiniz?"
 
 #. Type: boolean
 #. Description
@@ -254,8 +264,8 @@ msgid ""
 "You have the option of installing the ssh-keysign helper with the SUID bit "
 "set."
 msgstr ""
-"ssh-keysign yardımcı aracının SUID bit'i etkinleştirilerek kurulması seçeneğine "
-"sahipsiniz."
+"ssh-keysign yardımcı aracının SUID bit'i etkinleştirilerek kurulması "
+"seçeneğine sahipsiniz."
 
 #. Type: boolean
 #. Description
@@ -264,8 +274,8 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Eğer ssh-keysign'ı SUID yaparsanız, SSH'ın makine tabanlı Protokol 2 yetkilendirmesini "
-"kullanabileceksiniz."
+"Eğer ssh-keysign'ı SUID yaparsanız, SSH'ın makine tabanlı Protokol 2 "
+"yetkilendirmesini kullanabileceksiniz."
 
 #. Type: boolean
 #. Description
@@ -297,8 +307,8 @@ msgid ""
 "Normally the sshd Secure Shell Server will be run to allow remote logins via "
 "ssh."
 msgstr ""
-"Güvenli Kabuk Sunucusu sshd, normalde ssh ile uzaktan girişlere izin vermek için "
-"çalıştırılacaktır."
+"Güvenli Kabuk Sunucusu sshd, normalde ssh ile uzaktan girişlere izin vermek "
+"için çalıştırılacaktır."
 
 #. Type: boolean
 #. Description
@@ -308,9 +318,9 @@ msgid ""
 "on this machine, and don't want to log into it at all using ssh, then you "
 "can disable sshd here."
 msgstr ""
-"Eğer amacınız sadece bu makinedeki dış bağlantılar için ssh istemcisini kullanmak "
-"ise ve bu makineye ssh'la girmek gibi bir şeyi de istemiyorsanız, sshd sunucusunu "
-"bu adımda etkisizleştirebilirsiniz."
+"Eğer amacınız sadece bu makinedeki dış bağlantılar için ssh istemcisini "
+"kullanmak ise ve bu makineye ssh'la girmek gibi bir şeyi de istemiyorsanız, "
+"sshd sunucusunu bu adımda etkisizleştirebilirsiniz."
 
 #. Type: note
 #. Description
@@ -328,9 +338,9 @@ msgid ""
 "question will no longer work until the option is removed."
 msgstr ""
 "OpenSSH'ın bu sürümü belirli atakları önlemek için (ör. LD_PRELOAD) ortak "
-"anahtarlara ait ortam seçeneklerini öntanımlı olarak etkisizleştirir. Eğer bu "
-"seçeneği bir authorized_keys dosyasında kullanıyorsanız, ilgili seçenek silininceye "
-"kadar bu anahtarın artık çalışmayacağını unutmayın."
+"anahtarlara ait ortam seçeneklerini öntanımlı olarak etkisizleştirir. Eğer "
+"bu seçeneği bir authorized_keys dosyasında kullanıyorsanız, ilgili seçenek "
+"silininceye kadar bu anahtarın artık çalışmayacağını unutmayın."
 
 #. Type: note
 #. Description
@@ -340,6 +350,6 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
-"Bu seçeneği tekrar etkinleştirmek için, sshd_config(5) kılavuz sayfasındaki uyarı "
-"notunu dikkate alarak, sshd yükseltmesi tamamlandığında /etc/ssh/ssh_config dosyasında "
-"\"PermitUserEnvironment yes\" satırını kullanın."
+"Bu seçeneği tekrar etkinleştirmek için, sshd_config(5) kılavuz sayfasındaki "
+"uyarı notunu dikkate alarak, sshd yükseltmesi tamamlandığında /etc/ssh/"
+"ssh_config dosyasında \"PermitUserEnvironment yes\" satırını kullanın."

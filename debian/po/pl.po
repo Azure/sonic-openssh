@@ -68,7 +68,8 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you let me generate a new configuration file "
 "for you."
-msgstr "Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik konfiguracyjny."
+msgstr ""
+"Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik konfiguracyjny."
 
 #. Type: boolean
 #. Description
@@ -144,8 +145,8 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Zainstalowana w³a¶nie wersja /etc/init.d/ssh mo¿e zabiæ wszystkie dzia³aj±ce "
-"obecnie kopie sshd. Je¶li wykonujesz t± aktualizacjê przez ssh, to by³aby Z³a Rzecz"
-"(tm)."
+"obecnie kopie sshd. Je¶li wykonujesz t± aktualizacjê przez ssh, to by³aby "
+"Z³a Rzecz(tm)."
 
 #. Type: boolean
 #. Description
@@ -161,7 +162,8 @@ msgstr ""
 #. Description
 #: ../templates.master:56
 msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone."
+msgstr ""
+"UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone."
 
 #. Type: note
 #. Description
@@ -193,7 +195,8 @@ msgstr "Wiêcej szczegó³ów znajdziesz w /usr/share/doc/ssh/README.Debian."
 #. Description
 #: ../templates.master:67
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
+msgstr ""
+"Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
 
 #. Type: note
 #. Description
@@ -210,7 +213,8 @@ msgstr ""
 #. Description
 #: ../templates.master:74
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
+msgstr ""
+"Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
 
 #. Type: note
 #. Description
@@ -336,10 +340,10 @@ msgid ""
 "are using this option in an authorized_keys file, beware that the keys in "
 "question will no longer work until the option is removed."
 msgstr ""
-"Ta wersja OpenSSH ma wy³±czon± opcjê wykorzystywania ustawieñ ¶rodowiskowych dla "
-"kluczy publicznych. Mo¿na dziêki temu unikn±æ pewnych ataków (jak np.: LD_PRELOAD). "
-"Je¿eli u¿ywasz tej opcji w pliku authorized_keys, to zawarte w nim klucze nie bêd± dzia³aæ "
-"dopóki ta opcja nie zostanie usuniêta."
+"Ta wersja OpenSSH ma wy³±czon± opcjê wykorzystywania ustawieñ ¶rodowiskowych "
+"dla kluczy publicznych. Mo¿na dziêki temu unikn±æ pewnych ataków (jak np.: "
+"LD_PRELOAD). Je¿eli u¿ywasz tej opcji w pliku authorized_keys, to zawarte w "
+"nim klucze nie bêd± dzia³aæ dopóki ta opcja nie zostanie usuniêta."
 
 #. Type: note
 #. Description
@@ -349,10 +353,10 @@ msgid ""
 "sshd_config after the upgrade is complete, taking note of the warning in the "
 "sshd_config(5) manual page."
 msgstr ""
-"Aby ponownie w³±czyæ tê opcjê, nale¿y dodaæ wpis \"PermitUserEnvironment yes\" "
-"do pliku /etc/ssh/sshd_config po ukoñczeniu aktualizacji. Przy zmianie konfiguracji "
-"nale¿y zapoznaæ siê z informacjami zawartymi na stronie podrêcznika systemowego "
-"sshd_config(5)."
+"Aby ponownie w³±czyæ tê opcjê, nale¿y dodaæ wpis \"PermitUserEnvironment yes"
+"\" do pliku /etc/ssh/sshd_config po ukoñczeniu aktualizacji. Przy zmianie "
+"konfiguracji nale¿y zapoznaæ siê z informacjami zawartymi na stronie "
+"podrêcznika systemowego sshd_config(5)."
 
 #~ msgid "Privilege separation"
 #~ msgstr "Separacja uprawnieñ"
@@ -410,4 +414,3 @@ msgstr ""
 #~ "UWAGA! Je¿eli u¿ywasz j±dra Linux'a z serii 2.0, to separacja uprawnieñ w "
 #~ "ogóle nie bêdzie dzia³aæ i sshd nie wystartuje dopóki w³asnorêcznie nie "
 #~ "wy³±czysz separacji uprawnieñ w /etc/ssh/sshd_config."
-
