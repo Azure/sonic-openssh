@@ -15,15 +15,11 @@ DESCRIPTION
      The possible keywords and their meanings are as follows (note that key-
      words are case-insensitive and arguments are case-sensitive):
 
-     AFSTokenPassing
-             Specifies whether an AFS token may be forwarded to the server.
-             Default is M-bM-^@M-^\noM-bM-^@M-^].
-
      AllowGroups
              This keyword can be followed by a list of group name patterns,
              separated by spaces.  If specified, login is allowed only for
              users whose primary group or supplementary group list matches one
-             of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be used as wildcards in the
+             of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y can be used as wildcards in the
              patterns.  Only group names are valid; a numerical group ID is
              not recognized.  By default, login is allowed for all groups.
 
@@ -36,7 +32,7 @@ DESCRIPTION
      AllowUsers
              This keyword can be followed by a list of user name patterns,
              separated by spaces.  If specified, login is allowed only for
-             user names that match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be
+             user names that match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y can be
              used as wildcards in the patterns.  Only user names are valid; a
              numerical user ID is not recognized.  By default, login is
              allowed for all users.  If the pattern takes the form USER@HOST
@@ -70,7 +66,7 @@ DESCRIPTION
              ciphers must be comma-separated.  The default is
 
                M-bM-^@M-^XM-bM-^@M-^Xaes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour,
-                 aes192-cbc,aes256-cbcM-bM-^@M-^YM-bM-^@M-^Y
+                 aes192-cbc,aes256-cbc,aes128-ctr,aes192-ctr,aes256-ctrM-bM-^@M-^YM-bM-^@M-^Y
 
      ClientAliveInterval
              Sets a timeout interval in seconds after which if no data has
@@ -81,18 +77,18 @@ DESCRIPTION
 
      ClientAliveCountMax
              Sets the number of client alive messages (see above) which may be
-             sent without sshd receiving any messages back from the client. If
-             this threshold is reached while client alive messages are being
-             sent, sshd will disconnect the client, terminating the session.
-             It is important to note that the use of client alive messages is
-             very different from KeepAlive (below). The client alive messages
-             are sent through the encrypted channel and therefore will not be
-             spoofable. The TCP keepalive option enabled by KeepAlive is
-             spoofable. The client alive mechanism is valuable when the client
-             or server depend on knowing when a connection has become inac-
-             tive.
+             sent without sshd receiving any messages back from the client.
+             If this threshold is reached while client alive messages are
+             being sent, sshd will disconnect the client, terminating the ses-
+             sion.  It is important to note that the use of client alive mes-
+             sages is very different from KeepAlive (below).  The client alive
+             messages are sent through the encrypted channel and therefore
+             will not be spoofable.  The TCP keepalive option enabled by
+             KeepAlive is spoofable.  The client alive mechanism is valuable
+             when the client or server depend on knowing when a connection has
+             become inactive.
 
-             The default value is 3. If ClientAliveInterval (above) is set to
+             The default value is 3.  If ClientAliveInterval (above) is set to
              15, and ClientAliveCountMax is left at the default, unresponsive
              ssh clients will be disconnected after approximately 45 seconds.
 
@@ -104,14 +100,14 @@ DESCRIPTION
              This keyword can be followed by a list of group name patterns,
              separated by spaces.  Login is disallowed for users whose primary
              group or supplementary group list matches one of the patterns.
-             M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be used as wildcards in the patterns.  Only
-             group names are valid; a numerical group ID is not recognized.
-             By default, login is allowed for all groups.
+             M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y can be used as wildcards in the patterns.  Only group
+             names are valid; a numerical group ID is not recognized.  By
+             default, login is allowed for all groups.
 
      DenyUsers
              This keyword can be followed by a list of user name patterns,
              separated by spaces.  Login is disallowed for user names that
-             match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  can be used as wildcards
+             match one of the patterns.  M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y can be used as wildcards
              in the patterns.  Only user names are valid; a numerical user ID
              is not recognized.  By default, login is allowed for all users.
              If the pattern takes the form USER@HOST then USER and HOST are
@@ -127,6 +123,16 @@ DESCRIPTION
              the wildcard address, thus allowing remote hosts to connect to
              forwarded ports.  The argument must be M-bM-^@M-^\yesM-bM-^@M-^] or M-bM-^@M-^\noM-bM-^@M-^].  The
              default is M-bM-^@M-^\noM-bM-^@M-^].
+
+     GSSAPIAuthentication
+             Specifies whether user authentication based on GSSAPI is allowed.
+             The default is M-bM-^@M-^\noM-bM-^@M-^].  Note that this option applies to protocol
+             version 2 only.
+
+     GSSAPICleanupCredentials
+             Specifies whether to automatically destroy the userM-bM-^@M-^Ys credentials
+             cache on logout.  The default is M-bM-^@M-^\yesM-bM-^@M-^].  Note that this option
+             applies to protocol version 2 only.
 
      HostbasedAuthentication
              Specifies whether rhosts or /etc/hosts.equiv authentication
@@ -146,8 +152,7 @@ DESCRIPTION
 
      IgnoreRhosts
              Specifies that .rhosts and .shosts files will not be used in
-             RhostsAuthentication, RhostsRSAAuthentication or
-             HostbasedAuthentication.
+             RhostsRSAAuthentication or HostbasedAuthentication.
 
              /etc/hosts.equiv and /etc/shosts.equiv are still used.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
@@ -173,22 +178,16 @@ DESCRIPTION
              To disable keepalives, the value should be set to M-bM-^@M-^\noM-bM-^@M-^].
 
      KerberosAuthentication
-             Specifies whether Kerberos authentication is allowed.  This can
-             be in the form of a Kerberos ticket, or if PasswordAuthentication
-             is yes, the password provided by the user will be validated
-             through the Kerberos KDC.  To use this option, the server needs a
-             Kerberos servtab which allows the verification of the KDCM-bM-^@M-^Ys iden-
-             tity.  Default is M-bM-^@M-^\noM-bM-^@M-^].
+             Specifies whether the password provided by the user for
+             PasswordAuthentication will be validated through the Kerberos
+             KDC.  To use this option, the server needs a Kerberos servtab
+             which allows the verification of the KDCM-bM-^@M-^Ys identity.  Default is
+             M-bM-^@M-^\noM-bM-^@M-^].
 
      KerberosOrLocalPasswd
              If set then if password authentication through Kerberos fails
              then the password will be validated via any additional local
              mechanism such as /etc/passwd.  Default is M-bM-^@M-^\yesM-bM-^@M-^].
-
-     KerberosTgtPassing
-             Specifies whether a Kerberos TGT may be forwarded to the server.
-             Default is M-bM-^@M-^\noM-bM-^@M-^], as this only works when the Kerberos KDC is
-             actually an AFS kaserver.
 
      KerberosTicketCleanup
              Specifies whether to automatically destroy the userM-bM-^@M-^Ys ticket
@@ -211,7 +210,7 @@ DESCRIPTION
                    ListenAddress [host|IPv6_addr]:port
 
              If port is not specified, sshd will listen on the address and all
-             prior Port options specified. The default is to listen on all
+             prior Port options specified.  The default is to listen on all
              local addresses.  Multiple ListenAddress options are permitted.
              Additionally, any Port options must precede this option for non
              port qualified addresses.
@@ -249,12 +248,6 @@ DESCRIPTION
              and all connection attempts are refused if the number of unau-
              thenticated connections reaches M-bM-^@M-^\fullM-bM-^@M-^] (60).
 
-     PAMAuthenticationViaKbdInt
-             Specifies whether PAM challenge response authentication is
-             allowed. This allows the use of most PAM challenge response
-             authentication modules, but it will allow password authentication
-             regardless of whether PasswordAuthentication is enabled.
-
      PasswordAuthentication
              Specifies whether password authentication is allowed.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
@@ -275,7 +268,7 @@ DESCRIPTION
              If this option is set to M-bM-^@M-^\forced-commands-onlyM-bM-^@M-^] root login with
              public key authentication will be allowed, but only if the
              command option has been specified (which may be useful for taking
-             remote backups even if root login is normally not allowed). All
+             remote backups even if root login is normally not allowed).  All
              other authentication methods are disabled for root.
 
              If this option is set to M-bM-^@M-^\noM-bM-^@M-^] root is not allowed to login.
@@ -315,16 +308,10 @@ DESCRIPTION
      PubkeyAuthentication
              Specifies whether public key authentication is allowed.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].  Note that this option applies to protocol ver-
-             sion 2 only.
-
-     RhostsAuthentication
-             Specifies whether authentication using rhosts or /etc/hosts.equiv
-             files is sufficient.  Normally, this method should not be permit-
-             ted because it is insecure.  RhostsRSAAuthentication should be
-             used instead, because it performs RSA-based host authentication
-             in addition to normal rhosts or /etc/hosts.equiv authentication.
-             The default is M-bM-^@M-^\noM-bM-^@M-^].  This option applies to protocol version 1
-             only.
+             sion 2 only.  RhostsRSAAuthentication should be used instead,
+             because it performs RSA-based host authentication in addition to
+             normal rhosts or /etc/hosts.equiv authentication.  The default is
+             M-bM-^@M-^\noM-bM-^@M-^].  This option applies to protocol version 1 only.
 
      RhostsRSAAuthentication
              Specifies whether rhosts or /etc/hosts.equiv authentication
@@ -361,6 +348,10 @@ DESCRIPTION
              LOCAL1, LOCAL2, LOCAL3, LOCAL4, LOCAL5, LOCAL6, LOCAL7.  The
              default is AUTH.
 
+     UseDNS  Specifies whether sshd should lookup the remote host name and
+             check that the resolved host name for the remote IP address maps
+             back to the very same IP address.  The default is M-bM-^@M-^\yesM-bM-^@M-^].
+
      UseLogin
              Specifies whether login(1) is used for interactive login ses-
              sions.  The default is M-bM-^@M-^\noM-bM-^@M-^].  Note that login(1) is never used
@@ -368,6 +359,11 @@ DESCRIPTION
              enabled, X11Forwarding will be disabled because login(1) does not
              know how to handle xauth(1) cookies.  If UsePrivilegeSeparation
              is specified, it will be disabled after authentication.
+
+     UsePAM  Enables PAM authentication (via challenge-response) and session
+             set up.  If you enable this, you should probably disable
+             PasswordAuthentication.  If you enable then you will not be able
+             to run sshd as a non-root user.
 
      UsePrivilegeSeparation
              Specifies whether sshd separates privileges by creating an
@@ -377,11 +373,6 @@ DESCRIPTION
              privilege separation is to prevent privilege escalation by con-
              taining any corruption within the unprivileged processes.  The
              default is M-bM-^@M-^\yesM-bM-^@M-^].
-
-     VerifyReverseMapping
-             Specifies whether sshd should try to verify the remote host name
-             and check that the resolved host name for the remote IP address
-             maps back to the very same IP address.  The default is M-bM-^@M-^\noM-bM-^@M-^].
 
      X11DisplayOffset
              Specifies the first display number available for sshdM-bM-^@M-^Ys X11 for-
@@ -400,7 +391,7 @@ DESCRIPTION
              substitution occur on the client side.  The security risk of
              using X11 forwarding is that the clientM-bM-^@M-^Ys X11 display server may
              be exposed to attack when the ssh client requests forwarding (see
-             the warnings for ForwardX11 in ssh_config(5) ). A system adminis-
+             the warnings for ForwardX11 in ssh_config(5)).  A system adminis-
              trator may have a stance in which they want to protect clients
              that may expose themselves to attack by unwittingly requesting
              X11 forwarding, which can warrant a M-bM-^@M-^\noM-bM-^@M-^] setting.
@@ -454,6 +445,9 @@ FILES
              writable by root only, but it is recommended (though not neces-
              sary) that it be world-readable.
 
+SEE ALSO
+     sshd(8)
+
 AUTHORS
      OpenSSH is a derivative of the original and free ssh 1.2.12 release by
      Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
@@ -461,8 +455,5 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
      for privilege separation.
-
-SEE ALSO
-     sshd(8)
 
 BSD                           September 25, 1999                           BSD

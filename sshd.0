@@ -42,6 +42,17 @@ DESCRIPTION
      authentication combined with RSA host authentication, RSA challenge-
      response authentication, or password based authentication.
 
+     Regardless of the authentication type, the account is checked to ensure
+     that it is accessible.  An account is not accessible if it is locked,
+     listed in DenyUsers or its group is listed in DenyGroups .  The defini-
+     tion of a locked account is system dependant. Some platforms have their
+     own account database (eg AIX) and some modify the passwd field ( M-bM-^@M-^X*LK*M-bM-^@M-^Y
+     on Solaris, M-bM-^@M-^X*M-bM-^@M-^Y on HP-UX, containing M-bM-^@M-^XNologinM-bM-^@M-^Y on Tru64 and a leading
+     M-bM-^@M-^X!!M-bM-^@M-^Y on Linux).  If there is a requirement to disable password authenti-
+     cation for the account while allowing still public-key, then the passwd
+     field should be set to something other than these values (eg M-bM-^@M-^XNPM-bM-^@M-^Y or
+     M-bM-^@M-^X*NP*M-bM-^@M-^Y ).
+
      Rhosts authentication is normally disabled because it is fundamentally
      insecure, but can be enabled in the server configuration file if desired.
      System security is not improved unless rshd, rlogind, and rexecd are dis-
@@ -169,10 +180,10 @@ DESCRIPTION
              the utmp file.  -u0 may also be used to prevent sshd from making
              DNS requests unless the authentication mechanism or configuration
              requires it.  Authentication mechanisms that may require DNS
-             include RhostsAuthentication, RhostsRSAAuthentication,
-             HostbasedAuthentication and using a from="pattern-list" option in
-             a key file.  Configuration options that require DNS include using
-             a USER@HOST pattern in AllowUsers or DenyUsers.
+             include RhostsRSAAuthentication, HostbasedAuthentication and
+             using a from="pattern-list" option in a key file.  Configuration
+             options that require DNS include using a USER@HOST pattern in
+             AllowUsers or DenyUsers.
 
      -D      When this option is specified sshd will not detach and does not
              become a daemon.  This allows easy monitoring of sshd.
@@ -250,9 +261,9 @@ AUTHORIZED_KEYS FILE FORMAT
      from="pattern-list"
              Specifies that in addition to public key authentication, the
              canonical name of the remote host must be present in the comma-
-             separated list of patterns (M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^XM-bM-^@M-^Y?  serve as wildcards).
-             The list may also contain patterns negated by prefixing them with
-             M-bM-^@M-^XM-bM-^@M-^Y!; if the canonical host name matches a negated pattern, the
+             separated list of patterns (M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y serve as wildcards).  The
+             list may also contain patterns negated by prefixing them with
+             M-bM-^@M-^X!M-bM-^@M-^Y; if the canonical host name matches a negated pattern, the
              key is not accepted.  The purpose of this option is to optionally
              increase security: public key authentication by itself does not
              trust the network or name servers or anything (but the key); how-
@@ -304,7 +315,7 @@ AUTHORIZED_KEYS FILE FORMAT
              Limit local M-bM-^@M-^XM-bM-^@M-^Xssh -LM-bM-^@M-^YM-bM-^@M-^Y port forwarding such that it may only con-
              nect to the specified host and port.  IPv6 addresses can be spec-
              ified with an alternative syntax: host/port.  Multiple permitopen
-             options may be applied separated by commas. No pattern matching
+             options may be applied separated by commas.  No pattern matching
              is performed on the specified hostnames, they must be literal
              domains or addresses.
 
@@ -328,11 +339,11 @@ SSH_KNOWN_HOSTS FILE FORMAT
      Each line in these files contains the following fields: hostnames, bits,
      exponent, modulus, comment.  The fields are separated by spaces.
 
-     Hostnames is a comma-separated list of patterns (M-bM-^@M-^Y*M-bM-^@M-^Y and M-bM-^@M-^Y?M-bM-^@M-^Y act as wild-
+     Hostnames is a comma-separated list of patterns (M-bM-^@M-^X*M-bM-^@M-^Y and M-bM-^@M-^X?M-bM-^@M-^Y act as wild-
      cards); each pattern in turn is matched against the canonical host name
      (when authenticating a client) or against the user-supplied name (when
-     authenticating a server).  A pattern may also be preceded by M-bM-^@M-^XM-bM-^@M-^Y!  to
-     indicate negation: if the host name matches a negated pattern, it is not
+     authenticating a server).  A pattern may also be preceded by M-bM-^@M-^X!M-bM-^@M-^Y to indi-
+     cate negation: if the host name matches a negated pattern, it is not
      accepted (by that line) even if it matched another pattern on the line.
 
      Bits, exponent, and modulus are taken directly from the RSA host key;
@@ -520,14 +531,6 @@ FILES
              login-time initializations globally.  This file should be
              writable only by root, and should be world-readable.
 
-AUTHORS
-     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
-     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
-     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
-     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
-     versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
-     for privilege separation.
-
 SEE ALSO
      scp(1), sftp(1), ssh(1), ssh-add(1), ssh-agent(1), ssh-keygen(1),
      login.conf(5), moduli(5), sshd_config(5), sftp-server(8)
@@ -539,5 +542,13 @@ SEE ALSO
      M. Friedl, N. Provos, and W. A. Simpson, Diffie-Hellman Group Exchange
      for the SSH Transport Layer Protocol, draft-ietf-secsh-dh-group-
      exchange-02.txt, January 2002, work in progress material.
+
+AUTHORS
+     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
+     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
+     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
+     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
+     versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
+     for privilege separation.
 
 BSD                           September 25, 1999                           BSD

@@ -33,10 +33,10 @@ FILES
 SEE ALSO
      ssh(1), ssh-keygen(1), ssh_config(5), sshd(8)
 
-AUTHORS
-     Markus Friedl <markus@openbsd.org>
-
 HISTORY
      ssh-keysign first appeared in OpenBSD 3.2.
+
+AUTHORS
+     Markus Friedl M-bM-^LM-)markus@openbsd.orgM-bM-^LM-*
 
 BSD                              May 24, 2002                              BSD

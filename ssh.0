@@ -6,7 +6,7 @@ NAME
 SYNOPSIS
      ssh [-l login_name] hostname | user@hostname [command]
 
-     ssh [-afgknqstvxACNTX1246] [-b bind_address] [-c cipher_spec]
+     ssh [-afgknqstvxACNTVX1246] [-b bind_address] [-c cipher_spec]
          [-e escape_char] [-i identity_file] [-l login_name] [-m mac_spec]
          [-o option] [-p port] [-F configfile] [-L port:host:hostport]
          [-R port:host:hostport] [-D port] hostname | user@hostname [command]
@@ -149,6 +149,9 @@ DESCRIPTION
 
      ~?      Display a list of escape characters
 
+     ~B      Send a BREAK to the remote system (only useful for SSH protocol
+             version 2 and if the peer supports it)
+
      ~C      Open command line (only useful for adding port forwardings using
              the -L and -R options)
 
@@ -263,12 +266,12 @@ DESCRIPTION
              ties specified in configuration files).
 
      -I smartcard_device
-             Specifies which smartcard device to use. The argument is the
+             Specifies which smartcard device to use.  The argument is the
              device ssh should use to communicate with a smartcard used for
              storing the userM-bM-^@M-^Ys private RSA key.
 
-     -k      Disables forwarding of Kerberos tickets and AFS tokens.  This may
-             also be specified on a per-host basis in the configuration file.
+     -k      Disables forwarding of Kerberos tickets.  This may also be speci-
+             fied on a per-host basis in the configuration file.
 
      -l login_name
              Specifies the user to log in as on the remote machine.  This also
@@ -305,10 +308,10 @@ DESCRIPTION
              suppressed.
 
      -s      May be used to request invocation of a subsystem on the remote
-             system. Subsystems are a feature of the SSH2 protocol which
+             system.  Subsystems are a feature of the SSH2 protocol which
              facilitate the use of SSH as a secure transport for other appli-
-             cations (eg. sftp). The subsystem is specified as the remote com-
-             mand.
+             cations (eg. sftp).  The subsystem is specified as the remote
+             command.
 
      -t      Force pseudo-tty allocation.  This can be used to execute arbi-
              trary screen-based programs on a remote machine, which can be
@@ -319,8 +322,10 @@ DESCRIPTION
 
      -v      Verbose mode.  Causes ssh to print debugging messages about its
              progress.  This is helpful in debugging connection, authentica-
-             tion, and configuration problems.  Multiple -v options increases
-             the verbosity.  Maximum is 3.
+             tion, and configuration problems.  Multiple -v options increase
+             the verbosity.  The maximum is 3.
+
+     -V      Display the version number and exit.
 
      -x      Disables X11 forwarding.
 
@@ -377,10 +382,10 @@ DESCRIPTION
              side, and whenever a connection is made to this port, the connec-
              tion is forwarded over the secure channel, and the application
              protocol is then used to determine where to connect to from the
-             remote machine.  Currently the SOCKS4 protocol is supported, and
-             ssh will act as a SOCKS4 server.  Only root can forward privi-
-             leged ports.  Dynamic port forwardings can also be specified in
-             the configuration file.
+             remote machine.  Currently the SOCKS4 and SOCKS5 protocols are
+             supported, and ssh will act as a SOCKS server.  Only root can
+             forward privileged ports.  Dynamic port forwardings can also be
+             specified in the configuration file.
 
      -1      Forces ssh to try protocol version 1 only.
 
@@ -559,7 +564,7 @@ FILES
              with ssh without permitting login with rlogin or rsh(1).
 
      /etc/hosts.equiv
-             This file is used during .rhosts authentication. It contains
+             This file is used during .rhosts authentication.  It contains
              canonical hosts names, one per line (the full format is described
              on the sshd(8) manual page).  If the client host is found in this
              file, login is automatically permitted provided client and server
@@ -590,13 +595,6 @@ DIAGNOSTICS
      ssh exits with the exit status of the remote command or with 255 if an
      error occurred.
 
-AUTHORS
-     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
-     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
-     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
-     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
-     versions 1.5 and 2.0.
-
 SEE ALSO
      rsh(1), scp(1), sftp(1), ssh-add(1), ssh-agent(1), ssh-keygen(1),
      telnet(1), ssh_config(5), ssh-keysign(8), sshd(8)
@@ -604,5 +602,12 @@ SEE ALSO
      T. Ylonen, T. Kivinen, M. Saarinen, T. Rinne, and S. Lehtinen, SSH
      Protocol Architecture, draft-ietf-secsh-architecture-12.txt, January
      2002, work in progress material.
+
+AUTHORS
+     OpenSSH is a derivative of the original and free ssh 1.2.12 release by
+     Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
+     de Raadt and Dug Song removed many bugs, re-added newer features and cre-
+     ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
+     versions 1.5 and 2.0.
 
 BSD                           September 25, 1999                           BSD

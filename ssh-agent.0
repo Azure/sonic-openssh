@@ -60,7 +60,7 @@ DESCRIPTION
      can thus use the privileges given by the identities anywhere in the net-
      work in a secure way.
 
-     There are two main ways to get an agent setup: Either the agent starts a
+     There are two main ways to get an agent set up: Either the agent starts a
      new subcommand into which some environment variables are exported, or the
      agent prints the needed shell commands (either sh(1) or csh(1) syntax can
      be generated) which can be evalled in the calling shell.  Later ssh(1)
@@ -101,14 +101,14 @@ FILES
              owner.  The sockets should get automatically removed when the
              agent exits.
 
+SEE ALSO
+     ssh(1), ssh-add(1), ssh-keygen(1), sshd(8)
+
 AUTHORS
      OpenSSH is a derivative of the original and free ssh 1.2.12 release by
      Tatu Ylonen.  Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo
      de Raadt and Dug Song removed many bugs, re-added newer features and cre-
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
-
-SEE ALSO
-     ssh(1), ssh-add(1), ssh-keygen(1), sshd(8)
 
 BSD                           September 25, 1999                           BSD
