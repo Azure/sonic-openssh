@@ -126,7 +126,7 @@ _Description: Environment options on keys have been deprecated
 
 Template: ssh/disable_cr_auth
 Type: boolean
-Default: true
+Default: false
 _Description: Disable challenge-response authentication?
  Password authentication appears to be disabled in your current OpenSSH
  server configuration. In order to prevent users from logging in using
@@ -135,7 +135,7 @@ _Description: Disable challenge-response authentication?
  authentication, or else ensure that your PAM configuration does not allow
  Unix password file authentication.
  .
- If you disable challenge-response authentication (the default answer), then
- users will not be able to log in using passwords. If you leave it enabled,
- then the 'PasswordAuthentication no' option will have no useful effect
- unless you also adjust your PAM configuration in /etc/pam.d/ssh.
+ If you disable challenge-response authentication, then users will not be
+ able to log in using passwords. If you leave it enabled (the default
+ answer), then the 'PasswordAuthentication no' option will have no useful
+ effect unless you also adjust your PAM configuration in /etc/pam.d/ssh.
