@@ -13,6 +13,8 @@ openssh (1:3.8.1p1-1) UNRELEASED; urgency=low
   * Add openssh-client-udeb and openssh-server-udeb binary packages for use
     in debian-installer. They still need libnss_files to be supplied in udeb
     form by glibc.
+  * Work around lack of res_query weak alias in libresolv on amd64 (see
+    #242462, awaiting real fix upstream).
   * Fix grammar in sshd(8) (closes: #238753).
   * Add .desktop file and icon for ssh-askpass-gnome (closes: #232333).
   * Update Polish debconf template translation (thanks, Emil Nowak;

@@ -43,6 +43,12 @@ PAMSUBST := yes
 PAMDEP := libpam-runtime
 endif
 
+# Temporary linkage hack for amd64 due to lack of res_query weak alias, see
+# #242462. Real fix sent upstream.
+ifeq ($(DEB_HOST_ARCH),amd64)
+FORCE_LIBS = LIBS=-lresolv
+endif
+
 # Change the version string to include the Debian version
 SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
 
@@ -52,7 +58,7 @@ build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
-	cd build-deb && ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
+	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
 	perl -pi -e 's/.*#undef (BROKEN_SETRES[UG]ID).*/#define $$1 1/' build-deb/config.h
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
@@ -69,7 +75,7 @@ build-udeb: build-udeb-stamp
 build-udeb-stamp:
 	dh_testdir
 	mkdir -p build-udeb
-	cd build-udeb && ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
+	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
 	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh sshd
 	touch build-udeb-stamp
 
