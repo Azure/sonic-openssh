@@ -278,7 +278,8 @@ msgstr "Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian."
 #. Description
 #: ../templates.master:99
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
+msgstr ""
+"Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
 
 #. Type: note
 #. Description
@@ -358,8 +359,8 @@ msgid ""
 "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
 "based authentication."
 msgstr ""
-"Si hace ssh-keysign SUID, podrá usar la autenticación basada en servidor "
-"de la versión 2 del protocolo SSH."
+"Si hace ssh-keysign SUID, podrá usar la autenticación basada en servidor de "
+"la versión 2 del protocolo SSH."
 
 #. Type: boolean
 #. Description

@@ -145,8 +145,8 @@ msgid ""
 "connecting (the ssh client shipped with \"potato\" is affected)."
 msgstr ""
 "Tato verze OpenSSH podporuje ssh protokol ve verzi 2, který je mnohem "
-"bezpeènìj¹í. Je dobré ssh verze 1 zakázat, nicménì na slab¹ích poèítaèích "
-"se projeví zpomalení a také tím znemo¾níte pøihlá¹ení star¹ích klientù "
+"bezpeènìj¹í. Je dobré ssh verze 1 zakázat, nicménì na slab¹ích poèítaèích se "
+"projeví zpomalení a také tím znemo¾níte pøihlá¹ení star¹ích klientù "
 "(napøíklad tìch z Debianu 2.2)."
 
 #. Type: boolean
@@ -202,8 +202,8 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Stávající verze /etc/init.d/ssh pravdìpadobnì pozabíjí v¹echny bì¾ící "
-"instance sshd. Pokud tuto aktualizaci provádíte pøes ssh, byla by to "
-"©patná Vìc(tm)."
+"instance sshd. Pokud tuto aktualizaci provádíte pøes ssh, byla by to ©patná "
+"Vìc(tm)."
 
 #. Type: boolean
 #. Description
