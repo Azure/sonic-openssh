@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-31 03:10+0100\n"
+"POT-Creation-Date: 2004-10-06 14:06+0100\n"
 "PO-Revision-Date: 2003-09-24 09:32+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -266,6 +266,34 @@ msgstr ""
 #: ../openssh-server.templates.master:74
 msgid "You will need to generate a new host key."
 msgstr "新しいホストキーを作る必要があります。"
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:84
+msgid "Disable challenge-response authentication?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:84
+msgid ""
+"Password authentication appears to be disabled in your current OpenSSH "
+"server configuration. In order to prevent users from logging in using "
+"passwords (perhaps using only public key authentication instead) with recent "
+"versions of OpenSSH, you must disable challenge-response authentication, or "
+"else ensure that your PAM configuration does not allow Unix password file "
+"authentication."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:84
+msgid ""
+"If you disable challenge-response authentication, then users will not be "
+"able to log in using passwords. If you leave it enabled (the default "
+"answer), then the 'PasswordAuthentication no' option will have no useful "
+"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+msgstr ""
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "ssh2 キーは設定ファイルに統合されます"
