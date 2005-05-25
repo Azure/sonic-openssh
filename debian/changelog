@@ -4,7 +4,7 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
     - sftp supports command history and editing support using libedit
       (closes: #287013).
     - Have scp and sftp wait for the spawned ssh to exit before they exit
-      themselves, allowing ssh to restore terminal modes (closes: #303362).
+      themselves, allowing ssh to restore terminal modes (closes: #257130).
     - Improved the handling of bad data in authorized_keys files,
       eliminating fatal errors on corrupt or very large keys; e.g. linefeeds
       in keys only produce errors in auth.log now (closes: #220726).
