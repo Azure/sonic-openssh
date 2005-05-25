@@ -1,6 +1,8 @@
 openssh (1:4.0p1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+    - sftp supports command history and editing support using libedit
+      (closes: #287013).
   * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
     closes: #296487).
   * Remove obsolete and unnecessary ssh/forward_warning debconf note.
