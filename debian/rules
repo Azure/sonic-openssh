@@ -43,12 +43,6 @@ PAMSUBST := yes
 PAMDEP := libpam-runtime
 endif
 
-# Temporary linkage hack for amd64 due to lack of res_query weak alias, see
-# #242462. Real fix sent upstream.
-ifeq ($(DEB_HOST_ARCH),amd64)
-FORCE_LIBS = LIBS=-lresolv
-endif
-
 # Change the version string to include the Debian version
 SSH_EXTRAVERSION := Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
 
