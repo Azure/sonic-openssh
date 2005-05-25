@@ -538,7 +538,7 @@ ssh_exchange_identification(void)
 	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s\n",
 	    compat20 ? PROTOCOL_MAJOR_2 : PROTOCOL_MAJOR_1,
 	    compat20 ? PROTOCOL_MINOR_2 : minor1,
-	    SSH_VERSION);
+	    SSH_RELEASE);
 	if (atomicio(vwrite, connection_out, buf, strlen(buf)) != strlen(buf))
 		fatal("write: %.100s", strerror(errno));
 	client_version_string = xstrdup(buf);
