@@ -12,6 +12,8 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
     - Restore X forwarding fix from #102991, lost somewhere along the way.
     - Link with -lcrypt.
     - Link with -lpthread rather than -pthread.
+    - Don't build ssh-askpass-gnome on the Hurd, until GNOME is available to
+      satisfy build-dependencies.
   * Drop workaround for #242462 on amd64; it's been fixed properly upstream.
   * debconf template translations:
     - Update Czech (thanks, Miroslav Kure; closes: #298744).

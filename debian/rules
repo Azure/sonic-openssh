@@ -143,6 +143,7 @@ install: build
 	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
 	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
+ifneq ($(DEB_HOST_ARCH_OS),gnu)
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
 	elif [ -f contrib/gnome-ssh-askpass1 ]; then \
@@ -150,6 +151,7 @@ install: build
 	fi
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
 	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
+endif
 
 	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
 	install -m 644 debian/ssh-argv0.1 debian/openssh-client/usr/share/man/man1/ssh-argv0.1
@@ -168,7 +170,9 @@ binary-indep: binary-ssh
 
 # Build architecture-dependent files here.
 binary-arch: binary-openssh-client binary-openssh-server
+ifneq ($(DEB_HOST_ARCH_OS),gnu)
 binary-arch: binary-ssh-askpass-gnome
+endif
 binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
 
 binary-openssh-client: DH_OPTIONS=-popenssh-client
