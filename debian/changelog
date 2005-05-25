@@ -16,6 +16,7 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
       eliminating fatal errors on corrupt or very large keys; e.g. linefeeds
       in keys only produce errors in auth.log now (closes: #220726).
     - Add "command mode" to ssh connection multiplexing (closes: #303452).
+    - Mention $HOME/.hushlogin in sshd(8) FILES section (closes: #163933).
   * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
     closes: #296487).
   * Remove obsolete and unnecessary ssh/forward_warning debconf note.
