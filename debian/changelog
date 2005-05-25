@@ -8,6 +8,7 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
   * Remove obsolete and unnecessary ssh/forward_warning debconf note.
   * debconf template translations:
     - Update Czech (thanks, Miroslav Kure; closes: #298744).
+    - Update Finnish (thanks, Matti Pöllä; closes: #303787).
     - Synchronise Spanish with sarge branch (thanks, Javier
       Fernández-Sanguino Peña; closes: #298536).
     - Add Ukrainian (thanks, Eugeniy Meshcheryakov; closes: #301852).

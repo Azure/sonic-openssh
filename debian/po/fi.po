@@ -13,13 +13,13 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
-# Matti Pöllä <mpo@iki.fi>, 2004.
+# Matti Pöllä <mpo@iki.fi>, 2004-2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-15 12:48+0000\n"
-"PO-Revision-Date: 2004-08-12 21:25+0300\n"
+"PO-Revision-Date: 2005-04-08 22:15+0300\n"
 "Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -249,7 +249,7 @@ msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 #. Description
 #: ../openssh-server.templates.master:73
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Poista käytöstä haaste-vaste -autentikointi"
 
 #. Type: boolean
 #. Description
@@ -262,6 +262,12 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Käytössä olevassa OpenSSH-konfiguraatiossa salasana-autentikointi\n"
+"näyttää olevan poissa käytöstä. Estääksesi kirjautumiset salasanaa\n"
+"käyttäen (esim. salliaksesi kirjautumisen vain julkista avainta\n"
+"käyttäen), uusissa OpenSSH-versioissa haaste-vaste -autentikointi\n"
+"tulee poistaa käytöstä, tai muutoin varmistaa, että PAM-konfiguraatio\n"
+"ei salli Unix-salasanatiedostoon perustuvaa autentikointia."
 
 #. Type: boolean
 #. Description
@@ -272,6 +278,26 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Jos poistat käytöstä haaste-vaste -pohjaisen autentikoinnin, käyttäjät\n"
+"eivät voi kirjautua salasanaa käyttäen. Jos jätät sen päälle (oletus),\n"
+"asetuksella \"PasswordAuthentication no\" ei ole vaikutusta, ellet muuta\n"
+"myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
+
+#~ msgid "ssh2 keys merged in configuration files"
+#~ msgstr "ssh2-avaimet yhdistetty asetustiedostoissa"
+
+#~ msgid ""
+#~ "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
+#~ "keys. This means the authorized_keys2 and known_hosts2 files are no "
+#~ "longer needed. They will still be read in order to maintain backwards "
+#~ "compatibility"
+#~ msgstr ""
+#~ "OpenSSH:n versio 3 ei enää käytä erillisiä tiedostoja ssh1- ja ssh2-"
+#~ "avaimille. \n"
+#~ "Tästä johtuen tiedostoja authorized_keys2 ja known_hosts2 ei enää "
+#~ "tarvita. \n"
+#~ "Tiedostot silti luetaan, jotta yhteensopivuus vanhempiin versioihin "
+#~ "säilyy."
 
 #~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 #~ msgstr ""
@@ -294,3 +320,49 @@ msgstr ""
 
 #~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 #~ msgstr "Lisätietoja tiedostossa /usr/share/doc/ssh/README.Debian"
+
+#~ msgid "Do you want to run the sshd server?"
+#~ msgstr "Haluatko ajaa sshd-palvelinta?"
+
+#~ msgid "This package contains both the ssh client, and the sshd server."
+#~ msgstr "Tämä paketti sisältää ssh-asiakasohjelman ja sshd-palvelimen."
+
+#~ msgid ""
+#~ "Normally the sshd Secure Shell Server will be run to allow remote logins "
+#~ "via ssh."
+#~ msgstr ""
+#~ "Normaalisti sshd-palvelinta käytetään ssh-etäyhteyksien tarjoamiseen."
+
+#~ msgid ""
+#~ "If you are only interested in using the ssh client for outbound "
+#~ "connections on this machine, and don't want to log into it at all using "
+#~ "ssh, then you can disable sshd here."
+#~ msgstr ""
+#~ "Jos haluat ottaa ssh-yhteyksiä vain ulos tältä koneelta etkä halua "
+#~ "ottaa \n"
+#~ "tähän koneeseen ssh-yhteyksiä muualta, voit poistaa sshd:n käytöstä."
+
+#~ msgid "Environment options on keys have been deprecated"
+#~ msgstr "Avaimien ympäristövalitsimia ei enää käytetä"
+
+#~ msgid ""
+#~ "This version of OpenSSH disables the environment option for public keys "
+#~ "by default, in order to avoid certain attacks (for example, LD_PRELOAD). "
+#~ "If you are using this option in an authorized_keys file, beware that the "
+#~ "keys in question will no longer work until the option is removed."
+#~ msgstr ""
+#~ "Tässä OpenSSH-versiossa julkisten avaimien ympäristövalitsin on poissa \n"
+#~ "käytöstä, jotta tietynlaisilta hyökkäyksiltä vältyttäisiin (esim. "
+#~ "LD_PRELOAD). \n"
+#~ "Jos käytät tätä valitsinta authorized_keys-tiedostossa, huomioi, että \n"
+#~ "nämä avaimet eivät toimi niin kauan kuin valitsinta ei poisteta."
+
+#~ msgid ""
+#~ "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
+#~ "sshd_config after the upgrade is complete, taking note of the warning in "
+#~ "the sshd_config(5) manual page."
+#~ msgstr ""
+#~ "Ottaaksesi tämän toiminnon uudelleen käyttöön, lisää tiedostoon \n"
+#~ "/etc/ssh/sshd_config rivi \"PermitUserEnvironment yes\" kun päivitys on "
+#~ "valmis. \n"
+#~ "Huomioi varoitus man-ohjesivuilla sshd_config(5)."
