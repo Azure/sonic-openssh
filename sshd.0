@@ -38,9 +38,9 @@ DESCRIPTION
      tion algorithm to use from those offered by the server.
 
      Next, the server and the client enter an authentication dialog.  The
-     client tries to authenticate itself using .rhosts authentication, .rhosts
-     authentication combined with RSA host authentication, RSA challenge-re-
-     sponse authentication, or password based authentication.
+     client tries to authenticate itself using .rhosts authentication combined
+     with RSA host authentication, RSA challenge-response authentication, or
+     password based authentication.
 
      Regardless of the authentication type, the account is checked to ensure
      that it is accessible.  An account is not accessible if it is locked,
@@ -53,10 +53,8 @@ DESCRIPTION
      field should be set to something other than these values (eg `NP' or
      `*NP*' ).
 
-     rhosts authentication is normally disabled because it is fundamentally
-     insecure, but can be enabled in the server configuration file if desired.
-     System security is not improved unless rshd, rlogind, and rexecd are dis-
-     abled (thus completely disabling rlogin and rsh into the machine).
+     rshd, rlogind, and rexecd are disabled (thus completely disabling rlogin
+     and rsh into the machine).
 
    SSH protocol version 2
      Version 2 works similarly: Each host has a host-specific key (RSA or DSA)
@@ -246,9 +244,10 @@ AUTHORIZED_KEYS FILE FORMAT
      or ``ssh-rsa''.
 
      Note that lines in this file are usually several hundred bytes long (be-
-     cause of the size of the public key encoding).  You don't want to type
-     them in; instead, copy the identity.pub, id_dsa.pub or the id_rsa.pub
-     file and edit it.
+     cause of the size of the public key encoding) up to a limit of 8 kilo-
+     bytes, which permits DSA keys up to 8 kilobits and RSA keys up to 16
+     kilobits.  You don't want to type them in; instead, copy the
+     identity.pub, id_dsa.pub or the id_rsa.pub file and edit it.
 
      sshd enforces a minimum RSA key modulus size for protocol 1 and protocol
      2 keys of 768 bits.
@@ -346,6 +345,12 @@ SSH_KNOWN_HOSTS FILE FORMAT
      cate negation: if the host name matches a negated pattern, it is not ac-
      cepted (by that line) even if it matched another pattern on the line.
 
+     Alternately, hostnames may be stored in a hashed form which hides host
+     names and addresses should the file's contents be disclosed.  Hashed
+     hostnames start with a `|' character.  Only one hashed hostname may ap-
+     pear on a single line and none of the above negation or wildcard opera-
+     tors may be applied.
+
      Bits, exponent, and modulus are taken directly from the RSA host key;
      they can be obtained, e.g., from /etc/ssh/ssh_host_key.pub.  The optional
      comment field continues to the end of the line, and is not used.
@@ -369,6 +374,10 @@ SSH_KNOWN_HOSTS FILE FORMAT
 
      closenet,...,130.233.208.41 1024 37 159...93 closenet.hut.fi
      cvs.openbsd.org,199.185.137.3 ssh-rsa AAAA1234.....=
+
+     # A hashed hostname
+     |1|JfKTdBh7rNbXkVAQCRp4OQoPfmI=|USECr3SWf1JUPsms5AqfD5QfxkM= ssh-rsa
+     AAAA1234.....=
 
 FILES
      /etc/ssh/sshd_config
@@ -428,6 +437,15 @@ FILES
              /etc/ssh/ssh_known_hosts should be world-readable, and
              $HOME/.ssh/known_hosts can, but need not be, world-readable.
 
+     /etc/motd
+             See motd(5).
+
+     $HOME/.hushlogin
+             This file is used to suppress printing the last login time and
+             /etc/motd, if PrintLastLog and PrintMotd, respectively, are en-
+             abled.  It does not suppress printing of the banner specified by
+             Banner.
+
      /etc/nologin
              If this file exists, sshd refuses to let anyone except root log
              in.  The contents of the file are displayed to anyone trying to
@@ -439,11 +457,13 @@ FILES
              fined here.  Further details are described in hosts_access(5).
 
      $HOME/.rhosts
-             This file contains host-username pairs, separated by a space, one
-             per line.  The given user on the corresponding host is permitted
-             to log in without a password.  The same file is used by rlogind
-             and rshd.  The file must be writable only by the user; it is rec-
-             ommended that it not be accessible by others.
+             This file is used during RhostsRSAAuthentication and
+             HostbasedAuthentication and contains host-username pairs, sepa-
+             rated by a space, one per line.  The given user on the corre-
+             sponding host is permitted to log in without a password.  The
+             same file is used by rlogind and rshd.  The file must be writable
+             only by the user; it is recommended that it not be accessible by
+             others.
 
              It is also possible to use netgroups in the file.  Either host or
              user name may be of the form +@groupname to specify all hosts or
@@ -455,20 +475,21 @@ FILES
              access using SSH only.
 
      /etc/hosts.equiv
-             This file is used during rhosts authentication.  In the simplest
-             form, this file contains host names, one per line.  Users on
-             those hosts are permitted to log in without a password, provided
-             they have the same user name on both machines.  The host name may
-             also be followed by a user name; such users are permitted to log
-             in as any user on this machine (except root).  Additionally, the
-             syntax ``+@group'' can be used to specify netgroups.  Negated en-
-             tries start with `-'.
+             This file is used during RhostsRSAAuthentication and
+             HostbasedAuthentication authentication.  In the simplest form,
+             this file contains host names, one per line.  Users on those
+             hosts are permitted to log in without a password, provided they
+             have the same user name on both machines.  The host name may also
+             be followed by a user name; such users are permitted to log in as
+             any user on this machine (except root).  Additionally, the syntax
+             ``+@group'' can be used to specify netgroups.  Negated entries
+             start with `-'.
 
              If the client host/user is successfully matched in this file, lo-
              gin is automatically permitted provided the client and server us-
-             er names are the same.  Additionally, successful RSA host authen-
-             tication is normally required.  This file must be writable only
-             by root; it is recommended that it be world-readable.
+             er names are the same.  Additionally, successful client host key
+             authentication is required.  This file must be writable only by
+             root; it is recommended that it be world-readable.
 
              Warning: It is almost never a good idea to use user names in
              hosts.equiv.  Beware that it really means that the named user(s)

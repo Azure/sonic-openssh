@@ -1,5 +1,5 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
-/* $Id: acconfig.h,v 1.180 2004/08/16 13:12:06 dtucker Exp $ */
+/* $Id: acconfig.h,v 1.181 2005/02/25 23:07:38 dtucker Exp $ */
 
 /*
  * Copyright (c) 1999-2003 Damien Miller.  All rights reserved.
@@ -51,9 +51,6 @@
 /* supported by bsd-setproctitle.c */
 #undef SPT_TYPE
 #undef SPT_PADCHAR
-
-/* setgroups() NOOP allowed */
-#undef SETGROUPS_NOOP
 
 /* SCO workaround */
 #undef BROKEN_SYS_TERMIO_H
@@ -461,8 +458,15 @@
 #undef HAVE_PROC_PID
 
 
+/* Define if you have a getaddrinfo that fails for the all-zeros IPv6 address
+   */
+#undef AIX_GETNAMEINFO_HACK
+
 /* Define to 1 if the `getpgrp' function requires zero arguments. */
 #undef GETPGRP_VOID
+
+/* Conflicting defs for getspnam */
+#undef GETSPNAM_CONFLICTING_DEFS
 
 /* Define to 1 if you have the `arc4random' function. */
 #undef HAVE_ARC4RANDOM
@@ -479,6 +483,9 @@
 /* Define to 1 if you have the `bindresvport_sa' function. */
 #undef HAVE_BINDRESVPORT_SA
 
+/* Define to 1 if you have the <bsm/audit.h> header file. */
+#undef HAVE_BSM_AUDIT_H
+
 /* Define to 1 if you have the <bstring.h> header file. */
 #undef HAVE_BSTRING_H
 
@@ -494,9 +501,29 @@
 /* Define to 1 if you have the <crypt.h> header file. */
 #undef HAVE_CRYPT_H
 
+/* Define to 1 if you have the declaration of `authenticate', and to 0 if you
+   don't. */
+#undef HAVE_DECL_AUTHENTICATE
+
 /* Define to 1 if you have the declaration of `h_errno', and to 0 if you
    don't. */
 #undef HAVE_DECL_H_ERRNO
+
+/* Define to 1 if you have the declaration of `loginfailed', and to 0 if you
+   don't. */
+#undef HAVE_DECL_LOGINFAILED
+
+/* Define to 1 if you have the declaration of `loginrestrictions', and to 0 if
+   you don't. */
+#undef HAVE_DECL_LOGINRESTRICTIONS
+
+/* Define to 1 if you have the declaration of `loginsuccess', and to 0 if you
+   don't. */
+#undef HAVE_DECL_LOGINSUCCESS
+
+/* Define to 1 if you have the declaration of `passwdexpired', and to 0 if you
+   don't. */
+#undef HAVE_DECL_PASSWDEXPIRED
 
 /* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
@@ -515,6 +542,9 @@
 
 /* Define to 1 if you have the `endutxent' function. */
 #undef HAVE_ENDUTXENT
+
+/* Define to 1 if you have the `fchdir' function. */
+#undef HAVE_FCHDIR
 
 /* Define to 1 if you have the `fchmod' function. */
 #undef HAVE_FCHMOD
@@ -539,6 +569,12 @@
 
 /* Define to 1 if you have the `getaddrinfo' function. */
 #undef HAVE_GETADDRINFO
+
+/* Define to 1 if you have the `getaudit' function. */
+#undef HAVE_GETAUDIT
+
+/* Define to 1 if you have the `getaudit_addr' function. */
+#undef HAVE_GETAUDIT_ADDR
 
 /* Define to 1 if you have the `getcwd' function. */
 #undef HAVE_GETCWD
@@ -636,8 +672,14 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if the system has the type `in_addr_t'. */
+#undef HAVE_IN_ADDR_T
+
 /* Define to 1 if you have the <lastlog.h> header file. */
 #undef HAVE_LASTLOG_H
+
+/* Define to 1 if you have the `bsm' library (-lbsm). */
+#undef HAVE_LIBBSM
 
 /* Define to 1 if you have the `crypt' library (-lcrypt). */
 #undef HAVE_LIBCRYPT
@@ -1068,6 +1110,9 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
+/* must supply username to passwd */
+#undef PASSWD_NEEDS_USERNAME
+
 /* The size of a `char', as computed by sizeof. */
 #undef SIZEOF_CHAR
 
@@ -1083,8 +1128,20 @@
 /* The size of a `short int', as computed by sizeof. */
 #undef SIZEOF_SHORT_INT
 
+/* Use audit debugging module */
+#undef SSH_AUDIT_EVENTS
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Use BSM audit module */
+#undef USE_BSM_AUDIT
+
+/* Use btmp to log bad logins */
+#undef USE_BTMP
+
+/* Use libedit for sftp */
+#undef USE_LIBEDIT
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
@@ -1095,6 +1152,9 @@
 
 /* Define for large files, on AIX-style hosts. */
 #undef _LARGE_FILES
+
+/* log for bad login attempts */
+#undef _PATH_BTMP
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */

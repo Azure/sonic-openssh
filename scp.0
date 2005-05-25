@@ -73,6 +73,7 @@ DESCRIPTION
                    GlobalKnownHostsFile
                    GSSAPIAuthentication
                    GSSAPIDelegateCredentials
+                   HashKnownHosts
                    Host
                    HostbasedAuthentication
                    HostKeyAlgorithms
@@ -80,6 +81,7 @@ DESCRIPTION
                    HostName
                    IdentityFile
                    IdentitiesOnly
+                   KbdInteractiveDevices
                    LogLevel
                    MACs
                    NoHostAuthenticationForLocalhost

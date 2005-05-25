@@ -28,6 +28,11 @@ DESCRIPTION
              taken in the use of this directive.  The default is not to accept
              any environment variables.
 
+     AddressFamily
+             Specifies which address family should be used by sshd.  Valid ar-
+             guments are ``any'', ``inet'' (use IPv4 only) or ``inet6'' (use
+             IPv6 only).  The default is ``any''.
+
      AllowGroups
              This keyword can be followed by a list of group name patterns,
              separated by spaces.  If specified, login is allowed only for
@@ -135,10 +140,13 @@ DESCRIPTION
              forwarded for the client.  By default, sshd binds remote port
              forwardings to the loopback address.  This prevents other remote
              hosts from connecting to forwarded ports.  GatewayPorts can be
-             used to specify that sshd should bind remote port forwardings to
-             the wildcard address, thus allowing remote hosts to connect to
-             forwarded ports.  The argument must be ``yes'' or ``no''.  The
-             default is ``no''.
+             used to specify that sshd should allow remote port forwardings to
+             bind to non-loopback addresses, thus allowing other hosts to con-
+             nect.  The argument may be ``no'' to force remote port forward-
+             ings to be available to the local host only, ``yes'' to force re-
+             mote port forwardings to bind to the wildcard address, or
+             ``clientspecified'' to allow the client to select the address to
+             which the forwarding is bound.  The default is ``no''.
 
      GSSAPIAuthentication
              Specifies whether user authentication based on GSSAPI is allowed.
@@ -269,14 +277,12 @@ DESCRIPTION
              default is ``no''.
 
      PermitRootLogin
-             Specifies whether root can login using ssh(1).  The argument must
-             be ``yes'', ``without-password'', ``forced-commands-only'' or
-             ``no''.  The default is ``yes''.
+             Specifies whether root can log in using ssh(1).  The argument
+             must be ``yes'', ``without-password'', ``forced-commands-only''
+             or ``no''.  The default is ``yes''.
 
              If this option is set to ``without-password'' password authenti-
-             cation is disabled for root.  Note that other authentication
-             methods (e.g., keyboard-interactive/PAM) may still allow root to
-             login using a password.
+             cation is disabled for root.
 
              If this option is set to ``forced-commands-only'' root login with
              public key authentication will be allowed, but only if the
@@ -284,7 +290,7 @@ DESCRIPTION
              remote backups even if root login is normally not allowed).  All
              other authentication methods are disabled for root.
 
-             If this option is set to ``no'' root is not allowed to login.
+             If this option is set to ``no'' root is not allowed to log in.
 
      PermitUserEnvironment
              Specifies whether ~/.ssh/environment and environment= options in
@@ -302,8 +308,9 @@ DESCRIPTION
              ListenAddress.
 
      PrintLastLog
-             Specifies whether sshd should print the date and time when the
-             user last logged in.  The default is ``yes''.
+             Specifies whether sshd should print the date and time of the last
+             user login when a user logs in interactively.  The default is
+             ``yes''.
 
      PrintMotd
              Specifies whether sshd should print /etc/motd when a user logs in

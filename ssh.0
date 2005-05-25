@@ -6,8 +6,10 @@ NAME
 SYNOPSIS
      ssh [-1246AaCfgkMNnqsTtVvXxY] [-b bind_address] [-c cipher_spec]
          [-D port] [-e escape_char] [-F configfile] [-i identity_file]
-         [-L port:host:hostport] [-l login_name] [-m mac_spec] [-o option]
-         [-p port] [-R port:host:hostport] [-S ctl] [user@]hostname [command]
+         [-L [bind_address:]port:host:hostport] [-l login_name] [-m mac_spec]
+         [-O ctl_cmd] [-o option] [-p port]
+         [-R [bind_address:]port:host:hostport] [-S ctl_path] [user@]hostname
+         [command]
 
 DESCRIPTION
      ssh (SSH client) is a program for logging into a remote machine and for
@@ -24,27 +26,22 @@ DESCRIPTION
      of a login shell.
 
    SSH protocol version 1
-     First, if the machine the user logs in from is listed in /etc/hosts.equiv
-     or /etc/shosts.equiv on the remote machine, and the user names are the
-     same on both sides, the user is immediately permitted to log in.  Second,
-     if .rhosts or .shosts exists in the user's home directory on the remote
-     machine and contains a line containing the name of the client machine and
-     the name of the user on that machine, the user is permitted to log in.
-     This form of authentication alone is normally not allowed by the server
-     because it is not secure.
-
-     The second authentication method is the rhosts or hosts.equiv method com-
-     bined with RSA-based host authentication.  It means that if the login
-     would be permitted by $HOME/.rhosts, $HOME/.shosts, /etc/hosts.equiv, or
-     /etc/shosts.equiv, and if additionally the server can verify the client's
-     host key (see /etc/ssh/ssh_known_hosts and $HOME/.ssh/known_hosts in the
-     FILES section), only then is login permitted.  This authentication method
-     closes security holes due to IP spoofing, DNS spoofing and routing spoof-
-     ing.  [Note to the administrator: /etc/hosts.equiv, $HOME/.rhosts, and
-     the rlogin/rsh protocol in general, are inherently insecure and should be
+     The first authentication method is the rhosts or hosts.equiv method com-
+     bined with RSA-based host authentication.  If the machine the user logs
+     in from is listed in /etc/hosts.equiv or /etc/shosts.equiv on the remote
+     machine, and the user names are the same on both sides, or if the files
+     $HOME/.rhosts or $HOME/.shosts exist in the user's home directory on the
+     remote machine and contain a line containing the name of the client ma-
+     chine and the name of the user on that machine, the user is considered
+     for log in.  Additionally, if the server can verify the client's host key
+     (see /etc/ssh/ssh_known_hosts and $HOME/.ssh/known_hosts in the FILES
+     section), only then is login permitted.  This authentication method clos-
+     es security holes due to IP spoofing, DNS spoofing and routing spoofing.
+     [Note to the administrator: /etc/hosts.equiv, $HOME/.rhosts, and the
+     rlogin/rsh protocol in general, are inherently insecure and should be
      disabled if security is desired.]
 
-     As a third authentication method, ssh supports RSA based authentication.
+     As a second authentication method, ssh supports RSA based authentication.
      The scheme is based on public-key cryptography: there are cryptosystems
      where encryption and decryption are done using separate keys, and it is
      not possible to derive the decryption key from the encryption key.  RSA
@@ -70,8 +67,7 @@ DESCRIPTION
      directory on the remote machine (the authorized_keys file corresponds to
      the conventional $HOME/.rhosts file, and has one key per line, though the
      lines can be very long).  After this, the user can log in without giving
-     the password.  RSA authentication is much more secure than rhosts authen-
-     tication.
+     the password.
 
      The most convenient way to use RSA authentication may be with an authen-
      tication agent.  See ssh-agent(1) for more information.
@@ -323,16 +319,24 @@ DESCRIPTION
      -k      Disables forwarding (delegation) of GSSAPI credentials to the
              server.
 
-     -L port:host:hostport
+     -L [bind_address:]port:host:hostport
              Specifies that the given port on the local (client) host is to be
              forwarded to the given host and port on the remote side.  This
              works by allocating a socket to listen to port on the local side,
-             and whenever a connection is made to this port, the connection is
-             forwarded over the secure channel, and a connection is made to
-             host port hostport from the remote machine.  Port forwardings can
-             also be specified in the configuration file.  Only root can for-
-             ward privileged ports.  IPv6 addresses can be specified with an
-             alternative syntax: port/host/hostport.
+             optionally bound to the specified bind_address.  Whenever a con-
+             nection is made to this port, the connection is forwarded over
+             the secure channel, and a connection is made to host port
+             hostport from the remote machine.  Port forwardings can also be
+             specified in the configuration file.  IPv6 addresses can be spec-
+             ified with an alternative syntax: [bind_address/]port/host/host-
+             port or by enclosing the address in square brackets.  Only the
+             superuser can forward privileged ports.  By default, the local
+             port is bound in accordance with the GatewayPorts setting.  How-
+             ever, an explicit bind_address may be used to bind the connection
+             to a specific address.  The bind_address of ``localhost'' indi-
+             cates that the listening port be bound for local use only, while
+             an empty address or `*' indicates that the port should be avail-
+             able from all interfaces.
 
      -l login_name
              Specifies the user to log in as on the remote machine.  This also
@@ -358,6 +362,13 @@ DESCRIPTION
              tomatically forwarded over an encrypted channel.  The ssh program
              will be put in the background.  (This does not work if ssh needs
              to ask for a password or passphrase; see also the -f option.)
+
+     -O ctl_cmd
+             Control an active connection multiplexing master process.  When
+             the -O option is specified, the ctl_cmd argument is interpreted
+             and passed to the master process.  Valid commands are: ``check''
+             (check that the master process is running) and ``exit'' (request
+             the master to exit).
 
      -o option
              Can be used to give options in the format used in the configura-
@@ -388,6 +399,7 @@ DESCRIPTION
                    GlobalKnownHostsFile
                    GSSAPIAuthentication
                    GSSAPIDelegateCredentials
+                   HashKnownHosts
                    Host
                    HostbasedAuthentication
                    HostKeyAlgorithms
@@ -395,6 +407,7 @@ DESCRIPTION
                    HostName
                    IdentityFile
                    IdentitiesOnly
+                   KbdInteractiveDevices
                    LocalForward
                    LogLevel
                    MACs
@@ -428,19 +441,29 @@ DESCRIPTION
      -q      Quiet mode.  Causes all warning and diagnostic messages to be
              suppressed.
 
-     -R port:host:hostport
+     -R [bind_address:]port:host:hostport
              Specifies that the given port on the remote (server) host is to
              be forwarded to the given host and port on the local side.  This
              works by allocating a socket to listen to port on the remote
              side, and whenever a connection is made to this port, the connec-
              tion is forwarded over the secure channel, and a connection is
-             made to host port hostport from the local machine.  Port forward-
-             ings can also be specified in the configuration file.  Privileged
-             ports can be forwarded only when logging in as root on the remote
-             machine.  IPv6 addresses can be specified with an alternative
-             syntax: port/host/hostport.
+             made to host port hostport from the local machine.
 
-     -S ctl  Specifies the location of a control socket for connection shar-
+             Port forwardings can also be specified in the configuration file.
+             Privileged ports can be forwarded only when logging in as root on
+             the remote machine.  IPv6 addresses can be specified by enclosing
+             the address in square braces or using an alternative syntax:
+             [bind_address/]host/port/hostport.
+
+             By default, the listening socket on the server will be bound to
+             the loopback interface only.  This may be overriden by specifying
+             a bind_address.  An empty bind_address, or the address `*', indi-
+             cates that the remote socket should listen on all interfaces.
+             Specifying a remote bind_address will only succeed if the serv-
+             er's GatewayPorts option is enabled (see sshd_config(5)).
+
+     -S ctl_path
+             Specifies the location of a control socket for connection shar-
              ing.  Refer to the description of ControlPath and ControlMaster
              in ssh_config(5) for details.
 
@@ -473,9 +496,15 @@ DESCRIPTION
              through the forwarded connection.  An attacker may then be able
              to perform activities such as keystroke monitoring.
 
+             For this reason, X11 forwarding is subjected to X11 SECURITY ex-
+             tension restrictions by default.  Please refer to the ssh -Y op-
+             tion and the ForwardX11Trusted directive in ssh_config(5) for
+             more information.
+
      -x      Disables X11 forwarding.
 
-     -Y      Enables trusted X11 forwarding.
+     -Y      Enables trusted X11 forwarding.  Trusted X11 forwardings are not
+             subjected to the X11 SECURITY extension controls.
 
 CONFIGURATION FILES
      ssh may additionally obtain configuration data from a per-user configura-
@@ -509,7 +538,7 @@ ENVIRONMENT
               have a terminal associated with it but DISPLAY and SSH_ASKPASS
               are set, it will execute the program specified by SSH_ASKPASS
               and open an X11 window to read the passphrase.  This is particu-
-              larly useful when calling ssh from a .Xsession or related
+              larly useful when calling ssh from a .xsession or related
               script.  (Note that on some machines it may be necessary to
               redirect the input from /dev/null to make this work.)
 
@@ -620,7 +649,8 @@ FILES
              method is used.  By default ssh is not setuid root.
 
      $HOME/.rhosts
-             This file is used in rhosts authentication to list the host/user
+             This file is used in RhostsRSAAuthentication and
+             HostbasedAuthentication authentication to list the host/user
              pairs that are permitted to log in.  (Note that this file is also
              used by rlogin and rsh, which makes using this file insecure.)
              Each line of the file contains a host name (in the canonical form
@@ -632,27 +662,29 @@ FILES
              for anyone else.  The recommended permission for most machines is
              read/write for the user, and not accessible by others.
 
-             Note that by default sshd(8) will be installed so that it re-
-             quires successful RSA host authentication before permitting
-             rhosts authentication.  If the server machine does not have the
-             client's host key in /etc/ssh/ssh_known_hosts, it can be stored
-             in $HOME/.ssh/known_hosts.  The easiest way to do this is to con-
-             nect back to the client from the server machine using ssh; this
-             will automatically add the host key to $HOME/.ssh/known_hosts.
+             Note that sshd(8) allows authentication only in combination with
+             client host key authentication before permitting log in.  If the
+             server machine does not have the client's host key in
+             /etc/ssh/ssh_known_hosts, it can be stored in
+             $HOME/.ssh/known_hosts.  The easiest way to do this is to connect
+             back to the client from the server machine using ssh; this will
+             automatically add the host key to $HOME/.ssh/known_hosts.
 
      $HOME/.shosts
              This file is used exactly the same way as .rhosts.  The purpose
-             for having this file is to be able to use rhosts authentication
-             with ssh without permitting login with rlogin or rsh(1).
+             for having this file is to be able to use RhostsRSAAuthentication
+             and HostbasedAuthentication authentication without permitting lo-
+             gin with rlogin or rsh(1).
 
      /etc/hosts.equiv
-             This file is used during rhosts authentication.  It contains
-             canonical hosts names, one per line (the full format is described
-             in the sshd(8) manual page).  If the client host is found in this
-             file, login is automatically permitted provided client and server
-             user names are the same.  Additionally, successful RSA host au-
-             thentication is normally required.  This file should only be
-             writable by root.
+             This file is used during RhostsRSAAuthentication and
+             HostbasedAuthentication authentication.  It contains canonical
+             hosts names, one per line (the full format is described in the
+             sshd(8) manual page).  If the client host is found in this file,
+             login is automatically permitted provided client and server user
+             names are the same.  Additionally, successful client host key au-
+             thentication is required.  This file should only be writable by
+             root.
 
      /etc/shosts.equiv
              This file is processed exactly as /etc/hosts.equiv.  This file

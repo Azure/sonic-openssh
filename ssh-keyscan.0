@@ -4,7 +4,7 @@ NAME
      ssh-keyscan - gather ssh public keys
 
 SYNOPSIS
-     ssh-keyscan [-v46] [-p port] [-T timeout] [-t type] [-f file]
+     ssh-keyscan [-46Hv] [-f file] [-p port] [-T timeout] [-t type]
                  [host | addrlist namelist] [...]
 
 DESCRIPTION
@@ -21,6 +21,19 @@ DESCRIPTION
      cess involve any encryption.
 
      The options are as follows:
+
+     -4      Forces ssh-keyscan to use IPv4 addresses only.
+
+     -6      Forces ssh-keyscan to use IPv6 addresses only.
+
+     -f file
+             Read hosts or addrlist namelist pairs from this file, one per
+             line.  If - is supplied instead of a filename, ssh-keyscan will
+             read hosts or addrlist namelist pairs from the standard input.
+
+     -H      Hash all hostnames and addresses in the output.  Hashed names may
+             be used normally by ssh and sshd, but they do not reveal identi-
+             fying information should the file's contents be disclosed.
 
      -p port
              Port to connect to on the remote host.
@@ -39,17 +52,8 @@ DESCRIPTION
              be specified by separating them with commas.  The default is
              ``rsa1''.
 
-     -f filename
-             Read hosts or addrlist namelist pairs from this file, one per
-             line.  If - is supplied instead of a filename, ssh-keyscan will
-             read hosts or addrlist namelist pairs from the standard input.
-
      -v      Verbose mode.  Causes ssh-keyscan to print debugging messages
              about its progress.
-
-     -4      Forces ssh-keyscan to use IPv4 addresses only.
-
-     -6      Forces ssh-keyscan to use IPv6 addresses only.
 
 SECURITY
      If a ssh_known_hosts file is constructed using ssh-keyscan without veri-

@@ -15,7 +15,7 @@ DESCRIPTION
            3.   system-wide configuration file (/etc/ssh/ssh_config)
 
      For each parameter, the first obtained value will be used.  The configu-
-     ration files contain sections bracketed by ``Host'' specifications, and
+     ration files contain sections separated by ``Host'' specifications, and
      that section is only applied for hosts that match one of the patterns
      given in the specification.  The matched host name is the one given on
      the command line.
@@ -47,8 +47,8 @@ DESCRIPTION
 
      AddressFamily
              Specifies which address family to use when connecting.  Valid ar-
-             guments are ``any'', ``inet'' (Use IPv4 only) or ``inet6'' (Use
-             IPv6 only.)
+             guments are ``any'', ``inet'' (use IPv4 only) or ``inet6'' (use
+             IPv6 only).
 
      BatchMode
              If set to ``yes'', passphrase/password querying will be disabled.
@@ -189,10 +189,14 @@ DESCRIPTION
 
      ForwardX11Trusted
              If this option is set to ``yes'' then remote X11 clients will
-             have full access to the original X11 display.  If this option is
-             set to ``no'' then remote X11 clients will be considered untrust-
-             ed and prevented from stealing or tampering with data belonging
-             to trusted X11 clients.
+             have full access to the original X11 display.
+
+             If this option is set to ``no'' then remote X11 clients will be
+             considered untrusted and prevented from stealing or tampering
+             with data belonging to trusted X11 clients.  Furthermore, the
+             xauth(1) token used for the session will be set to expire after
+             20 minutes.  Remote clients will be refused access after this
+             time.
 
              The default is ``no''.
 
@@ -221,6 +225,15 @@ DESCRIPTION
              Forward (delegate) credentials to the server.  The default is
              ``no''.  Note that this option applies to protocol version 2 on-
              ly.
+
+     HashKnownHosts
+             Indicates that ssh should hash host names and addresses when they
+             are added to $HOME/.ssh/known_hosts.  These hashed names may be
+             used normally by ssh and sshd, but they do not reveal identifying
+             information should the file's contents be disclosed.  The default
+             is ``no''.  Note that hashing of names and addresses will not be
+             retrospectively applied to existing known hosts files, but these
+             may be manually hashed using ssh-keygen(1).
 
      HostbasedAuthentication
              Specifies whether to try rhosts based authentication with public
@@ -265,14 +278,26 @@ DESCRIPTION
              ssh-agent offers many different identities.  The default is
              ``no''.
 
+     KbdInteractiveDevices
+             Specifies the list of methods to use in keyboard-interactive au-
+             thentication.  Multiple method names must be comma-separated.
+             The default is to use the server specified list.
+
      LocalForward
              Specifies that a TCP/IP port on the local machine be forwarded
              over the secure channel to the specified host and port from the
              remote machine.  The first argument must be a port number, and
-             the second must be host:port.  IPv6 addresses can be specified
-             with an alternative syntax: host/port.  Multiple forwardings may
-             be specified, and additional forwardings can be given on the com-
-             mand line.  Only the superuser can forward privileged ports.
+             the second must be [bind_address:]host:port.  IPv6 addresses can
+             be specified by enclosing addresses in square brackets or by us-
+             ing an alternative syntax: [bind_address/]host/port.  Multiple
+             forwardings may be specified, and additional forwardings can be
+             given on the command line.  Only the superuser can forward privi-
+             leged ports.  By default, the local port is bound in accordance
+             with the GatewayPorts setting.  However, an explicit bind_address
+             may be used to bind the connection to a specific address.  The
+             bind_address of ``localhost'' indicates that the listening port
+             be bound for local use only, while an empty address or `*' indi-
+             cates that the port should be available from all interfaces.
 
      LogLevel
              Gives the verbosity level that is used when logging messages from
@@ -345,10 +370,18 @@ DESCRIPTION
              Specifies that a TCP/IP port on the remote machine be forwarded
              over the secure channel to the specified host and port from the
              local machine.  The first argument must be a port number, and the
-             second must be host:port.  IPv6 addresses can be specified with
-             an alternative syntax: host/port.  Multiple forwardings may be
-             specified, and additional forwardings can be given on the command
-             line.  Only the superuser can forward privileged ports.
+             second must be [bind_address:]host:port.  IPv6 addresses can be
+             specified by enclosing any addresses in square brackets or by us-
+             ing the alternative syntax: [bind_address/]host/port.  Multiple
+             forwardings may be specified, and additional forwardings can be
+             given on the command line.  Only the superuser can forward privi-
+             leged ports.
+
+             If the bind_address is not specified, the default is to only bind
+             to loopback addresses.  If the bind_address is `*' or an empty
+             string, then the forwarding is requested to listen on all inter-
+             faces.  Specifying a remote bind_address will only succeed if the
+             server's GatewayPorts option is enabled (see sshd_config(5)).
 
      RhostsRSAAuthentication
              Specifies whether to try rhosts based authentication with RSA
