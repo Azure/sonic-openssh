@@ -5,6 +5,9 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
       the server allows client-specified bind addresses for remote port
       forwardings when configured with "GatewayPorts clientspecified"
       (closes: #87253, #192206).
+    - ssh and ssh-keyscan now support hashing of known_hosts files for
+      improved privacy. ssh-keygen has new options for managing known_hosts
+      files, which understand hashing.
     - sftp supports command history and editing support using libedit
       (closes: #287013).
     - Have scp and sftp wait for the spawned ssh to exit before they exit
@@ -23,6 +26,8 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
     - Don't build ssh-askpass-gnome on the Hurd, until GNOME is available to
       satisfy build-dependencies.
   * Drop workaround for #242462 on amd64; it's been fixed properly upstream.
+  * Enable HashKnownHosts by default. This only affects new entries; use
+    'ssh-keygen -H' to convert an entire known_hosts file to hashed format.
   * debconf template translations:
     - Update Czech (thanks, Miroslav Kure; closes: #298744).
     - Update Finnish (thanks, Matti Pöllä; closes: #303787).
