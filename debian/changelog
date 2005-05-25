@@ -1,6 +1,10 @@
 openssh (1:4.0p1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+    - Port-forwarding specifications now take optional bind addresses, and
+      the server allows client-specified bind addresses for remote port
+      forwardings when configured with "GatewayPorts clientspecified"
+      (closes: #87253, #192206).
     - sftp supports command history and editing support using libedit
       (closes: #287013).
     - Have scp and sftp wait for the spawned ssh to exit before they exit
