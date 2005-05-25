@@ -299,8 +299,6 @@ input_userauth_info_response(int type, u_int32_t seq, void *ctxt)
 	packet_check_eom();
 
 	res = kbdintctxt->device->respond(kbdintctxt->ctxt, nresp, response);
-	if (!authctxt->valid)
-		res = 1;	/* keep going if login invalid */
 
 	for (i = 0; i < nresp; i++) {
 		memset(response[i], 'r', strlen(response[i]));
