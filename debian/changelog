@@ -1,4 +1,4 @@
-openssh (1:4.0p1-1) UNRELEASED; urgency=low
+openssh (1:4.0p1-1) experimental; urgency=low
 
   * New upstream release.
     - Port-forwarding specifications now take optional bind addresses, and
@@ -38,7 +38,7 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
       Fernández-Sanguino Peña; closes: #298536).
     - Add Ukrainian (thanks, Eugeniy Meshcheryakov; closes: #301852).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 22 Feb 2005 22:14:03 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 11:23:18 +0100
 
 openssh (1:3.9p1-3) experimental; urgency=low
 
