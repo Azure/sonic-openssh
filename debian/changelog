@@ -20,7 +20,7 @@ openssh (1:4.0p1-1) UNRELEASED; urgency=low
   * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
     closes: #296487).
   * Remove obsolete and unnecessary ssh/forward_warning debconf note.
-  * Hurd fixes:
+  * Hurd build fixes (although sshd still doesn't work):
     - Restore X forwarding fix from #102991, lost somewhere along the way.
     - Link with -lcrypt.
     - Link with -lpthread rather than -pthread.
