@@ -230,11 +230,12 @@ HostbasedAuthentication no
 # To enable empty passwords, change to yes (NOT RECOMMENDED)
 PermitEmptyPasswords no
 
-# Change to no to disable s/key passwords
-#ChallengeResponseAuthentication yes
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
 
-# Change to yes to enable tunnelled clear text passwords
-PasswordAuthentication no
+# Change to no to disable tunnelled clear text passwords
+#PasswordAuthentication yes
 
 
 # To change Kerberos options
