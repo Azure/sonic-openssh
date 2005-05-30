@@ -286,18 +286,19 @@ DESCRIPTION
      LocalForward
              Specifies that a TCP/IP port on the local machine be forwarded
              over the secure channel to the specified host and port from the
-             remote machine.  The first argument must be a port number, and
-             the second must be [bind_address:]host:port.  IPv6 addresses can
-             be specified by enclosing addresses in square brackets or by us-
-             ing an alternative syntax: [bind_address/]host/port.  Multiple
-             forwardings may be specified, and additional forwardings can be
-             given on the command line.  Only the superuser can forward privi-
-             leged ports.  By default, the local port is bound in accordance
-             with the GatewayPorts setting.  However, an explicit bind_address
-             may be used to bind the connection to a specific address.  The
-             bind_address of ``localhost'' indicates that the listening port
-             be bound for local use only, while an empty address or `*' indi-
-             cates that the port should be available from all interfaces.
+             remote machine.  The first argument must be [bind_address:]port
+             and the second argument must be host:hostport.  IPv6 addresses
+             can be specified by enclosing addresses in square brackets or by
+             using an alternative syntax: [bind_address/]port and
+             host/hostport.  Multiple forwardings may be specified, and addi-
+             tional forwardings can be given on the command line.  Only the
+             superuser can forward privileged ports.  By default, the local
+             port is bound in accordance with the GatewayPorts setting.  How-
+             ever, an explicit bind_address may be used to bind the connection
+             to a specific address.  The bind_address of ``localhost'' indi-
+             cates that the listening port be bound for local use only, while
+             an empty address or `*' indicates that the port should be avail-
+             able from all interfaces.
 
      LogLevel
              Gives the verbosity level that is used when logging messages from
@@ -336,7 +337,7 @@ DESCRIPTION
      PreferredAuthentications
              Specifies the order in which the client should try protocol 2 au-
              thentication methods.  This allows a client to prefer one method
-             (e.g.  keyboard-interactive) over another method (e.g.  password)
+             (e.g. keyboard-interactive) over another method (e.g. password)
              The default for this option is: ``hostbased,publickey,keyboard-
              interactive,password''.
 
@@ -369,13 +370,13 @@ DESCRIPTION
      RemoteForward
              Specifies that a TCP/IP port on the remote machine be forwarded
              over the secure channel to the specified host and port from the
-             local machine.  The first argument must be a port number, and the
-             second must be [bind_address:]host:port.  IPv6 addresses can be
-             specified by enclosing any addresses in square brackets or by us-
-             ing the alternative syntax: [bind_address/]host/port.  Multiple
-             forwardings may be specified, and additional forwardings can be
-             given on the command line.  Only the superuser can forward privi-
-             leged ports.
+             local machine.  The first argument must be [bind_address:]port
+             and the second argument must be host:hostport.  IPv6 addresses
+             can be specified by enclosing addresses in square brackets or by
+             using an alternative syntax: [bind_address/]port and
+             host/hostport.  Multiple forwardings may be specified, and addi-
+             tional forwardings can be given on the command line.  Only the
+             superuser can forward privileged ports.
 
              If the bind_address is not specified, the default is to only bind
              to loopback addresses.  If the bind_address is `*' or an empty
@@ -524,4 +525,4 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.6                   September 25, 1999                             8
+OpenBSD 3.7                   September 25, 1999                             8

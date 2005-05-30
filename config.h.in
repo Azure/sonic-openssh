@@ -525,6 +525,10 @@
    don't. */
 #undef HAVE_DECL_PASSWDEXPIRED
 
+/* Define to 1 if you have the declaration of `setauthdb', and to 0 if you
+   don't. */
+#undef HAVE_DECL_SETAUTHDB
+
 /* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
 
@@ -902,6 +906,9 @@
 
 /* Define to 1 if you have the `socketpair' function. */
 #undef HAVE_SOCKETPAIR
+
+/* Have PEERCRED socket option */
+#undef HAVE_SO_PEERCRED
 
 /* Define to 1 if you have the <stddef.h> header file. */
 #undef HAVE_STDDEF_H

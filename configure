@@ -881,7 +881,7 @@ Optional Packages:
   --with-entropy-timeout  Specify entropy gathering command timeout (msec)
   --with-privsep-user=user Specify non-privileged user for privilege separation
   --with-sectok           Enable smartcard support using libsectok
-  --with-opensc=PFX       Enable smartcard support using OpenSC
+--with-opensc[=PFX]       Enable smartcard support using OpenSC (optionally in PATH)
   --with-kerberos5=PATH   Enable Kerberos 5 support
   --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
   --with-xauth=PATH       Specify path to xauth program
@@ -4643,6 +4643,77 @@ _ACEOF
 
 
 fi
+echo "$as_me:$LINENO: checking whether setauthdb is declared" >&5
+echo $ECHO_N "checking whether setauthdb is declared... $ECHO_C" >&6
+if test "${ac_cv_have_decl_setauthdb+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <usersec.h>
+
+int
+main ()
+{
+#ifndef setauthdb
+  char *p = (char *) setauthdb;
+#endif
+
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext
+if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
+  (eval $ac_compile) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"
+			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest.$ac_objext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_have_decl_setauthdb=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+ac_cv_have_decl_setauthdb=no
+fi
+rm -f conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+echo "$as_me:$LINENO: result: $ac_cv_have_decl_setauthdb" >&5
+echo "${ECHO_T}$ac_cv_have_decl_setauthdb" >&6
+if test $ac_cv_have_decl_setauthdb = yes; then
+
+cat >>confdefs.h <<_ACEOF
+#define HAVE_DECL_SETAUTHDB 1
+_ACEOF
+
+
+else
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_DECL_SETAUTHDB 0
+_ACEOF
+
+
+fi
 
 
 		echo "$as_me:$LINENO: checking whether loginfailed is declared" >&5
@@ -6004,6 +6075,11 @@ _ACEOF
 #define BROKEN_SETREGID 1
 _ACEOF
 
+
+cat >>confdefs.h <<\_ACEOF
+#define PASSWD_NEEDS_USERNAME 1
+_ACEOF
+
 	;;
 # UnixWare 7.x, OpenUNIX 8
 *-*-sysv5*)
@@ -6021,6 +6097,11 @@ _ACEOF
 
 	cat >>confdefs.h <<\_ACEOF
 #define BROKEN_SETREGID 1
+_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
+#define PASSWD_NEEDS_USERNAME 1
 _ACEOF
 
 	;;
@@ -6363,7 +6444,8 @@ esac
 if test "${with_cflags+set}" = set; then
   withval="$with_cflags"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			CFLAGS="$CFLAGS $withval"
 		fi
 
@@ -6374,7 +6456,8 @@ fi;
 if test "${with_cppflags+set}" = set; then
   withval="$with_cppflags"
 
-		if test "x$withval" != "xno"; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			CPPFLAGS="$CPPFLAGS $withval"
 		fi
 
@@ -6385,7 +6468,8 @@ fi;
 if test "${with_ldflags+set}" = set; then
   withval="$with_ldflags"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			LDFLAGS="$LDFLAGS $withval"
 		fi
 
@@ -6396,7 +6480,8 @@ fi;
 if test "${with_libs+set}" = set; then
   withval="$with_libs"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			LIBS="$LIBS $withval"
 		fi
 
@@ -8171,12 +8256,11 @@ fi
 # Check whether --with-zlib or --without-zlib was given.
 if test "${with_zlib+set}" = set; then
   withval="$with_zlib"
-
-		if test "x$withval" = "xno" ; then
-			{ { echo "$as_me:$LINENO: error: *** zlib is required ***" >&5
+   if test "x$withval" = "xno" ; then
+		{ { echo "$as_me:$LINENO: error: *** zlib is required ***" >&5
 echo "$as_me: error: *** zlib is required ***" >&2;}
    { (exit 1); exit 1; }; }
-		fi
+	  elif test "x$withval" != "xyes"; then
 		if test -d "$withval/lib"; then
 			if test -n "${need_dash_r}"; then
 				LDFLAGS="-L${withval}/lib -R${withval}/lib ${LDFLAGS}"
@@ -8195,7 +8279,7 @@ echo "$as_me: error: *** zlib is required ***" >&2;}
 		else
 			CPPFLAGS="-I${withval} ${CPPFLAGS}"
 		fi
-
+	fi
 
 fi;
 
@@ -8506,8 +8590,8 @@ if test "${with_zlib_version_check+set}" = set; then
 
 fi;
 
-echo "$as_me:$LINENO: checking for zlib 1.1.4 or greater" >&5
-echo $ECHO_N "checking for zlib 1.1.4 or greater... $ECHO_C" >&6
+echo "$as_me:$LINENO: checking for possibly buggy zlib" >&5
+echo $ECHO_N "checking for possibly buggy zlib... $ECHO_C" >&6
 if test "$cross_compiling" = yes; then
   	{ echo "$as_me:$LINENO: WARNING: cross compiling: not checking zlib version" >&5
 echo "$as_me: WARNING: cross compiling: not checking zlib version" >&2;}
@@ -8520,15 +8604,25 @@ cat confdefs.h >>conftest.$ac_ext
 cat >>conftest.$ac_ext <<_ACEOF
 /* end confdefs.h.  */
 
+#include <stdio.h>
 #include <zlib.h>
 int main()
 {
-	int a, b, c, v;
-	if (sscanf(ZLIB_VERSION, "%d.%d.%d", &a, &b, &c) != 3)
+	int a=0, b=0, c=0, d=0, n, v;
+	n = sscanf(ZLIB_VERSION, "%d.%d.%d.%d", &a, &b, &c, &d);
+	if (n != 3 && n != 4)
 		exit(1);
-	v = a*1000000 + b*1000 + c;
-	if (v >= 1001004)
+	v = a*1000000 + b*10000 + c*100 + d;
+	fprintf(stderr, "found zlib version %s (%d)\n", ZLIB_VERSION, v);
+
+	/* 1.1.4 is OK */
+	if (a == 1 && b == 1 && c >= 4)
 		exit(0);
+
+	/* 1.2.1.2 and up are OK */
+	if (v >= 1020102)
+		exit(0);
+
 	exit(2);
 }
 
@@ -8544,29 +8638,31 @@ if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; }; then
-  echo "$as_me:$LINENO: result: yes" >&5
-echo "${ECHO_T}yes" >&6
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
 else
   echo "$as_me: program exited with status $ac_status" >&5
 echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
 
 ( exit $ac_status )
- echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6
+ echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6
 	  if test -z "$zlib_check_nonfatal" ; then
 		{ { echo "$as_me:$LINENO: error: *** zlib too old - check config.log ***
 Your reported zlib version has known security problems.  It's possible your
 vendor has fixed these problems without changing the version number.  If you
 are sure this is the case, you can disable the check by running
 \"./configure --without-zlib-version-check\".
-If you are in doubt, upgrade zlib to version 1.1.4 or greater." >&5
+If you are in doubt, upgrade zlib to version 1.2.1.2 or greater.
+See http://www.gzip.org/zlib/ for details." >&5
 echo "$as_me: error: *** zlib too old - check config.log ***
 Your reported zlib version has known security problems.  It's possible your
 vendor has fixed these problems without changing the version number.  If you
 are sure this is the case, you can disable the check by running
 \"./configure --without-zlib-version-check\".
-If you are in doubt, upgrade zlib to version 1.1.4 or greater." >&2;}
+If you are in doubt, upgrade zlib to version 1.2.1.2 or greater.
+See http://www.gzip.org/zlib/ for details." >&2;}
    { (exit 1); exit 1; }; }
 	  else
 		{ echo "$as_me:$LINENO: WARNING: zlib version may have security problems" >&5
@@ -9753,7 +9849,8 @@ if test "${with_tcp_wrappers+set}" = set; then
 			saved_LIBS="$LIBS"
 			saved_LDFLAGS="$LDFLAGS"
 			saved_CPPFLAGS="$CPPFLAGS"
-			if test -n "${withval}" -a "${withval}" != "yes"; then
+			if test -n "${withval}" && \
+			    test "x${withval}" != "xyes"; then
 				if test -d "${withval}/lib"; then
 					if test -n "${need_dash_r}"; then
 						LDFLAGS="-L${withval}/lib -R${withval}/lib ${LDFLAGS}"
@@ -9856,13 +9953,17 @@ LIBEDIT_MSG="no"
 if test "${with_libedit+set}" = set; then
   withval="$with_libedit"
    if test "x$withval" != "xno" ; then
+		if test "x$withval" != "xyes"; then
+			CPPFLAGS="$CPPFLAGS -I$withval/include"
+			LDFLAGS="$LDFLAGS -L$withval/lib"
+		fi
 		echo "$as_me:$LINENO: checking for el_init in -ledit" >&5
 echo $ECHO_N "checking for el_init in -ledit... $ECHO_C" >&6
 if test "${ac_cv_lib_edit_el_init+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
 else
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-ledit -lcurses
+LIBS="-ledit  -lcurses
 		 $LIBS"
 cat >conftest.$ac_ext <<_ACEOF
 /* confdefs.h.  */
@@ -9931,6 +10032,10 @@ _ACEOF
 			  LIBEDIT_MSG="yes"
 
 
+else
+   { { echo "$as_me:$LINENO: error: libedit not found" >&5
+echo "$as_me: error: libedit not found" >&2;}
+   { (exit 1); exit 1; }; }
 fi
 
 	fi
@@ -12733,8 +12838,14 @@ if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; }; then
-  echo "$as_me:$LINENO: result: yes" >&5
+   echo "$as_me:$LINENO: result: yes" >&5
 echo "${ECHO_T}yes" >&6
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE_SO_PEERCRED
+_ACEOF
+
+
 else
   echo "$as_me: failed program was:" >&5
 sed 's/^/| /' conftest.$ac_ext >&5
@@ -12895,7 +13006,8 @@ rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftes
 fi
 fi
 
-if test "x$ac_cv_func_getaddrinfo" = "xyes" -a "x$check_for_hpux_broken_getaddrinfo" = "x1"; then
+if test "x$ac_cv_func_getaddrinfo" = "xyes" && \
+    test "x$check_for_hpux_broken_getaddrinfo" = "x1"; then
 	echo "$as_me:$LINENO: checking if getaddrinfo seems to work" >&5
 echo $ECHO_N "checking if getaddrinfo seems to work... $ECHO_C" >&6
 	if test "$cross_compiling" = yes; then
@@ -13002,7 +13114,8 @@ rm -f core *.core gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftes
 fi
 fi
 
-if test "x$ac_cv_func_getaddrinfo" = "xyes" -a "x$check_for_aix_broken_getaddrinfo" = "x1"; then
+if test "x$ac_cv_func_getaddrinfo" = "xyes" && \
+    test "x$check_for_aix_broken_getaddrinfo" = "x1"; then
 	echo "$as_me:$LINENO: checking if getaddrinfo seems to work" >&5
 echo $ECHO_N "checking if getaddrinfo seems to work... $ECHO_C" >&6
 	if test "$cross_compiling" = yes; then
@@ -14272,7 +14385,7 @@ echo "$as_me: WARNING: *** Forcing use of OpenSSL's non-self-seeding PRNG" >&2;}
 fi;
 
 # Which randomness source do we use?
-if test ! -z "$OPENSSL_SEEDS_ITSELF" -a -z "$USE_RAND_HELPER" ; then
+if test ! -z "$OPENSSL_SEEDS_ITSELF" && test -z "$USE_RAND_HELPER" ; then
 	# OpenSSL only
 	cat >>confdefs.h <<\_ACEOF
 #define OPENSSL_PRNG_ONLY 1
@@ -14393,7 +14506,8 @@ entropy_timeout=200
 if test "${with_entropy_timeout+set}" = set; then
   withval="$with_entropy_timeout"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			entropy_timeout=$withval
 		fi
 
@@ -14410,7 +14524,8 @@ SSH_PRIVSEP_USER=sshd
 if test "${with_privsep_user+set}" = set; then
   withval="$with_privsep_user"
 
-		if test -n "$withval"; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			SSH_PRIVSEP_USER=$withval
 		fi
 
@@ -19152,9 +19267,9 @@ fi
 
 
 # We need int64_t or else certian parts of the compile will fail.
-if test "x$ac_cv_have_int64_t" = "xno" -a \
-	"x$ac_cv_sizeof_long_int" != "x8" -a \
-	"x$ac_cv_sizeof_long_long_int" = "x0" ; then
+if test "x$ac_cv_have_int64_t" = "xno" && \
+	test "x$ac_cv_sizeof_long_int" != "x8" && \
+	test "x$ac_cv_sizeof_long_long_int" = "x0" ; then
 	echo "OpenSSH requires int64_t support.  Contact your vendor or install"
 	echo "an alternative compiler (I.E., GCC) before continuing."
 	echo ""
@@ -21195,17 +21310,17 @@ _ACEOF
 fi;
 
 # Check whether user wants OpenSC support
+OPENSC_CONFIG="no"
 
 # Check whether --with-opensc or --without-opensc was given.
 if test "${with_opensc+set}" = set; then
   withval="$with_opensc"
-  opensc_config_prefix="$withval"
-else
-  opensc_config_prefix=""
-fi;
-if test x$opensc_config_prefix != x ; then
-  OPENSC_CONFIG=$opensc_config_prefix/bin/opensc-config
-  # Extract the first word of "opensc-config", so it can be a program name with args.
+
+	    if test "x$withval" != "xno" ; then
+		if test "x$withval" != "xyes" ; then
+  			OPENSC_CONFIG=$withval/bin/opensc-config
+		else
+  			# Extract the first word of "opensc-config", so it can be a program name with args.
 set dummy opensc-config; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
 echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
@@ -21245,22 +21360,26 @@ else
 echo "${ECHO_T}no" >&6
 fi
 
-  if test "$OPENSC_CONFIG" != "no"; then
-    LIBOPENSC_CFLAGS=`$OPENSC_CONFIG --cflags`
-    LIBOPENSC_LIBS=`$OPENSC_CONFIG --libs`
-    CPPFLAGS="$CPPFLAGS $LIBOPENSC_CFLAGS"
-    LDFLAGS="$LDFLAGS $LIBOPENSC_LIBS"
-    cat >>confdefs.h <<\_ACEOF
+		fi
+		if test "$OPENSC_CONFIG" != "no"; then
+			LIBOPENSC_CFLAGS=`$OPENSC_CONFIG --cflags`
+			LIBOPENSC_LIBS=`$OPENSC_CONFIG --libs`
+			CPPFLAGS="$CPPFLAGS $LIBOPENSC_CFLAGS"
+			LDFLAGS="$LDFLAGS $LIBOPENSC_LIBS"
+			cat >>confdefs.h <<\_ACEOF
 #define SMARTCARD 1
 _ACEOF
 
-    cat >>confdefs.h <<\_ACEOF
+			cat >>confdefs.h <<\_ACEOF
 #define USE_OPENSC 1
 _ACEOF
 
-    SCARD_MSG="yes, using OpenSC"
-  fi
-fi
+			SCARD_MSG="yes, using OpenSC"
+		fi
+	    fi
+
+
+fi;
 
 # Check libraries needed by DNS fingerprint support
 echo "$as_me:$LINENO: checking for library containing getrrsetbyname" >&5
@@ -23659,7 +23778,8 @@ PRIVSEP_PATH=/var/empty
 if test "${with_privsep_path+set}" = set; then
   withval="$with_privsep_path"
 
-		if test "x$withval" != "$no" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			PRIVSEP_PATH=$withval
 		fi
 
@@ -23672,7 +23792,8 @@ fi;
 if test "${with_xauth+set}" = set; then
   withval="$with_xauth"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			xauth_path=$withval
 		fi
 
@@ -24095,8 +24216,8 @@ _ACEOF
 	fi
 fi
 
-if test $ac_cv_func_login_getcapbool = "yes" -a \
-	$ac_cv_header_login_cap_h = "yes" ; then
+if test $ac_cv_func_login_getcapbool = "yes" && \
+	test $ac_cv_header_login_cap_h = "yes" ; then
 	external_path_file=/etc/login.conf
 fi
 
@@ -24240,7 +24361,8 @@ fi
 if test "${with_superuser_path+set}" = set; then
   withval="$with_superuser_path"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			cat >>confdefs.h <<_ACEOF
 #define SUPERUSER_PATH "$withval"
 _ACEOF
@@ -24324,7 +24446,8 @@ fi
 if test "${with_pid_dir+set}" = set; then
   withval="$with_pid_dir"
 
-		if test "x$withval" != "xno" ; then
+		if test -n "$withval"  &&  test "x$withval" != "xno"  &&  \
+		    test "x${withval}" != "xyes"; then
 			piddir=$withval
 			if test ! -d $piddir ; then
 			{ echo "$as_me:$LINENO: WARNING: ** no $piddir directory on this system **" >&5
@@ -24455,7 +24578,7 @@ if test "${with_lastlog+set}" = set; then
 #define DISABLE_LASTLOG 1
 _ACEOF
 
-		else
+		elif test -n "$withval"  &&  test "x${withval}" != "xyes"; then
 			conf_lastlog_location=$withval
 		fi
 
@@ -25290,9 +25413,9 @@ exec 6>&1
 exec 5>>config.log
 {
   echo
-  sed 'h;s/./-/g;s/^.../## /;s/...$/ ##/;p;x;p;x' <<BOXI_EOF
+  sed 'h;s/./-/g;s/^.../## /;s/...$/ ##/;p;x;p;x' <<_ASBOX
 ## Running $as_me. ##
-BOXI_EOF
+_ASBOX
 } >&5
 cat >&5 <<_CSEOF
 
