@@ -49,12 +49,6 @@ ifeq ($(DEB_HOST_ARCH_OS),gnu)
 FORCE_LIBS := LIBS=-lcrypt
 endif
 
-ifeq ($(DEB_HOST_ARCH_OS),linux)
-LINK_PTHREAD := -pthread
-else
-LINK_PTHREAD := -lpthread
-endif
-
 # Change the version string to include the Debian version
 SSH_EXTRAVERSION := Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
 
@@ -68,10 +62,8 @@ build-deb-stamp:
 
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
 	perl -pi -e 's/.*#undef (BROKEN_SETRES[UG]ID).*/#define $$1 1/' build-deb/config.h
-	# Supply pthread linkage for just those binaries linked to PAM.
-	perl -pi -e 's/^(LIBPAM=.*)/$$1 $(LINK_PTHREAD)/' build-deb/Makefile
 
-	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DUSE_POSIX_THREADS -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \

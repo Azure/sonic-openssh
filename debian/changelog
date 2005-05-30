@@ -3,6 +3,11 @@ openssh (1:4.1p1-1) UNRELEASED; urgency=low
   * New upstream release.
     - Normalise socket addresses returned by get_remote_hostname(), fixing
       4-in-6 mapping issues with AllowUsers et al (closes: #192234).
+  * Take upstream's hint and disable the unsupported USE_POSIX_THREADS
+    (closes: #295757, #308868, and possibly others; may open other bugs).
+    Use PAM password authentication to avoid #278394. In future I may
+    provide two sets of binaries built with and without this option, since
+    it seems I can't win.
   * openssh-server Suggests: rssh (closes: #233012).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 13:51:50 +0100
