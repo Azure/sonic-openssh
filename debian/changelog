@@ -10,7 +10,7 @@ openssh (1:4.1p1-1) UNRELEASED; urgency=low
     it seems I can't win.
   * Disable ChallengeResponseAuthentication in new installations, returning
     to PasswordAuthentication by default, since it now supports PAM and
-    apparently works better with a non-threaded sshd.
+    apparently works better with a non-threaded sshd (closes: #247521).
   * openssh-server Suggests: rssh (closes: #233012).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 13:51:50 +0100
