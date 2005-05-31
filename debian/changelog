@@ -11,6 +11,7 @@ openssh (1:4.1p1-2) UNRELEASED; urgency=low
     debconf question was previously set to false.
   * Add lintian overrides for the above (setuid-binary,
     no-debconf-templates).
+  * Fix picky lintian errors about slogin symlinks.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 02:50:49 +0100
 
