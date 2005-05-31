@@ -126,7 +126,8 @@ check_password_auth() {
 
 move_subsystem_sftp() {
 	subsystem_sftp="$(get_config_option 'Subsystem sftp')"
-	if [ "$subsystem_sftp" = /usr/lib/sftp-server ]; then
+	if [ "$subsystem_sftp" = /usr/lib/sftp-server ] || \
+	   [ "$subsystem_sftp" = /usr/libexec/sftp-server ]; then
 		set_config_option 'Subsystem sftp' /usr/lib/openssh/sftp-server
 	fi
 }

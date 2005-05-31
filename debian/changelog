@@ -14,6 +14,8 @@ openssh (1:4.1p1-1) UNRELEASED; urgency=low
   * openssh-server Suggests: rssh (closes: #233012).
   * Change libexecdir to /usr/lib/openssh, and fix up various alternatives
     and configuration files to match (closes: #87900, #151321).
+  * Fix up very old sshd_config files that refer to /usr/libexec/sftp-server
+    (closes: #141979).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 13:51:50 +0100
 
