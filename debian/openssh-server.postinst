@@ -194,27 +194,10 @@ Port 22
 # Use these options to restrict which interfaces/protocols sshd will bind to
 #ListenAddress ::
 #ListenAddress 0.0.0.0
-EOF
-	db_get ssh/protocol2_only
-if [ "$RET" = "false" ]; then
-		cat <<EOF >> /etc/ssh/sshd_config
-Protocol 2,1
-# HostKeys for protocol version 1
-HostKey /etc/ssh/ssh_host_key
-# HostKeys for protocol version 2
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_dsa_key
-EOF
-else
-	cat <<EOF >> /etc/ssh/sshd_config
 Protocol 2
 # HostKeys for protocol version 2
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
-EOF
-fi
-
-	cat <<EOF >> /etc/ssh/sshd_config
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 

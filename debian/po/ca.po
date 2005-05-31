@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh_1:3.8p1-3_templates\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 12:48+0000\n"
+"POT-Creation-Date: 2005-05-31 02:47+0100\n"
 "PO-Revision-Date: 2004-03-05 19:46GMT\n"
 "Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -99,48 +99,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Permet únicament la versió 2 del protocol d'SSH"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Aquesta versió de l'OpenSSH suporta la versió 2 del protocol d'ssh, aquesta "
-"versió és molt més segura. És recomanable inhabilitar la versió 1 del "
-"protocol, tot i això relantitzà el funcionament dels ordinadors més antics i "
-"no permetrà les connexions als clients antics (afectarà al client "
-"proporcionat per la \"potato\")."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Recordeu que les claus que utilitza la versió 1 del protocol són diferents i "
-"no les podreu utilitzar si habiliteu únicament les connexions de la versió 2 "
-"del protocol."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Si posteriorment canvieu d'opinió respecte a la configuració, podeu trobar "
-"les instruccions per modificar el fitxer sshd_config a README.Debian."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr ""
 "Esteu segur de voler continuar (tot i la possibilitat d'aturar les sessions "
@@ -148,7 +106,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -160,7 +118,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -170,7 +128,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Avís: el servidor rsh-server està instal·lat --- probablement no sigui una "
@@ -178,7 +136,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -188,14 +146,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr ""
 "Avís: el telnetd està instal·lat --- probablement no sigui una bona idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -209,13 +167,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "Avís: heu de crear una nova clau del servidor central"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -227,19 +185,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Haureu de generar una nova clau de l'ordinador central."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -251,13 +209,44 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Permet únicament la versió 2 del protocol d'SSH"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Aquesta versió de l'OpenSSH suporta la versió 2 del protocol d'ssh, "
+#~ "aquesta versió és molt més segura. És recomanable inhabilitar la versió 1 "
+#~ "del protocol, tot i això relantitzà el funcionament dels ordinadors més "
+#~ "antics i no permetrà les connexions als clients antics (afectarà al "
+#~ "client proporcionat per la \"potato\")."
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Recordeu que les claus que utilitza la versió 1 del protocol són "
+#~ "diferents i no les podreu utilitzar si habiliteu únicament les connexions "
+#~ "de la versió 2 del protocol."
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Si posteriorment canvieu d'opinió respecte a la configuració, podeu "
+#~ "trobar les instruccions per modificar el fitxer sshd_config a README."
+#~ "Debian."
 
 #~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 #~ msgstr ""

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 12:48+0000\n"
+"POT-Creation-Date: 2005-05-31 02:47+0100\n"
 "PO-Revision-Date: 2004-10-20 08:53+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -108,52 +108,12 @@ msgstr "新しい設定ファイルを自動生成することを強くお勧めします。"
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "SSH プロトコル 2 のみを許可します"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"OpenSSH のこのバージョンは、ずっと安全な、ssh プロトコルのバージョン 2 をサ"
-"ポートしています。ssh 1 を禁止することをお勧めしますが、遅いマシンでは動作が"
-"遅くなったり、古いクライアントから接続できなくなったりします (\"potato\" の "
-"ssh クライアントも接続できなくなります)。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"また、プロトコル 1 で使うキーは異なるため、プロトコル 2 を有効にしただけでは"
-"そのキーを使うことができません。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"もし今後あなたが考えを変えたら、README.Debian を読むと sshd_config をどのよう"
-"に変更したらよいかが分かります。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "続けてよいですか (接続中の ssh セッションが切れるかもしれません)"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -165,7 +125,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -175,14 +135,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "警告: rsh-server がインストールされています。たぶん良い考えではありません"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -193,13 +153,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "警告: telnetd がインストールされています。たぶん良い考えではありません"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -213,13 +173,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "警告: 新しいホストキーを作らないといけません"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -231,19 +191,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "新しいホストキーを作る必要があります。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr "チャレンジ-レスポンス認証を無効にしますか?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -260,7 +220,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -271,6 +231,34 @@ msgstr ""
 "できなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/ssh にあ"
 "る PAM 設定を調節しない限り、'PasswordAuthentication no' オプションは効果を持"
 "たなくなります。"
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "SSH プロトコル 2 のみを許可します"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "OpenSSH のこのバージョンは、ずっと安全な、ssh プロトコルのバージョン 2 を"
+#~ "サポートしています。ssh 1 を禁止することをお勧めしますが、遅いマシンでは動"
+#~ "作が遅くなったり、古いクライアントから接続できなくなったりします (\"potato"
+#~ "\" の ssh クライアントも接続できなくなります)。"
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "また、プロトコル 1 で使うキーは異なるため、プロトコル 2 を有効にしただけで"
+#~ "はそのキーを使うことができません。"
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "もし今後あなたが考えを変えたら、README.Debian を読むと sshd_config をどの"
+#~ "ように変更したらよいかが分かります。"
 
 #~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 #~ msgstr "注意: X11 と認証のフォワーディングはデフォルトでは禁止されます"

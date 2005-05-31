@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 12:48+0000\n"
+"POT-Creation-Date: 2005-05-31 02:47+0100\n"
 "PO-Revision-Date: 2004-10-14 21:34+0300\n"
 "Last-Translator: Logiotatidis George <seadog@sealabs.net>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -114,55 +114,13 @@ msgstr "Συνιστάται να επιλέξετε την δημιουργία
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Να επιτρέπεται μόνο η χρήση του πρωτοκόλλου SSH 2"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Αυτή η έκδοση του OpenSSH υποστηρίζει την έκδοση 2 του πρωτοκόλλου ssh, που "
-"είναι πολύ πιο ασφαλής.  Συνιστάται η απενεργοποίηση της έκδοσης 1, ωστόσο "
-"αυτό θα γίνει εις βάρος της ταχύτητας σε χαμηλότερων επιδόσεων συστήματα και "
-"θα απαγορέψει τη σύνδεση σε παλαιότερα προγράμματα-πελάτες (π.χ. ο πελάτης "
-"ssh που διανέμεται με την έκδοση \"potato\")."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Επίσης, σημειώστε ότι τα κλειδιά που χρησιμοποιούνταν στο πρωτόκολλο 1 είναι "
-"διαφορετικά και δε θα είναι δυνατή η χρήση τους αν επιτρέψετε μόνο τις "
-"συνδέσεις με το πρωτόκολλο 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Αν αποφασίσετε διαφορετικά αργότερα για αυτή τη ρύθμιση, το αρχείο README."
-"Debian έχει οδηγίες για την κατάλληλη τροποποίηση του αρχείου sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr ""
 "Θέλετε να συνεχίσετε (με κίνδυνο τερματισμού των ενεργών συνεδριών ssh);"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -174,7 +132,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -184,14 +142,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Προσοχή: είναι ήδη εγκατεστημένος ο rsh-server --- όχι και τοσο καλή ιδέα"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -202,13 +160,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Προσοχή: είναι ήδη εγκατεστημένος ο telnetd --- όχι και τοσο καλή ιδέα"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -223,14 +181,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr ""
 "Προσοχή: πρέπει να δημιουργήσετε ένα νέο κλειδί για τον υπολογιστή (host key)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -243,19 +201,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Πρέπει να δημιουργήσετε ένα νέο κλειδί για τον υπολογιστή (host key)."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr "Να απενεργοποιηθεί η πιστοποίηση challenge-response;"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -273,7 +231,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -284,6 +242,36 @@ msgstr ""
 "μπορούν να εισέλθουν χρησιμοποιώντας τον κωδικό τους. Εάν το αφήσετε "
 "ενεργοποιημένο (προεπιλογή), τότε η επιλογή 'PasswordAuthetication no' δεν "
 "θα επιδρά εκτός και εάν ρυθμίσετε και το PAM στο αρχείο /etc/pam.d/ssh."
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Να επιτρέπεται μόνο η χρήση του πρωτοκόλλου SSH 2"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Αυτή η έκδοση του OpenSSH υποστηρίζει την έκδοση 2 του πρωτοκόλλου ssh, "
+#~ "που είναι πολύ πιο ασφαλής.  Συνιστάται η απενεργοποίηση της έκδοσης 1, "
+#~ "ωστόσο αυτό θα γίνει εις βάρος της ταχύτητας σε χαμηλότερων επιδόσεων "
+#~ "συστήματα και θα απαγορέψει τη σύνδεση σε παλαιότερα προγράμματα-πελάτες "
+#~ "(π.χ. ο πελάτης ssh που διανέμεται με την έκδοση \"potato\")."
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Επίσης, σημειώστε ότι τα κλειδιά που χρησιμοποιούνταν στο πρωτόκολλο 1 "
+#~ "είναι διαφορετικά και δε θα είναι δυνατή η χρήση τους αν επιτρέψετε μόνο "
+#~ "τις συνδέσεις με το πρωτόκολλο 2."
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Αν αποφασίσετε διαφορετικά αργότερα για αυτή τη ρύθμιση, το αρχείο README."
+#~ "Debian έχει οδηγίες για την κατάλληλη τροποποίηση του αρχείου sshd_config."
 
 #~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 #~ msgstr ""

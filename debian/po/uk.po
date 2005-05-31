@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh-uk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 12:48+0000\n"
+"POT-Creation-Date: 2005-05-31 02:47+0100\n"
 "PO-Revision-Date: 2005-03-28 22:28+0300\n"
 "Last-Translator: Eugeniy Meshcheryakov <eugen@univ.kiev.ua>\n"
 "Language-Team: Ukrainian\n"
@@ -110,54 +110,13 @@ msgstr "Рекомендується дозволити створити нов�
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Дозволити тільки SSH-протокол версії 2"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Ця версія OpenSSH підтримує версію 2 протоколу SSH, яка є більш безпечною. "
-"Рекомендується заборонити версію 1, однак це може уповільнити роботу на "
-"слабких системах та зробити неможливим з'єднання з використанням старих "
-"клієнтів (включно з клієнтом ssh з \"potato\")."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Також зверніть увагу, що ключі для версії 1 відрізняються від ключів для "
-"версії 2, тому ви не зможете використовувати їх, якщо дозволите з'єднання "
-"тільки по протоколу версії 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Якщо ви пізніше передумаєте щодо цього параметра, файл README.Debian містить "
-"інструкції щодо внесення змін до файла sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr ""
 "Чи бажаєте ви продовжувати (та ризикувати втратити активні сеанси ssh)?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -168,7 +127,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -178,13 +137,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Попередження: rsh-server встановлений - це погана ідея"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -194,13 +153,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Попередження: telnetd встановлений - це погана ідея"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -213,13 +172,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "Попередження: ви повинні створити новий ключ вузла"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -231,19 +190,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Вам потрібно створити новий ключ вузла."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr "Заборонити автентифікацію запит-відповідь?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -261,7 +220,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -273,6 +232,35 @@ msgstr ""
 "(відповідь за замовчанням), то опція 'PasswordAuthentication no' не буде "
 "мати корисного ефекту доки ви не пристосуєте також налаштування PAM в /etc/"
 "pam.d/ssh."
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Дозволити тільки SSH-протокол версії 2"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Ця версія OpenSSH підтримує версію 2 протоколу SSH, яка є більш "
+#~ "безпечною. Рекомендується заборонити версію 1, однак це може уповільнити "
+#~ "роботу на слабких системах та зробити неможливим з'єднання з "
+#~ "використанням старих клієнтів (включно з клієнтом ssh з \"potato\")."
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Також зверніть увагу, що ключі для версії 1 відрізняються від ключів для "
+#~ "версії 2, тому ви не зможете використовувати їх, якщо дозволите з'єднання "
+#~ "тільки по протоколу версії 2."
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Якщо ви пізніше передумаєте щодо цього параметра, файл README.Debian "
+#~ "містить інструкції щодо внесення змін до файла sshd_config."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "ssh2-ключі злиті у файлах налаштувань"

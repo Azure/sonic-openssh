@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-15 12:48+0000\n"
+"POT-Creation-Date: 2005-05-31 02:47+0100\n"
 "PO-Revision-Date: 2005-04-08 22:15+0300\n"
 "Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -112,57 +112,12 @@ msgstr "Uuden asetustiedoston luominen on erittäin suositeltavaa."
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Salli ainoastaan SSH-protokollan versio 2"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Tämä OpenSSH:n versio tukee ssh-protokollan versiota 2, joka on "
-"huomattavasti \n"
-"turvallisempi. Protokollan ykkösversion käytöstä poistamista suositellaan, "
-"mutta \n"
-"se voi aiheuttaa toiminnan hitautta pienitehoisissa koneissa ja estää "
-"yhteyden \n"
-"ottamisen vanhemmilla asiakasohjelmilla. (Tämä koskee mm. Debian \"potaton\":"
-"n \n"
-"mukana toimitettua ssh-asiakasohjelmaa.)"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Huomaa myös, että version 1 kanssa käytetyt avaimet ovat erilaisia, joten \n"
-"et voi käyttää niitä, jos sallit yhteydet vain versiolla 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Jos muutat myöhemmin mielesi tämän asetuksen suhteen, tiedostossa \n"
-"README.Debian on ohjeet tiedoston sshd_config muokkaamiseen."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Haluatko jatkaa (ja mahdollisesti lopettaa aktiiviset ssh-istunnot)?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -176,7 +131,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -186,13 +141,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -202,13 +157,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:55
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -222,13 +177,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -241,19 +196,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:63
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr "Poista käytöstä haaste-vaste -autentikointi"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -271,7 +226,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:73
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -282,6 +237,40 @@ msgstr ""
 "eivät voi kirjautua salasanaa käyttäen. Jos jätät sen päälle (oletus),\n"
 "asetuksella \"PasswordAuthentication no\" ei ole vaikutusta, ellet muuta\n"
 "myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Salli ainoastaan SSH-protokollan versio 2"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Tämä OpenSSH:n versio tukee ssh-protokollan versiota 2, joka on "
+#~ "huomattavasti \n"
+#~ "turvallisempi. Protokollan ykkösversion käytöstä poistamista "
+#~ "suositellaan, mutta \n"
+#~ "se voi aiheuttaa toiminnan hitautta pienitehoisissa koneissa ja estää "
+#~ "yhteyden \n"
+#~ "ottamisen vanhemmilla asiakasohjelmilla. (Tämä koskee mm. Debian \"potaton"
+#~ "\":n \n"
+#~ "mukana toimitettua ssh-asiakasohjelmaa.)"
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Huomaa myös, että version 1 kanssa käytetyt avaimet ovat erilaisia, "
+#~ "joten \n"
+#~ "et voi käyttää niitä, jos sallit yhteydet vain versiolla 2."
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Jos muutat myöhemmin mielesi tämän asetuksen suhteen, tiedostossa \n"
+#~ "README.Debian on ohjeet tiedoston sshd_config muokkaamiseen."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "ssh2-avaimet yhdistetty asetustiedostoissa"

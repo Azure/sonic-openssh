@@ -17,21 +17,6 @@ _Description: Generate new configuration file
  It is strongly recommended that you let me generate a new configuration
  file for you.
 
-Template: ssh/protocol2_only
-Type: boolean
-Default: true
-_Description: Allow SSH protocol 2 only
- This version of OpenSSH supports version 2 of the ssh protocol, which is
- much more secure.  Disabling ssh 1 is encouraged, however this will slow
- things down on low end machines and might prevent older clients from
- connecting (the ssh client shipped with "potato" is affected).
- .
- Also please note that keys used for protocol 1 are different so you will
- not be able to use them if you only allow protocol 2 connections.
- .
- If you later change your mind about this setting, README.Debian has
- instructions on what to do to your sshd_config file.
-
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false

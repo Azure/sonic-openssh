@@ -97,6 +97,10 @@ you will need to generate one. To do so, run this command as root:
 
   ssh-keygen -f /etc/ssh/ssh_host_key -N '' -t rsa1
 
+As of openssh-server 1:4.1p1-2, the option to support protocol version 1
+is no longer available via debconf. You must edit the configuration file
+instead.
+
 X11 Forwarding
 --------------
 
