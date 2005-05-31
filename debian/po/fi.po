@@ -205,7 +205,7 @@ msgstr ""
 "myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
-#~ msgstr "Haluatko, että ssh-keygen asennetaan SUID root -oikeuksin?"
+#~ msgstr "Haluatko, että ssh-keysign asennetaan SUID root -oikeuksin?"
 
 #~ msgid ""
 #~ "You have the option of installing the ssh-keysign helper with the SUID "
