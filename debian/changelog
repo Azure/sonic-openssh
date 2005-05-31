@@ -9,6 +9,8 @@ openssh (1:4.1p1-2) UNRELEASED; urgency=low
     question text had got out of date anyway. Remove this question, ship
     ssh-keysign setuid in openssh-client.deb, and set a statoverride if the
     debconf question was previously set to false.
+  * Add lintian overrides for the above (setuid-binary,
+    no-debconf-templates).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 02:50:49 +0100
 
