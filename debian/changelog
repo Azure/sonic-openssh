@@ -1,4 +1,4 @@
-openssh (1:4.1p1-1) UNRELEASED; urgency=low
+openssh (1:4.1p1-1) experimental; urgency=low
 
   * New upstream release.
     - Normalise socket addresses returned by get_remote_hostname(), fixing
@@ -17,7 +17,7 @@ openssh (1:4.1p1-1) UNRELEASED; urgency=low
   * Fix up very old sshd_config files that refer to /usr/libexec/sftp-server
     (closes: #141979).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 13:51:50 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 01:33:33 +0100
 
 openssh (1:4.0p1-1) experimental; urgency=low
 
