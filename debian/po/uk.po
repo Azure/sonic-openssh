@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh-uk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 02:47+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
 "PO-Revision-Date: 2005-03-28 22:28+0300\n"
 "Last-Translator: Eugeniy Meshcheryakov <eugen@univ.kiev.ua>\n"
 "Language-Team: Ukrainian\n"
@@ -25,40 +25,6 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want ssh-keysign to be installed SUID root?"
-msgstr "Чи бажаєте ви, щоб ssh-keysign мав встановлений біт SUID?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr "Ви маєте можливість встановити біт SUID для програми ssh-keysign."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Якщо ви встановите біт SUID для ssh-keysign, ви зможете використовувати "
-"вузлову автентифікацію протоколу SSH версії 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Якщо сумніваєтесь, то рекомендується дозволити встановити біт SUID. Якщо це "
-"викликатиме проблеми, ви зможете все змінити запустивши dpkg-reconfigure ssh"
 
 #. Type: boolean
 #. Description
@@ -232,6 +198,29 @@ msgstr ""
 "(відповідь за замовчанням), то опція 'PasswordAuthentication no' не буде "
 "мати корисного ефекту доки ви не пристосуєте також налаштування PAM в /etc/"
 "pam.d/ssh."
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr "Чи бажаєте ви, щоб ssh-keysign мав встановлений біт SUID?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr "Ви маєте можливість встановити біт SUID для програми ssh-keysign."
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "Якщо ви встановите біт SUID для ssh-keysign, ви зможете використовувати "
+#~ "вузлову автентифікацію протоколу SSH версії 2."
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "Якщо сумніваєтесь, то рекомендується дозволити встановити біт SUID. Якщо "
+#~ "це викликатиме проблеми, ви зможете все змінити запустивши dpkg-"
+#~ "reconfigure ssh"
 
 #~ msgid "Allow SSH protocol 2 only"
 #~ msgstr "Дозволити тільки SSH-протокол версії 2"

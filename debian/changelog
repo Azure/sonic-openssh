@@ -3,6 +3,12 @@ openssh (1:4.1p1-2) UNRELEASED; urgency=low
   * Drop debconf support for allowing SSH protocol 1, which is discouraged
     and has not been the default since openssh 1:3.0.1p1-1. Users who need
     this should edit sshd_config instead (closes: #147212).
+  * Since ssh-keysign isn't used by default (you need to set
+    EnableSSHKeysign to "yes" in /etc/ssh/ssh_config), having a debconf
+    question to ask whether it should be setuid is overkill, and the
+    question text had got out of date anyway. Remove this question, ship
+    ssh-keysign setuid in openssh-client.deb, and set a statoverride if the
+    debconf question was previously set to false.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 02:50:49 +0100
 

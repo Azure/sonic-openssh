@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 02:47+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
 "PO-Revision-Date: 2004-04-27 06:50+0300\n"
 "Last-Translator: Recai Oktaş <roktas@omu.edu.tr>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -14,43 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want ssh-keysign to be installed SUID root?"
-msgstr "ssh-keysign'ın root haklarıyla kurulmasını (SUID root) ister misiniz?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"ssh-keysign yardımcı aracının SUID bit'i etkinleştirilerek kurulması "
-"seçeneğine sahipsiniz."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Eğer ssh-keysign'ı SUID yaparsanız, SSH'ın makine tabanlı Protokol 2 "
-"yetkilendirmesini kullanabileceksiniz."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Bu konuda şüpheliyseniz, size SUID'li kurulumu öneririm. Eğer bu sorunlara "
-"yol açarsa ileride fikrinizi değiştirmek için şu komutu çalıştırabilirsiniz: "
-"dpkg-reconfigure ssh"
 
 #. Type: boolean
 #. Description
@@ -216,6 +179,32 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr ""
+#~ "ssh-keysign'ın root haklarıyla kurulmasını (SUID root) ister misiniz?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr ""
+#~ "ssh-keysign yardımcı aracının SUID bit'i etkinleştirilerek kurulması "
+#~ "seçeneğine sahipsiniz."
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "Eğer ssh-keysign'ı SUID yaparsanız, SSH'ın makine tabanlı Protokol 2 "
+#~ "yetkilendirmesini kullanabileceksiniz."
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "Bu konuda şüpheliyseniz, size SUID'li kurulumu öneririm. Eğer bu "
+#~ "sorunlara yol açarsa ileride fikrinizi değiştirmek için şu komutu "
+#~ "çalıştırabilirsiniz: dpkg-reconfigure ssh"
 
 #~ msgid "Allow SSH protocol 2 only"
 #~ msgstr "Sadece SSH protokol 2'ye izin ver"

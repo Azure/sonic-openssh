@@ -98,7 +98,6 @@ ifeq ($(PO2DEBCONF),yes)
 	# 4.1.16) depends on it), the binary-arch target will generate a
 	# better version for sarge.
 	echo 1 > debian/po/output
-	po2debconf debian/openssh-client.templates.master > debian/openssh-client.templates
 	po2debconf debian/openssh-server.templates.master > debian/openssh-server.templates
 	rm -f debian/po/output
 endif
@@ -171,9 +170,6 @@ binary-openssh-client: DH_OPTIONS=-popenssh-client
 binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
-ifeq ($(PO2DEBCONF),yes)
-	po2debconf -e utf8 debian/openssh-client.templates.master > debian/openssh-client.templates
-endif
 	dh_installdebconf
 	dh_installdocs OVERVIEW README
 	cat debian/copyright.head LICENCE > debian/openssh-client/usr/share/doc/openssh-client/copyright
@@ -181,6 +177,7 @@ endif
 	dh_strip
 	dh_compress
 	dh_fixperms
+	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
 	dh_installdeb
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles

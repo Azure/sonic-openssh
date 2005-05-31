@@ -15,48 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.8.1p1-8.sarge.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 02:47+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
 "PO-Revision-Date: 2004-10-13 22:39+0200\n"
 "Last-Translator: Denis Barbier <barbier@linuxfr.org>\n"
 "Language-Team: French <Debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want ssh-keysign to be installed SUID root?"
-msgstr "Faut-il installer ssh-keysign avec le bit SETUID activé ?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr "Vous pouvez installer ssh-keysign avec le bit SETUID activé."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Si vous choisissez cette option, vous permettrez l'authentification basée "
-"sur les hôtes, disponible dans la version 2 du protocole SSH."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si cela "
-"vous pose des problèmes, vous pourrez revenir sur votre décision avec « dpkg-"
-"reconfigure ssh »."
 
 #. Type: boolean
 #. Description
@@ -239,6 +204,29 @@ msgstr ""
 "vous la laissez active (ce qui est le défaut), alors l'option "
 "« PasswordAuthentication no » n'aura d'effet que si vous ajustez aussi la "
 "configuration de PAM dans /etc/pam.d/ssh."
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr "Faut-il installer ssh-keysign avec le bit SETUID activé ?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr "Vous pouvez installer ssh-keysign avec le bit SETUID activé."
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "Si vous choisissez cette option, vous permettrez l'authentification basée "
+#~ "sur les hôtes, disponible dans la version 2 du protocole SSH."
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si "
+#~ "cela vous pose des problèmes, vous pourrez revenir sur votre décision "
+#~ "avec « dpkg-reconfigure ssh »."
 
 #~ msgid "Allow SSH protocol 2 only"
 #~ msgstr "Faut-il autoriser uniquement la version 2 du protocole SSH ?"

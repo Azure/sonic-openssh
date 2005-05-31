@@ -15,49 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 02:47+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
 "PO-Revision-Date: 2004-10-20 08:53+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want ssh-keysign to be installed SUID root?"
-msgstr "ssh-keysign を SUID root でインストールしますか?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"ssh-keysign ヘルパーをインストールする際、SUID ビットを設定するかしないかを選"
-"ぶことができます。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"ssh-keysign を SUID に設定した場合、SSH プロトコル 2 のホストに基づく認証を使"
-"うことができます。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"よく分からない場合は、SUID を有効にすることをお勧めします。もし 問題が起これ"
-"ば、dpkg-reconfigure ssh を実行することで設定を変更することができます。"
 
 #. Type: boolean
 #. Description
@@ -231,6 +195,30 @@ msgstr ""
 "できなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/ssh にあ"
 "る PAM 設定を調節しない限り、'PasswordAuthentication no' オプションは効果を持"
 "たなくなります。"
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr "ssh-keysign を SUID root でインストールしますか?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr ""
+#~ "ssh-keysign ヘルパーをインストールする際、SUID ビットを設定するかしないか"
+#~ "を選ぶことができます。"
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "ssh-keysign を SUID に設定した場合、SSH プロトコル 2 のホストに基づく認証"
+#~ "を使うことができます。"
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "よく分からない場合は、SUID を有効にすることをお勧めします。もし 問題が起こ"
+#~ "れば、dpkg-reconfigure ssh を実行することで設定を変更することができます。"
 
 #~ msgid "Allow SSH protocol 2 only"
 #~ msgstr "SSH プロトコル 2 のみを許可します"

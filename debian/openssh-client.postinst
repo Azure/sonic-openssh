@@ -73,16 +73,6 @@ set_ssh_permissions() {
 			dpkg-statoverride --remove /usr/lib/ssh-keysign || true
 		fi
 	fi
-
-	if [ ! -x /usr/sbin/dpkg-statoverride ] || \
-	     ! dpkg-statoverride --list /usr/lib/openssh/ssh-keysign >/dev/null; then
-		db_get ssh/SUID_client
-		if [ "$RET" = "false" ] ; then
-			chmod 0755 /usr/lib/openssh/ssh-keysign
-		elif [ "$RET" = "true" ] ; then
-			chmod 4755 /usr/lib/openssh/ssh-keysign
-		fi
-	fi
 }
 
 fix_ssh_group() {
@@ -112,8 +102,5 @@ if [ "$2" = "1:3.5p1-1" ]; then
     fix_ssh_group
 fi
 set_ssh_agent_permissions
-
-
-db_stop
 
 exit 0
