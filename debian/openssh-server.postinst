@@ -32,7 +32,7 @@ get_config_option() {
 	[ -f /etc/ssh/sshd_config ] || return
 
 	# TODO: actually only one '=' allowed after option
-	perl -ne 'print if s/^[[:space:]]*'"$option"'[[:space:]=]+//i' \
+	perl -lne 's/\s+/ /g; print if s/^\s*'"$option"'[[:space:]=]+//i' \
 	   /etc/ssh/sshd_config
 }
 
@@ -41,15 +41,18 @@ set_config_option() {
 	option="$1"
 	value="$2"
 
-	perl -e '
+	perl -le '
 		$option = $ARGV[0]; $value = $ARGV[1]; $done = 0;
 		while (<STDIN>) {
-			if (s/^\s*\Q$option\E\s+.*/$option $value/) {
+			chomp;
+			(my $match = $_) =~ s/\s+/ /g;
+			if ($match =~ s/^\s*\Q$option\E\s+.*/$option $value/) {
+				$_ = $match;
 				$done = 1;
 			}
 			print;
 		}
-		print "\n$option $value\n" unless $done;' \
+		print "$option $value" unless $done;' \
 		"$option" "$value" \
 		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
@@ -121,6 +124,14 @@ check_password_auth() {
 }
 
 
+move_subsystem_sftp() {
+	subsystem_sftp="$(get_config_option 'Subsystem sftp')"
+	if [ "$subsystem_sftp" = /usr/lib/sftp-server ]; then
+		set_config_option 'Subsystem sftp' /usr/lib/openssh/sftp-server
+	fi
+}
+
+
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
 	    if dpkg --compare-versions "$oldversion" lt-nl 1:1.3 ; then
@@ -157,6 +168,11 @@ create_sshdconfig() {
 		# package split, so check.
 		if dpkg --compare-versions "$oldversion" lt 1:3.8.1p1-11; then
 		    check_password_auth
+		fi
+
+		# libexecdir changed, so fix up 'Subsystem sftp'.
+		if dpkg --compare-versions "$oldversion" lt 1:4.1p1-1; then
+		    move_subsystem_sftp
 		fi
 
 		return 0
@@ -260,7 +276,7 @@ KeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
-Subsystem	sftp	/usr/lib/sftp-server
+Subsystem sftp /usr/lib/openssh/sftp-server
 
 UsePAM yes
 EOF

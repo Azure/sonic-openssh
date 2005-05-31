@@ -26,8 +26,8 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-client.templates.master:4
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Chcete /usr/lib/ssh-keysign nainstalovat jako SUID root?"
+msgid "Do you want ssh-keysign to be installed SUID root?"
+msgstr "Chcete ssh-keysign nainstalovat jako SUID root?"
 
 #. Type: boolean
 #. Description

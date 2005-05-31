@@ -24,9 +24,14 @@ set -e
 
 case "$1" in
     configure)
+        if dpkg --compare-versions "$2" lt-nl 1:4.1p1-1; then
+            # libexecdir changed, so remove the obsolete alternative.
+            update-alternatives --quiet --remove ssh-askpass \
+                /usr/lib/ssh/gnome-ssh-askpass
+        fi
         update-alternatives --quiet \
 	    --install /usr/bin/ssh-askpass ssh-askpass \
-	              /usr/lib/ssh/gnome-ssh-askpass 30 \
+	              /usr/lib/openssh/gnome-ssh-askpass 30 \
 	    --slave /usr/share/man/man1/ssh-askpass.1.gz \
 	            ssh-askpass.1.gz /usr/share/man/man1/gnome-ssh-askpass.1.gz
 

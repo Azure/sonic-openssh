@@ -12,6 +12,8 @@ openssh (1:4.1p1-1) UNRELEASED; urgency=low
     to PasswordAuthentication by default, since it now supports PAM and
     apparently works better with a non-threaded sshd (closes: #247521).
   * openssh-server Suggests: rssh (closes: #233012).
+  * Change libexecdir to /usr/lib/openssh, and fix up various alternatives
+    and configuration files to match (closes: #87900, #151321).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 13:51:50 +0100
 

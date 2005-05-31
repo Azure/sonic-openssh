@@ -28,8 +28,8 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-client.templates.master:4
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Θέλετε να εγκαταστήσετε το /usr/lib/ssh-keysign ως SUID;"
+msgid "Do you want ssh-keysign to be installed SUID root?"
+msgstr "Θέλετε να εγκαταστήσετε το ssh-keysign ως SUID;"
 
 #. Type: boolean
 #. Description
