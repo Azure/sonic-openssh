@@ -17,7 +17,15 @@ endif
 
 VERSION := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2 | sed 's/.*://')
 DEB_HOST_ARCH := $(shell dpkg-architecture -qDEB_HOST_ARCH)
-DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null || dpkg-architecture -qDEB_HOST_GNU_SYSTEM)
+DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
+
+# Take account of old dpkg-architecture output.
+ifeq ($(DEB_HOST_ARCH_OS),)
+  DEB_HOST_ARCH_OS := $(subst -gnu,,$(shell dpkg-architecture -qDEB_HOST_GNU_SYSTEM))
+  ifeq ($(DEB_HOST_ARCH_OS),gnu)
+    DEB_HOST_ARCH_OS := hurd
+  endif
+endif
 
 CLIENT_UDEB := openssh-client-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
 SERVER_UDEB := openssh-server-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
@@ -45,7 +53,7 @@ PAMDEP := libpam-runtime
 endif
 
 # The Hurd needs libcrypt for res_query et al.
-ifeq ($(DEB_HOST_ARCH_OS),gnu)
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
 FORCE_LIBS := LIBS=-lcrypt
 endif
 
@@ -134,7 +142,7 @@ install: build
 	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
 	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
-ifneq ($(DEB_HOST_ARCH_OS),gnu)
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
 		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass; \
 	elif [ -f contrib/gnome-ssh-askpass1 ]; then \
@@ -161,7 +169,7 @@ binary-indep: binary-ssh
 
 # Build architecture-dependent files here.
 binary-arch: binary-openssh-client binary-openssh-server
-ifneq ($(DEB_HOST_ARCH_OS),gnu)
+ifneq ($(DEB_HOST_ARCH_OS),hurd)
 binary-arch: binary-ssh-askpass-gnome
 endif
 binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
