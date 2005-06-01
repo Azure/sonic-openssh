@@ -13,6 +13,7 @@ openssh (1:4.1p1-2) UNRELEASED; urgency=low
     no-debconf-templates).
   * Fix picky lintian errors about slogin symlinks.
   * Fix DEB_HOST_ARCH_OS/DEB_HOST_GNU_SYSTEM compatibility handling.
+  * Apply Linux 2.2 workaround (see #239999) only on Linux.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 02:50:49 +0100
 
