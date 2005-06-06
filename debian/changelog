@@ -1,3 +1,9 @@
+openssh (1:4.1p1-3) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  6 Jun 2005 22:28:33 +0100
+
 openssh (1:4.1p1-2) experimental; urgency=low
 
   * Drop debconf support for allowing SSH protocol 1, which is discouraged
