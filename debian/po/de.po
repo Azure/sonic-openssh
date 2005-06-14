@@ -136,7 +136,7 @@ msgid ""
 msgstr ""
 "Wir empfehlen das telnetd Paket zu entfernen (falls Sie keinen telnet Zugang "
 "anbieten) oder telnetd-ssl zu installieren, so daß Sie verhindern können, "
-"daß Login und Password unverschlüsselt durch das Netz gesendet werden."
+"daß Login und Passwort unverschlüsselt durch das Netz gesendet werden."
 
 #. Type: note
 #. Description
@@ -277,7 +277,7 @@ msgstr ""
 #~ "longer needed. They will still be read in order to maintain backwards "
 #~ "compatibility"
 #~ msgstr ""
-#~ "Mit Version 3 verwendet OpenSSH nicht mehr seperate Dateien für ssh1 und "
+#~ "Mit Version 3 verwendet OpenSSH nicht mehr separate Dateien für ssh1 und "
 #~ "ssh2 Schlüssel. Dies bedeutet, daß authorized_keys2 und known_hosts2 "
 #~ "nicht mehr benötigt werden. Sie werden noch eingelesen, um "
 #~ "Abwärtskompatibilität zu gewähren."

@@ -2,6 +2,8 @@ openssh (1:4.1p1-4) UNRELEASED; urgency=low
 
   * openssh-client and openssh-server conflict with ssh-krb5, as ssh-krb5
     only conflicts with ssh (closes: #312475).
+  * debconf template translations:
+    - Update German (thanks, Jens Seidel; closes: #313949).
 
  -- Colin Watson <cjwatson@debian.org>  Wed,  8 Jun 2005 12:11:25 +0100
 
