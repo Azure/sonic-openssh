@@ -43,7 +43,7 @@ struct Authctxt;
 int mm_is_monitor(void);
 DH *mm_choose_dh(int, int, int);
 int mm_key_sign(Key *, u_char **, u_int *, u_char *, u_int);
-void mm_inform_authserv(char *, char *);
+void mm_inform_authserv(char *, char *, char *);
 struct passwd *mm_getpwnamallow(const char *);
 char *mm_auth2_read_banner(void);
 int mm_auth_password(struct Authctxt *, char *);

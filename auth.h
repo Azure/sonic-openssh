@@ -58,6 +58,7 @@ struct Authctxt {
 	char		*service;
 	struct passwd	*pw;		/* set if 'valid' */
 	char		*style;
+	char		*role;
 	void		*kbdintctxt;
 #ifdef BSD_AUTH
 	auth_session_t	*as;

@@ -58,6 +58,8 @@ RCSID("$OpenBSD: session.c,v 1.181 2004/12/23 17:35:48 markus Exp $");
 #include "session.h"
 #include "monitor_wrap.h"
 
+#include "selinux.h"
+
 #if defined(KRB5) && defined(USE_AFS)
 #include <kafs.h>
 #endif
@@ -1342,6 +1344,8 @@ do_setusercontext(struct passwd *pw)
 #endif
 	if (getuid() != pw->pw_uid || geteuid() != pw->pw_uid)
 		fatal("Failed to set uids to %u.", (u_int) pw->pw_uid);
+
+	setup_selinux_exec_context(pw->pw_name);
 }
 
 static void

@@ -829,6 +829,9 @@
 /* Define to 1 if you have the <security/pam_appl.h> header file. */
 #undef HAVE_SECURITY_PAM_APPL_H
 
+/* Define to 1 if you have the <selinux/selinux.h> header file. */
+#undef HAVE_SELINUX_SELINUX_H
+
 /* Define to 1 if you have the `sendmsg' function. */
 #undef HAVE_SENDMSG
 
@@ -1149,6 +1152,9 @@
 
 /* Use libedit for sftp */
 #undef USE_LIBEDIT
+
+/* Define if you want SELinux support. */
+#undef WITH_SELINUX
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

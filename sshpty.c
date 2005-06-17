@@ -22,6 +22,8 @@ RCSID("$OpenBSD: sshpty.c,v 1.12 2004/06/21 17:36:31 avsm Exp $");
 #include "log.h"
 #include "misc.h"
 
+#include "selinux.h"
+
 #ifdef HAVE_PTY_H
 # include <pty.h>
 #endif
@@ -199,6 +201,8 @@ pty_setowner(struct passwd *pw, const char *tty)
 	if (stat(tty, &st))
 		fatal("stat(%.100s) failed: %.100s", tty,
 		    strerror(errno));
+
+	setup_selinux_pty(pw->pw_name, tty);
 
 	if (st.st_uid != pw->pw_uid || st.st_gid != gid) {
 		if (chown(tty, pw->pw_uid, gid) < 0) {

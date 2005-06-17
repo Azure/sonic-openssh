@@ -659,12 +659,18 @@ mm_answer_authserv(int sock, Buffer *m)
 
 	authctxt->service = buffer_get_string(m, NULL);
 	authctxt->style = buffer_get_string(m, NULL);
-	debug3("%s: service=%s, style=%s",
-	    __func__, authctxt->service, authctxt->style);
+	authctxt->role = buffer_get_string(m, NULL);
+	debug3("%s: service=%s, style=%s, role=%s",
+	    __func__, authctxt->service, authctxt->style, authctxt->role);
 
 	if (strlen(authctxt->style) == 0) {
 		xfree(authctxt->style);
 		authctxt->style = NULL;
+	}
+
+	if (strlen(authctxt->role) == 0) {
+		xfree(authctxt->role);
+		authctxt->role = NULL;
 	}
 
 	return (0);

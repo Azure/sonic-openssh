@@ -1,3 +1,27 @@
+20050510
+ - (srivasta) [selinux.c] if selinux is enabled, then provide funtions to
+    initialize the pty and execution context for ssh.
+ - (srivasta) [selinux.h] if SELinux is defined, add function prototypes for
+    functions, or make them null ops.
+ - (srivasta) [sshpty.c] include selinuh.h
+   pty_setowner: set up the selinux pty correcty.
+ - (srivasta) [session.c] include selinuh.h
+   do_setusercontext: set up proper execution context for SELinux.
+ - (srivasta) [monitor_wrap.h] Add function prototype for new function to
+    inform the privileged process about role.
+ - (srivasta) [monitor_wrap.c]  (mm_inform_authrole) Inform the privileged
+    process about role.
+ - (srivasta) [monitor.h] Add a new monitor request type for auth roles.
+ - (srivasta) [monitor.c] (mm_answer_authrole) Add nre function to deal withe
+   the new authorization role, and add a new monitor request type.
+ - (srivasta) [contrib/redhat/sshd.init]  (PID_FILE)restore the proper security
+   file context of the generated public keys.
+ - (srivasta) [configure.ac]  (HAVE_HEADER_AD)Add an SELinux option
+ - (srivasta) [auth2.c]  (input_userauth_request)Handle the new role member
+ - (srivasta) [auth1.c]  (do_authentication)Handle the new role member
+ - (srivasta) [auth.h] Added a role member in struct Authctxt
+ - (srivasta) [Makefile.in (SSHDOBJS)] Add selinux.o
+
 20050524
  - (djm) [contrib/caldera/openssh.spec contrib/redhat/openssh.spec]
          [contrib/suse/openssh.spec] Update spec file versions to 4.1p1

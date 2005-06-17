@@ -77,7 +77,7 @@ SSHOBJS= ssh.o readconf.o clientloop.o sshtty.o \
 	sshconnect.o sshconnect1.o sshconnect2.o
 
 SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
-	sshpty.o sshlogin.o servconf.o serverloop.o \
+	sshpty.o sshlogin.o servconf.o serverloop.o selinux.o \
 	auth.o auth1.o auth2.o auth-options.o session.o \
 	auth-chall.o auth2-chall.o groupaccess.o \
 	auth-skey.o auth-bsdauth.o auth2-hostbased.o auth2-kbdint.o \

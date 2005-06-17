@@ -2407,6 +2407,18 @@ int main()
 			[#include <arpa/nameser.h>])
 	])
 
+# Check whether user wants SELinux support
+SELINUX_MSG="no"
+AC_ARG_WITH(selinux,
+	[  --with-selinux          Enable SELinux support],
+	[ if test "x$withval" != "xno" ; then
+		AC_DEFINE(WITH_SELINUX, 1, [Define if you want SELinux support.])
+		SELINUX_MSG="yes"
+		AC_CHECK_HEADERS(selinux/selinux.h)
+		LIBS="$LIBS -lselinux"
+	fi
+	])
+
 # Check whether user wants Kerberos 5 support
 KRB5_MSG="no"
 AC_ARG_WITH(kerberos5,
@@ -3188,6 +3200,7 @@ fi
 echo "                    Manpage format: $MANTYPE"
 echo "                       PAM support: $PAM_MSG"
 echo "                 KerberosV support: $KRB5_MSG"
+echo "                   SELinux support: $SELINUX_MSG"
 echo "                 Smartcard support: $SCARD_MSG"
 echo "                     S/KEY support: $SKEY_MSG"
 echo "              TCP Wrappers support: $TCPW_MSG"

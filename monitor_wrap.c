@@ -257,10 +257,10 @@ mm_auth2_read_banner(void)
 	return (banner);
 }
 
-/* Inform the privileged process about service and style */
+/* Inform the privileged process about service, style, and role */
 
 void
-mm_inform_authserv(char *service, char *style)
+mm_inform_authserv(char *service, char *style, char *role)
 {
 	Buffer m;
 
@@ -269,6 +269,7 @@ mm_inform_authserv(char *service, char *style)
 	buffer_init(&m);
 	buffer_put_cstring(&m, service);
 	buffer_put_cstring(&m, style ? style : "");
+	buffer_put_cstring(&m, role ? role : "");
 
 	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUTHSERV, &m);
 
