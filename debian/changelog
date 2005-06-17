@@ -1,3 +1,9 @@
+openssh (1:4.1p1-5) UNRELEASED; urgency=low
+
+  * Build-depend on libselinux1-dev on ppc64 too (closes: #314625).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 17 Jun 2005 16:15:23 +0100
+
 openssh (1:4.1p1-4) unstable; urgency=low
 
   * openssh-client and openssh-server conflict with ssh-krb5, as ssh-krb5
