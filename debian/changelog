@@ -13,6 +13,8 @@ openssh (1:4.1p1-4) UNRELEASED; urgency=low
       security context for the generated public key files.
     - Added a comment to /etc/pam.d/ssh to indicate that an SELinux system
       may want to also include pam_selinux.so.
+  * Re-enable ssh-askpass-gnome on the Hurd, now that its build-dependencies
+    are available.
   * debconf template translations:
     - Update German (thanks, Jens Seidel; closes: #313949).
 
