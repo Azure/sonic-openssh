@@ -1,4 +1,4 @@
-openssh (1:4.1p1-4) UNRELEASED; urgency=low
+openssh (1:4.1p1-4) unstable; urgency=low
 
   * openssh-client and openssh-server conflict with ssh-krb5, as ssh-krb5
     only conflicts with ssh (closes: #312475).
@@ -17,11 +17,11 @@ openssh (1:4.1p1-4) UNRELEASED; urgency=low
     are available.
   * Restore /usr/lib/sftp-server temporarily, as a symlink to
     /usr/lib/openssh/sftp-server (closes: #312891).
-  * Switch to debhelper compat level 3, since 2 is deprecated.
+  * Switch to debhelper compatibility level 3, since 2 is deprecated.
   * debconf template translations:
     - Update German (thanks, Jens Seidel; closes: #313949).
 
- -- Colin Watson <cjwatson@debian.org>  Wed,  8 Jun 2005 12:11:25 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 17 Jun 2005 14:20:20 +0100
 
 openssh (1:4.1p1-3) unstable; urgency=low
 
