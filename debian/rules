@@ -222,6 +222,7 @@ ifeq ($(PAMSUBST),yes)
 endif
 	dh_installpam --name ssh # TODO: breaks woody backports
 	dh_installchangelogs ChangeLog
+	dh_link
 	dh_strip
 	dh_compress
 	dh_fixperms

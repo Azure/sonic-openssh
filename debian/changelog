@@ -15,6 +15,8 @@ openssh (1:4.1p1-4) UNRELEASED; urgency=low
       may want to also include pam_selinux.so.
   * Re-enable ssh-askpass-gnome on the Hurd, now that its build-dependencies
     are available.
+  * Restore /usr/lib/sftp-server temporarily, as a symlink to
+    /usr/lib/openssh/sftp-server (closes: #312891).
   * debconf template translations:
     - Update German (thanks, Jens Seidel; closes: #313949).
 
