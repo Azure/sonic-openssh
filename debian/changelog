@@ -17,6 +17,7 @@ openssh (1:4.1p1-4) UNRELEASED; urgency=low
     are available.
   * Restore /usr/lib/sftp-server temporarily, as a symlink to
     /usr/lib/openssh/sftp-server (closes: #312891).
+  * Switch to debhelper compat level 3, since 2 is deprecated.
   * debconf template translations:
     - Update German (thanks, Jens Seidel; closes: #313949).
 
