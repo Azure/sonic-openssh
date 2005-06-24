@@ -1,6 +1,9 @@
 openssh (1:4.1p1-5) UNRELEASED; urgency=low
 
   * Build-depend on libselinux1-dev on ppc64 too (closes: #314625).
+  * debconf template translations:
+    - Update Brazilian Portuguese (thanks, André Luís Lopes;
+      closes: #315477).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 17 Jun 2005 16:15:23 +0100
 

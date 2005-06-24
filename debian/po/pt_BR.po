@@ -13,10 +13,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh_3.6.1p2-9\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: openssh\n"
+"Report-Msgid-Bugs-To: debian-l10n-portuguese@lists.debian.org\n"
 "POT-Creation-Date: 2005-05-31 03:26+0100\n"
-"PO-Revision-Date: 2003-11-09 16:29-0300\n"
+"PO-Revision-Date: 2005-06-22 19:32-0300\n"
 "Last-Translator: André Luís Lopes <andrelop@debian.org>\n"
 "Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,8 +138,8 @@ msgid ""
 msgstr ""
 "Eu recomendaria a você ou remover o pacote telnetd (se você atualmente não "
 "precisa oferecer acesso telnet) ou instalar telnetd-ssl. Assim existe pelo "
-"menos uma chance das sessões telnet não enviarem login/senha não encriptados "
-"e informações de sessão através da rede."
+"menos uma chance das sessões telnet não enviarem login/senha não "
+"criptografadas e informações de sessão através da rede."
 
 #. Type: note
 #. Description
@@ -155,9 +155,10 @@ msgid ""
 "not handle this host key file, and I can't find the ssh-keygen utility from "
 "the old (non-free) SSH installation."
 msgstr ""
-"Existe uma antiga /etc/ssh/ssh_host_key, a qual é encriptada usando IDEA. O "
-"OpenSSH não pode gerenciar este arquivo host key e eu não consigo encontrar "
-"o utilitário ssh-keygen da antiga (non-free) instalação SSH."
+"Existe uma antiga /etc/ssh/ssh_host_key, a qual é criptografada usando "
+"IDEA. O OpenSSH não pode gerenciar este arquivo host key e eu não "
+"consigo encontrar o utilitário ssh-keygen da antiga (non-free) "
+"instalação SSH."
 
 #. Type: note
 #. Description
@@ -169,7 +170,7 @@ msgstr "Você precisará gerar uma nova host key."
 #. Description
 #: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Desabilitar autenticação desafio-resposta ?"
 
 #. Type: boolean
 #. Description
@@ -182,6 +183,13 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"A autenticação através de senha parece estar desabilitada em sua "
+"configuração atual do servidor OpenSSH. Para que seja possível evitar "
+"que usuários se autentiquem usando senhas (talvez usando somente "
+"autenticação através de chaves públicas) em versões recentes do "
+"OpenSSH você deve desabilitar a autenticação desafio-resposta ou "
+"então se certificar que sua configuração PAM não permita autenticação "
+"através de arquivos de senhas Unix."
 
 #. Type: boolean
 #. Description
@@ -192,6 +200,11 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Caso você desabilite a autenticação desafio-resposta, os usuários não "
+"poderão se autenticar usando suas senhas. Caso você mantenha esse tipo "
+"de autenticação habilitada (a resposta padrão), a opção "
+"'PasswordAuthentication no' não terá efeito útil a menos que você "
+"também ajuste sua configuração PAM em /etc/pam.d/ssh."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
 #~ msgstr "Deseja que que ssh-keysign seja instalado SUID root ?"
