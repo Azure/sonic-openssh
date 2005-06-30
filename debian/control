@@ -64,7 +64,7 @@ Description: Secure shell server, an rshd replacement
  without a special permit.
 
 Package: ssh
-Priority: optional
+Priority: extra
 Architecture: all
 Depends: openssh-client, openssh-server
 Description: Secure shell client and server (transitional package)
