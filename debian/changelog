@@ -1,4 +1,4 @@
-openssh (1:4.1p1-5) UNRELEASED; urgency=low
+openssh (1:4.1p1-5) unstable; urgency=low
 
   * Build-depend on libselinux1-dev on ppc64 too (closes: #314625).
   * Drop priority of ssh to extra to match the override file.
@@ -14,7 +14,7 @@ openssh (1:4.1p1-5) UNRELEASED; urgency=low
       closes: #315477).
     - Add Vietnamese (thanks, Clytie Siddall; closes: #316636).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 17 Jun 2005 16:15:23 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun,  3 Jul 2005 17:08:08 +0100
 
 openssh (1:4.1p1-4) unstable; urgency=low
 
