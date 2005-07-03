@@ -1002,6 +1002,8 @@ The file format and configuration options are described in
 .Xr ssh_config 5 .
 Because of the potential for abuse, this file must have strict permissions:
 read/write for the user, and not accessible by others.
+It may be group-writable provided that the group in question contains only
+the user.
 .It Pa $HOME/.ssh/authorized_keys
 Lists the public keys (RSA/DSA) that can be used for logging in as this user.
 The format of this file is described in the

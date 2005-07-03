@@ -903,6 +903,8 @@ This file is used by the
 client.
 Because of the potential for abuse, this file must have strict permissions:
 read/write for the user, and not accessible by others.
+It may be group-writable provided that the group in question contains only
+the user.
 .It Pa /etc/ssh/ssh_config
 Systemwide configuration file.
 This file provides defaults for those
