@@ -5,6 +5,8 @@ openssh (1:4.1p1-5) UNRELEASED; urgency=low
   * Make /usr/share/doc/openssh-server and /usr/share/doc/ssh symlinks to
     /usr/share/doc/openssh-client (closes: #314745).
   * Ship README.dns (closes: #284874).
+  * Disable btmp logging, since Debian's /var/log/btmp has inappropriate
+    permissions (closes: #314956).
   * debconf template translations:
     - Update Brazilian Portuguese (thanks, André Luís Lopes;
       closes: #315477).
