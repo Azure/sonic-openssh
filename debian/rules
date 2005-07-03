@@ -206,8 +206,9 @@ ifeq ($(PO2DEBCONF),yes)
 	po2debconf -e utf8 debian/openssh-server.templates.master > debian/openssh-server.templates
 endif
 	dh_installdebconf
-	dh_installdocs OVERVIEW README
-	cat debian/copyright.head LICENCE > debian/openssh-server/usr/share/doc/openssh-server/copyright
+	dh_installdocs
+	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
+	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
 ifeq ($(PAMSUBST),yes)
 	# Clean up if we've done this already, to ensure idempotency.
 	if [ -f debian/openssh-server.ssh.pam.new-style ]; then \
@@ -221,7 +222,6 @@ ifeq ($(PAMSUBST),yes)
 	    debian/openssh-server.ssh.pam.new-style > debian/openssh-server.ssh.pam
 endif
 	dh_installpam --name ssh # TODO: breaks woody backports
-	dh_installchangelogs ChangeLog
 	dh_link
 	dh_strip
 	dh_compress
@@ -238,8 +238,9 @@ binary-ssh: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	cat debian/copyright.head LICENCE > debian/ssh/usr/share/doc/ssh/copyright
-	dh_installchangelogs
+	mv debian/ssh/usr/share/doc/ssh debian/ssh/usr/share/doc/openssh-client
+	rm -f debian/ssh/usr/share/doc/openssh-client/copyright
+	dh_link
 	dh_compress
 	dh_fixperms
 	dh_installdeb

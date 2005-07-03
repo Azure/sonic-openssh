@@ -26,6 +26,11 @@ case "$1" in
 	fi
 	;;
     upgrade)
+	# remove symlink on downgrade to when it was a directory
+	if [ -L /usr/share/doc/openssh-server ] && \
+	   dpkg --compare-versions "$2" lt-nl 1:4.1p1-5; then
+		rm -f /usr/share/doc/openssh-server
+	fi
         ;;
     failed-upgrade)
         ;;
