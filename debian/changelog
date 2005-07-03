@@ -4,6 +4,7 @@ openssh (1:4.1p1-5) UNRELEASED; urgency=low
   * Drop priority of ssh to extra to match the override file.
   * Make /usr/share/doc/openssh-server and /usr/share/doc/ssh symlinks to
     /usr/share/doc/openssh-client.
+  * Ship README.dns (closes: #284874).
   * debconf template translations:
     - Update Brazilian Portuguese (thanks, André Luís Lopes;
       closes: #315477).
