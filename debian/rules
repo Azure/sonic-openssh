@@ -96,7 +96,7 @@ build-udeb-stamp:
 	mkdir -p build-udeb
 	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
 	# Debian's /var/log/btmp has inappropriate permissions.
-	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-udeb/config.h
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status

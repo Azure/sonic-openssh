@@ -1,3 +1,11 @@
+openssh (1:4.1p1-6) UNRELEASED; urgency=low
+
+  * Fix one-character typo that meant the binaries in openssh-client and
+    openssh-server got recompiled with the wrong options during
+    'debian/rules install' (closes: #317088, #317238, #317241).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu,  7 Jul 2005 10:48:41 +0100
+
 openssh (1:4.1p1-5) unstable; urgency=low
 
   * Build-depend on libselinux1-dev on ppc64 too (closes: #314625).
