@@ -26,11 +26,13 @@ check_idea_key() {
 	# check for old host_key files using IDEA, which openssh does not
 	# support
 	if [ -f /etc/ssh/ssh_host_key ] ; then
-		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key 2>&1 | \
+		cp -a /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.check_idea
+		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key.check_idea 2>&1 | \
 				grep -q 'unknown cipher' 2>/dev/null; then
 			mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
 			mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
 		fi
+		rm -f /etc/ssh/ssh_host_key.check_idea
 	fi
 }
 
