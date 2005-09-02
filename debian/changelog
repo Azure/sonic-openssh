@@ -6,6 +6,7 @@ openssh (1:4.1p1-7) UNRELEASED; urgency=low
     pointing to the obsolete /usr/lib/ssh/gnome-ssh-askpass.
   * Add GNU/kFreeBSD support (thanks, Aurelien Jarno; closes: #318113).
   * Fix XSIish uses of 'test' in openssh-server.preinst.
+  * Policy version 3.6.2: no changes required.
 
  -- Colin Watson <cjwatson@debian.org>  Sat,  9 Jul 2005 23:59:38 +0100
 

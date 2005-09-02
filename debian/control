@@ -3,7 +3,7 @@ Section: net
 Priority: standard
 Maintainer: Matthew Vernon <matthew@debian.org>
 Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev | libz-dev, libssl-dev, libpam0g-dev | libpam-dev, libgnomeui-dev (>= 2.0.0) | libgnome-dev, libedit-dev, groff, debhelper (>= 3), sharutils, libselinux1-dev [alpha amd64 arm hppa i386 ia64 m68k mips mipsel powerpc ppc64 s390 sparc]
-Standards-Version: 3.6.1
+Standards-Version: 3.6.2
 Uploaders: Colin Watson <cjwatson@debian.org>
 
 Package: openssh-client
