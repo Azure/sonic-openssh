@@ -2,6 +2,8 @@ openssh (1:4.1p1-7) UNRELEASED; urgency=low
 
   * Do the IDEA host key check on a temporary file to avoid altering
     /etc/ssh/ssh_host_key itself (closes: #312312).
+  * Work around the ssh-askpass alternative somehow ending up in manual mode
+    pointing to the obsolete /usr/lib/ssh/gnome-ssh-askpass.
 
  -- Colin Watson <cjwatson@debian.org>  Sat,  9 Jul 2005 23:59:38 +0100
 

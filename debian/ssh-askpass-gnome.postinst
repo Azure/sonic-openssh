@@ -29,6 +29,13 @@ case "$1" in
             update-alternatives --quiet --remove ssh-askpass \
                 /usr/lib/ssh/gnome-ssh-askpass
         fi
+	if dpkg --compare-versions "$2" lt-nl 1:4.1p1-7 && \
+		[ -h /etc/alternatives/ssh-askpass ] && \
+		[ "$(readlink /etc/alternatives/ssh-askpass)" = /usr/lib/ssh/gnome-ssh-askpass ]; then
+	    # Work around the ssh-askpass alternative somehow ending up in
+	    # manual mode.
+	    update-alternatives --auto ssh-askpass
+	fi
         update-alternatives --quiet \
 	    --install /usr/bin/ssh-askpass ssh-askpass \
 	              /usr/lib/openssh/gnome-ssh-askpass 30 \
