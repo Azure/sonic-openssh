@@ -30,6 +30,11 @@ and porting work by Damien Miller <damien@ibs.com.au> to get it
 working on Linux.  Other people also contributed to this, and are
 credited in /usr/share/doc/ssh/README.
 
+This package contains Kerberos version 5 patches from
+http://www.sxw.org.uk/computing/patches/openssh.html; this is Copyright
+(c) 2001-2004 Simon Wilkinson and provided under the standard 2-term BSD
+licence used elsewhere in OpenSSH.
+
 Copyright:
 
 Code in helper.[ch] is Copyright Internet Business Solutions and is
