@@ -1,9 +1,19 @@
+openssh (1:4.2p1-2) UNRELEASED; urgency=low
+
+  * Annotate 1:4.1p1-1 changelog with CVE references.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 14 Sep 2005 15:48:57 +0100
+
 openssh (1:4.2p1-1) unstable; urgency=low
 
   * New upstream release.
-    - SECURITY: Fix a bug introduced in OpenSSH 4.0 that caused GatewayPorts
-      to be incorrectly activated for dynamic ("-D") port forwardings when
-      no listen address was explicitly specified (closes: #326065).
+    - SECURITY (CAN-2005-2797): Fix a bug introduced in OpenSSH 4.0 that
+      caused GatewayPorts to be incorrectly activated for dynamic ("-D")
+      port forwardings when no listen address was explicitly specified
+      (closes: #326065).
+    - SECURITY (CAN-2005-2798): Fix improper delegation of GSSAPI
+      credentials. This code is only built in openssh-krb5, not openssh, but
+      I mention the CVE reference here anyway for completeness.
     - Add a new compression method ("Compression delayed") that delays zlib
       compression until after authentication, eliminating the risk of zlib
       vulnerabilities being exploited by unauthenticated users. Note that
