@@ -5,6 +5,7 @@ openssh (1:4.2p1-2) UNRELEASED; urgency=low
     - Add GSSAPI key exchange support from
       http://www.sxw.org.uk/computing/patches/openssh.html (thanks, Stephen
       Frost).
+    - Build-depend on libkrb5-dev and configure --with-kerberos5=/usr.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Sep 2005 15:48:57 +0100
 

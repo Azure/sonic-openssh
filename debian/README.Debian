@@ -219,12 +219,13 @@ ssh is compiled with support for tcp-wrappers. So if you can no longer
 log into your system, please check that /etc/hosts.allow and /etc/hosts.deny
 are configured so that ssh is not blocked. 
 
-Kerberos Authentication
------------------------
+Kerberos support
+----------------
 
-ssh is compiled without support for kerberos authentication, and there are
-no current plans to support this.  Thus the KerberosAuthentication and 
-KerberosTgtPassing options will not be recognised.
+ssh is now compiled with Kerberos support. Unfortunately, privilege
+separation is incompatible with Kerberos support for SSH protocol 1 and
+parts of the support for protocol 2; you may need to run kinit after logging
+in.
 
 Interoperability between scp and the ssh.com SSH server
 -------------------------------------------------------
