@@ -13,7 +13,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshconnect.c,v 1.162 2005/03/10 22:01:06 deraadt Exp $");
+RCSID("$OpenBSD: sshconnect.c,v 1.168 2005/07/17 07:17:55 djm Exp $");
 
 #include <openssl/bn.h>
 
@@ -66,12 +66,11 @@ static void warn_changed_key(Key *);
 static int
 ssh_proxy_connect(const char *host, u_short port, const char *proxy_command)
 {
-	Buffer command;
-	const char *cp;
-	char *command_string;
+	char *command_string, *tmp;
 	int pin[2], pout[2];
 	pid_t pid;
 	char strport[NI_MAXSERV];
+	size_t len;
 
 	/* Convert the port number into a string. */
 	snprintf(strport, sizeof strport, "%hu", port);
@@ -83,31 +82,13 @@ ssh_proxy_connect(const char *host, u_short port, const char *proxy_command)
 	 * Use "exec" to avoid "sh -c" processes on some platforms
 	 * (e.g. Solaris)
 	 */
-	buffer_init(&command);
-	buffer_append(&command, "exec ", 5);
-
-	for (cp = proxy_command; *cp; cp++) {
-		if (cp[0] == '%' && cp[1] == '%') {
-			buffer_append(&command, "%", 1);
-			cp++;
-			continue;
-		}
-		if (cp[0] == '%' && cp[1] == 'h') {
-			buffer_append(&command, host, strlen(host));
-			cp++;
-			continue;
-		}
-		if (cp[0] == '%' && cp[1] == 'p') {
-			buffer_append(&command, strport, strlen(strport));
-			cp++;
-			continue;
-		}
-		buffer_append(&command, cp, 1);
-	}
-	buffer_append(&command, "\0", 1);
-
-	/* Get the final command string. */
-	command_string = buffer_ptr(&command);
+	len = strlen(proxy_command) + 6;
+	tmp = xmalloc(len);
+	strlcpy(tmp, "exec ", len);
+	strlcat(tmp, proxy_command, len);
+	command_string = percent_expand(tmp, "h", host,
+	    "p", strport, (char *)NULL);
+	xfree(tmp);
 
 	/* Create pipes for communicating with the proxy. */
 	if (pipe(pin) < 0 || pipe(pout) < 0)
@@ -161,7 +142,7 @@ ssh_proxy_connect(const char *host, u_short port, const char *proxy_command)
 	close(pout[1]);
 
 	/* Free the command name. */
-	buffer_free(&command);
+	xfree(command_string);
 
 	/* Set the connection file descriptors. */
 	packet_set_connection(pout[0], pin[1], options.setuptimeout);
@@ -315,18 +296,9 @@ ssh_connect(const char *host, struct sockaddr_storage * hostaddr,
 	int sock = -1, attempt;
 	char ntop[NI_MAXHOST], strport[NI_MAXSERV];
 	struct addrinfo hints, *ai, *aitop;
-	struct servent *sp;
 
 	debug2("ssh_connect: needpriv %d", needpriv);
 
-	/* Get default port if port has not been set. */
-	if (port == 0) {
-		sp = getservbyname(SSH_SERVICE_NAME, "tcp");
-		if (sp)
-			port = ntohs(sp->s_port);
-		else
-			port = SSH_DEFAULT_PORT;
-	}
 	/* If a proxy command is given, connect using it. */
 	if (proxy_command != NULL)
 		return ssh_proxy_connect(host, port, proxy_command);
@@ -428,10 +400,11 @@ static void
 ssh_exchange_identification(void)
 {
 	char buf[256], remote_version[256];	/* must be same size! */
-	int remote_major, remote_minor, i, mismatch;
+	int remote_major, remote_minor, mismatch;
 	int connection_in = packet_get_connection_in();
 	int connection_out = packet_get_connection_out();
 	int minor1 = PROTOCOL_MINOR_1;
+	u_int i;
 	struct sigaction sa, osa;
 
 	/* Read other side's version identification.
@@ -448,16 +421,28 @@ ssh_exchange_identification(void)
 	}
 	for (;;) {
 		for (i = 0; i < sizeof(buf) - 1; ) {
-			int len = read(connection_in, &buf[i], 1);
+			ssize_t len = read(connection_in, &buf[i], 1);
 			if (banner_timedout)
 				fatal("ssh_exchange_identification: Timeout waiting for version information.");
-			if (len < 0) {
-				if (errno == EINTR)
+			if (len == 0)
+				errno = EPIPE;
+
+			if (len != 1 && errno == EPIPE)
+				fatal("ssh_exchange_identification: Connection closed by remote host");
+			else if (len != 1) {
+#ifdef EWOULDBLOCK
+				if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
+#else
+				if (errno == EINTR || errno == EAGAIN)
+#endif
 					continue;
 				fatal("ssh_exchange_identification: read: %.100s", strerror(errno));
 			}
-			if (len != 1)
-				fatal("ssh_exchange_identification: Connection closed by remote host");
+			if (buf[i] == '\r') {
+				buf[i] = '\n';
+				buf[i + 1] = 0;
+				continue;		/**XXX wait for \n */
+			}
 			if (buf[i] == '\n') {
 				buf[i + 1] = 0;
 				break;
@@ -605,7 +590,7 @@ check_host_key(char *host, struct sockaddr *hostaddr, Key *host_key,
 	switch (hostaddr->sa_family) {
 	case AF_INET:
 		local = (ntohl(((struct sockaddr_in *)hostaddr)->
-		   sin_addr.s_addr) >> 24) == IN_LOOPBACKNET;
+		    sin_addr.s_addr) >> 24) == IN_LOOPBACKNET;
 		salen = sizeof(struct sockaddr_in);
 		break;
 	case AF_INET6:
@@ -738,8 +723,8 @@ check_host_key(char *host, struct sockaddr *hostaddr, Key *host_key,
 
 			if (show_other_keys(host, host_key))
 				snprintf(msg1, sizeof(msg1),
-				   "\nbut keys of different type are already"
-				   " known for this host.");
+				    "\nbut keys of different type are already"
+				    " known for this host.");
 			else
 				snprintf(msg1, sizeof(msg1), ".");
 			/* The default */
