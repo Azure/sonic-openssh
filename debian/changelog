@@ -1,6 +1,6 @@
 openssh (1:4.2p1-2) UNRELEASED; urgency=low
 
-  * Annotate 1:4.1p1-1 changelog with CVE references.
+  * Annotate 1:4.2p1-1 changelog with CVE references.
   * Add remaining pieces of Kerberos support (closes: #275472):
     - Add GSSAPI key exchange support from
       http://www.sxw.org.uk/computing/patches/openssh.html (thanks, Stephen
