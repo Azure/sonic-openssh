@@ -251,15 +251,15 @@ ChallengeResponseAuthentication no
 # Change to no to disable tunnelled clear text passwords
 #PasswordAuthentication yes
 
-
-# To change Kerberos options
+# Kerberos options
 #KerberosAuthentication no
+#KerberosGetAFSToken no
 #KerberosOrLocalPasswd yes
-#AFSTokenPassing no
-#KerberosTicketCleanup no
+#KerberosTicketCleanup yes
 
-# Kerberos TGT Passing does only work with the AFS kaserver
-#KerberosTgtPassing yes
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
 
 X11Forwarding yes
 X11DisplayOffset 10
