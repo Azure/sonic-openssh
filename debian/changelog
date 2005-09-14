@@ -1,4 +1,4 @@
-openssh (1:4.2p1-1) UNRELEASED; urgency=low
+openssh (1:4.2p1-1) unstable; urgency=low
 
   * New upstream release.
     - SECURITY: Fix a bug introduced in OpenSSH 4.0 that caused GatewayPorts
@@ -22,7 +22,7 @@ openssh (1:4.2p1-1) UNRELEASED; urgency=low
     security risks of using X11 forwarding are risks to the client, not to
     the server (closes: #320104).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 14 Sep 2005 13:35:17 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 14 Sep 2005 15:16:14 +0100
 
 openssh (1:4.1p1-7) unstable; urgency=low
 
