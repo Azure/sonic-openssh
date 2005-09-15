@@ -1,3 +1,9 @@
+openssh (1:4.2p1-3) UNRELEASED; urgency=low
+
+  * Add prototype for ssh_gssapi_server_mechanisms (closes: #328372).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 15 Sep 2005 09:01:57 +0100
+
 openssh (1:4.2p1-2) unstable; urgency=low
 
   * Annotate 1:4.2p1-1 changelog with CVE references.

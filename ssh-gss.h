@@ -135,6 +135,7 @@ char *ssh_gssapi_kex_mechs(gss_OID_set, ssh_gssapi_check_fn *, void *);
 int ssh_gssapi_check_mechanism(gss_OID, void *);
 gss_OID ssh_gssapi_id_kex(Gssctxt *, char *);
 
+char *ssh_gssapi_server_mechanisms(void);
 int ssh_gssapi_server_check_mech(gss_OID, void *);
 int ssh_gssapi_userok(char *name);
 OM_uint32 ssh_gssapi_checkmic(Gssctxt *, gss_buffer_t, gss_buffer_t);
