@@ -1,4 +1,4 @@
-openssh (1:4.2p1-3) UNRELEASED; urgency=low
+openssh (1:4.2p1-3) unstable; urgency=low
 
   * Add prototype for ssh_gssapi_server_mechanisms (closes: #328372).
   * Interoperate with ssh-krb5 << 3.8.1p1-1 servers, which used a slightly
@@ -7,7 +7,7 @@ openssh (1:4.2p1-3) UNRELEASED; urgency=low
   * Explicitly tell po2debconf to use the 'popular' output encoding, so that
     the woody-compatibility hack works even with po-debconf 0.9.0.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 15 Sep 2005 09:01:57 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 15 Sep 2005 09:28:21 +0100
 
 openssh (1:4.2p1-2) unstable; urgency=low
 
