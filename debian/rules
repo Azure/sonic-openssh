@@ -116,7 +116,7 @@ ifeq ($(PO2DEBCONF),yes)
 	# on a system with po-debconf installed (conveniently debhelper (>=
 	# 4.1.16) depends on it), the binary-arch target will generate a
 	# better version for sarge.
-	echo 1 > debian/po/output
+	echo '1 popular' > debian/po/output
 	po2debconf debian/openssh-server.templates.master > debian/openssh-server.templates
 	rm -f debian/po/output
 endif

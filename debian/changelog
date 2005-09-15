@@ -4,6 +4,8 @@ openssh (1:4.2p1-3) UNRELEASED; urgency=low
   * Interoperate with ssh-krb5 << 3.8.1p1-1 servers, which used a slightly
     different version of the gssapi authentication method (thanks, Aaron M.
     Ucko; closes: #328388).
+  * Explicitly tell po2debconf to use the 'popular' output encoding, so that
+    the woody-compatibility hack works even with po-debconf 0.9.0.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 15 Sep 2005 09:01:57 +0100
 
