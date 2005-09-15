@@ -1,6 +1,9 @@
 openssh (1:4.2p1-3) UNRELEASED; urgency=low
 
   * Add prototype for ssh_gssapi_server_mechanisms (closes: #328372).
+  * Interoperate with ssh-krb5 << 3.8.1p1-1 servers, which used a slightly
+    different version of the gssapi authentication method (thanks, Aaron M.
+    Ucko; closes: #328388).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 15 Sep 2005 09:01:57 +0100
 
