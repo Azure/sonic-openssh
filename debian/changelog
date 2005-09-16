@@ -1,3 +1,10 @@
+openssh (1:4.2p1-4) UNRELEASED; urgency=low
+
+  * Initialise token to GSS_C_EMPTY_BUFFER in ssh_gssapi_check_mechanism
+    (closes: #328606).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 16 Sep 2005 12:44:12 +0100
+
 openssh (1:4.2p1-3) unstable; urgency=low
 
   * Add prototype for ssh_gssapi_server_mechanisms (closes: #328372).

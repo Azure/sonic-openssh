@@ -422,7 +422,7 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid) {
 int
 ssh_gssapi_check_mechanism(gss_OID oid, void *host) {
 	Gssctxt * ctx = NULL;
-	gss_buffer_desc token;
+	gss_buffer_desc token = GSS_C_EMPTY_BUFFER;
 	OM_uint32 major, minor;
 	
 	ssh_gssapi_build_ctx(&ctx);
