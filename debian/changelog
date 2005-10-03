@@ -1,3 +1,9 @@
+openssh (1:4.2p1-5) UNRELEASED; urgency=low
+
+  * Add a CVE name to the 1:4.0p1-1 changelog entry.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  3 Oct 2005 14:12:58 +0100
+
 openssh (1:4.2p1-4) unstable; urgency=low
 
   * Initialise token to GSS_C_EMPTY_BUFFER in ssh_gssapi_check_mechanism
@@ -178,8 +184,8 @@ openssh (1:4.0p1-1) experimental; urgency=low
       forwardings when configured with "GatewayPorts clientspecified"
       (closes: #87253, #192206).
     - ssh and ssh-keyscan now support hashing of known_hosts files for
-      improved privacy. ssh-keygen has new options for managing known_hosts
-      files, which understand hashing.
+      improved privacy (CAN-2005-2666). ssh-keygen has new options for
+      managing known_hosts files, which understand hashing.
     - sftp supports command history and editing support using libedit
       (closes: #287013).
     - Have scp and sftp wait for the spawned ssh to exit before they exit
