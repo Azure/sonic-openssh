@@ -85,7 +85,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	Kex *kex;
 
 #ifdef GSSAPI
-	char *orig, *gss;
+	char *orig, *gss = NULL;
 	int len;
 #endif
 
@@ -93,14 +93,16 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	xxx_hostaddr = hostaddr;
 
 #ifdef GSSAPI
-	orig = myproposal[PROPOSAL_KEX_ALGS];
-	gss = ssh_gssapi_client_mechanisms(get_canonical_hostname(1));
-	debug("Offering GSSAPI proposal: %s",gss);
-	if (gss) {
-		len = strlen(orig) + strlen(gss) + 2;
-		myproposal[PROPOSAL_KEX_ALGS] = xmalloc(len);
-		snprintf(myproposal[PROPOSAL_KEX_ALGS], len, "%s,%s", gss, 
-		    orig);
+	if (options.gss_authentication) {
+		orig = myproposal[PROPOSAL_KEX_ALGS];
+		gss = ssh_gssapi_client_mechanisms(get_canonical_hostname(1));
+		debug("Offering GSSAPI proposal: %s",gss);
+		if (gss) {
+			len = strlen(orig) + strlen(gss) + 2;
+			myproposal[PROPOSAL_KEX_ALGS] = xmalloc(len);
+			snprintf(myproposal[PROPOSAL_KEX_ALGS], len, "%s,%s",
+			    gss, orig);
+		}
 	}
 #endif
 
@@ -150,7 +152,8 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	kex->kex[KEX_DH_GRP14_SHA1] = kexdh_client;
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
 #ifdef GSSAPI
-	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
+	if (options.gss_authentication)
+		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
 #endif
 	kex->client_version_string=client_version_string;
 	kex->server_version_string=server_version_string;
