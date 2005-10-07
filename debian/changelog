@@ -2,6 +2,7 @@ openssh (1:4.2p1-5) UNRELEASED; urgency=low
 
   * Add a CVE name to the 1:4.0p1-1 changelog entry.
   * Build-depend on libselinux1-dev on armeb.
+  * Only send GSSAPI proposal if GSSAPIAuthentication is enabled.
 
  -- Colin Watson <cjwatson@debian.org>  Mon,  3 Oct 2005 14:12:58 +0100
 
