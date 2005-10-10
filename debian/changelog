@@ -2,6 +2,8 @@ openssh (1:4.2p1-6) UNRELEASED; urgency=low
 
   * Sync default values of $PATH from shadow 1:4.0.12-6, adding /usr/bin/X11
     to the normal and superuser paths and /usr/games to the normal path.
+  * debconf template translations:
+    - Add Swedish (thanks, Daniel Nylander; closes: #333133).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 10 Oct 2005 17:26:15 +0100
 
