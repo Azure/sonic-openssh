@@ -2,6 +2,10 @@ openssh (1:4.2p1-6) UNRELEASED; urgency=low
 
   * Sync default values of $PATH from shadow 1:4.0.12-6, adding /usr/bin/X11
     to the normal and superuser paths and /usr/games to the normal path.
+  * When the client receives a signal, don't fatal() with "Killed by signal
+    %d." (which produces unhelpful noise on stderr and causes confusion for
+    users of some applications that wrap ssh); instead, generate a debug
+    message and exit with the traditional status (closes: #313371).
   * debconf template translations:
     - Add Swedish (thanks, Daniel Nylander; closes: #333133).
 
