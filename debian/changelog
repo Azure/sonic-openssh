@@ -8,6 +8,8 @@ openssh (1:4.2p1-6) UNRELEASED; urgency=low
     message and exit with the traditional status (closes: #313371).
   * debconf template translations:
     - Add Swedish (thanks, Daniel Nylander; closes: #333133).
+    - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
+      closes: #341371).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 10 Oct 2005 17:26:15 +0100
 
