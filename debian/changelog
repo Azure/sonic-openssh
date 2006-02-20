@@ -1,4 +1,4 @@
-openssh (1:4.2p1-6) UNRELEASED; urgency=low
+openssh (1:4.2p1-6) unstable; urgency=low
 
   * Sync default values of $PATH from shadow 1:4.0.12-6, adding /usr/bin/X11
     to the normal and superuser paths and /usr/games to the normal path.
@@ -13,7 +13,7 @@ openssh (1:4.2p1-6) UNRELEASED; urgency=low
     - Correct erroneously-changed Last-Translator headers in Greek and
       Spanish translations.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 10 Oct 2005 17:26:15 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 20 Feb 2006 16:50:55 +0000
 
 openssh (1:4.2p1-5) unstable; urgency=low
 
