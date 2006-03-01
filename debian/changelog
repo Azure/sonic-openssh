@@ -1,9 +1,9 @@
-openssh (1:4.2p1-7) UNRELEASED; urgency=low
+openssh (1:4.2p1-7) unstable; urgency=low
 
   * I accidentally applied the default $PATH change in 1:4.2p1-6 to the udeb
     rather than the deb. Fixed.
 
- -- Colin Watson <cjwatson@debian.org>  Wed,  1 Mar 2006 16:11:33 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed,  1 Mar 2006 16:19:00 +0000
 
 openssh (1:4.2p1-6) unstable; urgency=low
 
