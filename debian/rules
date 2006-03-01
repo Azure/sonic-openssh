@@ -71,7 +71,7 @@ build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
-	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr $(SELINUX)
+	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr $(SELINUX)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
@@ -94,7 +94,7 @@ build-udeb: build-udeb-stamp
 build-udeb-stamp:
 	dh_testdir
 	mkdir -p build-udeb
-	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
+	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
 	# Debian's /var/log/btmp has inappropriate permissions.
 	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-udeb/config.h
 	# Avoid libnsl linkage. Ugh.

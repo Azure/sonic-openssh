@@ -1,3 +1,10 @@
+openssh (1:4.2p1-7) UNRELEASED; urgency=low
+
+  * I accidentally applied the default $PATH change in 1:4.2p1-6 to the udeb
+    rather than the deb. Fixed.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  1 Mar 2006 16:11:33 +0000
+
 openssh (1:4.2p1-6) unstable; urgency=low
 
   * Sync default values of $PATH from shadow 1:4.0.12-6, adding /usr/bin/X11
