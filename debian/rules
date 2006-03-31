@@ -15,8 +15,6 @@ else
 OPTFLAGS := -O0
 endif
 
-VERSION := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2 | sed 's/.*://')
-DEB_HOST_ARCH := $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
 
 # Take account of old dpkg-architecture output.
@@ -26,9 +24,6 @@ ifeq ($(DEB_HOST_ARCH_OS),)
     DEB_HOST_ARCH_OS := hurd
   endif
 endif
-
-CLIENT_UDEB := openssh-client-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
-SERVER_UDEB := openssh-server-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
 
 ifeq (,$(wildcard /usr/bin/po2debconf))
 PO2DEBCONF := no
@@ -278,9 +273,9 @@ binary-openssh-client-udeb: build install
 	dh_installdeb
 	install -p -o root -g root -m 755 debian/openssh-client-udeb.isinstallable debian/openssh-client-udeb/DEBIAN/isinstallable
 	dh_shlibdeps
-	dh_gencontrol -- -fdebian/files~
-	dpkg-distaddfile $(CLIENT_UDEB) debian-installer optional
-	dh_builddeb --filename=$(CLIENT_UDEB)
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
 
 binary-openssh-server-udeb: DH_OPTIONS=-popenssh-server-udeb
 binary-openssh-server-udeb: build install
@@ -291,9 +286,9 @@ binary-openssh-server-udeb: build install
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	dh_gencontrol -- -fdebian/files~
-	dpkg-distaddfile $(SERVER_UDEB) debian-installer optional
-	dh_builddeb --filename=$(SERVER_UDEB)
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
 
 binary: binary-indep binary-arch
 
