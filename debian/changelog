@@ -1,13 +1,13 @@
-openssh (1:4.2p1-8) UNRELEASED; urgency=low
+openssh (1:4.2p1-8) unstable; urgency=low
 
   [ Frans Pop ]
   * Use udeb support introduced in debhelper 4.2.0 (available in sarge)
     rather than constructing udebs by steam.
   * Require debhelper 5.0.22, which generates correct shared library
-    dependencies for udebs. This build-dependency can be ignored if building
-    on sarge.
+    dependencies for udebs (closes: #360068). This build-dependency can be
+    ignored if building on sarge.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 31 Mar 2006 09:14:29 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 31 Mar 2006 09:19:21 +0100
 
 openssh (1:4.2p1-7) unstable; urgency=low
 
