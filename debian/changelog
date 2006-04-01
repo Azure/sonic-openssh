@@ -1,3 +1,10 @@
+openssh (1:4.2p1-9) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update Italian (thanks, Luca Monducci; closes: #360348).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat,  1 Apr 2006 17:24:28 +0100
+
 openssh (1:4.2p1-8) unstable; urgency=low
 
   [ Frans Pop ]
