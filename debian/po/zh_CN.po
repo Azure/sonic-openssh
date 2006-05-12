@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
@@ -26,16 +26,18 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+#, fuzzy
+msgid "Generate new configuration file?"
 msgstr "生成新的配置文件"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -61,9 +63,10 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr "强烈建议让我为您生成一份新的配置文件。"
 
 #. Type: boolean
@@ -137,10 +140,11 @@ msgstr "警告：您必须创建一个新的主机密钥"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
+#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 "/etc/ssh/ssh_host_key 是由 IDEA 加密的旧密钥文件。OpenSSH 不能处理这种密钥文"
 "件，我也无法找到旧的(非自由的) SSH 安装所带的 ssh-keygen 密钥生成工具。"

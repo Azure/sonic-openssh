@@ -1,22 +1,14 @@
-#
-#    Translators, if you are not familiar with the PO format, gettext
-#    documentation is worth reading, especially sections dedicated to
-#    this format, e.g. by running:
-#         info -n '(gettext)PO Files'
-#         info -n '(gettext)Header Entry'
-#
-#    Some information specific to po-debconf are available at
-#            /usr/share/doc/po-debconf/README-trans
-#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
-#
-#    Developers do not need to manually edit POT or PO files.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +19,7 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+msgid "Generate new configuration file?"
 msgstr ""
 
 #. Type: boolean
@@ -36,7 +28,7 @@ msgstr ""
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -56,8 +48,8 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates.master:4
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr ""
 
 #. Type: boolean
@@ -124,8 +116,8 @@ msgstr ""
 #: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 
 #. Type: note

@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: 2003-10-02 17:20+0500\n"
 "Last-Translator: Ilgiz Kalmetev <translator@ilgiz.pp.ru>\n"
 "Language-Team: russian <ru@li.org>\n"
@@ -27,16 +27,18 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+#, fuzzy
+msgid "Generate new configuration file?"
 msgstr "Сгенерировать новый конфигурационный файл"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -65,9 +67,10 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr ""
 "Настоятельно рекомендуется, разрешить сгенерировать для Вас новый файл "
 "настроек."
@@ -145,10 +148,11 @@ msgstr "Предупреждение: Вы должны создать новый хостовый ключ."
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
+#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 "Найден старый /etc/ssh/ssh_host_key, который зашифрован IDEA. OpenSSH не "
 "может работать с этим хостовым ключом, и я не могу найти утилиту ssh-keygen "

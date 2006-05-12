@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ssh\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: 2004-04-27 06:50+0300\n"
 "Last-Translator: Recai Oktaş <roktas@omu.edu.tr>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -18,16 +18,18 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+#, fuzzy
+msgid "Generate new configuration file?"
 msgstr "Yeni yapılandırma dosyası oluştur"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -57,9 +59,10 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr ""
 "Yeni bir yapılandırma dosyası üretmeme izin vermeniz kuvvetle tavsiye edilir."
 
@@ -137,10 +140,11 @@ msgstr "Uyarı: yeni bir makine anahtarı oluşturmalısınız"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
+#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 "IDEA ile şifrelenmiş eski bir /ect/ssh/ssh_host_key dosyanız var. OpenSSH bu "
 "anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait ssh-"

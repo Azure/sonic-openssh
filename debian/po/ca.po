@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh_1:3.8p1-3_templates\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: 2004-03-05 19:46GMT\n"
 "Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -17,16 +17,18 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+#, fuzzy
+msgid "Generate new configuration file?"
 msgstr "Genera un fitxer de configuració nou"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -56,9 +58,10 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr ""
 "Es molt recomanable que deixeu que se us creï el nou fitxer de configuració."
 
@@ -140,10 +143,11 @@ msgstr "Avís: heu de crear una nova clau del servidor central"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
+#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 "Hi ha un fitxer antic /etc/ssh/ssh_host_key antic xifrat amb IDEA. L'OpenSSH "
 "no pot gestionar aquest fitxer de clau de l'ordinador central i no es pot "

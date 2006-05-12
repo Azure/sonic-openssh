@@ -1,10 +1,10 @@
 Template: ssh/new_config
 Type: boolean
 Default: true
-_Description: Generate new configuration file
+_Description: Generate new configuration file?
  This version of OpenSSH has a considerably changed configuration file from
  the version shipped in Debian 'Potato', which you appear to be upgrading
- from. I can now generate you a new configuration file
+ from. This package can now generate a new configuration file
  (/etc/ssh/sshd.config), which will work with the new server version, but
  will not contain any customisations you made with the old version.
  .
@@ -14,8 +14,8 @@ _Description: Generate new configuration file
  this is the correct default (see README.Debian for more details), but you
  can always edit sshd_config and set it to no if you wish.
  .
- It is strongly recommended that you let me generate a new configuration
- file for you.
+ It is strongly recommended that you let this package generate a new
+ configuration file now.
 
 Template: ssh/use_old_init_script
 Type: boolean
@@ -47,8 +47,8 @@ Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
 _Description: Warning: you must create a new host key
  There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH
- can not handle this host key file, and I can't find the ssh-keygen utility
- from the old (non-free) SSH installation.
+ can not handle this host key file, and the ssh-keygen utility from the old
+ (non-free) SSH installation does not appear to be available.
  .
  You will need to generate a new host key.
 

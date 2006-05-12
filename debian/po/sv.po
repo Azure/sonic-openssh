@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1:4.2p1-4\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"Report-Msgid-Bugs-To: matthew@debian.org\n"
+"POT-Creation-Date: 2006-05-12 11:11+0100\n"
 "PO-Revision-Date: 2005-10-11 18:02+0200\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -25,16 +25,18 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-msgid "Generate new configuration file"
+#, fuzzy
+msgid "Generate new configuration file?"
 msgstr "Generera ny konfigurationsfil"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. I can now generate you a new configuration file (/etc/ssh/sshd."
+"from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
@@ -63,9 +65,10 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
+#, fuzzy
 msgid ""
-"It is strongly recommended that you let me generate a new configuration file "
-"for you."
+"It is strongly recommended that you let this package generate a new "
+"configuration file now."
 msgstr ""
 "Det är mycket rekommenderat att du låter mig generera en ny "
 "konfigurationsfil till dig."
@@ -143,10 +146,11 @@ msgstr "Varning: du måste skapa en ny hostnyckel"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
+#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and I can't find the ssh-keygen utility from "
-"the old (non-free) SSH installation."
+"not handle this host key file, and the ssh-keygen utility from the old (non-"
+"free) SSH installation does not appear to be available."
 msgstr ""
 "Det finns en gammal /etc/ssh/ssh_host_key som är IDEA-krypterad. OpenSSh kan "
 "inte hantera dessa värdnyckelfiler och jag kan inte hitta verktyget ssh-"
