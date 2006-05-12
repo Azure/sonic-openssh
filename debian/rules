@@ -72,7 +72,7 @@ endif
 	# Debian's /var/log/btmp has inappropriate permissions.
 	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
 
-	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -std=gnu99 -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""'
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -Wno-pointer-sign -std=gnu99 -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \
@@ -92,7 +92,7 @@ build-udeb-stamp:
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status
-	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -std=gnu99 -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""' ssh scp sftp sshd ssh-keygen
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -Wno-pointer-sign -std=gnu99 -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""' ssh scp sftp sshd ssh-keygen
 	touch build-udeb-stamp
 
 clean:
