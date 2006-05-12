@@ -51,6 +51,7 @@ openssh (1:4.3p2-1) UNRELEASED; urgency=low
   * Rephrase ssh/new_config and ssh/encrypted_host_key_but_no_keygen debconf
     templates to make boolean short descriptions end with a question mark
     and to avoid use of the first person.
+  * Ship README.tun.
   * Policy version 3.7.2: no changes required.
   * debconf template translations:
     - Update Italian (thanks, Luca Monducci; closes: #360348).
