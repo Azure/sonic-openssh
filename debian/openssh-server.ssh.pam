@@ -1,14 +1,14 @@
 # PAM configuration for the Secure Shell service
 
-# Disallow non-root logins when /etc/nologin exists.
-auth       required     pam_nologin.so
-
 # Read environment variables from /etc/environment and
 # /etc/security/pam_env.conf.
 auth       required     pam_env.so # [1]
 
 # Standard Un*x authentication.
 @include common-auth
+
+# Disallow non-root logins when /etc/nologin exists.
+account    required     pam_nologin.so
 
 # Standard Un*x authorization.
 @include common-account
