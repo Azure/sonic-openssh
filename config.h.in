@@ -1216,6 +1216,9 @@
 /* Use btmp to log bad logins */
 #undef USE_BTMP
 
+/* platform uses an in-memory credentials cache */
+#undef USE_CCAPI
+
 /* Use libedit for sftp */
 #undef USE_LIBEDIT
 
@@ -1230,6 +1233,9 @@
 
 /* Define if you want smartcard support using sectok */
 #undef USE_SECTOK
+
+/* platform has the Security Authorization Session API */
+#undef USE_SECURITY_SESSION_API
 
 /* Define if you shouldn't strip 'tty' from your ttyname in [uw]tmp */
 #undef WITH_ABBREV_NO_TTY
@@ -1249,6 +1255,9 @@
 
 /* Define if you want IRIX project management */
 #undef WITH_IRIX_PROJECT
+
+/* Define if you want SELinux support. */
+#undef WITH_SELINUX
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

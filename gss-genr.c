@@ -1,7 +1,7 @@
 /*	$OpenBSD: gss-genr.c,v 1.6 2005/10/13 22:24:31 stevesk Exp $	*/
 
 /*
- * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
+ * Copyright (c) 2001-2005 Simon Wilkinson. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -53,6 +53,11 @@ Gssctxt *gss_kex_context = NULL;
 
 static ssh_gss_kex_mapping *gss_enc2oid = NULL;
 
+int 
+ssh_gssapi_oid_table_ok() {
+	return (gss_enc2oid != NULL);
+}
+
 /*
  * Return a list of the gss-group1-sha1 mechanisms supported by this program
  *
@@ -62,7 +67,7 @@ static ssh_gss_kex_mapping *gss_enc2oid = NULL;
 
 
 char *
-ssh_gssapi_client_mechanisms(char *host) {
+ssh_gssapi_client_mechanisms(const char *host) {
 	gss_OID_set gss_supported;
 	OM_uint32 min_status;
 
@@ -83,8 +88,6 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	const EVP_MD *evp_md = EVP_md5();
 	EVP_MD_CTX md;
 
-	evp_md = EVP_md5();
-
 	if (gss_enc2oid != NULL) {
 		for (i=0;gss_enc2oid[i].encoded!=NULL;i++)
 			xfree(gss_enc2oid[i].encoded);
@@ -97,12 +100,13 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	buffer_init(&buf);
 
 	oidpos = 0;
-	for (i=0;i<gss_supported->count;i++) {
-		if (gss_supported->elements[i].length<128 &&
+	for (i = 0;i < gss_supported->count;i++) {
+		if (gss_supported->elements[i].length < 128 &&
 		    (*check)(&(gss_supported->elements[i]), data)) {
 
 			deroid[0] = SSH_GSS_OIDTYPE;
 			deroid[1] = gss_supported->elements[i].length;
+
 			EVP_DigestInit(&md, evp_md);
 			EVP_DigestUpdate(&md, deroid, 2);
 			EVP_DigestUpdate(&md,
@@ -115,10 +119,14 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 			    encoded, EVP_MD_size(evp_md)*2);
 
 			if (oidpos != 0)
-			    buffer_put_char(&buf,',');
+			    buffer_put_char(&buf, ',');
 
-			buffer_append(&buf, KEX_GSS_SHA1, 
-			    sizeof(KEX_GSS_SHA1)-1);
+			buffer_append(&buf, KEX_GSS_GEX_SHA1_ID,
+			    sizeof(KEX_GSS_GEX_SHA1_ID)-1);
+			buffer_append(&buf, encoded, enclen);
+			buffer_put_char(&buf,',');
+			buffer_append(&buf, KEX_GSS_GRP1_SHA1_ID, 
+			    sizeof(KEX_GSS_GRP1_SHA1_ID)-1);
 			buffer_append(&buf, encoded, enclen);
 
 			gss_enc2oid[oidpos].oid = &(gss_supported->elements[i]);
@@ -129,7 +137,7 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	gss_enc2oid[oidpos].oid = NULL;
 	gss_enc2oid[oidpos].encoded = NULL;
 
-	buffer_put_char(&buf,'\0');
+	buffer_put_char(&buf, '\0');
 
 	mechs = xmalloc(buffer_len(&buf));
 	buffer_get(&buf, mechs, buffer_len(&buf));
@@ -144,21 +152,28 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 }
 
 gss_OID
-ssh_gssapi_id_kex(Gssctxt *ctx, char *name) {
+ssh_gssapi_id_kex(Gssctxt *ctx, char *name, int *gex) {
 	int i = 0;
 
-	if (strncmp(name, KEX_GSS_SHA1, sizeof(KEX_GSS_SHA1)-1) != 0) 
+	if (strncmp(name, KEX_GSS_GRP1_SHA1_ID,
+	    sizeof(KEX_GSS_GRP1_SHA1_ID)-1) == 0) {
+		name+=sizeof(KEX_GSS_GRP1_SHA1_ID)-1;
+		*gex = 0;
+	} else if (strncmp(name, KEX_GSS_GEX_SHA1_ID,
+	    sizeof(KEX_GSS_GEX_SHA1_ID)-1) == 0) {
+		name+=sizeof(KEX_GSS_GEX_SHA1_ID)-1;
+		*gex = 1;
+	} else {
 		return NULL;
-
-	name+=sizeof(KEX_GSS_SHA1)-1; /* Skip ID string */
+	}
 
 	while (gss_enc2oid[i].encoded != NULL &&
-	    strcmp(name,gss_enc2oid[i].encoded)!=0) {
+	    strcmp(name, gss_enc2oid[i].encoded) != 0) {
 		i++;
 	}
 
 	if (gss_enc2oid[i].oid != NULL && ctx != NULL)
-		ssh_gssapi_set_oid(ctx,gss_enc2oid[i].oid);
+		ssh_gssapi_set_oid(ctx, gss_enc2oid[i].oid);
 
 	return gss_enc2oid[i].oid;
 }

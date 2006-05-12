@@ -40,6 +40,9 @@ openssh (1:4.3p2-1) UNRELEASED; urgency=low
     - Many manual page improvements.
     - Lots of cleanups, including fixes to memory leaks on error paths and
       possible crashes.
+  * Update to current GSSAPI patch from
+    http://www.sxw.org.uk/computing/patches/openssh-4.3p2-gsskex-20060223.patch
+    (closes: #352042).
   * Rename KeepAlive to TCPKeepAlive in default sshd_config
     (closes: #349896).
   * debconf template translations:

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001-2004 Simon Wilkinson. All rights reserved.
+ * Copyright (c) 2001-2005 Simon Wilkinson. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -42,34 +42,65 @@
 
 void
 kexgss_client(Kex *kex) {
-	gss_buffer_desc gssbuf, send_tok, recv_tok, msg_tok, *token_ptr;
+	gss_buffer_desc send_tok = GSS_C_EMPTY_BUFFER;
+        gss_buffer_desc recv_tok, gssbuf, msg_tok, *token_ptr;
 	Gssctxt *ctxt;
 	OM_uint32 maj_status, min_status, ret_flags;
-	unsigned int klen, kout;
+	u_int klen, kout, slen = 0, hashlen, strlen;
 	DH *dh; 
-	BIGNUM *dh_server_pub = 0;
-	BIGNUM *shared_secret = 0;	
-	unsigned char *kbuf;
-	unsigned char *hash;
-	unsigned char *serverhostkey;
+	BIGNUM *dh_server_pub = NULL;
+	BIGNUM *shared_secret = NULL;
+	BIGNUM *p = NULL;
+	BIGNUM *g = NULL;	
+	u_char *kbuf, *hash;
+	u_char *serverhostkey = NULL;
 	char *msg;
 	char *lang;
 	int type = 0;
 	int first = 1;
-	int slen = 0;
-	u_int strlen;
-	
+	int gex = 0;
+	int nbits, min, max;
+
+	/* Initialise our GSSAPI world */	
 	ssh_gssapi_build_ctx(&ctxt);
-	if (ssh_gssapi_id_kex(ctxt,kex->name) == NULL)
+	if (ssh_gssapi_id_kex(ctxt, kex->name, &gex) == NULL)
 		fatal("Couldn't identify host exchange");
 
-	if (ssh_gssapi_import_name(ctxt,get_canonical_hostname(1)))
-		fatal("Couldn't import hostname ");
+	if (ssh_gssapi_import_name(ctxt, kex->gss_host))
+		fatal("Couldn't import hostname");
 	
-	/* This code should match that in ssh_dh1_client */
-		
+	if (gex) {
+		debug("Doing group exchange\n");
+		nbits = dh_estimate(kex->we_need * 8);
+		min = DH_GRP_MIN;
+		max = DH_GRP_MAX;
+		packet_start(SSH2_MSG_KEXGSS_GROUPREQ);
+		packet_put_int(min);
+		packet_put_int(nbits);
+		packet_put_int(max);
+
+		packet_send();
+
+		packet_read_expect(SSH2_MSG_KEXGSS_GROUP);
+
+		if ((p = BN_new()) == NULL)
+			fatal("BN_new() failed");
+		packet_get_bignum2(p);
+		if ((g = BN_new()) == NULL)
+			fatal("BN_new() failed");
+		packet_get_bignum2(g);
+		packet_check_eom();
+
+		if (BN_num_bits(p) < min || BN_num_bits(p) > max)
+			fatal("GSSGRP_GEX group out of range: %d !< %d !< %d",
+			    min, BN_num_bits(p), max);
+
+		dh = dh_new_group(g, p);
+	} else {
+		dh = dh_new_group1();
+	}
+	
 	/* Step 1 - e is dh->pub_key */
-	dh = dh_new_group1();
 	dh_gen_key(dh, kex->we_need * 8);
 
 	/* This is f, we initialise it now to make life easier */
@@ -97,7 +128,7 @@ kexgss_client(Kex *kex) {
 
 		/* If we've got an old receive buffer get rid of it */
 		if (token_ptr != GSS_C_NO_BUFFER)
-	  		(void) gss_release_buffer(&min_status, &recv_tok);
+			xfree(recv_tok.value);
 
 		if (maj_status == GSS_S_COMPLETE) {
 			/* If mutual state flag is not true, kex fails */
@@ -126,15 +157,21 @@ kexgss_client(Kex *kex) {
 				    send_tok.length);
 			}
 			packet_send();
+			gss_release_buffer(&min_status, &send_tok);
 
 			/* If we've sent them data, they should reply */
-		
-			type = packet_read();
+			do {	
+				type = packet_read();
+				if (type == SSH2_MSG_KEXGSS_HOSTKEY) {
+					debug("Received KEXGSS_HOSTKEY");
+					if (serverhostkey)
+						fatal("Server host key received more than once");
+					serverhostkey = 
+					    packet_get_string(&slen);
+				}
+			} while (type == SSH2_MSG_KEXGSS_HOSTKEY);
+
 			switch (type) {
-			case SSH2_MSG_KEXGSS_HOSTKEY:
-				debug("Received KEXGSS_HOSTKEY");
-				serverhostkey = packet_get_string(&slen);
-				break;
 			case SSH2_MSG_KEXGSS_CONTINUE:
 				debug("Received GSSAPI_CONTINUE");
 				if (maj_status == GSS_S_COMPLETE) 
@@ -144,8 +181,8 @@ kexgss_client(Kex *kex) {
 				break;
 			case SSH2_MSG_KEXGSS_COMPLETE:
 				debug("Received GSSAPI_COMPLETE");
-			        packet_get_bignum2(dh_server_pub);
-			    	msg_tok.value = packet_get_string(&strlen);
+				packet_get_bignum2(dh_server_pub);
+				msg_tok.value =  packet_get_string(&strlen);
 				msg_tok.length = strlen; 
 
 				/* Is there a token included? */
@@ -156,10 +193,10 @@ kexgss_client(Kex *kex) {
 					/* If we're already complete - protocol error */
 					if (maj_status == GSS_S_COMPLETE)
 						packet_disconnect("Protocol error: received token when complete");
-				} else {
-				   	/* No token included */
-				   	if (maj_status != GSS_S_COMPLETE)
-				   		packet_disconnect("Protocol error: did not receive final token");
+					} else {
+						/* No token included */
+						if (maj_status != GSS_S_COMPLETE)
+							packet_disconnect("Protocol error: did not receive final token");
 				}
 				break;
 			case SSH2_MSG_KEXGSS_ERROR:
@@ -168,7 +205,7 @@ kexgss_client(Kex *kex) {
 				min_status = packet_get_int();
 				msg = packet_get_string(NULL);
 				lang = packet_get_string(NULL);
-				fprintf(stderr,"GSSAPI Error: \n%s",msg);
+				fatal("GSSAPI Error: \n%s",msg);
 			default:
 				packet_disconnect("Protocol error: didn't expect packet type %d",
 		    		type);
@@ -181,12 +218,12 @@ kexgss_client(Kex *kex) {
 		}
 	} while (maj_status & GSS_S_CONTINUE_NEEDED);
 
-    	/* 
+	/* 
 	 * We _must_ have received a COMPLETE message in reply from the 
-    	 * server, which will have set dh_server_pub and msg_tok 
+	 * server, which will have set dh_server_pub and msg_tok 
 	 */
 
-	if (type!=SSH2_MSG_KEXGSS_COMPLETE)
+	if (type != SSH2_MSG_KEXGSS_COMPLETE)
 		fatal("Didn't receive a SSH2_MSG_KEXGSS_COMPLETE when I expected it");
 
 	/* Check f in range [1, p-1] */
@@ -203,28 +240,52 @@ kexgss_client(Kex *kex) {
 	memset(kbuf, 0, klen);
 	xfree(kbuf);
 
-	/* The GSS hash is identical to the DH one */
-	hash = kex_dh_hash( kex->client_version_string, 
-	    kex->server_version_string,
-	    buffer_ptr(&kex->my), buffer_len(&kex->my),
-	    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
-	    serverhostkey, slen, /* server host key */
-	    dh->pub_key,	/* e */
-	    dh_server_pub,	/* f */
-	    shared_secret	/* K */
-	);
-        
+	if (gex) {
+		kexgex_hash(
+		    kex->evp_md,
+		    kex->client_version_string,
+		    kex->server_version_string,
+		    buffer_ptr(&kex->my), buffer_len(&kex->my),
+		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
+		    serverhostkey, slen,
+ 		    min, nbits, max,
+		    dh->p, dh->g,
+		    dh->pub_key,
+		    dh_server_pub,
+		    shared_secret,
+		    &hash, &hashlen
+		);
+	} else {
+		/* The GSS hash is identical to the DH one */
+		kex_dh_hash( kex->client_version_string, 
+		    kex->server_version_string,
+		    buffer_ptr(&kex->my), buffer_len(&kex->my),
+		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
+		    serverhostkey, slen, /* server host key */
+		    dh->pub_key,	/* e */
+		    dh_server_pub,	/* f */
+		    shared_secret,	/* K */
+		    &hash, &hashlen
+		);
+        }
+
 	gssbuf.value = hash;
-	gssbuf.length = 20;
+	gssbuf.length = hashlen;
 
         /* Verify that the hash matches the MIC we just got. */
 	if (GSS_ERROR(ssh_gssapi_checkmic(ctxt, &gssbuf, &msg_tok)))
 		packet_disconnect("Hash's MIC didn't verify");
-        
+
+	xfree(msg_tok.value);
+
 	DH_free(dh);
+	if (serverhostkey)
+		xfree(serverhostkey);
+	BN_clear_free(dh_server_pub);
+
 	/* save session id */
 	if (kex->session_id == NULL) {
-		kex->session_id_len = 20;
+		kex->session_id_len = hashlen;
 		kex->session_id = xmalloc(kex->session_id_len);
 		memcpy(kex->session_id, hash, kex->session_id_len);
 	}
@@ -234,7 +295,7 @@ kexgss_client(Kex *kex) {
 	else
 		ssh_gssapi_delete_ctx(&ctxt);
 
-	kex_derive_keys(kex, hash, shared_secret);
+	kex_derive_keys(kex, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
 	kex_finish(kex);
 }

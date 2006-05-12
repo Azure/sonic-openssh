@@ -129,11 +129,13 @@ userauth_gssapi(Authctxt *authctxt)
 
 	if (!present) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, &goid)))) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
@@ -318,7 +320,7 @@ input_gssapi_mic(int type, u_int32_t plen, void *ctxt)
 }
 
 Authmethod method_gsskeyex = {
-	"gssapi-keyx",
+	"gssapi-keyex",
 	userauth_gsskeyex,
 	&options.gss_authentication
 };

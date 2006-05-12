@@ -1644,6 +1644,7 @@ mm_get_kex(Buffer *m)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 #ifdef GSSAPI
 	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
 #endif
 	kex->server = 1;
 	kex->hostkey_type = buffer_get_int(m);
@@ -1942,10 +1943,13 @@ mm_answer_gss_userok(int sock, Buffer *m)
 int 
 mm_answer_gss_sign(int socket, Buffer *m)
 {
-	gss_buffer_desc data, hash;
+	gss_buffer_desc data;
+	gss_buffer_desc hash = GSS_C_EMPTY_BUFFER;
 	OM_uint32 major, minor;
+	u_int len;
 
-	data.value = buffer_get_string(m, &data.length);
+	data.value = buffer_get_string(m, &len);
+	data.length = len;
 	if (data.length != 20) 
 		fatal("%s: data length incorrect: %d", __func__, data.length);
 
