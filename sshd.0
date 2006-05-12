@@ -8,95 +8,20 @@ SYNOPSIS
           [-h host_key_file] [-k key_gen_time] [-o option] [-p port] [-u len]
 
 DESCRIPTION
-     sshd (SSH Daemon) is the daemon program for ssh(1).  Together these pro-
-     grams replace rlogin and rsh, and provide secure encrypted communications
-     between two untrusted hosts over an insecure network.  The programs are
-     intended to be as easy to install and use as possible.
+     sshd (OpenSSH Daemon) is the daemon program for ssh(1).  Together these
+     programs replace rlogin and rsh, and provide secure encrypted communica-
+     tions between two untrusted hosts over an insecure network.
 
-     sshd is the daemon that listens for connections from clients.  It is nor-
-     mally started at boot from /etc/rc.  It forks a new daemon for each in-
-     coming connection.  The forked daemons handle key exchange, encryption,
-     authentication, command execution, and data exchange.  This implementa-
-     tion of sshd supports both SSH protocol version 1 and 2 simultaneously.
-     sshd works as follows:
-
-   SSH protocol version 1
-     Each host has a host-specific RSA key (normally 2048 bits) used to iden-
-     tify the host.  Additionally, when the daemon starts, it generates a
-     server RSA key (normally 768 bits).  This key is normally regenerated ev-
-     ery hour if it has been used, and is never stored on disk.
-
-     Whenever a client connects, the daemon responds with its public host and
-     server keys.  The client compares the RSA host key against its own
-     database to verify that it has not changed.  The client then generates a
-     256-bit random number.  It encrypts this random number using both the
-     host key and the server key, and sends the encrypted number to the serv-
-     er.  Both sides then use this random number as a session key which is
-     used to encrypt all further communications in the session.  The rest of
-     the session is encrypted using a conventional cipher, currently Blowfish
-     or 3DES, with 3DES being used by default.  The client selects the encryp-
-     tion algorithm to use from those offered by the server.
-
-     Next, the server and the client enter an authentication dialog.  The
-     client tries to authenticate itself using .rhosts authentication combined
-     with RSA host authentication, RSA challenge-response authentication, or
-     password based authentication.
-
-     Regardless of the authentication type, the account is checked to ensure
-     that it is accessible.  An account is not accessible if it is locked,
-     listed in DenyUsers or its group is listed in DenyGroups .  The defini-
-     tion of a locked account is system dependant. Some platforms have their
-     own account database (eg AIX) and some modify the passwd field ( `*LK*'
-     on Solaris, `*' on HP-UX, containing `Nologin' on Tru64 and a leading
-     `!!' on Linux).  If there is a requirement to disable password authenti-
-     cation for the account while allowing still public-key, then the passwd
-     field should be set to something other than these values (eg `NP' or
-     `*NP*' ).
-
-     rshd, rlogind, and rexecd are disabled (thus completely disabling rlogin
-     and rsh into the machine).
-
-   SSH protocol version 2
-     Version 2 works similarly: Each host has a host-specific key (RSA or DSA)
-     used to identify the host.  However, when the daemon starts, it does not
-     generate a server key.  Forward security is provided through a Diffie-
-     Hellman key agreement.  This key agreement results in a shared session
-     key.
-
-     The rest of the session is encrypted using a symmetric cipher, currently
-     128-bit AES, Blowfish, 3DES, CAST128, Arcfour, 192-bit AES, or 256-bit
-     AES.  The client selects the encryption algorithm to use from those of-
-     fered by the server.  Additionally, session integrity is provided through
-     a cryptographic message authentication code (hmac-sha1 or hmac-md5).
-
-     Protocol version 2 provides a public key based user (PubkeyAuthentica-
-     tion) or client host (HostbasedAuthentication) authentication method,
-     conventional password authentication and challenge response based meth-
-     ods.
-
-   Command execution and data forwarding
-     If the client successfully authenticates itself, a dialog for preparing
-     the session is entered.  At this time the client may request things like
-     allocating a pseudo-tty, forwarding X11 connections, forwarding TCP/IP
-     connections, or forwarding the authentication agent connection over the
-     secure channel.
-
-     Finally, the client either requests a shell or execution of a command.
-     The sides then enter session mode.  In this mode, either side may send
-     data at any time, and such data is forwarded to/from the shell or command
-     on the server side, and the user terminal in the client side.
-
-     When the user program terminates and all forwarded X11 and other connec-
-     tions have been closed, the server sends command exit status to the
-     client, and both sides exit.
+     sshd listens for connections from clients.  It is normally started at
+     boot from /etc/rc.  It forks a new daemon for each incoming connection.
+     The forked daemons handle key exchange, encryption, authentication, com-
+     mand execution, and data exchange.
 
      sshd can be configured using command-line options or a configuration file
-     (by default sshd_config(5)).  Command-line options override values speci-
-     fied in the configuration file.
-
-     sshd rereads its configuration file when it receives a hangup signal,
-     SIGHUP, by executing itself with the name and options it was started
-     with, e.g., /usr/sbin/sshd.
+     (by default sshd_config(5)); command-line options override values speci-
+     fied in the configuration file.  sshd rereads its configuration file when
+     it receives a hangup signal, SIGHUP, by executing itself with the name
+     and options it was started with, e.g., /usr/sbin/sshd.
 
      The options are as follows:
 
@@ -165,8 +90,9 @@ DESCRIPTION
      -p port
              Specifies the port on which the server listens for connections
              (default 22).  Multiple port options are permitted.  Ports speci-
-             fied in the configuration file are ignored when a command-line
-             port is specified.
+             fied in the configuration file with the Port option are ignored
+             when a command-line port is specified.  Ports specified using the
+             ListenAddress option override command-line ports.
 
      -q      Quiet mode.  Nothing is sent to the system log.  Normally the be-
              ginning, authentication, and termination of each connection is
@@ -185,15 +111,74 @@ DESCRIPTION
              the utmp file.  -u0 may also be used to prevent sshd from making
              DNS requests unless the authentication mechanism or configuration
              requires it.  Authentication mechanisms that may require DNS in-
-             clude RhostsRSAAuthentication, HostbasedAuthentication and using
+             clude RhostsRSAAuthentication, HostbasedAuthentication, and using
              a from="pattern-list" option in a key file.  Configuration op-
              tions that require DNS include using a USER@HOST pattern in
              AllowUsers or DenyUsers.
 
-CONFIGURATION FILE
-     sshd reads configuration data from /etc/ssh/sshd_config (or the file
-     specified with -f on the command line).  The file format and configura-
-     tion options are described in sshd_config(5).
+AUTHENTICATION
+     The OpenSSH SSH daemon supports SSH protocols 1 and 2.  Both protocols
+     are supported by default, though this can be changed via the Protocol op-
+     tion in sshd_config(5).  Protocol 2 supports both RSA and DSA keys; pro-
+     tocol 1 only supports RSA keys.  For both protocols, each host has a
+     host-specific key, normally 2048 bits, used to identify the host.
+
+     Forward security for protocol 1 is provided through an additional server
+     key, normally 768 bits, generated when the server starts.  This key is
+     normally regenerated every hour if it has been used, and is never stored
+     on disk.  Whenever a client connects, the daemon responds with its public
+     host and server keys.  The client compares the RSA host key against its
+     own database to verify that it has not changed.  The client then gener-
+     ates a 256-bit random number.  It encrypts this random number using both
+     the host key and the server key, and sends the encrypted number to the
+     server.  Both sides then use this random number as a session key which is
+     used to encrypt all further communications in the session.  The rest of
+     the session is encrypted using a conventional cipher, currently Blowfish
+     or 3DES, with 3DES being used by default.  The client selects the encryp-
+     tion algorithm to use from those offered by the server.
+
+     For protocol 2, forward security is provided through a Diffie-Hellman key
+     agreement.  This key agreement results in a shared session key.  The rest
+     of the session is encrypted using a symmetric cipher, currently 128-bit
+     AES, Blowfish, 3DES, CAST128, Arcfour, 192-bit AES, or 256-bit AES.  The
+     client selects the encryption algorithm to use from those offered by the
+     server.  Additionally, session integrity is provided through a crypto-
+     graphic message authentication code (hmac-sha1 or hmac-md5).
+
+     Finally, the server and the client enter an authentication dialog.  The
+     client tries to authenticate itself using host-based authentication, pub-
+     lic key authentication, challenge-response authentication, or password
+     authentication.
+
+     Regardless of the authentication type, the account is checked to ensure
+     that it is accessible.  An account is not accessible if it is locked,
+     listed in DenyUsers or its group is listed in DenyGroups .  The defini-
+     tion of a locked account is system dependant. Some platforms have their
+     own account database (eg AIX) and some modify the passwd field ( `*LK*'
+     on Solaris and UnixWare, `*' on HP-UX, containing `Nologin' on Tru64, a
+     leading `*LOCKED*' on FreeBSD and a leading `!!' on Linux).  If there is
+     a requirement to disable password authentication for the account while
+     allowing still public-key, then the passwd field should be set to some-
+     thing other than these values (eg `NP' or `*NP*' ).
+
+     System security is not improved unless rshd, rlogind, and rexecd are dis-
+     abled (thus completely disabling rlogin and rsh into the machine).
+
+COMMAND EXECUTION AND DATA FORWARDING
+     If the client successfully authenticates itself, a dialog for preparing
+     the session is entered.  At this time the client may request things like
+     allocating a pseudo-tty, forwarding X11 connections, forwarding TCP con-
+     nections, or forwarding the authentication agent connection over the se-
+     cure channel.
+
+     Finally, the client either requests a shell or execution of a command.
+     The sides then enter session mode.  In this mode, either side may send
+     data at any time, and such data is forwarded to/from the shell or command
+     on the server side, and the user terminal in the client side.
+
+     When the user program terminates and all forwarded X11 and other connec-
+     tions have been closed, the server sends command exit status to the
+     client, and both sides exit.
 
 LOGIN PROCESS
      When a user successfully logs in, sshd does the following:
@@ -280,9 +265,9 @@ AUTHORIZED_KEYS FILE FORMAT
              backslash.  This option might be useful to restrict certain pub-
              lic keys to perform just a specific operation.  An example might
              be a key that permits remote backups but nothing else.  Note that
-             the client may specify TCP/IP and/or X11 forwarding unless they
-             are explicitly prohibited.  Note that this option applies to
-             shell, command or subsystem execution.
+             the client may specify TCP and/or X11 forwarding unless they are
+             explicitly prohibited.  Note that this option applies to shell,
+             command or subsystem execution.
 
      environment="NAME=value"
              Specifies that the string is to be added to the environment when
@@ -293,10 +278,9 @@ AUTHORIZED_KEYS FILE FORMAT
              This option is automatically disabled if UseLogin is enabled.
 
      no-port-forwarding
-             Forbids TCP/IP forwarding when this key is used for authentica-
-             tion.  Any port forward requests by the client will return an er-
-             ror.  This might be used, e.g., in connection with the command
-             option.
+             Forbids TCP forwarding when this key is used for authentication.
+             Any port forward requests by the client will return an error.
+             This might be used, e.g., in connection with the command option.
 
      no-X11-forwarding
              Forbids X11 forwarding when this key is used for authentication.
@@ -316,6 +300,11 @@ AUTHORIZED_KEYS FILE FORMAT
              is performed on the specified hostnames, they must be literal do-
              mains or addresses.
 
+     tunnel="n"
+             Force a tun(4) device on the server.  Without this option, the
+             next available device will be used if the client requests a tun-
+             nel.
+
    Examples
      1024 33 12121...312314325 ylo@foo.bar
 
@@ -325,6 +314,9 @@ AUTHORIZED_KEYS FILE FORMAT
      up.hut.fi
 
      permitopen="10.2.1.55:80",permitopen="10.2.1.56:25" 1024 33 23...2323
+
+     tunnel="0",command="sh /etc/netstart tun0" ssh-rsa AAAA...== reyk@openb-
+     sd.org
 
 SSH_KNOWN_HOSTS FILE FORMAT
      The /etc/ssh/ssh_known_hosts and ~/.ssh/known_hosts files contain host
@@ -571,4 +563,4 @@ AUTHORS
      versions 1.5 and 2.0.  Niels Provos and Markus Friedl contributed support
      for privilege separation.
 
-OpenBSD 3.8                   September 25, 1999                             9
+OpenBSD 3.9                   September 25, 1999                             9
