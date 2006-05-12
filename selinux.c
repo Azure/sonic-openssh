@@ -13,7 +13,7 @@
 
 extern Authctxt *the_authctxt;
 
-static const security_context_t
+static security_context_t
 selinux_get_user_context(const char *name)
 {
 	security_context_t user_context = NULL;

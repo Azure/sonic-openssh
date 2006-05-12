@@ -87,7 +87,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 #ifdef GSSAPI
 	char *orig, *gss = NULL;
 	int len;
-        char *gss_host;
+        char *gss_host = NULL;
 #endif
 
 	xxx_host = host;
