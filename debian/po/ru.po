@@ -1,40 +1,38 @@
+# translation of openssh_1:4.3p2-1_ru.po to Russian
 #
 #    Translators, if you are not familiar with the PO format, gettext
 #    documentation is worth reading, especially sections dedicated to
 #    this format, e.g. by running:
 #         info -n '(gettext)PO Files'
 #         info -n '(gettext)Header Entry'
-#
 #    Some information specific to po-debconf are available at
 #            /usr/share/doc/po-debconf/README-trans
-#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
-#
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans#
 #    Developers do not need to manually edit POT or PO files.
+# Yuriy Talakan' <yt@amur.elektra.ru>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: openssh_1:4.3p2-1_ru\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
 "POT-Creation-Date: 2006-05-12 11:11+0100\n"
-"PO-Revision-Date: 2003-10-02 17:20+0500\n"
-"Last-Translator: Ilgiz Kalmetev <translator@ilgiz.pp.ru>\n"
-"Language-Team: russian <ru@li.org>\n"
+"PO-Revision-Date: 2006-05-14 14:28+1000\n"
+"Last-Translator: Yuriy Talakan' <yt@amur.elektra.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=KOI8-R\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid "Generate new configuration file?"
-msgstr "Сгенерировать новый конфигурационный файл"
+msgstr "п║пЁп╣п╫п╣я─п╦я─п╬п╡п╟я┌я▄ п╫п╬п╡я▀п╧ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╬п╫п╫я▀п╧ я└п╟п╧п╩"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -42,11 +40,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"В этой версии OpenSSH значительно переработан файл настроек, в отличии от  "
-"версии, которая поставлялась с Debian 'Potato', и которую Вы, кажется, "
-"обновляете. Я могу сгенерировать для Вас новый файл настроек (/etc/ssh/sshd."
-"config), который будет работать с новой версией сервера, но не будет "
-"содержать настроек, которые Вы сделали в старой версии."
+"п▓ я█я┌п╬п╧ п╡п╣я─я│п╦п╦ OpenSSH п╥п╫п╟я┤п╦я┌п╣п╩я▄п╫п╬ п©п╣я─п╣я─п╟п╠п╬я┌п╟п╫ я└п╟п╧п╩ п╫п╟я│я┌я─п╬п╣п╨, п╡ п╬я┌п╩п╦я┤п╦п╦ п╬я┌  "
+"п╡п╣я─я│п╦п╦, п╨п╬я┌п╬я─п╟я▐ п©п╬я│я┌п╟п╡п╩я▐п╩п╟я│я▄ я│ Debian 'Potato', п╦ п╨п╬я┌п╬я─я┐я▌ п▓я▀, п╨п╟п╤п╣я┌я│я▐, "
+"п╬п╠п╫п╬п╡п╩я▐п╣я┌п╣. п╞ п╪п╬пЁя┐ я│пЁп╣п╫п╣я─п╦я─п╬п╡п╟я┌я▄ п╢п╩я▐ п▓п╟я│ п╫п╬п╡я▀п╧ я└п╟п╧п╩ п╫п╟я│я┌я─п╬п╣п╨ (/etc/ssh/sshd."
+"config), п╨п╬я┌п╬я─я▀п╧ п╠я┐п╢п╣я┌ я─п╟п╠п╬я┌п╟я┌я▄ я│ п╫п╬п╡п╬п╧ п╡п╣я─я│п╦п╣п╧ я│п╣я─п╡п╣я─п╟, п╫п╬ п╫п╣ п╠я┐п╢п╣я┌ "
+"я│п╬п╢п╣я─п╤п╟я┌я▄ п╫п╟я│я┌я─п╬п╣п╨, п╨п╬я┌п╬я─я▀п╣ п▓я▀ я│п╢п╣п╩п╟п╩п╦ п╡ я│я┌п╟я─п╬п╧ п╡п╣я─я│п╦п╦."
 
 #. Type: boolean
 #. Description
@@ -58,28 +56,27 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"Обратите внимание на то, что этот новый файл настроек установит значение "
-"параметра 'PermitRootLogin' в yes (означающего, что любой человек, знающий "
-"пароль суперпользователя может войти в систему через ssh). По мнению "
-"сопровождающего этого пакета - это разумно, но Вы всегда можете установить "
-"значение этого параметра в файле sshd_config так, как Вам кажется правильным."
+"п·п╠я─п╟я┌п╦я┌п╣ п╡п╫п╦п╪п╟п╫п╦п╣ п╫п╟ я┌п╬, я┤я┌п╬ я█я┌п╬я┌ п╫п╬п╡я▀п╧ я└п╟п╧п╩ п╫п╟я│я┌я─п╬п╣п╨ я┐я│я┌п╟п╫п╬п╡п╦я┌ п╥п╫п╟я┤п╣п╫п╦п╣ "
+"п©п╟я─п╟п╪п╣я┌я─п╟ 'PermitRootLogin' п╡ yes (п╬п╥п╫п╟я┤п╟я▌я┴п╣пЁп╬, я┤я┌п╬ п╩я▌п╠п╬п╧ я┤п╣п╩п╬п╡п╣п╨, п╥п╫п╟я▌я┴п╦п╧ "
+"п©п╟я─п╬п╩я▄ я│я┐п©п╣я─п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐ п╪п╬п╤п╣я┌ п╡п╬п╧я┌п╦ п╡ я│п╦я│я┌п╣п╪я┐ я┤п╣я─п╣п╥ ssh). п÷п╬ п╪п╫п╣п╫п╦я▌ "
+"я│п╬п©я─п╬п╡п╬п╤п╢п╟я▌я┴п╣пЁп╬ я█я┌п╬пЁп╬ п©п╟п╨п╣я┌п╟ - я█я┌п╬ я─п╟п╥я┐п╪п╫п╬, п╫п╬ п▓я▀ п╡я│п╣пЁп╢п╟ п╪п╬п╤п╣я┌п╣ я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ "
+"п╥п╫п╟я┤п╣п╫п╦п╣ я█я┌п╬пЁп╬ п©п╟я─п╟п╪п╣я┌я─п╟ п╡ я└п╟п╧п╩п╣ sshd_config я┌п╟п╨, п╨п╟п╨ п▓п╟п╪ п╨п╟п╤п╣я┌я│я▐ п©я─п╟п╡п╦п╩я▄п╫я▀п╪."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
 msgstr ""
-"Настоятельно рекомендуется, разрешить сгенерировать для Вас новый файл "
-"настроек."
+"п²п╟я│я┌п╬я▐я┌п╣п╩я▄п╫п╬ я─п╣п╨п╬п╪п╣п╫п╢я┐п╣я┌я│я▐ я─п╟п╥я─п╣я┬п╦я┌я▄ я│пЁп╣п╫п╣я─п╦я─п╬п╡п╟я┌я▄ п╢п╩я▐ п▓п╟я│ п╫п╬п╡я▀п╧ я└п╟п╧п╩ "
+"п╫п╟я│я┌я─п╬п╣п╨."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Вы хотите продолжить (рискуя потерять активные ssh-соединения)?"
+msgstr "п▓я▀ я┘п╬я┌п╦я┌п╣ п©я─п╬п╢п╬п╩п╤п╦я┌я▄ (я─п╦я│п╨я┐я▐ п©п╬я┌п╣я─я▐я┌я▄ п╟п╨я┌п╦п╡п╫я▀п╣ ssh-я│п╬п╣п╢п╦п╫п╣п╫п╦я▐)?"
 
 #. Type: boolean
 #. Description
@@ -89,9 +86,9 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"Версия  /etc/init.d/ssh,  которую  вы  устанавливаете, может убить все "
-"запущенные  процессы  ssh.  Если вы осуществляете это обновление через ssh "
-"сессию, то это Плохая Вещь (tm)."
+"п▓п╣я─я│п╦я▐  /etc/init.d/ssh,  п╨п╬я┌п╬я─я┐я▌  п╡я▀  я┐я│я┌п╟п╫п╟п╡п╩п╦п╡п╟п╣я┌п╣, п╪п╬п╤п╣я┌ я┐п╠п╦я┌я▄ п╡я│п╣ "
+"п╥п╟п©я┐я┴п╣п╫п╫я▀п╣  п©я─п╬я├п╣я│я│я▀  ssh.  п∙я│п╩п╦ п╡я▀ п╬я│я┐я┴п╣я│я┌п╡п╩я▐п╣я┌п╣ я█я┌п╬ п╬п╠п╫п╬п╡п╩п╣п╫п╦п╣ я┤п╣я─п╣п╥ ssh "
+"я│п╣я│я│п╦я▌, я┌п╬ я█я┌п╬ п÷п╩п╬я┘п╟я▐ п▓п╣я┴я▄ (tm)."
 
 #. Type: boolean
 #. Description
@@ -100,14 +97,14 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Это можно исправить добавлением \"--pidfile /var/run/sshd.pid\" в строке "
-"start-stop-daemon в разделе stop этого файла."
+"п╜я┌п╬ п╪п╬п╤п╫п╬ п╦я│п©я─п╟п╡п╦я┌я▄ п╢п╬п╠п╟п╡п╩п╣п╫п╦п╣п╪ \"--pidfile /var/run/sshd.pid\" п╡ я│я┌я─п╬п╨п╣ "
+"start-stop-daemon п╡ я─п╟п╥п╢п╣п╩п╣ stop я█я┌п╬пЁп╬ я└п╟п╧п╩п╟."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Предупреждение: установлен rsh-server --- пожалуй, это не очень хорошо"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: я┐я│я┌п╟п╫п╬п╡п╩п╣п╫ rsh-server --- п©п╬п╤п╟п╩я┐п╧, я█я┌п╬ п╫п╣ п╬я┤п╣п╫я▄ я┘п╬я─п╬я┬п╬"
 
 #. Type: note
 #. Description
@@ -116,14 +113,14 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"Установленный rsh-сервер снижает безопасность, которую Вы вероятно хотите "
-"повысить устанавливая ssh. Рекомендуется удалить этот пакет."
+"пёя│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀п╧ rsh-я│п╣я─п╡п╣я─ я│п╫п╦п╤п╟п╣я┌ п╠п╣п╥п╬п©п╟я│п╫п╬я│я┌я▄, п╨п╬я┌п╬я─я┐я▌ п▓я▀ п╡п╣я─п╬я▐я┌п╫п╬ я┘п╬я┌п╦я┌п╣ "
+"п©п╬п╡я▀я│п╦я┌я▄ я┐я│я┌п╟п╫п╟п╡п╩п╦п╡п╟я▐ ssh. п═п╣п╨п╬п╪п╣п╫п╢я┐п╣я┌я│я▐ я┐п╢п╟п╩п╦я┌я▄ я█я┌п╬я┌ п©п╟п╨п╣я┌."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Предупреждение: установлен telnetd --- пожалуй, это не очень хорошо"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: я┐я│я┌п╟п╫п╬п╡п╩п╣п╫ telnetd --- п©п╬п╤п╟п╩я┐п╧, я█я┌п╬ п╫п╣ п╬я┤п╣п╫я▄ я┘п╬я─п╬я┬п╬"
 
 #. Type: note
 #. Description
@@ -134,41 +131,40 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"Я рекомендовал бы Вам удалить пакет telnetd (если Вам действительно не нужен "
-"доступ telnet) или установить telnet-ssl, чтобы иметь хотя бы возможность не "
-"передавать по сети незашифрованные имена и пароли пользователей и прочую "
-"информацию в telnet-сессиях."
+"п╞ я─п╣п╨п╬п╪п╣п╫п╢п╬п╡п╟п╩ п╠я▀ п▓п╟п╪ я┐п╢п╟п╩п╦я┌я▄ п©п╟п╨п╣я┌ telnetd (п╣я│п╩п╦ п▓п╟п╪ п╢п╣п╧я│я┌п╡п╦я┌п╣п╩я▄п╫п╬ п╫п╣ п╫я┐п╤п╣п╫ "
+"п╢п╬я│я┌я┐п© telnet) п╦п╩п╦ я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ telnet-ssl, я┤я┌п╬п╠я▀ п╦п╪п╣я┌я▄ я┘п╬я┌я▐ п╠я▀ п╡п╬п╥п╪п╬п╤п╫п╬я│я┌я▄ п╫п╣ "
+"п©п╣я─п╣п╢п╟п╡п╟я┌я▄ п©п╬ я│п╣я┌п╦ п╫п╣п╥п╟я┬п╦я└я─п╬п╡п╟п╫п╫я▀п╣ п╦п╪п╣п╫п╟ п╦ п©п╟я─п╬п╩п╦ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧ п╦ п©я─п╬я┤я┐я▌ "
+"п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╡ telnet-я│п╣я│я│п╦я▐я┘."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
-msgstr "Предупреждение: Вы должны создать новый хостовый ключ."
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п▓я▀ п╢п╬п╩п╤п╫я▀ я│п╬п╥п╢п╟я┌я▄ п╫п╬п╡я▀п╧ я┘п╬я│я┌п╬п╡я▀п╧ п╨п╩я▌я┤."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
-"Найден старый /etc/ssh/ssh_host_key, который зашифрован IDEA. OpenSSH не "
-"может работать с этим хостовым ключом, и я не могу найти утилиту ssh-keygen "
-"от старой (несвободной) инсталляции SSH."
+"п²п╟п╧п╢п╣п╫ я│я┌п╟я─я▀п╧ /etc/ssh/ssh_host_key, п╨п╬я┌п╬я─я▀п╧ п╥п╟я┬п╦я└я─п╬п╡п╟п╫ IDEA. OpenSSH п╫п╣ "
+"п╪п╬п╤п╣я┌ я─п╟п╠п╬я┌п╟я┌я▄ я│ я█я┌п╦п╪ я┘п╬я│я┌п╬п╡я▀п╪ п╨п╩я▌я┤п╬п╪, п╦ я▐ п╫п╣ п╪п╬пЁя┐ п╫п╟п╧я┌п╦ я┐я┌п╦п╩п╦я┌я┐ ssh-keygen "
+"п╬я┌ я│я┌п╟я─п╬п╧ (п╫п╣я│п╡п╬п╠п╬п╢п╫п╬п╧) п╦п╫я│я┌п╟п╩п╩я▐я├п╦п╦ SSH."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
-msgstr "Вам надо будет сгенерировать новый ключ хоста."
+msgstr "п▓п╟п╪ п╫п╟п╢п╬ п╠я┐п╢п╣я┌ я│пЁп╣п╫п╣я─п╦я─п╬п╡п╟я┌я▄ п╫п╬п╡я▀п╧ п╨п╩я▌я┤ я┘п╬я│я┌п╟."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "п·я┌п╨п╩я▌я┤п╦я┌я▄ п╟я┐я┌п╣п╫я┌п╦я└п╦п╨п╟я├п╦я▌ п╥п╟п©я─п╬я│-п╬я┌п╡п╣я┌?"
 
 #. Type: boolean
 #. Description
@@ -180,7 +176,7 @@ msgid ""
 "versions of OpenSSH, you must disable challenge-response authentication, or "
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
-msgstr ""
+msgstr "п п╟п╤п╣я┌я│я▐, п©п╟я─п╬п╩я▄п╫п╟я▐ п╟я┐я┌п╣п╫я┌п╦я└п╦п╨п╟я├п╦я▐ п╬я┌п╨п╩я▌я┤п╣п╫п╟ п╡ п╡п╟я┬п╣п╧ я┌п╣п╨я┐я┴п╣п╧ п╫п╟я│я┌я─п╬п╧п╨п╣ я│п╣я─п╡п╣я─п╟ OpenSSH. п╖я┌п╬п╠я▀ п╥п╟п©я─п╣я┌п╦я┌я▄ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐п╪ п╡я┘п╬п╢ я│ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣п╪ п©п╟я─п╬п╩п╣п╧ (п╡п╬п╥п╪п╬п╤п╫п╬, п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╡ п╡п╪п╣я│я┌п╬ я█я┌п╬пЁп╬ п╟я┐я┌п╣п╫я┌я└п╦п╨п╟я├п╦я▌ п©п╬ п©я┐п╠п╩п╦я┤п╫п╬п╪я┐ п╨п╩я▌я┤я┐) п╡ п╫п╬п╡я▀я┘ п╡п╣я─я│п╦я▐я┘ OpenSSH, п╡я▀ п╢п╬п╩п╤п╫я▀ п╬я┌п╨п╩я▌я┤п╦я┌я▄ п╟я┐я┌п╣п╫я┌п╦я└п╦п╨п╟я├п╦я▌ п╥п╟п©я─п╬я│-п╬я┌п╡п╣я┌, п╩п╦п╠п╬ я┐п╠п╣п╢п╦я┌я▄я│я▐, я┤я┌п╬ п╡п╟я┬п╟ п╫п╟я│я┌я─п╬п╧п╨п╟ PAM п╫п╣ я─п╟п╥я─п╣я┬п╟п╣я┌ п╟я┐я┌п╣п╫я┌п╦я└п╦п╨п╟я├п╦я▌ п©п╬ я└п╟п╧п╩я┐ п©п╟я─п╬п╩п╣п╧ Unix."
 
 #. Type: boolean
 #. Description
@@ -190,183 +186,5 @@ msgid ""
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
+msgstr "п∙я│п╩п╦ п╡я▀ п╥п╟п©я─п╣я┌п╦я┌п╣ п╟я┐я┌п╣п╫я┌п╦я└п╦п╨п╟я├п╦я▌ п╥п╟п©я─п╬я│-п╬я┌п╡п╣я┌, п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╦ п╠п╬п╩п╣п╣ п╫п╣ я│п╪п╬пЁя┐я┌ п╡п╬п╧я┌п╦ я│ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣п╪ п©п╟я─п╬п╩п╣п╧. п∙я│п╩п╦ п╡я▀ п╬я│я┌п╟п╡п╦я┌п╣ п╣я▒ я─п╟п╥я─п╣я┬п╣п╫п╫п╬п╧ (п╬я┌п╡п╣я┌ п©п╬ я┐п╪п╬п╩я┤п╟п╫п╦я▌), я┌п╬ п╬п©я├п╦я▐ 'PasswordAuthentication no' п╫п╣ п╠я┐п╢п╣я┌ п╦п╪п╣я┌я▄ я│п╦п╩я▀, п╢п╬ я┌п╣я┘ п©п╬я─, п©п╬п╨п╟ п╡я▀ п╫п╣ п╬я┌п╨п╬я─я─п╣п╨я┌п╦я─я┐п╣я┌п╣ п╫п╟я│я┌я─п╬п╧п╨п╦ PAM п╡ /etc/pam.d/ssh."
 
-#~ msgid "Do you want ssh-keysign to be installed SUID root?"
-#~ msgstr "Хотите установить ssh-keysign как SUID root?"
-
-#~ msgid ""
-#~ "You have the option of installing the ssh-keysign helper with the SUID "
-#~ "bit set."
-#~ msgstr "Вы имеете возможность установить бит SUID для утилиты ssh-keysign."
-
-#~ msgid ""
-#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
-#~ "host-based authentication."
-#~ msgstr ""
-#~ "Если вы установите бит SUID для ssh, то вы сможете использовать хостовую "
-#~ "аутентификацию для SSH-протокола версии 2."
-
-#~ msgid ""
-#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
-#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
-#~ msgstr ""
-#~ "Если Вы не знаете, что выбрать, то рекомендую установить SUID для ssh. В "
-#~ "дальнейшем, Вы можете изменить свой выбор командой: dpkg-reconfigure ssh"
-
-#~ msgid "Allow SSH protocol 2 only"
-#~ msgstr "Разрешить использование только SSH-протокола версии 2."
-
-#~ msgid ""
-#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
-#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-#~ "things down on low end machines and might prevent older clients from "
-#~ "connecting (the ssh client shipped with \"potato\" is affected)."
-#~ msgstr ""
-#~ "Эта версия OpenSSH поддерживает протокол ssh версии 2, который "
-#~ "обеспечивает большую степень защиты. Лучше запретить протокол версии 1, "
-#~ "но это может привести к замедлению работы малопроизводительных машин и "
-#~ "может сделать невозможным подключение с помощью старых клиентских "
-#~ "программ (в частности, это относится к клиенту ssh, поставляемого с "
-#~ "\"potato\"."
-
-#~ msgid ""
-#~ "Also please note that keys used for protocol 1 are different so you will "
-#~ "not be able to use them if you only allow protocol 2 connections."
-#~ msgstr ""
-#~ "Обратите внимание на то, что ключи для протокола версии 1 имеют другой "
-#~ "формат, и поэтому Вы не сможете использовать их, если разрешите только "
-#~ "соединения по протоколу версии 2."
-
-#~ msgid ""
-#~ "If you later change your mind about this setting, README.Debian has "
-#~ "instructions on what to do to your sshd_config file."
-#~ msgstr ""
-#~ "Если позже Вы измените свое мнение, то в файле README.Debian содержатся "
-#~ "инструкции о том, что нужно сделать в файле sshd_config."
-
-#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-#~ msgstr "ПРИМЕЧАНИЕ: Форвардинг X11 и Authorization запрещен по умолчанию."
-
-#~ msgid ""
-#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
-#~ "ForwardAgent set to ``off'' by default."
-#~ msgstr ""
-#~ "По причинам безопасности, в версии для Debian ssh имеет ForwardX11 и "
-#~ "ForwardAgent установленными в ``off'' по умолчанию."
-
-#~ msgid ""
-#~ "You can enable it for servers you trust, either in one of the "
-#~ "configuration files, or with the -X command line option."
-#~ msgstr ""
-#~ "Вы можете разрешить их для серверов, которым доверяете либо в одном из "
-#~ "настроечных файлов, или параметром командной строки -X."
-
-#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-#~ msgstr ""
-#~ "Дополнительую информацию можно найти в /usr/share/doc/ssh/README.Debian"
-
-#~ msgid "ssh2 keys merged in configuration files"
-#~ msgstr "Ключи ssh2 добавлены в файлы настроек"
-
-#~ msgid ""
-#~ "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-#~ "keys. This means the authorized_keys2 and known_hosts2 files are no "
-#~ "longer needed. They will still be read in order to maintain backwards "
-#~ "compatibility"
-#~ msgstr ""
-#~ "Начиная с версии 3 OpenSSH не поддерживает раздельные файлы для ключей "
-#~ "ssh1 и ssh2. Это означает, что файлы authorized_keys2 и known_hosts2 "
-#~ "больше не нужны. Программа по-прежнему будет их считывать для обеспечения "
-#~ "обратной совместимости."
-
-#~ msgid "Do you want to run the sshd server?"
-#~ msgstr "Хотите запустить сервер sshd?"
-
-#~ msgid "This package contains both the ssh client, and the sshd server."
-#~ msgstr "Этот пакет содержит и ssh-клиент, и ssh-сервер."
-
-#~ msgid ""
-#~ "Normally the sshd Secure Shell Server will be run to allow remote logins "
-#~ "via ssh."
-#~ msgstr ""
-#~ "Обычно sshd Secure Shell Server запускается для удаленного входа в "
-#~ "систему через ssh."
-
-#~ msgid ""
-#~ "If you are only interested in using the ssh client for outbound "
-#~ "connections on this machine, and don't want to log into it at all using "
-#~ "ssh, then you can disable sshd here."
-#~ msgstr ""
-#~ "Если вас интересует только использование ssh-клиента для исходящих "
-#~ "соединений с этой машины, и вы не хотите входить в ее систему через ssh, "
-#~ "то сейчас Вы можете запретить sshd."
-
-#~ msgid "Environment options on keys have been deprecated"
-#~ msgstr "Опции окружения для ключей были запрещены"
-
-#~ msgid ""
-#~ "This version of OpenSSH disables the environment option for public keys "
-#~ "by default, in order to avoid certain attacks (for example, LD_PRELOAD). "
-#~ "If you are using this option in an authorized_keys file, beware that the "
-#~ "keys in question will no longer work until the option is removed."
-#~ msgstr ""
-#~ "Эта версия OpenSSH по умолчанию запрещает опцию окружения для публичных "
-#~ "ключей, чтобы избежать атак (например, LD_PRELOAD). Если Вы используете "
-#~ "эту опцию в файле authorized_keys, то будьте внимательны, данные ключи "
-#~ "больше не будут работать, пока опция не удалена."
-
-#~ msgid ""
-#~ "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-#~ "sshd_config after the upgrade is complete, taking note of the warning in "
-#~ "the sshd_config(5) manual page."
-#~ msgstr ""
-#~ "Чтобы вновь  разрешить эту опцию, установите параметр "
-#~ "\"PermitUserEnvironment yes\" в файле sshd_config после завершения "
-#~ "обновления,и обратите внимание на предупреждение в странице руководства "
-#~ "sshd_config(5)."
-
-#~ msgid "Privilege separation"
-#~ msgstr "Разделение привилегий"
-
-#~ msgid ""
-#~ "Privilege separation is turned on by default, so if you decide you want "
-#~ "it turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
-#~ "sshd_config."
-#~ msgstr ""
-#~ "Разделение привилегий по умолчанию включено, поэтому если Вы захотите его "
-#~ "отключить, то необходимо добавить в файл /etc/ssh/sshd_config строку "
-#~ "\"UsePrivilegeSeparation no\"."
-
-#~ msgid "Enable Privilege separation"
-#~ msgstr "Разрешить разделение привилегий"
-
-#~ msgid ""
-#~ "This version of OpenSSH contains the new privilege separation option. "
-#~ "This significantly reduces the quantity of code that runs as root, and "
-#~ "therefore reduces the impact of security holes in sshd."
-#~ msgstr ""
-#~ "Эта версия OpenSSH содержит новую опцию - возможность разделения "
-#~ "привелегий. Это значительно сокращает размер кода, работающего с правами "
-#~ "root, и в целом снижает потенциальную уязвимость sshd."
-
-#~ msgid ""
-#~ "Unfortunately, privilege separation interacts badly with PAM. Any PAM "
-#~ "session modules that need to run as root (pam_mkhomedir, for example) "
-#~ "will fail, and PAM keyboard-interactive authentication won't work."
-#~ msgstr ""
-#~ "К сожалению, разделение привилегий плохо работает с PAM. Это относится к "
-#~ "любым содялм сессий PAM, которым нужно работать с правами root (например, "
-#~ "pam_mkhomedir), и PAM-аутентификация в интерактивном режиме с клавиатуры "
-#~ "работать не будет."
-
-#~ msgid ""
-#~ "Since you've opted to have me generate an sshd_config file for you, you "
-#~ "can choose whether or not to have privilege separation turned on or not. "
-#~ "Unless you know you need to use PAM features that won't work with this "
-#~ "option, you should enable it."
-#~ msgstr ""
-#~ "Так как Вы разрешили мне сгенерировать для Вас файл sshd_config, то вы "
-#~ "можете выбрать, нужно ли включить или выключить опцию разделения "
-#~ "привилегий.Если Вы не знаете, нужно ли Вам использовать функции PAM, "
-#~ "которые не работают с этой опцией, то лучше разрешить ее."
