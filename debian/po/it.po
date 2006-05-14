@@ -36,8 +36,8 @@ msgstr ""
 "significativamente modificato rispetto a quello distribuito in Debian "
 "\"Potato\", che sembra essere quello che si sta aggiornando. Questo "
 "pacchetto è in grado di generare automaticamente un nuovo file di "
-"configurazione (/etc/ssh/sshd.config) adatto alla nuova versione del "
-"server, ma che non contiene nessuna delle personalizzazioni apportate nella "
+"configurazione (/etc/ssh/sshd.config) adatto alla nuova versione del server, "
+"ma che non contiene nessuna delle personalizzazioni apportate nella "
 "precedente versione."
 
 #. Type: boolean
@@ -53,8 +53,8 @@ msgstr ""
 "Nota: nel nuovo file di configurazione il valore di \"PermitRootLogin\" è "
 "impostato a \"yes\" (quindi chiunque conosca la password dell'account root "
 "può collegarsi tramite ssh direttamente come root). È opinione del "
-"manutentore del pacchetto che questo sia il corretto valore predefinito "
-"(si veda README.Debian per ulteriori dettagli) ma, se si desidera, è sempre "
+"manutentore del pacchetto che questo sia il corretto valore predefinito (si "
+"veda README.Debian per ulteriori dettagli) ma, se si desidera, è sempre "
 "possibile modificare il file sshd_config e impostare il valore a \"no\"."
 
 #. Type: boolean
