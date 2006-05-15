@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
 "POT-Creation-Date: 2006-05-12 11:11+0100\n"
-"PO-Revision-Date: 2006-04-07 11:00+0200\n"
+"PO-Revision-Date: 2006-05-14 17:13-0500\n"
 "Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -26,14 +26,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid "Generate new configuration file?"
-msgstr "Xerar un novo ficheiro de configuración"
+msgstr "¿Xerar un novo ficheiro de configuración?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -68,11 +66,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
-msgstr "Recoméndse que permita xerar un novo ficheiro de configuración."
+msgstr ""
+"Recoméndase encarecidamente que permita que este paquete xere agora un novo "
+"ficheiro de configuración."
 
 #. Type: boolean
 #. Description
@@ -148,15 +147,15 @@ msgstr "Aviso: ten que crear unha nove chave de servidor"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
-"Hai un ficheiro /etc/ssh/ssh_host_key antigo cifrado con IDEA. OpenSSH non "
-"pode xestionar este ficheiro de chave do servidor e non se pode atopar a "
-"utilidade ssh-keygen da instalación de SSH antiga (non libre)."
+"Hai un ficheiro /etc/ssh/ssh_host_key antigo, que está cifrado con IDEA. "
+"OpenSSH non pode xestionar este ficheiro de chave do servidor e semella que "
+"a utilidade ssh-keygen da instalación de SSH antiga (non libre) non está "
+"dispoñible."
 
 #. Type: note
 #. Description
