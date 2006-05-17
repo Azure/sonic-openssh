@@ -1,6 +1,9 @@
 openssh (1:4.3p2-2) UNRELEASED; urgency=low
 
   * Include commented-out pam_access example in /etc/pam.d/ssh.
+  * On '/etc/init.d/ssh restart', create /var/run/sshd before checking the
+    server configuration, as otherwise 'sshd -t' will complain about the
+    lack of /var/run/sshd (closes: https://launchpad.net/bugs/45234).
   * debconf template translations:
     - Update Russian (thanks, Yuriy Talakan'; closes: #367143).
     - Update Czech (thanks, Miroslav Kure; closes: #367161).

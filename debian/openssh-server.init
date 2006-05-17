@@ -57,11 +57,11 @@ case "$1" in
 	;;
 
   restart)
+	check_privsep_dir
 	check_config
         echo -n "Restarting OpenBSD Secure Shell server: sshd"
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/sshd.pid
 	check_for_no_start
-	check_privsep_dir
 	start-stop-daemon --start --quiet --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS
 	echo "."
 	;;
