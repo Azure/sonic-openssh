@@ -1,3 +1,10 @@
+openssh (1:4.3p2-3) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update French (thanks, Denis Barbier; closes: #368503).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 22 May 2006 20:22:17 +0100
+
 openssh (1:4.3p2-2) unstable; urgency=low
 
   * Include commented-out pam_access example in /etc/pam.d/ssh.

@@ -13,10 +13,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 3.8.1p1-8.sarge.1\n"
+"Project-Id-Version: openssh 4.3p2-1\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
 "POT-Creation-Date: 2006-05-12 11:11+0100\n"
-"PO-Revision-Date: 2004-10-13 22:39+0200\n"
+"PO-Revision-Date: 2006-05-22 20:13+0200\n"
 "Last-Translator: Denis Barbier <barbier@linuxfr.org>\n"
 "Language-Team: French <Debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,14 +26,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid "Generate new configuration file?"
 msgstr "Faut-il créer un nouveau fichier de configuration ?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -69,7 +67,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
@@ -153,7 +150,6 @@ msgstr "Nouvelle clé d'hôte nécessaire"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -205,83 +201,6 @@ msgid ""
 msgstr ""
 "Si vous désactivez l'authentification par défi-réponse, alors les "
 "utilisateurs ne pourront pas se connecter en entrant un mot de passe. Si "
-"vous la laissez active (ce qui est le défaut), alors l'option "
+"vous la laissez active (ce qui est la valeur par défaut), alors l'option "
 "« PasswordAuthentication no » n'aura d'effet que si vous ajustez aussi la "
 "configuration de PAM dans /etc/pam.d/ssh."
-
-#~ msgid "Do you want ssh-keysign to be installed SUID root?"
-#~ msgstr "Faut-il installer ssh-keysign avec le bit SETUID activé ?"
-
-#~ msgid ""
-#~ "You have the option of installing the ssh-keysign helper with the SUID "
-#~ "bit set."
-#~ msgstr "Vous pouvez installer ssh-keysign avec le bit SETUID activé."
-
-#~ msgid ""
-#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
-#~ "host-based authentication."
-#~ msgstr ""
-#~ "Si vous choisissez cette option, vous permettrez l'authentification basée "
-#~ "sur les hôtes, disponible dans la version 2 du protocole SSH."
-
-#~ msgid ""
-#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
-#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
-#~ msgstr ""
-#~ "Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si "
-#~ "cela vous pose des problèmes, vous pourrez revenir sur votre décision "
-#~ "avec « dpkg-reconfigure ssh »."
-
-#~ msgid "Allow SSH protocol 2 only"
-#~ msgstr "Faut-il autoriser uniquement la version 2 du protocole SSH ?"
-
-#~ msgid ""
-#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
-#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-#~ "things down on low end machines and might prevent older clients from "
-#~ "connecting (the ssh client shipped with \"potato\" is affected)."
-#~ msgstr ""
-#~ "Cette version d'OpenSSH gère la version 2 du protocole SSH, qui est bien "
-#~ "plus sûre. Désactiver la version 1 est recommandé, cependant cela peut "
-#~ "ralentir les machines peu puissantes et pourrait empêcher ceux qui "
-#~ "utilisent de vieilles versions de la partie cliente de se connecter (le "
-#~ "client ssh de la distribution Debian « Potato » en fait partie)."
-
-#~ msgid ""
-#~ "Also please note that keys used for protocol 1 are different so you will "
-#~ "not be able to use them if you only allow protocol 2 connections."
-#~ msgstr ""
-#~ "De plus, les clés utilisées par la version 1 du protocole sont "
-#~ "différentes et vous ne pourrez pas les utiliser si vous n'autorisez que "
-#~ "les connexions utilisant la version 2 du protocole."
-
-#~ msgid ""
-#~ "If you later change your mind about this setting, README.Debian has "
-#~ "instructions on what to do to your sshd_config file."
-#~ msgstr ""
-#~ "Si vous changez d'avis ultérieurement et décidez de modifier ce réglage, "
-#~ "les instructions fournies dans le fichier README.Debian vous indiquent "
-#~ "comment modifier le fichier sshd_config."
-
-#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-#~ msgstr ""
-#~ "Suivi de session X11 et d'agent d'autorisation désactivés par défaut."
-
-#~ msgid ""
-#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
-#~ "ForwardAgent set to ``off'' by default."
-#~ msgstr ""
-#~ "Pour des raisons de sécurité, la version Debian de ssh positionne les "
-#~ "options ForwardX11 et ForwardAgent à « Off » par défaut."
-
-#~ msgid ""
-#~ "You can enable it for servers you trust, either in one of the "
-#~ "configuration files, or with the -X command line option."
-#~ msgstr ""
-#~ "Vous pouvez activer ces options pour les serveurs en qui vous avez "
-#~ "confiance, soit dans un des fichiers de configuration, soit avec l'option "
-#~ "-X de la ligne de commande."
-
-#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-#~ msgstr ""
-#~ "Vous trouverez plus d'informations dans /usr/share/doc/ssh/README.Debian."
