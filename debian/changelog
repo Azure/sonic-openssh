@@ -2,6 +2,8 @@ openssh (1:4.3p2-3) UNRELEASED; urgency=low
 
   * Document KeepAlive->TCPKeepAlive renaming in sshd_config(5) (closes:
     https://launchpad.net/bugs/50702).
+  * Change sshd user's shell to /usr/sbin/nologin (closes: #366541).
+    Introduces dependency on passwd for usermod.
   * debconf template translations:
     - Update French (thanks, Denis Barbier; closes: #368503).
     - Update Dutch (thanks, Bart Cornelis; closes: #375100).

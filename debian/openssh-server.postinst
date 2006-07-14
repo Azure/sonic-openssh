@@ -289,9 +289,15 @@ fix_statoverride() {
 	fi
 }
 
+fix_sshd_shell() {
+	if getent passwd sshd | grep ':/bin/false$'; then
+		usermod -s /usr/sbin/nologin sshd
+	fi
+}
+
 setup_sshd_user() {
 	if ! getent passwd sshd >/dev/null; then
-		adduser --quiet --system --no-create-home --home /var/run/sshd sshd
+		adduser --quiet --system --no-create-home --home /var/run/sshd --shell /usr/sbin/nologin sshd
 	fi
 }
 
@@ -318,6 +324,9 @@ create_sshdconfig
 check_idea_key
 create_keys
 fix_statoverride
+if dpkg --compare-versions "$2" lt 1:4.3p2-3; then
+    fix_sshd_shell
+fi
 setup_sshd_user
 if dpkg --compare-versions "$2" lt 1:3.6.1p2-2; then
     fix_conffile_permissions
