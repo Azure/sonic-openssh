@@ -16,37 +16,29 @@ msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
 "POT-Creation-Date: 2006-05-12 11:11+0100\n"
-"PO-Revision-Date: 2004-10-20 08:53+0900\n"
+"PO-Revision-Date: 2006-07-26 22:52+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid "Generate new configuration file?"
-msgstr "¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤òºî¤ê¤Ş¤¹"
+msgstr "æ–°ã—ã„è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½œã‚Šã¾ã™ã‹?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
-msgstr ""
-"OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢Debian 'Potato' ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¥Ğ¡¼¥¸¥ç¥ó (¤¤¤Ş¡¢"
-"¤½¤Î¥Ğ¡¼¥¸¥ç¥ó¤«¤é¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò»î¤ß¤Æ¤¤¤ë¤È¤³¤í) ¤«¤é¡¢ÀßÄê¥Õ¥¡¥¤¥ë¤¬"
-"ÂçÉı¤ËÊÑ²½¤·¤Æ¤¤¤Ş¤¹¡£¤¤¤Ş¡¢¿·¤·¤¤¥Ğ¡¼¥¸¥ç¥ó¤Î¥µ¡¼¥Ğ¤Ç»È¤¦¤³¤È¤¬¤Ç¤­¤ë¿·¤·¤¤"
-"ÀßÄê¥Õ¥¡¥¤¥ë (/etc/ssh/sshd/config) ¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¤¬¡¢¤½¤Î¥Õ¥¡"
-"¥¤¥ë¤Ï¡¢¸Å¤¤¥Ğ¡¼¥¸¥ç¥ó¤ÎÀßÄê¥Õ¥¡¥¤¥ë¤Ë´Ş¤Ş¤ì¤ë¤¢¤Ê¤¿¤ÎÀßÄê¤¬¤Ş¤Ã¤¿¤¯´Ş¤Ş¤ì¤Ş"
-"¤»¤ó¡£"
+msgstr "OpenSSH ã®ã“ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯ã€Debian 'Potato' ã«å«ã¾ã‚Œã¦ã„ã‚‹ãƒãƒ¼ã‚¸ãƒ§ãƒ³ (ã„ã¾ã€ãã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‹ã‚‰ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—ã‚’è©¦ã¿ã¦ã„ã‚‹ã¨ã“ã‚) ã‹ã‚‰ã€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ãŒå¤§å¹…ã«å¤‰åŒ–ã—ã¦ã„ã¾ã™ã€‚ã„ã¾ã€æ–°ã—ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®ã‚µãƒ¼ãƒã§ä½¿ã†ã“ã¨ãŒã§ãã‚‹æ–°ã—ã„è¨­å®šãƒ•ã‚¡ã‚¤ãƒ« (/etc/ssh/sshd.config) ã‚’è‡ªå‹•ç”Ÿæˆã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ãŒã€ãã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€å¤ã„ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã®è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã«å«ã¾ã‚Œã‚‹ã‚ãªãŸã®è¨­å®šãŒã¾ã£ãŸãå«ã¾ã‚Œã¾ã›ã‚“ã€‚"
 
 #. Type: boolean
 #. Description
@@ -58,25 +50,24 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"¤³¤Î¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤Ï¡¢¡ÖPermitRootLogin¡×¤ò¡Öyes¡×¤ËÀßÄê¤·¤Ş¤¹ (¤Ä¤Ş¤ê¡¢"
-"root ¤Î¥Ñ¥¹¥ï¡¼¥É¤òÃÎ¤Ã¤Æ¤¤¤ë¿Í¤Ê¤éÃ¯¤Ç¤âÄ¾ÀÜ¥í¥°¥¤¥ó¤Ç¤­¤Ş¤¹)¡£¤³¤ì¤Ç¤è¤¤¡¢"
-"¤È¤¤¤¦¤Î¤¬¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Î¥á¥ó¥Æ¥Ê¤Î°Õ¸«¤Ç¤¹¤¬ (¾Ü¤·¤¯¤Ï README.Debian ¤òÆÉ¤ó"
-"¤Ç¤¯¤À¤µ¤¤)¡¢sshd_config ¤òÊÔ½¸¤·¤Æ¡Öno¡×¤ËÀßÄê¤¹¤ë¤³¤È¤â¤Ç¤­¤Ş¤¹¡£"
+"ã“ã®æ–°ã—ã„è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ã€ŒPermitRootLoginã€ã‚’ã€Œyesã€ã«è¨­å®šã—ã¾ã™ (ã¤ã¾ã‚Šã€"
+"root ã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’çŸ¥ã£ã¦ã„ã‚‹äººãªã‚‰èª°ã§ã‚‚ç›´æ¥ãƒ­ã‚°ã‚¤ãƒ³ã§ãã¾ã™)ã€‚ã“ã‚Œã§ã‚ˆã„ã€"
+"ã¨ã„ã†ã®ãŒã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã®ãƒ¡ãƒ³ãƒ†ãƒŠã®æ„è¦‹ã§ã™ãŒ (è©³ã—ãã¯ README.Debian ã‚’èª­ã‚“"
+"ã§ãã ã•ã„)ã€sshd_config ã‚’ç·¨é›†ã—ã¦ã€Œnoã€ã«è¨­å®šã™ã‚‹ã“ã¨ã‚‚ã§ãã¾ã™ã€‚"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:4
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
-msgstr "¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤ò¶¯¤¯¤ª´«¤á¤·¤Ş¤¹¡£"
+msgstr "ã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã§æ–°ã—ã„è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã„ã¾è‡ªå‹•ç”Ÿæˆã™ã‚‹ã“ã¨ã‚’å¼·ããŠå‹§ã‚ã—ã¾ã™ã€‚"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Â³¤±¤Æ¤è¤¤¤Ç¤¹¤« (ÀÜÂ³Ãæ¤Î ssh ¥»¥Ã¥·¥ç¥ó¤¬ÀÚ¤ì¤ë¤«¤â¤·¤ì¤Ş¤»¤ó)"
+msgstr "ç¶šã‘ã¦ã‚ˆã„ã§ã™ã‹ (æ¥ç¶šä¸­ã® ssh ã‚»ãƒƒã‚·ãƒ§ãƒ³ãŒåˆ‡ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“)"
 
 #. Type: boolean
 #. Description
@@ -86,9 +77,9 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"¤¤¤Ş¥¤¥ó¥¹¥È¡¼¥ë¤·¤¿ /etc/init.d/ssh ¤Ï¡¢¤ª¤½¤é¤¯¼Â¹ÔÃæ¤Î sshd ¤ò¤¹¤Ù¤ÆÄä»ß¤µ"
-"¤»¤Ş¤¹¡£¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò ssh ¥»¥Ã¥·¥ç¥ó¤òÍÑ¤¤¤Æ¹Ô¤¦¤Î¤Ï´Ö°ã¤Ã¤¿¤ä¤ê¤«¤¿"
-"¤Ç¤¹¡£"
+"ã„ã¾ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ãŸ /etc/init.d/ssh ã¯ã€ãŠãã‚‰ãå®Ÿè¡Œä¸­ã® sshd ã‚’ã™ã¹ã¦åœæ­¢ã•"
+"ã›ã¾ã™ã€‚ã“ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—ã‚’ ssh ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’ç”¨ã„ã¦è¡Œã†ã®ã¯é–“é•ã£ãŸã‚„ã‚Šã‹ãŸ"
+"ã§ã™ã€‚"
 
 #. Type: boolean
 #. Description
@@ -97,15 +88,15 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"¤³¤Î¾õ¶·¤ò½¤Àµ¤¹¤ë¤Ë¤Ï¡¢/etc/init.d/ssh ¤Î stop ¥»¥¯¥·¥ç¥ó¤Î start-stop-"
-"daemon ¤Î¹Ô¤Ë¡Ö--pidfile /var/run/sshd.pid¡×¤ÈÄÉ²Ã¤·¤Ş¤¹¡£"
+"ã“ã®çŠ¶æ³ã‚’ä¿®æ­£ã™ã‚‹ã«ã¯ã€/etc/init.d/ssh ã® stop ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã® start-stop-"
+"daemon ã®è¡Œã«ã€Œ--pidfile /var/run/sshd.pidã€ã¨è¿½åŠ ã—ã¾ã™ã€‚"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
-"·Ù¹ğ: rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó"
+"è­¦å‘Š: rsh-server ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã™ã€‚ãŸã¶ã‚“è‰¯ã„è€ƒãˆã§ã¯ã‚ã‚Šã¾ã›ã‚“"
 
 #. Type: note
 #. Description
@@ -114,15 +105,15 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¤È¡¢¤¢¤Ê¤¿¤¬ ssh ¤Ë¤è¤Ã¤ÆÆÀ¤¿¤¤¤È»×¤Ã¤Æ¤¤"
-"¤ë¤Ç¤¢¤í¤¦¥»¥­¥å¥ê¥Æ¥£¤¬Â»¤Ê¤ï¤ì¤Ş¤¹¡£¤½¤Î¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤³"
-"¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£"
+"rsh-server ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã¨ã€ã‚ãªãŸãŒ ssh ã«ã‚ˆã£ã¦å¾—ãŸã„ã¨æ€ã£ã¦ã„"
+"ã‚‹ã§ã‚ã‚ã†ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãŒæãªã‚ã‚Œã¾ã™ã€‚ãã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã“"
+"ã¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "·Ù¹ğ: telnetd ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó"
+msgstr "è­¦å‘Š: telnetd ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã¾ã™ã€‚ãŸã¶ã‚“è‰¯ã„è€ƒãˆã§ã¯ã‚ã‚Šã¾ã›ã‚“"
 
 #. Type: note
 #. Description
@@ -133,41 +124,37 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"(¤â¤· telnet ¥¢¥¯¥»¥¹¤òÄó¶¡¤·¤¿¤¤¤È»×¤Ã¤Æ¤¤¤Ê¤¤¤Î¤Ç¤·¤¿¤é) telnetd ¥Ñ¥Ã¥±¡¼¥¸"
-"¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤Ş¤¿¤Ï¡¢telnetd-ssh ¥Ñ¥Ã¥±¡¼¥¸¤ò ¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¾¯"
-"¤Ê¤¯¤È¤â¥Í¥Ã¥È¥ï¡¼¥¯¾å¤ò°Å¹æ²½¤µ¤ì¤Æ¤¤¤Ê¤¤¥æ¡¼¥¶Ì¾¤ä¥Ñ¥¹¥ï¡¼¥É¤ä¥»¥Ã¥·¥ç¥ó¾ğ"
-"Êó¤¬Î®¤ì¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£"
+"(ã‚‚ã— telnet ã‚¢ã‚¯ã‚»ã‚¹ã‚’æä¾›ã—ãŸã„ã¨æ€ã£ã¦ã„ãªã„ã®ã§ã—ãŸã‚‰) telnetd ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸"
+"ã‚’ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã‹ã€ã¾ãŸã¯ã€telnetd-ssh ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦å°‘"
+"ãªãã¨ã‚‚ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ä¸Šã‚’æš—å·åŒ–ã•ã‚Œã¦ã„ãªã„ãƒ¦ãƒ¼ã‚¶åã‚„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚„ã‚»ãƒƒã‚·ãƒ§ãƒ³æƒ…"
+"å ±ãŒæµã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ã“ã¨ã‚’ãŠå‹§ã‚ã—ã¾ã™ã€‚"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
-msgstr "·Ù¹ğ: ¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤é¤Ê¤¤¤È¤¤¤±¤Ş¤»¤ó"
+msgstr "è­¦å‘Š: æ–°ã—ã„ãƒ›ã‚¹ãƒˆã‚­ãƒ¼ã‚’ä½œã‚‰ãªã„ã¨ã„ã‘ã¾ã›ã‚“"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
-msgstr ""
-"IDEA ¤Ç°Å¹æ²½¤µ¤ì¤¿¸Å¤¤¥­¡¼¤¬ /etc/ssh/ssh_host_key ¤Ë¤¢¤ê¤Ş¤¹¡£ OpenSSH ¤Ï¤³"
-"¤Î¥Û¥¹¥È¥­¡¼¥Õ¥¡¥¤¥ë¤ò°·¤¨¤Ş¤»¤ó¡£¤Ş¤¿¡¢º£¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¸Å¤¤ (¥Õ¥ê¡¼"
-"¤Ç¤Ï¤Ê¤¤) SSH ¤Ë¤Ï ssh-keygen ¥æ¡¼¥Æ¥£¥ê¥Æ¥£¤¬´Ş¤Ş¤ì¤Æ¤¤¤Ş¤»¤ó¡£"
+msgstr "IDEA ã§æš—å·åŒ–ã•ã‚ŒãŸå¤ã„ã‚­ãƒ¼ãŒ /etc/ssh/ssh_host_key ã«ã‚ã‚Šã¾ã™ã€‚ OpenSSH ã¯ã“ã®ãƒ›ã‚¹ãƒˆã‚­ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ‰±ãˆã¾ã›ã‚“ã€‚ã¾ãŸã€ä»Šã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹å¤ã„ (ãƒ•ãƒªãƒ¼ã§ã¯ãªã„) SSH ã«ã¯ ssh-keygen ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ãŒå«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã€‚"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
-msgstr "¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤ëÉ¬Í×¤¬¤¢¤ê¤Ş¤¹¡£"
+msgstr "æ–°ã—ã„ãƒ›ã‚¹ãƒˆã‚­ãƒ¼ã‚’ä½œã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
-msgstr "¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥İ¥ó¥¹Ç§¾Ú¤òÌµ¸ú¤Ë¤·¤Ş¤¹¤«?"
+msgstr "ãƒãƒ£ãƒ¬ãƒ³ã‚¸-ãƒ¬ã‚¹ãƒãƒ³ã‚¹èªè¨¼ã‚’ç„¡åŠ¹ã«ã—ã¾ã™ã‹?"
 
 #. Type: boolean
 #. Description
@@ -180,11 +167,11 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"¸½ºß¤Î OpenSSH ¥µ¡¼¥Ğ¤ÎÀßÄê¤Ç¤Ï¥Ñ¥¹¥ï¡¼¥ÉÇ§¾Ú¤¬Ìµ¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£"
-"OpenSSH ¤ÎºÇ¶á¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ç¥Ñ¥¹¥ï¡¼¥É¤ò»È¤Ã¤Æ¥æ¡¼¥¶¤¬¥í¥°¥¤¥ó¤¹¤ë¤Î¤òËÉ¤° "
-"(Â¿Ê¬¸ø³«¸°Ç§¾Ú¤À¤±¤òÂå¤ï¤ê¤Ë»È¤¦) ¤¿¤á¤Ë¤Ï¡¢¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥İ¥ó¥¹Ç§¾Ú¤òÌµ¸ú"
-"¤Ë¤¹¤ë¤«¡¢PAM ÀßÄê¤Ç Unix ¥Ñ¥¹¥ï¡¼¥É¥Õ¥¡¥¤¥ëÇ§¾Ú¤òÀäÂĞ¤Ëµö²Ä¤·¤Ê¤¤¤è¤¦¤Ë¤¹¤ë"
-"É¬Í×¤¬¤¢¤ê¤Ş¤¹¡£"
+"ç¾åœ¨ã® OpenSSH ã‚µãƒ¼ãƒã®è¨­å®šã§ã¯ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰èªè¨¼ãŒç„¡åŠ¹ã«ãªã£ã¦ã„ã‚‹ã‚ˆã†ã§ã™ã€‚"
+"OpenSSH ã®æœ€è¿‘ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’ä½¿ã£ã¦ãƒ¦ãƒ¼ã‚¶ãŒãƒ­ã‚°ã‚¤ãƒ³ã™ã‚‹ã®ã‚’é˜²ã "
+"(å¤šåˆ†å…¬é–‹éµèªè¨¼ã ã‘ã‚’ä»£ã‚ã‚Šã«ä½¿ã†) ãŸã‚ã«ã¯ã€ãƒãƒ£ãƒ¬ãƒ³ã‚¸-ãƒ¬ã‚¹ãƒãƒ³ã‚¹èªè¨¼ã‚’ç„¡åŠ¹"
+"ã«ã™ã‚‹ã‹ã€PAM è¨­å®šã§ Unix ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«èªè¨¼ã‚’çµ¶å¯¾ã«è¨±å¯ã—ãªã„ã‚ˆã†ã«ã™ã‚‹"
+"å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚"
 
 #. Type: boolean
 #. Description
@@ -195,180 +182,7 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥İ¥ó¥¹Ç§¾Ú¤òÌµ¸ú¤Ë¤¹¤ë¾ì¹ç¡¢¥æ¡¼¥¶¤Ï¥Ñ¥¹¥ï¡¼¥É¤ò»È¤Ã¤Æ¥í¥°¥¤¥ó"
-"¤Ç¤­¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£Í­¸ú (¥Ç¥Õ¥©¥ë¥È) ¤Î¤Ş¤Ş¤Ë¤·¤Æ¤ª¤¯¤È¡¢/etc/pam.d/ssh ¤Ë¤¢"
-"¤ë PAM ÀßÄê¤òÄ´Àá¤·¤Ê¤¤¸Â¤ê¡¢'PasswordAuthentication no' ¥ª¥×¥·¥ç¥ó¤Ï¸ú²Ì¤ò»ı"
-"¤¿¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£"
-
-#~ msgid "Do you want ssh-keysign to be installed SUID root?"
-#~ msgstr "ssh-keysign ¤ò SUID root ¤Ç¥¤¥ó¥¹¥È¡¼¥ë¤·¤Ş¤¹¤«?"
-
-#~ msgid ""
-#~ "You have the option of installing the ssh-keysign helper with the SUID "
-#~ "bit set."
-#~ msgstr ""
-#~ "ssh-keysign ¥Ø¥ë¥Ñ¡¼¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ëºİ¡¢SUID ¥Ó¥Ã¥È¤òÀßÄê¤¹¤ë¤«¤·¤Ê¤¤¤«"
-#~ "¤òÁª¤Ö¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
-#~ "host-based authentication."
-#~ msgstr ""
-#~ "ssh-keysign ¤ò SUID ¤ËÀßÄê¤·¤¿¾ì¹ç¡¢SSH ¥×¥í¥È¥³¥ë 2 ¤Î¥Û¥¹¥È¤Ë´ğ¤Å¤¯Ç§¾Ú"
-#~ "¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
-#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
-#~ msgstr ""
-#~ "¤è¤¯Ê¬¤«¤é¤Ê¤¤¾ì¹ç¤Ï¡¢SUID ¤òÍ­¸ú¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£¤â¤· ÌäÂê¤¬µ¯¤³"
-#~ "¤ì¤Ğ¡¢dpkg-reconfigure ssh ¤ò¼Â¹Ô¤¹¤ë¤³¤È¤ÇÀßÄê¤òÊÑ¹¹¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£"
-
-#~ msgid "Allow SSH protocol 2 only"
-#~ msgstr "SSH ¥×¥í¥È¥³¥ë 2 ¤Î¤ß¤òµö²Ä¤·¤Ş¤¹"
-
-#~ msgid ""
-#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
-#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-#~ "things down on low end machines and might prevent older clients from "
-#~ "connecting (the ssh client shipped with \"potato\" is affected)."
-#~ msgstr ""
-#~ "OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢¤º¤Ã¤È°ÂÁ´¤Ê¡¢ssh ¥×¥í¥È¥³¥ë¤Î¥Ğ¡¼¥¸¥ç¥ó 2 ¤ò"
-#~ "¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤¹¡£ssh 1 ¤ò¶Ø»ß¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¤¬¡¢ÃÙ¤¤¥Ş¥·¥ó¤Ç¤ÏÆ°"
-#~ "ºî¤¬ÃÙ¤¯¤Ê¤Ã¤¿¤ê¡¢¸Å¤¤¥¯¥é¥¤¥¢¥ó¥È¤«¤éÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤Ã¤¿¤ê¤·¤Ş¤¹ (\"potato"
-#~ "\" ¤Î ssh ¥¯¥é¥¤¥¢¥ó¥È¤âÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤ê¤Ş¤¹)¡£"
-
-#~ msgid ""
-#~ "Also please note that keys used for protocol 1 are different so you will "
-#~ "not be able to use them if you only allow protocol 2 connections."
-#~ msgstr ""
-#~ "¤Ş¤¿¡¢¥×¥í¥È¥³¥ë 1 ¤Ç»È¤¦¥­¡¼¤Ï°Û¤Ê¤ë¤¿¤á¡¢¥×¥í¥È¥³¥ë 2 ¤òÍ­¸ú¤Ë¤·¤¿¤À¤±¤Ç"
-#~ "¤Ï¤½¤Î¥­¡¼¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó¡£"
-
-#~ msgid ""
-#~ "If you later change your mind about this setting, README.Debian has "
-#~ "instructions on what to do to your sshd_config file."
-#~ msgstr ""
-#~ "¤â¤·º£¸å¤¢¤Ê¤¿¤¬¹Í¤¨¤òÊÑ¤¨¤¿¤é¡¢README.Debian ¤òÆÉ¤à¤È sshd_config ¤ò¤É¤Î"
-#~ "¤è¤¦¤ËÊÑ¹¹¤·¤¿¤é¤è¤¤¤«¤¬Ê¬¤«¤ê¤Ş¤¹¡£"
-
-#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-#~ msgstr "Ãí°Õ: X11 ¤ÈÇ§¾Ú¤Î¥Õ¥©¥ï¡¼¥Ç¥£¥ó¥°¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¶Ø»ß¤µ¤ì¤Ş¤¹"
-
-#~ msgid ""
-#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
-#~ "ForwardAgent set to ``off'' by default."
-#~ msgstr ""
-#~ "¥»¥­¥å¥ê¥Æ¥£¾å¤ÎÍıÍ³¤«¤é¡¢Debian ¤Î ssh ¤Ç¤Ï ForwardX11 ¤È ForwardAgent ¤Ï"
-#~ "¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡Öoff¡×¤ËÀßÄê¤µ¤ì¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "You can enable it for servers you trust, either in one of the "
-#~ "configuration files, or with the -X command line option."
-#~ msgstr ""
-#~ "ÀßÄê¥Õ¥¡¥¤¥ë¤ò»È¤Ã¤¿¤ê¡¢-X ¥³¥Ş¥ó¥É¥é¥¤¥ó¥ª¥×¥·¥ç¥ó¤ò»È¤Ã¤¿¤ê¤¹¤ë¤³¤È¤Ç¡¢"
-#~ "¿®ÍÑ¤Ç¤­¤ë¥µ¡¼¥Ğ¤ËÂĞ¤·¤Æµö²Ä¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£"
-
-#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-#~ msgstr "¾ÜºÙ¤Ï /usr/share/doc/ssh/README.Debian ¤òÆÉ¤ó¤Ç¤¯¤À¤µ¤¤¡£"
-
-#~ msgid "ssh2 keys merged in configuration files"
-#~ msgstr "ssh2 ¥­¡¼¤ÏÀßÄê¥Õ¥¡¥¤¥ë¤ËÅı¹ç¤µ¤ì¤Ş¤¹"
-
-#~ msgid ""
-#~ "As of version 3 OpenSSH no longer uses separate files for ssh1 and ssh2 "
-#~ "keys. This means the authorized_keys2 and known_hosts2 files are no "
-#~ "longer needed. They will still be read in order to maintain backwards "
-#~ "compatibility"
-#~ msgstr ""
-#~ "OpenSSH ¤Î¥Ğ¡¼¥¸¥ç¥ó 3 ¤Ï¡¢ssh1 ¤È ssh2 ¤Î¥­¡¼¤Ë¸ÄÊÌ¤Î¥Õ¥¡¥¤¥ë¤ò»È¤¤¤Ş¤»"
-#~ "¤ó¡£¤Ä¤Ş¤ê¡¢authorized_keys2 ¥Õ¥¡¥¤¥ë¤È known_hosts2 ¥Õ¥¡¥¤¥ë¤Ï¤â¤Ï¤äÉÔÍ×"
-#~ "¤È¤Ê¤ê¤Ş¤·¤¿¡£¸åÊı¸ß´¹À­¤òÊİ¤Ä¤¿¤á¤Ë¤Ï¤³¤ì¤é¤Î¥Õ¥¡¥¤¥ë¤¬É¬Í×¤Ç¤¹¡£"
-
-#~ msgid "Do you want to run the sshd server?"
-#~ msgstr "sshd ¥µ¡¼¥Ğ¤ò¼Â¹Ô¤·¤Ş¤¹¤«?"
-
-#~ msgid "This package contains both the ssh client, and the sshd server."
-#~ msgstr ""
-#~ "¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Ï¡¢ssh ¥¯¥é¥¤¥¢¥ó¥È¤È sshd ¥µ¡¼¥Ğ¤ÎÎ¾Êı¤ò´Ş¤ó¤Ç¤¤¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "Normally the sshd Secure Shell Server will be run to allow remote logins "
-#~ "via ssh."
-#~ msgstr ""
-#~ "ÄÌ¾ï¡¢sshd ¥»¥­¥å¥¢¥·¥§¥ë¥µ¡¼¥Ğ¤Ï¡¢ssh ¤òÍÑ¤¤¤¿¥ê¥â¡¼¥È¤«¤é¤Î¥í¥°¥¤¥ó¤ò²Ä"
-#~ "Ç½¤Ë¤¹¤ë¤¿¤á¤Ë¼Â¹Ô¤·¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "If you are only interested in using the ssh client for outbound "
-#~ "connections on this machine, and don't want to log into it at all using "
-#~ "ssh, then you can disable sshd here."
-#~ msgstr ""
-#~ "¤â¤· ssh ¥¯¥é¥¤¥¢¥ó¥È¤ò»È¤Ã¤Æ¤³¤Î¥Ş¥·¥ó¤«¤éÂ¾¥Ş¥·¥ó¤Ø¤ÈÀÜÂ³¤¹¤ë¤À¤±¤Ç¡¢¤³"
-#~ "¤Î¥Ş¥·¥ó¤Ø¤È ssh ¤ò»È¤Ã¤Æ¥í¥°¥¤¥ó¤·¤Ê¤¤¤Î¤Ç¤·¤¿¤é¡¢¤³¤³¤Ç sshd ¤ò¼Â¹Ô¤·¤Ê"
-#~ "¤¤¤Ç¤ª¤­¤Ş¤¹¡£"
-
-#~ msgid "Environment options on keys have been deprecated"
-#~ msgstr "¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ÏÌµ¸ú¤ËÀßÄê¤µ¤ì¤Ş¤·¤¿"
-
-#~ msgid ""
-#~ "This version of OpenSSH disables the environment option for public keys "
-#~ "by default, in order to avoid certain attacks (for example, LD_PRELOAD). "
-#~ "If you are using this option in an authorized_keys file, beware that the "
-#~ "keys in question will no longer work until the option is removed."
-#~ msgstr ""
-#~ "ËÜ¥Ğ¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¸ø³«¸°¤Î´Ä¶­¥ª¥×¥·¥ç¥ó¤ò¥Ç¥Õ¥©¥ë¥È¤ÇÌµ¸ú¤ËÀßÄê"
-#~ "¤·¤Æ¤¤¤Ş¤¹¡£LD_PRELOAD ¤Ê¤É¤Î¹¶·â¤òÈò¤±¤ë¤¿¤á¤Ç¤¹¡£¤â¤· authorized_keys "
-#~ "¥Õ¥¡¥¤¥ë¤Ç¤³¤Î¥ª¥×¥·¥ç¥ó¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¡¢¤³¤Î¥ª¥×¥·¥ç¥ó¤ò½üµî¤·¤Ê¤¤¸Â¤ê"
-#~ "¤Ï¤½¤Î¸°¤ÏÍøÍÑ¤Ç¤­¤Ê¤¤¤³¤È¤ËÃí°Õ¤·¤Æ¤¯¤À¤µ¤¤¡£"
-
-#~ msgid ""
-#~ "To re-enable this option, set \"PermitUserEnvironment yes\" in /etc/ssh/"
-#~ "sshd_config after the upgrade is complete, taking note of the warning in "
-#~ "the sshd_config(5) manual page."
-#~ msgstr ""
-#~ "¤³¤Î¥ª¥×¥·¥ç¥ó¤òºÆ¤ÓÍ­¸ú¤Ë¤¹¤ë¤Ë¤Ï¡¢¥¢¥Ã¥×¥°¥ì¡¼¥É½ªÎ»¸å¤Ë¡¢sshd_config"
-#~ "(5) ¥Ş¥Ë¥å¥¢¥ë¥Ú¡¼¥¸¤Î·Ù¹ğ»ö¹à¤òÆÉ¤ó¤Ç¡¢ /etc/ssh/sshd_config ¥Õ¥¡¥¤¥ë¤Ë"
-#~ "¡ÖPermitUserEnvironment yes¡×¤ÈÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
-
-#~ msgid "Privilege separation"
-#~ msgstr "ÆÃ¸¢¤ÎÊ¬Î¥"
-
-#~ msgid ""
-#~ "Privilege separation is turned on by default, so if you decide you want "
-#~ "it turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
-#~ "sshd_config."
-#~ msgstr ""
-#~ "ÆÃ¸¢Ê¬Î¥¤Ï¥Ç¥Õ¥©¥ë¥È¤ÇÍ­¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤Ş¤¹¡£Ìµ¸ú¤Ë¤·¤¿¤¤¾ì¹ç¤Ï¡¢/etc/ssh/"
-#~ "sshd_conf ¤Ë¡ÖUsePrivilegeSeparation no¡×¤È¤¤¤¦¹Ô¤òÄÉ²Ã¤·¤Æ¤¯¤À¤µ¤¤¡£"
-
-#~ msgid "Enable Privilege separation"
-#~ msgstr "ÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹¤ë"
-
-#~ msgid ""
-#~ "This version of OpenSSH contains the new privilege separation option. "
-#~ "This significantly reduces the quantity of code that runs as root, and "
-#~ "therefore reduces the impact of security holes in sshd."
-#~ msgstr ""
-#~ "ËÜ¥Ğ¡¼¥¸¥ç¥ó¤Î OpenSSH ¤Ï¡¢¿·¤·¤¤ÆÃ¸¢Ê¬Î¥¥ª¥×¥·¥ç¥ó¤ò»ı¤Ã¤Æ¤¤¤Ş¤¹¡£ ¤³¤ì¤Ë"
-#~ "¤è¤Ã¤Æ¡¢root ¸¢¸Â¤Ç¼Â¹Ô¤µ¤ì¤ë¥³¡¼¥É¤ÎÎÌ¤òÂçÉı¤Ë¸º¤é¤¹¤³¤È¤¬¤Ç¤­¡¢sshd ¤Î¥»"
-#~ "¥­¥å¥ê¥Æ¥£¥Û¡¼¥ë¤Î±Æ¶Á¤ò¸º¤é¤¹¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "Unfortunately, privilege separation interacts badly with PAM. Any PAM "
-#~ "session modules that need to run as root (pam_mkhomedir, for example) "
-#~ "will fail, and PAM keyboard-interactive authentication won't work."
-#~ msgstr ""
-#~ "»ÄÇ°¤Ê¤³¤È¤Ë¡¢ÆÃ¸¢Ê¬Î¥¤Ï PAM ¤Ë°­±Æ¶Á¤òÍ¿¤¨¤Ş¤¹¡£root ¤Ç¼Â¹Ô¤µ¤ì¤ë¤¹¤Ù¤Æ"
-#~ "¤Î PAM ¥»¥Ã¥·¥ç¥ó¥â¥¸¥å¡¼¥ë (¤¿¤È¤¨¤Ğ pam_mkhomedir) ¤ÏÆ°¤«¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£"
-#~ "¤Ş¤¿¡¢PAM ¥­¡¼¥Ü¡¼¥ÉÂĞÏÃÅªÇ§¾Ú¤âÆ°ºî¤·¤Ê¤¯¤Ê¤ê¤Ş¤¹¡£"
-
-#~ msgid ""
-#~ "Since you've opted to have me generate an sshd_config file for you, you "
-#~ "can choose whether or not to have privilege separation turned on or not. "
-#~ "Unless you know you need to use PAM features that won't work with this "
-#~ "option, you should enable it."
-#~ msgstr ""
-#~ "sshd_config ¥Õ¥¡¥¤¥ë¤òÀ¸À®¤¹¤ë¤³¤È¤òÁªÂò¤·¤¿¤Î¤Ç¡¢¤³¤³¤ÇÆÃ¸¢Ê¬Î¥¤òÍ­¸ú¤Ë¤¹"
-#~ "¤ë¤«¤·¤Ê¤¤¤«¤òÁªÂò¤Ç¤­¤Ş¤¹¡£¤³¤ÎÁªÂò¤ÇÆ°ºî¤·¤Ê¤¤ PAM µ¡Ç½¤ò»È¤¤¤¿¤¤¾ì¹ç°Ê"
-#~ "³°¤Ï¡¢¡Ö¤Ï¤¤¡×¤òÁª¤Ö¤Ù¤­¤Ç¤¹¡£"
+"ãƒãƒ£ãƒ¬ãƒ³ã‚¸-ãƒ¬ã‚¹ãƒãƒ³ã‚¹èªè¨¼ã‚’ç„¡åŠ¹ã«ã™ã‚‹å ´åˆã€ãƒ¦ãƒ¼ã‚¶ã¯ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’ä½¿ã£ã¦ãƒ­ã‚°ã‚¤ãƒ³"
+"ã§ããªããªã‚Šã¾ã™ã€‚æœ‰åŠ¹ (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ) ã®ã¾ã¾ã«ã—ã¦ãŠãã¨ã€/etc/pam.d/ssh ã«ã‚"
+"ã‚‹ PAM è¨­å®šã‚’èª¿ç¯€ã—ãªã„é™ã‚Šã€'PasswordAuthentication no' ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã¯åŠ¹æœã‚’æŒ"
+"ãŸãªããªã‚Šã¾ã™ã€‚"

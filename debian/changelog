@@ -7,6 +7,7 @@ openssh (1:4.3p2-3) UNRELEASED; urgency=low
   * debconf template translations:
     - Update French (thanks, Denis Barbier; closes: #368503).
     - Update Dutch (thanks, Bart Cornelis; closes: #375100).
+    - Update Japanese (thanks, Kenshi Muto; closes: #379950).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 22 May 2006 20:22:17 +0100
 
