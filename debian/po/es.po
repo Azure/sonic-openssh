@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-05-12 11:11+0100\n"
+"POT-Creation-Date: 2006-07-26 21:42+0100\n"
 "PO-Revision-Date: 2004-10-12 00:00-0500\n"
 "Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -42,14 +42,14 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid "Generate new configuration file?"
 msgstr "Generar un nuevo fichero de configuración"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
@@ -67,7 +67,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4
+#: ../openssh-server.templates.master:1001
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
@@ -84,7 +84,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
@@ -95,13 +95,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:23
+#: ../openssh-server.templates.master:2001
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "¿Desea continuar, aún a riesgo de matar las sesiones ssh activas?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:23
+#: ../openssh-server.templates.master:2001
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -113,7 +113,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:23
+#: ../openssh-server.templates.master:2001
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -123,14 +123,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:33
+#: ../openssh-server.templates.master:3001
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:33
+#: ../openssh-server.templates.master:3001
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -141,13 +141,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:40
+#: ../openssh-server.templates.master:4001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:40
+#: ../openssh-server.templates.master:4001
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -161,13 +161,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:5001
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: debe crear una nueva clave para su servidor"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:5001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -180,19 +180,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
+#: ../openssh-server.templates.master:5001
 msgid "You will need to generate a new host key."
 msgstr "Necesitará generar una nueva clave para su servidor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:58
+#: ../openssh-server.templates.master:6001
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:58
+#: ../openssh-server.templates.master:6001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -211,7 +211,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:58
+#: ../openssh-server.templates.master:6001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
