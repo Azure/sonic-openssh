@@ -1,4 +1,4 @@
-openssh (1:4.3p2-3) UNRELEASED; urgency=low
+openssh (1:4.3p2-3) unstable; urgency=low
 
   * Document KeepAlive->TCPKeepAlive renaming in sshd_config(5) (closes:
     https://launchpad.net/bugs/50702).
@@ -9,7 +9,7 @@ openssh (1:4.3p2-3) UNRELEASED; urgency=low
     - Update Dutch (thanks, Bart Cornelis; closes: #375100).
     - Update Japanese (thanks, Kenshi Muto; closes: #379950).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 22 May 2006 20:22:17 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 27 Jul 2006 00:12:36 +0100
 
 openssh (1:4.3p2-2) unstable; urgency=low
 
