@@ -1,3 +1,10 @@
+openssh (1:4.3p2-4) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update Portuguese (thanks, Rui Branco; closes: #381942).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue,  8 Aug 2006 13:28:54 +0100
+
 openssh (1:4.3p2-3) unstable; urgency=low
 
   * Document KeepAlive->TCPKeepAlive renaming in sshd_config(5) (closes:
