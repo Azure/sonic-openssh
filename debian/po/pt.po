@@ -18,7 +18,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates.master:1001
 msgid "Generate new configuration file?"
-msgstr "Gerar ficheiro de configuraÁ„o novo?"
+msgstr "Gerar ficheiro de configura√ß√£o novo?"
 
 #. Type: boolean
 #. Description
@@ -30,11 +30,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"Esta vers„o do OpenSSH tem um ficheiro de configuraÁ„o bastante diferente da "
-"vers„o que vinha com o Debian 'Potato', que parece ser de onde est· a actualizar. "
-"Este pacote pode agora gerar um novo ficheiro de configuraÁ„o (/etc/ssh/sshd.config), "
-"que ir· funcionar com a nova vers„o do servidor, mas n„o conter· nenhuma alteraÁ„o "
-"que tenha feito ‡ vers„o antiga."
+"Esta vers√£o do OpenSSH tem um ficheiro de configura√ß√£o bastante diferente da "
+"vers√£o que vinha com o Debian 'Potato', que parece ser de onde est√° a actualizar. "
+"Este pacote pode agora gerar um novo ficheiro de configura√ß√£o (/etc/ssh/sshd.config), "
+"que ir√° funcionar com a nova vers√£o do servidor, mas n√£o conter√° nenhuma altera√ß√£o "
+"que tenha feito √† vers√£o antiga."
 
 #. Type: boolean
 #. Description
@@ -46,11 +46,11 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"Por favor note que este novo ficheiro de configuraÁ„o ter· 'PermitRootLogin' "
+"Por favor note que este novo ficheiro de configura√ß√£o ter√° 'PermitRootLogin' "
 "definido para sim (o que significa que qualquer pessoa que saiba a palavra-chave "
-"de root pode ligar-se directamente como root a partir do ssh). … da opini„o "
-"de quem mantÈm o pacote que este È o valor correcto por omiss„o (ver README.Debian "
-"para mais detalhes), mas pode sempre editar o sshd_config e definir n„o, "
+"de root pode ligar-se directamente como root a partir do ssh). √â da opini√£o "
+"de quem mant√©m o pacote que este √© o valor correcto por omiss√£o (ver README.Debian "
+"para mais detalhes), mas pode sempre editar o sshd_config e definir n√£o, "
 "se o desejar."
 
 #. Type: boolean
@@ -60,14 +60,14 @@ msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
 msgstr ""
-"… fortemente recomendado que deixe este pacote gerar o novo ficheiro "
-"de configuraÁ„o agora."
+"√â fortemente recomendado que deixe este pacote gerar o novo ficheiro "
+"de configura√ß√£o agora."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Deseja continuar (e arriscar terminar todas as sessıes activas de ssh)?"
+msgstr "Deseja continuar (e arriscar terminar todas as sess√µes activas de ssh)?"
 
 #. Type: boolean
 #. Description
@@ -77,9 +77,9 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"A vers„o do /etc/init.d/ssh que tem instalado provavelmente terminar· todas "
-"as inst‚ncias de sshd. Se vai actualizar atravÈs de uma sess„o ssh, pode "
-"ser uma M· Ideia(tm)."
+"A vers√£o do /etc/init.d/ssh que tem instalado provavelmente terminar√° todas "
+"as inst√¢ncias de sshd. Se vai actualizar atrav√©s de uma sess√£o ssh, pode "
+"ser uma M√° Ideia(tm)."
 
 #. Type: boolean
 #. Description
@@ -88,14 +88,14 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Pode arranjar isto adicionando \"--pidfile /var/run/sshd.pid\" ‡ linha "
-"start-stop-daemon na secÁ„o stop do ficheiro."
+"Pode arranjar isto adicionando \"--pidfile /var/run/sshd.pid\" √† linha "
+"start-stop-daemon na sec√ß√£o stop do ficheiro."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Aviso: o rsh-server est· instalado --- provavelmente n„o È uma boa ideia"
+msgstr "Aviso: o rsh-server est√° instalado --- provavelmente n√£o √© uma boa ideia"
 
 #. Type: note
 #. Description
@@ -104,14 +104,14 @@ msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
 msgstr ""
-"ter o rsh-server instalado mina a seguranÁa que provavelmente deseja ao "
+"ter o rsh-server instalado mina a seguran√ßa que provavelmente deseja ao "
 "instalar o ssh. Aconselho que remova esse pacote."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
 msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Aviso: o telnetd est· instalado -- provavelmente n„o È uma boa ideia"
+msgstr "Aviso: o telnetd est√° instalado -- provavelmente n√£o √© uma boa ideia"
 
 #. Type: note
 #. Description
@@ -122,9 +122,9 @@ msgid ""
 "least some chance that telnet sessions will not be sending unencrypted login/"
 "password and session information over the network."
 msgstr ""
-"Aconselho que ou remova o pacote telnetd (se n„o necessita mesmo de oferecer "
-"acesso por telnet) ou instale o telnetd-ssl para que tenha alguma hipÛtese "
-"de que as sessıes de telnet n„o enviem login/palavra-chave n„o-cifradas pela "
+"Aconselho que ou remova o pacote telnetd (se n√£o necessita mesmo de oferecer "
+"acesso por telnet) ou instale o telnetd-ssl para que tenha alguma hip√≥tese "
+"de que as sess√µes de telnet n√£o enviem login/palavra-chave n√£o-cifradas pela "
 "rede."
 
 #. Type: note
@@ -141,21 +141,21 @@ msgid ""
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
-"Existe um /etc/ssh/ssh_host_key antigo que est· cifrado com IDEA. O OpenSSH "
-"n„o consegue usar este ficheiro de chave de 'host', e o utilit·rio ssh-keygen "
-"da instalaÁ„o antiga (n„o livre) do SSH parece n„o estar disponÌvel."
+"Existe um /etc/ssh/ssh_host_key antigo que est√° cifrado com IDEA. O OpenSSH "
+"n√£o consegue usar este ficheiro de chave de 'host', e o utilit√°rio ssh-keygen "
+"da instala√ß√£o antiga (n√£o livre) do SSH parece n√£o estar dispon√≠vel."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:5001
 msgid "You will need to generate a new host key."
-msgstr "Ter· de gerar uma nova chave para o host."
+msgstr "Ter√° de gerar uma nova chave para o host."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:6001
 msgid "Disable challenge-response authentication?"
-msgstr "Desactivar autenticaÁ„o por desafio-resposta?"
+msgstr "Desactivar autentica√ß√£o por desafio-resposta?"
 
 #. Type: boolean
 #. Description
@@ -168,11 +168,11 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"AutenticaÁ„o por palavra-chave aparenta estar desactivada na sua configuraÁ„o "
+"Autentica√ß√£o por palavra-chave aparenta estar desactivada na sua configura√ß√£o "
 "actual do servidor OpenSSH. De forma a impedir que os utilizadores se liguem "
-"usando palavras-chave (talvez usando apenas autenticaÁ„o por chave p˙blica) "
-"com versıes recentes do OpenSSH, tem de desactivar a autenticaÁ„o por desafio-"
-"resposta, ou assegurar-se que a sua configuraÁ„o do PAM n„o permite autenticaÁ„o "
+"usando palavras-chave (talvez usando apenas autentica√ß√£o por chave p√∫blica) "
+"com vers√µes recentes do OpenSSH, tem de desactivar a autentica√ß√£o por desafio-"
+"resposta, ou assegurar-se que a sua configura√ß√£o do PAM n√£o permite autentica√ß√£o "
 "pelo ficheiro password de Unix."
 
 #. Type: boolean
@@ -184,7 +184,7 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Se desactivar autenticaÁ„o por pedido-resposta, os utilizadores n„o ser„o "
+"Se desactivar autentica√ß√£o por pedido-resposta, os utilizadores n√£o ser√£o "
 "capazes de se ligar usando palavras-chave. Se deixar activado (a resposta "
-"por omiss„o), ent„o a opÁ„o 'PasswordAuthentication no' n„o ter· efeito "
-"a n„o ser que tambÈm ajuste a configuraÁ„o do PAM em /etc/pam.d/ssh."
+"por omiss√£o), ent√£o a op√ß√£o 'PasswordAuthentication no' n√£o ter√° efeito "
+"a n√£o ser que tamb√©m ajuste a configura√ß√£o do PAM em /etc/pam.d/ssh."
