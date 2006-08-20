@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
 "POT-Creation-Date: 2006-07-26 21:42+0100\n"
-"PO-Revision-Date: 2004-10-12 00:00-0500\n"
+"PO-Revision-Date: 2006-08-14 13:30+0200\n"
 "Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,27 +43,19 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid "Generate new configuration file?"
-msgstr "Generar un nuevo fichero de configuración"
+msgstr "¿Desea generar un nuevo fichero de configuración?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
-msgstr ""
-"Esta versión de OpenSSH tiene un fichero de configuración considerablemente "
-"diferente del incluido en Debian 'Potato', que es la versión desde la que "
-"parece estar actualizando. Puede crear automáticamente un nuevo fichero de "
-"configuración (/etc/ssh/sshd_config), que funcionará con la nueva versión "
-"del servidor, pero no incuirá las modificaciones que hiciera en la versión "
-"antigua."
+msgstr "Esta versión de OpenSSH tiene un fichero de configuración considerablemente diferente del incluido en Debian 'Potato', que es la versión desde la que parece estar actualizando. Puede crear automáticamente un nuevo fichero de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión del servidor, pero no incuirá las modificaciones que hiciera en la versión antigua."
 
 #. Type: boolean
 #. Description
@@ -85,7 +77,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
@@ -168,15 +159,11 @@ msgstr "Aviso: debe crear una nueva clave para su servidor"
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:5001
-#, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
-msgstr ""
-"Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. "
-"OpenSSH no puede manejar este fichero de claves y tampoco se encuentra la "
-"utilidad ssh-keygen incluida en el paquete ssh no libre."
+msgstr "Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. OpenSSH no puede manejar este fichero de claves y tampoco parece estar disponible la utilidad ssh-keygen de la instalación antigua de SSH (no libre)."
 
 #. Type: note
 #. Description

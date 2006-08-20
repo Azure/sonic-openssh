@@ -2,6 +2,8 @@ openssh (1:4.3p2-4) UNRELEASED; urgency=low
 
   * debconf template translations:
     - Update Portuguese (thanks, Rui Branco; closes: #381942).
+    - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
+      closes: #382966).
 
  -- Colin Watson <cjwatson@debian.org>  Tue,  8 Aug 2006 13:28:54 +0100
 
