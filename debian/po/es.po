@@ -55,7 +55,13 @@ msgid ""
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
-msgstr "Esta versión de OpenSSH tiene un fichero de configuración considerablemente diferente del incluido en Debian 'Potato', que es la versión desde la que parece estar actualizando. Puede crear automáticamente un nuevo fichero de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión del servidor, pero no incuirá las modificaciones que hiciera en la versión antigua."
+msgstr ""
+"Esta versión de OpenSSH tiene un fichero de configuración considerablemente "
+"diferente del incluido en Debian 'Potato', que es la versión desde la que "
+"parece estar actualizando. Puede crear automáticamente un nuevo fichero de "
+"configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión "
+"del servidor, pero no incuirá las modificaciones que hiciera en la versión "
+"antigua."
 
 #. Type: boolean
 #. Description
@@ -163,7 +169,11 @@ msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
-msgstr "Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. OpenSSH no puede manejar este fichero de claves y tampoco parece estar disponible la utilidad ssh-keygen de la instalación antigua de SSH (no libre)."
+msgstr ""
+"Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. "
+"OpenSSH no puede manejar este fichero de claves y tampoco parece estar "
+"disponible la utilidad ssh-keygen de la instalación antigua de SSH (no "
+"libre)."
 
 #. Type: note
 #. Description
