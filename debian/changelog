@@ -1,4 +1,4 @@
-openssh (1:4.3p2-4) UNRELEASED; urgency=high
+openssh (1:4.3p2-4) unstable; urgency=high
 
   * Backport from 4.4p1 (since I don't have an updated version of the GSSAPI
     patch yet):
@@ -22,7 +22,7 @@ openssh (1:4.3p2-4) UNRELEASED; urgency=high
     - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
       closes: #382966).
 
- -- Colin Watson <cjwatson@debian.org>  Tue,  8 Aug 2006 13:28:54 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 29 Sep 2006 16:28:24 +0100
 
 openssh (1:4.3p2-3) unstable; urgency=low
 
