@@ -3,6 +3,9 @@
 # Read environment variables from /etc/environment and
 # /etc/security/pam_env.conf.
 auth       required     pam_env.so # [1]
+# In Debian 4.0 (etch), locale-related environment variables were moved to
+# /etc/default/locale, so read that as well.
+auth       required     pam_env.so envfile=/etc/default/locale
 
 # Standard Un*x authentication.
 @include common-auth
