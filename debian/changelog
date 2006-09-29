@@ -5,6 +5,12 @@ openssh (1:4.3p2-4) UNRELEASED; urgency=high
     - CVE-2006-4924: Fix a pre-authentication denial of service found by
       Tavis Ormandy, that would cause sshd(8) to spin until the login grace
       time expired (closes: #389995).
+    - CVE-2006-5051: Fix an unsafe signal hander reported by Mark Dowd. The
+      signal handler was vulnerable to a race condition that could be
+      exploited to perform a pre-authentication denial of service. On
+      portable OpenSSH, this vulnerability could theoretically lead to
+      pre-authentication remote code execution if GSSAPI authentication is
+      enabled, but the likelihood of successful exploitation appears remote.
 
   * Read /etc/default/locale as well as /etc/environment (thanks, Raphaël
     Hertzog; closes: #369395).

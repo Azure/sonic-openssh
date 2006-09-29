@@ -131,6 +131,18 @@ error(const char *fmt,...)
 	va_end(args);
 }
 
+void
+sigdie(const char *fmt,...)
+{
+	va_list args;
+
+	va_start(args, fmt);
+	do_log(SYSLOG_LEVEL_FATAL, fmt, args);
+	va_end(args);
+	_exit(1);
+}
+
+
 /* Log this message (information that usually should go to the log). */
 
 void

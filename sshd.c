@@ -310,13 +310,11 @@ main_sigchld_handler(int sig)
 static void
 grace_alarm_handler(int sig)
 {
-	/* XXX no idea how fix this signal handler */
-
 	if (use_privsep && pmonitor != NULL && pmonitor->m_pid > 0)
 		kill(pmonitor->m_pid, SIGALRM);
 
 	/* Log error and exit. */
-	fatal("Timeout before authentication for %s", get_remote_ipaddr());
+	sigdie("Timeout before authentication for %s", get_remote_ipaddr());
 }
 
 /*
@@ -1797,6 +1795,7 @@ main(int ac, char **av)
 	 */
 	alarm(0);
 	signal(SIGALRM, SIG_DFL);
+	authctxt->authenticated = 1;
 	if (startup_pipe != -1) {
 		close(startup_pipe);
 		startup_pipe = -1;
