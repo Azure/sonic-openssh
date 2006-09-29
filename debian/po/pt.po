@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 4.3p2-3\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:09+0100\n"
+"POT-Creation-Date: 2006-09-29 11:14+0100\n"
 "PO-Revision-Date: 2006-08-07 21:10+0000\n"
 "Last-Translator: Ricardo Silva <ardoric@gmail.com>\n"
 "Language-Team: Native Portuguese <traduz@debianpt.org>\n"
@@ -92,13 +92,13 @@ msgstr ""
 "Pode arranjar isto adicionando \"--pidfile /var/run/sshd.pid\" à linha start-"
 "stop-daemon na secção stop do ficheiro."
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: o telnetd está instalado -- provavelmente não é uma boa ideia"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""

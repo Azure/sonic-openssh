@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh_1:3.8p1-3_templates\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:09+0100\n"
+"POT-Creation-Date: 2006-09-29 11:14+0100\n"
 "PO-Revision-Date: 2004-03-05 19:46GMT\n"
 "Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -95,14 +95,14 @@ msgstr ""
 "Ho podeu arreglar afegint la línia \"--pidfile /var/run/sshd.pid\" a la "
 "línia start-stop-daemon de la secció stop del fitxer."
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr ""
 "Avís: el telnetd està instal·lat --- probablement no sigui una bona idea"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""

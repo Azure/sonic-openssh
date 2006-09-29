@@ -29,7 +29,7 @@ _Description: Do you want to continue (and risk killing active ssh sessions)?
  start-stop-daemon line in the stop section of the file.
 
 Template: ssh/insecure_telnetd
-Type: note
+Type: error
 _Description: Warning: telnetd is installed --- probably not a good idea
  I'd advise you to either remove the telnetd package (if you don't actually
  need to offer telnet access) or install telnetd-ssl so that there is at

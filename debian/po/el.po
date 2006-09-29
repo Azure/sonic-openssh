@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:09+0100\n"
+"POT-Creation-Date: 2006-09-29 11:14+0100\n"
 "PO-Revision-Date: 2004-10-14 21:34+0300\n"
 "Last-Translator: Konstantinos Margaritis <markos@debian.org>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -106,13 +106,13 @@ msgstr ""
 "Μπορείτε να το διορθώσετε αυτό προσθέτοντας \"--pidfile /var/run/sshd.pid\" "
 "στη γραμμή start-stop-daemon στο τμήμα \"stop\" του αρχείου."
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Προσοχή: είναι ήδη εγκατεστημένος ο telnetd --- όχι και τοσο καλή ιδέα"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""

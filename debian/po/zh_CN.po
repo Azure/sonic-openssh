@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:09+0100\n"
+"POT-Creation-Date: 2006-09-29 11:14+0100\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
@@ -96,13 +96,13 @@ msgstr ""
 "您可以通过添加“--pidfile /var/run/sshd.pid”到这个文件的 stop 部分的 start-"
 "stop-daemon 行来修正这个问题。"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "警告：已经安装了 telnetd 服务器 --- 可能不是个好主意"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""

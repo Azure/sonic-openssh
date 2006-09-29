@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:09+0100\n"
+"POT-Creation-Date: 2006-09-29 11:14+0100\n"
 "PO-Revision-Date: 2004-05-30 09:49-0200\n"
 "Last-Translator: Helge Kreutzmann <kreutzm@itp.uni-hannover.de>\n"
 "Language-Team: de <debian-l10n-german@lists.debian.org>\n"
@@ -106,13 +106,13 @@ msgstr ""
 "die start-stop-daemon Zeile in dem Abschnitt stop der Datei /etc/init.d/ssh "
 "hinzufügen."
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Warnung: telnetd ist installiert --- wahrscheinlich keine gute Idee"
 
-#. Type: note
+#. Type: error
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""
