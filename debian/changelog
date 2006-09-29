@@ -1,9 +1,16 @@
-openssh (1:4.3p2-4) UNRELEASED; urgency=low
+openssh (1:4.3p2-4) UNRELEASED; urgency=high
+
+  * Backport from 4.4p1 (since I don't have an updated version of the GSSAPI
+    patch yet):
+    - CVE-2006-4924: Fix a pre-authentication denial of service found by
+      Tavis Ormandy, that would cause sshd(8) to spin until the login grace
+      time expired (closes: #389995).
 
   * Read /etc/default/locale as well as /etc/environment (thanks, Raphaël
     Hertzog; closes: #369395).
   * Remove no-longer-used ssh/insecure_rshd debconf template.
   * Make ssh/insecure_telnetd Type: error (closes: #388946).
+
   * debconf template translations:
     - Update Portuguese (thanks, Rui Branco; closes: #381942).
     - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
