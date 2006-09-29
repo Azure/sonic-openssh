@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-07-26 21:42+0100\n"
+"POT-Creation-Date: 2006-09-29 11:09+0100\n"
 "PO-Revision-Date: 2006-08-14 13:30+0200\n"
 "Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -121,30 +121,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:3001
-msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr ""
-"Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"having rsh-server installed undermines the security that you were probably "
-"wanting to obtain by installing ssh.  I'd advise you to remove that package."
-msgstr ""
-"Tener rsh-server instalado representa un menoscabo de la seguridad que "
-"probablemente desea obtener instalando ssh. Es muy aconsejable que borre ese "
-"paquete."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:4001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -158,13 +140,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: debe crear una nueva clave para su servidor"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -177,19 +159,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "You will need to generate a new host key."
 msgstr "Necesitará generar una nueva clave para su servidor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -208,7 +190,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -219,6 +201,19 @@ msgstr ""
 "podrán acceder con contraseñas. Si la deja habilitada (respuesta por "
 "omisión) entonces la opción «PasswordAuthentication no» no tendrá ninguna "
 "utilidad a menos que ajuste su configuración de PAM en «/etc/pam.d/ssh»."
+
+#~ msgid "Warning: rsh-server is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)"
+
+#~ msgid ""
+#~ "having rsh-server installed undermines the security that you were "
+#~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
+#~ "that package."
+#~ msgstr ""
+#~ "Tener rsh-server instalado representa un menoscabo de la seguridad que "
+#~ "probablemente desea obtener instalando ssh. Es muy aconsejable que borre "
+#~ "ese paquete."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
 #~ msgstr "¿Quiere instalar ssh-keysign SUID root?"

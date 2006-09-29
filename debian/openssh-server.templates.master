@@ -28,13 +28,6 @@ _Description: Do you want to continue (and risk killing active ssh sessions)?
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
 
-Template: ssh/insecure_rshd
-Type: note
-_Description: Warning: rsh-server is installed --- probably not a good idea
- having rsh-server installed undermines the security that you were probably
- wanting to obtain by installing ssh.  I'd advise you to remove that
- package.
-
 Template: ssh/insecure_telnetd
 Type: note
 _Description: Warning: telnetd is installed --- probably not a good idea

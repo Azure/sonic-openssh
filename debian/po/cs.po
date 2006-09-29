@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-07-26 21:42+0100\n"
+"POT-Creation-Date: 2006-09-29 11:09+0100\n"
 "PO-Revision-Date: 2006-05-14 08:16+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -101,28 +101,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:3001
-msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Varování: je nainstalován rsh-server --- to není dobrý nápad"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"having rsh-server installed undermines the security that you were probably "
-"wanting to obtain by installing ssh.  I'd advise you to remove that package."
-msgstr ""
-"nainstalováním rsh-server si bouráte bezpečnost, kterou jste pravděpodobně "
-"chtěli dosáhnout instalací ssh. Doporučujeme tento balík odstranit."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:4001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varování: je nainstalován telnetd --- to není dobrý nápad"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -135,13 +119,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Warning: you must create a new host key"
 msgstr "Varování: musíte vytvořit nový serverový klíč"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -153,19 +137,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "You will need to generate a new host key."
 msgstr "Musíte vygenerovat nový serverový klíč"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "Zakázat autentizaci challenge-response?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -182,7 +166,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -193,6 +177,18 @@ msgstr ""
 "přihlásit pomocí hesel. Necháte-li ji povolenu (přednastavená odpověď), pak "
 "nebude mít volba 'PasswordAuthentication no' žádný efekt, pokud ovšem "
 "neupravíte nastavení PAM v /etc/pam.d/ssh."
+
+#~ msgid "Warning: rsh-server is installed --- probably not a good idea"
+#~ msgstr "Varování: je nainstalován rsh-server --- to není dobrý nápad"
+
+#~ msgid ""
+#~ "having rsh-server installed undermines the security that you were "
+#~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
+#~ "that package."
+#~ msgstr ""
+#~ "nainstalováním rsh-server si bouráte bezpečnost, kterou jste "
+#~ "pravděpodobně chtěli dosáhnout instalací ssh. Doporučujeme tento balík "
+#~ "odstranit."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
 #~ msgstr "Chcete ssh-keysign nainstalovat jako SUID root?"

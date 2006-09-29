@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-07-26 21:42+0100\n"
+"POT-Creation-Date: 2006-09-29 11:09+0100\n"
 "PO-Revision-Date: 2005-04-08 22:15+0300\n"
 "Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -111,28 +111,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:3001
-msgid "Warning: rsh-server is installed --- probably not a good idea"
-msgstr "Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"having rsh-server installed undermines the security that you were probably "
-"wanting to obtain by installing ssh.  I'd advise you to remove that package."
-msgstr ""
-"Rsh-palvelimen pitäminen vie pohjan turvallisuudelta, jota todennäköisesti \n"
-"halusit asentamalla ssh:n. Paketin poistaminen on suositeltavaa."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:4001
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -146,13 +130,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Warning: you must create a new host key"
 msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -166,19 +150,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "You will need to generate a new host key."
 msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "Poista käytöstä haaste-vaste -autentikointi"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -196,7 +180,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:6001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -207,6 +191,18 @@ msgstr ""
 "eivät voi kirjautua salasanaa käyttäen. Jos jätät sen päälle (oletus),\n"
 "asetuksella \"PasswordAuthentication no\" ei ole vaikutusta, ellet muuta\n"
 "myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
+
+#~ msgid "Warning: rsh-server is installed --- probably not a good idea"
+#~ msgstr "Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea"
+
+#~ msgid ""
+#~ "having rsh-server installed undermines the security that you were "
+#~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
+#~ "that package."
+#~ msgstr ""
+#~ "Rsh-palvelimen pitäminen vie pohjan turvallisuudelta, jota "
+#~ "todennäköisesti \n"
+#~ "halusit asentamalla ssh:n. Paketin poistaminen on suositeltavaa."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
 #~ msgstr "Haluatko, että ssh-keysign asennetaan SUID root -oikeuksin?"
