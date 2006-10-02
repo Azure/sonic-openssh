@@ -1,3 +1,10 @@
+openssh (1:4.3p2-5) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update Danish (thanks, Claus Hindsgaul; closes: #390612).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  2 Oct 2006 20:17:07 +0100
+
 openssh (1:4.3p2-4) unstable; urgency=high
 
   * Backport from 4.4p1 (since I don't have an updated version of the GSSAPI
