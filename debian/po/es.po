@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-08-14 13:30+0200\n"
 "Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -118,35 +118,15 @@ msgstr ""
 "Puede arreglarlo añadiendo «--pidfile /var/run/sshd.pid» a la línea 'start-"
 "stop-daemon', en la sección 'stop' del fichero."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Es muy aconsejable que borre el paquete telnetd si no necesita realmente "
-"ofrecer acceso mediante telnet o instalar telnetd-ssl para que las "
-"contraseñas, nombres de usuario y demás información de las sesiones telnet "
-"no viajen sin cifrar por la red."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: debe crear una nueva clave para su servidor"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -159,19 +139,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Necesitará generar una nueva clave para su servidor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -190,7 +170,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -201,6 +181,20 @@ msgstr ""
 "podrán acceder con contraseñas. Si la deja habilitada (respuesta por "
 "omisión) entonces la opción «PasswordAuthentication no» no tendrá ninguna "
 "utilidad a menos que ajuste su configuración de PAM en «/etc/pam.d/ssh»."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Es muy aconsejable que borre el paquete telnetd si no necesita realmente "
+#~ "ofrecer acceso mediante telnet o instalar telnetd-ssl para que las "
+#~ "contraseñas, nombres de usuario y demás información de las sesiones "
+#~ "telnet no viajen sin cifrar por la red."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.8.1p1\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-10-02 08:53+0200\n"
 "Last-Translator: Claus Hindsgaul <claus.hindsgaul@gmail.com>\n"
 "Language-Team: Danish\n"
@@ -41,11 +41,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"Opsætningsfilen i denne version af OpenSSH er ændret betydeligt i forhold til "
-"den, der fulgte med Debian Potato, som det ser ud til, at du opgraderer fra. "
-"Denne pakke kan nu generere en ny opsætningsfil (/etc/ssh/sshd.config), som vil "
-"fungere med den nye serverversion, men den vil ikke indeholde eventuelle justeringer, "
-"du måtte have indført i den gamle version."
+"Opsætningsfilen i denne version af OpenSSH er ændret betydeligt i forhold "
+"til den, der fulgte med Debian Potato, som det ser ud til, at du opgraderer "
+"fra. Denne pakke kan nu generere en ny opsætningsfil (/etc/ssh/sshd.config), "
+"som vil fungere med den nye serverversion, men den vil ikke indeholde "
+"eventuelle justeringer, du måtte have indført i den gamle version."
 
 #. Type: boolean
 #. Description
@@ -69,7 +69,8 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
-msgstr "Du anbefales stærkt at lade mig oprette en ny opsætningsfil for dig nu."
+msgstr ""
+"Du anbefales stærkt at lade mig oprette en ny opsætningsfil for dig nu."
 
 #. Type: boolean
 #. Description
@@ -99,59 +100,39 @@ msgstr ""
 "Du kan afhjælpe dette ved at tilføje \"--pidfile /var/run/sshd.pid\" til "
 "'start-stop-daemon'-linjen i stop-afsnittet af filen."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Advarsel: telnetd er installeret --- sikkert ikke en god idé"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i virkeligheden "
-"ikke har brug for at tilbyde telnet-adgang) eller installere telnetd-ssl, så "
-"der i det mindste er en mulighed for, at telnet-sessioner ikke sender "
-"adgangskoder og sessions-oplysninger ukrypteret over netværket."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Advarsel: du skal oprette en ny værtsnøgle"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
 "Der er en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan ikke "
-"håndtere en sådan værtsnøglefil, og værktøjet ssh-keygen fra den gamle "
-"(ikke-frie, 'non-free') SSH-installation lader ikke til at være tilgængeligt."
+"håndtere en sådan værtsnøglefil, og værktøjet ssh-keygen fra den gamle (ikke-"
+"frie, 'non-free') SSH-installation lader ikke til at være tilgængeligt."
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Du skal oprette en ny værtsnøgle."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Slå udfordrings-svar godkendelse fra?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -168,7 +149,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -180,6 +161,21 @@ msgstr ""
 "(standard svaret), så vil 'PasswordAuthentication no' indstillingen ikke "
 "have nogen effekt, medmindre du også redigerer din PAM-opsætning i /etc/pam."
 "d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Advarsel: telnetd er installeret --- sikkert ikke en god idé"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i "
+#~ "virkeligheden ikke har brug for at tilbyde telnet-adgang) eller "
+#~ "installere telnetd-ssl, så der i det mindste er en mulighed for, at "
+#~ "telnet-sessioner ikke sender adgangskoder og sessions-oplysninger "
+#~ "ukrypteret over netværket."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé"
@@ -267,4 +263,3 @@ msgstr ""
 
 #~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 #~ msgstr "Flere detaljer kan findes i /usr/share/doc/ssh/README.Debian"
-

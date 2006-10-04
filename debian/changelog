@@ -1,5 +1,6 @@
 openssh (1:4.3p2-5) UNRELEASED; urgency=low
 
+  * Remove ssh/insecure_telnetd check altogether (closes: #391081).
   * debconf template translations:
     - Update Danish (thanks, Claus Hindsgaul; closes: #390612).
 

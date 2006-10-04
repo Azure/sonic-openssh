@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-05-14 17:13-0500\n"
 "Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -101,35 +101,15 @@ msgstr ""
 "Pode arranxalo engadindo \"--pidfile /var/run/sshd.pid\" á liña start-stop-"
 "daemon da sección stop do ficheiro."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Aviso: telnetd está instalado --- seguramente non sexa unha boa idea"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Recoméndase que elimine o paquete telnetd (se non precisa de fornecer acceso "
-"por telnet) ou instale telnetd-ssl para que exista alomenos algunha "
-"posibilidade de que as sesións telnet non envíen información de usuario/"
-"contrasinal e das sesións sen cifrar pola rede."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: ten que crear unha nove chave de servidor"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -142,19 +122,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Ha ter que xerar unha nova chave de servidor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desactivar a autenticación por desafío-resposta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -173,7 +153,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -184,6 +164,21 @@ msgstr ""
 "conectarse empregando contrasinais. Se a deixa activada (a resposta por "
 "defecto) a opción \"PasswordAuthentication no\" non ha ter ningún efecto "
 "útil a menos que tamén axuste a súa configuración de PAM en /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Aviso: telnetd está instalado --- seguramente non sexa unha boa idea"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Recoméndase que elimine o paquete telnetd (se non precisa de fornecer "
+#~ "acceso por telnet) ou instale telnetd-ssl para que exista alomenos "
+#~ "algunha posibilidade de que as sesións telnet non envíen información de "
+#~ "usuario/contrasinal e das sesións sen cifrar pola rede."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

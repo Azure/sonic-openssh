@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 4.3p2-3\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-08-07 21:10+0000\n"
 "Last-Translator: Ricardo Silva <ardoric@gmail.com>\n"
 "Language-Team: Native Portuguese <traduz@debianpt.org>\n"
@@ -92,35 +92,15 @@ msgstr ""
 "Pode arranjar isto adicionando \"--pidfile /var/run/sshd.pid\" à linha start-"
 "stop-daemon na secção stop do ficheiro."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Aviso: o telnetd está instalado -- provavelmente não é uma boa ideia"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Aconselho que ou remova o pacote telnetd (se não necessita mesmo de oferecer "
-"acesso por telnet) ou instale o telnetd-ssl para que tenha alguma hipótese "
-"de que as sessões de telnet não enviem login/palavra-chave não-cifradas pela "
-"rede."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Aviso: tem de criar uma nova chave de 'host'"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -132,19 +112,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Terá de gerar uma nova chave para o host."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Desactivar autenticação por desafio-resposta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -162,7 +142,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -173,6 +153,21 @@ msgstr ""
 "capazes de se ligar usando palavras-chave. Se deixar activado (a resposta "
 "por omissão), então a opção 'PasswordAuthentication no' não terá efeito a "
 "não ser que também ajuste a configuração do PAM em /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Aviso: o telnetd está instalado -- provavelmente não é uma boa ideia"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Aconselho que ou remova o pacote telnetd (se não necessita mesmo de "
+#~ "oferecer acesso por telnet) ou instale o telnetd-ssl para que tenha "
+#~ "alguma hipótese de que as sessões de telnet não enviem login/palavra-"
+#~ "chave não-cifradas pela rede."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

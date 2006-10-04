@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
@@ -96,34 +96,15 @@ msgstr ""
 "您可以通过添加“--pidfile /var/run/sshd.pid”到这个文件的 stop 部分的 start-"
 "stop-daemon 行来修正这个问题。"
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "警告：已经安装了 telnetd 服务器 --- 可能不是个好主意"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"我建议您删除 telnetd 包(如果您不是真的需要提供 telnet 访问)，或者安装 "
-"telnetd-ssl，这样至少有时候 telnet 会话不会将未加密的 登录名/密码 和会话信息"
-"通过网络发送。"
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "警告：您必须创建一个新的主机密钥"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -135,19 +116,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "您需要创建一个新的主机密钥。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -159,13 +140,26 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "警告：已经安装了 telnetd 服务器 --- 可能不是个好主意"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "我建议您删除 telnetd 包(如果您不是真的需要提供 telnet 访问)，或者安装 "
+#~ "telnetd-ssl，这样至少有时候 telnet 会话不会将未加密的 登录名/密码 和会话信"
+#~ "息通过网络发送。"
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "警告：已经安装了 rsh 服务器 --- 可能不是个好主意"

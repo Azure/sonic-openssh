@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1/4.1p1-4\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2005-07-02 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -100,35 +100,15 @@ msgstr ""
 "Bạn có thể sửa trường hợp này bằng cách thêm «--pidfile /var/run/sshd.pid» "
 "vào dòng «start-stop-daemon» trong phần «stop» của tập tin ấy."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Cảnh báo: «telnetd» đã được cài đặt — rất không thể là một ý kiến tốt."
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Khuyên bạn hoặc loại bỏ gói tin «telnetd» (nếu bạn không thật sự cần cung "
-"cấp cách truy cập telnet) hoặc cài đặt gói tin «telnetd-ssl» để cố tránh "
-"chạy phiên telnet có gởi thông tin đăng nhập/mật khẩu và thông tin phiên làm "
-"việc không mật mã qua mạng."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Cảnh báo: bạn phải tạo một khóa máy mới"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -141,19 +121,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Bạn sẽ cần phải tạo một khóa máy mới."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Vô hiệu hóa xác thực cách yêu cầu/đáp ứng không?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -170,7 +150,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -182,6 +162,21 @@ msgstr ""
 "tùy chọn «'PasswordAuthentication no» (xác thực mật khẩu không) sẽ không có "
 "tác dụng có ích nào, nếu bạn không cũng tùy chỉnh cấu hình bạn trong «/etc/"
 "pam.d/ssh»."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Cảnh báo: «telnetd» đã được cài đặt — rất không thể là một ý kiến tốt."
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Khuyên bạn hoặc loại bỏ gói tin «telnetd» (nếu bạn không thật sự cần cung "
+#~ "cấp cách truy cập telnet) hoặc cài đặt gói tin «telnetd-ssl» để cố tránh "
+#~ "chạy phiên telnet có gởi thông tin đăng nhập/mật khẩu và thông tin phiên "
+#~ "làm việc không mật mã qua mạng."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

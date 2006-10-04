@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2005-04-08 22:15+0300\n"
 "Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -108,35 +108,15 @@ msgstr ""
 "Voit korjata tämän lisäämällä \"--pidfile /var/run/sshd.pid\" tiedoston \n"
 "stop-osion start-stop-daemon -riville."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"On suositeltavaa joko poistaa telnetd-paketti (jos telnet-yhteyksien "
-"tarjoaminen \n"
-"ei ole tarpeellista) tai asentaa paketti telnetd-ssl, jotta salaamattomia \n"
-"käyttäjätunnuksia/salasanoja ja istunnon tietoja ei lähetettäisi verkon yli."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -150,19 +130,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Poista käytöstä haaste-vaste -autentikointi"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -180,7 +160,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -191,6 +171,22 @@ msgstr ""
 "eivät voi kirjautua salasanaa käyttäen. Jos jätät sen päälle (oletus),\n"
 "asetuksella \"PasswordAuthentication no\" ei ole vaikutusta, ellet muuta\n"
 "myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "On suositeltavaa joko poistaa telnetd-paketti (jos telnet-yhteyksien "
+#~ "tarjoaminen \n"
+#~ "ei ole tarpeellista) tai asentaa paketti telnetd-ssl, jotta "
+#~ "salaamattomia \n"
+#~ "käyttäjätunnuksia/salasanoja ja istunnon tietoja ei lähetettäisi verkon "
+#~ "yli."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea"

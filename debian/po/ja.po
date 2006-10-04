@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-07-26 22:52+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -98,35 +98,15 @@ msgstr ""
 "この状況を修正するには、/etc/init.d/ssh の stop セクションの start-stop-"
 "daemon の行に「--pidfile /var/run/sshd.pid」と追加します。"
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "警告: telnetd がインストールされています。たぶん良い考えではありません"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"(もし telnet アクセスを提供したいと思っていないのでしたら) telnetd パッケージ"
-"をアンインストールするか、または、telnetd-ssh パッケージを インストールして少"
-"なくともネットワーク上を暗号化されていないユーザ名やパスワードやセッション情"
-"報が流れないようにすることをお勧めします。"
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "警告: 新しいホストキーを作らないといけません"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -138,19 +118,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "新しいホストキーを作る必要があります。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "チャレンジ-レスポンス認証を無効にしますか?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -167,7 +147,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -178,6 +158,21 @@ msgstr ""
 "できなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/ssh にあ"
 "る PAM 設定を調節しない限り、'PasswordAuthentication no' オプションは効果を持"
 "たなくなります。"
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "警告: telnetd がインストールされています。たぶん良い考えではありません"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "(もし telnet アクセスを提供したいと思っていないのでしたら) telnetd パッ"
+#~ "ケージをアンインストールするか、または、telnetd-ssh パッケージを インス"
+#~ "トールして少なくともネットワーク上を暗号化されていないユーザ名やパスワード"
+#~ "やセッション情報が流れないようにすることをお勧めします。"
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

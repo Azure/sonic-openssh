@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ssh\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2004-04-27 06:50+0300\n"
 "Last-Translator: Recai Oktaş <roktas@omu.edu.tr>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -95,35 +95,15 @@ msgstr ""
 "Bu sorunu dosyanın stop bölümündeki start-stop-daemon satırına \"--pidfile /"
 "var/run/sshd.pid\" ekleyerek düzeltebilirsiniz."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Uyarı: telnetd kurulmuş --- bu muhtemelen iyi bir fikir değil"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir "
-"zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında "
-"şifrelenmemiş giriş/parola ve oturum bilgilerinin ağ üzerinden "
-"gönderilmemesi olanağını sunan telnetd-ssl paketini kurmanızı öneririm."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Uyarı: yeni bir makine anahtarı oluşturmalısınız"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -136,19 +116,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Yeni bir makine anahtarı oluşturmanız gerekiyor."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -160,13 +140,27 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Uyarı: telnetd kurulmuş --- bu muhtemelen iyi bir fikir değil"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir "
+#~ "zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında "
+#~ "şifrelenmemiş giriş/parola ve oturum bilgilerinin ağ üzerinden "
+#~ "gönderilmemesi olanağını sunan telnetd-ssl paketini kurmanızı öneririm."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "Uyarı: rsh-server kurulmuş --- bu muhtemelen iyi bir fikir değil"

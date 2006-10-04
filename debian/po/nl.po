@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-06-12 21:09+0100\n"
 "Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -101,31 +101,9 @@ msgstr ""
 "U kunt dit repareren door \"--pidfile /var/run/sshd.pid\" toe te voegen aan "
 "de start-stop-daemon regel in de stop-sectie van het bestand."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr ""
-"Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed "
-"idee"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Het is aan te raden om of het telnetd-pakket te verwijderen (indien u geen "
-"telnettoegang hoeft aan te bieden), of telnetd-ssl te installeren zodat er "
-"enige kans is dat telnetsessies geen onversleutelde gebruikersnaam/"
-"wachtwoord en sessie informatie over het netwerk versturen."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr ""
 "Waarschuwing: er dient een nieuwe (encryptie)sleutel aangemaakt te worden "
@@ -133,7 +111,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -145,19 +123,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Het zal nodig zijn om een nieuwe computersleutel te genereren"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Challenge-response-authenticatie deactiveren?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -176,7 +154,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -187,6 +165,22 @@ msgstr ""
 "niet meer inloggen met behulp van wachtwoorden. Als u het geactiveerd laat "
 "(de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig) "
 "effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed "
+#~ "idee"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Het is aan te raden om of het telnetd-pakket te verwijderen (indien u "
+#~ "geen telnettoegang hoeft aan te bieden), of telnetd-ssl te installeren "
+#~ "zodat er enige kans is dat telnetsessies geen onversleutelde "
+#~ "gebruikersnaam/wachtwoord en sessie informatie over het netwerk versturen."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

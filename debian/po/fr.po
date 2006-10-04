@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 4.3p2-1\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2006-05-22 20:13+0200\n"
 "Last-Translator: Denis Barbier <barbier@linuxfr.org>\n"
 "Language-Team: French <Debian-l10n-french@lists.debian.org>\n"
@@ -104,35 +104,15 @@ msgstr ""
 "run/sshd.pid » à la ligne « start-stop-daemon » dans la section « stop » du "
 "fichier."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Telnetd installé : paquet déconseillé"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Vous devriez soit enlever le paquet telnetd (si ce service n'est pas "
-"nécessaire), soit le remplacer par le paquet telnetd-ssl pour qu'il y ait au "
-"moins une chance que les sessions telnet soient chiffrées et que les mots de "
-"passe et noms d'utilisateurs ne passent pas en clair sur le réseau."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Nouvelle clé d'hôte nécessaire"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
@@ -144,19 +124,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Vous devez générer une nouvelle clé d'hôte."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Faut-il désactiver l'authentification par défi-réponse ?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -175,7 +155,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -187,6 +167,21 @@ msgstr ""
 "vous la laissez active (ce qui est la valeur par défaut), alors l'option "
 "« PasswordAuthentication no » n'aura d'effet que si vous ajustez aussi la "
 "configuration de PAM dans /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Telnetd installé : paquet déconseillé"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Vous devriez soit enlever le paquet telnetd (si ce service n'est pas "
+#~ "nécessaire), soit le remplacer par le paquet telnetd-ssl pour qu'il y ait "
+#~ "au moins une chance que les sessions telnet soient chiffrées et que les "
+#~ "mots de passe et noms d'utilisateurs ne passent pas en clair sur le "
+#~ "réseau."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "Rsh-server installé : paquet déconseillé"

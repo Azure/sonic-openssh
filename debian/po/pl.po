@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2004-04-08 18:28+0200\n"
 "Last-Translator: Emil Nowak <emil5@go2.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -102,36 +102,15 @@ msgstr ""
 "Mo¿esz to naprawiæ dodaj±c \"--pidfile /var/run/sshd.pid\" do linijki start-"
 "stop-daemon w sekcji stop tego pliku."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr ""
-"Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Radzi³bym albo usun±æ pakiet telnetd (je¶li nie potrzebujesz koniecznie "
-"udostêpniaæ telnet'a) albo zainstalowaæ telnetd-ssl aby by³a choæ szansza, "
-"¿e sesje telnet nie bêd± przesy³aæ niezaszyfrowanego loginu/has³a oraz "
-"danych sesji przez sieæ."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr "Uwaga: musisz utworzyæ nowy klucz hosta"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -144,19 +123,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Bêdziesz musia³ wygenerowaæ nowy klucz hosta."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -168,13 +147,28 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Radzi³bym albo usun±æ pakiet telnetd (je¶li nie potrzebujesz koniecznie "
+#~ "udostêpniaæ telnet'a) albo zainstalowaæ telnetd-ssl aby by³a choæ "
+#~ "szansza, ¿e sesje telnet nie bêd± przesy³aæ niezaszyfrowanego loginu/"
+#~ "has³a oraz danych sesji przez sieæ."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

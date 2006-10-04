@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
 "PO-Revision-Date: 2004-10-14 21:34+0300\n"
 "Last-Translator: Konstantinos Margaritis <markos@debian.org>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -106,37 +106,16 @@ msgstr ""
 "Μπορείτε να το διορθώσετε αυτό προσθέτοντας \"--pidfile /var/run/sshd.pid\" "
 "στη γραμμή start-stop-daemon στο τμήμα \"stop\" του αρχείου."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Προσοχή: είναι ήδη εγκατεστημένος ο telnetd --- όχι και τοσο καλή ιδέα"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Συνιστάται είτε να αφαιρέσετε το πακέτο telnetd (αν δεν είναι πραγματικά "
-"απαραίτητη η πρόσβαση μέσω telnet) ή να εγκαταστήσετε το πακέτο telnetd-ssl, "
-"ώστε να υπάρχει τουλάχιστον μια πιθανότητα οι συνδέσεις telnet να μην "
-"αποστέλλουν μη κρυπτογραφημένες πληροφορίες κωδικών πρόσβασης και συνεδριών "
-"μέσω δικτύου."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
 msgstr ""
 "Προσοχή: πρέπει να δημιουργήσετε ένα νέο κλειδί για τον υπολογιστή (host key)"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
@@ -150,19 +129,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
 msgstr "Πρέπει να δημιουργήσετε ένα νέο κλειδί για τον υπολογιστή (host key)."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Να απενεργοποιηθεί η πιστοποίηση challenge-response;"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -180,7 +159,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -191,6 +170,22 @@ msgstr ""
 "μπορούν να εισέλθουν χρησιμοποιώντας τον κωδικό τους. Εάν το αφήσετε "
 "ενεργοποιημένο (προεπιλογή), τότε η επιλογή 'PasswordAuthetication no' δεν "
 "θα επιδρά εκτός και εάν ρυθμίσετε και το PAM στο αρχείο /etc/pam.d/ssh."
+
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr ""
+#~ "Προσοχή: είναι ήδη εγκατεστημένος ο telnetd --- όχι και τοσο καλή ιδέα"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Συνιστάται είτε να αφαιρέσετε το πακέτο telnetd (αν δεν είναι πραγματικά "
+#~ "απαραίτητη η πρόσβαση μέσω telnet) ή να εγκαταστήσετε το πακέτο telnetd-"
+#~ "ssl, ώστε να υπάρχει τουλάχιστον μια πιθανότητα οι συνδέσεις telnet να "
+#~ "μην αποστέλλουν μη κρυπτογραφημένες πληροφορίες κωδικών πρόσβασης και "
+#~ "συνεδριών μέσω δικτύου."
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""

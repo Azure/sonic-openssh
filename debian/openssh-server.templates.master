@@ -28,14 +28,6 @@ _Description: Do you want to continue (and risk killing active ssh sessions)?
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
 
-Template: ssh/insecure_telnetd
-Type: error
-_Description: Warning: telnetd is installed --- probably not a good idea
- I'd advise you to either remove the telnetd package (if you don't actually
- need to offer telnet access) or install telnetd-ssl so that there is at
- least some chance that telnet sessions will not be sending unencrypted
- login/password and session information over the network.
-
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
 _Description: Warning: you must create a new host key
