@@ -1,3 +1,9 @@
+openssh (1:4.3p2-6) UNRELEASED; urgency=low
+
+  * Acknowledge NMU (thanks, Manoj; closes: #394795).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 27 Oct 2006 11:43:27 +0100
+
 openssh (1:4.3p2-5.1) unstable; urgency=low
 
   * NMU to update SELinux patch, bringing it in line with current selinux
