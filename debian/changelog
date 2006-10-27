@@ -1,3 +1,11 @@
+openssh (1:4.3p2-5.1) unstable; urgency=low
+
+  * NMU to update SELinux patch, bringing it in line with current selinux
+    releases.  The patch for this NMU is simply the Bug#394795 patch, 
+    and no other changes.                       (closes: #394795)
+
+ -- Manoj Srivastava <srivasta@debian.org>  Mon,  23 Oct 2006 14:11:24 -0500
+
 openssh (1:4.3p2-5) unstable; urgency=low
 
   * Remove ssh/insecure_telnetd check altogether (closes: #391081).

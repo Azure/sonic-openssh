@@ -2986,15 +2986,25 @@ int main()
 
 # Check whether user wants SELinux support
 SELINUX_MSG="no"
+LIBSELINUX=""
 AC_ARG_WITH(selinux,
-	[  --with-selinux          Enable SELinux support],
+	[  --with-selinux[[=LIBSELINUX-PATH]]   Enable SELinux support],
 	[ if test "x$withval" != "xno" ; then
-		AC_DEFINE(WITH_SELINUX, 1, [Define if you want SELinux support.])
+		if test "x$withval" != "xyes"; then
+			CPPFLAGS="$CPPFLAGS -I${withval}/include"
+			if test -n "${need_dash_r}"; then
+				LDFLAGS="-L${withval}/lib -R${withval}/lib ${LDFLAGS}"
+			else
+				LDFLAGS="-L${withval}/lib ${LDFLAGS}"
+			fi
+               fi 
+		AC_DEFINE(WITH_SELINUX,1,[Define if you want SELinux support.])
 		SELINUX_MSG="yes"
 		AC_CHECK_HEADERS(selinux/selinux.h)
-		LIBS="$LIBS -lselinux"
+		LIBSELINUX="-lselinux"
 	fi
 	])
+AC_SUBST(LIBSELINUX)
 
 # Check whether user wants Kerberos 5 support
 KRB5_MSG="no"

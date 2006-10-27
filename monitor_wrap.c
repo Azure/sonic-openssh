@@ -272,6 +272,23 @@ mm_inform_authserv(char *service, char *style, char *role)
 	buffer_free(&m);
 }
 
+/* Inform the privileged process about role */
+
+void
+mm_inform_authrole(char *role)
+{
+	Buffer m;
+
+	debug3("%s entering", __func__);
+
+	buffer_init(&m);
+	buffer_put_cstring(&m, role ? role : "");
+
+	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUTHROLE, &m);
+
+	buffer_free(&m);
+}
+
 /* Do the password authentication */
 int
 mm_auth_password(Authctxt *authctxt, char *password)
