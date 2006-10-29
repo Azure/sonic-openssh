@@ -2,6 +2,8 @@ openssh (1:4.3p2-6) UNRELEASED; urgency=low
 
   * Acknowledge NMU (thanks, Manoj; closes: #394795).
   * openssh-server Suggests: molly-guard (closes: #395473).
+  * debconf template translations:
+    - Update German (thanks, Helge Kreutzmann; closes: #395947).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 27 Oct 2006 11:43:27 +0100
 
