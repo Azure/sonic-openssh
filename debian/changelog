@@ -1,6 +1,10 @@
 openssh (1:4.3p2-6) UNRELEASED; urgency=low
 
   * Acknowledge NMU (thanks, Manoj; closes: #394795).
+  * Backport from 4.5p1:
+    - Fix a bug in the sshd privilege separation monitor that weakened its
+      verification of successful authentication. This bug is not known to be
+      exploitable in the absence of additional vulnerabilities.
   * openssh-server Suggests: molly-guard (closes: #395473).
   * debconf template translations:
     - Update German (thanks, Helge Kreutzmann; closes: #395947).
