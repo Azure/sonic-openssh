@@ -1,4 +1,4 @@
-openssh (1:4.3p2-6) UNRELEASED; urgency=low
+openssh (1:4.3p2-6) unstable; urgency=low
 
   * Acknowledge NMU (thanks, Manoj; closes: #394795).
   * Backport from 4.5p1:
@@ -9,7 +9,7 @@ openssh (1:4.3p2-6) UNRELEASED; urgency=low
   * debconf template translations:
     - Update German (thanks, Helge Kreutzmann; closes: #395947).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 27 Oct 2006 11:43:27 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 15 Nov 2006 00:07:32 +0000
 
 openssh (1:4.3p2-5.1) unstable; urgency=low
 
