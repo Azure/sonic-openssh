@@ -1,3 +1,10 @@
+openssh (1:4.3p2-7) UNRELEASED; urgency=low
+
+  * Ignore errors from usermod when changing sshd's shell, since it will
+    fail if the sshd user is not local (closes: #398436).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 20 Nov 2006 14:57:16 +0000
+
 openssh (1:4.3p2-6) unstable; urgency=low
 
   * Acknowledge NMU (thanks, Manoj; closes: #394795).

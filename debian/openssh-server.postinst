@@ -291,7 +291,7 @@ fix_statoverride() {
 
 fix_sshd_shell() {
 	if getent passwd sshd | grep -q ':/bin/false$'; then
-		usermod -s /usr/sbin/nologin sshd
+		usermod -s /usr/sbin/nologin sshd || true
 	fi
 }
 
