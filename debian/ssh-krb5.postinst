@@ -7,11 +7,6 @@ oldversion="$2"
 
 if [ "$action" = configure ] ; then
     if dpkg --compare-versions "$oldversion" lt-nl 1:4.3p2-7; then
-        if [ ! -L /usr/share/doc/ssh-krb5 ]; then
-            rm -rf /usr/share/doc/ssh-krb5
-            ln -s openssh-client /usr/share/doc/ssh-krb5
-        fi
-
         # Replaced by /etc/init.d/ssh.
         if [ -f /etc/init.d/ssh-krb5 ]; then
             mv /etc/init.d/ssh-krb5 /etc/init.d/ssh-krb5.dpkg-old

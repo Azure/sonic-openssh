@@ -255,8 +255,7 @@ binary-ssh-krb5: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	mv debian/ssh-krb5/usr/share/doc/ssh-krb5 debian/ssh-krb5/usr/share/doc/openssh-client
-	rm -f debian/ssh-krb5/usr/share/doc/openssh-client/copyright
+	dh_installchangelogs ChangeLog
 	dh_link
 	dh_compress
 	dh_fixperms
