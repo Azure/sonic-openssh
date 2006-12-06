@@ -6,7 +6,7 @@ openssh (1:4.3p2-7) UNRELEASED; urgency=low
 
   [ Russ Allbery ]
   * Create transitional ssh-krb5 package which enables GSSAPI configuration
-    in sshd_config.
+    in sshd_config (closes: #390986).
   * Default client to attempting GSSAPI authentication.
   * Remove obsolete GSSAPINoMICAuthentication from sshd_config if it's
     found.
