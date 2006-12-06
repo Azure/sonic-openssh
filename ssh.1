@@ -43,7 +43,7 @@
 .Nd OpenSSH SSH client (remote login program)
 .Sh SYNOPSIS
 .Nm ssh
-.Op Fl 1246AaCfgkMNnqsTtVvXxY
+.Op Fl 1246AaCfgKkMNnqsTtVvXxY
 .Op Fl b Ar bind_address
 .Op Fl c Ar cipher_spec
 .Oo Fl D\ \&
@@ -314,6 +314,8 @@ It is possible to have multiple
 .Fl i
 options (and multiple identities specified in
 configuration files).
+.It Fl K
+Enables forwarding (delegation) of GSSAPI credentials to the server.
 .It Fl k
 Disables forwarding (delegation) of GSSAPI credentials to the server.
 .It Fl L Xo

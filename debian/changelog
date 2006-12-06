@@ -10,6 +10,8 @@ openssh (1:4.3p2-7) UNRELEASED; urgency=low
   * Default client to attempting GSSAPI authentication.
   * Remove obsolete GSSAPINoMICAuthentication from sshd_config if it's
     found.
+  * Add ssh -K option, the converse of -k, to enable GSSAPI credential
+    delegation (closes: #401483).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 20 Nov 2006 14:57:16 +0000
 
