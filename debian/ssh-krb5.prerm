@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+case $1 in
+	upgrade)
+		if [ -L /usr/share/doc/ssh-krb5 ] && \
+		   dpkg --compare-versions "$2" lt-nl 1:4.3p2-7; then
+			rm -f /usr/share/doc/ssh-krb5
+		fi
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

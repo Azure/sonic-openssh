@@ -72,6 +72,17 @@ set_config_option() {
 }
 
 
+remove_obsolete_gssapi() {
+	grep -qi '^[ 	]*GSSAPINoMICAuthentication' /etc/ssh/sshd_config \
+		|| return 0
+	perl -pe 's/^(\s*GSSAPINoMICAuthentication)/\#$1/i' \
+		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
+	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
+	chmod --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
+	mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
+}
+
+
 host_keys_required() {
 	hostkeys="$(get_config_option HostKey)"
 	if [ "$hostkeys" ]; then
@@ -189,6 +200,9 @@ create_sshdconfig() {
 		if dpkg --compare-versions "$oldversion" lt 1:4.1p1-1; then
 		    move_subsystem_sftp
 		fi
+
+		# Remove obsolete GSSAPI options.
+		remove_obsolete_gssapi
 
 		return 0
 	    fi

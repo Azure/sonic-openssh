@@ -43,3 +43,5 @@ Host *
 #   PermitLocalCommand no
     SendEnv LANG LC_*
     HashKnownHosts yes
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials no

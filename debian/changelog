@@ -1,7 +1,15 @@
 openssh (1:4.3p2-7) UNRELEASED; urgency=low
 
+  [ Colin Watson ]
   * Ignore errors from usermod when changing sshd's shell, since it will
     fail if the sshd user is not local (closes: #398436).
+
+  [ Russ Allbery ]
+  * Create transitional ssh-krb5 package which enables GSSAPI configuration
+    in sshd_config.
+  * Default client to attempting GSSAPI authentication.
+  * Remove obsolete GSSAPINoMICAuthentication from sshd_config if it's
+    found.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 20 Nov 2006 14:57:16 +0000
 

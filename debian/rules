@@ -166,7 +166,7 @@ install: build
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
 # Build architecture-independent files here.
-binary-indep: binary-ssh
+binary-indep: binary-ssh binary-ssh-krb5
 
 # Build architecture-dependent files here.
 binary-arch: binary-openssh-client binary-openssh-server
@@ -244,6 +244,21 @@ binary-ssh: build install
 	dh_md5sums
 	dh_builddeb
 
+binary-ssh-krb5: DH_OPTIONS=-pssh-krb5
+binary-ssh-krb5: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	mv debian/ssh-krb5/usr/share/doc/ssh-krb5 debian/ssh-krb5/usr/share/doc/openssh-client
+	rm -f debian/ssh-krb5/usr/share/doc/openssh-client/copyright
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
 binary-ssh-askpass-gnome: DH_OPTIONS=-pssh-askpass-gnome
 binary-ssh-askpass-gnome: build install
 	dh_testdir
@@ -292,5 +307,5 @@ binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
 .PHONY: binary-openssh-client binary-openssh-server binary-ssh
-.PHONY: binary-ssh-askpass-gnome
+.PHONY: binary-ssh-krb5 binary-ssh-askpass-gnome
 .PHONY: binary-openssh-client-udeb binary-openssh-server-udeb
