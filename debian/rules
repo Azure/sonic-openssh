@@ -167,7 +167,7 @@ install: build
 
 	# Remove version control tags to avoid unnecessary conffile
 	# resolution steps for administrators.
-	sed -i '/\$$OpenBSD:/' \
+	sed -i '/\$$OpenBSD:/d' \
 		debian/openssh-client/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
 
