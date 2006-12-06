@@ -165,6 +165,12 @@ install: build
 	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
+	# Remove version control tags to avoid unnecessary conffile
+	# resolution steps for administrators.
+	sed -i '/\$$OpenBSD:/' \
+		debian/openssh-client/etc/ssh/moduli \
+		debian/openssh-client/etc/ssh/ssh_config
+
 # Build architecture-independent files here.
 binary-indep: binary-ssh binary-ssh-krb5
 
