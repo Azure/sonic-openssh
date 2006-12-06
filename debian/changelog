@@ -1,4 +1,4 @@
-openssh (1:4.3p2-7) UNRELEASED; urgency=medium
+openssh (1:4.3p2-7) unstable; urgency=medium
 
   [ Colin Watson ]
   * Ignore errors from usermod when changing sshd's shell, since it will
@@ -21,7 +21,7 @@ openssh (1:4.3p2-7) UNRELEASED; urgency=medium
   * Add ssh -K option, the converse of -k, to enable GSSAPI credential
     delegation (closes: #401483).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 20 Nov 2006 14:57:16 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed,  6 Dec 2006 23:00:49 +0000
 
 openssh (1:4.3p2-6) unstable; urgency=low
 
