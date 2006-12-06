@@ -6,6 +6,8 @@ openssh (1:4.3p2-7) UNRELEASED; urgency=medium
   * Remove version control tags from /etc/ssh/moduli and /etc/ssh/ssh_config
     to avoid unnecessary conffile resolution steps for administrators
     (thanks, Jari Aalto; closes: #335259).
+  * Fix quoting error in configure.ac and regenerate configure (thanks, Ben
+    Pfaff; closes: #391248).
 
   [ Russ Allbery ]
   * Create transitional ssh-krb5 package which enables GSSAPI configuration
