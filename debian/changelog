@@ -1,4 +1,4 @@
-openssh (1:4.3p2-7) UNRELEASED; urgency=low
+openssh (1:4.3p2-7) UNRELEASED; urgency=medium
 
   [ Colin Watson ]
   * Ignore errors from usermod when changing sshd's shell, since it will
