@@ -8,6 +8,9 @@ openssh (1:4.3p2-7) UNRELEASED; urgency=medium
     (thanks, Jari Aalto; closes: #335259).
   * Fix quoting error in configure.ac and regenerate configure (thanks, Ben
     Pfaff; closes: #391248).
+  * When installing openssh-client or openssh-server from scratch, remove
+    any unchanged conffiles from the pre-split ssh package to work around a
+    bug in sarge's dpkg (thanks, Justin Pryzby and others; closes: #335276).
 
   [ Russ Allbery ]
   * Create transitional ssh-krb5 package which enables GSSAPI configuration
