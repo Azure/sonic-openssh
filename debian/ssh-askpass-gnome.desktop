@@ -8,5 +8,5 @@ Exec=/usr/bin/ssh-add
 TryExec=ssh-add
 Terminal=false
 Type=Application
-Icon=ssh-askpass-gnome.png
+Icon=ssh-askpass-gnome
 Categories=Application;Network;

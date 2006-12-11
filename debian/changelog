@@ -1,3 +1,12 @@
+openssh (1:4.3p2-8) UNRELEASED; urgency=low
+
+  [ Vincent Untz ]
+  * Give the ssh-askpass-gnome window a default icon; remove unnecessary
+    icon extension from .desktop file (closes:
+    https://launchpad.net/bugs/27152).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 11 Dec 2006 15:04:44 +0000
+
 openssh (1:4.3p2-7) unstable; urgency=medium
 
   [ Colin Watson ]
