@@ -10,7 +10,7 @@ Package: openssh-client
 Architecture: any
 Depends: ${shlibs:Depends}, ${debconf-depends}, adduser (>= 3.10), dpkg (>= 1.7.0), passwd
 Conflicts: ssh (<< 1:3.8.1p1-9), sftp, rsh-client (<<0.16.1-1), ssh-krb5 (<< 1:4.3p2-7)
-Replaces: ssh (<< 1:3.8.1p1-9), ssh-krb5 (<< 1:4.3p2-7)
+Replaces: ssh, ssh-krb5
 Suggests: ssh-askpass, xbase-clients
 Provides: rsh-client, ssh-client
 Description: Secure shell client, an rlogin/rsh/rcp replacement
@@ -40,7 +40,7 @@ Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, ${debconf-depends}, ${pam-depends}, libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0), openssh-client (= ${Source-Version})
 Conflicts: ssh (<< 1:3.8.1p1-9), ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1), ssh-krb5 (<< 1:4.3p2-7)
-Replaces: ssh (<< 1:3.8.1p1-9), openssh-client (<< 1:3.8.1p1-11), ssh-krb5 (<< 1:4.3p2-7)
+Replaces: ssh, openssh-client (<< 1:3.8.1p1-11), ssh-krb5
 Suggests: ssh-askpass, xbase-clients, rssh, molly-guard
 Provides: ssh-server
 Description: Secure shell server, an rshd replacement
