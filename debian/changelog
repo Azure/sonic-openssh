@@ -8,6 +8,8 @@ openssh (1:4.3p2-8) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Drop versioning on ssh/ssh-krb5 Replaces, as otherwise it isn't
     sufficient to replace conffiles (closes: #402804).
+  * debconf template translations:
+    - Add Romanian (thanks, Stan Ioan-Eugen; closes: #403528).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 11 Dec 2006 15:04:44 +0000
 
