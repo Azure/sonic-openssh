@@ -12,6 +12,14 @@ openssh (1:4.3p2-8) UNRELEASED; urgency=medium
     GSSAPICleanupCredentials. Mark GSSUseSessionCCache and
     GSSAPIUseSessionCredCache as known-but-unsupported options, and migrate
     away from them on upgrade.
+  * It turns out that the people who told me that removing a conffile in the
+    preinst was sufficient to have dpkg replace it without prompting when
+    moving a conffile between packages were very much mistaken. As far as I
+    can tell, the only way to do this reliably is to write out the desired
+    new text of the conffile in the preinst. This is gross, and requires
+    shipping the text of all conffiles in the preinst too, but there's
+    nothing for it. Fortunately this nonsense is only required for smooth
+    upgrades from sarge.
   * debconf template translations:
     - Add Romanian (thanks, Stan Ioan-Eugen; closes: #403528).
 

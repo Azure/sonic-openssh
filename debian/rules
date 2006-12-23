@@ -195,6 +195,10 @@ binary-openssh-client: build install
 	dh_installdeb
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
+	perl -i debian/substitute-conffile.pl \
+		ETC_SSH_MODULI debian/openssh-client/etc/ssh/moduli \
+		ETC_SSH_SSH_CONFIG debian/openssh-client/etc/ssh/ssh_config \
+		debian/openssh-client/DEBIAN/preinst
 	dh_shlibdeps
 	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0'
 	dh_md5sums
@@ -229,6 +233,11 @@ endif
 	dh_compress
 	dh_fixperms
 	dh_installdeb
+	perl -i debian/substitute-conffile.pl \
+		ETC_DEFAULT_SSH debian/openssh-server/etc/default/ssh \
+		ETC_INIT_D_SSH debian/openssh-server/etc/init.d/ssh \
+		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/ssh \
+		debian/openssh-server/DEBIAN/preinst
 	dh_shlibdeps
 	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0' \
 	                 -V'pam-depends=$(PAMDEP)'
