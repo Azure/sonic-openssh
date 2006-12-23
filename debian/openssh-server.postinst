@@ -89,6 +89,7 @@ disable_config_option() {
 			}
 			print;
 		}' \
+		"$option" \
 		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
 	chmod --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
