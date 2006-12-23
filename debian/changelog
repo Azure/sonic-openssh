@@ -1,4 +1,4 @@
-openssh (1:4.3p2-8) UNRELEASED; urgency=medium
+openssh (1:4.3p2-8) unstable; urgency=medium
 
   [ Vincent Untz ]
   * Give the ssh-askpass-gnome window a default icon; remove unnecessary
@@ -23,7 +23,7 @@ openssh (1:4.3p2-8) UNRELEASED; urgency=medium
   * debconf template translations:
     - Add Romanian (thanks, Stan Ioan-Eugen; closes: #403528).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 11 Dec 2006 15:04:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 23 Dec 2006 18:38:33 +0000
 
 openssh (1:4.3p2-7) unstable; urgency=medium
 
