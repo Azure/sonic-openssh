@@ -72,14 +72,34 @@ set_config_option() {
 }
 
 
-remove_obsolete_gssapi() {
-	grep -qi '^[ 	]*GSSAPINoMICAuthentication' /etc/ssh/sshd_config \
-		|| return 0
-	perl -pe 's/^(\s*GSSAPINoMICAuthentication)/\#$1/i' \
+disable_config_option() {
+	option="$1"
+
+	value="$(get_config_option "$option")"
+	[ "$value" ] || return 0
+
+	perl -le '
+		$option = $ARGV[0];
+		while (<STDIN>) {
+			chomp;
+			(my $match = $_) =~ s/\s+/ /g;
+			# TODO: actually only one "=" allowed after option
+			if ($match =~ s/^(\s*\Q$option\E[[:space:]=]+.*)/#$1/i) {
+				$_ = $match;
+			}
+			print;
+		}' \
 		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
 	chmod --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
 	mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
+}
+
+
+remove_obsolete_gssapi() {
+	disable_config_option GSSAPINoMICAuthentication
+	disable_config_option GSSUseSessionCCache
+	disable_config_option GSSAPIUseSessionCredCache
 }
 
 
@@ -202,7 +222,9 @@ create_sshdconfig() {
 		fi
 
 		# Remove obsolete GSSAPI options.
-		remove_obsolete_gssapi
+		if dpkg --compare-versions "$oldversion" lt 1:4.3p2-8; then
+		    remove_obsolete_gssapi
+		fi
 
 		return 0
 	    fi

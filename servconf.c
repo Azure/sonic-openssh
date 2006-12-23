@@ -333,11 +333,15 @@ static struct {
 	{ "gssapiauthentication", sGssAuthentication },
 	{ "gssapikeyexchange", sGssKeyEx },
 	{ "gssapicleanupcredentials", sGssCleanupCreds },
+	{ "gssapicleanupcreds", sGssCleanupCreds },
 #else
 	{ "gssapiauthentication", sUnsupported },
 	{ "gssapikeyexchange", sUnsupported },
 	{ "gssapicleanupcredentials", sUnsupported },
+	{ "gssapicleanupcreds", sUnsupported },
 #endif
+	{ "gssusesessionccache", sUnsupported },
+	{ "gssapiusesessioncredcache", sUnsupported },
 	{ "passwordauthentication", sPasswordAuthentication },
 	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication },
 	{ "challengeresponseauthentication", sChallengeResponseAuthentication },
