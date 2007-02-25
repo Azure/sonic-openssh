@@ -1,3 +1,10 @@
+openssh (1:4.3p2-9) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Add Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #412330).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 25 Feb 2007 16:56:52 +0000
+
 openssh (1:4.3p2-8) unstable; urgency=medium
 
   [ Vincent Untz ]
