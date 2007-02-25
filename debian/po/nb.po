@@ -33,9 +33,10 @@ msgid ""
 "any customisations you made with the old version."
 msgstr ""
 "Det ser ut til at du oppgraderer fra Debian «Potato», og denne versjonen av "
-"OpenSSH har ganske store endringer i oppsettsfila. Denne pakka kan nå lage en "
-"ny oppsettsfil (/etc/ssh/sshd_config) som fungerer med den nye tjenerversjonen, "
-"men ikke inneholder noen tilpasninger som kan være gjort lokalt i den gamle versjonen."
+"OpenSSH har ganske store endringer i oppsettsfila. Denne pakka kan nå lage "
+"en ny oppsettsfil (/etc/ssh/sshd_config) som fungerer med den nye "
+"tjenerversjonen, men ikke inneholder noen tilpasninger som kan være gjort "
+"lokalt i den gamle versjonen."
 
 #. Type: boolean
 #. Description
@@ -47,10 +48,11 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"Merk at denne nye oppsettsfila setter verdien av «PermitRootLogin» til «yes» "
-"(slik at alle som kjenner root-passordet kan logge inn direkte med ssh som root). "
-"Vedlikeholderen mener at dette er den riktige standardinnstillingen (se i README.Debian etter mer), men sshd_config kan alltid redigeres manuelt med "
-"ønsket verdi."
+"Merk at denne nye oppsettsfila setter verdien av «PermitRootLogin» til "
+"«yes» (slik at alle som kjenner root-passordet kan logge inn direkte med ssh "
+"som root). Vedlikeholderen mener at dette er den riktige "
+"standardinnstillingen (se i README.Debian etter mer), men sshd_config kan "
+"alltid redigeres manuelt med ønsket verdi."
 
 #. Type: boolean
 #. Description
@@ -74,9 +76,9 @@ msgid ""
 "all running sshd instances.  If you are doing this upgrade via an ssh "
 "session, that would be a Bad Thing(tm)."
 msgstr ""
-"Den versjonen av /etc/init.d/ssh som nå er installert vil antakelig "
-"stoppe alle sshd-instanser som kjører. Hvis denne oppgraderingen "
-"gjøres over en ssh-økt, så er dette Ikke Bra(tm)."
+"Den versjonen av /etc/init.d/ssh som nå er installert vil antakelig stoppe "
+"alle sshd-instanser som kjører. Hvis denne oppgraderingen gjøres over en ssh-"
+"økt, så er dette Ikke Bra(tm)."
 
 #. Type: boolean
 #. Description
@@ -85,8 +87,8 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Dette kan rettes på ved å legge til «--pidfile /var/run/sshd.pid» til "
-"start-stop-daemon linja i stopp-delen av fila."
+"Dette kan rettes på ved å legge til «--pidfile /var/run/sshd.pid» til start-"
+"stop-daemon linja i stopp-delen av fila."
 
 #. Type: note
 #. Description
@@ -102,9 +104,10 @@ msgid ""
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
-"Det finnes en gammel /etc/ssh/ssh_host_key, som er kryptert med IDEA. OpenSSH "
-"kan ikke håndtere denne vertsnøkkelfila, og det ser ikke ut til at verktøyet "
-"ssh-keygen fra den gamle (ikke-frie) SSH-installasjonen er tilgjengelig."
+"Det finnes en gammel /etc/ssh/ssh_host_key, som er kryptert med IDEA. "
+"OpenSSH kan ikke håndtere denne vertsnøkkelfila, og det ser ikke ut til at "
+"verktøyet ssh-keygen fra den gamle (ikke-frie) SSH-installasjonen er "
+"tilgjengelig."
 
 #. Type: note
 #. Description
@@ -129,10 +132,11 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Det ser ut til at passord-autentisering er slått av i tjeneroppsettet "
-"for OpenSSH. For å hindre brukere i å logge inn med passord med nyere versjoner av "
-"OpenSSH (kanskje med autentisering med kryptonøkler i stedet), så må autentisering med utfordring-svar slås av, eller PAM-oppsettet være satt til ikke å tillate "
-"autentisering mot Unix passord-fila."
+"Det ser ut til at passord-autentisering er slått av i tjeneroppsettet for "
+"OpenSSH. For å hindre brukere i å logge inn med passord med nyere versjoner "
+"av OpenSSH (kanskje med autentisering med kryptonøkler i stedet), så må "
+"autentisering med utfordring-svar slås av, eller PAM-oppsettet være satt til "
+"ikke å tillate autentisering mot Unix passord-fila."
 
 #. Type: boolean
 #. Description
@@ -144,7 +148,6 @@ msgid ""
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
 "Hvis autentisering med utfordring-svar er slått av, så kan brukere ikke "
-"logge inn med passord. Hvis det står på (som er standard), så har det "
-"ingen virkning å sette «PasswordAuthentication no» med mindre PAM-oppsettet "
-"i /etc/pam.d/ssh også justeres."
-
+"logge inn med passord. Hvis det står på (som er standard), så har det ingen "
+"virkning å sette «PasswordAuthentication no» med mindre PAM-oppsettet i /etc/"
+"pam.d/ssh også justeres."
