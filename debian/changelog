@@ -1,4 +1,4 @@
-openssh (1:4.3p2-9) UNRELEASED; urgency=low
+openssh (1:4.3p2-9) unstable; urgency=high
 
   [ Russ Allbery ]
   * Fix GSSAPIKeyExchange configuration file handling logic in ssh-krb5
@@ -9,7 +9,7 @@ openssh (1:4.3p2-9) UNRELEASED; urgency=low
   * debconf template translations:
     - Add Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #412330).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 25 Feb 2007 16:56:52 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon,  5 Mar 2007 16:13:50 +0000
 
 openssh (1:4.3p2-8) unstable; urgency=medium
 
