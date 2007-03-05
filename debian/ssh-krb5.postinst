@@ -42,7 +42,7 @@ EOF
         else
             changed=true
             if grep -qi '^#GSSAPI' /etc/ssh/sshd_config ; then
-                perl -pe 's/^\#(GSSAPI(Authentication|KeyExchange))\b/$1/i' \
+                perl -pe 's/^\#(GSSAPI(Authentication|KeyExchange))\b.*/$1 yes/i' \
                     < /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
                 chown --reference /etc/ssh/sshd_config \
                     /etc/ssh/sshd_config.dpkg-new

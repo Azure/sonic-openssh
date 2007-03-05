@@ -3,6 +3,7 @@ openssh (1:4.3p2-9) UNRELEASED; urgency=low
   [ Russ Allbery ]
   * Fix GSSAPIKeyExchange configuration file handling logic in ssh-krb5
     (closes: #404863).
+  * Fix uncommenting of GSSAPI options by ssh-krb5 (closes: #407766).
 
   [ Colin Watson ]
   * debconf template translations:
