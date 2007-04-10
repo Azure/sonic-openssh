@@ -1,6 +1,7 @@
 openssh (1:4.3p2-10) UNRELEASED; urgency=low
 
   * Multiply openssh-client-udeb's Installer-Menu-Item by 100.
+  * Increase MAX_SESSIONS to 64.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 10 Apr 2007 19:11:29 +0100
 

@@ -106,7 +106,7 @@ extern Buffer loginmsg;
 const char *original_command = NULL;
 
 /* data */
-#define MAX_SESSIONS 10
+#define MAX_SESSIONS 64
 Session	sessions[MAX_SESSIONS];
 
 #ifdef HAVE_LOGIN_CAP
