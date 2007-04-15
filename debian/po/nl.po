@@ -77,7 +77,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates.master:2001
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Wilt u verder gaan (waardoor u mogelijk actieve ssh-sessies afluit)?"
+msgstr "Wilt u verder gaan (waardoor u mogelijk actieve ssh-sessies afsluit)?"
 
 #. Type: boolean
 #. Description
@@ -144,7 +144,7 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Zo te zien is wachtwoord-authenticatie momenteel gedeactiveert in uw OpenSSH-"
+"Zo te zien is wachtwoord-authenticatie momenteel gedeactiveerd in uw OpenSSH-"
 "serverconfiguratie. Om te voorkomen dat gebruikers met recente versies van "
 "OpenSSH inloggen met behulp van wachtwoorden (mogelijk door in plaats "
 "daarvan enkel publieke-sleutel authenticatie te gebruiken) dient challenge-"
@@ -161,7 +161,7 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Wanneer u challenge-response-authenticatie deactiveerd kunnen gebruikers "
+"Wanneer u challenge-response-authenticatie deactiveert kunnen gebruikers "
 "niet meer inloggen met behulp van wachtwoorden. Als u het geactiveerd laat "
 "(de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig) "
 "effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh."

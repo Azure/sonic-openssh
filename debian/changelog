@@ -1,3 +1,10 @@
+openssh (1:4.3p2-11) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update Dutch (thanks, Machteld de Kok; closes: #419260).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
+
 openssh (1:4.3p2-10) unstable; urgency=low
 
   * Multiply openssh-client-udeb's Installer-Menu-Item by 100.
