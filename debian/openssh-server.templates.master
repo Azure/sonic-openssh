@@ -1,47 +1,57 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# for an advice to debian-l10n-english@lists.debian.org
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
 Template: ssh/new_config
 Type: boolean
 Default: true
-_Description: Generate new configuration file?
+_Description: Generate a new configuration file for OpenSSH?
  This version of OpenSSH has a considerably changed configuration file from
  the version shipped in Debian 'Potato', which you appear to be upgrading
  from. This package can now generate a new configuration file
  (/etc/ssh/sshd.config), which will work with the new server version, but
- will not contain any customisations you made with the old version.
+ will not contain any customizations you made with the old version.
  .
  Please note that this new configuration file will set the value of
- 'PermitRootLogin' to yes (meaning that anyone knowing the root password
- can ssh directly in as root). It is the opinion of the maintainer that
- this is the correct default (see README.Debian for more details), but you
- can always edit sshd_config and set it to no if you wish.
+ 'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password
+ can ssh directly in as root). Please read the README.Debian files for
+ more details about this design choice.
  .
- It is strongly recommended that you let this package generate a new
+ It is strongly recommended that choose to generate a new
  configuration file now.
 
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false
-_Description: Do you want to continue (and risk killing active ssh sessions)?
- The version of /etc/init.d/ssh that you have installed, is likely to kill
- all running sshd instances.  If you are doing this upgrade via an ssh
- session, that would be a Bad Thing(tm).
+_Description: Do you want to risk killing active SSH sessions?
+ The currently installed version of /etc/init.d/ssh is likely to kill
+ all running sshd instances. If you are doing this upgrade via an SSH
+ session, you're likely to be disconnected and leave the upgrade
+ procedure unfinished.
  .
- You can fix this by adding "--pidfile /var/run/sshd.pid" to the
- start-stop-daemon line in the stop section of the file.
+ This can be fixed by manually adding "--pidfile /var/run/sshd.pid" to
+ the start-stop-daemon line in the stop section of the file.
 
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
-_Description: Warning: you must create a new host key
- There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH
- can not handle this host key file, and the ssh-keygen utility from the old
- (non-free) SSH installation does not appear to be available.
+_Description: New host key mandatory
+ The current host key, in /etc/ssh/ssh_host_key, is encrypted with the
+ IDEA algorithm. OpenSSH can not handle this host key file, and the
+ ssh-keygen utility from the old (non-free) SSH installation does not
+ appear to be available.
  .
- You will need to generate a new host key.
+ You need to manually generate a new host key.
 
 Template: ssh/disable_cr_auth
 Type: boolean
 Default: false
 _Description: Disable challenge-response authentication?
- Password authentication appears to be disabled in your current OpenSSH
+ Password authentication appears to be disabled in the current OpenSSH
  server configuration. In order to prevent users from logging in using
  passwords (perhaps using only public key authentication instead) with
  recent versions of OpenSSH, you must disable challenge-response
