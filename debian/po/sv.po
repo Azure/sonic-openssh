@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1:4.3p2-1\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
-"PO-Revision-Date: 2006-05-19 00:18+0100\n"
+"POT-Creation-Date: 2007-04-23 17:56+0200\n"
+"PO-Revision-Date: 2007-04-23 23:14+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -24,146 +24,86 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
-msgid "Generate new configuration file?"
-msgstr "Generera ny konfigurationsfil?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
-msgstr ""
-"Denna version av OpenSSH har ansenligt ändrat konfigurationsfilen från den "
-"version som skickades med i Debians \"Potato\"-utgåva som du verkar "
-"uppgradera från. Detta paket kan nu generera en ny konfigurationsfil (/etc/"
-"ssh/sshd.config) som kommer att fungera med den nya serverversionen men "
-"kommer inte att innehålla några anpassningar som du har gjort med den gamla "
-"versionen."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
-msgstr ""
-"Notera att den nya konfigurationsfilen kommer att ställa in värdet för "
-"\"PermitRootLogin\" till \"yes\" (betyder att vem som helst som kan root-"
-"lösenordet kan logga in direkt som root). Det är paketansvariges åsikt att "
-"detta är det satt som standard (se README.Debian för mer detaljer) men du "
-"kan alltid redigera sshd_config och ställa in detta till \"no\" om du vill."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
-msgstr ""
-"Det är rekommenderas starkt att du låter detta paket generera en ny "
-"konfigurationsfil nu."
+#: ../openssh-server.templates.master:2001
+msgid "Generate a new configuration file for OpenSSH?"
+msgstr "Generera en ny konfigurationsfil för OpenSSH?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Vill du fortsätta (och riska att döda aktiva ssh-sessioner)?"
+msgid "This version of OpenSSH has a considerably changed configuration file from the version shipped in Debian 'Potato', which you appear to be upgrading from. This package can now generate a new configuration file (/etc/ssh/sshd.config), which will work with the new server version, but will not contain any customizations you made with the old version."
+msgstr "Denna version av OpenSSH har ändrat konfigurationsfilen ansenligt från den version som skickades med i Debians \"Potato\"-utgåva som du verkar uppgradera från. Detta paket kan nu generera en ny konfigurationsfil (/etc/ssh/sshd.config) som kommer att fungera med den nya serverversionen men kommer inte att innehålla några anpassningar som du gjorde med den gamla versionen."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
-msgstr ""
-"Versionen av /etc/init.d/ssh som du har installerad kommer antagligen att "
-"döda alla körande instanser av sshd.  Om du gör denna uppgradering via en "
-"ssh-session är detta en Dålig Idé(tm)."
+msgid "Please note that this new configuration file will set the value of 'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password can ssh directly in as root). Please read the README.Debian files for more details about this design choice."
+msgstr "Observera att den nya konfigurationsfilen kommer att ställa in värdet för \"PermitRootLogin\" till \"yes\" (vilket betyder att vem som helst som kan root-lösenordet kan logga in direkt som root). Läs filen README.Debian för mer information om det här designvalet."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
-msgstr ""
-"Du kan lösa detta genom att lägga till \"--pidfile /var/run/sshd.pid\" till "
-"raden med start-stop-daemon i sektionen \"stop\" i filen."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr "Varning: du måste skapa en ny värdnyckel"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
-msgstr ""
-"Det finns en gammal /etc/ssh/ssh_host_key som är IDEA-krypterad. OpenSSH kan "
-"inte hantera dessa värdnyckelfiler och verktyget ssh-keygen från den gamla "
-"(non-free) installationen av SSH verkar inte finnas tillgänglig."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
-msgstr "Du behöver generera en ny värdnyckel"
+msgid "It is strongly recommended that you choose to generate a new configuration file now."
+msgstr "Det rekommenderas starkt att du väljer att generera en ny konfigurationsfil nu."
 
 #. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid "Do you want to risk killing active SSH sessions?"
+msgstr "Vill du riskera att döda aktiva SSH-sessioner?"
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid "The currently installed version of /etc/init.d/ssh is likely to kill all running sshd instances. If you are doing this upgrade via an SSH session, you're likely to be disconnected and leave the upgrade procedure unfinished."
+msgstr "Den för närvarande installerade versionen av /etc/init.d/ssh kommer antagligen döda alla körande instanser av sshd.  Om du gör denna uppgradering via en SSH-session kommer du sannolikt att kopplas ner och uppgraderingsprocessen lämnas ofärdig."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the start-stop-daemon line in the stop section of the file."
+msgstr "Det här kan rättas till genom att manuellt lägga till \"--pidfile /var/run/sshd.pid\" till raden \"start-stop-daemon\" i sektionen \"stop\" i filen."
+
+#. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr "Ny värdnyckel är obligatorisk"
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA algorithm. OpenSSH can not handle this host key file, and the ssh-keygen utility from the old (non-free) SSH installation does not appear to be available."
+msgstr "Den aktuella värdnyckel, i /etc/ssh/ssh_host_key, är krypterad med IDEA-algoritmen. OpenSSH kan inte hantera den här värdnyckelfilen och verktyget ssh-keygen från den gamla (ickefria) SSH-installationen verkar inte finnas tillgänglig."
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid "You need to manually generate a new host key."
+msgstr "Du behöver manuellt generera en ny värdnyckel."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
-msgstr "Stäng av challenge-response-autentisering?"
+msgstr "Inaktivera challenge-response-autentisering?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
-msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Lösenordsautentisering verkar vara inaktiverat i din aktuella konfiguration "
-"av OpenSSH-servern. För att förhindra att användare loggar in med lösenord "
-"(kanske bara med publik nyckelautentisering istället) med senare versioner "
-"av OpenSSH, måste du inaktivera challenge-response-autentisering eller se "
-"till att din PAM-konfiguration inte tillåter autentisering via Unix "
-"lösenordsfil."
+#: ../openssh-server.templates.master:5001
+msgid "Password authentication appears to be disabled in the current OpenSSH server configuration. In order to prevent users from logging in using passwords (perhaps using only public key authentication instead) with recent versions of OpenSSH, you must disable challenge-response authentication, or else ensure that your PAM configuration does not allow Unix password file authentication."
+msgstr "Lösenordsautentisering verkar vara inaktiverat i din aktuella konfiguration av OpenSSH-servern. För att förhindra att användare loggar in med lösenord (istället kanske endast använder publik nyckelautentisering) med senare versioner av OpenSSH, måste du inaktivera challenge-response-autentisering eller försäkra dig om att din PAM-konfiguration inte tillåter autentisering via Unix lösenordsfil."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Om du inaktiverar  challenge-response-autentisering så kan användarna inte "
-"logga in med lösenord. Om du lämnar det aktiverat (som är standard) så "
-"kommer \"PasswordAuthentication no\" inte att ha någon effekt om du inte "
-"justerar din PAM-konfiguration i /etc/pam.d/ssh."
+#: ../openssh-server.templates.master:5001
+msgid "If you disable challenge-response authentication, then users will not be able to log in using passwords. If you leave it enabled (the default answer), then the 'PasswordAuthentication no' option will have no useful effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+msgstr "Om du inaktiverar  challenge-response-autentisering så kan användarna inte logga in med lösenord. Om du lämnar det aktiverat (som är standard) så kommer \"PasswordAuthentication no\" inte att ha någon effekt om du inte justerar din PAM-konfiguration i /etc/pam.d/ssh."
 
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr "Varning: du måste skapa en ny värdnyckel"
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr "Varning: telnetd är installerad --- detta är inte en bra ide"
-
 #~ msgid ""
 #~ "I'd advise you to either remove the telnetd package (if you don't "
 #~ "actually need to offer telnet access) or install telnetd-ssl so that "
@@ -175,10 +115,8 @@ msgstr ""
 #~ "så att det i alla fall finns en liten chans att telnet-sessioner inte "
 #~ "kommer att sända okrypterade login/lösenord och sessionsinformation över "
 #~ "nätverket."
-
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr "Varning: rsh-server är installerad --- kanske inte en bra ide"
-
 #~ msgid ""
 #~ "having rsh-server installed undermines the security that you were "
 #~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
@@ -187,3 +125,4 @@ msgstr ""
 #~ "att ha rsh-server installerad underbygger säkerheten som du säkerligen "
 #~ "ville få genom att installera ssh.  Jag föreslår att du tar bort det "
 #~ "paketet."
+
