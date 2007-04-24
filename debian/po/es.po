@@ -63,7 +63,13 @@ msgid ""
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
-msgstr "Esta versión de OpenSSH aha cambiado considerablemente el fichero de configuración del incluido en Debian 'Potato', que es la versión desde la que parece estar actualizando. Puede crear automáticamente un nuevo fichero de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión del servidor, pero no incuirá las modificaciones que hiciera en la versión antigua."
+msgstr ""
+"Esta versión de OpenSSH aha cambiado considerablemente el fichero de "
+"configuración del incluido en Debian 'Potato', que es la versión desde la "
+"que parece estar actualizando. Puede crear automáticamente un nuevo fichero "
+"de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión "
+"del servidor, pero no incuirá las modificaciones que hiciera en la versión "
+"antigua."
 
 #. Type: boolean
 #. Description
@@ -79,7 +85,11 @@ msgid ""
 "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
 "can ssh directly in as root). Please read the README.Debian files for more "
 "details about this design choice."
-msgstr "Además, recuerde que este nuevo fichero de configuración dirá sí en la opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña de root podrá entrar mediante ssh directamente como root. Puede leer README.Debian si quiere conocer más información sobre esta elección de diseño."
+msgstr ""
+"Además, recuerde que este nuevo fichero de configuración dirá sí en la "
+"opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña de "
+"root podrá entrar mediante ssh directamente como root. Puede leer README."
+"Debian si quiere conocer más información sobre esta elección de diseño."
 
 #. Type: boolean
 #. Description
@@ -90,7 +100,9 @@ msgstr "Además, recuerde que este nuevo fichero de configuración dirá sí en la o
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
-msgstr "Es muy recomendable que eliga generar un nuevo fichero de configuración ahora."
+msgstr ""
+"Es muy recomendable que eliga generar un nuevo fichero de configuración "
+"ahora."
 
 #. Type: boolean
 #. Description
@@ -110,7 +122,11 @@ msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
-msgstr "La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate todas las estancias que están ejecutándose de sshd. Es muy probable que se le desconecte y el procedimiento de actualización quede a medidas si continúa y está realizando esta actualizando."
+msgstr ""
+"La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate "
+"todas las estancias que están ejecutándose de sshd. Es muy probable que se "
+"le desconecte y el procedimiento de actualización quede a medidas si "
+"continúa y está realizando esta actualizando."
 
 #. Type: boolean
 #. Description
@@ -121,7 +137,9 @@ msgstr "La versión de /etc/init.d/ssh que tiene instalada es muy probable que ma
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
-msgstr "Puede arreglarlo añadiendo manualmente «--pidfile /var/run/sshd.pid» a la línea «start-stop-daemon», en la sección «stop» del fichero."
+msgstr ""
+"Puede arreglarlo añadiendo manualmente «--pidfile /var/run/sshd.pid» a la "
+"línea «start-stop-daemon», en la sección «stop» del fichero."
 
 #. Type: note
 #. Description
@@ -141,7 +159,11 @@ msgid ""
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
-msgstr "La clave actual de su sistema, en /etc/ssh/ssh_host_key, está cifrada con el algoritmo IDEA. OpenSSH no puede manejar este fichero de clave y tampoco parece estar disponible la utilidad «ssh-keygen» de la instalación antigua de SSH (no libre)."
+msgstr ""
+"La clave actual de su sistema, en /etc/ssh/ssh_host_key, está cifrada con el "
+"algoritmo IDEA. OpenSSH no puede manejar este fichero de clave y tampoco "
+"parece estar disponible la utilidad «ssh-keygen» de la instalación antigua "
+"de SSH (no libre)."
 
 #. Type: note
 #. Description

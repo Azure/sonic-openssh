@@ -62,7 +62,8 @@ msgid ""
 msgstr ""
 "Merk at denne nye oppsettsfila setter verdien av «PermitRootLogin» til "
 "«yes» (slik at alle som kjenner root-passordet kan logge inn direkte med ssh "
-"som root). Les README.Debian-filene for å finne ut mer om dette oppsettsvalget."
+"som root). Les README.Debian-filene for å finne ut mer om dette "
+"oppsettsvalget."
 
 #. Type: boolean
 #. Description
@@ -73,7 +74,8 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
-msgstr "Det anbefales sterkt at denne pakka får lov til å lage en ny oppsettsfil nå."
+msgstr ""
+"Det anbefales sterkt at denne pakka får lov til å lage en ny oppsettsfil nå."
 
 #. Type: boolean
 #. Description
@@ -108,8 +110,8 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Dette kan rettes på ved å legge til manuelt «--pidfile /var/run/sshd.pid» til start-"
-"stop-daemon linja i stopp-delen av fila."
+"Dette kan rettes på ved å legge til manuelt «--pidfile /var/run/sshd.pid» "
+"til start-stop-daemon linja i stopp-delen av fila."
 
 #. Type: note
 #. Description
@@ -130,8 +132,10 @@ msgid ""
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Den gjeldende vertsnøkkelen, i /etc/ssh/ssh_host_key, er kryptert med IDEA-algoritmen. OpenSSH kan ikke håndtere denne vertsnøkkelfila, og det ser ikke ut til at verktøyet ssh-keygen fra den gamle (ikke-frie) SSH-installasjonen er "
-"tilgjengelig."
+"Den gjeldende vertsnøkkelen, i /etc/ssh/ssh_host_key, er kryptert med IDEA-"
+"algoritmen. OpenSSH kan ikke håndtere denne vertsnøkkelfila, og det ser ikke "
+"ut til at verktøyet ssh-keygen fra den gamle (ikke-frie) SSH-installasjonen "
+"er tilgjengelig."
 
 #. Type: note
 #. Description
@@ -164,10 +168,12 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Det ser ut til at passord-autentisering er slått av i det gjeldende tjeneroppsettet for "
-"OpenSSH. For å hindre brukere i å logge inn med passord med nyere versjoner "
-"av OpenSSH (kanskje med autentisering med kryptonøkler i stedet), så må "
-"autentisering med utfordring-svar slås av, eller det må sjekkes at PAM-oppsettet er satt til ikke å tillate autentisering mot Unix passord-fila."
+"Det ser ut til at passord-autentisering er slått av i det gjeldende "
+"tjeneroppsettet for OpenSSH. For å hindre brukere i å logge inn med passord "
+"med nyere versjoner av OpenSSH (kanskje med autentisering med kryptonøkler i "
+"stedet), så må autentisering med utfordring-svar slås av, eller det må "
+"sjekkes at PAM-oppsettet er satt til ikke å tillate autentisering mot Unix "
+"passord-fila."
 
 #. Type: boolean
 #. Description
@@ -182,5 +188,3 @@ msgstr ""
 "logge inn med passord. Hvis det står på (som er standard), så har det ingen "
 "virkning å sette «PasswordAuthentication no» med mindre PAM-oppsettet i /etc/"
 "pam.d/ssh også justeres."
-
-
