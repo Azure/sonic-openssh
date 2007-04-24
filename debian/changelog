@@ -10,6 +10,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
       closes: #420651).
     - Update Swedish (thanks, Daniel Nylander; closes: #420663).
     - Add Bulgarian (thanks, Damyan Ivanov; closes: #420703).
+    - Add Tamil (thanks, Tirumurti Vasudevan; closes: #420739).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
 
