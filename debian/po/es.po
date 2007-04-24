@@ -1,6 +1,6 @@
 #
 # openssh debconf translation to spanish
-# Copyright (C) 2003 Software in the Public Interest
+# Copyright (C) 2003-2007 Software in the Public Interest
 # This file is distributed under the same license as the XXXX package.
 #
 # Changes:
@@ -8,7 +8,8 @@
 #    Carlos Valdivia Yagüe <valyag@dat,etsit.upm.es>, 2003
 # - Revision
 #    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2004
-#
+# - Translation updates
+#    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2006-2007
 #
 #  Traductores, si no conoce el formato PO, merece la pena leer la 
 #  documentación de gettext, especialmente las secciones dedicadas a este
@@ -18,7 +19,7 @@
 #
 # Equipo de traducción al español, por favor lean antes de traducir
 # los siguientes documentos:
-# 
+#
 # - El proyecto de traducción de Debian al español
 #   http://www.debian.org/intl/spanish/coordinacion
 #   especialmente las notas de traducción en
@@ -32,8 +33,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
-"PO-Revision-Date: 2006-08-14 13:30+0200\n"
+"POT-Creation-Date: 2007-04-23 17:56+0200\n"
+"PO-Revision-Date: 2007-04-23 21:54+0200\n"
 "Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,122 +43,135 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
-msgid "Generate new configuration file?"
-msgstr "¿Desea generar un nuevo fichero de configuración?"
+#: ../openssh-server.templates.master:2001
+#| msgid "Generate new configuration file?"
+msgid "Generate a new configuration file for OpenSSH?"
+msgstr "¿Desea generar un nuevo fichero de configuración para OpenSSH?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
+#| msgid ""
+#| "This version of OpenSSH has a considerably changed configuration file "
+#| "from the version shipped in Debian 'Potato', which you appear to be "
+#| "upgrading from. This package can now generate a new configuration file (/"
+#| "etc/ssh/sshd.config), which will work with the new server version, but "
+#| "will not contain any customisations you made with the old version."
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
-msgstr ""
-"Esta versión de OpenSSH tiene un fichero de configuración considerablemente "
-"diferente del incluido en Debian 'Potato', que es la versión desde la que "
-"parece estar actualizando. Puede crear automáticamente un nuevo fichero de "
-"configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión "
-"del servidor, pero no incuirá las modificaciones que hiciera en la versión "
-"antigua."
+"any customizations you made with the old version."
+msgstr "Esta versión de OpenSSH aha cambiado considerablemente el fichero de configuración del incluido en Debian 'Potato', que es la versión desde la que parece estar actualizando. Puede crear automáticamente un nuevo fichero de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión del servidor, pero no incuirá las modificaciones que hiciera en la versión antigua."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
+#| msgid ""
+#| "Please note that this new configuration file will set the value of "
+#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#| "can ssh directly in as root). It is the opinion of the maintainer that "
+#| "this is the correct default (see README.Debian for more details), but you "
+#| "can always edit sshd_config and set it to no if you wish."
 msgid ""
 "Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
-msgstr ""
-"Además, recuerde que este nuevo fichero de configuración dirá sí en la "
-"opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña de "
-"root podrá entrar mediante ssh directamente como root. En opinión del "
-"mantenedor ésta es la opción predeterminada más adecuada (puede leer README."
-"Debian si quiere conocer más detalles), pero siempre puede editar "
-"sshd_config y poner no si lo desea."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
-msgstr ""
-"Es muy recomendable que permita que se genere un nuevo fichero de "
-"configuración ahora."
+"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+"can ssh directly in as root). Please read the README.Debian files for more "
+"details about this design choice."
+msgstr "Además, recuerde que este nuevo fichero de configuración dirá sí en la opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña de root podrá entrar mediante ssh directamente como root. Puede leer README.Debian si quiere conocer más información sobre esta elección de diseño."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "¿Desea continuar, aún a riesgo de matar las sesiones ssh activas?"
+#| msgid ""
+#| "It is strongly recommended that you let this package generate a new "
+#| "configuration file now."
+msgid ""
+"It is strongly recommended that you choose to generate a new configuration "
+"file now."
+msgstr "Es muy recomendable que eliga generar un nuevo fichero de configuración ahora."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
-msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
-msgstr ""
-"La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate "
-"el demonio ssh. Si está actualizando a través de una sesión ssh, puede que "
-"no sea muy buena idea."
+#: ../openssh-server.templates.master:3001
+#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
+msgid "Do you want to risk killing active SSH sessions?"
+msgstr "¿Desea correr el riesgo de matar las sesiones SSH activas?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:3001
+#| msgid ""
+#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
+#| "all running sshd instances.  If you are doing this upgrade via an ssh "
+#| "session, that would be a Bad Thing(tm)."
 msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
-msgstr ""
-"Puede arreglarlo añadiendo «--pidfile /var/run/sshd.pid» a la línea 'start-"
-"stop-daemon', en la sección 'stop' del fichero."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr "Aviso: debe crear una nueva clave para su servidor"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
-msgstr ""
-"Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. "
-"OpenSSH no puede manejar este fichero de claves y tampoco parece estar "
-"disponible la utilidad ssh-keygen de la instalación antigua de SSH (no "
-"libre)."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
-msgstr "Necesitará generar una nueva clave para su servidor."
+"The currently installed version of /etc/init.d/ssh is likely to kill all "
+"running sshd instances. If you are doing this upgrade via an SSH session, "
+"you're likely to be disconnected and leave the upgrade procedure unfinished."
+msgstr "La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate todas las estancias que están ejecutándose de sshd. Es muy probable que se le desconecte y el procedimiento de actualización quede a medidas si continúa y está realizando esta actualizando."
 
 #. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+#| msgid ""
+#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
+#| "stop-daemon line in the stop section of the file."
+msgid ""
+"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
+"start-stop-daemon line in the stop section of the file."
+msgstr "Puede arreglarlo añadiendo manualmente «--pidfile /var/run/sshd.pid» a la línea «start-stop-daemon», en la sección «stop» del fichero."
+
+#. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr "Nueva clave de sistema obligatoria"
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+#| msgid ""
+#| "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH "
+#| "can not handle this host key file, and the ssh-keygen utility from the "
+#| "old (non-free) SSH installation does not appear to be available."
+msgid ""
+"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
+"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
+"utility from the old (non-free) SSH installation does not appear to be "
+"available."
+msgstr "La clave actual de su sistema, en /etc/ssh/ssh_host_key, está cifrada con el algoritmo IDEA. OpenSSH no puede manejar este fichero de clave y tampoco parece estar disponible la utilidad «ssh-keygen» de la instalación antigua de SSH (no libre)."
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+#| msgid "You will need to generate a new host key."
+msgid "You need to manually generate a new host key."
+msgstr "Debe generar manualmente una nueva clave de sistema."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "¿Desea deshabilitar la autenticación basada en desafío-respuesta?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
+#| msgid ""
+#| "Password authentication appears to be disabled in your current OpenSSH "
+#| "server configuration. In order to prevent users from logging in using "
+#| "passwords (perhaps using only public key authentication instead) with "
+#| "recent versions of OpenSSH, you must disable challenge-response "
+#| "authentication, or else ensure that your PAM configuration does not allow "
+#| "Unix password file authentication."
 msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
+"Password authentication appears to be disabled in the current OpenSSH server "
+"configuration. In order to prevent users from logging in using passwords "
+"(perhaps using only public key authentication instead) with recent versions "
+"of OpenSSH, you must disable challenge-response authentication, or else "
+"ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
 "Parece que la configuración actual de su servidor de OpenSSH tiene "
@@ -170,7 +184,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -181,6 +195,9 @@ msgstr ""
 "podrán acceder con contraseñas. Si la deja habilitada (respuesta por "
 "omisión) entonces la opción «PasswordAuthentication no» no tendrá ninguna "
 "utilidad a menos que ajuste su configuración de PAM en «/etc/pam.d/ssh»."
+
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr "Aviso: debe crear una nueva clave para su servidor"
 
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr "Aviso: tiene telnetd instalado (posiblemente no es una buena idea)"
