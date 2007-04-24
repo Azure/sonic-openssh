@@ -5,6 +5,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
   * debconf template translations:
     - Update Dutch (thanks, Machteld de Kok; closes: #419260).
     - Update Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #420630).
+    - Update Galician (thanks, Jacobo Tarrio; closes: #420635).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
 
