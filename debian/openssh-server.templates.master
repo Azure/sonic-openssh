@@ -22,7 +22,7 @@ _Description: Generate a new configuration file for OpenSSH?
  can ssh directly in as root). Please read the README.Debian file for
  more details about this design choice.
  .
- It is strongly recommended that choose to generate a new
+ It is strongly recommended that you choose to generate a new
  configuration file now.
 
 Template: ssh/use_old_init_script
