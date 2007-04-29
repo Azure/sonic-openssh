@@ -1,5 +1,9 @@
 openssh (1:4.3p2-11) UNRELEASED; urgency=low
 
+  * It's been four and a half years now since I took over as "temporary"
+    maintainer, so the Maintainer field is getting a bit inaccurate. Set
+    Maintainer to debian-ssh@lists.debian.org and leave Matthew and myself
+    as Uploaders.
   * Apply results of debconf templates and package descriptions review by
     debian-l10n-english (closes: #420107).
   * debconf template translations:
