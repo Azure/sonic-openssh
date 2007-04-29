@@ -1176,7 +1176,7 @@ openssh (1:3.4p1-2) unstable; urgency=high
   * Also tidy README.Debian up a little
 
  -- Matthew Vernon <matthew@debian.org>  Fri, 28 Jun 2002 17:20:59 +0100
-	
+
 openssh (1:3.4p1-1) testing; urgency=high
 
   * Extend my tendrils back into this package (Closes: #150915, #151098)
@@ -1190,9 +1190,9 @@ openssh (1:3.4p1-1) testing; urgency=high
     upgrading from a version where we'd put one in ourselves!)
   * Stop slandering Russia, since someone asked so nicely (Closes: #148951)
   * Reduce the sleep time in /etc/init.d/ssh during a restart
-	
+
  -- Matthew Vernon <matthew@debian.org>  Fri, 28 Jun 2002 15:52:10 +0100
-	
+
 openssh (1:3.4p1-0.0woody1) testing-security; urgency=high
 
   * NMU by the security team.
@@ -1248,7 +1248,7 @@ openssh (1:3.0.2p1-9) unstable; urgency=high
   * Correct a path in README.Debian too (Closes: #138634)
 
  -- Matthew Vernon <matthew@debian.org>  Sun,  4 Apr 2002 09:52:59 +0100
-	
+
 openssh (1:3.0.2p1-8.3) unstable; urgency=medium
 
   * NMU
@@ -1282,7 +1282,7 @@ openssh (1:3.0.2p1-8) unstable; urgency=critical
   * Undo the changes in the unreleased -7, since they appear to break 
     things here. Accordingly, the code change is minimal, and I'm 
     happy to get it into testing ASAP
-	
+
  -- Matthew Vernon <matthew@debian.org>  Thu,  7 Mar 2002 14:25:23 +0000
 
 openssh (1:3.0.2p1-7) unstable; urgency=high
@@ -1290,7 +1290,7 @@ openssh (1:3.0.2p1-7) unstable; urgency=high
   * Build to support IPv6 and IPv4 by default again
 
  -- Matthew Vernon <matthew@debian.org>  Sat,  2 Mar 2002 00:25:05 +0000
-	
+
 openssh (1:3.0.2p1-6) unstable; urgency=high
 
   * Correct error in the clean target (Closes: #130868)
@@ -1303,14 +1303,14 @@ openssh (1:3.0.2p1-5) unstable; urgency=medium
     audit networks for patched versions in future
 
  -- Matthew Vernon <matthew@debian.org>  Mon, 21 Jan 2002 17:16:10 +0000
-	
+
 openssh (1:3.0.2p1-4) unstable; urgency=medium
 
   * If we're asked to not run sshd, stop any running sshd's first 
     (Closes: #129327)
 
  -- Matthew Vernon <matthew@debian.org>  Wed, 16 Jan 2002 21:24:16 +0000
-	
+
 openssh (1:3.0.2p1-3) unstable; urgency=high
 
   * Fix /etc/pam.d/ssh to not set $MAIL (Closes: #128913)
@@ -1318,15 +1318,15 @@ openssh (1:3.0.2p1-3) unstable; urgency=high
   * Mmm. speedy bug-fixing :-)
 
  -- Matthew Vernon <matthew@debian.org>  Sat, 12 Jan 2002 17:23:58 +0000
-	
+
 openssh (1:3.0.2p1-2) unstable; urgency=high
 
   * Fix postinst to not automatically overwrite sshd_config (!) 
     (Closes: #127842, #127867)
   * Add section in README.Debian about the PermitRootLogin setting
-	
+
  -- Matthew Vernon <matthew@debian.org>  Sat,  5 Jan 2003 05:26:30 +0000
-	
+
 openssh (1:3.0.2p1-1) unstable; urgency=high
 
   * Incorporate fix from Colin's NMU
@@ -1344,7 +1344,7 @@ openssh (1:3.0.2p1-1) unstable; urgency=high
   * Fix typo in templates file (Closes: #123411)
 
  -- Matthew Vernon <matthew@debian.org>  Fri,  4 Jan 2002 16:01:52 +0000
-	
+
 openssh (1:3.0.1p1-1.2) unstable; urgency=high
 
   * Non-maintainer upload
@@ -1377,9 +1377,9 @@ openssh (1:3.0.1p1-1) unstable; urgency=high
   * New handling of -q, and added new -qq option; thanks to Jon Amery
   * Experimental smartcard support not enabled, since I have no way of
     testing it.
-	
+
  -- Matthew Vernon <matthew@debian.org>  Thu, 28 Nov 2001 17:43:01 +0000
-	
+
 openssh (1:2.9p2-6) unstable; urgency=low
 
   * check for correct file in /etc/init.d/ssh (Closes: #110876)
@@ -1417,7 +1417,7 @@ openssh (1:2.9p2-5) unstable; urgency=high
     terminate' message more helpful (Closes: #50308)
 
  -- Matthew Vernon <matthew@debian.org>  Thu, 23 Aug 2001 02:14:09 +0100
-	
+
 openssh (1:2.9p2-4) unstable; urgency=high
 
   * Today's build of ssh is strawberry flavoured
@@ -1427,37 +1427,37 @@ openssh (1:2.9p2-4) unstable; urgency=high
     #105854)
 
  -- Matthew Vernon <matthew@debian.org>  Sun, 22 Jul 2001 14:19:43 +0100
-	
+
 openssh (1:2.9p2-3) unstable; urgency=low
 
   * Patch from yours truly to add -1 and -2 options to scp (Closes: #106061)
   * Improve the IdentityFile section in the man page (Closes: #106038)
 
  -- Matthew Vernon <matthew@debian.org>  Sat, 21 Jul 2001 14:47:27 +0100
-	
+
 openssh (1:2.9p2-2) unstable; urgency=low
 
   * Document the protocol version 2 and IPV6 changes (Closes: #105845, #105868)
   * Make PrintLastLog 'no' by default (Closes: #105893)
-	
+
  -- Matthew Vernon <matthew@debian.org>  Thu, 19 Jul 2001 18:36:41 +0100
-	
+
 openssh (1:2.9p2-1) unstable; urgency=low
 
   * new (several..) upstream version (Closes: #96726, #81856, #96335)
   * Hopefully, this will close some other bugs too
 
  -- Matthew Vernon <matthew@debian.org>  Tue, 17 Jul 2001 19:41:58 +0100
-	
+
 openssh (1:2.5.2p2-3) unstable; urgency=low
 
   * Taking Over this package
   * Patches from Robert Bihlmeyer for the Hurd (Closes: #102991)
   * Put PermitRootLogin back to yes (Closes: #67334, #67371, #78274)
   * Don't fiddle with conf-files any more (Closes: #69501)
-	
+
  -- Matthew Vernon <matthew@debian.org>  Tue, 03 Jul 2001 02:58:13 +0100
-	
+
 openssh (1:2.5.2p2-2.2) unstable; urgency=low
 
   * NMU
