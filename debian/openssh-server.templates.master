@@ -19,7 +19,7 @@ _Description: Generate a new configuration file for OpenSSH?
  .
  Please note that this new configuration file will set the value of
  'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password
- can ssh directly in as root). Please read the README.Debian files for
+ can ssh directly in as root). Please read the README.Debian file for
  more details about this design choice.
  .
  It is strongly recommended that choose to generate a new
