@@ -19,6 +19,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
     - Update Japanese (thanks, Kenshi Muto; closes: #420946).
     - Add Basque (thanks, Piarres Beobide; closes: #421238).
     - Update Italian (thanks, Luca Monducci; closes: #421348).
+    - Update Czech (thanks, Miroslav Kure; closes: #421484).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
 
