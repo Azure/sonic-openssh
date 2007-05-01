@@ -1,161 +1,165 @@
 # Romanian translation of openssh.
 # Copyright (C) 2006 THE openssh'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the openssh package.
+#
 # Stan Ioan-Eugen <stan.ieugen@gmail.com>, 2006.
-# , fuzzy
-# 
-# 
+# Igor Stirbu <igor.stirbu@gmail.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1.4\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
-"PO-Revision-Date: 2006-12-12 21:12+0200\n"
-"Last-Translator: Stan Ioan-Eugen <stan.ieugen@gmail.com>\n"
+"POT-Creation-Date: 2007-04-29 11:16+0100\n"
+"PO-Revision-Date: 2007-05-01 16:59+0300\n"
+"Last-Translator: Igor Stirbu <igor.stirbu@gmail.com>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
-msgid "Generate new configuration file?"
-msgstr "Să se genereze un fişier nou de configurare?"
+#: ../openssh-server.templates.master:2001
+msgid "Generate a new configuration file for OpenSSH?"
+msgstr "Să se genereze un fișier nou de configurare pentru OpenSSH?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
+"any customizations you made with the old version."
 msgstr ""
-"Această versiune de OpenSSH are un fişier de configurare considerabil "
-"modificat faţă de versiunea care vine cu Debian 'Potato', pe care se pare că "
-"o actualizaţi. Acest pachet poate genera acum un nou fişier de configurare (/"
-"etc/ssh/sshd.config), care va funcţiona cu noua versiune de server, dar nu "
-"va conţine nici o personalizare făcută pentru versiunea anterioară."
+"Această versiune de OpenSSH are un fișier de configurare considerabil "
+"modificat față de versiunea care vine cu Debian 'Potato', pe care se pare că "
+"o actualizați. Acest pachet poate genera acum un nou fișier de configurare (/"
+"etc/ssh/sshd.config), care va funcționa cu noua versiune de server, dar nu "
+"va conține nici o personalizare făcută pentru versiunea anterioară."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 msgid ""
 "Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
+"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+"can ssh directly in as root). Please read the README.Debian file for more "
+"details about this design choice."
 msgstr ""
-"De notat faptul că acest fişier nou de configurare va stabili valoarea "
-"opţiunii 'PermitRootLogin' la „yes” (ceea ce înseamnă că cine ştie parola de "
-"root se poate autentifica prin ssh direct ca root). Părerea responsabilului "
-"de pachet este că aceasta trebuie să fie valoarea implicită (a se vedea "
-"fişierul README.Debian pentru detalii suplimentare), dar,dacă doriţi, puteţi "
-"edita oricând fişierul sshd_config pentru a stabili valoarea opţiunii la "
-"„no”."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
-msgstr ""
-"Este indicat să permiteţi acestui pachet să genereze un nou fişier de "
-"configurare."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Doriţi să continuaţi (riscând întreruperea sesiunilor ssh active)?"
+"A se reține că acest fișier nou de configurare va stabili valoarea opțiunii "
+"'PermitRootLogin' la „yes” (ceea ce înseamnă că cine știe parola de root se "
+"poate autentifica prin ssh direct ca root). Părerea responsabilului de "
+"pachet este că aceasta trebuie să fie valoarea implicită (a se vedea "
+"fișierul README.Debian pentru detalii suplimentare), dar, dacă doriți, "
+"puteți edita oricând fișierul sshd_config pentru a stabili valoarea opțiunii "
+"la „no”."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
 msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
-msgstr ""
-"Este foarte probabil ca această versiune de /etc/init.d/ssh pe care o aveţi "
-"instalată să omoare toate instanţele sshd care rulează.  Dacă faceţi această "
-"actualizare printr-o sesiune ssh, atunci acest lucru nu ar fi bun."
+"It is strongly recommended that you choose to generate a new configuration "
+"file now."
+msgstr "Este indicat să alegeți acum generarea un nou fișier de configurare."
 
 #. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:2001
-msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
-msgstr ""
-"Puteţi repara acest lucru adăugând „--pidfile /var/run/sshd.pid” la linia "
-"start-stop-daemon în secţiunea stop a fişierului."
-
-#. Type: note
 #. Description
 #: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr "Avertizare: trebuie să creaţi o nouă cheie pentru sistem"
+msgid "Do you want to risk killing active SSH sessions?"
+msgstr "Doriți să riscați întreruperea sesiunilor ssh active?"
 
-#. Type: note
+#. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:3001
 msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
+"The currently installed version of /etc/init.d/ssh is likely to kill all "
+"running sshd instances. If you are doing this upgrade via an SSH session, "
+"you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"Există o cheie veche în /etc/ssh/ssh_host_key, care este criptată cu IDEA. "
+"Este foarte probabil ca această versiune de /etc/init.d/ssh pe care o aveți "
+"instalată să omoare toate instanțele sshd care rulează.  Dacă faceți această "
+"actualizare printr-o sesiune ssh, atunci este posibil să fiți deconectați și "
+"actualizarea să rămână neterminată."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid ""
+"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
+"start-stop-daemon line in the stop section of the file."
+msgstr ""
+"Puteți repara manual acest lucru adăugând „--pidfile /var/run/sshd.pid” la "
+"linia start-stop-daemon în secțiunea stop a fișierului."
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr "O cheie nouă este obligatorie"
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid ""
+"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
+"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
+"utility from the old (non-free) SSH installation does not appear to be "
+"available."
+msgstr ""
+"Cheia curentă în /etc/ssh/ssh_host_key este criptată cu algoritmul IDEA."
 "OpenSSH nu suportă acest tip de cheie, iar utilitarul ssh-keygen din "
 "versiunea SSH (non-liberă) anterior instalată nu pare să fie disponibil."
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
-msgstr "Va trebui să generaţi o nouă cheie pentru sistem."
+#: ../openssh-server.templates.master:4001
+msgid "You need to manually generate a new host key."
+msgstr "Va trebui să generați manual o nouă cheie pentru sistem."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "Dezactivează modul de autentificare provocare-răspuns?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
+"Password authentication appears to be disabled in the current OpenSSH server "
+"configuration. In order to prevent users from logging in using passwords "
+"(perhaps using only public key authentication instead) with recent versions "
+"of OpenSSH, you must disable challenge-response authentication, or else "
+"ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Autentificarea pe bază de parole pare dezactivată în configuraţia curentă a "
+"Autentificarea pe bază de parole pare dezactivată în configurația curentă a "
 "serverului OpenSSH. Pentru a împiedica utilizatorii să se autentifice "
 "folosind parole (probabil folosind doar autentificarea cu chei publice) în "
-"versiunile recente OpenSSH trebuie să dezactivaţi autentificarea tip "
-"provocare-răspuns, sau asiguraţi-vă că configuraţia PAM nu permite "
-"autentificarea cu fişierul de parole Unix."
+"versiunile recente OpenSSH trebuie să dezactivați autentificarea tip "
+"provocare-răspuns, sau asigurați-vă că configurația PAM nu permite "
+"autentificarea cu fișierul de parole Unix."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Dacă dezactivaţi autentificarea pe bază de provocare-răspuns, utilizatorii "
-"nu vor mai putea să se autentifice folosind parolele. Dacă nu o dezactivaţi "
-"(răspunsul implicit), aunci opţiunea 'PasswordAuthentification no' va fi "
-"utilizabilă doar dacă modificaţi şi configuraţia PAM din /etc/pam.d/ssh."
+"Dacă dezactivați autentificarea pe bază de provocare-răspuns, utilizatorii "
+"nu vor mai putea să se autentifice folosind parolele. Dacă nu o dezactivați "
+"(răspunsul implicit), aunci opțiunea 'PasswordAuthentification no' va fi "
+"utilizabilă doar dacă modificați și configurația PAM din /etc/pam.d/ssh."
+
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr "Avertizare: trebuie să creați o nouă cheie pentru sistem"
 
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr ""
@@ -167,7 +171,7 @@ msgstr ""
 #~ "there is at least some chance that telnet sessions will not be sending "
 #~ "unencrypted login/password and session information over the network."
 #~ msgstr ""
-#~ "Un sfat bun este fie să ştergeţi pachetul telnetd (dacă întradevăr nu-l "
-#~ "utilizaţi) fie să instalaţi telnetd-ssl astfel încât să existe "
-#~ "posibilitatea ca sesiunile telnet să nu trimită informaţii necriptate de "
-#~ "autentificare/parole prin reţea."
+#~ "Un sfat bun este fie să ștergeți pachetul telnetd (dacă întradevăr nu-l "
+#~ "utilizați) fie să instalați telnetd-ssl astfel încât să existe "
+#~ "posibilitatea ca sesiunile telnet să nu trimită informații necriptate de "
+#~ "autentificare/parole prin rețea."
