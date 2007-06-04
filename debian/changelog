@@ -4,6 +4,8 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
     maintainer, so the Maintainer field is getting a bit inaccurate. Set
     Maintainer to debian-ssh@lists.debian.org and leave Matthew and myself
     as Uploaders.
+  * Use dpkg-query to fetch conffile md5sums rather than parsing
+    /var/lib/dpkg/status directly.
   * Apply results of debconf templates and package descriptions review by
     debian-l10n-english (closes: #420107).
   * debconf template translations:
