@@ -6,6 +6,8 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
     as Uploaders.
   * Use dpkg-query to fetch conffile md5sums rather than parsing
     /var/lib/dpkg/status directly.
+  * openssh-client Suggests: libpam-ssh (closes: #427840).
+
   * Apply results of debconf templates and package descriptions review by
     debian-l10n-english (closes: #420107).
   * debconf template translations:
