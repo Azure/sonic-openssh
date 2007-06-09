@@ -7,6 +7,8 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
   * Use dpkg-query to fetch conffile md5sums rather than parsing
     /var/lib/dpkg/status directly.
   * openssh-client Suggests: libpam-ssh (closes: #427840).
+  * Use 'start-stop-daemon --oknodo' so that openssh-server's init script
+    exits successfully if sshd is already running (closes: #426858).
 
   * Apply results of debconf templates and package descriptions review by
     debian-l10n-english (closes: #420107, #420742).
