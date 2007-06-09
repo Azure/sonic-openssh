@@ -57,7 +57,8 @@ msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
 msgstr ""
-"É fortemente recomendado que escolha gerar um novo ficheiro de configuração agora."
+"É fortemente recomendado que escolha gerar um novo ficheiro de configuração "
+"agora."
 
 #. Type: boolean
 #. Description
@@ -74,9 +75,9 @@ msgid ""
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
 "A versão do /etc/init.d/ssh que tem instalado provavelmente terminará todas "
-"as instâncias de sshd. Se vai actualizar através de uma sessão ssh, é possível "
-"que a sua sessão seja terminada e que deixe o procedimento de actualização "
-"por terminar."
+"as instâncias de sshd. Se vai actualizar através de uma sessão ssh, é "
+"possível que a sua sessão seja terminada e que deixe o procedimento de "
+"actualização por terminar."
 
 #. Type: boolean
 #. Description
@@ -85,8 +86,8 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Isto pode ser arranjado adicionando \"--pidfile /var/run/sshd.pid\" à linha start-"
-"stop-daemon na secção stop do ficheiro."
+"Isto pode ser arranjado adicionando \"--pidfile /var/run/sshd.pid\" à linha "
+"start-stop-daemon na secção stop do ficheiro."
 
 #. Type: note
 #. Description
@@ -150,4 +151,3 @@ msgstr ""
 "capazes de se ligar usando palavras-chave. Se deixar activado (a resposta "
 "por omissão), então a opção 'PasswordAuthentication no' não terá efeito a "
 "não ser que também ajuste a configuração do PAM em /etc/pam.d/ssh."
-

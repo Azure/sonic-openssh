@@ -41,11 +41,6 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). Please read the README.Debian file for more "
-#| "details about this design choice."
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "

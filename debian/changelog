@@ -9,7 +9,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
   * openssh-client Suggests: libpam-ssh (closes: #427840).
 
   * Apply results of debconf templates and package descriptions review by
-    debian-l10n-english (closes: #420107).
+    debian-l10n-english (closes: #420107, #420742).
   * debconf template translations:
     - Update Dutch (thanks, Machteld de Kok; closes: #419260).
     - Update Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #420630).
@@ -29,6 +29,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
       closes: #420862).
     - Update Dutch (thanks, Bart Cornelis; closes: #422767).
     - Update Portuguese (thanks, Ricardo Silva; closes: #423112).
+    - Update French (thanks, Christian Perrier).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1/4.1p1-4\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
+"POT-Creation-Date: 2007-04-23 17:56+0200\n"
 "PO-Revision-Date: 2005-07-02 22:30+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -18,21 +18,21 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
-msgid "Generate new configuration file?"
+msgid "Generate a new configuration file for OpenSSH?"
 msgstr "Tao ra tập tin cấu hình mới"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
+"any customizations you made with the old version."
 msgstr ""
 "Phiên bản OpenSSH này có một tập tin cấu hình đã thay đổi nhiều từ phiên bản "
 "được phát hành trong mức độ phát hành «Potato» của Debian, mà hình như phiên "
@@ -43,13 +43,19 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
+#, fuzzy
+#| msgid ""
+#| "Please note that this new configuration file will set the value of "
+#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#| "can ssh directly in as root). It is the opinion of the maintainer that "
+#| "this is the correct default (see README.Debian for more details), but you "
+#| "can always edit sshd_config and set it to no if you wish."
 msgid ""
 "Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
+"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+"can ssh directly in as root). Please read the README.Debian file for more "
+"details about this design choice."
 msgstr ""
 "Hãy ghi chú rằng tập tin cấu hình mới này sẽ lập giá trị của "
 "«PermitRootLogin» (cho phép đăng nhập người chủ) là «yes» (có), mà có nghĩa "
@@ -61,30 +67,37 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
+"It is strongly recommended that you choose to generate a new configuration "
+"file now."
 msgstr ""
 "Khuyến khích nặng là bạn cho phép trình này tạo ra một tập tin cấu hình mới "
 "cho bạn."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
+msgid "Do you want to risk killing active SSH sessions?"
 msgstr ""
 "Bạn có muốn tiếp tục (thì rủi ro buộc kết thức của phiên làm việc ssh hoặt "
 "động nào) không?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid ""
+#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
+#| "all running sshd instances.  If you are doing this upgrade via an ssh "
+#| "session, that would be a Bad Thing(tm)."
 msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
+"The currently installed version of /etc/init.d/ssh is likely to kill all "
+"running sshd instances. If you are doing this upgrade via an SSH session, "
+"you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
 "Bạn đã cài đặt một phiên bản «/etc/init.d/ssh» mà rất có thể buộc kết thức "
 "của mọi lần chạy sshd hiện thời. Nếu bạn có nâng cấp thông qua một phiên làm "
@@ -92,28 +105,33 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid ""
+#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
+#| "stop-daemon line in the stop section of the file."
 msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
+"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
+"start-stop-daemon line in the stop section of the file."
 msgstr ""
 "Bạn có thể sửa trường hợp này bằng cách thêm «--pidfile /var/run/sshd.pid» "
 "vào dòng «start-stop-daemon» trong phần «stop» của tập tin ấy."
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr "Cảnh báo: bạn phải tạo một khóa máy mới"
+#: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates.master:4001
 #, fuzzy
 msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
+"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
+"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
+"utility from the old (non-free) SSH installation does not appear to be "
+"available."
 msgstr ""
 "Có một khóa máy «/etc/ssh/ssh_host_key» cũ được mặt mã cách IDEA. Trình "
 "OpenSSH không thể quản lý tập tin khóa máy này, và trình này không thể tìm "
@@ -121,25 +139,35 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
+#: ../openssh-server.templates.master:4001
+#, fuzzy
+#| msgid "You will need to generate a new host key."
+msgid "You need to manually generate a new host key."
 msgstr "Bạn sẽ cần phải tạo một khóa máy mới."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "Vô hiệu hóa xác thực cách yêu cầu/đáp ứng không?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
+#, fuzzy
+#| msgid ""
+#| "Password authentication appears to be disabled in your current OpenSSH "
+#| "server configuration. In order to prevent users from logging in using "
+#| "passwords (perhaps using only public key authentication instead) with "
+#| "recent versions of OpenSSH, you must disable challenge-response "
+#| "authentication, or else ensure that your PAM configuration does not allow "
+#| "Unix password file authentication."
 msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
+"Password authentication appears to be disabled in the current OpenSSH server "
+"configuration. In order to prevent users from logging in using passwords "
+"(perhaps using only public key authentication instead) with recent versions "
+"of OpenSSH, you must disable challenge-response authentication, or else "
+"ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
 "Hình như xác thực cách mật khẩu bị tắt trong cấu hình trình phục vụ OpenSSH "
@@ -150,7 +178,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -162,6 +190,9 @@ msgstr ""
 "tùy chọn «'PasswordAuthentication no» (xác thực mật khẩu không) sẽ không có "
 "tác dụng có ích nào, nếu bạn không cũng tùy chỉnh cấu hình bạn trong «/etc/"
 "pam.d/ssh»."
+
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr "Cảnh báo: bạn phải tạo một khóa máy mới"
 
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr ""

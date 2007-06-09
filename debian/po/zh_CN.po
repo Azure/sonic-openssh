@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
+"POT-Creation-Date: 2007-04-23 17:56+0200\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
@@ -25,21 +25,21 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
-msgid "Generate new configuration file?"
+msgid "Generate a new configuration file for OpenSSH?"
 msgstr "生成新的配置文件"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
+"any customizations you made with the old version."
 msgstr ""
 "看来您正在从 Debian “Potato”升级，当前版本和 Debian “Potato”所带的 OpenSSH 版"
 "本的配置文件对比有了相当多的改变。我现在可以生成适用于新服务器版本的新配置文"
@@ -47,13 +47,19 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
+#, fuzzy
+#| msgid ""
+#| "Please note that this new configuration file will set the value of "
+#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#| "can ssh directly in as root). It is the opinion of the maintainer that "
+#| "this is the correct default (see README.Debian for more details), but you "
+#| "can always edit sshd_config and set it to no if you wish."
 msgid ""
 "Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
+"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+"can ssh directly in as root). Please read the README.Debian file for more "
+"details about this design choice."
 msgstr ""
 "请注意新的配置文件将会把“PermitRootLogin”的值设置为 yes，(这意味着任何一个知"
 "道 root 密码的人都可以直接以 root 登录)。维护者认为这是一个正确的默认值 (详情"
@@ -62,91 +68,108 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
+"It is strongly recommended that you choose to generate a new configuration "
+"file now."
 msgstr "强烈建议让我为您生成一份新的配置文件。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
+msgid "Do you want to risk killing active SSH sessions?"
 msgstr "您要继续吗(会有杀死活动的 ssh 会话的危险)？"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid ""
+#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
+#| "all running sshd instances.  If you are doing this upgrade via an ssh "
+#| "session, that would be a Bad Thing(tm)."
 msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
+"The currently installed version of /etc/init.d/ssh is likely to kill all "
+"running sshd instances. If you are doing this upgrade via an SSH session, "
+"you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
 "您安装的 /etc/init.d/ssh 版本很可能会杀死所有运行中的 sshd 例程。如果您是在通"
 "过 ssh 会话进行这项升级，那可真是件糟糕的事情(tm)。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:3001
+#, fuzzy
+#| msgid ""
+#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
+#| "stop-daemon line in the stop section of the file."
 msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
+"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
+"start-stop-daemon line in the stop section of the file."
 msgstr ""
 "您可以通过添加“--pidfile /var/run/sshd.pid”到这个文件的 stop 部分的 start-"
 "stop-daemon 行来修正这个问题。"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr "警告：您必须创建一个新的主机密钥"
+#: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates.master:4001
 #, fuzzy
 msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
+"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
+"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
+"utility from the old (non-free) SSH installation does not appear to be "
+"available."
 msgstr ""
 "/etc/ssh/ssh_host_key 是由 IDEA 加密的旧密钥文件。OpenSSH 不能处理这种密钥文"
 "件，我也无法找到旧的(非自由的) SSH 安装所带的 ssh-keygen 密钥生成工具。"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
+#: ../openssh-server.templates.master:4001
+#, fuzzy
+#| msgid "You will need to generate a new host key."
+msgid "You need to manually generate a new host key."
 msgstr "您需要创建一个新的主机密钥。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
+"Password authentication appears to be disabled in the current OpenSSH server "
+"configuration. In order to prevent users from logging in using passwords "
+"(perhaps using only public key authentication instead) with recent versions "
+"of OpenSSH, you must disable challenge-response authentication, or else "
+"ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr "警告：您必须创建一个新的主机密钥"
 
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr "警告：已经安装了 telnetd 服务器 --- 可能不是个好主意"
