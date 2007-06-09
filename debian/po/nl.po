@@ -15,146 +15,145 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-10-04 22:14+0100\n"
-"PO-Revision-Date: 2006-06-12 21:09+0100\n"
+"POT-Creation-Date: 2007-04-24 16:48+0200\n"
+"PO-Revision-Date: 2007-04-28 20:40+0100\n"
 "Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
-msgid "Generate new configuration file?"
-msgstr "Wilt u dat er een nieuw configuratiebestand aangemaakt wordt?"
+#: ../openssh-server.templates.master:2001
+msgid "Generate a new configuration file for OpenSSH?"
+msgstr ""
+"Wilt u dat er een nieuw configuratiebestand aangemaakt wordt voor OpenSSH?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
 "from. This package can now generate a new configuration file (/etc/ssh/sshd."
 "config), which will work with the new server version, but will not contain "
-"any customisations you made with the old version."
+"any customizations you made with the old version."
 msgstr ""
 "Deze versie van OpenSSH gebruikt een configuratiebestand dat sterk veranderd "
 "is ten opzichte van dat in Debian 'Potato' (waarvan u lijkt op te "
-"waardereren). Het pakket kan nu een nieuw, met de nieuwe serverversie "
-"werkend, configuratiebestand (/etc/ssh/sshd.config) voor u genereren. Dit "
-"gegenereerde bestand zal echter de door u gemaakte aanpassingen in het oude "
-"configuratiebestand niet overnemen."
+"waarderen). Het pakket kan nu een nieuw configuratiebestand (/etc/ssh/sshd."
+"config) genereren dat met de nieuwe versie werkt. Dit gegenereerde bestand "
+"zal echter de door u gemaakte aanpassingen in het oude configuratiebestand "
+"niet overnemen."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates.master:2001
 msgid ""
 "Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to yes (meaning that anyone knowing the root password can "
-"ssh directly in as root). It is the opinion of the maintainer that this is "
-"the correct default (see README.Debian for more details), but you can always "
-"edit sshd_config and set it to no if you wish."
+"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+"can ssh directly in as root). Please read the README.Debian file for more "
+"details about this design choice."
 msgstr ""
 "Merk op dat dit nieuwe configuratiebestand de waarde van 'PermitRootLogin' "
 "op 'yes' zet (wat betekent dat iedereen die het root-wachtwoord kent via ssh "
-"rechtstreeks als root kan aanmelden). Het is de mening van de "
-"pakketbeheerder dat dit de juiste standaardwaarde is (zie README.Debian.gz "
-"voor meer details). Indien u dit niet wenst kunt u sshd_config handmatig "
-"aanpassen en de waarde op 'no' zetten."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:1001
-msgid ""
-"It is strongly recommended that you let this package generate a new "
-"configuration file now."
-msgstr ""
-"Het wordt ten sterkste aangeraden om dit pakket nu het nieuwe "
-"configuratiebestand te laten genereren."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:2001
-msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Wilt u verder gaan (waardoor u mogelijk actieve ssh-sessies afsluit)?"
+"rechtstreeks als root kan aanmelden). Meer informatie over deze ontwerpkeuze "
+"vindt u in het bestand README.Debian."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
 msgid ""
-"The version of /etc/init.d/ssh that you have installed, is likely to kill "
-"all running sshd instances.  If you are doing this upgrade via an ssh "
-"session, that would be a Bad Thing(tm)."
+"It is strongly recommended that you choose to generate a new configuration "
+"file now."
 msgstr ""
-"De /etc/init.d/ssh versie die u geïnstalleerd hebt sluit waarschijnlijk alle "
-"lopende sshd-instanties af. Dit is niet goed wanneer u deze opwaardering via "
-"een ssh-sessie doet."
+"Het wordt ten sterkste aangeraden om nu het nieuwe configuratiebestand te "
+"laten genereren."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
-msgid ""
-"You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
-"daemon line in the stop section of the file."
-msgstr ""
-"U kunt dit repareren door \"--pidfile /var/run/sshd.pid\" toe te voegen aan "
-"de start-stop-daemon regel in de stop-sectie van het bestand."
-
-#. Type: note
-#. Description
 #: ../openssh-server.templates.master:3001
-msgid "Warning: you must create a new host key"
-msgstr ""
-"Waarschuwing: er dient een nieuwe (encryptie)sleutel aangemaakt te worden "
-"voor deze computer."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
-"not handle this host key file, and the ssh-keygen utility from the old (non-"
-"free) SSH installation does not appear to be available."
-msgstr ""
-"Er is een oude IDEA-versleutelde /etc/ssh/ssh_host_key aanwezig. OpenSSH kan "
-"dit computer-sleutelbestand niet aan, en het ssh-keygen programma van de "
-"oude (niet-vrije) SSH installatie is niet te vinden."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "You will need to generate a new host key."
-msgstr "Het zal nodig zijn om een nieuwe computersleutel te genereren"
+msgid "Do you want to risk killing active SSH sessions?"
+msgstr "Wilt u het afsluiten van actieve SSH-sessies riskeren?"
 
 #. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid ""
+"The currently installed version of /etc/init.d/ssh is likely to kill all "
+"running sshd instances. If you are doing this upgrade via an SSH session, "
+"you're likely to be disconnected and leave the upgrade procedure unfinished."
+msgstr ""
+"De /etc/init.d/ssh versie die u geÃ¯nstalleerd hebt sluit waarschijnlijk alle "
+"lopende sshd-instanties af. Als u deze opwaardering via een SSH-sessie "
+"uitvoert verliest u waarschijnlijk de verbinding waardoor de "
+"opwaarderingsprocedure onafgemaakt blijft."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:3001
+msgid ""
+"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
+"start-stop-daemon line in the stop section of the file."
+msgstr ""
+"U kunt dit handmatig repareren door \"--pidfile /var/run/sshd.pid\" toe te "
+"voegen aan de start-stop-daemon regel in de stop-sectie van het bestand."
+
+#. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
+msgid "New host key mandatory"
+msgstr "Een nieuwe computersleutel is verplicht"
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid ""
+"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
+"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
+"utility from the old (non-free) SSH installation does not appear to be "
+"available."
+msgstr ""
+"De huidige computersleutel in /etc/ssh/ssh_host_key is versleuteld met het "
+"IDEA-algoritme. OpenSSH kan dit computer-sleutelbestand niet aan, en het ssh-"
+"keygen programma van de oude (niet-vrije) SSH-installatie is niet "
+"beschikbaar."
+
+#. Type: note
+#. Description
+#: ../openssh-server.templates.master:4001
+msgid "You need to manually generate a new host key."
+msgstr "U dient bijgevolg handmatig een nieuwe computersleutel te genereren."
+
+#. Type: boolean
+#. Description
+#: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
 msgstr "Challenge-response-authenticatie deactiveren?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
-"Password authentication appears to be disabled in your current OpenSSH "
-"server configuration. In order to prevent users from logging in using "
-"passwords (perhaps using only public key authentication instead) with recent "
-"versions of OpenSSH, you must disable challenge-response authentication, or "
-"else ensure that your PAM configuration does not allow Unix password file "
+"Password authentication appears to be disabled in the current OpenSSH server "
+"configuration. In order to prevent users from logging in using passwords "
+"(perhaps using only public key authentication instead) with recent versions "
+"of OpenSSH, you must disable challenge-response authentication, or else "
+"ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
 "Zo te zien is wachtwoord-authenticatie momenteel gedeactiveerd in uw OpenSSH-"
-"serverconfiguratie. Om te voorkomen dat gebruikers met recente versies van "
-"OpenSSH inloggen met behulp van wachtwoorden (mogelijk door in plaats "
-"daarvan enkel publieke-sleutel authenticatie te gebruiken) dient challenge-"
-"response-authenticatie gedeactiveerd te woren. Zoniet dient u ervoor te "
-"zorgen dat uw PAM-configuratie geen Unix 'password'-bestand-authenticatie "
-"toe laat."
+"serverconfiguratie. Om te voorkomen dat gebruikers van recente OpenSSH-"
+"versies inloggen met behulp van wachtwoorden (en in plaats daarvan enkel "
+"publieke-sleutel authenticatie te gebruiken), dient challenge-response-"
+"authenticatie gedeactiveerd te worden, of dient u ervoor te zorgen dat uw "
+"PAM-configuratie geen Unix 'password'-bestand-authenticatie toe laat."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:5001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -166,9 +165,14 @@ msgstr ""
 "(de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig) "
 "effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh."
 
+#~ msgid "Warning: you must create a new host key"
+#~ msgstr ""
+#~ "Waarschuwing: er dient een nieuwe (encryptie)sleutel aangemaakt te worden "
+#~ "voor deze computer."
+
 #~ msgid "Warning: telnetd is installed --- probably not a good idea"
 #~ msgstr ""
-#~ "Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed "
+#~ "Waarschuwing: telnetd is geÃ¯nstalleerd -- dit is waarschijnlijk geen goed "
 #~ "idee"
 
 #~ msgid ""
@@ -184,7 +188,7 @@ msgstr ""
 
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
 #~ msgstr ""
-#~ "Waarschuwing: rsh-server is geïnstalleerd -- dit is waarschijnlijk geen "
+#~ "Waarschuwing: rsh-server is geÃ¯nstalleerd -- dit is waarschijnlijk geen "
 #~ "goed idee"
 
 #~ msgid ""
@@ -192,6 +196,6 @@ msgstr ""
 #~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
 #~ "that package."
 #~ msgstr ""
-#~ "Een rsh-server geïnstalleerd hebben ondermijnt de beveiliging die u "
+#~ "Een rsh-server geÃ¯nstalleerd hebben ondermijnt de beveiliging die u "
 #~ "(waarschijnlijk net) probeerde te verkrijgen door ssh te installeren. We "
 #~ "raden u aan dan ook aan om dat pakket te verwijderen."
