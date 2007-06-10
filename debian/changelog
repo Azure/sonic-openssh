@@ -33,6 +33,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
     - Update Portuguese (thanks, Ricardo Silva; closes: #423112).
     - Update French (thanks, Christian Perrier).
     - Add Korean (thanks, Sunjae Park; closes: #424008).
+    - Update Vietnamese (thanks, Clytie Siddall; closes: #426991).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
 
