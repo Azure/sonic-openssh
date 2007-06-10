@@ -35,8 +35,8 @@ msgid ""
 msgstr ""
 "이번 OpenSSH 버전은 지금 사용하고 계시는 듯한 데비안 'Potato'의 OpenSSH 버전"
 "과는 크게 다른 설정 파일을 사용합니다. 이 꾸러미는 새로 설치되는 서버 버전에 "
-"맞는 설정 파일(/etc/ssh/sshd.config)을 새로 만들 수 있습니다만, 이전 버전에서 "
-"변경한 내역은 적용되지 않습니다."
+"맞는 설정 파일(/etc/ssh/sshd.config)을 새로 만들 수 있습니다만, 이전 버전에"
+"서 변경한 내역은 적용되지 않습니다."
 
 #. Type: boolean
 #. Description
@@ -58,8 +58,7 @@ msgstr ""
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
-msgstr ""
-"설정 파일을 지금 새로 만드시길 강력히 권장합니다."
+msgstr "설정 파일을 지금 새로 만드시길 강력히 권장합니다."
 
 #. Type: boolean
 #. Description
@@ -75,9 +74,9 @@ msgid ""
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"현재 설치된 /etc/init.d/ssh 버전은 사용중인 sshd 인스턴스를 모두 죽일 것"
-"입니다. 만약 SSH 세션을 통해 이 업그레이드를 하고 있다면 도중에 연결이 해제"
-"되어 업그레이드 작업이 도중에 중단될 수 있습니다."
+"현재 설치된 /etc/init.d/ssh 버전은 사용중인 sshd 인스턴스를 모두 죽일 것입니"
+"다. 만약 SSH 세션을 통해 이 업그레이드를 하고 있다면 도중에 연결이 해제되어 "
+"업그레이드 작업이 도중에 중단될 수 있습니다."
 
 #. Type: boolean
 #. Description
@@ -86,8 +85,8 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"파일의 stop 구역에 있는 start-stop-daemon에 \"--pidfile /var/run/sshd.pid\"을 "
-"추가하시면 이 문제를 해결할 수 있습니다."
+"파일의 stop 구역에 있는 start-stop-daemon에 \"--pidfile /var/run/sshd.pid"
+"\"을 추가하시면 이 문제를 해결할 수 있습니다."
 
 #. Type: note
 #. Description
@@ -104,9 +103,9 @@ msgid ""
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"/etc/ssh/ssh_host_key에 있는 현재 호스트키늘 IDEA 알고리즘으로 암호화되어"
-"있습니다. OpenSSH는 이 호스트키 파일을 다루지 못하며, 이전에 설치되었던 "
-"(비자유) SSH 프로그램의 ssh-keygen 응용프로그램이 없는 것 같습니다."
+"/etc/ssh/ssh_host_key에 있는 현재 호스트키늘 IDEA 알고리즘으로 암호화되어있습"
+"니다. OpenSSH는 이 호스트키 파일을 다루지 못하며, 이전에 설치되었던 (비자유) "
+"SSH 프로그램의 ssh-keygen 응용프로그램이 없는 것 같습니다."
 
 #. Type: note
 #. Description
@@ -131,10 +130,10 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"현재의 OpenSSH 서버 설정에 비밀번호 인증방식이 해제되어 있습니다. 최근 버전의 "
-"OpenSSH에서 사용자들이 (공개키 방식만 허용하기 위해서 등의 이유로) 비밀번호로 "
-"로그인하지 못하도록 하시려면 제기-응답 인증방식을 해제하시든지 유닉스 password"
-" 파일 인증방식을 사용하지 못하도록 PAM 설정을 하셔야 합니다."
+"현재의 OpenSSH 서버 설정에 비밀번호 인증방식이 해제되어 있습니다. 최근 버전"
+"의 OpenSSH에서 사용자들이 (공개키 방식만 허용하기 위해서 등의 이유로) 비밀번"
+"호로 로그인하지 못하도록 하시려면 제기-응답 인증방식을 해제하시든지 유닉스 "
+"password 파일 인증방식을 사용하지 못하도록 PAM 설정을 하셔야 합니다."
 
 #. Type: boolean
 #. Description
@@ -146,6 +145,6 @@ msgid ""
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
 "제기-응답 인증방식을 해제하면 사용자들은 비밀번호를 이용하여 로그인하지 못하"
-"게 됩니다. (기본 설정대로) 해제하지 않으시면 /etc/pam.d/ssh에 있는 PAM 설정을 "
-"변경하지 않으실 경우 'PasswordAuthentication no' 옵션은 아무런 영향을 주지 "
-"못합니다."
+"게 됩니다. (기본 설정대로) 해제하지 않으시면 /etc/pam.d/ssh에 있는 PAM 설정"
+"을 변경하지 않으실 경우 'PasswordAuthentication no' 옵션은 아무런 영향을 주"
+"지 못합니다."
