@@ -1,4 +1,4 @@
-openssh (1:4.3p2-11) UNRELEASED; urgency=low
+openssh (1:4.3p2-11) unstable; urgency=low
 
   * It's been four and a half years now since I took over as "temporary"
     maintainer, so the Maintainer field is getting a bit inaccurate. Set
@@ -35,7 +35,7 @@ openssh (1:4.3p2-11) UNRELEASED; urgency=low
     - Add Korean (thanks, Sunjae Park; closes: #424008).
     - Update Vietnamese (thanks, Clytie Siddall; closes: #426991).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 15 Apr 2007 05:44:43 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 10 Jun 2007 08:59:42 +0100
 
 openssh (1:4.3p2-10) unstable; urgency=low
 
