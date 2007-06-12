@@ -55,7 +55,7 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
   * Update to current GSSAPI patch from
     http://www.sxw.org.uk/computing/patches/openssh-4.6p1-gsskex-20070312.patch;
     install ChangeLog.gssapi.
-  * Build the .deb --with-ssl-engine (LP: #119295).
+  * Build the .deb --with-ssl-engine (closes: #408027, LP: #119295).
   * Use LSB functions in init scripts, and add an LSB-style header (thanks,
     Christian Perrier; closes: #389038).
   * Move init script start links to S16, and remove stop links altogether
