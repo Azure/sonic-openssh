@@ -62,6 +62,7 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
     (closes: #122188).
   * Emit a slightly more informative message from the init script if
     /dev/null has somehow become not a character device (closes: #369964).
+  * Belatedly build-depend on zlib1g-dev (>= 1:1.2.3-1) (closes: #333447).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
 
