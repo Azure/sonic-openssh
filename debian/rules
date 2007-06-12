@@ -12,6 +12,11 @@ else
 OPTFLAGS := -O0
 endif
 
+# Use position-independent executables to take advantage of address space
+# layout randomisation. TODO: This should be done in configure.
+PIE_CFLAGS := -fPIE
+PIE_LDFLAGS := -fPIE -pie
+
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
 
 # Take account of old dpkg-architecture output.
@@ -63,7 +68,7 @@ build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
-	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr --with-ssl-engine $(SELINUX)
+	cd build-deb && $(FORCE_LIBS) LDFLAGS='$(PIE_LDFLAGS)' ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr --with-ssl-engine $(SELINUX)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
@@ -72,7 +77,7 @@ endif
 	# Debian's /var/log/btmp has inappropriate permissions.
 	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
 
-	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -Wno-pointer-sign -std=gnu99 -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""'
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) $(PIE_CFLAGS) -g -Wall -Wpointer-arith -Wuninitialized -Wsign-compare -Wno-pointer-sign -std=gnu99 -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \
