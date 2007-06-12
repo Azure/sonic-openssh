@@ -58,6 +58,8 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
   * Build the .deb --with-ssl-engine (LP: #119295).
   * Use LSB functions in init scripts, and add an LSB-style header (thanks,
     Christian Perrier; closes: #389038).
+  * Move init script start links to S16, and remove stop links altogether
+    (closes: #122188).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
 
