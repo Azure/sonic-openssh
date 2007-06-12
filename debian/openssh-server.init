@@ -39,6 +39,18 @@ check_for_no_start() {
     fi
 }
 
+check_dev_null() {
+    if [ ! -c /dev/null ]; then
+	if [ "$1" = log_end_msg ]; then
+	    log_end_msg 1 || true
+	fi
+	if ! run_by_init; then
+	    log_action_msg "/dev/null is not a character device!"
+	fi
+	exit 1
+    fi
+}
+
 check_privsep_dir() {
     # Create the PrivSep empty dir if necessary
     if [ ! -d /var/run/sshd ]; then
@@ -58,6 +70,7 @@ export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 case "$1" in
   start)
 	check_for_no_start
+	check_dev_null
 	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd"
 	check_privsep_dir
 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
@@ -92,6 +105,7 @@ case "$1" in
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd"
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/sshd.pid
 	check_for_no_start log_end_msg
+	check_dev_null log_end_msg
 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0
 	else

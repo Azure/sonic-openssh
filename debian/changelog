@@ -60,6 +60,8 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
     Christian Perrier; closes: #389038).
   * Move init script start links to S16, and remove stop links altogether
     (closes: #122188).
+  * Emit a slightly more informative message from the init script if
+    /dev/null has somehow become not a character device (closes: #369964).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
 
