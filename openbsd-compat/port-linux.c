@@ -28,12 +28,20 @@
 #include <string.h>
 
 #ifdef WITH_SELINUX
+#include "key.h"
+#include "hostfile.h"
+#include "auth.h"
 #include "log.h"
+#ifdef HAVE_GETSEUSERBYNAME
+#include "xmalloc.h"
+#endif
 #include "port-linux.h"
 
 #include <selinux/selinux.h>
 #include <selinux/flask.h>
 #include <selinux/get_context_list.h>
+
+extern Authctxt *the_authctxt;
 
 /* Wrapper around is_selinux_enabled() to log its return value once only */
 static int
