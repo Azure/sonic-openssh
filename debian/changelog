@@ -55,6 +55,7 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
   * Update to current GSSAPI patch from
     http://www.sxw.org.uk/computing/patches/openssh-4.6p1-gsskex-20070312.patch;
     install ChangeLog.gssapi.
+  * Build the .deb --with-ssl-engine (LP: #119295).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
 

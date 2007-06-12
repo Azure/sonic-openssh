@@ -63,7 +63,7 @@ build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
-	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr $(SELINUX)
+	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11 --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit --with-kerberos5=/usr --with-ssl-engine $(SELINUX)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
