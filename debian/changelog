@@ -1,3 +1,63 @@
+openssh (1:4.6p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (closes: #395507, #397961, #420035). Important
+    changes not previously backported to 4.3p2:
+    - 4.4/4.4p1 (http://www.openssh.org/txt/release-4.4):
+      + On portable OpenSSH, fix a GSSAPI authentication abort that could be
+        used to determine the validity of usernames on some platforms.
+      + Implemented conditional configuration in sshd_config(5) using the
+        "Match" directive. This allows some configuration options to be
+        selectively overridden if specific criteria (based on user, group,
+        hostname and/or address) are met. So far a useful subset of
+        post-authentication options are supported and more are expected to
+        be added in future releases.
+      + Add support for Diffie-Hellman group exchange key agreement with a
+        final hash of SHA256.
+      + Added a "ForceCommand" directive to sshd_config(5). Similar to the
+        command="..." option accepted in ~/.ssh/authorized_keys, this forces
+        the execution of the specified command regardless of what the user
+        requested. This is very useful in conjunction with the new "Match"
+        option.
+      + Add a "PermitOpen" directive to sshd_config(5). This mirrors the
+        permitopen="..." authorized_keys option, allowing fine-grained
+        control over the port-forwardings that a user is allowed to
+        establish.
+      + Add optional logging of transactions to sftp-server(8).
+      + ssh(1) will now record port numbers for hosts stored in
+        ~/.ssh/known_hosts when a non-standard port has been requested
+        (closes: #50612).
+      + Add an "ExitOnForwardFailure" option to cause ssh(1) to exit (with a
+        non-zero exit code) when requested port forwardings could not be
+        established.
+      + Extend sshd_config(5) "SubSystem" declarations to allow the
+        specification of command-line arguments.
+      + Replacement of all integer overflow susceptible invocations of
+        malloc(3) and realloc(3) with overflow-checking equivalents.
+      + Many manpage fixes and improvements.
+      + Add optional support for OpenSSL hardware accelerators (engines),
+        enabled using the --with-ssl-engine configure option.
+      + Tokens in configuration files may be double-quoted in order to
+        contain spaces (closes: #319639).
+      + Move a debug() call out of a SIGCHLD handler, fixing a hang when the
+        session exits very quickly (closes: #307890).
+      + Fix some incorrect buffer allocation calculations (closes: #410599).
+      + ssh-add doesn't ask for a passphrase if key file permissions are too
+        liberal (closes: #103677).
+      + Likewise, ssh doesn't ask either (closes: #99675).
+    - 4.6/4.6p1 (http://www.openssh.org/txt/release-4.6):
+      + sshd now allows the enabling and disabling of authentication methods
+        on a per user, group, host and network basis via the Match directive
+        in sshd_config.
+      + Fixed an inconsistent check for a terminal when displaying scp
+        progress meter (closes: #257524).
+      + Fix "hang on exit" when background processes are running at the time
+        of exit on a ttyful/login session (closes: #88337).
+  * Update to current GSSAPI patch from
+    http://www.sxw.org.uk/computing/patches/openssh-4.6p1-gsskex-20070312.patch;
+    install ChangeLog.gssapi.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
+
 openssh (1:4.3p2-11) unstable; urgency=low
 
   * It's been four and a half years now since I took over as "temporary"
