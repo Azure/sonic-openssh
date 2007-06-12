@@ -1,4 +1,4 @@
-openssh (1:4.6p1-1) UNRELEASED; urgency=low
+openssh (1:4.6p1-1) unstable; urgency=low
 
   * New upstream release (closes: #395507, #397961, #420035). Important
     changes not previously backported to 4.3p2:
@@ -72,7 +72,7 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
   * Use ${binary:Version} rather than ${Source-Version} in openssh-server ->
     openssh-client dependency.
 
- -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 13 Jun 2007 00:28:26 +0100
 
 openssh (1:4.3p2-11) unstable; urgency=low
 
