@@ -68,6 +68,8 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
       to take advantage of address space layout randomisation.
     - If building on Ubuntu, add /sbin, /usr/sbin, and /usr/local/sbin to
       the default path.
+  * Use ${binary:Version} rather than ${Source-Version} in openssh-server ->
+    openssh-client dependency.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 12 Jun 2007 14:31:01 +0100
 
