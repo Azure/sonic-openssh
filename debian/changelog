@@ -58,8 +58,9 @@ openssh (1:4.6p1-1) UNRELEASED; urgency=low
   * Build the .deb --with-ssl-engine (closes: #408027, LP: #119295).
   * Use LSB functions in init scripts, and add an LSB-style header (partly
     from Ubuntu and partly thanks to Christian Perrier; closes: #389038).
-  * Move init script start links to S16, and remove stop links altogether
-    (the latter from Ubuntu; closes: #122188).
+  * Move init script start links to S16, move rc1 stop link to K84, and
+    remove rc0 and rc6 stop links altogether (the last part from Ubuntu;
+    closes: #122188).
   * Emit a slightly more informative message from the init script if
     /dev/null has somehow become not a character device (closes: #369964).
   * Belatedly build-depend on zlib1g-dev (>= 1:1.2.3-1) (closes: #333447).

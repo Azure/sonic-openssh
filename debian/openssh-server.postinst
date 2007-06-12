@@ -356,7 +356,7 @@ remove_old_init_links() {
 
 setup_init() {
 	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh start 16 2 3 4 5 . >/dev/null
+		update-rc.d ssh start 16 2 3 4 5 . stop 84 1 . >/dev/null
 		if [ -x /usr/sbin/invoke-rc.d ]; then
 			invoke-rc.d ssh restart
 		else
@@ -386,7 +386,7 @@ if dpkg --compare-versions "$2" lt 1:3.6.1p2-2; then
     fix_conffile_permissions
 fi
 if dpkg --compare-versions "$2" lt 1:4.6p1-1; then
-    remove_old_init_link
+    remove_old_init_links
 fi
 setup_init
 commit_transfer_conffile /etc/default/ssh
