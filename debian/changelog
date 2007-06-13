@@ -1,3 +1,9 @@
+openssh (1:4.6p1-2) UNRELEASED; urgency=low
+
+  * Fix ordering of SYSLOG_LEVEL_QUIET and SYSLOG_LEVEL_FATAL.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 13 Jun 2007 00:56:45 +0100
+
 openssh (1:4.6p1-1) unstable; urgency=low
 
   * New upstream release (closes: #395507, #397961, #420035). Important
