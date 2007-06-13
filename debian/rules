@@ -171,6 +171,7 @@ install: build
 
 	install -o root -g root debian/openssh-server.init debian/openssh-server/etc/init.d/ssh
 	install -o root -g root -m 644 debian/openssh-server.default debian/openssh-server/etc/default/ssh
+	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
 
 	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
 	install -m 755 build-udeb/scp debian/openssh-client-udeb/usr/bin/scp
