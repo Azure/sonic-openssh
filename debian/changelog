@@ -12,6 +12,9 @@ openssh (1:4.6p1-2) UNRELEASED; urgency=low
   * Add try-restart action to init script.
   * Add /etc/network/if-up.d/openssh-server to restart sshd when new
     interfaces appear (LP: #103436).
+  * Backport from upstream:
+    - Silence spurious error messages from hang-on-exit fix
+      (http://bugzilla.mindrot.org/show_bug.cgi?id=1306, closes: #429531).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 13 Jun 2007 00:56:45 +0100
 
