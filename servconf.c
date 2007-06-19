@@ -1411,8 +1411,4 @@ parse_server_config(ServerOptions *options, const char *filename, Buffer *conf,
 	if (bad_options > 0)
 		fatal("%s: terminating, %d bad configuration options",
 		    filename, bad_options);
-
-	/* challenge-response is implemented via keyboard interactive */
-	if (options->challenge_response_authentication == 1)
-		options->kbd_interactive_authentication = 1;
 }

@@ -13,6 +13,10 @@ openssh (1:4.6p1-2) UNRELEASED; urgency=low
   * Add /etc/network/if-up.d/openssh-server to restart sshd when new
     interfaces appear (LP: #103436).
   * Backport from upstream:
+    - Move C/R -> kbdint special case to after the defaults have been
+      loaded, which makes ChallengeResponse default to yes again. This was
+      broken by the Match changes and not fixed properly subsequently
+      (closes: #428968).
     - Silence spurious error messages from hang-on-exit fix
       (http://bugzilla.mindrot.org/show_bug.cgi?id=1306, closes: #429531).
 
