@@ -1,4 +1,4 @@
-openssh (1:4.6p1-2) UNRELEASED; urgency=low
+openssh (1:4.6p1-2) unstable; urgency=low
 
   * Fix ordering of SYSLOG_LEVEL_QUIET and SYSLOG_LEVEL_FATAL.
   * Clarify that 'ssh -q -q' still prints errors caused by bad arguments
@@ -20,7 +20,7 @@ openssh (1:4.6p1-2) UNRELEASED; urgency=low
     - Silence spurious error messages from hang-on-exit fix
       (http://bugzilla.mindrot.org/show_bug.cgi?id=1306, closes: #429531).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 13 Jun 2007 00:56:45 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 20 Jun 2007 11:52:44 +0100
 
 openssh (1:4.6p1-1) unstable; urgency=low
 
