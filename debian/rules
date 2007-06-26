@@ -12,11 +12,6 @@ else
 OPTFLAGS := -O0
 endif
 
-# Use position-independent executables to take advantage of address space
-# layout randomisation. TODO: This should be done in configure.
-PIE_CFLAGS := -fPIE
-PIE_LDFLAGS := -fPIE -pie
-
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
 
 # Take account of old dpkg-architecture output.
@@ -25,6 +20,13 @@ ifeq ($(DEB_HOST_ARCH_OS),)
   ifeq ($(DEB_HOST_ARCH_OS),gnu)
     DEB_HOST_ARCH_OS := hurd
   endif
+endif
+
+ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:)
+# Use position-independent executables to take advantage of address space
+# layout randomisation. TODO: This should be done in configure.
+PIE_CFLAGS := -fPIE
+PIE_LDFLAGS := -fPIE -pie
 endif
 
 ifeq (,$(wildcard /usr/bin/po2debconf))

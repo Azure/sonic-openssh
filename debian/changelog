@@ -1,3 +1,9 @@
+openssh (1:4.6p1-3) UNRELEASED; urgency=low
+
+  * Only build PIE executables on Linux and NetBSD (closes: #430455).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 26 Jun 2007 09:56:40 +0100
+
 openssh (1:4.6p1-2) unstable; urgency=low
 
   * Fix ordering of SYSLOG_LEVEL_QUIET and SYSLOG_LEVEL_FATAL.
