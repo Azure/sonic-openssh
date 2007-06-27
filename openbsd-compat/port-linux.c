@@ -96,6 +96,7 @@ ssh_selinux_getctxbyname(char *pwname)
 		case 0:
 			error("%s: Failed to get default SELinux security "
 			    "context for %s", __func__, pwname);
+			break;
 		default:
 			fatal("%s: Failed to get default SELinux security "
 			    "context for %s (in enforcing mode)",
@@ -132,6 +133,7 @@ ssh_selinux_setup_exec_context(char *pwname)
 		case 0:
 			error("%s: Failed to set SELinux execution "
 			    "context for %s", __func__, pwname);
+			break;
 		default:
 			fatal("%s: Failed to set SELinux execution context "
 			    "for %s (in enforcing mode)", __func__, pwname);
