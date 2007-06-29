@@ -3,6 +3,7 @@ openssh (1:4.6p1-3) UNRELEASED; urgency=low
   * Only build PIE executables on Linux and NetBSD (closes: #430455).
   * Fix broken switch fallthrough when SELinux is running in permissive mode
     (closes: #430838).
+  * Document that HashKnownHosts may break tab-completion (closes: #430154).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 26 Jun 2007 09:56:40 +0100
 
