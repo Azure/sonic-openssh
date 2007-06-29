@@ -22,7 +22,7 @@ ifeq ($(DEB_HOST_ARCH_OS),)
   endif
 endif
 
-ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:)
+ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:))
 # Use position-independent executables to take advantage of address space
 # layout randomisation. TODO: This should be done in configure.
 PIE_CFLAGS := -fPIE
