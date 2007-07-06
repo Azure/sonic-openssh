@@ -1,15 +1,19 @@
-# openssh (debconf) translation to Catalan.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+#
+# Catalan translation for openssh package.
+# Copyright (C) 2007 Matthew Vernon.
+# This file is distributed under the same license as the openssh package.
+#
 # Aleix Badia i Bosch <abadia@ica.es>, 2004
+# Jordà Polo <jorda@ettin.org>, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh_1:3.8p1-3_templates\n"
+"Project-Id-Version: 1:4.6p1-2\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2007-04-23 17:56+0200\n"
-"PO-Revision-Date: 2004-03-05 19:46GMT\n"
-"Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
-"Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
+"POT-Creation-Date: 2007-04-24 16:48+0200\n"
+"PO-Revision-Date: 2007-06-30 01:13+0200\n"
+"Last-Translator: Jordà Polo <jorda@ettin.org>\n"
+"Language-Team: Català <debian-l10n-catalan@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,14 +21,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-#, fuzzy
 msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Genera un fitxer de configuració nou"
+msgstr "Voleu generar un nou fitxer de configuració per a l'OpenSSH?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -32,119 +34,95 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
 msgstr ""
-"Els fitxers de configuració de l'Openssh s'han modificat considerablement "
-"respecte als de Debian 'Potato', de la qual sembla que esteu actualitzant. "
-"Podeu generar un fitxer de configuració nou (/etc/sshd/sshd.config), que "
-"funcionarà amb la nova versió del servidor però no tindrà els paràmetres de "
-"configuració personalitzats de la versió antiga."
+"Els fitxers de configuració de l'OpenSSH s'han modificat considerablement "
+"respecte als de Debian «Potato», versió des de la qual sembla que esteu "
+"actualitzant. Aquest paquet pot generar ara un nou fitxer de configuració (/"
+"etc/sshd/sshd.config), que funcionarà amb la nova versió del servidor però "
+"no contindrà els paràmetres de configuració personalitzats de la versió "
+"anterior."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-#, fuzzy
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). It is the opinion of the maintainer that "
-#| "this is the correct default (see README.Debian for more details), but you "
-#| "can always edit sshd_config and set it to no if you wish."
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
 "can ssh directly in as root). Please read the README.Debian file for more "
 "details about this design choice."
 msgstr ""
-"Recordeu que el valor de 'PermitRootLogin' del nou fitxer configuració serà "
-"yes (qualsevol persona que conegui la contrasenya del superadministrador "
-"podrà utilitzar l'ssh com a superadministrador). El valor predeterminat "
-"d'aquesta opció és una opinió personal del mantenidor (per a més informació "
-"vegeu el fitxer README.Debian), tot i això el podeu modificar editant el "
-"fitxer sshd_config i modificar definint com a no."
+"Tingueu en compte que el nou fitxer de configuració establirà el valor de "
+"«PermitRootLogin» a «yes» (és a dir, qualsevol que conegui la contrasenya de "
+"root podrà connectar-se directament mitjançant ssh). Si us plau, llegiu el "
+"fitxer README.Debian per a més detalls sobre aquesta opció."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
-#, fuzzy
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
 msgstr ""
-"Es molt recomanable que deixeu que se us creï el nou fitxer de configuració."
+"És molt recomanable que trieu generar el nou fitxer de configuració ara."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:3001
-#, fuzzy
-#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
-msgstr ""
-"Esteu segur de voler continuar (tot i la possibilitat d'aturar les sessions "
-"d'ssh actives)?"
+msgstr "Voleu arriscar-vos a aturar les sessions SSH actives?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:3001
-#, fuzzy
-#| msgid ""
-#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
-#| "all running sshd instances.  If you are doing this upgrade via an ssh "
-#| "session, that would be a Bad Thing(tm)."
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"La versió de l'/etc/init.d/ssh que heu instal·lat probablement aturarà les "
-"instàncies de l'sshd que s'estan executant. Si esteu realitzant "
-"l'actualització de de d'una sessió d'ssh us podria penjar la connexió."
+"És possible que la versió de «/etc/init.d/ssh» que teniu instal·lada "
+"actualment aturi les instàncies de l'sshd que s'estan executant. Si esteu "
+"actualitzant des d'una sessió SSH, és possible que es talli la connexió i "
+"quedi el procés d'actualització a mitges."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:3001
-#, fuzzy
-#| msgid ""
-#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
-#| "stop-daemon line in the stop section of the file."
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Ho podeu arreglar afegint la línia \"--pidfile /var/run/sshd.pid\" a la "
-"línia start-stop-daemon de la secció stop del fitxer."
+"Ho podeu arreglar afegint «--pidfile /var/run/sshd.pid» a la línia «start-"
+"stop-daemon» de la secció «stop» del mateix fitxer."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
 msgid "New host key mandatory"
-msgstr ""
+msgstr "Nova clau obligatòria"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
-#, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Hi ha un fitxer antic /etc/ssh/ssh_host_key antic xifrat amb IDEA. L'OpenSSH "
-"no pot gestionar aquest fitxer de clau de l'ordinador central i no es pot "
-"trobar l'eina ssh-keygen de la instal·lació d'SSH anterior (non-free)."
+"L'actual clau de la màquina, a /etc/ssh/ssh_host_key, està xifrada amb "
+"l'algorisme IDEA. OpenSSH no pot gestionar aquest fitxer de clau, i no es "
+"pot trobar l'eina ssh-keygen de la instal·lació d'SSH anterior (non-free)."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates.master:4001
-#, fuzzy
-#| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
-msgstr "Haureu de generar una nova clau de l'ordinador central."
+msgstr "Haureu de generar manualment una nova clau per a la màquina."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:5001
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Voleu desactivar l'autenticació «challenge-response»?"
 
 #. Type: boolean
 #. Description
@@ -157,6 +135,13 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Sembla que l'autenticació per contrasenya està desactivada en l'actual "
+"configuració del servidor OpenSSH. Per tal d'evitar que els usuaris entrin "
+"al sistema utilitzant contrasenyes (i utilitzin només autenticació basada en "
+"clau pública), en les darreres versions d'OpenSSH heu de desactivar "
+"l'autenticació «challenge-response», o altrament assegurar-vos que la "
+"configuració de PAM no permet autenticar mitjançant el fitxer de "
+"contrasenyes de Unix."
 
 #. Type: boolean
 #. Description
@@ -167,6 +152,10 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Si desactiveu l'autenticació «challenge-response», aleshores els usuaris no "
+"podran entrar utilitzant contrasenyes. Si la deixeu activada (que és l'opció "
+"predeterminada), aleshores «PasswordAuthentication no» no tindrà cap valor a "
+"menys que ajusteu la configuració de PAM a /etc/pam.d/ssh."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Avís: heu de crear una nova clau del servidor central"
@@ -196,7 +185,7 @@ msgstr ""
 #~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
 #~ "that package."
 #~ msgstr ""
-#~ "si teniu instal·lat l'rsh-server perdreu la seguretat que esperaveu "
+#~ "si teniu instal·lat l'rsh-server perdreu la seguretat que esperàveu "
 #~ "obtenir instal·lant l'ssh. És aconsellable suprimir el paquet."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
@@ -232,7 +221,7 @@ msgstr ""
 #~ msgstr ""
 #~ "Aquesta versió de l'OpenSSH suporta la versió 2 del protocol d'ssh, "
 #~ "aquesta versió és molt més segura. És recomanable inhabilitar la versió 1 "
-#~ "del protocol, tot i això relantitzà el funcionament dels ordinadors més "
+#~ "del protocol, tot i que això alentirà el funcionament dels ordinadors més "
 #~ "antics i no permetrà les connexions als clients antics (afectarà al "
 #~ "client proporcionat per la \"potato\")."
 
