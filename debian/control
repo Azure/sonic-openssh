@@ -63,10 +63,10 @@ Package: ssh
 Priority: extra
 Architecture: all
 Depends: openssh-client, openssh-server
-Description: secure shell client and server (transitional package)
- This is a transitional package depending on both the OpenSSH client and
- the OpenSSH server, which are now in separate packages. You may remove
- it once the upgrade is complete and nothing depends on it.
+Description: secure shell client and server (metapackage)
+ This metapackage is a convenient way to install both the OpenSSH client
+ and the OpenSSH server. It provides nothing in and of itself, so you
+ may remove it if nothing depends on it.
 
 Package: ssh-krb5
 Priority: extra
