@@ -2,8 +2,8 @@ openssh (1:4.6p1-5) UNRELEASED; urgency=low
 
   * Identify ssh as a metapackage rather than a transitional package. It's
     still useful as a quick way to install both the client and the server.
-  * ssh-copy-id checks the exit status of ssh-add -L (thanks, Adeodato Simó;
-    closes: #221675).
+  * ssh-copy-id now checks the exit status of ssh-add -L (thanks, Adeodato
+    Simó; closes: #221675).
   * ssh-copy-id no longer prints the output of expr (thanks, Peter
     Eisentraut; closes: #291534).
   * debconf template translations:
