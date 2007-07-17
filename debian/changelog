@@ -6,6 +6,9 @@ openssh (1:4.6p1-5) UNRELEASED; urgency=low
     Simó; closes: #221675).
   * ssh-copy-id no longer prints the output of expr (thanks, Peter
     Eisentraut; closes: #291534).
+  * ssh-copy-id defaults to ~/.ssh/id_rsa.pub rather than
+    ~/.ssh/identity.pub, in line with ssh-keygen (thanks, Greg Norris;
+    closes: #234627).
   * debconf template translations:
     - Update Catalan (thanks, Jordà Polo; closes: #431970).
 
