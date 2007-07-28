@@ -9,6 +9,7 @@ openssh (1:4.6p1-5) UNRELEASED; urgency=low
   * ssh-copy-id defaults to ~/.ssh/id_rsa.pub rather than
     ~/.ssh/identity.pub, in line with ssh-keygen (thanks, Greg Norris;
     closes: #234627).
+  * Build-depend on libselinux1-dev on lpia.
   * debconf template translations:
     - Update Catalan (thanks, Jordà Polo; closes: #431970).
 
