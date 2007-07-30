@@ -1,4 +1,4 @@
-openssh (1:4.6p1-5) UNRELEASED; urgency=low
+openssh (1:4.6p1-5) unstable; urgency=low
 
   * Identify ssh as a metapackage rather than a transitional package. It's
     still useful as a quick way to install both the client and the server.
@@ -14,7 +14,7 @@ openssh (1:4.6p1-5) UNRELEASED; urgency=low
   * debconf template translations:
     - Update Catalan (thanks, Jordà Polo; closes: #431970).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 06 Jul 2007 16:30:39 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 30 Jul 2007 09:34:38 +0100
 
 openssh (1:4.6p1-4) unstable; urgency=low
 
