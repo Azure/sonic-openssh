@@ -10,6 +10,7 @@ openssh (1:4.6p1-5) UNRELEASED; urgency=low
     ~/.ssh/identity.pub, in line with ssh-keygen (thanks, Greg Norris;
     closes: #234627).
   * Build-depend on libselinux1-dev on lpia.
+  * openssh-client Suggests: keychain.
   * debconf template translations:
     - Update Catalan (thanks, Jordà Polo; closes: #431970).
 
