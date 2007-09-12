@@ -3,6 +3,8 @@ openssh (1:4.6p1-6) UNRELEASED; urgency=low
   * Remove blank line between head comment and first template in
     debian/openssh-server.templates.master; apparently it confuses some
     versions of debconf.
+  * Install authorized_keys(5) as a symlink to sshd(8) (thanks, Tomas
+    Pospisek; closes: #441817).
   * debconf template translations:
     - Add Slovak (thanks, Ivan Masár; closes: #441690).
 
