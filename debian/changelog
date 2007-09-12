@@ -3,6 +3,8 @@ openssh (1:4.6p1-6) UNRELEASED; urgency=low
   * Remove blank line between head comment and first template in
     debian/openssh-server.templates.master; apparently it confuses some
     versions of debconf.
+  * debconf template translations:
+    - Add Slovak (thanks, Ivan Masár; closes: #441690).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 12 Sep 2007 09:37:45 +0100
 
