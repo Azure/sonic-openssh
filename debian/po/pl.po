@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2007-04-23 17:56+0200\n"
+"Report-Msgid-Bugs-To: debian-ssh@lists.debian.org\n"
+"POT-Creation-Date: 2007-08-19 15:36+0100\n"
 "PO-Revision-Date: 2004-04-08 18:28+0200\n"
 "Last-Translator: Emil Nowak <emil5@go2.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -25,14 +25,14 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid "Generate a new configuration file for OpenSSH?"
 msgstr "Wygeneruj nowy plik konfiguracyjny"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
@@ -49,7 +49,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 #| msgid ""
 #| "Please note that this new configuration file will set the value of "
@@ -72,7 +72,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates.master:1001
 #, fuzzy
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
@@ -82,7 +82,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 #| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
@@ -90,7 +90,7 @@ msgstr "Czy chcesz kontynuowaæ (i ryzykowaæ przerwaniem aktywnych sesji ssh) ?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 #| msgid ""
 #| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
@@ -107,7 +107,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates.master:2001
 #, fuzzy
 #| msgid ""
 #| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
@@ -121,13 +121,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "New host key mandatory"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
@@ -141,7 +141,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 #, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
@@ -149,13 +149,13 @@ msgstr "Bêdziesz musia³ wygenerowaæ nowy klucz hosta."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -167,7 +167,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "

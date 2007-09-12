@@ -6,7 +6,7 @@
 #
 # Even minor modifications require translation updates and such
 # changes should be coordinated with translators and reviewers.
-
+#
 Template: ssh/new_config
 Type: boolean
 Default: true
