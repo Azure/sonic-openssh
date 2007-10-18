@@ -112,7 +112,7 @@ EOF
   fi
 
   if dpkg --compare-versions "$version" lt 0; then
-    CONFFILES="$(dpkg-query -W -f '${Conffiles}\n' ssh | sed 's/^ *//')"
+    CONFFILES="$(dpkg-query -W -f '${Conffiles}\n' ssh 2>/dev/null | sed 's/^ *//')"
     prepare_transfer_conffile /etc/default/ssh "$ETC_DEFAULT_SSH" 0644
     prepare_transfer_conffile /etc/init.d/ssh "$ETC_INIT_D_SSH" 0755
     prepare_transfer_conffile /etc/pam.d/ssh "$ETC_PAM_D_SSH" 0644

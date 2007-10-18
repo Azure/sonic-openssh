@@ -37,7 +37,7 @@ prepare_transfer_conffile () {
 case $action in
 	install|upgrade)
 		if dpkg --compare-versions "$version" lt 0; then
-			CONFFILES="$(dpkg-query -W -f '${Conffiles}\n' ssh | sed 's/^ *//')"
+			CONFFILES="$(dpkg-query -W -f '${Conffiles}\n' ssh 2>/dev/null | sed 's/^ *//')"
 			prepare_transfer_conffile /etc/ssh/moduli "$ETC_SSH_MODULI" 0644
 			prepare_transfer_conffile /etc/ssh/ssh_config "$ETC_SSH_SSH_CONFIG" 0644
 		fi
