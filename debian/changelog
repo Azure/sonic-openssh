@@ -9,6 +9,8 @@ openssh (1:4.6p1-6) UNRELEASED; urgency=low
     metapackage is not installed.
   * debconf template translations:
     - Add Slovak (thanks, Ivan Masár; closes: #441690).
+    - Update Brazilian Portuguese (thanks, Eder L. Marques;
+      closes: #447145).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 12 Sep 2007 09:37:45 +0100
 
