@@ -44,11 +44,6 @@
 #include "kex.h"
 #include <openssl/evp.h>
 
-#ifdef KRB5
-# include <krb5.h>
-# include <profile.h>
-#endif /* KRB5 */
-
 #include "ssh-gss.h"
 
 extern u_char *session_id2;
@@ -295,32 +290,6 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 void
 ssh_gssapi_build_ctx(Gssctxt **ctx)
 {
-#ifdef KRB5
-	static int gss_configured = 0;
-
-	if (!gss_configured) {
-		/* Tell the GSSAPI library not to canonicalise names. */
-		krb5_context krb5_ctx;
-		profile_t profile;
-		krb5_error_code problem;
-
-		problem = krb5_init_context(&krb5_ctx);
-		if (!problem) {
-			problem = krb5_get_profile(krb5_ctx, &profile);
-			if (!problem) {
-				const char *names[3];
-				names[0] = "libdefaults";
-				names[1] = "rdns";
-				names[2] = 0;
-				profile_clear_relation(profile, names);
-				profile_add_relation(profile, names, "n");
-			}
-		}
-
-		gss_configured = 1;
-	}
-#endif /* KRB5 */
-
 	*ctx = xcalloc(1, sizeof (Gssctxt));
 	(*ctx)->context = GSS_C_NO_CONTEXT;
 	(*ctx)->name = GSS_C_NO_NAME;
