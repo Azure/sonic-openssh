@@ -9,6 +9,7 @@ openssh (1:4.6p1-6) UNRELEASED; urgency=low
     metapackage is not installed.
   * Fix sshd/inittab advice in README.Debian to account for rc.d movement
     (closes: #450632).
+  * Suppress error from debian/rules if lsb-release is not installed.
   * debconf template translations:
     - Add Slovak (thanks, Ivan Masár; closes: #441690).
     - Update Brazilian Portuguese (thanks, Eder L. Marques;
