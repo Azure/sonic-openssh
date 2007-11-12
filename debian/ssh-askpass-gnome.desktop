@@ -9,4 +9,4 @@ TryExec=ssh-add
 Terminal=false
 Type=Application
 Icon=ssh-askpass-gnome
-Categories=Application;Network;
+Categories=Network;Security;

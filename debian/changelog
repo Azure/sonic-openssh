@@ -11,6 +11,8 @@ openssh (1:4.6p1-6) UNRELEASED; urgency=low
     (closes: #450632).
   * Suppress error from debian/rules if lsb-release is not installed.
   * Don't ignore errors from 'make -C contrib clean'.
+  * Adjust categories in ssh-askpass-gnome.desktop to comply with the
+    Desktop Menu Specification.
   * debconf template translations:
     - Add Slovak (thanks, Ivan Masár; closes: #441690).
     - Update Brazilian Portuguese (thanks, Eder L. Marques;
