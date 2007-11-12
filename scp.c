@@ -808,7 +808,7 @@ sink(int argc, char **argv)
 	size_t j, count;
 	int amt, exists, first, ofd;
 	mode_t mode, omode, mask;
-	off_t size, statbytes, writtenbytes;
+	off_t size, statbytes;
 	int setimes, targisdir, wrerrno = 0;
 	char ch, *cp, *np, *targ, *why, *vect[1], buf[2048];
 	struct timeval tv[2];
@@ -978,7 +978,7 @@ bad:			run_err("%s: %s", np, strerror(errno));
 		cp = bp->buf;
 		wrerr = NO;
 
-		statbytes = writtenbytes = 0;
+		statbytes = 0;
 		if (showprogress)
 			start_progress_meter(curfile, size, &statbytes);
 		for (count = i = 0; i < size; i += 4096) {
@@ -1008,8 +1008,7 @@ bad:			run_err("%s: %s", np, strerror(errno));
 					    count) != count) {
 						wrerr = YES;
 						wrerrno = errno;
-					} else
-						writtenbytes += (off_t)count;
+					}
 				}
 				count = 0;
 				cp = bp->buf;
@@ -1021,10 +1020,8 @@ bad:			run_err("%s: %s", np, strerror(errno));
 		    atomicio(vwrite, ofd, bp->buf, count) != count) {
 			wrerr = YES;
 			wrerrno = errno;
-		} else
-			writtenbytes += (off_t)count;
-		if (wrerr == NO && writtenbytes < size &&
-		    ftruncate(ofd, size) != 0) {
+		}
+		if (wrerr == NO && ftruncate(ofd, size) != 0) {
 			run_err("%s: truncate: %s", np, strerror(errno));
 			wrerr = DISPLAYED;
 		}
