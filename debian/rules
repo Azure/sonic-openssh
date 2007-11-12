@@ -123,7 +123,7 @@ clean:
 	dh_testdir
 	rm -f build-deb-stamp build-udeb-stamp
 	rm -rf build-deb build-udeb
-	-$(MAKE) -C contrib clean
+	$(MAKE) -C contrib clean
 	rm -f config.log
 ifeq ($(PO2DEBCONF),yes)
 	# Hack for woody compatibility. This makes sure that the
