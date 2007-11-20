@@ -2,6 +2,8 @@ openssh (1:4.6p1-7) UNRELEASED; urgency=low
 
   * Don't build PIE executables on m68k (closes: #451192).
   * Use autotools-dev's recommended configure --build and --host options.
+  * Adjust README.Debian to suggest mailing debian-ssh@lists.debian.org
+    rather than Matthew.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Nov 2007 09:30:36 +0000
 

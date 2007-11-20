@@ -69,8 +69,8 @@ DO NOT FILE BUG REPORTS SAYING YOU THINK THIS DEFAULT IS INCORRECT!
 
 The argument above is somewhat condensed; I have had this discussion
 at great length with many people. If you think the default is
-incorrect, and feel strongly enough to want to argue with me about it,
-then send me email to matthew@debian.org. I will close bug reports
+incorrect, and feel strongly enough to want to argue about it, then
+send email to debian-ssh@lists.debian.org. I will close bug reports
 claiming the default is incorrect.
 
 SSH now uses protocol 2 by default
