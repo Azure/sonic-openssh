@@ -1,4 +1,4 @@
-openssh (1:4.6p1-7) UNRELEASED; urgency=low
+openssh (1:4.6p1-7) unstable; urgency=low
 
   * Don't build PIE executables on m68k (closes: #451192).
   * Use autotools-dev's recommended configure --build and --host options.
@@ -6,7 +6,7 @@ openssh (1:4.6p1-7) UNRELEASED; urgency=low
     rather than Matthew.
   * Check whether deluser exists in postrm (closes: #454085).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 14 Nov 2007 09:30:36 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 03 Dec 2007 11:11:02 +0000
 
 openssh (1:4.6p1-6) unstable; urgency=low
 
