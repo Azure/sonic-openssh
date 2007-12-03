@@ -4,6 +4,7 @@ openssh (1:4.6p1-7) UNRELEASED; urgency=low
   * Use autotools-dev's recommended configure --build and --host options.
   * Adjust README.Debian to suggest mailing debian-ssh@lists.debian.org
     rather than Matthew.
+  * Check whether deluser exists in postrm (closes: #454085).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Nov 2007 09:30:36 +0000
 

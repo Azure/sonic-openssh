@@ -31,7 +31,9 @@ case $1 in
 
 		update-rc.d ssh remove >/dev/null
 
-		deluser --quiet sshd > /dev/null || true
+		if type deluser >/dev/null 2>&1; then
+			deluser --quiet sshd > /dev/null || true
+		fi
 		;;
 esac
 
