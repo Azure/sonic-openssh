@@ -50,6 +50,8 @@ openssh (1:4.7p1-1) UNRELEASED; urgency=low
     easier.
   * Remove the hideously old /etc/ssh/primes on upgrade (closes: #123013).
   * Update moduli(5) to revision 1.11 from OpenBSD CVS.
+  * Document the non-default options we set as standard in ssh_config(5) and
+    sshd_config(5) (closes: #327886, #345628).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 23 Dec 2007 12:53:46 +0000
 
