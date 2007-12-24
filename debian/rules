@@ -219,7 +219,7 @@ binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
 	dh_installdebconf
-	dh_installdocs OVERVIEW README README.dns README.tun
+	dh_installdocs OVERVIEW README README.dns README.tun faq.html
 	cat debian/copyright.head LICENCE > debian/openssh-client/usr/share/doc/openssh-client/copyright
 	dh_installchangelogs ChangeLog ChangeLog.gssapi
 	install -m644 debian/openssh-client.lintian debian/openssh-client/usr/share/lintian/overrides/openssh-client
@@ -353,6 +353,9 @@ binary-openssh-server-udeb: build install
 	dh_builddeb
 
 binary: binary-indep binary-arch
+
+faq:
+	wget -O debian/faq.html http://www.openssh.org/faq.html
 
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
