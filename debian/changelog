@@ -1,3 +1,48 @@
+openssh (1:4.7p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (closes: #453367).
+    - CVE-2007-4752: Prevent ssh(1) from using a trusted X11 cookie if
+      creation of an untrusted cookie fails; found and fixed by Jan Pechanec
+      (closes: #444738).
+    - sshd(8) in new installations defaults to SSH Protocol 2 only. Existing
+      installations are unchanged.
+    - The SSH channel window size has been increased, and both ssh(1)
+      sshd(8) now send window updates more aggressively. These improves
+      performance on high-BDP (Bandwidth Delay Product) networks.
+    - ssh(1) and sshd(8) now preserve MAC contexts between packets, which
+      saves 2 hash calls per packet and results in 12-16% speedup for
+      arcfour256/hmac-md5.
+    - A new MAC algorithm has been added, UMAC-64 (RFC4418) as
+      "umac-64@openssh.com". UMAC-64 has been measured to be approximately
+      20% faster than HMAC-MD5.
+    - Failure to establish a ssh(1) TunnelForward is now treated as a fatal
+      error when the ExitOnForwardFailure option is set.
+    - ssh(1) returns a sensible exit status if the control master goes away
+      without passing the full exit status.
+    - When using a ProxyCommand in ssh(1), set the outgoing hostname with
+      gethostname(2), allowing hostbased authentication to work.
+    - Make scp(1) skip FIFOs rather than hanging (closes: #246774).
+    - Encode non-printing characters in scp(1) filenames. These could cause
+      copies to be aborted with a "protocol error".
+    - Handle SIGINT in sshd(8) privilege separation child process to ensure
+      that wtmp and lastlog records are correctly updated.
+    - Report GSSAPI mechanism in errors, for libraries that support multiple
+      mechanisms.
+    - Improve documentation for ssh-add(1)'s -d option.
+    - Rearrange and tidy GSSAPI code, removing server-only code being linked
+      into the client.
+    - Delay execution of ssh(1)'s LocalCommand until after all forwardings
+      have been established.
+    - In scp(1), do not truncate non-regular files.
+    - Improve exit message from ControlMaster clients.
+    - Prevent sftp-server(8) from reading until it runs out of buffer space,
+      whereupon it would exit with a fatal error (closes: #365541).
+    - pam_end() was not being called if authentication failed
+      (closes: #405041).
+    - Manual page datestamps updated (closes: #433181).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 23 Dec 2007 12:53:46 +0000
+
 openssh (1:4.6p1-7) unstable; urgency=low
 
   * Don't build PIE executables on m68k (closes: #451192).

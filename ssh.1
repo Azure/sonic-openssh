@@ -34,8 +34,8 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.\" $OpenBSD: ssh.1,v 1.266 2006/12/11 21:25:46 markus Exp $
-.Dd September 25, 1999
+.\" $OpenBSD: ssh.1,v 1.270 2007/06/12 13:43:55 jmc Exp $
+.Dd $Mdocdate: June 12 2007 $
 .Dt SSH 1
 .Os
 .Sh NAME
@@ -316,7 +316,8 @@ It is possible to have multiple
 options (and multiple identities specified in
 configuration files).
 .It Fl K
-Enables forwarding (delegation) of GSSAPI credentials to the server.
+Enables GSSAPI-based authentication and forwarding (delegation) of GSSAPI
+credentials to the server.
 .It Fl k
 Disables forwarding (delegation) of GSSAPI credentials to the server.
 .It Fl L Xo
@@ -681,7 +682,7 @@ Both protocols support similar authentication methods,
 but protocol 2 is preferred since
 it provides additional mechanisms for confidentiality
 (the traffic is encrypted using AES, 3DES, Blowfish, CAST128, or Arcfour)
-and integrity (hmac-md5, hmac-sha1, hmac-ripemd160).
+and integrity (hmac-md5, hmac-sha1, umac-64, hmac-ripemd160).
 Protocol 1 lacks a strong mechanism for ensuring the
 integrity of the connection.
 .Pp

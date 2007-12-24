@@ -1,4 +1,4 @@
-/* $OpenBSD: sshconnect2.c,v 1.162 2006/08/30 00:06:51 dtucker Exp $ */
+/* $OpenBSD: sshconnect2.c,v 1.164 2007/05/17 23:53:41 jolan Exp $ */
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
  *
@@ -31,6 +31,7 @@
 #include <sys/stat.h>
 
 #include <errno.h>
+#include <netdb.h>
 #include <pwd.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -173,11 +174,9 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
 	kex->kex[KEX_DH_GEX_SHA256] = kexgex_client;
 #ifdef GSSAPI
-	if (options.gss_keyex) {
-		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
-		kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_client;
-		kex->kex[KEX_GSS_GEX_SHA1] = kexgss_client;
-	}
+	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
+	kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_client;
+	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_client;
 #endif
 	kex->client_version_string=client_version_string;
 	kex->server_version_string=server_version_string;
@@ -687,7 +686,7 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt;
 	u_int oidlen;
-	u_char *oidv, *oidv_free;
+	u_char *oidv;
 
 	if (authctxt == NULL)
 		fatal("input_gssapi_response: no authentication context");
@@ -1433,7 +1432,7 @@ userauth_hostbased(Authctxt *authctxt)
 	Sensitive *sensitive = authctxt->sensitive;
 	Buffer b;
 	u_char *signature, *blob;
-	char *chost, *pkalg, *p;
+	char *chost, *pkalg, *p, myname[NI_MAXHOST];
 	const char *service;
 	u_int blen, slen;
 	int ok, i, len, found = 0;
@@ -1457,7 +1456,16 @@ userauth_hostbased(Authctxt *authctxt)
 		return 0;
 	}
 	/* figure out a name for the client host */
-	p = get_local_name(packet_get_connection_in());
+	p = NULL;
+	if (packet_connection_is_on_socket())
+		p = get_local_name(packet_get_connection_in());
+	if (p == NULL) {
+		if (gethostname(myname, sizeof(myname)) == -1) {
+			verbose("userauth_hostbased: gethostname: %s", 
+			    strerror(errno));
+		} else
+			p = xstrdup(myname);
+	}
 	if (p == NULL) {
 		error("userauth_hostbased: cannot get local ipaddr/name");
 		key_free(private);
