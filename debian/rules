@@ -393,7 +393,7 @@ binary-openssh-server-udeb: build install
 
 binary: binary-indep binary-arch
 
-faq:
+debian/faq.html:
 	wget -O debian/faq.html http://www.openssh.org/faq.html
 
 debian/moduli.5:
