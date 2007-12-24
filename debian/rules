@@ -259,7 +259,8 @@ binary-openssh-client: build install
 	dh_testroot
 	dh_installdebconf
 	dh_installdocs OVERVIEW README README.dns README.tun debian/faq.html
-	cat debian/copyright.head LICENCE > debian/openssh-client/usr/share/doc/openssh-client/copyright
+	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
+		> debian/openssh-client/usr/share/doc/openssh-client/copyright
 	dh_installchangelogs ChangeLog ChangeLog.gssapi
 	install -m644 debian/openssh-client.lintian debian/openssh-client/usr/share/lintian/overrides/openssh-client
 	dh_strip
@@ -338,7 +339,8 @@ binary-ssh-krb5: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	cat debian/copyright.head LICENCE > debian/ssh-krb5/usr/share/doc/ssh-krb5/copyright
+	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
+		> debian/ssh-krb5/usr/share/doc/ssh-krb5/copyright
 	dh_installchangelogs ChangeLog ChangeLog.gssapi
 	dh_link
 	dh_compress

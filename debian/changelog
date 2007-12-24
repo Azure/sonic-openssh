@@ -52,6 +52,7 @@ openssh (1:4.7p1-1) UNRELEASED; urgency=low
   * Update moduli(5) to revision 1.11 from OpenBSD CVS.
   * Document the non-default options we set as standard in ssh_config(5) and
     sshd_config(5) (closes: #327886, #345628).
+  * Recode LICENCE to UTF-8 when concatenating it to debian/copyright.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 23 Dec 2007 12:53:46 +0000
 
