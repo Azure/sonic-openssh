@@ -392,6 +392,10 @@ setup_init
 commit_transfer_conffile /etc/default/ssh
 commit_transfer_conffile /etc/init.d/ssh
 commit_transfer_conffile /etc/pam.d/ssh
+# Renamed to /etc/ssh/moduli in 2.9.9 (!)
+if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
+    rm -f /etc/ssh/primes
+fi
 
 
 db_stop
