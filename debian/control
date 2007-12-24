@@ -3,7 +3,7 @@ Section: net
 Priority: standard
 Maintainer: Debian OpenSSH Maintainers <debian-ssh@lists.debian.org>
 Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev (>= 1:1.2.3-1), libssl-dev (>= 0.9.8-1), libpam0g-dev | libpam-dev, libgnomeui-dev (>= 2.0.0) | libgnome-dev, libedit-dev, groff, debhelper (>= 5.0.22), sharutils, libselinux1-dev [alpha amd64 arm armeb hppa i386 ia64 lpia m68k mips mipsel powerpc ppc64 s390 sparc], libkrb5-dev
-Standards-Version: 3.7.2
+Standards-Version: 3.7.3
 Uploaders: Colin Watson <cjwatson@debian.org>, Matthew Vernon <matthew@debian.org>
 
 Package: openssh-client
