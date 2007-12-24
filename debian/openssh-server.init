@@ -70,10 +70,10 @@ export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
 case "$1" in
   start)
+	check_privsep_dir
 	check_for_no_start
 	check_dev_null
 	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd"
-	check_privsep_dir
 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0
 	else
