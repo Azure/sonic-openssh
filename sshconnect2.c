@@ -686,7 +686,7 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt;
 	u_int oidlen;
-	u_char *oidv;
+	u_char *oidv, *oidv_free;
 
 	if (authctxt == NULL)
 		fatal("input_gssapi_response: no authentication context");
