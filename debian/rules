@@ -396,6 +396,11 @@ binary: binary-indep binary-arch
 faq:
 	wget -O debian/faq.html http://www.openssh.org/faq.html
 
+debian/moduli.5:
+	wget -q -O - 'http://www.openbsd.org/cgi-bin/cvsweb/~checkout~/src/share/man/man5/moduli.5?content-type=text/plain' | \
+		sed 's,/etc/moduli,/etc/ssh/moduli,g; s/\$$Mdocdate\$$/$(shell date +'%B %-d %Y')/' \
+		> debian/moduli.5
+
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
 .PHONY: binary-openssh-client binary-openssh-server binary-ssh
