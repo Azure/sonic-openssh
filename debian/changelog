@@ -45,6 +45,7 @@ openssh (1:4.7p1-1) UNRELEASED; urgency=low
       (closes: #303453).
   * Create /var/run/sshd on start even if /etc/ssh/sshd_not_to_be_run exists
     (closes: #453285).
+  * Fix "overriden" typo in ssh(1) (thanks, A. Costa; closes: #390699).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 23 Dec 2007 12:53:46 +0000
 
