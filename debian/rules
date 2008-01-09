@@ -396,7 +396,9 @@ binary-openssh-server-udeb: build install
 binary: binary-indep binary-arch
 
 debian/faq.html:
-	wget -O debian/faq.html http://www.openssh.org/faq.html
+	wget -O - http://www.openssh.org/faq.html | \
+		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
+		> debian/faq.html
 
 debian/moduli.5:
 	wget -q -O - 'http://www.openbsd.org/cgi-bin/cvsweb/~checkout~/src/share/man/man5/moduli.5?content-type=text/plain' | \
