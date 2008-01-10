@@ -2,6 +2,8 @@ openssh (1:4.7p1-2) UNRELEASED; urgency=low
 
   * Adjust many relative links in faq.html to point to
     http://www.openssh.org/ (thanks, Dan Jacobson; mentioned in #459807).
+  * Pass --with-mantype=doc to configure rather than build-depending on
+    groff (closes: #460121).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 09 Jan 2008 02:42:00 +0000
 
