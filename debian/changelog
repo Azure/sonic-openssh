@@ -1,4 +1,4 @@
-openssh (1:4.7p1-2) UNRELEASED; urgency=low
+openssh (1:4.7p1-2) unstable; urgency=low
 
   * Adjust many relative links in faq.html to point to
     http://www.openssh.org/ (thanks, Dan Jacobson; mentioned in #459807).
@@ -15,7 +15,7 @@ openssh (1:4.7p1-2) UNRELEASED; urgency=low
     can see, the GTK2 version of ssh-askpass-gnome has never required
     libgnomeui-dev.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 09 Jan 2008 02:42:00 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 11 Jan 2008 00:14:10 +0000
 
 openssh (1:4.7p1-1) unstable; urgency=low
 
