@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"Report-Msgid-Bugs-To: debian-ssh@lists.debian.org\n"
-"POT-Creation-Date: 2007-08-19 15:36+0100\n"
+"Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
+"POT-Creation-Date: 2008-01-11 00:10+0000\n"
 "PO-Revision-Date: 2007-04-23 18:05+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -28,13 +28,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates:1001
 msgid "Generate a new configuration file for OpenSSH?"
 msgstr "Faut-il créer un nouveau fichier de configuration pour OpenSSH ?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates:1001
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -51,7 +51,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates:1001
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
@@ -66,7 +66,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:1001
+#: ../openssh-server.templates:1001
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
@@ -75,13 +75,13 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr "Voulez-vous risquer de rompre les sessions SSH actives ?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates:2001
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
@@ -94,24 +94,24 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:2001
+#: ../openssh-server.templates:2001
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Cela peut être corrigé en ajoutant « --pidfile /var/run/sshd.pid » à la "
-"ligne « start-stop-daemon » dans /etc/init.d/ssh, dans la section « stop » "
-"du fichier."
+"Cela peut être corrigé en ajoutant « --pidfile /var/run/sshd.pid » à la ligne "
+"« start-stop-daemon » dans /etc/init.d/ssh, dans la section « stop » du "
+"fichier."
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates:3001
 msgid "New host key mandatory"
 msgstr "Nouvelle clé d'hôte obligatoire"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates:3001
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
@@ -124,19 +124,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:3001
+#: ../openssh-server.templates:3001
 msgid "You need to manually generate a new host key."
 msgstr "Vous devez générer une nouvelle clé d'hôte vous-même."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates:4001
 msgid "Disable challenge-response authentication?"
 msgstr "Faut-il désactiver l'authentification par défi-réponse ?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates:4001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -155,7 +155,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "

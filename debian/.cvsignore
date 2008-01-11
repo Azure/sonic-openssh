@@ -1,5 +1,4 @@
 *.debhelper
-*.templates
 *substvars
 files
 openssh-client
