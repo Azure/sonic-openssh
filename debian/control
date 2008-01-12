@@ -86,8 +86,8 @@ Depends: ${shlibs:Depends}, openssh-client | ssh (>= 1:1.2pre7-4) | ssh-krb5
 Replaces: ssh (<< 1:3.5p1-3)
 Provides: ssh-askpass
 Description: interactive X program to prompt users for a passphrase for ssh-add
- This has been split out of the main ssh package, so that the ssh will
- not need to depend upon the Gnome libraries.
+ This has been split out of the main openssh-client package so that
+ openssh-client does not need to depend on GTK.
  .
  You probably want the ssh-askpass package instead, but this is
  provided to add to your choice and/or confusion.
