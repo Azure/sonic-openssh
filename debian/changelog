@@ -6,6 +6,9 @@ openssh (1:4.7p1-3) UNRELEASED; urgency=low
       forwarding. Prevents the server from killing the connection if too
       much data is queued and an excessively large packet gets sent
       (https://bugzilla.mindrot.org/show_bug.cgi?id=1360).
+  * Allow passing temporary daemon parameters on the init script's command
+    line, e.g. '/etc/init.d/ssh start "-o PermitRootLogin=yes"' (thanks,
+    Marc Haber; closes: #458547).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 12 Jan 2008 09:11:08 +0000
 
