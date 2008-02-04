@@ -1,5 +1,6 @@
 *.debhelper
 *substvars
+copyright
 files
 openssh-client
 openssh-client-udeb
