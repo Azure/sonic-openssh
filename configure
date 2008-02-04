@@ -25708,6 +25708,8 @@ fi
 echo "${ECHO_T}$ac_cv_lib_selinux_setexeccon" >&6; }
 if test $ac_cv_lib_selinux_setexeccon = yes; then
    LIBSELINUX="-lselinux"
+			  LIBS="$LIBS -lselinux"
+
 else
   { { echo "$as_me:$LINENO: error: SELinux support requires libselinux library" >&5
 echo "$as_me: error: SELinux support requires libselinux library" >&2;}
