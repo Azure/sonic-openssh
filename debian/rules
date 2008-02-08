@@ -96,7 +96,6 @@ confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superu
 # Compiler flags.
 cflags := $(OPTFLAGS) $(PIE_CFLAGS)
 cflags += -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT
-cflags += -DSSHD_PAM_SERVICE=\"ssh\"
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
 cflags_udeb += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
@@ -241,7 +240,7 @@ binary-openssh-server: build install
 	dh_installdocs
 	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
 	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
-	dh_installpam --name ssh
+	dh_installpam --name sshd
 	dh_link
 	dh_strip
 	dh_compress

@@ -36,6 +36,19 @@ prepare_transfer_conffile () {
 	fi
 }
 
+prepare_mv_conffile () {
+	CONFFILE="$1"
+	[ -e "$CONFFILE" ] || return 0
+
+	md5sum="$(md5sum "$CONFFILE" | sed -e 's/ .*//')"
+	old_md5sum="$(dpkg-query -W -f '${Conffiles}\n' openssh-server 2>/dev/null | sed 's/^ *//' | awk '$1 == "'"$CONFFILE"'" { print $2 }')"
+	if [ "$md5sum" = "$old_md5sum" ]; then
+		mv -f "$CONFFILE" "$CONFFILE.dpkg-old"
+	else
+		mv -f "$CONFFILE" "$CONFFILE.moving"
+	fi
+}
+
 if [ -d /etc/ssh-nonfree ] && [ ! -d /etc/ssh ]; then
   version=1.2.27
 fi
@@ -116,6 +129,10 @@ EOF
     prepare_transfer_conffile /etc/default/ssh "$ETC_DEFAULT_SSH" 0644
     prepare_transfer_conffile /etc/init.d/ssh "$ETC_INIT_D_SSH" 0755
     prepare_transfer_conffile /etc/pam.d/ssh "$ETC_PAM_D_SSH" 0644
+  fi
+
+  if dpkg --compare-versions "$version" lt 1:4.7p1-4; then
+    prepare_mv_conffile /etc/pam.d/ssh
   fi
 fi
 

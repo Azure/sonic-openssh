@@ -2,6 +2,26 @@
 
 #DEBHELPER#
 
+abort_mv_conffile () {
+	CONFFILE="$1"
+
+	if [ ! -e "$CONFFILE" ]; then
+		if [ -e "$CONFFILE.dpkg-old" ]; then
+			mv -f "$CONFFILE.dpkg-old" "$CONFFILE"
+		elif [ -e "$CONFFILE.moving" ]; then
+			mv -f "$CONFFILE.moving" "$CONFFILE"
+		fi
+	fi
+}
+
+finish_mv_conffile () {
+	CONFFILE="$1"
+
+	if [ -e "$CONFFILE.dpkg-old" ]; then
+		rm -f "$CONFFILE.dpkg-old"
+	fi
+}
+
 abort_transfer_conffile () {
 	CONFFILE="$1"
 	if [ -e "$CONFFILE.moved-by-preinst" ]; then
@@ -13,6 +33,9 @@ abort_transfer_conffile () {
 
 case $1 in
 	abort-install|abort-upgrade)
+		if dpkg --compare-versions "$2" lt 1:4.7p1-4; then
+			abort_mv_conffile /etc/pam.d/ssh
+		fi
 		abort_transfer_conffile /etc/default/ssh
 		abort_transfer_conffile /etc/init.d/ssh
 		abort_transfer_conffile /etc/pam.d/ssh
@@ -34,6 +57,8 @@ case $1 in
 		if type deluser >/dev/null 2>&1; then
 			deluser --quiet sshd > /dev/null || true
 		fi
+
+		finish_mv_conffile /etc/pam.d/ssh
 		;;
 esac
 
