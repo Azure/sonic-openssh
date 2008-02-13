@@ -1,5 +1,5 @@
-openssh (1:4.7p1-4) UNRELEASED; urgency=low
- 
+openssh (1:4.7p1-4) unstable; urgency=low
+
   [ Caleb Case ]
   * Fix configure detection of getseuserbyname and
     get_default_context_with_level (closes: #465614, LP: #188136).
@@ -9,7 +9,7 @@ openssh (1:4.7p1-4) UNRELEASED; urgency=low
   * Move /etc/pam.d/ssh to /etc/pam.d/sshd, allowing us to stop defining
     SSHD_PAM_SERVICE (closes: #255870).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 04 Feb 2008 09:47:31 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 13 Feb 2008 18:18:52 +0000
 
 openssh (1:4.7p1-3) unstable; urgency=low
 
