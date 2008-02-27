@@ -1,3 +1,9 @@
+openssh (1:4.7p1-5) UNRELEASED; urgency=low
+
+  * Recommends: xauth rather than Suggests: xbase-clients.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 27 Feb 2008 08:10:19 +0000
+
 openssh (1:4.7p1-4) unstable; urgency=low
 
   [ Caleb Case ]
