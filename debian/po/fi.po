@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
 "POT-Creation-Date: 2008-01-11 00:10+0000\n"
-"PO-Revision-Date: 2005-04-08 22:15+0300\n"
-"Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
+"PO-Revision-Date: 2008-02-29 16:21+0200\n"
+"Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,14 +29,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Luo uusi asetustiedosto"
+msgstr "Luodaanko OpenSSH:lle uusi asetustiedosto?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -44,113 +42,84 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
 msgstr ""
-"Tämän OpenSSH-version käyttämän asetustiedoston muoto poikkeaa \n"
-"huomattavasti Debian \"Potato\":n mukana toimitetusta versiosta, jota olet \n"
-"päivittämässä. Uusi asetustiedosto (/etc/ssh/sshd.config) voidaan \n"
-"luoda nyt. Uudet asetukset toimivat uuden palvelinversion kanssa, mutta \n"
-"vanhaan versioon itse tehdyt mukautukset menetetään."
+"Tämän OpenSSH:n version käyttämän asetustiedoston muoto poikkeaa "
+"huomattavasti Debianin ”Potato”-julkaisun mukana toimitetusta versiosta, "
+"jota olet päivittämässä. Uusi asetustiedosto (/etc/ssh/sshd.config) voidaan "
+"luoda nyt. Uudet asetukset toimivat uuden palvelinversion kanssa, mutta "
+"vanhaan versioon itse tehdyt muokkaukset menetetään."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). It is the opinion of the maintainer that "
-#| "this is the correct default (see README.Debian for more details), but you "
-#| "can always edit sshd_config and set it to no if you wish."
 msgid ""
 "Please note that this new configuration file will set the value of "
 "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
 "can ssh directly in as root). Please read the README.Debian file for more "
 "details about this design choice."
 msgstr ""
-"Huomaa, että uudessa asetustiedostossa muuttujalla \"PermitRootLogin\" \n"
-"on arvo \"yes\" (tarkoittaen, että kuka tahansa pääkäyttäjän salasanan "
-"tietävä \n"
-"voi kirjautua suoraan ssh:n avulla pääkäyttäjänä). Paketin ylläpitäjän "
-"mielestä \n"
-"tämä on sopiva oletusarvo (lisätietoa tiedostossa README.Debian), mutta "
-"tämän \n"
-"voi halutessaan muuttaa arvoon \"no\" muokkaamalla tiedostoa sshd_config."
+"Uudessa asetustiedostossa muuttujan ”PermitRootLogin” arvo on "
+"”yes” (tarkoittaen, että kuka tahansa pääkäyttäjän salasanan tietävä voi "
+"kirjautua suoraan ssh:n avulla pääkäyttäjänä). Lisätietoja tästä valinnasta "
+"löytyy (englanniksi) tiedostosta README.Debian."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
-msgstr "Uuden asetustiedoston luominen on erittäin suositeltavaa."
+msgstr "Uuden asetustiedoston luominen nyt on erittäin suositeltavaa."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
-#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
-msgstr "Haluatko jatkaa (ja mahdollisesti lopettaa aktiiviset ssh-istunnot)?"
+msgstr "Haluatko ottaa riskin, että aktiiviset SSH-istunnot tapetaan?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
-#| msgid ""
-#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
-#| "all running sshd instances.  If you are doing this upgrade via an ssh "
-#| "session, that would be a Bad Thing(tm)."
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"Asennettu versio tiedostosta /etc/init.d/ssh lopettaa todennäköisesti "
-"kaikki \n"
-"käynnissä olevat sshd-prosessit. Jos teet tätä päivitystä ssh-yhteyden "
-"yli, \n"
-"tämä on Huono Juttu(tm)."
+"Tiedoston /etc/init.d/ssh asennettuna oleva versio tappaa todennäköisesti "
+"kaikki käynnissä olevat sshd-prosessit. Jos teet tätä päivitystä ssh-"
+"yhteyden yli, yhteytesi luultavasti katkeaa ja päivitysprosessi keskeytyy."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
-#| msgid ""
-#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
-#| "stop-daemon line in the stop section of the file."
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Voit korjata tämän lisäämällä \"--pidfile /var/run/sshd.pid\" tiedoston \n"
-"stop-osion start-stop-daemon -riville."
+"Tämä voidaan korjata lisäämällä merkkijono ”--pidfile /var/run/sshd.pid” "
+"kyseisen tiedoston stop-osion start-stop-daemon-riville."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "New host key mandatory"
-msgstr ""
+msgstr "Uusi konekohtainen avain pakollinen"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
-#, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Olemassa oleva tiedosto /etc/ssh/ssh_host_key on salattu \n"
-"IDEA-algoritmilla. OpenSSH ei voi käsitellä tätä konekohtaista "
-"avaintiedostoa, \n"
+"Olemassa oleva konekohtainen avain /etc/ssh/ssh_host_key on salattu IDEA-"
+"algoritmilla. OpenSSH ei voi käsitellä tätä konekohtaista avaintiedostoa, "
 "eikä vanhan (ei-vapaan) SSH-asennuksen ssh-keygen-ohjelmaa löydy."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
-#, fuzzy
-#| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
 msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 
@@ -158,19 +127,11 @@ msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
 #. Description
 #: ../openssh-server.templates:4001
 msgid "Disable challenge-response authentication?"
-msgstr "Poista käytöstä haaste-vaste -autentikointi"
+msgstr "Poistetaanko haaste-vaste-autentikointi käytöstä?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:4001
-#, fuzzy
-#| msgid ""
-#| "Password authentication appears to be disabled in your current OpenSSH "
-#| "server configuration. In order to prevent users from logging in using "
-#| "passwords (perhaps using only public key authentication instead) with "
-#| "recent versions of OpenSSH, you must disable challenge-response "
-#| "authentication, or else ensure that your PAM configuration does not allow "
-#| "Unix password file authentication."
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -179,12 +140,12 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Käytössä olevassa OpenSSH-konfiguraatiossa salasana-autentikointi\n"
-"näyttää olevan poissa käytöstä. Estääksesi kirjautumiset salasanaa\n"
-"käyttäen (esim. salliaksesi kirjautumisen vain julkista avainta\n"
-"käyttäen), uusissa OpenSSH-versioissa haaste-vaste -autentikointi\n"
-"tulee poistaa käytöstä, tai muutoin varmistaa, että PAM-konfiguraatio\n"
-"ei salli Unix-salasanatiedostoon perustuvaa autentikointia."
+"OpenSSH-palvelimen nykyisissä asetuksissa salasana-autentikointi näyttää "
+"olevan poissa käytöstä. Estääksesi kirjautumiset salasanaa käyttäen (esim. "
+"salliaksesi kirjautumisen vain julkista avainta käyttäen), OpenSSH:n uusissa "
+"versioissa haaste-vaste-autentikointi tulee poistaa käytöstä tai muutoin "
+"varmistaa, että PAM-asetukset eivät salli Unixin salasanatiedostoon "
+"perustuvaa autentikointia."
 
 #. Type: boolean
 #. Description
@@ -195,10 +156,10 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Jos poistat käytöstä haaste-vaste -pohjaisen autentikoinnin, käyttäjät\n"
-"eivät voi kirjautua salasanaa käyttäen. Jos jätät sen päälle (oletus),\n"
-"asetuksella \"PasswordAuthentication no\" ei ole vaikutusta, ellet muuta\n"
-"myös PAM-asetuksia tiedostossa /etc/pam.d/ssh."
+"Jos poistat haaste-vaste-autentikoinnin käytöstä, käyttäjät eivät voi "
+"kirjautua käyttäen salasanaa. Jos jätät sen päälle (oletus), asetuksella "
+"”PasswordAuthentication no” ei ole vaikutusta, ellet muuta myös PAM-"
+"asetuksia tiedostossa /etc/pam.d/ssh."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"

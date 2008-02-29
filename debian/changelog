@@ -1,6 +1,8 @@
 openssh (1:4.7p1-5) UNRELEASED; urgency=low
 
   * Recommends: xauth rather than Suggests: xbase-clients.
+  * debconf template translations:
+    - Update Finnish (thanks, Esko Arajärvi; closes: #468563).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 27 Feb 2008 08:10:19 +0000
 
