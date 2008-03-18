@@ -1,6 +1,8 @@
 openssh (1:4.7p1-5) UNRELEASED; urgency=low
 
   * Recommends: xauth rather than Suggests: xbase-clients.
+  * Document in ssh(1) that '-S none' disables connection sharing
+    (closes: #471437).
   * debconf template translations:
     - Update Finnish (thanks, Esko Arajärvi; closes: #468563).
 

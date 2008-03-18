@@ -559,7 +559,10 @@ will only succeed if the server's
 option is enabled (see
 .Xr sshd_config 5 ) .
 .It Fl S Ar ctl_path
-Specifies the location of a control socket for connection sharing.
+Specifies the location of a control socket for connection sharing,
+or the string
+.Dq none
+to disable connection sharing.
 Refer to the description of
 .Cm ControlPath
 and
