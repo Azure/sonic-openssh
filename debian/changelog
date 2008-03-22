@@ -3,6 +3,9 @@ openssh (1:4.7p1-5) UNRELEASED; urgency=low
   * Recommends: xauth rather than Suggests: xbase-clients.
   * Document in ssh(1) that '-S none' disables connection sharing
     (closes: #471437).
+  * Patch from Red Hat / Fedora:
+    - Don't use X11 forwarding port which can't be bound on all address
+      families (closes: #463011).
   * debconf template translations:
     - Update Finnish (thanks, Esko Arajärvi; closes: #468563).
 
