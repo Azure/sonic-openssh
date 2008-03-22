@@ -112,7 +112,7 @@ EOF
     # nonfree ssh-keygen at this point
     #
     # First, check if we need to bother
-    echo -en '\0\0' | 3<&0 sh -c \
+    printf '\0\0' | 3<&0 sh -c \
         'dd if=$key bs=1 skip=32 count=2 2>/dev/null | cmp -s - /dev/fd/3' || {
       # this means that bytes 32&33 of the key were not both zero, in which
       # case the key is encrypted, which we need to fix
