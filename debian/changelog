@@ -1,4 +1,4 @@
-openssh (1:4.7p1-5) UNRELEASED; urgency=low
+openssh (1:4.7p1-5) unstable; urgency=low
 
   * Recommends: xauth rather than Suggests: xbase-clients.
   * Document in ssh(1) that '-S none' disables connection sharing
@@ -13,7 +13,7 @@ openssh (1:4.7p1-5) UNRELEASED; urgency=low
   * debconf template translations:
     - Update Finnish (thanks, Esko Arajärvi; closes: #468563).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 27 Feb 2008 08:10:19 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 22 Mar 2008 12:37:00 +0000
 
 openssh (1:4.7p1-4) unstable; urgency=low
 
