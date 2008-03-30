@@ -1,3 +1,10 @@
+openssh (1:4.7p1-6) UNRELEASED; urgency=low
+
+  * Disable the Linux kernel's OOM-killer for the sshd parent; tweak
+    SSHD_OOM_ADJUST in /etc/default/ssh to change this (closes: #341767).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 28 Mar 2008 18:54:06 +0000
+
 openssh (1:4.7p1-5) unstable; urgency=low
 
   * Recommends: xauth rather than Suggests: xbase-clients.

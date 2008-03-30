@@ -3,3 +3,8 @@
 
 # Options to pass to sshd
 SSHD_OPTS=
+
+# OOM-killer adjustment for sshd (see
+# linux/Documentation/filesystems/proc.txt; lower values reduce likelihood
+# of being killed, -17 = disable)
+SSHD_OOM_ADJUST=-17
