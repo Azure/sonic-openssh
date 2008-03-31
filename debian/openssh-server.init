@@ -75,7 +75,7 @@ adjust_oom() {
     if [ -e /var/run/sshd.pid ]; then
 	PID="$(head -n1 /var/run/sshd.pid)"
 	if [ -e "/proc/$PID/oom_adj" ]; then
-	    printf '%s' "$SSHD_OOM_ADJUST" >"/proc/$PID/oom_adj"
+	    printf '%s' "$SSHD_OOM_ADJUST" >"/proc/$PID/oom_adj" || true
 	fi
     fi
 }
