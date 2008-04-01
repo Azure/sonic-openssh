@@ -1,3 +1,9 @@
+openssh (1:4.7p1-8) UNRELEASED; urgency=low
+
+  * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2008 14:12:43 +0100
+
 openssh (1:4.7p1-7) unstable; urgency=low
 
   * Ignore errors writing to oom_adj (closes: #473573).
@@ -17,8 +23,8 @@ openssh (1:4.7p1-5) unstable; urgency=low
   * Document in ssh(1) that '-S none' disables connection sharing
     (closes: #471437).
   * Patch from Red Hat / Fedora:
-    - SECURITY: Don't use X11 forwarding port which can't be bound on all
-      address families, preventing hijacking of X11 forwarding by
+    - CVE-2008-1483: Don't use X11 forwarding port which can't be bound on
+      all address families, preventing hijacking of X11 forwarding by
       unprivileged users when both IPv4 and IPv6 are configured (closes:
       #463011).
   * Use printf rather than echo -en (a bashism) in openssh-server.config and
