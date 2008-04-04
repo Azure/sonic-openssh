@@ -3,6 +3,8 @@ openssh (1:4.7p1-8) UNRELEASED; urgency=low
   * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
   * Rename KeepAlive to TCPKeepAlive in sshd_config, cleaning up from old
     configurations (LP: #211400).
+  * Tweak scp's reporting of filenames in verbose mode to be a bit less
+    confusing with spaces (thanks, Nicolas Valcárcel; LP: #89945).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2008 14:12:43 +0100
 
