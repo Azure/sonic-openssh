@@ -97,6 +97,32 @@ disable_config_option() {
 }
 
 
+rename_config_option() {
+	oldoption="$1"
+	newoption="$2"
+
+	value="$(get_config_option "$oldoption")"
+	[ "$value" ] || return 0
+
+	perl -le '
+		$oldoption = $ARGV[0]; $newoption = $ARGV[1];
+		while (<STDIN>) {
+			chomp;
+			(my $match = $_) =~ s/\s+/ /g;
+			# TODO: actually only one "=" allowed after option
+			if ($match =~ s/^(\s*)\Q$oldoption\E([[:space:]=]+)/$1$newoption$2/i) {
+				$_ = $match;
+			}
+			print;
+		}' \
+		"$oldoption" "$newoption" \
+		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
+	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
+	chmod --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
+	mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
+}
+
+
 remove_obsolete_gssapi() {
 	disable_config_option GSSAPINoMICAuthentication
 	disable_config_option GSSUseSessionCCache
@@ -225,6 +251,12 @@ create_sshdconfig() {
 		# Remove obsolete GSSAPI options.
 		if dpkg --compare-versions "$oldversion" lt 1:4.3p2-8; then
 		    remove_obsolete_gssapi
+		fi
+
+		# This option was renamed in 3.8p1, but we never took care
+		# of adjusting the configuration file until now.
+		if dpkg --compare-versions "$oldversion" lt 1:4.7p1-8; then
+		    rename_config_option KeepAlive TCPKeepAlive
 		fi
 
 		return 0
