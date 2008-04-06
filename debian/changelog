@@ -6,7 +6,7 @@ openssh (1:4.7p1-8) UNRELEASED; urgency=low
   * Tweak scp's reporting of filenames in verbose mode to be a bit less
     confusing with spaces (thanks, Nicolas Valcárcel; LP: #89945).
   * Backport from 4.9p1:
-    - Ignore ~/.ssh/rc if a sshd_config ForcedCommand is specified (see
+    - Ignore ~/.ssh/rc if a sshd_config ForceCommand is specified (see
       http://www.securityfocus.com/bid/28531/info).
     - Add no-user-rc authorized_keys option to disable execution of
       ~/.ssh/rc.
