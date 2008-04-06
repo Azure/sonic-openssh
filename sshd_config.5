@@ -311,7 +311,9 @@ for more information on patterns.
 .It Cm ForceCommand
 Forces the execution of the command specified by
 .Cm ForceCommand ,
-ignoring any command supplied by the client.
+ignoring any command supplied by the client and
+.Pa ~/.ssh/rc
+if present.
 The command is invoked by using the user's login shell with the -c option.
 This applies to shell, command, or subsystem execution.
 It is most useful inside a
