@@ -10,6 +10,10 @@ openssh (1:4.7p1-8) UNRELEASED; urgency=low
       http://www.securityfocus.com/bid/28531/info).
     - Add no-user-rc authorized_keys option to disable execution of
       ~/.ssh/rc.
+  * Backport from Simon Wilkinson's GSSAPI key exchange patch for 5.0p1:
+    - Add code to actually implement GSSAPIStrictAcceptorCheck, which had
+      somehow been omitted from a previous version of this patch (closes:
+      #474246).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2008 14:12:43 +0100
 
