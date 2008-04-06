@@ -1,4 +1,4 @@
-openssh (1:4.7p1-8) UNRELEASED; urgency=high
+openssh (1:4.7p1-8) unstable; urgency=high
 
   * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
   * Rename KeepAlive to TCPKeepAlive in sshd_config, cleaning up from old
@@ -15,7 +15,7 @@ openssh (1:4.7p1-8) UNRELEASED; urgency=high
       somehow been omitted from a previous version of this patch (closes:
       #474246).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2008 14:12:43 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 06 Apr 2008 12:34:19 +0100
 
 openssh (1:4.7p1-7) unstable; urgency=low
 
