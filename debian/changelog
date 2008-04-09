@@ -1,3 +1,9 @@
+openssh (1:4.7p1-9) UNRELEASED; urgency=low
+
+  * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-8.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 09 Apr 2008 14:57:43 +0100
+
 openssh (1:4.7p1-8) unstable; urgency=high
 
   * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
@@ -6,8 +12,8 @@ openssh (1:4.7p1-8) unstable; urgency=high
   * Tweak scp's reporting of filenames in verbose mode to be a bit less
     confusing with spaces (thanks, Nicolas Valcárcel; LP: #89945).
   * Backport from 4.9p1:
-    - Ignore ~/.ssh/rc if a sshd_config ForceCommand is specified (see
-      http://www.securityfocus.com/bid/28531/info).
+    - CVE-2008-1657: Ignore ~/.ssh/rc if a sshd_config ForceCommand is
+      specified.
     - Add no-user-rc authorized_keys option to disable execution of
       ~/.ssh/rc.
   * Backport from Simon Wilkinson's GSSAPI key exchange patch for 5.0p1:
