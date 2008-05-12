@@ -1,3 +1,12 @@
+openssh (1:4.3p2-9etch1) UNRELEASED; urgency=high
+
+  * Backport from upstream:
+    - CVE-2007-4752: Prevent ssh(1) from using a trusted X11 cookie if
+      creation of an untrusted cookie fails; found and fixed by Jan Pechanec
+      (closes: #444738).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 13 May 2008 00:41:03 +0100
+
 openssh (1:4.3p2-9) unstable; urgency=high
 
   [ Russ Allbery ]

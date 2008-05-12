@@ -266,19 +266,29 @@ client_x11_get_proto(const char *display, const char *xauth_path,
 					generated = 1;
 			}
 		}
-		snprintf(cmd, sizeof(cmd),
-		    "%s %s%s list %s 2>" _PATH_DEVNULL,
-		    xauth_path,
-		    generated ? "-f " : "" ,
-		    generated ? xauthfile : "",
-		    display);
-		debug2("x11_get_proto: %s", cmd);
-		f = popen(cmd, "r");
-		if (f && fgets(line, sizeof(line), f) &&
-		    sscanf(line, "%*s %511s %511s", proto, data) == 2)
-			got_data = 1;
-		if (f)
-			pclose(f);
+
+		/*
+		 * When in untrusted mode, we read the cookie only if it was
+		 * successfully generated as an untrusted one in the step
+		 * above.
+		 */
+		if (trusted || generated) {
+			snprintf(cmd, sizeof(cmd),
+			    "%s %s%s list %s 2>" _PATH_DEVNULL,
+			    xauth_path,
+			    generated ? "-f " : "" ,
+			    generated ? xauthfile : "",
+			    display);
+			debug2("x11_get_proto: %s", cmd);
+			f = popen(cmd, "r");
+			if (f && fgets(line, sizeof(line), f) &&
+			    sscanf(line, "%*s %511s %511s", proto, data) == 2)
+				got_data = 1;
+			if (f)
+				pclose(f);
+		} else
+			error("Warning: untrusted X11 forwarding setup failed: "
+			    "xauth key data not generated");
 	}
 
 	if (do_unlink) {
