@@ -4,6 +4,10 @@ openssh (1:4.3p2-9etch1) UNRELEASED; urgency=high
     - CVE-2007-4752: Prevent ssh(1) from using a trusted X11 cookie if
       creation of an untrusted cookie fails; found and fixed by Jan Pechanec
       (closes: #444738).
+    - CVE-2008-1483: Don't use X11 forwarding port which can't be bound on
+      all address families, preventing hijacking of X11 forwarding by
+      unprivileged users when both IPv4 and IPv6 are configured (closes:
+      #463011).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 13 May 2008 00:41:03 +0100
 
