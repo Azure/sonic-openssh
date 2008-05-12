@@ -8,7 +8,7 @@ Uploaders: Colin Watson <cjwatson@debian.org>, Matthew Vernon <matthew@debian.or
 
 Package: openssh-client
 Architecture: any
-Depends: ${shlibs:Depends}, debconf (>= 1.2.0) | debconf-2.0, adduser (>= 3.10), dpkg (>= 1.7.0), passwd
+Depends: ${shlibs:Depends}, debconf (>= 1.2.0) | debconf-2.0, adduser (>= 3.10), dpkg (>= 1.7.0), passwd, libssl0.9.8 (>= 0.9.8g-9)
 Recommends: xauth
 Conflicts: ssh (<< 1:3.8.1p1-9), sftp, rsh-client (<<0.16.1-1), ssh-krb5 (<< 1:4.3p2-7)
 Replaces: ssh, ssh-krb5
@@ -37,7 +37,7 @@ Description: secure shell client, an rlogin/rsh/rcp replacement
 Package: openssh-server
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, debconf (>= 1.2.0) | debconf-2.0, libpam-runtime (>= 0.76-14), libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0), openssh-client (= ${binary:Version}), lsb-base (>= 3.0-6)
+Depends: ${shlibs:Depends}, debconf (>= 1.2.0) | debconf-2.0, libpam-runtime (>= 0.76-14), libpam-modules (>= 0.72-9), adduser (>= 3.9), dpkg (>= 1.9.0), openssh-client (= ${binary:Version}), lsb-base (>= 3.0-6), libssl0.9.8 (>= 0.9.8g-9), openssh-blacklist
 Recommends: xauth
 Conflicts: ssh (<< 1:3.8.1p1-9), ssh-nonfree (<<2), ssh-socks, ssh2, sftp, rsh-client (<<0.16.1-1), ssh-krb5 (<< 1:4.3p2-7)
 Replaces: ssh, openssh-client (<< 1:3.8.1p1-11), ssh-krb5
@@ -99,7 +99,7 @@ XC-Package-Type: udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, libnss-files-udeb
+Depends: ${shlibs:Depends}, libnss-files-udeb, libcrypto0.9.8-udeb (>= 0.9.8g-9)
 XB-Installer-Menu-Item: 99900
 Description: secure shell client for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
@@ -113,7 +113,7 @@ XC-Package-Type: udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, libnss-files-udeb
+Depends: ${shlibs:Depends}, libnss-files-udeb, libcrypto0.9.8-udeb (>= 0.9.8g-9)
 Description: secure shell server for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
