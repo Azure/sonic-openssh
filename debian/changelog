@@ -8,7 +8,7 @@ openssh (1:4.3p2-9etch1) UNRELEASED; urgency=critical
       all address families, preventing hijacking of X11 forwarding by
       unprivileged users when both IPv4 and IPv6 are configured (closes:
       #463011).
-  * Mitigate OpenSSL security vulnerability:
+  * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
     - Add key blacklisting support. Keys listed in
       /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
       sshd, unless "PermitBlacklistedKeys yes" is set in
