@@ -1,4 +1,4 @@
-openssh (1:4.3p2-9etch1) UNRELEASED; urgency=critical
+openssh (1:4.3p2-9etch1) stable-security; urgency=critical
 
   * Backport from upstream:
     - CVE-2007-4752: Prevent ssh(1) from using a trusted X11 cookie if
@@ -22,7 +22,7 @@ openssh (1:4.3p2-9etch1) UNRELEASED; urgency=critical
       critical-priority debconf note. (I regret that there was no time to
       gather translations.)
 
- -- Colin Watson <cjwatson@ubuntu.com>  Tue, 13 May 2008 00:41:03 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 13 May 2008 14:38:03 +0100
 
 openssh (1:4.3p2-9) unstable; urgency=high
 
