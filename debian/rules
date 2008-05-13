@@ -213,7 +213,7 @@ binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
 	dh_installdebconf
-	dh_installdocs OVERVIEW README README.dns README.tun debian/faq.html
+	dh_installdocs OVERVIEW README README.dns README.tun debian/faq.html debian/README.compromised-keys
 	dh_installchangelogs ChangeLog ChangeLog.gssapi
 	install -m644 debian/openssh-client.lintian debian/openssh-client/usr/share/lintian/overrides/openssh-client
 	dh_strip
