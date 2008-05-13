@@ -35,6 +35,7 @@ RCSID("$OpenBSD: auth2-hostbased.c,v 1.6 2004/01/19 21:25:15 markus Exp $");
 #include "bufaux.h"
 #include "auth.h"
 #include "key.h"
+#include "authfile.h"
 #include "canohost.h"
 #include "monitor_wrap.h"
 #include "pathnames.h"
@@ -132,9 +133,23 @@ int
 hostbased_key_allowed(struct passwd *pw, const char *cuser, char *chost,
     Key *key)
 {
+	char *fp;
 	const char *resolvedname, *ipaddr, *lookup;
 	HostStatus host_status;
 	int len;
+
+	if (blacklisted_key(key)) {
+		fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
+		if (options.permit_blacklisted_keys)
+			logit("Public key %s blacklisted (see "
+			    "ssh-vulnkey(1)); continuing anyway", fp);
+		else
+			logit("Public key %s blacklisted (see "
+			    "ssh-vulnkey(1))", fp);
+		xfree(fp);
+		if (!options.permit_blacklisted_keys)
+			return 0;
+	}
 
 	resolvedname = get_canonical_hostname(options.use_dns);
 	ipaddr = get_remote_ipaddr();
