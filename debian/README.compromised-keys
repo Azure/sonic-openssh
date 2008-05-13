@@ -101,9 +101,9 @@ OpenSSH:
 
      ssh-vulnkey /path/to/key
 
-   If ssh-vulnkey says "No blacklist file", then it has no information
-   about whether that key is affected.  If in doubt, destroy the key and
-   generate a new one.
+   If ssh-vulnkey says "Unknown (no blacklist information)", then it has no
+   information about whether that key is affected.  If in doubt, destroy the
+   key and generate a new one.
 
 4. Regenerate any affected user keys
 
