@@ -5,9 +5,14 @@ Matt Zimmerman, assisted by Colin Watson.
 
 A weakness has been discovered in the random number generator used by OpenSSL
 on Debian and Ubuntu systems.  As a result of this weakness, certain encryption
-keys are generated much more frequently than they should be, such that an
-attacker could guess the key through a brute-force attack given minimal
-knowledge of the system.
+keys are much more common than they should be, such that an attacker could
+guess the key through a brute-force attack given minimal knowledge of the
+system.  This particularly affects the use of encryption keys in OpenSSH,
+OpenVPN and SSL certificates.
+
+This vulnerability only affects operating systems which (like Ubuntu) are based
+on Debian.  However, other systems can be indirectly affected if weak keys are
+imported into them.
 
 We consider this an extremely serious vulnerability, and urge all users to act
 immediately to secure their systems.
@@ -97,7 +102,8 @@ OpenSSH:
      ssh-vulnkey /path/to/key
 
    If ssh-vulnkey says "No blacklist file", then it has no information
-   about whether that key is affected.
+   about whether that key is affected.  If in doubt, destroy the key and
+   generate a new one.
 
 4. Regenerate any affected user keys
 
