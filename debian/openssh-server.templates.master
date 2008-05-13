@@ -71,4 +71,5 @@ _Description: Vulnerable host keys will be regenerated
  ${HOST_KEYS}
  .
  User keys may also be affected by this problem. The 'ssh-vulnkey' command
- may be used as a partial test for this.
+ may be used as a partial test for this. See
+ /usr/share/doc/openssh-server/README.compromised-keys for more details.
