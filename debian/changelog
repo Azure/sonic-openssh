@@ -1,7 +1,7 @@
 openssh (1:4.7p1-9) UNRELEASED; urgency=critical
 
   * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-8.
-  * Mitigate OpenSSL security vulnerability:
+  * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
     - Add key blacklisting support. Keys listed in
       /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
       sshd, unless "PermitBlacklistedKeys yes" is set in
