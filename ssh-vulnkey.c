@@ -138,55 +138,69 @@ do_filename(const char *filename, int quiet_open)
 		f = stdin;
 	while (read_keyfile_line(f, filename, line, sizeof(line),
 		    &linenum) != -1) {
-		cp = line;
-		switch (*cp) {
-		case '#':
-		case '\n':
-		case '\0':
-			continue;
-		}
-		/* Skip leading whitespace. */
-		for (; *cp && (*cp == ' ' || *cp == '\t'); cp++)
-			;
-		/* Cope with ssh-keyscan output. */
-		comment = NULL;
-		if (*cp) {
-			char *space;
-			int type;
+		int i;
+		char *space;
+		int type;
 
-			space = strchr(cp, ' ');
-			if (!space)
+		/* Chop trailing newline. */
+		i = strlen(line) - 1;
+		if (line[i] == '\n')
+			line[i] = '\0';
+
+		/* Skip leading whitespace, empty and comment lines. */
+		for (cp = line; *cp == ' ' || *cp == '\t'; cp++)
+			;
+		if (!*cp || *cp == '\n' || *cp == '#')
+			continue;
+
+		/* Cope with ssh-keyscan output and options in
+		 * authorized_keys files.
+		 */
+		space = strchr(cp, ' ');
+		if (!space)
+			continue;
+		*space = '\0';
+		type = key_type_from_name(cp);
+		*space = ' ';
+		/* Leading number (RSA1) or valid type (RSA/DSA) indicates
+		 * that we have no host name or options to skip.
+		 */
+		if (atoi(cp) == 0 && type == KEY_UNSPEC) {
+			int quoted = 0;
+
+			for (; *cp && (quoted || (*cp != ' ' && *cp != '\t')); cp++) {
+				if (*cp == '\\' && cp[1] == '"')
+					cp++;	/* Skip both */
+				else if (*cp == '"')
+					quoted = !quoted;
+			}
+			/* Skip remaining whitespace. */
+			for (; *cp == ' ' || *cp == '\t'; cp++)
+				;
+			if (!*cp)
 				continue;
-			*space = '\0';
-			type = key_type_from_name(cp);
-			if (type == KEY_UNSPEC) {
-				comment = xstrdup(cp);
-				cp = space + 1;
-			}
-			*space = ' ';
 		}
-		if (!comment)
-			comment = xstrdup(filename);
-		if (*cp) {
-			key = key_new(KEY_RSA1);
+
+		/* Read and process the key itself. */
+		key = key_new(KEY_RSA1);
+		if (key_read(key, &cp) == 1) {
+			while (*cp == ' ' || *cp == '\t')
+				cp++;
+			if (!do_key(key, *cp ? cp : filename))
+				ret = 0;
+			found = 1;
+		} else {
+			key_free(key);
+			key = key_new(KEY_UNSPEC);
 			if (key_read(key, &cp) == 1) {
-				if (!do_key(key, comment))
+				while (*cp == ' ' || *cp == '\t')
+					cp++;
+				if (!do_key(key, *cp ? cp : filename))
 					ret = 0;
-				key_free(key);
 				found = 1;
-			} else {
-				key_free(key);
-				key = key_new(KEY_UNSPEC);
-				if (key_read(key, &cp) == 1) {
-					if (!do_key(key, comment))
-						ret = 0;
-					key_free(key);
-					found = 1;
-				}
 			}
 		}
-		xfree(comment);
-		comment = NULL;
+		key_free(key);
 	}
 	if (f != stdin)
 		fclose(f);
