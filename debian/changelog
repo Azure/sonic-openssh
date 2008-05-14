@@ -1,7 +1,8 @@
 openssh (1:4.7p1-10) UNRELEASED; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
-  * ssh-vulnkey handles options in authorized_keys (LP: #230029).
+  * ssh-vulnkey handles options in authorized_keys (LP: #230029), and treats
+    # as introducing a comment even if it is preceded by whitespace.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 May 2008 09:47:29 +0100
 
