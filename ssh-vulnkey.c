@@ -86,20 +86,27 @@ describe_key(const char *msg, const Key *key, const char *comment)
 int
 do_key(const Key *key, const char *comment)
 {
+	Key *public;
 	char *blacklist_file;
 	struct stat st;
 	int ret = 1;
 
-	blacklist_file = blacklist_filename(key);
+	public = key_demote(key);
+	if (public->type == KEY_RSA1)
+		public->type = KEY_RSA;
+
+	blacklist_file = blacklist_filename(public);
 	if (stat(blacklist_file, &st) < 0)
 		describe_key("Unknown (no blacklist information)",
 		    key, comment);
-	else if (blacklisted_key(key)) {
+	else if (blacklisted_key(public)) {
 		describe_key("COMPROMISED", key, comment);
 		ret = 0;
 	} else
 		describe_key("Not blacklisted", key, comment);
 	xfree(blacklist_file);
+
+	key_free(public);
 
 	return ret;
 }

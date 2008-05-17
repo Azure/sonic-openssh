@@ -693,6 +693,7 @@ blacklist_filename(const Key *key)
 int
 blacklisted_key(const Key *key)
 {
+	Key *public;
 	char *blacklist_file;
 	int fd = -1;
 	char *dgst_hex = NULL;
@@ -704,13 +705,17 @@ blacklisted_key(const Key *key)
 	off_t start, lower, upper;
 	int ret = 0;
 
-	blacklist_file = blacklist_filename(key);
+	public = key_demote(key);
+	if (public->type == KEY_RSA1)
+		public->type = KEY_RSA;
+
+	blacklist_file = blacklist_filename(public);
 	debug("Checking blacklist file %s", blacklist_file);
 	fd = open(blacklist_file, O_RDONLY);
 	if (fd < 0)
 		goto out;
 
-	dgst_hex = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
+	dgst_hex = key_fingerprint(public, SSH_FP_MD5, SSH_FP_HEX);
 	/* Remove all colons */
 	dgst_packed = xcalloc(1, strlen(dgst_hex) + 1);
 	for (i = 0, p = dgst_packed; dgst_hex[i]; i++)
@@ -786,5 +791,6 @@ out:
 	if (fd >= 0)
 		close(fd);
 	xfree(blacklist_file);
+	key_free(public);
 	return ret;
 }
