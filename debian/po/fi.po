@@ -17,9 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
-"Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2008-02-29 16:21+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-15 04:31+0200\n"
+"PO-Revision-Date: 2008-05-16 21:37+0200\n"
 "Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:3001
 msgid "New host key mandatory"
-msgstr "Uusi konekohtainen avain pakollinen"
+msgstr "Uusi järjestelmäavain pakollinen"
 
 #. Type: note
 #. Description
@@ -113,15 +113,15 @@ msgid ""
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Olemassa oleva konekohtainen avain /etc/ssh/ssh_host_key on salattu IDEA-"
-"algoritmilla. OpenSSH ei voi käsitellä tätä konekohtaista avaintiedostoa, "
-"eikä vanhan (ei-vapaan) SSH-asennuksen ssh-keygen-ohjelmaa löydy."
+"Olemassa oleva järjestelmäavain /etc/ssh/ssh_host_key on salattu IDEA-"
+"algoritmilla. OpenSSH ei voi käsitellä tätä järjestelmäavaintiedostoa, eikä "
+"vanhan (ei-vapaan) SSH-asennuksen ssh-keygen-ohjelmaa löydy."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "You need to manually generate a new host key."
-msgstr "Uuden konekohtaisen avaimen (host key) luominen on tarpeen."
+msgstr "Uuden järjestelmäavaimen (host key) luominen on tarpeen."
 
 #. Type: boolean
 #. Description
@@ -165,7 +165,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Haavoittuvaiset järjestelmäavaimet luodaan uudelleen"
 
 #. Type: note
 #. Description
@@ -176,6 +176,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Jotkin tämän järjestelmän OpenSSH-palvelimen järjestelmäavaimista on luotu "
+"OpenSSL:n versiolla, jossa oli rikkinäinen satunnaislukugeneraattori. Tämän "
+"tuloksena nämä avaimet voidaan murtaa järjestelmällisellä läpikäynnillä ja "
+"ne tulee vaihtaa."
 
 #. Type: note
 #. Description
@@ -186,12 +190,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Järjestelmän käyttäjiä tulisi tiedottaa tästä muutoksesta, koska heitä "
+"pyydetään hyväksymään muuttunut järjestelmäavain, kun he seuraavan kerran "
+"kirjautuvat järjestelmään. Komennolla ”ssh-keygen -l -f HOST_KEY_FILE” "
+"voidaan tulostaa uusien järjestelmäavainten sormenjäljet päivityksen jälkeen."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Järjestelmäavaimet, joihin tämä vaikuttaa:"
 
 #. Type: note
 #. Description
@@ -201,6 +209,9 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Tämä ongelma saattaa vaikuttaa myös käyttäjien avaimiin. Komennolla ”ssh-"
+"vulnkey” voidaan osittain testata tätä. Tiedostossa /usr/share/doc/openssh-"
+"server/README.compromised-keys.gz on lisätietoja."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)"
