@@ -5,6 +5,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Update Finnish (thanks, Esko Arajärvi; closes: #481530).
     - Update French (thanks, Christian Perrier; closes: #481576).
     - Update Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #481591).
+    - Update Galician (thanks, Jacobo Tarrio; closes: #481596).
   * Check RSA1 keys without the need for a separate blacklist. Thanks to
     Simon Tatham for the idea.
 

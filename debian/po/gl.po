@@ -1,14 +1,14 @@
 # Galician translation of openssh's debconf templates.
 # This file is distributed under the same license as the openssh package.
 #
-# 2006, 2007 Jacobo Tarrio <jtarrio@debian.org>
+# 2006, 2007, 2008 Jacobo Tarrio <jtarrio@debian.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
 "POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-24 18:09+0200\n"
+"PO-Revision-Date: 2008-05-17 10:29+0100\n"
 "Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Hanse rexenerar as claves de servidor vulnerables"
 
 #. Type: note
 #. Description
@@ -176,6 +176,11 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Algunhas das claves de servidor de OpenSSH deste sistema xeráronse cunha "
+"versión de OpenSSL que tiña un xerador de números aleatorios que non "
+"funcionaba correctamente. Coma resultado, esas claves de servidor pertencen "
+"a un conxunto coñecido, son vulnerables a ataques por forza bruta, e teñen "
+"que se rexenerar."
 
 #. Type: note
 #. Description
@@ -186,12 +191,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"É preciso informar deste cambio aos usuarios deste sistema, xa que se lles "
+"ha avisar do cambio de clave de servidor a próxima vez que se conecten. "
+"Empregue a orde \"ssh-keygen -l -f FICHEIRO_DE_CLAVE\" trala actualización "
+"para amosar as pegadas dactilares das novas claves de servidor."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "As claves de servidor afectadas son:"
 
 #. Type: note
 #. Description
@@ -201,6 +210,10 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"As claves dos usuarios tamén poden estar afectadas por este problema. Pódese "
+"empregar a orde \"ssh-vulnkey\" para facer unha comprobación parcial disto. "
+"Consulte /usr/share/doc/openssh-server/README.compromised-keys.gz para máis "
+"detalles."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Aviso: ten que crear unha nove chave de servidor"
