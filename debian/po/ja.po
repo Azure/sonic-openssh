@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-25 21:52+0900\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-17 21:28+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "脆弱なホストキーは再生成されます"
 
 #. Type: note
 #. Description
@@ -172,6 +172,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"このシステムの OpenSSH サーバのホストキーのいくつかが、壊れた乱数生成器を持"
+"つ OpenSSL バージョンで生成されていました。結果として、これらのホストキーは既"
+"知の組み合わせから成り、ブルートフォース攻撃を受けやすいものになっているた"
+"め、再生成する必要があります。"
 
 #. Type: note
 #. Description
@@ -182,12 +186,15 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"次回のログイン時にホストキーの変更が示されることで、このシステムのユーザは、"
+"この変更の通知を受け取ることになります。更新後に新しいホストキーの指紋を表示"
+"するには、'ssh-keygen -l -f HOST_KEY_FILE' を使います。"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "影響を受けるホストキーは次のとおりです:"
 
 #. Type: note
 #. Description
@@ -197,3 +204,6 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"ユーザキーもこの問題の影響を受けている恐れがあります。この部分的なテストとし"
+"て、'ssh-vulnkey' コマンドを利用できます。詳細については /usr/share/doc/"
+"openssh-server/README.compromised-keys.gz を参照してください。"
