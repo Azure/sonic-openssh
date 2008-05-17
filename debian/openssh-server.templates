@@ -65,6 +65,7 @@ _Description: Disable challenge-response authentication?
 
 Template: ssh/vulnerable_host_keys
 Type: note
+#flag:translate!:5
 _Description: Vulnerable host keys will be regenerated
  Some of the OpenSSH server host keys on this system were generated with a
  version of OpenSSL that had a broken random number generator. As a result,
