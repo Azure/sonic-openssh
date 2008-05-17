@@ -73,7 +73,7 @@ _Description: Vulnerable host keys will be regenerated
  .
  Users of this system should be informed of this change, as they will be
  prompted about the host key change the next time they log in. Use
- 'ssh-keygen -l -f HOST_KEY_FILE' after the upgrade has changed to print the
+ 'ssh-keygen -l -f HOST_KEY_FILE' after the upgrade to print the
  fingerprints of the new host keys.
  .
  The affected host keys are:
