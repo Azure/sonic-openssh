@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Bjørn Steensrud <bjornst@powertech.no>, 2007.
+# Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
 "POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-24 19:14+0200\n"
-"Last-Translator: Bjørn Steensrud <bjornst@powertech.no>\n"
+"PO-Revision-Date: 2008-05-17 11:04+0200\n"
+"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -156,7 +157,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Sårbare vertsnøkler vil bli laget på nytt"
 
 #. Type: note
 #. Description
@@ -167,6 +168,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Noen av OpenSSHs vertsnøkler på dette systemet ble opprettet med versjon av "
+"OpenSSH som hadde en feil på slumptallsgeneratoren. Derfor tilhører disse "
+"nøklene et velkjent sett nøkler, kan knekkes med «rå kraft»-metoden og må "
+"lages på nytt."
 
 #. Type: note
 #. Description
@@ -177,12 +182,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"De som bruker dette systemet bør få opplysning om denne endringen, siden de "
+"vkil få spørsmål om vertsnøkkelendringen neste gang de logger inn. Etter "
+"oppgraderingen kan fingeravtrykkene for de nye vertsnøklene skrives ut med "
+"kommandoen «keygen -l -f VERTSNØKKELFIL»."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "De vertsnøklene dette gjelder er:"
 
 #. Type: note
 #. Description
@@ -192,3 +201,6 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Det kan være at brukernøkler også har dette problemet. En delvis test på "
+"dette kan gjøres med kommandoen «ssh-vulnkey». Mer detaljer finnes i /usr/"
+"share/doc/openssh-server/README.compromised-keys.gz."
