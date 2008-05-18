@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 4.3p2-3\n"
+"Project-Id-Version: openssh 4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-05-09 22:21+0100\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-18 14:48+0100\n"
 "Last-Translator: Ricardo Silva <ardoric@gmail.com>\n"
 "Language-Team: Native Portuguese <traduz@debianpt.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Chaves do anfitrião vulneráveis serão regeneradas"
 
 #. Type: note
 #. Description
@@ -167,6 +167,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Algumas das chaves do servidor OpenSSH neste sistema foram criadas com uma "
+"versão do OpenSSL que tem um gerador de números aleatórios com problemas. "
+"Como resultado estas chaves, que fazem parte de um conjunto bem conhecido, "
+"estão sujeitas a ataques por força bruta, e têm de ser geradas de novo."
 
 #. Type: note
 #. Description
@@ -177,12 +181,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Os utilizadores deste sistema devem ser informados desta mudança, uma vez "
+"que vão ser avisados da mudança de chave da próxima vez que se ligarem. "
+"Utilize o comando 'ssh-keygen -l -f FICHEIRO_DA_CHAVE' depois da "
+"actualização para imprimir as impressões das novas chaves."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "As chaves afectadas são:"
 
 #. Type: note
 #. Description
@@ -192,3 +200,7 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"As chaves de utilizador também podem ser afectadas por este problema. O "
+"comando 'ssh-vulnkey' pode ser usado como um teste parcial para este caso. "
+"Veja o ficheiro /usr/share/doc/openssh-server/README.compromised-keys.gz "
+"para mais detalhes."
