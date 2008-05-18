@@ -1,15 +1,15 @@
 # Translation of openssh debconf templates to German
-# Copyright (C) Helge Kreutzmann <debian@helgefjell.de>, 2006, 2007.
+# Copyright (C) Helge Kreutzmann <debian@helgefjell.de>, 2006-2008.
 # This file is distributed under the same license as the openssh package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 1:4.3p2-11\n"
+"Project-Id-Version: openssh 1:4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-24 14:42+0200\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-17 23:09+0200\n"
 "Last-Translator: Helge Kreutzmann <debian@helgefjell.de>\n"
-"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language-Team: de <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -160,7 +160,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Verwundbare Host-Schlüssel werden neu erzeugt"
 
 #. Type: note
 #. Description
@@ -171,6 +171,11 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Einige der OpenSSH-Server-Host-Schlüssel auf diesem System wurden mit einer "
+"Version von OpenSSL erzeugt, die einen defekten Zufallszahlengenerator "
+"hatte. Als Ergebnis stammen diese Host-Schlüssel aus einer wohlbekannten "
+"Menge, unterliegen Rechen- (»brute-force«)-angriffen und müssen neu erstellt "
+"werden."
 
 #. Type: note
 #. Description
@@ -181,12 +186,17 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Die Benutzer dieses Systems sollten über diese Änderung informiert werden, "
+"da sie über die Änderung des Host-Schlüssels bei der nächsten Anmeldung "
+"befragt werden. Führen Sie nach dem Upgrade »ssh-keygen -l -f "
+"HOST_SCHLÜSSEL_DATEI« aus, um die Fingerabdrücke es neuen Host-Schlüssels "
+"anzuzeigen."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Die betroffenen Host-Schlüssel sind:"
 
 #. Type: note
 #. Description
@@ -196,6 +206,10 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Die Schüssel der Benutzer könnten auch von diesem Problem betroffen sein. "
+"Der Befehl »ssh-vulnkey« kann dazu verwandt werden, dieses Problem teilweise "
+"zu ermitteln. Lesen Sie /usr/share/doc/openssh-server/README.compromised-"
+"keys.gz für weitere Details."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Warnung: Sie müssen einen neuen Host-Schlüssel erzeugen"
