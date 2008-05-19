@@ -1,20 +1,20 @@
-# Vietnamese translation for openssh.
-# Copyright © 2007 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2007.
+# Vietnamese translation for OpenSSH.
+# Copyright © 2008 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2007-2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 1/4.1p1-4\n"
+"Project-Id-Version: openssh 1:4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-06-10 14:47+0930\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-19 16:49+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <vi-VN@googlegroups.com\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.6.3b1\n"
+"X-Generator: LocFactoryEditor 1.7b3\n"
 
 #. Type: boolean
 #. Description
@@ -34,15 +34,14 @@ msgid ""
 msgstr ""
 "Phiên bản OpenSSH này có một tập tin cấu hình đã thay đổi nhiều so với phiên "
 "bản có sẵn trong bản phát hành « Potato » của Debian, trong đó có vẻ là bạn "
-"đang cập nhật. Gói này giờ có khả năng tạo ra một tập tin cấu hình mới (/etc/"
-"ssh/sshd.config), mà sẽ hoạt động được với phiên bản trình phục vụ mới, "
-"nhưng không còn chứa mục sửa đổi nào bạn đã tạo trong phiên bản cũ."
+"đang cập nhật. Gói hiện thời có khả năng tạo ra một tập tin cấu hình mới (/"
+"etc/ssh/sshd.config), mà sẽ hoạt động được với phiên bản trình phục vụ mới, "
+"nhưng không còn chứa lại mục sửa đổi nào bạn đã tạo trong phiên bản cũ."
 
-# msgid ""
-# Please note that this new configuration file will set the value of 
-# 'PermitRootLogin' to yes (meaning that anyone knowing the root password 
-# can ssh directly in as root). It is the opinion of the maintainer that 
-# this is the correct default (see README.Debian for more details), but you 
+# Please note that this new configuration file will set the value of
+# 'PermitRootLogin' to yes (meaning that anyone knowing the root password
+# can ssh directly in as root). It is the opinion of the maintainer that
+# this is the correct default (see README.Debian for more details), but you
 # can always edit sshd_config and set it to no if you wish.
 #. Type: boolean
 #. Description
@@ -54,9 +53,9 @@ msgid ""
 "details about this design choice."
 msgstr ""
 "Ghi chú rằng tập tin cấu hình mới này sẽ đặt giá trị của « PermitRootLogin » "
-"thành « yes » (có : nghĩa là người nào biết mật khẩu người chủ thì có khả "
-"năng truy cập trực tiếp  qua ssh với tư cách là người chủ). Xem tập tin Đọc "
-"Đi « README.Debian » để tìm thêm chi tiết về sự chọn thiết kế này."
+"thành « yes » (có : nghĩa là ai đó biết mật khẩu người chủ thì có khả năng "
+"truy cập trực tiếp qua ssh với tư cách là người chủ). Xem tập tin Đọc Đi « "
+"README.Debian » để tìm thêm chi tiết về sự chọn thiết kế này."
 
 #. Type: boolean
 #. Description
@@ -66,16 +65,14 @@ msgid ""
 "file now."
 msgstr "Rất khuyên bạn chọn tạo ra tập tin cấu hình mới ngay bây giờ."
 
-# msgid "Do you want to continue (and risk killing active ssh sessions)?"
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
-msgstr "Bạn có muốn rủi ro giết phiên bản SSH còn hoạt động không?"
+msgstr "Bạn có muốn rủi ro giết phiên bản SSH đang chạy không?"
 
-# msgid ""
-# The version of /etc/init.d/ssh that you have installed, is likely to kill 
-# all running sshd instances.  If you are doing this upgrade via an ssh 
+# The version of /etc/init.d/ssh that you have installed, is likely to kill
+# all running sshd instances.  If you are doing this upgrade via an ssh
 # session, that would be a Bad Thing(tm).
 #. Type: boolean
 #. Description
@@ -85,11 +82,10 @@ msgid ""
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"Phiên bản « /etc/init.d/ssh » được cài đặt hiện thời rất có thể sẽ giết mọi "
-"tiến trình sshd đang chạy. Nếu bạn có nâng cấp qua phiên chạy SSH, rất có "
-"thể bạn bị ngắt kết nối, để lại tiến trình nâng cấp chưa hoàn tất."
+"Phiên bản « /etc/init.d/ssh » được cài đặt hiện thời rất có thể giết mọi tiến "
+"trình sshd đang chạy. Nếu bạn có nâng cấp qua phiên chạy SSH, rất có thể bạn "
+"bị ngắt kết nối, để lại tiến trình nâng cấp chưa hoàn tất."
 
-# msgid ""
 # You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-
 # stop-daemon line in the stop section of the file.
 #. Type: boolean
@@ -99,9 +95,9 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Vẫn còn có thể sửa chữa vấn đề này, bằng cách thêm chuỗi « --pidfile /var/run/"
-"sshd.pid » vào dòng « start-stop-daemon » (khởi/ngừng chạy trình nền) trong "
-"phần « stop » (ngừng chạy) của tập tin đó."
+"Bạn vẫn còn có thể sửa chữa vấn đề này bằng cách tự thêm chuỗi « --pidfile /"
+"var/run/sshd.pid » vào dòng « start-stop-daemon » (khởi/ngừng chạy trình nền) "
+"trong phần « stop » (ngừng chạy) của tập tin đó."
 
 #. Type: note
 #. Description
@@ -118,30 +114,28 @@ msgid ""
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Khóa máy hiện thời « /etc/ssh/ssh_host_key » được mặt mã bằng thuật toán "
-"IDEA. OpenSSH không thể quản lý tập tin khoá máy kiểu này; cũng có vẻ là "
-"tiện ích « ssh-keygen » (tạo ra khoá SSH) thuộc về bản cài đặt SSH cũ (khác "
-"tự do) không sẵn sàng."
+"Khoá máy hiện thời, trong « /etc/ssh/ssh_host_key », được mặt mã bằng thuật "
+"toán IDEA. Phần mềm OpenSSH không thể xử lý tập tin khoá máy kiểu này; cũng "
+"có vẻ là tiện ích « ssh-keygen » (tạo khoá SSH) thuộc về bản cài đặt SSH cũ "
+"(khác tự do) không sẵn sàng."
 
-# msgid "You will need to generate a new host key."
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "You need to manually generate a new host key."
-msgstr "Vậy bạn cần phải tự tạo một khóa máy mới."
+msgstr "Vậy bạn cần phải tự tạo một khoá máy mới."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:4001
 msgid "Disable challenge-response authentication?"
-msgstr "Tắt khả năng xác thực kiểu yêu cầu/đáp ứng không?"
+msgstr "Tắt chức năng xác thực kiểu yêu cầu/đáp ứng không?"
 
-# msgid ""
-# Password authentication appears to be disabled in your current OpenSSH 
-# server configuration. In order to prevent users from logging in using 
-# passwords (perhaps using only public key authentication instead) with 
-# recent versions of OpenSSH, you must disable challenge-response 
-# authentication, or else ensure that your PAM configuration does not allow 
+# Password authentication appears to be disabled in your current OpenSSH
+# server configuration. In order to prevent users from logging in using
+# passwords (perhaps using only public key authentication instead) with
+# recent versions of OpenSSH, you must disable challenge-response
+# authentication, or else ensure that your PAM configuration does not allow
 # Unix password file authentication.
 #. Type: boolean
 #. Description
@@ -154,12 +148,12 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Có vẻ là khả năng xác thực bằng mật khẩu bị tắt trong cấu hình trình phục vụ "
-"OpenSSH hiện thời. Để ngăn cản người dùng đăng nhập bằng mật khẩu (có lẽ chỉ "
-"xác thực bằng khoá công)  với phiên bản OpenSSH gần đây, bạn cần phải tắt "
-"khả năng xác thực kiểu yêu cầu/đáp ứng (challenge-response authentication), "
-"không thì đảm bảo cấu hình PAM không cho phép xác thực bằng tập tin mật khẩu "
-"UNIX."
+"Có vẻ là chức năng xác thực bằng mật khẩu bị tắt trong cấu hình trình phục "
+"vụ OpenSSH hiện thời. Để ngăn cản người dùng đăng nhập bằng mật khẩu (có lẽ "
+"chỉ xác thực bằng khoá công)  với phiên bản OpenSSH gần đây, bạn cần phải "
+"tắt khả năng xác thực kiểu yêu cầu/đáp ứng (challenge-response "
+"authentication), không thì đảm bảo cấu hình PAM không cho phép xác thực bằng "
+"tập tin mật khẩu UNIX."
 
 #. Type: boolean
 #. Description
@@ -179,7 +173,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Mọi khoá máy dễ bị tấn công đều sẽ được tạo lại"
 
 #. Type: note
 #. Description
@@ -190,6 +184,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Một số khoá máy kiểu trình phục vụ OpenSSH trên hệ thống này đã được tạo "
+"bằng một phiên bản OpenSSL có một cơ chế tạo số ngẫu nhiên mà bị hỏng. Kết "
+"quả là những khoá máy này thuộc về một tập hợp ai cũng biết, có thể bị tấn "
+"công dùng sức mạnh vũ phu, và phải được tạo lại."
 
 #. Type: note
 #. Description
@@ -200,12 +198,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Các người dùng của hệ thống này nên được thông báo về thay đổi này, vì họ sẽ "
+"được nhắc cho thay đổi khoá máy này lần kế tiếp đăng nhập. Hãy dùng câu lệnh "
+"« ssh-keygen -l -f TẬP_TIN_KHOÁ_MÁY » sau khi nâng cấp, để in ra các vân tay "
+"của những khoá máy mới."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Những máy khoá bị ảnh hưởng:"
 
 #. Type: note
 #. Description
@@ -215,33 +217,7 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
-
-#~ msgid "Warning: you must create a new host key"
-#~ msgstr "Cảnh báo: bạn phải tạo một khóa máy mới"
-
-#~ msgid "Warning: telnetd is installed --- probably not a good idea"
-#~ msgstr ""
-#~ "Cảnh báo: «telnetd» đã được cài đặt — rất không thể là một ý kiến tốt."
-
-#~ msgid ""
-#~ "I'd advise you to either remove the telnetd package (if you don't "
-#~ "actually need to offer telnet access) or install telnetd-ssl so that "
-#~ "there is at least some chance that telnet sessions will not be sending "
-#~ "unencrypted login/password and session information over the network."
-#~ msgstr ""
-#~ "Khuyên bạn hoặc loại bỏ gói tin «telnetd» (nếu bạn không thật sự cần cung "
-#~ "cấp cách truy cập telnet) hoặc cài đặt gói tin «telnetd-ssl» để cố tránh "
-#~ "chạy phiên telnet có gởi thông tin đăng nhập/mật khẩu và thông tin phiên "
-#~ "làm việc không mật mã qua mạng."
-
-#~ msgid "Warning: rsh-server is installed --- probably not a good idea"
-#~ msgstr ""
-#~ "Cảnh báo: «rsh-server» được cài đặt — rất không có thể là một ý kiến tốt."
-
-#~ msgid ""
-#~ "having rsh-server installed undermines the security that you were "
-#~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
-#~ "that package."
-#~ msgstr ""
-#~ "Khi «rsh-server» được cài đặt thì làm hao mòn mức độ bảo mật mà bạn muốn "
-#~ "được bằng cách sử dụng ssh. Khuyên bạn loại bỏ gói tin ấy."
+"Các khoá kiểu người dùng cũng có thể bị vấn đề này ảnh hưởng. Câu lệnh « ssh-"
+"vulnkey » có thể được sử dụng làm thử bộ phận để phát hiện các khoá vẫn còn "
+"dễ tấn công. Xem tài liệu Đọc Đi «  /usr/share/doc/openssh-server/README."
+"compromised-keys.gz » để tìm thêm chi tiết."
