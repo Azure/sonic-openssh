@@ -10,6 +10,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Update Czech (thanks, Miroslav Kure; closes: #481624).
     - Update German (thanks, Helge Kreutzmann; closes: #481676).
     - Update Portuguese (thanks, Ricardo Silva; closes: #481781).
+    - Update Basque (thanks, Piarres Beobide; closes: #481836).
   * Check RSA1 keys without the need for a separate blacklist. Thanks to
     Simon Tatham for the idea.
 
