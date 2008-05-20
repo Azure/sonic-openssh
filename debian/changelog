@@ -15,6 +15,9 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Update Vietnamese (thanks, Clytie Siddall; closes: #481876).
   * Check RSA1 keys without the need for a separate blacklist. Thanks to
     Simon Tatham for the idea.
+  * Generate two keys with the PID forced to the same value and test that
+    they differ, to defend against recurrences of the recent Debian OpenSSL
+    vulnerability.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 

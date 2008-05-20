@@ -124,6 +124,7 @@ endif
 
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
 	$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'
+	$(MAKE) -C debian/tests
 
 	touch build-deb-stamp
 
@@ -144,6 +145,7 @@ clean:
 	dh_testdir
 	rm -f build-deb-stamp build-udeb-stamp
 	rm -rf build-deb build-udeb
+	$(MAKE) -C debian/tests clean
 	$(MAKE) -C contrib clean
 	rm -f config.log
 	rm -f debian/ssh-askpass-gnome.png
