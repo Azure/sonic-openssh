@@ -9,7 +9,7 @@
 # - Revision
 #    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2004
 # - Translation updates
-#    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2006-2007
+#    Javier Fernandez-Sanguino Peña <jfs@computer.org>, 2006-2008
 #
 #  Traductores, si no conoce el formato PO, merece la pena leer la 
 #  documentación de gettext, especialmente las secciones dedicadas a este
@@ -33,13 +33,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-23 21:54+0200\n"
-"Last-Translator: Javier Fernandez-Sanguino Peña <jfs@computer.org>\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-22 00:56+0200\n"
+"Last-Translator: Javier Fernandez-Sanguino Peña <jfs@debian.org>\n"
 "Language-Team: Debian L10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-POFile-SpellExtra: usr pid PasswordAuthentication PermitRootLogin server\n"
+"X-POFile-SpellExtra: PAM start OpenSSH OpenSSL init sshhostkey daemon var\n"
+"X-POFile-SpellExtra: config pam pidfile vulnkey run Potato keys share stop\n"
+"X-POFile-SpellExtra: gz README ssh sshd doc keygen ARCHIVOCLAVESISTEMA SSH\n"
+"X-POFile-SpellExtra: openssh root compromised\n"
 
 #. Type: boolean
 #. Description
@@ -57,11 +62,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
 msgstr ""
-"Esta versión de OpenSSH aha cambiado considerablemente el fichero de "
+"Esta versión de OpenSSH ha cambiado considerablemente el fichero de "
 "configuración del incluido en Debian 'Potato', que es la versión desde la "
 "que parece estar actualizando. Puede crear automáticamente un nuevo fichero "
 "de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión "
-"del servidor, pero no incuirá las modificaciones que hiciera en la versión "
+"del servidor, pero no incluirá las modificaciones que hiciera en la versión "
 "antigua."
 
 #. Type: boolean
@@ -85,7 +90,7 @@ msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
 msgstr ""
-"Es muy recomendable que eliga generar un nuevo fichero de configuración "
+"Es muy recomendable que elija generar un nuevo fichero de configuración "
 "ahora."
 
 #. Type: boolean
@@ -186,7 +191,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Se regenerarán las claves vulnerables del sistema"
 
 #. Type: note
 #. Description
@@ -197,6 +202,11 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Algunas de las claves de sistema del servidor OpenSSH en este equipo se "
+"generaron con una versión de OpenSSL que tenía un generador de números "
+"aleatorios defectuoso. Consecuentemente, estas claves de sistema son de un "
+"conjunto de claves conocidas y están sujetas a ataques de fuerza bruta por "
+"lo que conviene regenerarlas."
 
 #. Type: note
 #. Description
@@ -207,12 +217,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Se informará a los usuarios de este sistema ya que se les informará del "
+"cambio de clave la siguiente vez que se conecten. Utilice «ssh-keygen -l -f "
+"ARCHIVO_CLAVE_SISTEMA» después de la actualización para obtener la huella "
+"digital de las nuevas claves del sistema."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Las claves del sistema afectadas son:"
 
 #. Type: note
 #. Description
@@ -222,6 +236,10 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Las claves de los usuarios también pueden estar afectadas por este problema. "
+"Se puede utilizar el programa «ssh-vulnkey» como un test parcial para "
+"detectar el problema. Consulte la información en «/usr/share/doc/openssh-"
+"server/README.compromised-keys.gz» para conocer los detalles."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Aviso: debe crear una nueva clave para su servidor"
