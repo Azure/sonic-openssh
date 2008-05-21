@@ -19,6 +19,8 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     they differ, to defend against recurrences of the recent Debian OpenSSL
     vulnerability.
   * Recommend openssh-blacklist from openssh-client.
+  * Recommend openssh-blacklist-extra from openssh-client and
+    openssh-server.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
