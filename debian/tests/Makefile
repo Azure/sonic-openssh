@@ -1,4 +1,5 @@
 test: getpid.so
+	chmod +x keygen-test
 	./keygen-test
 
 getpid.o: getpid.c
