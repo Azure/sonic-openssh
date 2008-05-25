@@ -1,31 +1,30 @@
 # Turkish translation of ssh.
 # This file is distributed under the same license as the ssh package.
+# Mert Dirik <mertdirik@gmail.com>, 2008.
 # Recai Oktaş <roktas@omu.edu.tr>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2004-04-27 06:50+0300\n"
-"Last-Translator: Recai Oktaş <roktas@omu.edu.tr>\n"
+"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"PO-Revision-Date: 2008-05-23 16:24+0200\n"
+"Last-Translator: Mert Dirik <mertdirik@gmail.com>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Yeni yapılandırma dosyası oluştur"
+msgstr "OpenSSH için yeni yapılandırma dosyası oluşturulsun mu?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -33,16 +32,16 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
 msgstr ""
-"Debian 'Potato' dağıtımından yükseltme yaptığınız görünüyor. OpenSSH'ın bu "
-"sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı bir "
-"yapılandırma dosyası kullanmaktadır. Şimdi sizin için yeni bir yapılandırma "
-"dosyası (/etc/ssh/sshd.config) üretebilirim.  Bu dosya yeni sunucu sürümüyle "
-"çalışacak, fakat eski sürümde yaptığınız özelleştirmeleri içermeyecektir."
+"Debian 'Potato' dağıtımından yükseltme yapmış gibi görünüyorsunuz. "
+"OpenSSH'ın bu sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı "
+"bir yapılandırma dosyası kullanmakta. Bu paket şimdi sizin için yeni bir "
+"yapılandırma dosyası (/etc/ssh/sshd.config) üretebilir. Bu dosya yeni sunucu "
+"sürümüyle çalışacak, fakat eski sürümde yaptığınız özelleştirmeleri "
+"içermeyecek."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 #| msgid ""
 #| "Please note that this new configuration file will set the value of "
 #| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
@@ -59,32 +58,28 @@ msgstr ""
 "ayarlayacağını (yani root parolasını bilen herhangi birisinin ssh ile "
 "doğrudan sisteme girebileceğini) unutmayın. Öntanımlı ayarın böyle olması "
 "gerektiği paket geliştiricisinin kanaatidir (ayrıntılar için README.Debian "
-"dosyasını okuyun). Aksi kanaate sahipseniz sshd_config dosyasını "
-"düzenleyerek bu seçeneği 'no' olarak ayarlama imkânınız her zaman vardır."
+"dosyasını okuyun)."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-#, fuzzy
 msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
 msgstr ""
-"Yeni bir yapılandırma dosyası üretmeme izin vermeniz kuvvetle tavsiye edilir."
+"Şimdi yeni bir yapılandırma dosyası üretmeyi seçmeniz kuvvetle tavsiye "
+"edilir."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
-msgstr ""
-"Devam etmek istiyor musunuz? (Etkin ssh oturumlarının öldürülmesi riski var.)"
+msgstr "Etkin SSH oturumlarının öldürülmesi riskini göze alıyor musunuz?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid ""
 #| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 #| "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -95,13 +90,13 @@ msgid ""
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
 "Kurmuş olduğunuz /etc/init.d/ssh sürümü büyük olasılıkla, çalışıyor olan tüm "
-"sshd süreçlerini öldürür. Bu yükseltmeyi bir ssh oturumu üzerinden "
-"yapıyorsanız bu gerçekten Berbat bir Şey olacaktır."
+"sshd süreçlerini öldürecek. Bu yükseltmeyi bir ssh oturumu üzerinden "
+"yapıyorsanız büyük olasılıkla bağlantınız kopacak ve yükseltme işlemi yarım "
+"kalacak."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid ""
 #| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
 #| "stop-daemon line in the stop section of the file."
@@ -109,33 +104,32 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Bu sorunu dosyanın stop bölümündeki start-stop-daemon satırına \"--pidfile /"
-"var/run/sshd.pid\" ekleyerek düzeltebilirsiniz."
+"Bu sorunu dosyanın (/etc/init.d/ssh) stop bölümündeki start-stop-daemon "
+"satırına \"--pidfile /var/run/sshd.pid\" ekleyerek düzeltebilirsiniz."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "New host key mandatory"
-msgstr ""
+msgstr "Yeni makine anahtarı zorunlu"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
-#, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"IDEA ile şifrelenmiş eski bir /ect/ssh/ssh_host_key dosyanız var. OpenSSH bu "
-"anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait ssh-"
-"keygen aracını da bulamıyorum."
+"Şu anda kullandığınız makine anahtarı, /etc/ssh/ssh_host_key, IDEA "
+"algoritmasıyla şifrelenmiş. OpenSSH bu anahtar dosyasını yönetemez; ayrıca "
+"eski (özgür olmayan) SSH kurulumuna ait ssh-keygen aracı da ulaşılabilir "
+"değil."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
-#, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
 msgstr "Yeni bir makine anahtarı oluşturmanız gerekiyor."
@@ -144,7 +138,7 @@ msgstr "Yeni bir makine anahtarı oluşturmanız gerekiyor."
 #. Description
 #: ../openssh-server.templates:4001
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Sorgula-yanıtla yöntemiyle kimlik doğrulama devre dışı bırakılsın mı?"
 
 #. Type: boolean
 #. Description
@@ -157,6 +151,13 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Şu anda kullanılan OpenSSH yapılandırmasında parola ile kimlik doğrulama "
+"devre dışı gibi görünüyor. OpenSSH'ın yeni versiyonlarında kullanıcıların "
+"parola kullanarak oturum açmalarını engellemek için (belki  bunun yerine "
+"açık anahtar yöntemiyle kimlik doğrulamayı kullanabilirsiniz) sorgula-"
+"yanıtla yöntemiyle kimlik doğrulamayı devre dışı bırakmalı ya da PAM "
+"yapılandırmanızın Unix parola dosyası yöntemiyle kimlik doğrulamaya izin "
+"vermediğinden emin olmalısınız."
 
 #. Type: boolean
 #. Description
@@ -167,12 +168,17 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Sorgula-yanıtla kimlik doğrulamayı devre dışı bırakırsanız, kullanıcılar "
+"parola kullanarak oturum açamayacaklar. Eğer sorgula-yanıtla kimlik "
+"doğrulamayı etkin halde bırakırsanız (öntanımlı yanıt); /etc/pam.d/ssh'daki "
+"PAM yapılandırmasını ayarlamadığınız sürece 'PasswordAuthentication no' "
+"seçeneği bir işe yaramayacak."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Saldırıya açık makine anahtarları yeniden yaratılacak"
 
 #. Type: note
 #. Description
@@ -183,6 +189,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Bu sistemdeki OpenSSH sunucusu makine anahtarlarından bazıları OpenSSL'in "
+"rastgele sayı üreticisi bozuk olan bir versiyonuyla oluşturulmuş. Sonuç "
+"olarak, bu makine anahtarları iyi bilinen bir gruptan ve kaba kuvvet "
+"saldırılarına açık. Bu anahtarlar yeniden oluşturulmalı."
 
 #. Type: note
 #. Description
@@ -193,12 +203,17 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Bu sistemin kullanıcılarını makine anahtarı değişikliğinden haberdar "
+"etmelisiniz, çünkü  kullanıcılar sisteme ilk oturum açışlarında uyarılacak "
+"ve kullanıcılara oturum açmaya devam etmek isteyip istemedikleri sorulacak. "
+"Yeni makine anahtarlarının parmak izlerini görmek için yükseltmeden sonra "
+"'ssh-keygen -l -f MAKİNE_ANAHTARI_DOSYASI' komutunu kullanın."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Etkilenmiş makine anahtarları:"
 
 #. Type: note
 #. Description
@@ -208,6 +223,9 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Kullanıcı anahtarları da bu sorundan etkilenebilir.  'ssh-vulnkey' komutu bu "
+"sorun için kısmi bir test olarak kullanılabilir. Ayrıntılar için  /usr/share/"
+"doc/openssh-server/README.compromised-keys.gz belgesine bakın."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Uyarı: yeni bir makine anahtarı oluşturmalısınız"
