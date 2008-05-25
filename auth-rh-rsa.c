@@ -50,11 +50,13 @@ auth_rhosts_rsa_key_allowed(struct passwd *pw, char *cuser, char *chost,
 	if (blacklisted_key(client_host_key) == 1) {
 		fp = key_fingerprint(client_host_key, SSH_FP_MD5, SSH_FP_HEX);
 		if (options.permit_blacklisted_keys)
-			logit("Public key %s blacklisted (see "
-			    "ssh-vulnkey(1)); continuing anyway", fp);
+			logit("Public key %s from %s blacklisted (see "
+			    "ssh-vulnkey(1)); continuing anyway",
+			    fp, get_remote_ipaddr());
 		else
-			logit("Public key %s blacklisted (see "
-			    "ssh-vulnkey(1))", fp);
+			logit("Public key %s from %s blacklisted (see "
+			    "ssh-vulnkey(1))",
+			    fp, get_remote_ipaddr());
 		xfree(fp);
 		if (!options.permit_blacklisted_keys)
 			return 0;
