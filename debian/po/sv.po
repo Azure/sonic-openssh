@@ -1,32 +1,26 @@
-# Translators, if you are not familiar with the PO format, gettext
-# documentation is worth reading, especially sections dedicated to
-# this format, e.g. by running:
-# info -n '(gettext)PO Files'
-# info -n '(gettext)Header Entry'
-# Some information specific to po-debconf are available at
-# /usr/share/doc/po-debconf/README-trans
-# or http://www.debian.org/intl/l10n/po-debconf/README-trans
-# Developers do not need to manually edit POT or PO files.
-# , fuzzy
+# translation of openssh.po to swedish
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
-#
+# Martin Bagge <martin.bagge@bthstudent.se>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: openssh 1:4.3p2-1\n"
+"Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
 "POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-04-26 15:55+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2008-05-25 23:32+0200\n"
+"Last-Translator: Martin Bagge <martin.bagge@bthstudent.se>\n"
+"Language-Team: swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
 msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Generera en ny konfigurationsfil fˆr OpenSSH?"
+msgstr "Generera en ny konfigurationsfil f√∂r OpenSSH?"
 
 #. Type: boolean
 #. Description
@@ -38,11 +32,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customizations you made with the old version."
 msgstr ""
-"Denna version av OpenSSH har ‰ndrat konfigurationsfilen ansenligt frÂn den "
-"version som skickades med i Debians \"Potato\"-utgÂva som du verkar "
-"uppgradera frÂn. Detta paket kan nu generera en ny konfigurationsfil (/etc/"
+"Denna version av OpenSSH har √§ndrat konfigurationsfilen ansenligt fr√•n den "
+"version som skickades med i Debians \"Potato\"-utg√•va som du verkar "
+"uppgradera fr√•n. Detta paket kan nu generera en ny konfigurationsfil (/etc/"
 "ssh/sshd.config) som kommer att fungera med den nya serverversionen men "
-"kommer inte att innehÂlla nÂgra anpassningar som du gjorde med den gamla "
+"kommer inte att inneh√•lla n√•gra anpassningar som du gjorde med den gamla "
 "versionen."
 
 #. Type: boolean
@@ -54,10 +48,10 @@ msgid ""
 "can ssh directly in as root). Please read the README.Debian file for more "
 "details about this design choice."
 msgstr ""
-"Observera att den nya konfigurationsfilen kommer att st‰lla in v‰rdet fˆr "
+"Observera att den nya konfigurationsfilen kommer att st√§lla in v√§rdet f√∂r "
 "\"PermitRootLogin\" till \"yes\" (vilket betyder att vem som helst som kan "
-"root-lˆsenordet kan logga in direkt som root). L‰s filen README.Debian fˆr "
-"mer information om det h‰r designvalet."
+"root-l√∂senordet kan logga in direkt som root). L√§s filen README.Debian f√∂r "
+"mer information om det h√§r designvalet."
 
 #. Type: boolean
 #. Description
@@ -66,14 +60,14 @@ msgid ""
 "It is strongly recommended that you choose to generate a new configuration "
 "file now."
 msgstr ""
-"Det rekommenderas starkt att du v‰ljer att generera en ny konfigurationsfil "
+"Det rekommenderas starkt att du v√§ljer att generera en ny konfigurationsfil "
 "nu."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
-msgstr "Vill du riskera att dˆda aktiva SSH-sessioner?"
+msgstr "Vill du riskera att d√∂da aktiva SSH-sessioner?"
 
 #. Type: boolean
 #. Description
@@ -83,10 +77,10 @@ msgid ""
 "running sshd instances. If you are doing this upgrade via an SSH session, "
 "you're likely to be disconnected and leave the upgrade procedure unfinished."
 msgstr ""
-"Den fˆr n‰rvarande installerade versionen av /etc/init.d/ssh kommer "
-"antagligen dˆda alla kˆrande instanser av sshd.  Om du gˆr denna "
+"Den f√∂r n√§rvarande installerade versionen av /etc/init.d/ssh kommer "
+"antagligen d√∂da alla k√∂rande instanser av sshd.  Om du g√∂r denna "
 "uppgradering via en SSH-session kommer du sannolikt att kopplas ner och "
-"uppgraderingsprocessen l‰mnas of‰rdig."
+"uppgraderingsprocessen l√§mnas of√§rdig."
 
 #. Type: boolean
 #. Description
@@ -95,14 +89,14 @@ msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
 msgstr ""
-"Det h‰r kan r‰ttas till genom att manuellt l‰gga till \"--pidfile /var/run/"
+"Det h√§r kan r√§ttas till genom att manuellt l√§gga till \"--pidfile /var/run/"
 "sshd.pid\" till raden \"start-stop-daemon\" i sektionen \"stop\" i filen."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "New host key mandatory"
-msgstr "Ny v‰rdnyckel ‰r obligatorisk"
+msgstr "Ny v√§rdnyckel √§r obligatorisk"
 
 #. Type: note
 #. Description
@@ -113,16 +107,16 @@ msgid ""
 "utility from the old (non-free) SSH installation does not appear to be "
 "available."
 msgstr ""
-"Den aktuella v‰rdnyckel, i /etc/ssh/ssh_host_key, ‰r krypterad med IDEA-"
-"algoritmen. OpenSSH kan inte hantera den h‰r v‰rdnyckelfilen och verktyget "
-"ssh-keygen frÂn den gamla (ickefria) SSH-installationen verkar inte finnas "
-"tillg‰nglig."
+"Den aktuella v√§rdnyckeln i /etc/ssh/ssh_host_key √§r krypterad med IDEA-"
+"algoritmen. OpenSSH kan inte hantera den h√§r v√§rdnyckelfilen och verktyget "
+"ssh-keygen fr√•n den gamla (ickefria) SSH-installationen verkar inte finnas "
+"tillg√§nglig."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:3001
 msgid "You need to manually generate a new host key."
-msgstr "Du behˆver manuellt generera en ny v‰rdnyckel."
+msgstr "Du beh√∂ver manuellt generera en ny v√§rdnyckel."
 
 #. Type: boolean
 #. Description
@@ -141,12 +135,12 @@ msgid ""
 "ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Lˆsenordsautentisering verkar vara inaktiverat i din aktuella konfiguration "
-"av OpenSSH-servern. Fˆr att fˆrhindra att anv‰ndare loggar in med lˆsenord "
-"(ist‰llet kanske endast anv‰nder publik nyckelautentisering) med senare "
-"versioner av OpenSSH, mÂste du inaktivera challenge-response-autentisering "
-"eller fˆrs‰kra dig om att din PAM-konfiguration inte tillÂter autentisering "
-"via Unix lˆsenordsfil."
+"L√∂senordsautentisering verkar vara inaktiverat i din aktuella konfiguration "
+"av OpenSSH-servern. F√∂r att f√∂rhindra att anv√§ndare loggar in med l√∂senord "
+"(ist√§llet kanske endast anv√§nder publik nyckelautentisering) med senare "
+"versioner av OpenSSH, m√•ste du inaktivera challenge-response-autentisering "
+"eller f√∂rs√§kra dig om att din PAM-konfiguration inte till√•ter autentisering "
+"via Unix l√∂senordsfil."
 
 #. Type: boolean
 #. Description
@@ -157,16 +151,16 @@ msgid ""
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Om du inaktiverar  challenge-response-autentisering sÂ kan anv‰ndarna inte "
-"logga in med lˆsenord. Om du l‰mnar det aktiverat (som ‰r standard) sÂ "
-"kommer \"PasswordAuthentication no\" inte att ha nÂgon effekt om du inte "
+"Om du inaktiverar  challenge-response-autentisering s√• kan anv√§ndarna inte "
+"logga in med l√∂senord. Om du l√§mnar det aktiverat (som √§r standard) s√• "
+"kommer \"PasswordAuthentication no\" inte att ha n√•gon effekt om du inte "
 "justerar din PAM-konfiguration i /etc/pam.d/ssh."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "S√•rbara v√§rdnycklar kommer att omskapas"
 
 #. Type: note
 #. Description
@@ -177,6 +171,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"N√•gra av v√§rdnycklarna f√∂r OpenSSH skapades med en version av OpenSSL som "
+"inneh√∂ll ett fel i slumptalsgeneratorn. P√• grund av detta √§r v√§rden s√•rbar "
+"f√∂r en s√• kallad brute force-attack d√• nycklarna kommer fr√•n ett litet och "
+"v√§lk√§nt spektra."
 
 #. Type: note
 #. Description
@@ -187,12 +185,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Anv√§ndarna p√• det h√§r systemet borde informeras om den h√§r f√∂r√§ndringen d√• "
+"de kommer att bli varse bytet av v√§rdnyckel n√§sta g√•ng de loggar in. Anv√§nd "
+"'ssh-keygen -l -f HOST_KEY_FILE' efter uppgraderingen har slutf√∂rst f√∂r att "
+"skriva ut fingeravtrycken f√∂r de nya v√§rdnycklarna"
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "De drabbade v√§rdnycklarna √§r:"
 
 #. Type: note
 #. Description
@@ -202,33 +204,6 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
-
-#~ msgid "Warning: you must create a new host key"
-#~ msgstr "Varning: du mÂste skapa en ny v‰rdnyckel"
-
-#~ msgid "Warning: telnetd is installed --- probably not a good idea"
-#~ msgstr "Varning: telnetd ‰r installerad --- detta ‰r inte en bra ide"
-
-#~ msgid ""
-#~ "I'd advise you to either remove the telnetd package (if you don't "
-#~ "actually need to offer telnet access) or install telnetd-ssl so that "
-#~ "there is at least some chance that telnet sessions will not be sending "
-#~ "unencrypted login/password and session information over the network."
-#~ msgstr ""
-#~ "Jag fˆreslÂr att du antingen tar bort paketet telnetd (om du inte "
-#~ "faktiskt behˆver erbjuda en telnet-tj‰nst) eller installera telnetd-ssl "
-#~ "sÂ att det i alla fall finns en liten chans att telnet-sessioner inte "
-#~ "kommer att s‰nda okrypterade login/lˆsenord och sessionsinformation ˆver "
-#~ "n‰tverket."
-
-#~ msgid "Warning: rsh-server is installed --- probably not a good idea"
-#~ msgstr "Varning: rsh-server ‰r installerad --- kanske inte en bra ide"
-
-#~ msgid ""
-#~ "having rsh-server installed undermines the security that you were "
-#~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
-#~ "that package."
-#~ msgstr ""
-#~ "att ha rsh-server installerad underbygger s‰kerheten som du s‰kerligen "
-#~ "ville fÂ genom att installera ssh.  Jag fˆreslÂr att du tar bort det "
-#~ "paketet."
+"Anv√§ndarnycklar kan ocks√• vara drabbade av detta fel. Kommandot 'ssh-"
+"vulnkey' kan anv√§ndas som ett deltest. L√§s /usr/share/doc/openssh-server/"
+"README.compromised-keys.gz f√∂r mer ing√•ende detaljer."
