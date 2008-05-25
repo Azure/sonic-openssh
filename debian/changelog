@@ -21,7 +21,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
   * Generate two keys with the PID forced to the same value and test that
     they differ, to defend against recurrences of the recent Debian OpenSSL
     vulnerability.
-  * Recommend openssh-blacklist from openssh-client.
+  * Recommend openssh-blacklist from openssh-client (closes: #481187).
   * Recommend openssh-blacklist-extra from openssh-client and
     openssh-server.
 
