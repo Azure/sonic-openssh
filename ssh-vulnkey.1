@@ -28,7 +28,7 @@
 .Nd check blacklist of compromised keys
 .Sh SYNOPSIS
 .Nm
-.Op Fl q
+.Op Fl q | Fl v
 .Ar file ...
 .Nm
 .Fl a
@@ -115,6 +115,16 @@ Normally,
 outputs the fingerprint of each key scanned, with a description of its
 status.
 This option suppresses that output.
+.It Fl v
+Verbose mode.
+Normally,
+.Nm
+does not output anything for keys that are not listed in their corresponding
+blacklist file (although it still produces output for keys for which there
+is no blacklist file, since their status is unknown).
+This option causes
+.Nm
+to produce output for all keys.
 .El
 .Sh BLACKLIST FILE FORMAT
 The blacklist file may start with comments, on lines starting with

@@ -60,7 +60,7 @@ static char *default_files[] = {
 	NULL
 };
 
-static int quiet = 0;
+static int verbosity = 0;
 
 static void
 usage(void)
@@ -74,12 +74,12 @@ usage(void)
 
 void
 describe_key(const char *filename, u_long linenum, const char *msg,
-    const Key *key, const char *comment)
+    const Key *key, const char *comment, int min_verbosity)
 {
 	char *fp;
 
 	fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
-	if (!quiet)
+	if (verbosity >= min_verbosity)
 		printf("%s:%lu: %s: %u %s %s\n", filename, linenum, msg,
 		    key_size(key), fp, comment);
 	xfree(fp);
@@ -101,14 +101,14 @@ do_key(const char *filename, u_long linenum,
 	blacklist_status = blacklisted_key(public);
 	if (blacklist_status == -1)
 		describe_key(filename, linenum,
-		    "Unknown (no blacklist information)", key, comment);
+		    "Unknown (no blacklist information)", key, comment, 0);
 	else if (blacklist_status == 1) {
 		describe_key(filename, linenum,
-		    "COMPROMISED", key, comment);
+		    "COMPROMISED", key, comment, 0);
 		ret = 0;
 	} else
 		describe_key(filename, linenum,
-		    "Not blacklisted", key, comment);
+		    "Not blacklisted", key, comment, 1);
 
 	key_free(public);
 
@@ -289,13 +289,16 @@ main(int argc, char **argv)
 	init_rng();
 	seed_rng();
 
-	while ((opt = getopt(argc, argv, "ahq")) != -1) {
+	while ((opt = getopt(argc, argv, "ahqv")) != -1) {
 		switch (opt) {
 		case 'a':
 			all_users = 1;
 			break;
 		case 'q':
-			quiet = 1;
+			verbosity--;
+			break;
+		case 'v':
+			verbosity++;
 			break;
 		case 'h':
 		default:
