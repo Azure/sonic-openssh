@@ -16,7 +16,7 @@ set -e
 test -x /usr/sbin/sshd || exit 0
 ( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
 
-SSHD_OOM_ADJUST=-17
+export SSHD_OOM_ADJUST=-17
 if test -f /etc/default/ssh; then
     . /etc/default/ssh
 fi
@@ -71,15 +71,6 @@ check_config() {
     fi
 }
 
-adjust_oom() {
-    if [ -e /var/run/sshd.pid ]; then
-	PID="$(head -n1 /var/run/sshd.pid)"
-	if [ -e "/proc/$PID/oom_adj" ]; then
-	    printf '%s' "$SSHD_OOM_ADJUST" >"/proc/$PID/oom_adj" || true
-	fi
-    fi
-}
-
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
 case "$1" in
@@ -90,7 +81,6 @@ case "$1" in
 	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd"
 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0
-	    adjust_oom
 	else
 	    log_end_msg 1
 	fi
@@ -124,7 +114,6 @@ case "$1" in
 	check_dev_null log_end_msg
 	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0
-	    adjust_oom
 	else
 	    log_end_msg 1
 	fi

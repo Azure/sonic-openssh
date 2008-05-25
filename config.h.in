@@ -1163,6 +1163,9 @@
 /* Define if X11 doesn't support AF_UNIX sockets on that system */
 #undef NO_X11_UNIX_SOCKETS
 
+/* Adjust Linux out-of-memory killer */
+#undef OOM_ADJUST
+
 /* libcrypto is missing AES 192 and 256 bit functions */
 #undef OPENSSL_LOBOTOMISED_AES
 

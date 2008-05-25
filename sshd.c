@@ -251,6 +251,11 @@ Buffer loginmsg;
 /* Unprivileged user */
 struct passwd *privsep_pw = NULL;
 
+#ifdef OOM_ADJUST
+/* Linux out-of-memory killer adjustment */
+static char oom_adj_save[8];
+#endif
+
 /* Prototypes for various functions defined later in this file. */
 void destroy_sensitive_data(void);
 void demote_sensitive_data(void);
@@ -904,6 +909,31 @@ recv_rexec_state(int fd, Buffer *conf)
 
 	debug3("%s: done", __func__);
 }
+
+#ifdef OOM_ADJUST
+/*
+ * If requested in the environment, tell the Linux kernel's out-of-memory
+ * killer to avoid sshd. The old state will be restored when forking child
+ * processes.
+ */
+static void
+oom_adjust_startup(void)
+{
+	const char *oom_adj = getenv("SSHD_OOM_ADJUST");
+
+	if (!oom_adj)
+		return;
+	oom_adj_get(oom_adj_save, sizeof(oom_adj_save));
+	oom_adj_set(oom_adj);
+}
+
+static void
+oom_restore(void)
+{
+	if (oom_adj_save[0])
+		oom_adj_set(oom_adj_save);
+}
+#endif
 
 /* Accept a connection from inetd */
 static void
@@ -1624,6 +1654,11 @@ main(int ac, char **av)
 	/* ignore SIGPIPE */
 	signal(SIGPIPE, SIG_IGN);
 
+#ifdef OOM_ADJUST
+	/* Adjust out-of-memory killer */
+	oom_adjust_startup();
+#endif
+
 	/* Get a connection, either from inetd or a listening TCP socket */
 	if (inetd_flag) {
 		server_accept_inetd(&sock_in, &sock_out);
@@ -1665,6 +1700,10 @@ main(int ac, char **av)
 
 	/* This is the child processing a new connection. */
 	setproctitle("%s", "[accepted]");
+
+#ifdef OOM_ADJUST
+	oom_restore();
+#endif
 
 	/*
 	 * Create a new session and process group since the 4.4BSD

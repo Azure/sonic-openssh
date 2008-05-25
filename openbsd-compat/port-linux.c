@@ -18,7 +18,7 @@
  */
 
 /*
- * Linux-specific portability code - just SELinux support at present
+ * Linux-specific portability code
  */
 
 #include "includes.h"
@@ -27,11 +27,19 @@
 #include <stdarg.h>
 #include <string.h>
 
+#ifdef OOM_ADJUST
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#endif
+
+#include "log.h"
+
 #ifdef WITH_SELINUX
 #include "key.h"
 #include "hostfile.h"
 #include "auth.h"
-#include "log.h"
 #ifdef HAVE_GETSEUSERBYNAME
 #include "xmalloc.h"
 #endif
@@ -186,3 +194,47 @@ ssh_selinux_setup_pty(char *pwname, const char *tty)
 	debug3("%s: done", __func__);
 }
 #endif /* WITH_SELINUX */
+
+#ifdef OOM_ADJUST
+/* Get the out-of-memory adjustment file for the current process */
+int
+oom_adj_open(void)
+{
+	int fd = open("/proc/self/oom_adj", O_RDWR);
+	if (fd < 0)
+		logit("error opening /proc/self/oom_adj: %s", strerror(errno));
+	return fd;
+}
+
+/* Get the current OOM adjustment */
+int
+oom_adj_get(char *buf, size_t maxlen)
+{
+	ssize_t n;
+	int fd = oom_adj_open();
+	if (fd < 0)
+		return -1;
+	n = read(fd, buf, maxlen);
+	if (n < 0)
+		logit("error reading /proc/self/oom_adj: %s", strerror(errno));
+	else
+		buf[n] = '\0';
+	close(fd);
+	return n < 0 ? -1 : 0;
+}
+
+/* Set the current OOM adjustment */
+int
+oom_adj_set(const char *buf)
+{
+	ssize_t n;
+	int fd = oom_adj_open();
+	if (fd < 0)
+		return -1;
+	n = write(fd, buf, strlen(buf));
+	if (n < 0)
+		logit("error writing /proc/self/oom_adj: %s", strerror(errno));
+	close(fd);
+	return n < 0 ? -1 : 0;
+}
+#endif

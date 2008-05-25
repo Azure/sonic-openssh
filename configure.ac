@@ -559,6 +559,7 @@ main() { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
 		AC_DEFINE(SSH_TUN_PREPEND_AF, 1,
 		    [Prepend the address family to IP tunnel traffic])
 	fi
+	AC_DEFINE(OOM_ADJUST, 1, [Adjust Linux out-of-memory killer])
 	;;
 mips-sony-bsd|mips-sony-newsos4)
 	AC_DEFINE(NEED_SETPGRP, 1, [Need setpgrp to acquire controlling tty])

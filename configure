@@ -7773,6 +7773,11 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
 	fi
+
+cat >>confdefs.h <<\_ACEOF
+#define OOM_ADJUST 1
+_ACEOF
+
 	;;
 mips-sony-bsd|mips-sony-newsos4)
 
