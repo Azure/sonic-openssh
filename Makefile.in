@@ -26,6 +26,7 @@ ASKPASS_PROGRAM=$(libexecdir)/ssh-askpass
 SFTP_SERVER=$(libexecdir)/sftp-server
 SSH_KEYSIGN=$(libexecdir)/ssh-keysign
 RAND_HELPER=$(libexecdir)/ssh-rand-helper
+SSH_DATADIR=$(datadir)/ssh
 PRIVSEP_PATH=@PRIVSEP_PATH@
 SSH_PRIVSEP_USER=@SSH_PRIVSEP_USER@
 STRIP_OPT=@STRIP_OPT@
@@ -37,7 +38,8 @@ PATHS= -DSSHDIR=\"$(sysconfdir)\" \
 	-D_PATH_SSH_KEY_SIGN=\"$(SSH_KEYSIGN)\" \
 	-D_PATH_SSH_PIDDIR=\"$(piddir)\" \
 	-D_PATH_PRIVSEP_CHROOT_DIR=\"$(PRIVSEP_PATH)\" \
-	-DSSH_RAND_HELPER=\"$(RAND_HELPER)\"
+	-DSSH_RAND_HELPER=\"$(RAND_HELPER)\" \
+	-D_PATH_SSH_DATADIR=\"$(SSH_DATADIR)\"
 
 CC=@CC@
 LD=@LD@

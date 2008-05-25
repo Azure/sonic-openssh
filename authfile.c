@@ -679,22 +679,10 @@ key_load_public(const char *filename, char **commentp)
 	return NULL;
 }
 
-char *
-blacklist_filename(const Key *key)
+/* Scan a blacklist of known-vulnerable keys in blacklist_file. */
+static int
+blacklisted_key_in_file(const Key *key, const char *blacklist_file)
 {
-	char *name;
-
-	xasprintf(&name, "%s.%s-%u",
-	    _PATH_BLACKLIST, key_type(key), key_size(key));
-	return name;
-}
-
-/* Scan a blacklist of known-vulnerable keys. */
-int
-blacklisted_key(const Key *key)
-{
-	Key *public;
-	char *blacklist_file;
 	int fd = -1;
 	char *dgst_hex = NULL;
 	char *dgst_packed = NULL, *p;
@@ -705,17 +693,14 @@ blacklisted_key(const Key *key)
 	off_t start, lower, upper;
 	int ret = 0;
 
-	public = key_demote(key);
-	if (public->type == KEY_RSA1)
-		public->type = KEY_RSA;
-
-	blacklist_file = blacklist_filename(public);
 	debug("Checking blacklist file %s", blacklist_file);
 	fd = open(blacklist_file, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0) {
+		ret = -1;
 		goto out;
+	}
 
-	dgst_hex = key_fingerprint(public, SSH_FP_MD5, SSH_FP_HEX);
+	dgst_hex = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 	/* Remove all colons */
 	dgst_packed = xcalloc(1, strlen(dgst_hex) + 1);
 	for (i = 0, p = dgst_packed; dgst_hex[i]; i++)
@@ -790,7 +775,37 @@ out:
 		xfree(dgst_hex);
 	if (fd >= 0)
 		close(fd);
+	return ret;
+}
+
+/* Scan blacklists of known-vulnerable keys. */
+int
+blacklisted_key(const Key *key)
+{
+	Key *public;
+	char *blacklist_file;
+	int ret, ret2;
+
+	public = key_demote(key);
+	if (public->type == KEY_RSA1)
+		public->type = KEY_RSA;
+
+	xasprintf(&blacklist_file, "%s.%s-%u",
+	    _PATH_BLACKLIST, key_type(public), key_size(public));
+	ret = blacklisted_key_in_file(public, blacklist_file);
 	xfree(blacklist_file);
+	if (ret > 0) {
+		key_free(public);
+		return ret;
+	}
+
+	xasprintf(&blacklist_file, "%s.%s-%u",
+	    _PATH_BLACKLIST_CONFIG, key_type(public), key_size(public));
+	ret2 = blacklisted_key_in_file(public, blacklist_file);
+	xfree(blacklist_file);
+	if (ret2 > ret)
+		ret = ret2;
+
 	key_free(public);
 	return ret;
 }

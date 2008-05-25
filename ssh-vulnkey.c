@@ -90,26 +90,25 @@ do_key(const char *filename, u_long linenum,
     const Key *key, const char *comment)
 {
 	Key *public;
-	char *blacklist_file;
 	struct stat st;
+	int blacklist_status;
 	int ret = 1;
 
 	public = key_demote(key);
 	if (public->type == KEY_RSA1)
 		public->type = KEY_RSA;
 
-	blacklist_file = blacklist_filename(public);
-	if (stat(blacklist_file, &st) < 0)
+	blacklist_status = blacklisted_key(public);
+	if (blacklist_status == -1)
 		describe_key(filename, linenum,
 		    "Unknown (no blacklist information)", key, comment);
-	else if (blacklisted_key(public)) {
+	else if (blacklist_status == 1) {
 		describe_key(filename, linenum,
 		    "COMPROMISED", key, comment);
 		ret = 0;
 	} else
 		describe_key(filename, linenum,
 		    "Not blacklisted", key, comment);
-	xfree(blacklist_file);
 
 	key_free(public);
 
