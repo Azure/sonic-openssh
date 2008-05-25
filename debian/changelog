@@ -24,6 +24,8 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
   * Recommend openssh-blacklist from openssh-client (closes: #481187).
   * Recommend openssh-blacklist-extra from openssh-client and
     openssh-server.
+  * Make ssh-vulnkey report the file name and line number for each key
+    (thanks, Heiko Schlittermann and Christopher Perry; closes: #481398).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 

@@ -73,18 +73,21 @@ usage(void)
 }
 
 void
-describe_key(const char *msg, const Key *key, const char *comment)
+describe_key(const char *filename, u_long linenum, const char *msg,
+    const Key *key, const char *comment)
 {
 	char *fp;
 
 	fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 	if (!quiet)
-		printf("%s: %u %s %s\n", msg, key_size(key), fp, comment);
+		printf("%s:%lu: %s: %u %s %s\n", filename, linenum, msg,
+		    key_size(key), fp, comment);
 	xfree(fp);
 }
 
 int
-do_key(const Key *key, const char *comment)
+do_key(const char *filename, u_long linenum,
+    const Key *key, const char *comment)
 {
 	Key *public;
 	char *blacklist_file;
@@ -97,13 +100,15 @@ do_key(const Key *key, const char *comment)
 
 	blacklist_file = blacklist_filename(public);
 	if (stat(blacklist_file, &st) < 0)
-		describe_key("Unknown (no blacklist information)",
-		    key, comment);
+		describe_key(filename, linenum,
+		    "Unknown (no blacklist information)", key, comment);
 	else if (blacklisted_key(public)) {
-		describe_key("COMPROMISED", key, comment);
+		describe_key(filename, linenum,
+		    "COMPROMISED", key, comment);
 		ret = 0;
 	} else
-		describe_key("Not blacklisted", key, comment);
+		describe_key(filename, linenum,
+		    "Not blacklisted", key, comment);
 	xfree(blacklist_file);
 
 	key_free(public);
@@ -193,7 +198,8 @@ do_filename(const char *filename, int quiet_open)
 		if (key_read(key, &cp) == 1) {
 			while (*cp == ' ' || *cp == '\t')
 				cp++;
-			if (!do_key(key, *cp ? cp : filename))
+			if (!do_key(filename, linenum,
+			    key, *cp ? cp : filename))
 				ret = 0;
 			found = 1;
 		} else {
@@ -202,7 +208,8 @@ do_filename(const char *filename, int quiet_open)
 			if (key_read(key, &cp) == 1) {
 				while (*cp == ' ' || *cp == '\t')
 					cp++;
-				if (!do_key(key, *cp ? cp : filename))
+				if (!do_key(filename, linenum,
+				    key, *cp ? cp : filename))
 					ret = 0;
 				found = 1;
 			}
@@ -215,7 +222,7 @@ do_filename(const char *filename, int quiet_open)
 	if (!found && filename) {
 		key = key_load_public(filename, &comment);
 		if (key) {
-			if (!do_key(key, comment))
+			if (!do_key(filename, 1, key, comment))
 				ret = 0;
 			found = 1;
 		}
