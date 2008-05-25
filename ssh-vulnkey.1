@@ -81,10 +81,6 @@ for example:
 .Pp
 .Dl $ ssh-keyscan -t rsa remote.example.org | ssh-vulnkey -
 .Pp
-.Nm
-will exit zero if any of the given keys were in the compromised list,
-otherwise non-zero.
-.Pp
 Unless the
 .Cm PermitBlacklistedKeys
 option is used,
@@ -126,6 +122,10 @@ This option causes
 .Nm
 to produce output for all keys.
 .El
+.Sh EXIT STATUS
+.Nm
+will exit zero if any of the given keys were in the compromised list,
+otherwise non-zero.
 .Sh BLACKLIST FILE FORMAT
 The blacklist file may start with comments, on lines starting with
 .Dq # .
