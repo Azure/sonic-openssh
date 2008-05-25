@@ -29,6 +29,8 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     (thanks, Heiko Schlittermann and Christopher Perry; closes: #481398).
   * Check for blacklists in /usr/share/ssh/ as well as /etc/ssh/ (see
     #481283).
+  * Make init script depend on $syslog, and fix some other dependency
+    glitches (thanks, Petter Reinholdtsen; closes: #481018).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
