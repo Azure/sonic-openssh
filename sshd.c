@@ -1496,7 +1496,7 @@ main(int ac, char **av)
 
 	for (i = 0; i < options.num_host_key_files; i++) {
 		key = key_load_private(options.host_key_files[i], "", NULL);
-		if (key && blacklisted_key(key)) {
+		if (key && blacklisted_key(key) == 1) {
 			char *fp;
 			fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 			if (options.permit_blacklisted_keys)

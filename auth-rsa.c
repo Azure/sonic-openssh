@@ -267,7 +267,7 @@ auth_rsa_key_allowed(struct passwd *pw, BIGNUM *client_n, Key **rkey)
 			    "actual %d vs. announced %d.",
 			    file, linenum, BN_num_bits(key->rsa->n), bits);
 
-		if (blacklisted_key(key)) {
+		if (blacklisted_key(key) == 1) {
 			fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 			if (options.permit_blacklisted_keys)
 				logit("Public key %s blacklisted (see "

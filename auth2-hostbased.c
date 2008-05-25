@@ -147,7 +147,7 @@ hostbased_key_allowed(struct passwd *pw, const char *cuser, char *chost,
 	HostStatus host_status;
 	int len;
 
-	if (blacklisted_key(key)) {
+	if (blacklisted_key(key) == 1) {
 		fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 		if (options.permit_blacklisted_keys)
 			logit("Public key %s blacklisted (see "

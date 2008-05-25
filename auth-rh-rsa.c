@@ -47,7 +47,7 @@ auth_rhosts_rsa_key_allowed(struct passwd *pw, char *cuser, char *chost,
 	char *fp;
 	HostStatus host_status;
 
-	if (blacklisted_key(client_host_key)) {
+	if (blacklisted_key(client_host_key) == 1) {
 		fp = key_fingerprint(client_host_key, SSH_FP_MD5, SSH_FP_HEX);
 		if (options.permit_blacklisted_keys)
 			logit("Public key %s blacklisted (see "
