@@ -31,6 +31,8 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     #481283).
   * Make init script depend on $syslog, and fix some other dependency
     glitches (thanks, Petter Reinholdtsen; closes: #481018).
+  * Remove 0 and 6 from Default-Stop in init script (thanks, Kel Modderman;
+    closes: #481151).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
