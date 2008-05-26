@@ -80,8 +80,8 @@ describe_key(const char *filename, u_long linenum, const char *msg,
 
 	fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 	if (verbosity >= min_verbosity)
-		printf("%s:%lu: %s: %u %s %s\n", filename, linenum, msg,
-		    key_size(key), fp, comment);
+		printf("%s:%lu: %s: %s %u %s %s\n", filename, linenum, msg,
+		    key_type(key), key_size(key), fp, comment);
 	xfree(fp);
 }
 

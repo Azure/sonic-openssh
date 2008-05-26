@@ -92,14 +92,14 @@ The output from
 looks like this:
 .Pp
 .Bd -literal -offset indent
-/etc/ssh/ssh_host_key:1: COMPROMISED: 2048 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx root@host
-/home/user/.ssh/id_dsa:1: Not blacklisted: 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx /home/user/.ssh/id_dsa.pub
-/home/user/.ssh/authorized_keys:3: Unknown (no blacklist information): 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
+/etc/ssh/ssh_host_key:1: COMPROMISED: RSA1 2048 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx root@host
+/home/user/.ssh/id_dsa:1: Not blacklisted: DSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx /home/user/.ssh/id_dsa.pub
+/home/user/.ssh/authorized_keys:3: Unknown (no blacklist information): RSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
 .Ed
 .Pp
 Each line is of the following format:
 .Pp
-.Dl Ar filename : Ns Ar line : Ar status : Ar length Ar fingerprint Ar comment
+.Dl Ar filename : Ns Ar line : Ar status : Ar type Ar size Ar fingerprint Ar comment
 .Pp
 It is important to distinguish between the possible values of
 .Ar status :
