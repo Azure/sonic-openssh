@@ -87,6 +87,43 @@ option is used,
 .Xr sshd 8
 will reject attempts to authenticate with keys in the compromised list.
 .Pp
+The output from
+.Nm
+looks like this:
+.Pp
+.Bd -literal -offset indent
+/etc/ssh/ssh_host_key:1: COMPROMISED: 2048 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx root@host
+/home/user/.ssh/id_dsa:1: Not blacklisted: 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx /home/user/.ssh/id_dsa.pub
+/home/user/.ssh/authorized_keys:3: Unknown (no blacklist information): 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
+.Ed
+.Pp
+Each line is of the following format:
+.Pp
+.Dl Ar filename : Ns Ar line : Ar status : Ar length Ar fingerprint Ar comment
+.Pp
+It is important to distinguish between the possible values of
+.Ar status :
+.Pp
+.Bl -tag -width Ds
+.It COMPROMISED
+These keys are listed in a blacklist file, normally because their
+corresponding private keys are well-known.
+Replacements must be generated using
+.Xr ssh-keygen 1 .
+.It Not blacklisted
+A blacklist file exists for this key type and size, but this key is not
+listed in it.
+Unless there is some particular reason to believe otherwise, this key
+may be used safely.
+(Note that DSA keys used with the broken version of OpenSSL distributed
+by Debian may be compromised in the event that anyone captured a network
+trace, even if they were generated with a secure version of OpenSSL.)
+.It Unknown (no blacklist file)
+No blacklist file exists for this key type and size.
+You should find a suitable published blacklist and install it before
+deciding whether this key is safe to use.
+.El
+.Pp
 The options are as follows:
 .Bl -tag -width Ds
 .It Fl a

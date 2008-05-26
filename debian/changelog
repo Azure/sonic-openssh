@@ -44,6 +44,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     mode (thanks, Hugh Daniel).
   * Move ssh-vulnkey's exit status documentation to a separate section
     (thanks, Hugh Daniel).
+  * Document ssh-vulnkey key status descriptions (thanks, Hugh Daniel).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
