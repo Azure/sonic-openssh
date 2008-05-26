@@ -94,7 +94,7 @@ looks like this:
 .Bd -literal -offset indent
 /etc/ssh/ssh_host_key:1: COMPROMISED: RSA1 2048 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx root@host
 /home/user/.ssh/id_dsa:1: Not blacklisted: DSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx /home/user/.ssh/id_dsa.pub
-/home/user/.ssh/authorized_keys:3: Unknown (no blacklist information): RSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
+/home/user/.ssh/authorized_keys:3: Unknown (blacklist file not installed): RSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
 .Ed
 .Pp
 Each line is of the following format (any lines beginning with
@@ -120,7 +120,7 @@ may be used safely.
 (Note that DSA keys used with the broken version of OpenSSL distributed
 by Debian may be compromised in the event that anyone captured a network
 trace, even if they were generated with a secure version of OpenSSL.)
-.It Unknown (no blacklist file)
+.It Unknown (blacklist file not installed)
 No blacklist file exists for this key type and size.
 You should find a suitable published blacklist and install it before
 deciding whether this key is safe to use.

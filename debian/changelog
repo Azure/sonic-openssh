@@ -56,6 +56,8 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
       problems.
     - Drop to the user's UID when reading user keys with -a.
     - Use EUID rather than UID when run with no file names and without -a.
+    - Reword "Unknown (no blacklist information)" to "Unknown (blacklist
+      file not installed)".
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 

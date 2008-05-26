@@ -108,7 +108,7 @@ do_key(const char *filename, u_long linenum,
 	blacklist_status = blacklisted_key(public);
 	if (blacklist_status == -1)
 		describe_key(filename, linenum,
-		    "Unknown (no blacklist information)", key, comment, 0);
+		    "Unknown (blacklist file not installed)", key, comment, 0);
 	else if (blacklist_status == 1) {
 		describe_key(filename, linenum,
 		    "COMPROMISED", key, comment, 0);
