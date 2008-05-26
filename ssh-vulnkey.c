@@ -67,7 +67,7 @@ static int verbosity = 0;
 static void
 usage(void)
 {
-	fprintf(stderr, "usage: %s [-aq] [file ...]\n", __progname);
+	fprintf(stderr, "usage: %s [-aqv] [file ...]\n", __progname);
 	fprintf(stderr, "Options:\n");
 	fprintf(stderr, "  -a          Check keys of all users.\n");
 	fprintf(stderr, "  -q          Quiet mode.\n");
