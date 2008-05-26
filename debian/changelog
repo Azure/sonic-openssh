@@ -55,6 +55,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Use xasprintf to build user key file names, avoiding truncation
       problems.
     - Drop to the user's UID when reading user keys with -a.
+    - Use EUID rather than UID when run with no file names and without -a.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 

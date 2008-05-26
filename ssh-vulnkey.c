@@ -343,9 +343,9 @@ main(int argc, char **argv)
 		if (!do_host(1))
 			ret = 0;
 
-		if ((pw = getpwuid(getuid())) == NULL)
+		if ((pw = getpwuid(geteuid())) == NULL)
 			fprintf(stderr, "No user found with uid %u\n",
-			    (u_int)getuid());
+			    (u_int)geteuid());
 		else {
 			if (!do_user(pw->pw_dir))
 				ret = 0;
