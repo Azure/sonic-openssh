@@ -41,6 +41,7 @@
 #include "key.h"
 #include "authfile.h"
 #include "pathnames.h"
+#include "uidswap.h"
 #include "misc.h"
 
 extern char *__progname;
@@ -330,8 +331,10 @@ main(int argc, char **argv)
 
 		while ((pw = getpwent()) != NULL) {
 			if (pw->pw_dir) {
+				temporarily_use_uid(pw);
 				if (!do_user(pw->pw_dir))
 					ret = 0;
+				restore_uid();
 			}
 		}
 	} else if (optind == argc) {
