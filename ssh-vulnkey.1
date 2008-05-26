@@ -97,7 +97,9 @@ looks like this:
 /home/user/.ssh/authorized_keys:3: Unknown (no blacklist information): RSA 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx user@host
 .Ed
 .Pp
-Each line is of the following format:
+Each line is of the following format (any lines beginning with
+.Dq #
+should be ignored by scripts, although there will be none at present):
 .Pp
 .Dl Ar filename : Ns Ar line : Ar status : Ar type Ar size Ar fingerprint Ar comment
 .Pp
