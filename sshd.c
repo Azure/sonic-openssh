@@ -1496,14 +1496,15 @@ main(int ac, char **av)
 
 	for (i = 0; i < options.num_host_key_files; i++) {
 		key = key_load_private(options.host_key_files[i], "", NULL);
-		if (key && reject_blacklisted_key(key, 1) == 1) {
-			sensitive_data.host_keys[i] = NULL;
-			continue;
-		}
 		sensitive_data.host_keys[i] = key;
 		if (key == NULL) {
 			error("Could not load host key: %s",
 			    options.host_key_files[i]);
+			sensitive_data.host_keys[i] = NULL;
+			continue;
+		}
+		if (reject_blacklisted_key(key, 1) == 1) {
+			key_free(key);
 			sensitive_data.host_keys[i] = NULL;
 			continue;
 		}
