@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -135,7 +136,9 @@ do_filename(const char *filename, int quiet_open)
 	 */
 
 	if (strcmp(filename, "-") != 0) {
+		int save_errno;
 		f = fopen(filename, "r");
+		save_errno = errno;
 		if (!f) {
 			char pubfile[MAXPATHLEN];
 			if (strlcpy(pubfile, filename, sizeof pubfile) <
@@ -144,6 +147,7 @@ do_filename(const char *filename, int quiet_open)
 			    sizeof(pubfile))
 				f = fopen(pubfile, "r");
 		}
+		errno = save_errno; /* earlier errno is more useful */
 		if (!f) {
 			if (!quiet_open)
 				perror(filename);
@@ -237,16 +241,16 @@ do_filename(const char *filename, int quiet_open)
 }
 
 int
-do_host(void)
+do_host(int quiet_open)
 {
 	int i;
 	struct stat st;
 	int ret = 1;
 
 	for (i = 0; default_host_files[i]; i++) {
-		if (stat(default_host_files[i], &st) < 0)
+		if (stat(default_host_files[i], &st) < 0 && errno == ENOENT)
 			continue;
-		if (!do_filename(default_host_files[i], 1))
+		if (!do_filename(default_host_files[i], quiet_open))
 			ret = 0;
 	}
 
@@ -263,7 +267,7 @@ do_user(const char *dir)
 
 	for (i = 0; default_files[i]; i++) {
 		snprintf(buf, sizeof(buf), "%s/%s", dir, default_files[i]);
-		if (stat(buf, &st) < 0)
+		if (stat(buf, &st) < 0 && errno == ENOENT)
 			continue;
 		if (!do_filename(buf, 0))
 			ret = 0;
@@ -313,7 +317,7 @@ main(int argc, char **argv)
 	if (all_users) {
 		struct passwd *pw;
 
-		if (!do_host())
+		if (!do_host(0))
 			ret = 0;
 
 		while ((pw = getpwent()) != NULL) {
@@ -325,7 +329,7 @@ main(int argc, char **argv)
 	} else if (optind == argc) {
 		struct passwd *pw;
 
-		if (!do_host())
+		if (!do_host(1))
 			ret = 0;
 
 		if ((pw = getpwuid(getuid())) == NULL)
