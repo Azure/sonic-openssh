@@ -70,6 +70,7 @@ usage(void)
 	fprintf(stderr, "Options:\n");
 	fprintf(stderr, "  -a          Check keys of all users.\n");
 	fprintf(stderr, "  -q          Quiet mode.\n");
+	fprintf(stderr, "  -v          Verbose mode.\n");
 	exit(1);
 }
 
