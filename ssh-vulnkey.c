@@ -266,16 +266,19 @@ int
 do_user(const char *dir)
 {
 	int i;
-	char buf[MAXPATHLEN];
+	char *file;
 	struct stat st;
 	int ret = 1;
 
 	for (i = 0; default_files[i]; i++) {
-		snprintf(buf, sizeof(buf), "%s/%s", dir, default_files[i]);
-		if (stat(buf, &st) < 0 && errno == ENOENT)
+		xasprintf(&file, "%s/%s", dir, default_files[i]);
+		if (stat(file, &st) < 0 && errno == ENOENT) {
+			xfree(file);
 			continue;
-		if (!do_filename(buf, 0))
+		}
+		if (!do_filename(file, 0))
 			ret = 0;
+		xfree(file);
 	}
 
 	return ret;
