@@ -1,4 +1,4 @@
-openssh (1:4.7p1-11) UNRELEASED; urgency=low
+openssh (1:4.7p1-11) unstable; urgency=low
 
   * Make init script depend on $syslog, and fix some other dependency
     glitches (thanks, Petter Reinholdtsen; closes: #481018).
@@ -61,7 +61,7 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Update Swedish (thanks, Martin Bagge; closes: #482464).
     - Update Italian (thanks, Luca Monducci; closes: #482808).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
+ -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 12:21:39 +0100
 
 openssh (1:4.7p1-10) unstable; urgency=low
 
