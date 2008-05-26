@@ -39,17 +39,15 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     closes: #480020).
   * Log IP addresses of hosts attempting to use blacklisted keys (closes:
     #481721).
-  * Add -v (verbose) option to ssh-vulnkey, and don't print output for keys
-    that have a blacklist file but that are not listed unless in verbose
-    mode (thanks, Hugh Daniel).
-  * Move ssh-vulnkey's exit status documentation to a separate section
-    (thanks, Hugh Daniel).
-  * Document ssh-vulnkey key status descriptions (thanks, Hugh Daniel).
-  * Add key type to ssh-vulnkey output.
-  * Fix error output if ssh-vulnkey fails to read key files, with the
-    exception of host keys unless -a was given (thanks, Hugh Daniel).
-  * Make 'ssh-vulnkey -v' output each file name it examines (thanks, Hugh
-    Daniel).
+  * Incorporate various ssh-vulnkey suggestions from Hugh Daniel:
+    - Add -v (verbose) option, and don't print output for keys that have a
+      blacklist file but that are not listed unless in verbose mode.
+    - Move exit status documentation to a separate section.
+    - Document key status descriptions.
+    - Add key type to output.
+    - Fix error output if ssh-vulnkey fails to read key files, with the
+      exception of host keys unless -a was given.
+    - In verbose mode, output the name of each file examined.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
