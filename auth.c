@@ -57,6 +57,7 @@
 #include "servconf.h"
 #include "key.h"
 #include "hostfile.h"
+#include "authfile.h"
 #include "auth.h"
 #include "auth-options.h"
 #include "canohost.h"
@@ -395,6 +396,38 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
 	debug2("check_key_in_hostfiles: key %s for %s", host_status == HOST_OK ?
 	    "ok" : "not found", host);
 	return host_status;
+}
+
+int
+reject_blacklisted_key(Key *key, int hostkey)
+{
+	char *fp;
+
+	if (blacklisted_key(key, &fp) != 1)
+		return 0;
+
+	if (options.permit_blacklisted_keys) {
+		if (hostkey)
+			error("Host key %s blacklisted (see "
+			    "ssh-vulnkey(1)); continuing anyway", fp);
+		else
+			logit("Public key %s from %s blacklisted (see "
+			    "ssh-vulnkey(1)); continuing anyway",
+			    fp, get_remote_ipaddr());
+		xfree(fp);
+	} else {
+		if (hostkey)
+			error("Host key %s blacklisted (see "
+			    "ssh-vulnkey(1))", fp);
+		else
+			logit("Public key %s from %s blacklisted (see "
+			    "ssh-vulnkey(1))",
+			    fp, get_remote_ipaddr());
+		xfree(fp);
+		return 1;
+	}
+
+	return 0;
 }
 
 

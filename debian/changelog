@@ -1,6 +1,8 @@
 openssh (1:4.7p1-12) UNRELEASED; urgency=low
 
   * Fill in CVE identifier for ssh-vulnkey bug fixed in 1:4.7p1-10.
+  * Refactor rejection of blacklisted user keys into a single
+    reject_blacklisted_key function in auth.c (thanks, Dmitry V. Levin).
   * debconf template translations:
     - Update Dutch (thanks, Bart Cornelis; closes: #483004).
 

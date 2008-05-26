@@ -681,7 +681,7 @@ key_load_public(const char *filename, char **commentp)
 
 /* Scan a blacklist of known-vulnerable keys in blacklist_file. */
 static int
-blacklisted_key_in_file(const Key *key, const char *blacklist_file)
+blacklisted_key_in_file(const Key *key, const char *blacklist_file, char **fp)
 {
 	int fd = -1;
 	char *dgst_hex = NULL;
@@ -770,16 +770,23 @@ blacklisted_key_in_file(const Key *key, const char *blacklist_file)
 out:
 	if (dgst_packed)
 		xfree(dgst_packed);
-	if (dgst_hex)
+	if (ret != 1 && dgst_hex) {
 		xfree(dgst_hex);
+		dgst_hex = NULL;
+	}
+	if (fp)
+		*fp = dgst_hex;
 	if (fd >= 0)
 		close(fd);
 	return ret;
 }
 
-/* Scan blacklists of known-vulnerable keys. */
+/*
+ * Scan blacklists of known-vulnerable keys. If a vulnerable key is found,
+ * its fingerprint is returned in *fp, unless fp is NULL.
+ */
 int
-blacklisted_key(const Key *key)
+blacklisted_key(const Key *key, char **fp)
 {
 	Key *public;
 	char *blacklist_file;
@@ -791,7 +798,7 @@ blacklisted_key(const Key *key)
 
 	xasprintf(&blacklist_file, "%s.%s-%u",
 	    _PATH_BLACKLIST, key_type(public), key_size(public));
-	ret = blacklisted_key_in_file(public, blacklist_file);
+	ret = blacklisted_key_in_file(public, blacklist_file, fp);
 	xfree(blacklist_file);
 	if (ret > 0) {
 		key_free(public);
@@ -800,7 +807,7 @@ blacklisted_key(const Key *key)
 
 	xasprintf(&blacklist_file, "%s.%s-%u",
 	    _PATH_BLACKLIST_CONFIG, key_type(public), key_size(public));
-	ret2 = blacklisted_key_in_file(public, blacklist_file);
+	ret2 = blacklisted_key_in_file(public, blacklist_file, fp);
 	xfree(blacklist_file);
 	if (ret2 > ret)
 		ret = ret2;

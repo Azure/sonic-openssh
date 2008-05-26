@@ -20,7 +20,6 @@
 #include <pwd.h>
 #include <stdarg.h>
 
-#include "xmalloc.h"
 #include "packet.h"
 #include "uidswap.h"
 #include "log.h"
@@ -28,7 +27,6 @@
 #include "servconf.h"
 #include "key.h"
 #include "hostfile.h"
-#include "authfile.h"
 #include "pathnames.h"
 #include "auth.h"
 #include "canohost.h"
@@ -44,23 +42,10 @@ int
 auth_rhosts_rsa_key_allowed(struct passwd *pw, char *cuser, char *chost,
     Key *client_host_key)
 {
-	char *fp;
 	HostStatus host_status;
 
-	if (blacklisted_key(client_host_key) == 1) {
-		fp = key_fingerprint(client_host_key, SSH_FP_MD5, SSH_FP_HEX);
-		if (options.permit_blacklisted_keys)
-			logit("Public key %s from %s blacklisted (see "
-			    "ssh-vulnkey(1)); continuing anyway",
-			    fp, get_remote_ipaddr());
-		else
-			logit("Public key %s from %s blacklisted (see "
-			    "ssh-vulnkey(1))",
-			    fp, get_remote_ipaddr());
-		xfree(fp);
-		if (!options.permit_blacklisted_keys)
-			return 0;
-	}
+	if (reject_blacklisted_key(client_host_key, 0) == 1)
+		return 0;
 
 	/* Check if we would accept it using rhosts authentication. */
 	if (!auth_rhosts(pw, cuser))

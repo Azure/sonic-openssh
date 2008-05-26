@@ -40,7 +40,6 @@
 #include "compat.h"
 #include "key.h"
 #include "hostfile.h"
-#include "authfile.h"
 #include "auth.h"
 #include "canohost.h"
 #ifdef GSSAPI
@@ -142,25 +141,12 @@ int
 hostbased_key_allowed(struct passwd *pw, const char *cuser, char *chost,
     Key *key)
 {
-	char *fp;
 	const char *resolvedname, *ipaddr, *lookup;
 	HostStatus host_status;
 	int len;
 
-	if (blacklisted_key(key) == 1) {
-		fp = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
-		if (options.permit_blacklisted_keys)
-			logit("Public key %s from %s blacklisted (see "
-			    "ssh-vulnkey(1)); continuing anyway",
-			    fp, get_remote_ipaddr());
-		else
-			logit("Public key %s from %s blacklisted (see "
-			    "ssh-vulnkey(1))",
-			    fp, get_remote_ipaddr());
-		xfree(fp);
-		if (!options.permit_blacklisted_keys)
-			return 0;
-	}
+	if (reject_blacklisted_key(key, 0) == 1)
+		return 0;
 
 	resolvedname = get_canonical_hostname(options.use_dns);
 	ipaddr = get_remote_ipaddr();

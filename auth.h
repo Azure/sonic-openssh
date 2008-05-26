@@ -175,6 +175,8 @@ HostStatus
 check_key_in_hostfiles(struct passwd *, Key *, const char *,
     const char *, const char *);
 
+int	reject_blacklisted_key(Key *, int);
+
 /* hostkey handling */
 Key	*get_hostkey_by_index(int);
 Key	*get_hostkey_by_type(int);

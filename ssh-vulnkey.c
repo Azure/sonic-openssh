@@ -105,7 +105,7 @@ do_key(const char *filename, u_long linenum,
 	if (public->type == KEY_RSA1)
 		public->type = KEY_RSA;
 
-	blacklist_status = blacklisted_key(public);
+	blacklist_status = blacklisted_key(public, NULL);
 	if (blacklist_status == -1)
 		describe_key(filename, linenum,
 		    "Unknown (blacklist file not installed)", key, comment, 0);
