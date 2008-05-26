@@ -719,13 +719,13 @@ blacklisted_key_in_file(const Key *key, const char *blacklist_file)
 		ssize_t r;
 		char *newline;
 
-		r = atomicio(read, fd, buf, 256);
+		r = atomicio(read, fd, buf, sizeof(buf));
 		if (r <= 0)
 			goto out;
 		if (buf[0] != '#')
 			break;
 
-		newline = memchr(buf, '\n', 256);
+		newline = memchr(buf, '\n', sizeof(buf));
 		if (!newline)
 			goto out;
 		start += newline + 1 - buf;
@@ -741,7 +741,6 @@ blacklisted_key_in_file(const Key *key, const char *blacklist_file)
 
 	while (lower != upper) {
 		off_t cur;
-		char buf[32];
 		int cmp;
 
 		cur = lower + (upper - lower) / 2;
