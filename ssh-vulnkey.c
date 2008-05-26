@@ -95,7 +95,6 @@ do_key(const char *filename, u_long linenum,
     const Key *key, const char *comment)
 {
 	Key *public;
-	struct stat st;
 	int blacklist_status;
 	int ret = 1;
 
