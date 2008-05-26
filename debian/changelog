@@ -1,5 +1,6 @@
 openssh (1:4.7p1-12) UNRELEASED; urgency=low
 
+  * Fill in CVE identifier for ssh-vulnkey bug fixed in 1:4.7p1-10.
   * debconf template translations:
     - Update Dutch (thanks, Bart Cornelis; closes: #483004).
 
@@ -73,8 +74,9 @@ openssh (1:4.7p1-11) unstable; urgency=low
 openssh (1:4.7p1-10) unstable; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
-  * ssh-vulnkey handles options in authorized_keys (LP: #230029), and treats
-    # as introducing a comment even if it is preceded by whitespace.
+  * CVE-2008-2285: ssh-vulnkey handles options in authorized_keys
+    (LP: #230029), and treats # as introducing a comment even if it is
+    preceded by whitespace.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 May 2008 12:35:05 +0100
 
