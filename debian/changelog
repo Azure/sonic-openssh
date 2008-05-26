@@ -1,5 +1,46 @@
 openssh (1:4.7p1-11) UNRELEASED; urgency=low
 
+  * Make init script depend on $syslog, and fix some other dependency
+    glitches (thanks, Petter Reinholdtsen; closes: #481018).
+  * Remove 0 and 6 from Default-Stop in init script (thanks, Kel Modderman;
+    closes: #481151).
+  * Restore OOM killer adjustment for child processes (thanks, Vaclav Ovsik;
+    closes: #480020).
+  * Allow building with heimdal-dev (LP: #125805).
+
+  * Check RSA1 keys without the need for a separate blacklist. Thanks to
+    Simon Tatham for the idea.
+  * Generate two keys with the PID forced to the same value and test that
+    they differ, to defend against recurrences of the recent Debian OpenSSL
+    vulnerability.
+  * Recommend openssh-blacklist from openssh-client (closes: #481187).
+  * Recommend openssh-blacklist-extra from openssh-client and
+    openssh-server.
+  * Make ssh-vulnkey report the file name and line number for each key
+    (thanks, Heiko Schlittermann and Christopher Perry; closes: #481398).
+  * Check for blacklists in /usr/share/ssh/ as well as /etc/ssh/ (see
+    #481283).
+  * Log IP addresses of hosts attempting to use blacklisted keys (closes:
+    #481721).
+  * Incorporate various ssh-vulnkey suggestions from Hugh Daniel:
+    - Add -v (verbose) option, and don't print output for keys that have a
+      blacklist file but that are not listed unless in verbose mode.
+    - Move exit status documentation to a separate section.
+    - Document key status descriptions.
+    - Add key type to output.
+    - Fix error output if ssh-vulnkey fails to read key files, with the
+      exception of host keys unless -a was given.
+    - In verbose mode, output the name of each file examined.
+  * Handle leading IP addresses in ssh-vulnkey input (LP: #230497).
+  * Fix various ssh-vulnkey problems pointed out by Solar Designer:
+    - Fix some buffer handling inconsistencies.
+    - Use xasprintf to build user key file names, avoiding truncation
+      problems.
+    - Drop to the user's UID when reading user keys with -a.
+    - Use EUID rather than UID when run with no file names and without -a.
+    - Reword "Unknown (no blacklist information)" to "Unknown (blacklist
+      file not installed)".
+
   * Fix typo in ssh/vulnerable_host_keys message (thanks, Esko Arajärvi).
   * debconf template translations:
     - Update Finnish (thanks, Esko Arajärvi; closes: #481530).
@@ -19,45 +60,6 @@ openssh (1:4.7p1-11) UNRELEASED; urgency=low
     - Update Russian (thanks, Yuri Kozlov; closes: #482887).
     - Update Swedish (thanks, Martin Bagge; closes: #482464).
     - Update Italian (thanks, Luca Monducci; closes: #482808).
-  * Check RSA1 keys without the need for a separate blacklist. Thanks to
-    Simon Tatham for the idea.
-  * Generate two keys with the PID forced to the same value and test that
-    they differ, to defend against recurrences of the recent Debian OpenSSL
-    vulnerability.
-  * Recommend openssh-blacklist from openssh-client (closes: #481187).
-  * Recommend openssh-blacklist-extra from openssh-client and
-    openssh-server.
-  * Make ssh-vulnkey report the file name and line number for each key
-    (thanks, Heiko Schlittermann and Christopher Perry; closes: #481398).
-  * Check for blacklists in /usr/share/ssh/ as well as /etc/ssh/ (see
-    #481283).
-  * Make init script depend on $syslog, and fix some other dependency
-    glitches (thanks, Petter Reinholdtsen; closes: #481018).
-  * Remove 0 and 6 from Default-Stop in init script (thanks, Kel Modderman;
-    closes: #481151).
-  * Restore OOM killer adjustment for child processes (thanks, Vaclav Ovsik;
-    closes: #480020).
-  * Log IP addresses of hosts attempting to use blacklisted keys (closes:
-    #481721).
-  * Incorporate various ssh-vulnkey suggestions from Hugh Daniel:
-    - Add -v (verbose) option, and don't print output for keys that have a
-      blacklist file but that are not listed unless in verbose mode.
-    - Move exit status documentation to a separate section.
-    - Document key status descriptions.
-    - Add key type to output.
-    - Fix error output if ssh-vulnkey fails to read key files, with the
-      exception of host keys unless -a was given.
-    - In verbose mode, output the name of each file examined.
-  * Handle leading IP addresses in ssh-vulnkey input (LP: #230497).
-  * Allow building with heimdal-dev (LP: #125805).
-  * Fix various ssh-vulnkey problems pointed out by Solar Designer:
-    - Fix some buffer handling inconsistencies.
-    - Use xasprintf to build user key file names, avoiding truncation
-      problems.
-    - Drop to the user's UID when reading user keys with -a.
-    - Use EUID rather than UID when run with no file names and without -a.
-    - Reword "Unknown (no blacklist information)" to "Unknown (blacklist
-      file not installed)".
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 17 May 2008 08:48:45 +0200
 
