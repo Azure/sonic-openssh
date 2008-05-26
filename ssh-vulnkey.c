@@ -163,6 +163,7 @@ do_filename(const char *filename, int quiet_open)
 		int i;
 		char *space;
 		int type;
+		char *end;
 
 		/* Chop trailing newline. */
 		i = strlen(line) - 1;
@@ -187,7 +188,8 @@ do_filename(const char *filename, int quiet_open)
 		/* Leading number (RSA1) or valid type (RSA/DSA) indicates
 		 * that we have no host name or options to skip.
 		 */
-		if (atoi(cp) == 0 && type == KEY_UNSPEC) {
+		if ((strtol(cp, &end, 10) == 0 || *end != ' ') &&
+		    type == KEY_UNSPEC) {
 			int quoted = 0;
 
 			for (; *cp && (quoted || (*cp != ' ' && *cp != '\t')); cp++) {
