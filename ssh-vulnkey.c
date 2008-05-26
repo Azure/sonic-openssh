@@ -154,6 +154,8 @@ do_filename(const char *filename, int quiet_open)
 				perror(filename);
 			return -1;
 		}
+		if (verbosity > 0)
+			printf("# %s\n", filename);
 	} else
 		f = stdin;
 	while (read_keyfile_line(f, filename, line, sizeof(line),
