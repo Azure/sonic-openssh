@@ -6,6 +6,8 @@ openssh (1:4.7p1-12) UNRELEASED; urgency=low
   * Fix memory leak of blacklisted host keys (thanks, Dmitry V. Levin).
   * debconf template translations:
     - Update Dutch (thanks, Bart Cornelis; closes: #483004).
+    - Update Brazilian Portuguese (thanks, Eder L. Marques; closes:
+      #483142).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 15:07:32 +0100
 
