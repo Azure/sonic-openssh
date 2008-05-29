@@ -1,4 +1,4 @@
-openssh (1:4.7p1-12) UNRELEASED; urgency=low
+openssh (1:4.7p1-12) unstable; urgency=low
 
   * Fill in CVE identifier for ssh-vulnkey bug fixed in 1:4.7p1-10.
   * Refactor rejection of blacklisted user keys into a single
@@ -10,7 +10,7 @@ openssh (1:4.7p1-12) UNRELEASED; urgency=low
       #483142).
     - Update Slovak (thanks, Ivan Masár; closes: #483517).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 15:07:32 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 May 2008 21:41:29 +0100
 
 openssh (1:4.7p1-11) unstable; urgency=low
 
