@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: openssh 1_4.6p1-5\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
 "POT-Creation-Date: 2008-05-17 08:51+0200\n"
-"PO-Revision-Date: 2007-09-10 22:15+0100\n"
+"PO-Revision-Date: 2008-05-29 08:51+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:5001
 msgid "Vulnerable host keys will be regenerated"
-msgstr ""
+msgstr "Namiesto zneužiteľných kľúčov hostiteľa sa vytvoria nové"
 
 #. Type: note
 #. Description
@@ -162,6 +162,10 @@ msgid ""
 "these host keys are from a well-known set, are subject to brute-force "
 "attacks, and must be regenerated."
 msgstr ""
+"Niektoré z OpenSSH klúčov hostiteľa na tomto systéme boli vytvorené verziou "
+"OpenSSL, ktorá mala chybný generátor náhodných čísel. Dôsledkom je, že tieto "
+"klúče hostiteľa sú z vopred známej množiny, je možné ich prelomiť hrubou "
+"silou a je potrebné vytvoriť namiesto nich nové."
 
 #. Type: note
 #. Description
@@ -172,12 +176,16 @@ msgid ""
 "keygen -l -f HOST_KEY_FILE' after the upgrade to print the fingerprints of "
 "the new host keys."
 msgstr ""
+"Používateľov tohoto systému by ste mali informovať o tejto zmene, pretože "
+"pri najbližšom prihlásení sa im zobrazí výzva o zmenenom kľúči hostiteľa. Po "
+"aktualizácii vypíšete odtlačky nových kľúčov hostiteľa príkazom „ssh-keygen -"
+"l -f HOST_KEY_FILE“."
 
 #. Type: note
 #. Description
 #: ../openssh-server.templates:5001
 msgid "The affected host keys are:"
-msgstr ""
+msgstr "Postihnuté kľúče sú:"
 
 #. Type: note
 #. Description
@@ -187,3 +195,6 @@ msgid ""
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+"Používateľské kľúče tiež mohol ovplyvniť tento problém. Na čiastočný test "
+"zraniteľnosti je možné použiť príkaz „ssh-vulnkey“. Podrobnosti nájdete v /"
+"usr/share/doc/openssh-server/README.compromised-keys.gz"

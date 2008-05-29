@@ -8,6 +8,7 @@ openssh (1:4.7p1-12) UNRELEASED; urgency=low
     - Update Dutch (thanks, Bart Cornelis; closes: #483004).
     - Update Brazilian Portuguese (thanks, Eder L. Marques; closes:
       #483142).
+    - Update Slovak (thanks, Ivan Masár; closes: #483517).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 15:07:32 +0100
 
