@@ -64,6 +64,9 @@ static char *default_files[] = {
 
 static int verbosity = 0;
 
+static int some_unknown = 0;
+static int some_compromised = 0;
+
 static void
 usage(void)
 {
@@ -106,12 +109,14 @@ do_key(const char *filename, u_long linenum,
 		public->type = KEY_RSA;
 
 	blacklist_status = blacklisted_key(public, NULL);
-	if (blacklist_status == -1)
+	if (blacklist_status == -1) {
 		describe_key(filename, linenum,
 		    "Unknown (blacklist file not installed)", key, comment, 0);
-	else if (blacklist_status == 1) {
+		some_unknown = 1;
+	} else if (blacklist_status == 1) {
 		describe_key(filename, linenum,
 		    "COMPROMISED", key, comment, 0);
+		some_compromised = 1;
 		ret = 0;
 	} else
 		describe_key(filename, linenum,
@@ -354,6 +359,21 @@ main(int argc, char **argv)
 		while (optind < argc)
 			if (!do_filename(argv[optind++], 0))
 				ret = 0;
+	}
+
+	if (verbosity >= 0) {
+		if (some_unknown) {
+			printf("#\n");
+			printf("# The status of some keys on your system is unknown.\n");
+			printf("# You may need to install additional blacklist files.\n");
+		}
+		if (some_compromised) {
+			printf("#\n");
+			printf("# Some keys on your system have been compromised!\n");
+			printf("# You must replace them using ssh-keygen(1).\n");
+		}
+		printf("#\n");
+		printf("# See the ssh-vulnkey(1) manual page for further advice.\n");
 	}
 
 	return ret;
