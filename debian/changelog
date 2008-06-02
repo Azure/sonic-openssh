@@ -2,6 +2,10 @@ openssh (1:4.7p1-13) UNRELEASED; urgency=low
 
   * Add some helpful advice to the end of ssh-vulnkey's output if there are
     unknown or compromised keys (thanks, Dan Jacobson; closes: #483756).
+  * Check compromised key blacklist in ssh or ssh-add, as well as in the
+    server (LP: #232391). To override the blacklist check in ssh
+    temporarily, use 'ssh -o UseBlacklistedKeys=yes'; there is no override
+    for the blacklist check in ssh-add.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 30 May 2008 23:26:25 +0100
 

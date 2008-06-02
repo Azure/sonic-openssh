@@ -1218,7 +1218,7 @@ ssh_session2(void)
 static void
 load_public_identity_files(void)
 {
-	char *filename, *cp, thishost[NI_MAXHOST];
+	char *filename, *cp, thishost[NI_MAXHOST], *fp;
 	int i = 0;
 	Key *public;
 	struct passwd *pw;
@@ -1260,6 +1260,22 @@ load_public_identity_files(void)
 		public = key_load_public(filename, NULL);
 		debug("identity file %s type %d", filename,
 		    public ? public->type : -1);
+		if (blacklisted_key(public, &fp) == 1) {
+			if (options.use_blacklisted_keys)
+				logit("Public key %s blacklisted (see "
+				    "ssh-vulnkey(1)); continuing anyway", fp);
+			else
+				logit("Public key %s blacklisted (see "
+				    "ssh-vulnkey(1)); refusing to send it",
+				    fp);
+			xfree(fp);
+			if (!options.use_blacklisted_keys) {
+				key_free(public);
+				xfree(filename);
+				filename = NULL;
+				public = NULL;
+			}
+		}
 		xfree(options.identity_files[i]);
 		options.identity_files[i] = filename;
 		options.identity_keys[i] = public;
