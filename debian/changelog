@@ -6,6 +6,8 @@ openssh (1:4.7p1-13) UNRELEASED; urgency=low
     server (LP: #232391). To override the blacklist check in ssh
     temporarily, use 'ssh -o UseBlacklistedKeys=yes'; there is no override
     for the blacklist check in ssh-add.
+  * Add cross-references to ssh-vulnkey(1) to ssh(1), ssh-add(1),
+    ssh-keygen(1), and sshd(8) (closes: #484451).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 30 May 2008 23:26:25 +0100
 
