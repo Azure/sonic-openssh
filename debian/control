@@ -100,7 +100,7 @@ Section: debian-installer
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, libnss-files-udeb, libcrypto0.9.8-udeb (>= 0.9.8g-9)
-XB-Installer-Menu-Item: 99900
+XB-Installer-Menu-Item: 99999
 Description: secure shell client for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
