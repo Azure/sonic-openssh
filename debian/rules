@@ -6,7 +6,7 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 OPTFLAGS := -O2
 else
 OPTFLAGS := -O0
