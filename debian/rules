@@ -311,7 +311,6 @@ binary-openssh-client-udeb: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	install -p -o root -g root -m 755 debian/openssh-client-udeb.isinstallable debian/openssh-client-udeb/DEBIAN/isinstallable
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
