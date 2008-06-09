@@ -13,6 +13,7 @@ openssh (1:4.7p1-13) UNRELEASED; urgency=low
   * Drop openssh-client-udeb isinstallable hack, as main-menu (>= 1.26) now
     takes care of that (thanks, Frans Pop; closes: #484404).
   * Update DEB_BUILD_OPTIONS parsing code from policy 3.8.0.
+  * Add documentation on removing openssh-blacklist locally (see #484269).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 30 May 2008 23:26:25 +0100
 

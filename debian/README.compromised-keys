@@ -138,3 +138,30 @@ OpenSSL:
 
 3. If certificates have been generated for use on other systems, they must be
    found and replaced as well.
+
+== Removing openssh-blacklist ==
+
+For the moment, the openssh-server package depends on openssh-blacklist, in
+order that the blacklist is deployed to the maximum possible number of
+systems to reduce the potential spread of worms exploiting this
+vulnerability. We acknowledge that this may be inconvenient for some small
+systems, but nevertheless feel that this was the best course of action.
+
+If you absolutely need to remove the blacklist from your system, then you
+can run the following commands to substitute a fake package for
+openssh-blacklist:
+
+  sudo apt-get install equivs
+  equivs-control openssh-blacklist.ctl
+  sed -i 's/^Package:.*/Package: openssh-blacklist/' openssh-blacklist.ctl
+  sed -i 's/^# Version:.*/Version: 9:1.0/' openssh-blacklist.ctl
+  equivs-build openssh-blacklist.ctl
+  sudo dpkg -i openssh-blacklist_1.0_all.deb
+
+Be warned: this circumvents a security measure for the sake of disk space.
+You should only do this if you have no other option, and if you are certain
+that no compromised keys will ever be generated on or copied onto this
+system.
+
+Once a sufficient amount of time and number of releases have passed, the
+openssh-blacklist package will be phased out.
