@@ -921,7 +921,7 @@ oom_adjust_startup(void)
 {
 	const char *oom_adj = getenv("SSHD_OOM_ADJUST");
 
-	if (!oom_adj)
+	if (!oom_adj || !*oom_adj)
 		return;
 	oom_adj_get(oom_adj_save, sizeof(oom_adj_save));
 	oom_adj_set(oom_adj);

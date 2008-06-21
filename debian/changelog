@@ -14,6 +14,8 @@ openssh (1:4.7p1-13) UNRELEASED; urgency=low
     takes care of that (thanks, Frans Pop; closes: #484404).
   * Update DEB_BUILD_OPTIONS parsing code from policy 3.8.0.
   * Add documentation on removing openssh-blacklist locally (see #484269).
+  * Clarify documentation of SSHD_OOM_ADJUST, and make setting it to the
+    empty string actually skip adjustment as intended (closes: #487325).
   * debconf template translations:
     - Update Romanian (thanks, Cătălin Feștilă; closes: #485415).
 
