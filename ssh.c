@@ -1260,7 +1260,7 @@ load_public_identity_files(void)
 		public = key_load_public(filename, NULL);
 		debug("identity file %s type %d", filename,
 		    public ? public->type : -1);
-		if (blacklisted_key(public, &fp) == 1) {
+		if (public && blacklisted_key(public, &fp) == 1) {
 			if (options.use_blacklisted_keys)
 				logit("Public key %s blacklisted (see "
 				    "ssh-vulnkey(1)); continuing anyway", fp);
