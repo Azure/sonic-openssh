@@ -1,4 +1,4 @@
-openssh (1:4.7p1-13) UNRELEASED; urgency=low
+openssh (1:4.7p1-13) unstable; urgency=low
 
   * Add some helpful advice to the end of ssh-vulnkey's output if there are
     unknown or compromised keys (thanks, Dan Jacobson; closes: #483756).
@@ -20,7 +20,7 @@ openssh (1:4.7p1-13) UNRELEASED; urgency=low
   * debconf template translations:
     - Update Romanian (thanks, Cătălin Feștilă; closes: #485415).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 30 May 2008 23:26:25 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 21 Jul 2008 12:18:28 +0100
 
 openssh (1:4.7p1-12) unstable; urgency=low
 
