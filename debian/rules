@@ -177,7 +177,6 @@ install: build
 
 	install -m 755 contrib/ssh-copy-id debian/openssh-client/usr/bin/ssh-copy-id
 	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
-	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
 	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
@@ -335,11 +334,6 @@ debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
 		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
 		> debian/faq.html
-
-debian/moduli.5:
-	wget -q -O - 'http://www.openbsd.org/cgi-bin/cvsweb/~checkout~/src/share/man/man5/moduli.5?content-type=text/plain' | \
-		sed 's,/etc/moduli,/etc/ssh/moduli,g; s/\$$Mdocdate\$$/$(shell date +'%B %-d %Y')/' \
-		> debian/moduli.5
 
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
