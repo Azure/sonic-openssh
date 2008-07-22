@@ -141,6 +141,7 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
       + Fixed an UMAC alignment problem that manifested on Itanium
         platforms.
   * Remove our local version of moduli(5) now that there's one upstream.
+  * Say "GTK+" rather than "GTK" in ssh-askpass-gnome's description.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 22 Jul 2008 17:34:06 +0100
 
