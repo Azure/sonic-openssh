@@ -1,3 +1,148 @@
+openssh (1:5.1p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (closes: #474301). Important changes not previously
+    backported to 4.7p1:
+    - 4.9/4.9p1 (http://www.openssh.com/txt/release-4.9):
+      + Added chroot(2) support for sshd(8), controlled by a new option
+        "ChrootDirectory" (closes: #139047, LP: #24777).
+      + Linked sftp-server(8) into sshd(8). The internal sftp server is used
+        when the command "internal-sftp" is specified in a Subsystem or
+        ForceCommand declaration. When used with ChrootDirectory, the
+        internal sftp server requires no special configuration of files
+        inside the chroot environment.
+      + Added a protocol extension method "posix-rename@openssh.com" for
+        sftp-server(8) to perform POSIX atomic rename() operations; sftp(1)
+        prefers this if available (closes: #308561).
+      + Removed the fixed limit of 100 file handles in sftp-server(8).
+      + ssh(8) will now skip generation of SSH protocol 1 ephemeral server
+        keys when in inetd mode and protocol 2 connections are negotiated.
+        This speeds up protocol 2 connections to inetd-mode servers that
+        also allow Protocol 1.
+      + Accept the PermitRootLogin directive in a sshd_config(5) Match
+        block. Allows for, e.g. permitting root only from the local network.
+      + Reworked sftp(1) argument splitting and escaping to be more
+        internally consistent (i.e. between sftp commands) and more
+        consistent with sh(1). Please note that this will change the
+        interpretation of some quoted strings, especially those with
+        embedded backslash escape sequences.
+      + Support "Banner=none" in sshd_config(5) to disable sending of a
+        pre-login banner (e.g. in a Match block).
+      + ssh(1) ProxyCommands are now executed with $SHELL rather than
+        /bin/sh.
+      + ssh(1)'s ConnectTimeout option is now applied to both the TCP
+        connection and the SSH banner exchange (previously it just covered
+        the TCP connection). This allows callers of ssh(1) to better detect
+        and deal with stuck servers that accept a TCP connection but don't
+        progress the protocol, and also makes ConnectTimeout useful for
+        connections via a ProxyCommand.
+      + scp(1) incorrectly reported "stalled" on slow copies (closes:
+        #140828).
+      + scp(1) date underflow for timestamps before epoch.
+      + ssh(1) used the obsolete SIG DNS RRtype for host keys in DNS,
+        instead of the current standard RRSIG.
+      + Correctly drain ACKs when a sftp(1) upload write fails midway,
+        avoids a fatal() exit from what should be a recoverable condition.
+      + Fixed ssh-keygen(1) selective host key hashing (i.e. "ssh-keygen -HF
+        hostname") to not include any IP address in the data to be hashed.
+      + Make ssh(1) skip listening on the IPv6 wildcard address when a
+        binding address of 0.0.0.0 is used against an old SSH server that
+        does not support the RFC4254 syntax for wildcard bind addresses.
+      + Enable IPV6_V6ONLY socket option on sshd(8) listen socket, as is
+        already done for X11/TCP forwarding sockets (closes: #439661).
+      + Fix FD leak that could hang a ssh(1) connection multiplexing master.
+      + Make ssh(1) -q option documentation consistent with reality.
+      + Fixed sshd(8) PAM support not calling pam_session_close(), or
+        failing to call it with root privileges (closes: #372680).
+      + Fix activation of OpenSSL engine support when requested in configure
+        (LP: #119295).
+    - 5.1/5.1p1 (http://www.openssh.com/txt/release-5.1):
+      + Introduce experimental SSH Fingerprint ASCII Visualisation to ssh(1)
+        and ssh-keygen(1). Visual fingerprint display is controlled by a new
+        ssh_config(5) option "VisualHostKey". The intent is to render SSH
+        host keys in a visual form that is amenable to easy recall and
+        rejection of changed host keys.
+      + sshd_config(5) now supports CIDR address/masklen matching in "Match
+        address" blocks, with a fallback to classic wildcard matching.
+      + sshd(8) now supports CIDR matching in ~/.ssh/authorized_keys
+        from="..." restrictions, also with a fallback to classic wildcard
+        matching.
+      + Added an extended test mode (-T) to sshd(8) to request that it write
+        its effective configuration to stdout and exit. Extended test mode
+        also supports the specification of connection parameters (username,
+        source address and hostname) to test the application of
+        sshd_config(5) Match rules. 
+      + ssh(1) now prints the number of bytes transferred and the overall
+        connection throughput for SSH protocol 2 sessions when in verbose
+        mode (previously these statistics were displayed for protocol 1
+        connections only).
+      + sftp-server(8) now supports extension methods statvfs@openssh.com
+        and fstatvfs@openssh.com that implement statvfs(2)-like operations.
+      + sftp(1) now has a "df" command to the sftp client that uses the
+        statvfs@openssh.com to produce a df(1)-like display of filesystem
+        space and inode utilisation (requires statvfs@openssh.com support on
+        the server).
+      + Added a MaxSessions option to sshd_config(5) to allow control of the
+        number of multiplexed sessions supported over a single TCP
+        connection. This allows increasing the number of allowed sessions
+        above the previous default of 10, disabling connection multiplexing
+        (MaxSessions=1) or disallowing login/shell/subsystem sessions
+        entirely (MaxSessions=0).
+      + Added a no-more-sessions@openssh.com global request extension that
+        is sent from ssh(1) to sshd(8) when the client knows that it will
+        never request another session (i.e. when session multiplexing is
+        disabled). This allows a server to disallow further session requests
+        and terminate the session in cases where the client has been
+        hijacked.
+      + ssh-keygen(1) now supports the use of the -l option in combination
+        with -F to search for a host in ~/.ssh/known_hosts and display its
+        fingerprint.
+      + ssh-keyscan(1) now defaults to "rsa" (protocol 2) keys, instead of
+        "rsa1".
+      + Added an AllowAgentForwarding option to sshd_config(8) to control
+        whether authentication agent forwarding is permitted. Note that this
+        is a loose control, as a client may install their own unofficial
+        forwarder.
+      + ssh(1) and sshd(8): avoid unnecessary malloc/copy/free when
+        receiving network data, resulting in a ~10% speedup.
+      + ssh(1) and sshd(8) will now try additional addresses when connecting
+        to a port forward destination whose DNS name resolves to more than
+        one address. The previous behaviour was to try the only first
+        address and give up if that failed.
+      + ssh(1) and sshd(8) now support signalling that channels are
+        half-closed for writing, through a channel protocol extension
+        notification "eow@openssh.com". This allows propagation of closed
+        file descriptors, so that commands such as "ssh -2 localhost od
+        /bin/ls | true" do not send unnecessary data over the wire.
+      + sshd(8): increased the default size of ssh protocol 1 ephemeral keys
+        from 768 to 1024 bits.
+      + When ssh(1) has been requested to fork after authentication ("ssh
+        -f") with ExitOnForwardFailure enabled, delay the fork until after
+        replies for any -R forwards have been seen. Allows for robust
+        detection of -R forward failure when using -f.
+      + "Match group" blocks in sshd_config(5) now support negation of
+        groups. E.g. "Match group staff,!guests".
+      + sftp(1) and sftp-server(8) now allow chmod-like operations to set
+        set[ug]id/sticky bits.
+      + The MaxAuthTries option is now permitted in sshd_config(5) match
+        blocks.
+      + Multiplexed ssh(1) sessions now support a subset of the ~ escapes
+        that are available to a primary connection.
+      + ssh(1) connection multiplexing will now fall back to creating a new
+        connection in most error cases (closes: #352830).
+      + Make ssh(1) deal more gracefully with channel requests that fail.
+        Previously it would optimistically assume that requests would always
+        succeed, which could cause hangs if they did not (e.g. when the
+        server runs out of file descriptors).
+      + ssh(1) now reports multiplexing errors via the multiplex slave's
+        stderr where possible (subject to LogLevel in the mux master).
+      + Prevent sshd(8) from erroneously applying public key restrictions
+        leaned from ~/.ssh/authorized_keys to other authentication methods
+        when public key authentication subsequently fails (LP: #161047).
+      + Fixed an UMAC alignment problem that manifested on Itanium
+        platforms.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 22 Jul 2008 17:34:06 +0100
+
 openssh (1:4.7p1-13) unstable; urgency=low
 
   * Add some helpful advice to the end of ssh-vulnkey's output if there are

@@ -1,4 +1,4 @@
-/* $OpenBSD: readconf.c,v 1.162 2007/03/20 03:56:12 tedu Exp $ */
+/* $OpenBSD: readconf.c,v 1.167 2008/06/26 11:46:31 grunk Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -135,6 +135,7 @@ typedef enum {
 	oServerAliveInterval, oServerAliveCountMax, oIdentitiesOnly,
 	oSendEnv, oControlPath, oControlMaster, oHashKnownHosts,
 	oTunnel, oTunnelDevice, oLocalCommand, oPermitLocalCommand,
+	oVisualHostKey,
 	oProtocolKeepAlives, oSetupTimeOut,
 	oDeprecated, oUnsupported
 } OpCodes;
@@ -237,6 +238,7 @@ static struct {
 	{ "tunneldevice", oTunnelDevice },
 	{ "localcommand", oLocalCommand },
 	{ "permitlocalcommand", oPermitLocalCommand },
+	{ "visualhostkey", oVisualHostKey },
 	{ "protocolkeepalives", oProtocolKeepAlives },
 	{ "setuptimeout", oSetupTimeOut },
 	{ NULL, oBadOption }
@@ -339,6 +341,7 @@ process_config_line(Options *options, const char *host,
 {
 	char *s, **charptr, *endofnumber, *keyword, *arg, *arg2, fwdarg[256];
 	int opcode, *intptr, value, value2, scale;
+	LogLevel *log_level_ptr;
 	long long orig, val64;
 	size_t len;
 	Forward fwd;
@@ -523,7 +526,6 @@ parse_yesnoask:
 		goto parse_int;
 
 	case oRekeyLimit:
-		intptr = &options->rekey_limit;
 		arg = strdelim(&s);
 		if (!arg || *arg == '\0')
 			fatal("%.200s line %d: Missing argument.", filename, linenum);
@@ -551,14 +553,14 @@ parse_yesnoask:
 		}
 		val64 *= scale;
 		/* detect integer wrap and too-large limits */
-		if ((val64 / scale) != orig || val64 > INT_MAX)
+		if ((val64 / scale) != orig || val64 > UINT_MAX)
 			fatal("%.200s line %d: RekeyLimit too large",
 			    filename, linenum);
 		if (val64 < 16)
 			fatal("%.200s line %d: RekeyLimit too small",
 			    filename, linenum);
-		if (*activep && *intptr == -1)
-			*intptr = (int)val64;
+		if (*activep && options->rekey_limit == -1)
+			options->rekey_limit = (u_int32_t)val64;
 		break;
 
 	case oIdentityFile:
@@ -717,14 +719,14 @@ parse_int:
 		break;
 
 	case oLogLevel:
-		intptr = (int *) &options->log_level;
+		log_level_ptr = &options->log_level;
 		arg = strdelim(&s);
 		value = log_level_number(arg);
 		if (value == SYSLOG_LEVEL_NOT_SET)
 			fatal("%.200s line %d: unsupported log level '%s'",
 			    filename, linenum, arg ? arg : "<NONE>");
-		if (*activep && (LogLevel) *intptr == SYSLOG_LEVEL_NOT_SET)
-			*intptr = (LogLevel) value;
+		if (*activep && *log_level_ptr == SYSLOG_LEVEL_NOT_SET)
+			*log_level_ptr = (LogLevel) value;
 		break;
 
 	case oLocalForward:
@@ -844,6 +846,7 @@ parse_int:
 
 	case oServerAliveInterval:
 	case oProtocolKeepAlives: /* Debian-specific compatibility alias */
+	case oSetupTimeOut:	  /* Debian-specific compatibility alias */
 		intptr = &options->server_alive_interval;
 		goto parse_time;
 
@@ -941,9 +944,9 @@ parse_int:
 		intptr = &options->permit_local_command;
 		goto parse_flag;
 
-	case oSetupTimeOut:
-	        intptr = &options->setuptimeout;
-		goto parse_int;
+	case oVisualHostKey:
+		intptr = &options->visual_host_key;
+		goto parse_flag;
 
 	case oDeprecated:
 		debug("%s line %d: Deprecated option \"%s\"",
@@ -1073,7 +1076,6 @@ initialize_options(Options * options)
 	options->strict_host_key_checking = -1;
 	options->compression = -1;
 	options->tcp_keep_alive = -1;
-	options->setuptimeout = -1;
 	options->compression_level = -1;
 	options->port = -1;
 	options->address_family = -1;
@@ -1118,6 +1120,7 @@ initialize_options(Options * options)
 	options->tun_remote = -1;
 	options->local_command = NULL;
 	options->permit_local_command = -1;
+	options->visual_host_key = -1;
 }
 
 /*
@@ -1263,13 +1266,8 @@ fill_default_options(Options * options)
 		options->tun_remote = SSH_TUNID_ANY;
 	if (options->permit_local_command == -1)
 		options->permit_local_command = 0;
-	if (options->setuptimeout == -1) {
-		/* in batch mode, default is 5mins */
-		if (options->batch_mode == 1)
-			options->setuptimeout = 300;
-		else
-			options->setuptimeout = 0;
-	}
+	if (options->visual_host_key == -1)
+		options->visual_host_key = 0;
 	/* options->local_command should not be set by default */
 	/* options->proxy_command should not be set by default */
 	/* options->user will be set in the main program if appropriate */
@@ -1326,7 +1324,7 @@ parse_forward(Forward *fwd, const char *fwdspec)
 
 	xfree(p);
 
-	if (fwd->listen_port == 0 && fwd->connect_port == 0)
+	if (fwd->listen_port == 0 || fwd->connect_port == 0)
 		goto fail_free;
 
 	if (fwd->connect_host != NULL &&

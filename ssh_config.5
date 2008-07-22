@@ -34,8 +34,8 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.\" $OpenBSD: ssh_config.5,v 1.102 2007/08/15 12:13:41 stevesk Exp $
-.Dd $Mdocdate: August 15 2007 $
+.\" $OpenBSD: ssh_config.5,v 1.111 2008/06/26 11:46:31 grunk Exp $
+.Dd $Mdocdate: June 26 2008 $
 .Dt SSH_CONFIG 5
 .Os
 .Sh NAME
@@ -119,6 +119,7 @@ Restricts the following declarations (up to the next
 .Cm Host
 keyword) to be only for those hosts that match one of the patterns
 given after the keyword.
+If more than one pattern is provided, they should be separated by whitepsace.
 A single
 .Ql *
 as a pattern can be used to provide global
@@ -145,9 +146,7 @@ If set to
 passphrase/password querying will be disabled.
 In addition, the 
 .Cm ServerAliveInterval 
-and
-.Cm SetupTimeOut
-options will both be set to 300 seconds by default.
+option will be set to 300 seconds by default.
 This option is useful in scripts and other batch jobs where no user
 is present to supply the password,
 and where it is desirable to detect a broken network swiftly.
@@ -619,6 +618,14 @@ escape characters:
 It is possible to have
 multiple identity files specified in configuration files; all these
 identities will be tried in sequence.
+.It Cm KbdInteractiveAuthentication
+Specifies whether to use keyboard-interactive authentication.
+The argument to this keyword must be
+.Dq yes
+or
+.Dq no .
+The default is
+.Dq yes .
 .It Cm KbdInteractiveDevices
 Specifies the list of methods to use in keyboard-interactive authentication.
 Multiple method names must be comma-separated.
@@ -634,7 +641,22 @@ and
 Specifies a command to execute on the local machine after successfully
 connecting to the server.
 The command string extends to the end of the line, and is executed with
-.Pa /bin/sh .
+the user's shell.
+The following escape character substitutions will be performed:
+.Ql %d
+(local user's home directory),
+.Ql %h
+(remote host name),
+.Ql %l
+(local host name),
+.Ql %n
+(host name as provided on the command line),
+.Ql %p
+(remote port),
+.Ql %r
+(remote user name) or
+.Ql %u
+(local user name).
 This directive is ignored unless
 .Cm PermitLocalCommand
 has been enabled.
@@ -758,7 +780,7 @@ if version 2 is not available.
 Specifies the command to use to connect to the server.
 The command
 string extends to the end of the line, and is executed with
-.Pa /bin/sh .
+the user's shell.
 In the command string,
 .Ql %h
 will be substituted by the host name to
@@ -936,24 +958,9 @@ or 300 if the
 option is set.
 This option applies to protocol version 2 only.
 .Cm ProtocolKeepAlives
-is a Debian-specific compatibility alias for this option.
-.It Cm SetupTimeOut
-Normally,
-.Nm ssh
-blocks indefinitely whilst waiting to receive the ssh banner and other
-setup protocol from the server, during the session setup.
-This can cause
-.Nm ssh
-to hang under certain circumstances.
-If this option is set,
-.Nm ssh
-will give up if no data from the server is received for the specified
-number of seconds.
-The argument must be an integer.
-The default is 0 (disabled), or 300 if
-.Cm BatchMode
-is set.
-This is a Debian-specific option.
+and
+.Cm SetupTimeOut
+are Debian-specific compatibility aliases for this option.
 .It Cm SmartcardDevice
 Specifies which smartcard device to use.
 The argument to this keyword is the device
@@ -1127,6 +1134,16 @@ See also
 .Sx VERIFYING HOST KEYS
 in
 .Xr ssh 1 .
+.It Cm VisualHostKey
+If this flag is set to
+.Dq yes ,
+an ASCII art representation of the remote host key fingerprint is
+printed additionally to the hex fingerprint string.
+If this flag is set to
+.Dq no ,
+only the hex fingerprint string will be printed.
+The default is
+.Dq no .
 .It Cm XAuthLocation
 Specifies the full pathname of the
 .Xr xauth 1

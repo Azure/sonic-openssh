@@ -1,3 +1,9 @@
+20080404
+  - [ gss-serv.c ]
+    Add code to actually implement GSSAPIStrictAcceptCheck, which had somehow
+    been omitted from a previous version of this patch. Reported by Borislav
+    Stoichkov
+
 20070317
   - [ gss-serv-krb5.c ]
     Remove C99ism, where new_ccname was being declared in the middle of a 

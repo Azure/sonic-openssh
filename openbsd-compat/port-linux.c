@@ -1,4 +1,4 @@
-/* $Id: port-linux.c,v 1.4 2007/06/27 22:48:03 djm Exp $ */
+/* $Id: port-linux.c,v 1.5 2008/03/26 20:27:21 dtucker Exp $ */
 
 /*
  * Copyright (c) 2005 Daniel Walsh <dwalsh@redhat.com>
@@ -52,7 +52,7 @@
 extern Authctxt *the_authctxt;
 
 /* Wrapper around is_selinux_enabled() to log its return value once only */
-static int
+int
 ssh_selinux_enabled(void)
 {
 	static int enabled = -1;

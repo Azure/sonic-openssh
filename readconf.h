@@ -1,4 +1,4 @@
-/* $OpenBSD: readconf.h,v 1.71 2006/08/03 03:34:42 deraadt Exp $ */
+/* $OpenBSD: readconf.h,v 1.74 2008/06/26 11:46:31 grunk Exp $ */
 
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
@@ -59,7 +59,6 @@ typedef struct {
 	int     compression_level;	/* Compression level 1 (fast) to 9
 					 * (best). */
 	int     tcp_keep_alive;	/* Set SO_KEEPALIVE. */
-	int     setuptimeout;	/* timeout in the protocol banner exchange */
 	LogLevel log_level;	/* Level for logging. */
 
 	int     port;		/* Port to connect. */
@@ -104,7 +103,7 @@ typedef struct {
 	int	clear_forwardings;
 
 	int	enable_ssh_keysign;
-	int	rekey_limit;
+	int64_t rekey_limit;
 	int	no_host_authentication_for_localhost;
 	int	identities_only;
 	int	server_alive_interval;
@@ -124,6 +123,7 @@ typedef struct {
 
 	char	*local_command;
 	int	permit_local_command;
+	int	visual_host_key;
 
 }       Options;
 
