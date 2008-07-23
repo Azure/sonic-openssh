@@ -142,6 +142,9 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
         platforms.
   * Remove our local version of moduli(5) now that there's one upstream.
   * Say "GTK+" rather than "GTK" in ssh-askpass-gnome's description.
+  * Add lintian overrides for empty /usr/share/doc/openssh-client
+    directories in openssh-server and ssh (necessary due to being symlink
+    targets).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 22 Jul 2008 17:34:06 +0100
 
