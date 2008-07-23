@@ -151,8 +151,12 @@ case "$1" in
 	esac
 	;;
 
+  status)
+	status_of_proc -p /var/run/sshd.pid /usr/sbin/sshd sshd && exit 0 || exit $?
+	;;
+
   *)
-	log_action_msg "Usage: /etc/init.d/ssh {start|stop|reload|force-reload|restart|try-restart}"
+	log_action_msg "Usage: /etc/init.d/ssh {start|stop|reload|force-reload|restart|try-restart|status}"
 	exit 1
 esac
 

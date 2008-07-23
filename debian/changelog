@@ -147,6 +147,9 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
   * Add lintian overrides for empty /usr/share/doc/openssh-client
     directories in openssh-server and ssh (necessary due to being symlink
     targets).
+  * Merge from Ubuntu:
+    - Add 'status' action to openssh-server init script, requiring lsb-base
+      (>= 3.2-13) (thanks, Dustin Kirkland).
   * debconf template translations:
     - Update Korean (thanks, Sunjae Park; closes: #484821).
 
