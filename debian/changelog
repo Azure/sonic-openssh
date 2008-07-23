@@ -55,6 +55,8 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
         failing to call it with root privileges (closes: #372680).
       + Fix activation of OpenSSL engine support when requested in configure
         (LP: #119295).
+      + Cache SELinux status earlier so we know if it's enabled after a
+        chroot (LP: #237557).
     - 5.1/5.1p1 (http://www.openssh.com/txt/release-5.1):
       + Introduce experimental SSH Fingerprint ASCII Visualisation to ssh(1)
         and ssh-keygen(1). Visual fingerprint display is controlled by a new
@@ -97,7 +99,7 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
         with -F to search for a host in ~/.ssh/known_hosts and display its
         fingerprint.
       + ssh-keyscan(1) now defaults to "rsa" (protocol 2) keys, instead of
-        "rsa1".
+        "rsa1" (LP: #129794).
       + Added an AllowAgentForwarding option to sshd_config(8) to control
         whether authentication agent forwarding is permitted. Note that this
         is a loose control, as a client may install their own unofficial
