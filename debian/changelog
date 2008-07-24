@@ -138,7 +138,7 @@ openssh (1:5.1p1-1) UNRELEASED; urgency=low
       + ssh(1) now reports multiplexing errors via the multiplex slave's
         stderr where possible (subject to LogLevel in the mux master).
       + Prevent sshd(8) from erroneously applying public key restrictions
-        leaned from ~/.ssh/authorized_keys to other authentication methods
+        gleaned from ~/.ssh/authorized_keys to other authentication methods
         when public key authentication subsequently fails (LP: #161047).
       + Fixed an UMAC alignment problem that manifested on Itanium
         platforms.
