@@ -1,3 +1,10 @@
+openssh (1:5.1p1-3) UNRELEASED; urgency=low
+
+  * Remove unnecessary ssh-vulnkey output in non-verbose mode when no
+    compromised or unknown keys were found (closes: #496495).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 25 Aug 2008 09:52:33 +0100
+
 openssh (1:5.1p1-2) unstable; urgency=low
 
   * Look for $SHELL on the path when executing ProxyCommands or

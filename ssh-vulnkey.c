@@ -372,8 +372,13 @@ main(int argc, char **argv)
 			printf("# Some keys on your system have been compromised!\n");
 			printf("# You must replace them using ssh-keygen(1).\n");
 		}
-		printf("#\n");
-		printf("# See the ssh-vulnkey(1) manual page for further advice.\n");
+		if (some_unknown || some_compromised) {
+			printf("#\n");
+			printf("# See the ssh-vulnkey(1) manual page for further advice.\n");
+		} else if (verbosity > 0) {
+			printf("#\n");
+			printf("# No blacklisted keys!\n");
+		}
 	}
 
 	return ret;
