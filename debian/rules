@@ -62,6 +62,7 @@ SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/
 confflags += --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man
 
 # Common build options.
+confflags += --disable-strip
 confflags += --with-mantype=doc
 confflags += --with-4in6
 confflags += --with-privsep-path=/var/run/sshd
