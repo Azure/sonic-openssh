@@ -5,6 +5,8 @@ openssh (1:5.1p1-3) UNRELEASED; urgency=low
   * Configure with --disable-strip; dh_strip will deal with stripping
     binaries and will honour DEB_BUILD_OPTIONS (thanks, Bernhard R. Link;
     closes: #498681).
+  * Fix handling of zero-length server banners (thanks, Tomas Mraz; closes:
+    #497026).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 25 Aug 2008 09:52:33 +0100
 
