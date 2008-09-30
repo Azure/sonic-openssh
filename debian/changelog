@@ -1,4 +1,4 @@
-openssh (1:5.1p1-3) UNRELEASED; urgency=low
+openssh (1:5.1p1-3) unstable; urgency=low
 
   * Remove unnecessary ssh-vulnkey output in non-verbose mode when no
     compromised or unknown keys were found (closes: #496495).
@@ -8,7 +8,7 @@ openssh (1:5.1p1-3) UNRELEASED; urgency=low
   * Fix handling of zero-length server banners (thanks, Tomas Mraz; closes:
     #497026).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 25 Aug 2008 09:52:33 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 30 Sep 2008 23:09:58 +0100
 
 openssh (1:5.1p1-2) unstable; urgency=low
 
