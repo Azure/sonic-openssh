@@ -1334,9 +1334,13 @@ parse_forward(Forward *fwd, const char *fwdspec)
 	return (i);
 
  fail_free:
-	if (fwd->connect_host != NULL)
+	if (fwd->connect_host != NULL) {
 		xfree(fwd->connect_host);
-	if (fwd->listen_host != NULL)
+		fwd->connect_host = NULL;
+	}
+	if (fwd->listen_host != NULL) {
 		xfree(fwd->listen_host);
+		fwd->connect_host = NULL;
+	}
 	return (0);
 }
