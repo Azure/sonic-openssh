@@ -387,6 +387,8 @@ chan_send_eow2(Channel *c)
 		    c->self);
 		return;
 	}
+	if (!(datafellows & SSH_NEW_OPENSSH))
+		return;
 	packet_start(SSH2_MSG_CHANNEL_REQUEST);
 	packet_put_int(c->remote_id);
 	packet_put_cstring("eow@openssh.com");

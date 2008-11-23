@@ -3,6 +3,10 @@ openssh (1:5.1p1-4) UNRELEASED; urgency=low
   * ssh-copy-id: Strip trailing colons from hostname (closes: #226172,
     LP: #249706; thanks to Karl Goetz for nudging this along; forwarded
     upstream as https://bugzilla.mindrot.org/show_bug.cgi?id=1530).
+  * Backport from upstream CVS (Markus Friedl):
+    - Only send eow and no-more-sessions requests to openssh 5 and newer;
+      fixes interop problems with broken ssh v2 implementations (closes:
+      #495917).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 09 Oct 2008 12:52:34 +0100
 

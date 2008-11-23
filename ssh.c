@@ -1205,7 +1205,8 @@ ssh_session2(void)
 		id = ssh_session2_open();
 
 	/* If we don't expect to open a new session, then disallow it */
-	if (options.control_master == SSHCTL_MASTER_NO) {
+	if (options.control_master == SSHCTL_MASTER_NO &&
+	    (datafellows & SSH_NEW_OPENSSH)) {
 		debug("Requesting no-more-sessions@openssh.com");
 		packet_start(SSH2_MSG_GLOBAL_REQUEST);
 		packet_put_cstring("no-more-sessions@openssh.com");
