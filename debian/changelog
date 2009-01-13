@@ -1,3 +1,11 @@
+openssh (1:5.1p1-5) UNRELEASED; urgency=low
+
+  * Backport from upstream CVS (Markus Friedl):
+    - packet_disconnect() on padding error, too. Should reduce the success
+      probability for the CPNI-957037 Plaintext Recovery Attack to 2^-18.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 01 Dec 2008 16:13:14 +0000
+
 openssh (1:5.1p1-4) unstable; urgency=low
 
   * ssh-copy-id: Strip trailing colons from hostname (closes: #226172,
