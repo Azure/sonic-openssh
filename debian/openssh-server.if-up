@@ -25,6 +25,11 @@ if [ ! -e /usr/sbin/sshd ]; then
 	exit 0
 fi
 
+if [ ! -f /var/run/sshd.pid ] || \
+   [ "$(ps -p "$(cat /var/run/sshd.pid)" -o comm=)" = sshd ]; then
+	exit 0
+fi
+
 /etc/init.d/ssh reload >/dev/null 2>&1 || true
 
 exit 0
