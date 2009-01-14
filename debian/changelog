@@ -2,6 +2,8 @@ openssh (1:5.1p1-6) UNRELEASED; urgency=low
 
   * Open /proc/self/oom_adj with O_RDONLY or O_WRONLY as necessary, rather
     than O_RDWR.
+  * Disable OOM adjustment for vserver/OpenVZ (thanks, Karl Chen; closes:
+    #511771).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 11:30:07 +0000
 
