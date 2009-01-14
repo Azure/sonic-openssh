@@ -30,6 +30,7 @@ if [ ! -f /var/run/sshd.pid ] || \
 	exit 0
 fi
 
-/etc/init.d/ssh reload >/dev/null 2>&1 || true
+# We'd like to use 'reload' here, but it has some problems; see #502444.
+/etc/init.d/ssh restart >/dev/null 2>&1 || true
 
 exit 0

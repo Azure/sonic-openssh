@@ -8,6 +8,10 @@ openssh (1:5.1p1-5) UNRELEASED; urgency=low
     script; SIGHUP is racy if called at boot before sshd has a chance to
     install its signal handler, but fortunately the pid file is written
     after that which lets us avoid the race (closes: #502444).
+  * While the above is a valuable sanity-check, it turns out that it doesn't
+    really fix the bug (thanks to Kevin Price for testing), so for the
+    meantime we'll just use '/etc/init.d/ssh restart', even though it is
+    unfortunately heavyweight.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Dec 2008 16:13:14 +0000
 
