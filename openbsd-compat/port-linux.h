@@ -26,7 +26,6 @@ void ssh_selinux_setup_exec_context(char *);
 #endif
 
 #ifdef OOM_ADJUST
-int oom_adj_open(void);
 int oom_adj_get(char *buf, size_t maxlen);
 int oom_adj_set(const char *buf);
 #endif

@@ -197,10 +197,10 @@ ssh_selinux_setup_pty(char *pwname, const char *tty)
 
 #ifdef OOM_ADJUST
 /* Get the out-of-memory adjustment file for the current process */
-int
-oom_adj_open(void)
+static int
+oom_adj_open(int oflag)
 {
-	int fd = open("/proc/self/oom_adj", O_RDWR);
+	int fd = open("/proc/self/oom_adj", oflag);
 	if (fd < 0)
 		logit("error opening /proc/self/oom_adj: %s", strerror(errno));
 	return fd;
@@ -211,7 +211,7 @@ int
 oom_adj_get(char *buf, size_t maxlen)
 {
 	ssize_t n;
-	int fd = oom_adj_open();
+	int fd = oom_adj_open(O_RDONLY);
 	if (fd < 0)
 		return -1;
 	n = read(fd, buf, maxlen);
@@ -228,7 +228,7 @@ int
 oom_adj_set(const char *buf)
 {
 	ssize_t n;
-	int fd = oom_adj_open();
+	int fd = oom_adj_open(O_WRONLY);
 	if (fd < 0)
 		return -1;
 	n = write(fd, buf, strlen(buf));
