@@ -4,6 +4,9 @@ openssh (1:5.1p1-6) UNRELEASED; urgency=low
     than O_RDWR.
   * Disable OOM adjustment for vserver/OpenVZ (thanks, Karl Chen; closes:
     #511771).
+  * Add ufw integration (thanks, Didier Roche; see
+    https://wiki.ubuntu.com/UbuntuFirewall#Integrating%20UFW%20with%20Packages;
+    LP: #261884).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 11:30:07 +0000
 
