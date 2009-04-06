@@ -7,6 +7,8 @@ openssh (1:5.1p1-6) UNRELEASED; urgency=low
   * Add ufw integration (thanks, Didier Roche; see
     https://wiki.ubuntu.com/UbuntuFirewall#Integrating%20UFW%20with%20Packages;
     LP: #261884).
+  * Add a comment above PermitRootLogin in sshd_config pointing to
+    README.Debian.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 11:30:07 +0000
 
