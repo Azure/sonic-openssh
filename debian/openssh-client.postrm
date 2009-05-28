@@ -25,7 +25,9 @@ case $1 in
 		rm -f /etc/ssh/ssh_known_hosts /etc/ssh/ssh_known_hosts2
 		rmdir --ignore-fail-on-non-empty /etc/ssh
 
-		delgroup --quiet ssh > /dev/null || true
+		if which delgroup; then
+			delgroup --quiet ssh > /dev/null || true
+		fi
 		;;
 esac
 
