@@ -39,6 +39,11 @@ ifeq ($(DEB_HOST_ARCH_CPU),)
 endif
 
 ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:))
+  ifneq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:mips:mipsel:))
+    # Apparently this is not implied by -fPIE, at least on the mipsen.
+    PIC_CFLAGS := -fPIC
+    PIC_LDFLAGS := -fPIC
+  endif
   ifeq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:hppa:m68k:))
     # Use position-independent executables to take advantage of address space
     # layout randomisation. TODO: This should be done in configure.
@@ -95,7 +100,7 @@ confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUS
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Compiler flags.
-cflags := $(OPTFLAGS) $(PIE_CFLAGS)
+cflags := $(OPTFLAGS) $(PIC_CFLAGS) $(PIE_CFLAGS)
 cflags += -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
@@ -104,8 +109,8 @@ confflags += --with-cflags='$(cflags)'
 confflags_udeb += --with-cflags='$(cflags_udeb)'
 
 # Linker flags.
-ifneq ($(PIE_LDFLAGS),)
-confflags += --with-ldflags='$(PIE_LDFLAGS)'
+ifneq ($(PIC_LDFLAGS)$(PIE_LDFLAGS),)
+confflags += --with-ldflags='$(strip $(PIC_LDFLAGS) $(PIE_LDFLAGS))'
 endif
 
 build: build-deb build-udeb
