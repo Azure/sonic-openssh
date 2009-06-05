@@ -1,4 +1,4 @@
-openssh (1:5.1p1-6) UNRELEASED; urgency=low
+openssh (1:5.1p1-6) unstable; urgency=low
 
   * Open /proc/self/oom_adj with O_RDONLY or O_WRONLY as necessary, rather
     than O_RDWR.
@@ -15,7 +15,7 @@ openssh (1:5.1p1-6) UNRELEASED; urgency=low
     run-time before starting the server.
   * Use invoke-rc.d in openssh-server's if-up script.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 11:30:07 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 05 Jun 2009 11:56:03 +0100
 
 openssh (1:5.1p1-5) unstable; urgency=low
 
