@@ -7,4 +7,3 @@ usr/sbin
 usr/share/lintian/overrides
 usr/share/man/man5
 usr/share/man/man8
-var/run/sshd
