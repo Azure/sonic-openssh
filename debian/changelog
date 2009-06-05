@@ -13,6 +13,7 @@ openssh (1:5.1p1-6) UNRELEASED; urgency=low
   * Build with -fPIC on mips/mipsel (thanks, Luk Claes; closes: #531942).
   * Remove /var/run/sshd from openssh-server package; it will be created at
     run-time before starting the server.
+  * Use invoke-rc.d in openssh-server's if-up script.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 11:30:07 +0000
 
