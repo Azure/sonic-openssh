@@ -1,3 +1,10 @@
+openssh (1:5.1p1-7) UNRELEASED; urgency=low
+
+  * Update config.guess and config.sub from autotools-dev 20090611.1
+    (closes: #538301).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 24 Jul 2009 18:43:45 +0100
+
 openssh (1:5.1p1-6) unstable; urgency=low
 
   * Open /proc/self/oom_adj with O_RDONLY or O_WRONLY as necessary, rather
