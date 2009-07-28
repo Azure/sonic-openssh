@@ -16,6 +16,8 @@ set -e
 test -x /usr/sbin/sshd || exit 0
 ( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
 
+umask 022
+
 export SSHD_OOM_ADJUST=-17
 if test -f /etc/default/ssh; then
     . /etc/default/ssh
