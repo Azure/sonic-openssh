@@ -118,7 +118,7 @@ EOF
       # case the key is encrypted, which we need to fix
       chmod 600 $key
       ssh-keygen -u -f $key >/dev/null
-      if type restorecon >/dev/null 2>&1; then
+      if which restorecon >/dev/null 2>&1; then
         restorecon "$key.pub"
       fi
     }

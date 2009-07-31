@@ -163,7 +163,7 @@ create_key() {
 		echo -n $msg
 		ssh-keygen -q -f "$file" -N '' "$@"
 		echo
-		if type restorecon >/dev/null 2>&1; then
+		if which restorecon >/dev/null 2>&1; then
 			restorecon "$file.pub"
 		fi
 	fi

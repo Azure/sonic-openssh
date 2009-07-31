@@ -5,6 +5,7 @@ openssh (1:5.1p1-7) UNRELEASED; urgency=low
   * Set umask to 022 in the init script as well as postinsts (closes:
     #539030).
   * Add ${misc:Depends} to keep Lintian happy.
+  * Use 'which' rather than 'type' in maintainer scripts.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 24 Jul 2009 18:43:45 +0100
 

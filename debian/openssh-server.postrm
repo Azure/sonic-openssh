@@ -54,7 +54,7 @@ case $1 in
 
 		update-rc.d ssh remove >/dev/null
 
-		if type deluser >/dev/null 2>&1; then
+		if which deluser >/dev/null 2>&1; then
 			deluser --quiet sshd > /dev/null || true
 		fi
 
