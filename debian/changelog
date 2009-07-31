@@ -6,6 +6,7 @@ openssh (1:5.1p1-7) UNRELEASED; urgency=low
     #539030).
   * Add ${misc:Depends} to keep Lintian happy.
   * Use 'which' rather than 'type' in maintainer scripts.
+  * Upgrade to debhelper v7.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 24 Jul 2009 18:43:45 +0100
 

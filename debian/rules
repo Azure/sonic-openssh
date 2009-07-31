@@ -149,12 +149,9 @@ build-udeb-stamp:
 
 clean:
 	dh_testdir
-	rm -f build-deb-stamp build-udeb-stamp
 	rm -rf build-deb build-udeb
 	$(MAKE) -C debian/tests clean
 	$(MAKE) -C contrib clean
-	rm -f config.log
-	rm -f debian/ssh-askpass-gnome.png
 	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
 		> debian/copyright
 	dh_clean
@@ -163,7 +160,7 @@ install: DH_OPTIONS=-a
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/openssh-client install-nokeys
@@ -221,8 +218,8 @@ binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
 	dh_installdebconf
-	dh_installdocs OVERVIEW README README.dns README.tun debian/faq.html debian/README.compromised-keys
-	dh_installchangelogs ChangeLog ChangeLog.gssapi
+	dh_installdocs
+	dh_installchangelogs
 	install -m644 debian/openssh-client.lintian debian/openssh-client/usr/share/lintian/overrides/openssh-client
 	dh_strip
 	dh_compress
@@ -287,7 +284,7 @@ binary-ssh-krb5: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	dh_installchangelogs ChangeLog ChangeLog.gssapi
+	dh_installchangelogs
 	dh_link
 	dh_compress
 	dh_fixperms
@@ -301,8 +298,8 @@ binary-ssh-askpass-gnome: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	dh_installexamples debian/ssh-askpass-gnome.desktop
-	dh_installchangelogs ChangeLog ChangeLog.gssapi
+	dh_installexamples
+	dh_installchangelogs
 	dh_strip
 	dh_compress
 	dh_fixperms
