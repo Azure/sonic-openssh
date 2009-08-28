@@ -44,7 +44,7 @@ ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:))
     PIC_CFLAGS := -fPIC
     PIC_LDFLAGS := -fPIC
   endif
-  ifeq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:hppa:m68k:))
+  ifeq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:hppa:m68k:mips:mipsel:))
     # Use position-independent executables to take advantage of address space
     # layout randomisation. TODO: This should be done in configure.
     PIE_CFLAGS := -fPIE
