@@ -5,6 +5,8 @@ openssh (1:5.1p1-8) UNRELEASED; urgency=low
   * Build-depend on libselinux1-dev on sh4 too (thanks, Nobuhiro Iwamatsu;
     closes: #547103).
   * Fix grammar in if-up script (closes: #549128).
+  * Pass $SSHD_OPTS when checking configuration too (thanks, "sobtwmxt";
+    closes: #548662).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 28 Aug 2009 09:06:32 +0100
 
