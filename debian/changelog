@@ -1,4 +1,4 @@
-openssh (1:5.1p1-8) UNRELEASED; urgency=low
+openssh (1:5.1p1-8) unstable; urgency=low
 
   * Build with just -fPIC on mips/mipsel, not -fPIE as well (thanks, LIU Qi;
     closes: #538313).
@@ -8,7 +8,7 @@ openssh (1:5.1p1-8) UNRELEASED; urgency=low
   * Pass $SSHD_OPTS when checking configuration too (thanks, "sobtwmxt";
     closes: #548662).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 28 Aug 2009 09:06:32 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 05 Oct 2009 13:30:49 +0100
 
 openssh (1:5.1p1-7) unstable; urgency=low
 
