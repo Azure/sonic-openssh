@@ -7,9 +7,9 @@ gnome-ssh-askpass1: gnome-ssh-askpass1.c
 		`gnome-config --libs gnome gnomeui`
 
 gnome-ssh-askpass2: gnome-ssh-askpass2.c
-	$(CC) `pkg-config --cflags gtk+-2.0` \
+	$(CC) `pkg-config --cflags gtk+-2.0 x11` \
 		gnome-ssh-askpass2.c -o gnome-ssh-askpass2 \
-		`pkg-config --libs gtk+-2.0`
+		`pkg-config --libs gtk+-2.0 x11`
 
 clean:
 	rm -f *.o gnome-ssh-askpass1 gnome-ssh-askpass2 gnome-ssh-askpass
