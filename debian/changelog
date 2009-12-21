@@ -1,6 +1,7 @@
 openssh (1:5.1p1-9) UNRELEASED; urgency=low
 
   * Use x11.pc when compiling/linking gnome-ssh-askpass2 (closes: #555951).
+  * Moved to bzr.debian.org; add Vcs-Bzr and Vcs-Browser control fields.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 

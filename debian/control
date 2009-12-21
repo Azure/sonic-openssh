@@ -5,6 +5,8 @@ Maintainer: Debian OpenSSH Maintainers <debian-ssh@lists.debian.org>
 Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev (>= 1:1.2.3-1), libssl-dev (>= 0.9.8-1), libpam0g-dev | libpam-dev, libgtk2.0-dev, libedit-dev, debhelper (>= 7.0.1), sharutils, libselinux1-dev [alpha amd64 arm armeb armel hppa i386 ia64 lpia m68k mips mipsel powerpc ppc64 s390 sh4 sparc], libkrb5-dev | heimdal-dev
 Standards-Version: 3.7.3
 Uploaders: Colin Watson <cjwatson@debian.org>, Matthew Vernon <matthew@debian.org>
+Vcs-Bzr: http://bzr.debian.org/pkg-ssh/openssh/trunk
+Vcs-Browser: http://bzr.debian.org/loggerhead/pkg-ssh/openssh/trunk
 
 Package: openssh-client
 Architecture: any
