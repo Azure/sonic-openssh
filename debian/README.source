@@ -104,10 +104,14 @@ To import a branch, V_5_3 in this example:
   # branch have file-ids matching those on the trunk, using 'bzr ls -R
   # --show-ids'.
 
-Now we have a Bazaar branch corresponding to what's in CVS. However,
-upstream releases involve a 'make distprep' step as well to construct the
-tarball, and we need to import the results of this as well to get a clean
-package.
+Now we have a Bazaar branch corresponding to what's in CVS. Previous such
+branches are available from Launchpad, for reference purposes:
+
+  https://code.launchpad.net/openssh
+
+However, upstream releases involve a 'make distprep' step as well to
+construct the tarball, and we need to import the results of this as well to
+get a clean package.
 
 Start by unpacking the upstream tarball (remember to check its GPG signature
 first!). Copy the .bzr directory from the upstream branch you prepared
