@@ -1,4 +1,4 @@
-/*	$OpenBSD: auth2-gss.c,v 1.8 2004/06/21 17:36:31 avsm Exp $	*/
+/*	$OpenBSD: auth2-gss.c,v 1.10 2005/07/17 07:17:54 djm Exp $	*/
 
 /*
  * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
@@ -94,7 +94,7 @@ userauth_gssapi(Authctxt *authctxt)
 	int present;
 	OM_uint32 ms;
 	u_int len;
-	char *doid = NULL;
+	u_char *doid = NULL;
 
 	if (!authctxt->valid || authctxt->user == NULL)
 		return (0);
@@ -115,9 +115,8 @@ userauth_gssapi(Authctxt *authctxt)
 		present = 0;
 		doid = packet_get_string(&len);
 
-		if (len > 2 &&
-		   doid[0] == SSH_GSS_OIDTYPE &&
-		   doid[1] == len - 2) {
+		if (len > 2 && doid[0] == SSH_GSS_OIDTYPE &&
+		    doid[1] == len - 2) {
 			goid.elements = doid + 2;
 			goid.length   = len - 2;
 			gss_test_oid_set_member(&ms, &goid, supported,
@@ -131,11 +130,13 @@ userauth_gssapi(Authctxt *authctxt)
 
 	if (!present) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, &goid)))) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
@@ -320,7 +321,7 @@ input_gssapi_mic(int type, u_int32_t plen, void *ctxt)
 }
 
 Authmethod method_gsskeyex = {
-	"gssapi-keyx",
+	"gssapi-keyex",
 	userauth_gsskeyex,
 	&options.gss_authentication
 };

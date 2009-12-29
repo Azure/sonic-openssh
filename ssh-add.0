@@ -11,11 +11,11 @@ SYNOPSIS
 DESCRIPTION
      ssh-add adds RSA or DSA identities to the authentication agent,
      ssh-agent(1).  When run without arguments, it adds the files
-     $HOME/.ssh/id_rsa, $HOME/.ssh/id_dsa and $HOME/.ssh/identity.  Alterna-
-     tive file names can be given on the command line.  If any file requires a
-     passphrase, ssh-add asks for the passphrase from the user.  The
-     passphrase is read from the user's tty.  ssh-add retries the last
-     passphrase if multiple identity files are given.
+     ~/.ssh/id_rsa, ~/.ssh/id_dsa and ~/.ssh/identity.  Alternative file names
+     can be given on the command line.  If any file requires a passphrase,
+     ssh-add asks for the passphrase from the user.  The passphrase is read
+     from the user's tty.  ssh-add retries the last passphrase if multiple
+     identity files are given.
 
      The authentication agent must be running and the SSH_AUTH_SOCK environ-
      ment variable must contain the name of its socket for ssh-add to work.
@@ -70,15 +70,15 @@ ENVIRONMENT
              with the agent.
 
 FILES
-     $HOME/.ssh/identity
+     ~/.ssh/identity
              Contains the protocol version 1 RSA authentication identity of
              the user.
 
-     $HOME/.ssh/id_dsa
+     ~/.ssh/id_dsa
              Contains the protocol version 2 DSA authentication identity of
              the user.
 
-     $HOME/.ssh/id_rsa
+     ~/.ssh/id_rsa
              Contains the protocol version 2 RSA authentication identity of
              the user.
 
@@ -99,4 +99,4 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.6                   September 25, 1999                             2
+OpenBSD 3.8                   September 25, 1999                             2

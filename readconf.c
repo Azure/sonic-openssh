@@ -12,7 +12,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: readconf.c,v 1.137 2005/03/04 08:48:06 djm Exp $");
+RCSID("$OpenBSD: readconf.c,v 1.143 2005/07/30 02:03:47 djm Exp $");
 
 #include "ssh.h"
 #include "xmalloc.h"
@@ -105,6 +105,7 @@ typedef enum {
 	oClearAllForwardings, oNoHostAuthenticationForLocalhost,
 	oEnableSSHKeysign, oRekeyLimit, oVerifyHostKeyDNS, oConnectTimeout,
 	oAddressFamily, oGssAuthentication, oGssDelegateCreds,
+	oGssTrustDns,
 	oServerAliveInterval, oServerAliveCountMax, oIdentitiesOnly,
 	oSendEnv, oControlPath, oControlMaster, oHashKnownHosts,
 	oDeprecated, oUnsupported
@@ -140,9 +141,11 @@ static struct {
 #if defined(GSSAPI)
 	{ "gssapiauthentication", oGssAuthentication },
 	{ "gssapidelegatecredentials", oGssDelegateCreds },
+	{ "gssapitrustdns", oGssTrustDns },
 #else
 	{ "gssapiauthentication", oUnsupported },
 	{ "gssapidelegatecredentials", oUnsupported },
+	{ "gssapitrustdns", oUnsupported },
 #endif
 	{ "fallbacktorsh", oDeprecated },
 	{ "usersh", oDeprecated },
@@ -253,12 +256,14 @@ clear_forwardings(Options *options)
 	int i;
 
 	for (i = 0; i < options->num_local_forwards; i++) {
-		xfree(options->local_forwards[i].listen_host);
+		if (options->local_forwards[i].listen_host != NULL)
+			xfree(options->local_forwards[i].listen_host);
 		xfree(options->local_forwards[i].connect_host);
 	}
 	options->num_local_forwards = 0;
 	for (i = 0; i < options->num_remote_forwards; i++) {
-		xfree(options->remote_forwards[i].listen_host);
+		if (options->remote_forwards[i].listen_host != NULL)
+			xfree(options->remote_forwards[i].listen_host);
 		xfree(options->remote_forwards[i].connect_host);
 	}
 	options->num_remote_forwards = 0;
@@ -299,7 +304,7 @@ process_config_line(Options *options, const char *host,
 	Forward fwd;
 
 	/* Strip trailing whitespace */
-	for(len = strlen(line) - 1; len > 0; len--) {
+	for (len = strlen(line) - 1; len > 0; len--) {
 		if (strchr(WHITESPACE, line[len]) == NULL)
 			break;
 		line[len] = '\0';
@@ -406,6 +411,10 @@ parse_flag:
 
 	case oGssDelegateCreds:
 		intptr = &options->gss_deleg_creds;
+		goto parse_flag;
+
+	case oGssTrustDns:
+		intptr = &options->gss_trust_dns;
 		goto parse_flag;
 
 	case oBatchMode:
@@ -693,7 +702,7 @@ parse_int:
 			fwd.listen_host = cleanhostname(fwd.listen_host);
 		} else {
 			fwd.listen_port = a2port(fwd.listen_host);
-			fwd.listen_host = "";
+			fwd.listen_host = NULL;
 		}
 		if (fwd.listen_port == 0)
 			fatal("%.200s line %d: Badly formatted port number.",
@@ -741,6 +750,9 @@ parse_int:
 
 	case oAddressFamily:
 		arg = strdelim(&s);
+		if (!arg || *arg == '\0')
+			fatal("%s line %d: missing address family.",
+			    filename, linenum);
 		intptr = &options->address_family;
 		if (strcasecmp(arg, "inet") == 0)
 			value = AF_INET;
@@ -791,7 +803,27 @@ parse_int:
 
 	case oControlMaster:
 		intptr = &options->control_master;
-		goto parse_yesnoask;
+		arg = strdelim(&s);
+		if (!arg || *arg == '\0')
+			fatal("%.200s line %d: Missing ControlMaster argument.",
+			    filename, linenum);
+		value = 0;	/* To avoid compiler warning... */
+		if (strcmp(arg, "yes") == 0 || strcmp(arg, "true") == 0)
+			value = SSHCTL_MASTER_YES;
+		else if (strcmp(arg, "no") == 0 || strcmp(arg, "false") == 0)
+			value = SSHCTL_MASTER_NO;
+		else if (strcmp(arg, "auto") == 0)
+			value = SSHCTL_MASTER_AUTO;
+		else if (strcmp(arg, "ask") == 0)
+			value = SSHCTL_MASTER_ASK;
+		else if (strcmp(arg, "autoask") == 0)
+			value = SSHCTL_MASTER_AUTO_ASK;
+		else
+			fatal("%.200s line %d: Bad ControlMaster argument.",
+			    filename, linenum);
+		if (*activep && *intptr == -1)
+			*intptr = value;
+		break;
 
 	case oHashKnownHosts:
 		intptr = &options->hash_known_hosts;
@@ -814,7 +846,7 @@ parse_int:
 	/* Check that there is no garbage at end of line. */
 	if ((arg = strdelim(&s)) != NULL && *arg != '\0') {
 		fatal("%.200s line %d: garbage at end of line; \"%.200s\".",
-		     filename, linenum, arg);
+		    filename, linenum, arg);
 	}
 	return 0;
 }
@@ -892,6 +924,7 @@ initialize_options(Options * options)
 	options->challenge_response_authentication = -1;
 	options->gss_authentication = -1;
 	options->gss_deleg_creds = -1;
+	options->gss_trust_dns = -1;
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
 	options->kbd_interactive_devices = NULL;
@@ -975,6 +1008,8 @@ fill_default_options(Options * options)
 		options->gss_authentication = 0;
 	if (options->gss_deleg_creds == -1)
 		options->gss_deleg_creds = 0;
+	if (options->gss_trust_dns == -1)
+		options->gss_trust_dns = 0;
 	if (options->password_authentication == -1)
 		options->password_authentication = 1;
 	if (options->kbd_interactive_authentication == -1)

@@ -10,7 +10,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: servconf.c,v 1.139 2005/03/01 10:09:52 djm Exp $");
+RCSID("$OpenBSD: servconf.c,v 1.144 2005/08/06 10:03:12 dtucker Exp $");
 
 #include "ssh.h"
 #include "log.h"
@@ -72,6 +72,7 @@ initialize_server_options(ServerOptions *options)
 	options->kerberos_ticket_cleanup = -1;
 	options->kerberos_get_afs_token = -1;
 	options->gss_authentication=-1;
+	options->gss_keyex = -1;
 	options->gss_cleanup_creds = -1;
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
@@ -186,6 +187,8 @@ fill_default_server_options(ServerOptions *options)
 		options->kerberos_get_afs_token = 0;
 	if (options->gss_authentication == -1)
 		options->gss_authentication = 0;
+	if (options->gss_keyex == -1)
+		options->gss_keyex = 0;
 	if (options->gss_cleanup_creds == -1)
 		options->gss_cleanup_creds = 1;
 	if (options->password_authentication == -1)
@@ -201,7 +204,7 @@ fill_default_server_options(ServerOptions *options)
 	if (options->use_login == -1)
 		options->use_login = 0;
 	if (options->compression == -1)
-		options->compression = 1;
+		options->compression = COMP_DELAYED;
 	if (options->allow_tcp_forwarding == -1)
 		options->allow_tcp_forwarding = 1;
 	if (options->gateway_ports == -1)
@@ -270,7 +273,7 @@ typedef enum {
 	sBanner, sUseDNS, sHostbasedAuthentication,
 	sHostbasedUsesNameFromPacketOnly, sClientAliveInterval,
 	sClientAliveCountMax, sAuthorizedKeysFile, sAuthorizedKeysFile2,
-	sGssAuthentication, sGssCleanupCreds, sAcceptEnv,
+	sGssAuthentication, sGssKeyEx, sGssCleanupCreds, sAcceptEnv,
 	sUsePrivilegeSeparation,
 	sDeprecated, sUnsupported
 } ServerOpCodes;
@@ -324,9 +327,11 @@ static struct {
 	{ "afstokenpassing", sUnsupported },
 #ifdef GSSAPI
 	{ "gssapiauthentication", sGssAuthentication },
+	{ "gssapikeyexchange", sGssKeyEx },
 	{ "gssapicleanupcredentials", sGssCleanupCreds },
 #else
 	{ "gssapiauthentication", sUnsupported },
+	{ "gssapikeyexchange", sUnsupported },
 	{ "gssapicleanupcredentials", sUnsupported },
 #endif
 	{ "passwordauthentication", sPasswordAuthentication },
@@ -398,7 +403,7 @@ parse_token(const char *cp, const char *filename,
 static void
 add_listen_addr(ServerOptions *options, char *addr, u_short port)
 {
-	int i;
+	u_int i;
 
 	if (options->num_ports == 0)
 		options->ports[options->num_ports++] = SSH_DEFAULT_PORT;
@@ -438,9 +443,10 @@ process_server_config_line(ServerOptions *options, char *line,
     const char *filename, int linenum)
 {
 	char *cp, **charptr, *arg, *p;
-	int *intptr, value, i, n;
+	int *intptr, value, n;
 	ServerOpCodes opcode;
 	u_short port;
+	u_int i;
 
 	cp = line;
 	arg = strdelim(&cp);
@@ -516,6 +522,12 @@ parse_time:
 		if (arg == NULL || *arg == '\0')
 			fatal("%s line %d: missing address",
 			    filename, linenum);
+		/* check for bare IPv6 address: no "[]" and 2 or more ":" */
+		if (strchr(arg, '[') == NULL && (p = strchr(arg, ':')) != NULL
+		    && strchr(p+1, ':') != NULL) {
+			add_listen_addr(options, arg, 0);
+			break;
+		}
 		p = hpdelim(&arg);
 		if (p == NULL)
 			fatal("%s line %d: bad address:port usage",
@@ -532,6 +544,9 @@ parse_time:
 
 	case sAddressFamily:
 		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%s line %d: missing address family.",
+			    filename, linenum);
 		intptr = &options->address_family;
 		if (options->listen_addrs != NULL)
 			fatal("%s line %d: address family must be specified before "
@@ -659,6 +674,10 @@ parse_flag:
 		intptr = &options->gss_authentication;
 		goto parse_flag;
 
+	case sGssKeyEx:
+		intptr = &options->gss_keyex;
+		goto parse_flag;
+
 	case sGssCleanupCreds:
 		intptr = &options->gss_cleanup_creds;
 		goto parse_flag;
@@ -721,7 +740,23 @@ parse_flag:
 
 	case sCompression:
 		intptr = &options->compression;
-		goto parse_flag;
+		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%s line %d: missing yes/no/delayed "
+			    "argument.", filename, linenum);
+		value = 0;	/* silence compiler */
+		if (strcmp(arg, "delayed") == 0)
+			value = COMP_DELAYED;
+		else if (strcmp(arg, "yes") == 0)
+			value = COMP_ZLIB;
+		else if (strcmp(arg, "no") == 0)
+			value = COMP_NONE;
+		else
+			fatal("%s line %d: Bad yes/no/delayed "
+			    "argument: %s", filename, linenum, arg);
+		if (*intptr == -1)
+			*intptr = value;
+		break;
 
 	case sGatewayPorts:
 		intptr = &options->gateway_ports;
@@ -1001,7 +1036,7 @@ parse_server_config(ServerOptions *options, const char *filename, Buffer *conf)
 
 	obuf = cbuf = xstrdup(buffer_ptr(conf));
 	linenum = 1;
-	while((cp = strsep(&cbuf, "\n")) != NULL) {
+	while ((cp = strsep(&cbuf, "\n")) != NULL) {
 		if (process_server_config_line(options, cp, filename,
 		    linenum++) != 0)
 			bad_options++;

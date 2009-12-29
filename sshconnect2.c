@@ -23,7 +23,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshconnect2.c,v 1.138 2004/06/13 12:53:24 djm Exp $");
+RCSID("$OpenBSD: sshconnect2.c,v 1.142 2005/08/30 22:08:05 djm Exp $");
 
 #include "openbsd-compat/sys-queue.h"
 
@@ -87,16 +87,24 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 #ifdef GSSAPI
 	char *orig, *gss;
 	int len;
+        char *gss_host;
 #endif
 
 	xxx_host = host;
 	xxx_hostaddr = hostaddr;
 
 #ifdef GSSAPI
+	/* Add the GSSAPI mechanisms currently supported on this client to
+	 * the key exchange algorithm proposal */
 	orig = myproposal[PROPOSAL_KEX_ALGS];
-	gss = ssh_gssapi_client_mechanisms(get_canonical_hostname(1));
-	debug("Offering GSSAPI proposal: %s",gss);
+	if (options.gss_trust_dns)
+		gss_host = (char *)get_canonical_hostname(1);
+	else
+		gss_host = host;
+
+	gss = ssh_gssapi_client_mechanisms(gss_host);
 	if (gss) {
+		debug("Offering GSSAPI proposal: %s", gss);
 		len = strlen(orig) + strlen(gss) + 2;
 		myproposal[PROPOSAL_KEX_ALGS] = xmalloc(len);
 		snprintf(myproposal[PROPOSAL_KEX_ALGS], len, "%s,%s", gss, 
@@ -118,10 +126,10 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	    compat_cipher_proposal(myproposal[PROPOSAL_ENC_ALGS_STOC]);
 	if (options.compression) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib,none";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib@openssh.com,zlib,none";
 	} else {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com,zlib";
 	}
 	if (options.macs != NULL) {
 		myproposal[PROPOSAL_MAC_ALGS_CTOS] =
@@ -132,6 +140,8 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 		    options.hostkeyalgorithms;
 
 #ifdef GSSAPI
+	/* If we've got GSSAPI algorithms, then we also support the
+	 * 'null' hostkey, as a last resort */
 	if (gss) {
 		orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
 		len = strlen(orig) + sizeof(",null");
@@ -151,6 +161,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
 #ifdef GSSAPI
 	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
+	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_client;
 #endif
 	kex->client_version_string=client_version_string;
 	kex->server_version_string=server_version_string;
@@ -158,6 +169,8 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 
 #ifdef GSSAPI
 	kex->gss_deleg_creds = options.gss_deleg_creds;
+	kex->gss_trust_dns = options.gss_trust_dns;
+	kex->gss_host = gss_host;
 #endif
 
 	xxx_kex = kex;
@@ -242,7 +255,7 @@ void	input_gssapi_token(int type, u_int32_t, void *);
 void	input_gssapi_hash(int type, u_int32_t, void *);
 void	input_gssapi_error(int, u_int32_t, void *);
 void	input_gssapi_errtok(int, u_int32_t, void *);
-int	userauth_gsskeyx(Authctxt *authctxt);
+int	userauth_gsskeyex(Authctxt *authctxt);
 #endif
 
 void	userauth(Authctxt *, char *);
@@ -258,8 +271,8 @@ static char *authmethods_get(void);
 
 Authmethod authmethods[] = {
 #ifdef GSSAPI
-	{"gssapi-keyx",
-		userauth_gsskeyx,
+	{"gssapi-keyex",
+		userauth_gsskeyex,
 		&options.gss_authentication,
 		NULL},
 	{"gssapi-with-mic",
@@ -391,7 +404,7 @@ void
 input_userauth_error(int type, u_int32_t seq, void *ctxt)
 {
 	fatal("input_userauth_error: bad message during authentication: "
-	   "type %d", type);
+	    "type %d", type);
 }
 
 void
@@ -521,7 +534,7 @@ userauth_gssapi(Authctxt *authctxt)
 {
 	Gssctxt *gssctxt = NULL;
 	static gss_OID_set gss_supported = NULL;
-	static int mech = 0;
+	static u_int mech = 0;
 	OM_uint32 min;
 	int ok = 0;
 
@@ -548,7 +561,8 @@ userauth_gssapi(Authctxt *authctxt)
 		}
 	}
 
-	if (!ok) return 0;
+	if (!ok)
+		return 0;
 
 	authctxt->methoddata=(void *)gssctxt;
 
@@ -583,7 +597,8 @@ process_gssapi_token(void *ctxt, gss_buffer_t recv_tok)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt = authctxt->methoddata;
 	gss_buffer_desc send_tok = GSS_C_EMPTY_BUFFER;
-	gss_buffer_desc gssbuf, mic;
+	gss_buffer_desc mic = GSS_C_EMPTY_BUFFER;
+	gss_buffer_desc gssbuf;
 	OM_uint32 status, ms, flags;
 	Buffer b;
 
@@ -717,7 +732,7 @@ input_gssapi_errtok(int type, u_int32_t plen, void *ctxt)
 
 	/* Stick it into GSSAPI and see what it says */
 	status = ssh_gssapi_init_ctx(gssctxt, options.gss_deleg_creds,
-				     &recv_tok, &send_tok, NULL);
+	    &recv_tok, &send_tok, NULL);
 
 	xfree(recv_tok.value);
 	gss_release_buffer(&ms, &send_tok);
@@ -745,10 +760,11 @@ input_gssapi_error(int type, u_int32_t plen, void *ctxt)
 }
 
 int
-userauth_gsskeyx(Authctxt *authctxt)
+userauth_gsskeyex(Authctxt *authctxt)
 {
 	Buffer b;
-	gss_buffer_desc gssbuf, mic;
+	gss_buffer_desc gssbuf;
+	gss_buffer_desc mic = GSS_C_EMPTY_BUFFER;
 	OM_uint32 ms;
 
 	static int attempt = 0;

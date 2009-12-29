@@ -96,9 +96,10 @@ if [ "x$TEST_SSH_SCP" != "x" ]; then
 fi
 
 # Path to sshd must be absolute for rexec
-if [ ! -x /$SSHD ]; then
-	SSHD=`which sshd`
-fi
+case "$SSHD" in
+/*) ;;
+*) SSHD=`which sshd` ;;
+esac
 
 if [ "x$TEST_SSH_LOGFILE" = "x" ]; then
 	TEST_SSH_LOGFILE=/dev/null
@@ -197,7 +198,7 @@ cat << EOF > $OBJ/sshd_config
 	#ListenAddress		::1
 	PidFile			$PIDFILE
 	AuthorizedKeysFile	$OBJ/authorized_keys_%u
-	LogLevel		DEBUG
+	LogLevel		VERBOSE
 	AcceptEnv		_XXX_TEST_*
 	AcceptEnv		_XXX_TEST
 	Subsystem	sftp	$SFTPSERVER

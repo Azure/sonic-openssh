@@ -33,9 +33,9 @@ DESCRIPTION
      group exchange (DH-GEX).  See the MODULI GENERATION section for details.
 
      Normally each user wishing to use SSH with RSA or DSA authentication runs
-     this once to create the authentication key in $HOME/.ssh/identity,
-     $HOME/.ssh/id_dsa or $HOME/.ssh/id_rsa.  Additionally, the system admin-
-     istrator may use this to generate host keys, as seen in /etc/rc.
+     this once to create the authentication key in ~/.ssh/identity,
+     ~/.ssh/id_dsa or ~/.ssh/id_rsa.  Additionally, the system administrator
+     may use this to generate host keys, as seen in /etc/rc.
 
      Normally this program generates the key and asks for a file in which to
      store the private key.  The public key is stored in a file with the same
@@ -75,8 +75,8 @@ DESCRIPTION
 
      -b bits
              Specifies the number of bits in the key to create.  Minimum is
-             512 bits.  Generally, 1024 bits is considered sufficient.  The
-             default is 1024 bits.
+             512 bits.  Generally, 2048 bits is considered sufficient.  The
+             default is 2048 bits.
 
      -C comment
              Provides a new comment.
@@ -110,13 +110,14 @@ DESCRIPTION
      -g      Use generic DNS format when printing fingerprint resource records
              using the -r command.
 
-     -H      Hash a known_hosts file, printing the result to standard output.
-             This replaces all hostnames and addresses with hashed representa-
-             tions.  These hashes may be used normally by ssh and sshd, but
-             they do not reveal identifying information should the file's con-
-             tents be disclosed.  This option will not modify existing hashed
-             hostnames and is therefore safe to use on files that mix hashed
-             and non-hashed names.
+     -H      Hash a known_hosts file.  This replaces all hostnames and ad-
+             dresses with hashed representations within the specified file;
+             the original content is moved to a file with a .old suffix.
+             These hashes may be used normally by ssh and sshd, but they do
+             not reveal identifying information should the file's contents be
+             disclosed.  This option will not modify existing hashed hostnames
+             and is therefore safe to use on files that mix hashed and non-
+             hashed names.
 
      -i      This option will read an unencrypted private (or public) key file
              in SSH2-compatible format and print an OpenSSH compatible private
@@ -216,7 +217,7 @@ MODULI GENERATION
      a connection share common moduli.
 
 FILES
-     $HOME/.ssh/identity
+     ~/.ssh/identity
              Contains the protocol version 1 RSA authentication identity of
              the user.  This file should not be readable by anyone but the us-
              er.  It is possible to specify a passphrase when generating the
@@ -225,14 +226,14 @@ FILES
              ssh-keygen but it is offered as the default file for the private
              key.  ssh(1) will read this file when a login attempt is made.
 
-     $HOME/.ssh/identity.pub
+     ~/.ssh/identity.pub
              Contains the protocol version 1 RSA public key for authentica-
              tion.  The contents of this file should be added to
-             $HOME/.ssh/authorized_keys on all machines where the user wishes
-             to log in using RSA authentication.  There is no need to keep the
+             ~/.ssh/authorized_keys on all machines where the user wishes to
+             log in using RSA authentication.  There is no need to keep the
              contents of this file secret.
 
-     $HOME/.ssh/id_dsa
+     ~/.ssh/id_dsa
              Contains the protocol version 2 DSA authentication identity of
              the user.  This file should not be readable by anyone but the us-
              er.  It is possible to specify a passphrase when generating the
@@ -241,14 +242,14 @@ FILES
              ssh-keygen but it is offered as the default file for the private
              key.  ssh(1) will read this file when a login attempt is made.
 
-     $HOME/.ssh/id_dsa.pub
+     ~/.ssh/id_dsa.pub
              Contains the protocol version 2 DSA public key for authentica-
              tion.  The contents of this file should be added to
-             $HOME/.ssh/authorized_keys on all machines where the user wishes
-             to log in using public key authentication.  There is no need to
-             keep the contents of this file secret.
+             ~/.ssh/authorized_keys on all machines where the user wishes to
+             log in using public key authentication.  There is no need to keep
+             the contents of this file secret.
 
-     $HOME/.ssh/id_rsa
+     ~/.ssh/id_rsa
              Contains the protocol version 2 RSA authentication identity of
              the user.  This file should not be readable by anyone but the us-
              er.  It is possible to specify a passphrase when generating the
@@ -257,12 +258,12 @@ FILES
              ssh-keygen but it is offered as the default file for the private
              key.  ssh(1) will read this file when a login attempt is made.
 
-     $HOME/.ssh/id_rsa.pub
+     ~/.ssh/id_rsa.pub
              Contains the protocol version 2 RSA public key for authentica-
              tion.  The contents of this file should be added to
-             $HOME/.ssh/authorized_keys on all machines where the user wishes
-             to log in using public key authentication.  There is no need to
-             keep the contents of this file secret.
+             ~/.ssh/authorized_keys on all machines where the user wishes to
+             log in using public key authentication.  There is no need to keep
+             the contents of this file secret.
 
      /etc/moduli
              Contains Diffie-Hellman groups used for DH-GEX.  The file format
@@ -281,4 +282,4 @@ AUTHORS
      created OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.6                   September 25, 1999                             5
+OpenBSD 3.8                   September 25, 1999                             5

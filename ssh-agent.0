@@ -45,13 +45,12 @@ DESCRIPTION
 
      The agent initially does not have any private keys.  Keys are added using
      ssh-add(1).  When executed without arguments, ssh-add(1) adds the files
-     $HOME/.ssh/id_rsa, $HOME/.ssh/id_dsa and $HOME/.ssh/identity.  If the
-     identity has a passphrase, ssh-add(1) asks for the passphrase (using a
-     small X11 application if running under X11, or from the terminal if run-
-     ning without X).  It then sends the identity to the agent.  Several iden-
-     tities can be stored in the agent; the agent can automatically use any of
-     these identities.  ssh-add -l displays the identities currently held by
-     the agent.
+     ~/.ssh/id_rsa, ~/.ssh/id_dsa and ~/.ssh/identity.  If the identity has a
+     passphrase, ssh-add(1) asks for the passphrase (using a small X11 appli-
+     cation if running under X11, or from the terminal if running without X).
+     It then sends the identity to the agent.  Several identities can be
+     stored in the agent; the agent can automatically use any of these identi-
+     ties.  ssh-add -l displays the identities currently held by the agent.
 
      The idea is that the agent is run in the user's local PC, laptop, or ter-
      minal.  Authentication data need not be stored on any other machine, and
@@ -87,15 +86,15 @@ DESCRIPTION
      terminates.
 
 FILES
-     $HOME/.ssh/identity
+     ~/.ssh/identity
              Contains the protocol version 1 RSA authentication identity of
              the user.
 
-     $HOME/.ssh/id_dsa
+     ~/.ssh/id_dsa
              Contains the protocol version 2 DSA authentication identity of
              the user.
 
-     $HOME/.ssh/id_rsa
+     ~/.ssh/id_rsa
              Contains the protocol version 2 RSA authentication identity of
              the user.
 
@@ -115,4 +114,4 @@ AUTHORS
      ated OpenSSH.  Markus Friedl contributed the support for SSH protocol
      versions 1.5 and 2.0.
 
-OpenBSD 3.6                   September 25, 1999                             2
+OpenBSD 3.8                   September 25, 1999                             2

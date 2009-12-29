@@ -194,6 +194,7 @@ input_userauth_request(int type, u_int32_t seq, void *ctxt)
 #endif
 
 	authctxt->postponed = 0;
+	authctxt->server_caused_failure = 0;
 
 	/* try to authenticate user */
 	m = authmethod_lookup(method);
@@ -236,7 +237,7 @@ userauth_finish(Authctxt *authctxt, int authenticated, char *method)
 				packet_write_wait();
 			}
 			fatal("Access denied for user %s by PAM account "
-			   "configuration", authctxt->user);
+			    "configuration", authctxt->user);
 		}
 	}
 #endif
@@ -264,7 +265,9 @@ userauth_finish(Authctxt *authctxt, int authenticated, char *method)
 		/* now we can break out */
 		authctxt->success = 1;
 	} else {
-		if (authctxt->failures++ > options.max_authtries) {
+		/* Dont count server configuration issues against the client */
+		if (!authctxt->server_caused_failure && 
+		    authctxt->failures++ > options.max_authtries) {
 #ifdef SSH_AUDIT_EVENTS
 			PRIVSEP(audit_event(SSH_LOGIN_EXCEED_MAXTRIES));
 #endif

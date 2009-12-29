@@ -25,7 +25,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: monitor.c,v 1.62 2005/01/30 11:18:08 dtucker Exp $");
+RCSID("$OpenBSD: monitor.c,v 1.63 2005/03/10 22:01:05 deraadt Exp $");
 
 #include <openssl/dh.h>
 
@@ -316,6 +316,8 @@ monitor_child_preauth(Authctxt *_authctxt, struct monitor *pmonitor)
 
 	authctxt = _authctxt;
 	memset(authctxt, 0, sizeof(*authctxt));
+
+	authctxt->loginmsg = &loginmsg;
 
 	if (compat20) {
 		mon_dispatch = mon_dispatch_proto20;
@@ -882,8 +884,8 @@ int
 mm_answer_pam_query(int sock, Buffer *m)
 {
 	char *name, *info, **prompts;
-	u_int num, *echo_on;
-	int i, ret;
+	u_int i, num, *echo_on;
+	int ret;
 
 	debug3("%s", __func__);
 	sshpam_authok = NULL;
@@ -916,8 +918,8 @@ int
 mm_answer_pam_respond(int sock, Buffer *m)
 {
 	char **resp;
-	u_int num;
-	int i, ret;
+	u_int i, num;
+	int ret;
 
 	debug3("%s", __func__);
 	sshpam_authok = NULL;
@@ -991,7 +993,7 @@ mm_answer_keyallowed(int sock, Buffer *m)
 	debug3("%s: key_from_blob: %p", __func__, key);
 
 	if (key != NULL && authctxt->valid) {
-		switch(type) {
+		switch (type) {
 		case MM_USERKEY:
 			allowed = options.pubkey_authentication &&
 			    user_key_allowed(authctxt->pw, key);
@@ -1538,7 +1540,6 @@ mm_answer_audit_event(int socket, Buffer *m)
 	debug3("%s entering", __func__);
 
 	event = buffer_get_int(m);
-	buffer_free(m);
 	switch(event) {
 	case SSH_AUTH_FAIL_PUBKEY:
 	case SSH_AUTH_FAIL_HOSTBASED:
@@ -1567,7 +1568,6 @@ mm_answer_audit_command(int socket, Buffer *m)
 	/* sanity check command, if so how? */
 	audit_run_command(cmd);
 	xfree(cmd);
-	buffer_free(m);
 	return (0);
 }
 #endif /* SSH_AUDIT_EVENTS */
@@ -1640,6 +1640,7 @@ mm_get_kex(Buffer *m)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 #ifdef GSSAPI
 	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
 #endif
 	kex->server = 1;
 	kex->hostkey_type = buffer_get_int(m);
@@ -1938,10 +1939,13 @@ mm_answer_gss_userok(int sock, Buffer *m)
 int 
 mm_answer_gss_sign(int socket, Buffer *m)
 {
-	gss_buffer_desc data, hash;
+	gss_buffer_desc data;
+	gss_buffer_desc hash = GSS_C_EMPTY_BUFFER;
 	OM_uint32 major, minor;
+	u_int len;
 
-	data.value = buffer_get_string(m, &data.length);
+	data.value = buffer_get_string(m, &len);
+	data.length = len;
 	if (data.length != 20) 
 		fatal("%s: data length incorrect: %d", __func__, data.length);
 

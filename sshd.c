@@ -42,7 +42,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshd.c,v 1.308 2005/02/08 22:24:57 dtucker Exp $");
+RCSID("$OpenBSD: sshd.c,v 1.312 2005/07/25 11:59:40 markus Exp $");
 
 #include <openssl/dh.h>
 #include <openssl/bn.h>
@@ -85,6 +85,10 @@ RCSID("$OpenBSD: sshd.c,v 1.308 2005/02/08 22:24:57 dtucker Exp $");
 #include "monitor.h"
 #include "monitor_wrap.h"
 #include "monitor_fdpass.h"
+
+#ifdef USE_SECURITY_SESSION_API
+#include <Security/AuthSession.h>
+#endif
 
 #ifdef LIBWRAP
 #include <tcpd.h>
@@ -358,7 +362,8 @@ key_regeneration_alarm(int sig)
 static void
 sshd_exchange_identification(int sock_in, int sock_out)
 {
-	int i, mismatch;
+	u_int i;
+	int mismatch;
 	int remote_major, remote_minor;
 	int major, minor;
 	char *s;
@@ -670,6 +675,12 @@ privsep_postauth(Authctxt *authctxt)
 
 	/* It is safe now to apply the key state */
 	monitor_apply_keystate(pmonitor);
+
+	/*
+	 * Tell the packet layer that authentication was successful, since
+	 * this information is not part of the key state.
+	 */
+	packet_set_authenticated();
 }
 
 static char *
@@ -1033,7 +1044,7 @@ main(int ac, char **av)
 	/*
 	 * Unset KRB5CCNAME, otherwise the user's session may inherit it from
 	 * root's environment
-	 */ 
+	 */
 	if (getenv("KRB5CCNAME") != NULL)
 		unsetenv("KRB5CCNAME");
 
@@ -1111,6 +1122,7 @@ main(int ac, char **av)
 		options.protocol &= ~SSH_PROTO_1;
 	}
 #ifndef GSSAPI
+	/* The GSSAPI key exchange can run without a host key */
 	if ((options.protocol & SSH_PROTO_2) && !sensitive_data.have_ssh2_key) {
 		logit("Disabling protocol version 2. Could not load host key");
 		options.protocol &= ~SSH_PROTO_2;
@@ -1617,19 +1629,22 @@ main(int ac, char **av)
 	signal(SIGCHLD, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 
-	/* Set SO_KEEPALIVE if requested. */
-	if (options.tcp_keep_alive &&
-	    setsockopt(sock_in, SOL_SOCKET, SO_KEEPALIVE, &on,
-	    sizeof(on)) < 0)
-		error("setsockopt SO_KEEPALIVE: %.100s", strerror(errno));
-
 	/*
 	 * Register our connection.  This turns encryption off because we do
 	 * not have a key.
 	 */
 	packet_set_connection(sock_in, sock_out);
+	packet_set_server();
 
-	remote_port = get_remote_port();
+	/* Set SO_KEEPALIVE if requested. */
+	if (options.tcp_keep_alive && packet_connection_is_on_socket() &&
+	    setsockopt(sock_in, SOL_SOCKET, SO_KEEPALIVE, &on, sizeof(on)) < 0)
+		error("setsockopt SO_KEEPALIVE: %.100s", strerror(errno));
+
+	if ((remote_port = get_remote_port()) < 0) {
+		debug("get_remote_port failed");
+		cleanup_exit(255);
+	}
 	remote_ip = get_remote_ipaddr();
 
 #ifdef SSH_AUDIT_EVENTS
@@ -1655,6 +1670,62 @@ main(int ac, char **av)
 	/* Log the connection. */
 	verbose("Connection from %.500s port %d", remote_ip, remote_port);
 
+#ifdef USE_SECURITY_SESSION_API
+	/*
+	 * Create a new security session for use by the new user login if
+	 * the current session is the root session or we are not launched
+	 * by inetd (eg: debugging mode or server mode).  We do not
+	 * necessarily need to create a session if we are launched from
+	 * inetd because Panther xinetd will create a session for us.
+	 *
+	 * The only case where this logic will fail is if there is an
+	 * inetd running in a non-root session which is not creating
+	 * new sessions for us.  Then all the users will end up in the
+	 * same session (bad).
+	 *
+	 * When the client exits, the session will be destroyed for us
+	 * automatically.
+	 *
+	 * We must create the session before any credentials are stored
+	 * (including AFS pags, which happens a few lines below).
+	 */
+	{
+		OSStatus err = 0;
+		SecuritySessionId sid = 0;
+		SessionAttributeBits sattrs = 0;
+
+		err = SessionGetInfo(callerSecuritySession, &sid, &sattrs);
+		if (err)
+			error("SessionGetInfo() failed with error %.8X",
+			    (unsigned) err);
+		else
+			debug("Current Session ID is %.8X / Session Attributes a
+re %.8X",
+			    (unsigned) sid, (unsigned) sattrs);
+
+		if (inetd_flag && !(sattrs & sessionIsRoot))
+			debug("Running in inetd mode in a non-root session... "
+			    "assuming inetd created the session for us.");
+		else {
+			debug("Creating new security session...");
+			err = SessionCreate(0, sessionHasTTY | sessionIsRemote);
+			if (err)
+				error("SessionCreate() failed with error %.8X",
+				    (unsigned) err);
+
+			err = SessionGetInfo(callerSecuritySession, &sid, 
+			    &sattrs);
+			if (err)
+				error("SessionGetInfo() failed with error %.8X",
+				    (unsigned) err);
+			else
+				debug("New Session ID is %.8X / Session Attribut
+es are %.8X",
+				    (unsigned) sid, (unsigned) sattrs);
+		}
+	}
+#endif
+
 	/*
 	 * We don\'t want to listen forever unless the other side
 	 * successfully authenticates itself.  So we set up an alarm which is
@@ -1674,6 +1745,8 @@ main(int ac, char **av)
 	/* allocate authentication context */
 	authctxt = xmalloc(sizeof(*authctxt));
 	memset(authctxt, 0, sizeof(*authctxt));
+
+	authctxt->loginmsg = &loginmsg;
 
 	/* XXX global for cleanup, access from other modules */
 	the_authctxt = authctxt;
@@ -1898,7 +1971,7 @@ do_ssh1_kex(void)
 	if (!rsafail) {
 		BN_mask_bits(session_key_int, sizeof(session_key) * 8);
 		len = BN_num_bytes(session_key_int);
-		if (len < 0 || len > sizeof(session_key)) {
+		if (len < 0 || (u_int)len > sizeof(session_key)) {
 			error("do_connection: bad session key len from %s: "
 			    "session_key_int %d > sizeof(session_key) %lu",
 			    get_remote_ipaddr(), len, (u_long)sizeof(session_key));
@@ -1985,10 +2058,14 @@ do_ssh2_kex(void)
 		myproposal[PROPOSAL_MAC_ALGS_CTOS] =
 		myproposal[PROPOSAL_MAC_ALGS_STOC] = options.macs;
 	}
-	if (!options.compression) {
+	if (options.compression == COMP_NONE) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
 		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none";
+	} else if (options.compression == COMP_DELAYED) {
+		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com";
 	}
+	
 	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = list_hostkey_types();
 
 	/* start key exchange */
@@ -2008,7 +2085,10 @@ do_ssh2_kex(void)
 	if (strlen(myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS]) == 0)
 		orig = NULL;
 
-	gss = ssh_gssapi_server_mechanisms();
+	if (options.gss_keyex)
+		gss = ssh_gssapi_server_mechanisms();
+	else
+		gss = NULL;
 
 	if (gss && orig) {
 		int len = strlen(orig) + strlen(gss) + 2;
@@ -2041,6 +2121,7 @@ do_ssh2_kex(void)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 #ifdef GSSAPI
 	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
 #endif
   	kex->server = 1;
   	kex->client_version_string=client_version_string;

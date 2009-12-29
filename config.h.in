@@ -1,5 +1,5 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
-/* $Id: acconfig.h,v 1.181 2005/02/25 23:07:38 dtucker Exp $ */
+/* $Id: acconfig.h,v 1.183 2005/07/07 10:33:36 dtucker Exp $ */
 
 /*
  * Copyright (c) 1999-2003 Damien Miller.  All rights reserved.
@@ -119,9 +119,6 @@
 /* Define if you are on NeXT */
 #undef HAVE_NEXT
 
-/* Define if you are on NEWS-OS */
-#undef HAVE_NEWS4
-
 /* Define if you want to enable PAM support */
 #undef USE_PAM
 
@@ -204,9 +201,6 @@
 
 /* Define if you don't want to use lastlog in session.c */
 #undef NO_SSH_LASTLOG
-
-/* Define if have krb5_init_ets */
-#undef KRB5_INIT_ETS
 
 /* Define if you don't want to use utmp */
 #undef DISABLE_UTMP
@@ -462,6 +456,18 @@
    */
 #undef AIX_GETNAMEINFO_HACK
 
+/* getgroups(0,NULL) will return -1 */
+#undef BROKEN_GETGROUPS
+
+/* ia_uinfo routines not supported by OS yet */
+#undef BROKEN_LIBIAF
+
+/* Ultrix mmap can't map files */
+#undef BROKEN_MMAP
+
+/* LynxOS has broken setvbuf() implementation */
+#undef BROKEN_SETVBUF
+
 /* Define to 1 if the `getpgrp' function requires zero arguments. */
 #undef GETPGRP_VOID
 
@@ -470,6 +476,9 @@
 
 /* Define to 1 if you have the `arc4random' function. */
 #undef HAVE_ARC4RANDOM
+
+/* OpenBSD's gcc has sentinel */
+#undef HAVE_ATTRIBUTE__SENTINEL__
 
 /* Define to 1 if you have the `b64_ntop' function. */
 #undef HAVE_B64_NTOP
@@ -525,6 +534,18 @@
    don't. */
 #undef HAVE_DECL_PASSWDEXPIRED
 
+/* Define to 1 if you have the declaration of `setauthdb', and to 0 if you
+   don't. */
+#undef HAVE_DECL_SETAUTHDB
+
+/* Define to 1 if you have the declaration of `_getlong', and to 0 if you
+   don't. */
+#undef HAVE_DECL__GETLONG
+
+/* Define to 1 if you have the declaration of `_getshort', and to 0 if you
+   don't. */
+#undef HAVE_DECL__GETSHORT
+
 /* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
 
@@ -542,9 +563,6 @@
 
 /* Define to 1 if you have the `endutxent' function. */
 #undef HAVE_ENDUTXENT
-
-/* Define to 1 if you have the `fchdir' function. */
-#undef HAVE_FCHDIR
 
 /* Define to 1 if you have the `fchmod' function. */
 #undef HAVE_FCHMOD
@@ -654,6 +672,9 @@
 /* Define to 1 if you have the <gssapi_krb5.h> header file. */
 #undef HAVE_GSSAPI_KRB5_H
 
+/* Define to 1 if you have the <iaf.h> header file. */
+#undef HAVE_IAF_H
+
 /* Define to 1 if you have the <ia.h> header file. */
 #undef HAVE_IA_H
 
@@ -689,6 +710,9 @@
 
 /* Define to 1 if you have the <libgen.h> header file. */
 #undef HAVE_LIBGEN_H
+
+/* Define to 1 if you have the `iaf' library (-liaf). */
+#undef HAVE_LIBIAF
 
 /* Define to 1 if you have the `nsl' library (-lnsl). */
 #undef HAVE_LIBNSL
@@ -903,6 +927,9 @@
 /* Define to 1 if you have the `socketpair' function. */
 #undef HAVE_SOCKETPAIR
 
+/* Have PEERCRED socket option */
+#undef HAVE_SO_PEERCRED
+
 /* Define to 1 if you have the <stddef.h> header file. */
 #undef HAVE_STDDEF_H
 
@@ -911,6 +938,9 @@
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the `strdup' function. */
+#undef HAVE_STRDUP
 
 /* Define to 1 if you have the `strerror' function. */
 #undef HAVE_STRERROR
@@ -938,6 +968,12 @@
 
 /* Define to 1 if you have the `strsep' function. */
 #undef HAVE_STRSEP
+
+/* Define to 1 if you have the `strtoll' function. */
+#undef HAVE_STRTOLL
+
+/* Define to 1 if you have the `strtonum' function. */
+#undef HAVE_STRTONUM
 
 /* Define to 1 if you have the `strtoul' function. */
 #undef HAVE_STRTOUL
@@ -995,6 +1031,9 @@
 
 /* Define to 1 if you have the <sys/strtio.h> header file. */
 #undef HAVE_SYS_STRTIO_H
+
+/* Force use of sys/syslog.h on Ultrix */
+#undef HAVE_SYS_SYSLOG_H
 
 /* Define to 1 if you have the <sys/sysmacros.h> header file. */
 #undef HAVE_SYS_SYSMACROS_H
@@ -1095,6 +1134,15 @@
 /* Define to 1 if you have the `__b64_pton' function. */
 #undef HAVE___B64_PTON
 
+/* max value of long long calculated by configure */
+#undef LLONG_MAX
+
+/* min value of long long calculated by configure */
+#undef LLONG_MIN
+
+/* Need setpgrp to acquire controlling tty */
+#undef NEED_SETPRGP
+
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 
@@ -1133,6 +1181,9 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Support passwords > 8 chars */
+#undef UNIXWARE_LONG_PASSWORDS
 
 /* Use BSM audit module */
 #undef USE_BSM_AUDIT
