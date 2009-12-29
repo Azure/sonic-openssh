@@ -42,7 +42,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshd.c,v 1.312 2005/07/25 11:59:40 markus Exp $");
+RCSID("$OpenBSD: sshd.c,v 1.318 2005/12/24 02:27:41 djm Exp $");
 
 #include <openssl/dh.h>
 #include <openssl/bn.h>
@@ -637,16 +637,8 @@ privsep_postauth(Authctxt *authctxt)
 	if (authctxt->pw->pw_uid == 0 || options.use_login) {
 #endif
 		/* File descriptor passing is broken or root login */
-		monitor_apply_keystate(pmonitor);
 		use_privsep = 0;
-		return;
-	}
-
-	/* Authentication complete */
-	alarm(0);
-	if (startup_pipe != -1) {
-		close(startup_pipe);
-		startup_pipe = -1;
+		goto skip;
 	}
 
 	/* New socket pair */
@@ -673,6 +665,7 @@ privsep_postauth(Authctxt *authctxt)
 	/* Drop privileges */
 	do_setusercontext(authctxt->pw);
 
+ skip:
 	/* It is safe now to apply the key state */
 	monitor_apply_keystate(pmonitor);
 
@@ -804,6 +797,7 @@ send_rexec_state(int fd, Buffer *conf)
 	 *	bignum	iqmp			"
 	 *	bignum	p			"
 	 *	bignum	q			"
+	 *	string rngseed		(only if OpenSSL is not self-seeded)
 	 */
 	buffer_init(&m);
 	buffer_put_cstring(&m, buffer_ptr(conf));
@@ -819,6 +813,10 @@ send_rexec_state(int fd, Buffer *conf)
 		buffer_put_bignum(&m, sensitive_data.server_key->rsa->q);
 	} else
 		buffer_put_int(&m, 0);
+
+#ifndef OPENSSL_PRNG_ONLY
+	rexec_send_rng_seed(&m);
+#endif
 
 	if (ssh_msg_send(fd, 0, &m) == -1)
 		fatal("%s: ssh_msg_send failed", __func__);
@@ -862,6 +860,11 @@ recv_rexec_state(int fd, Buffer *conf)
 		rsa_generate_additional_parameters(
 		    sensitive_data.server_key->rsa);
 	}
+
+#ifndef OPENSSL_PRNG_ONLY
+	rexec_recv_rng_seed(&m);
+#endif
+
 	buffer_free(&m);
 
 	debug3("%s: done", __func__);
@@ -917,6 +920,9 @@ main(int ac, char **av)
 
 	if (geteuid() == 0 && setgroups(0, NULL) == -1)
 		debug("setgroups(): %.200s", strerror(errno));
+
+	/* Ensure that fds 0, 1 and 2 are open or directed to /dev/null */
+	sanitise_stdfd();
 
 	/* Initialize configuration options to their default values. */
 	initialize_server_options(&options);
@@ -1055,8 +1061,6 @@ main(int ac, char **av)
 	drop_cray_privs();
 #endif
 
-	seed_rng();
-
 	sensitive_data.server_key = NULL;
 	sensitive_data.ssh1_host_key = NULL;
 	sensitive_data.have_ssh1_key = 0;
@@ -1074,6 +1078,8 @@ main(int ac, char **av)
 
 	if (!rexec_flag)
 		buffer_free(&cfg);
+
+	seed_rng();
 
 	/* Fill in default values for those options not explicitly set. */
 	fill_default_server_options(&options);
@@ -1645,7 +1651,12 @@ main(int ac, char **av)
 		debug("get_remote_port failed");
 		cleanup_exit(255);
 	}
-	remote_ip = get_remote_ipaddr();
+
+	/*
+	 * We use get_canonical_hostname with usedns = 0 instead of
+	 * get_remote_ipaddr here so IP options will be checked.
+	 */
+	remote_ip = get_canonical_hostname(0);
 
 #ifdef SSH_AUDIT_EVENTS
 	audit_connection_from(remote_ip, remote_port);
@@ -1699,8 +1710,7 @@ main(int ac, char **av)
 			error("SessionGetInfo() failed with error %.8X",
 			    (unsigned) err);
 		else
-			debug("Current Session ID is %.8X / Session Attributes a
-re %.8X",
+			debug("Current Session ID is %.8X / Session Attributes are %.8X",
 			    (unsigned) sid, (unsigned) sattrs);
 
 		if (inetd_flag && !(sattrs & sessionIsRoot))
@@ -1719,18 +1729,17 @@ re %.8X",
 				error("SessionGetInfo() failed with error %.8X",
 				    (unsigned) err);
 			else
-				debug("New Session ID is %.8X / Session Attribut
-es are %.8X",
+				debug("New Session ID is %.8X / Session Attributes are %.8X",
 				    (unsigned) sid, (unsigned) sattrs);
 		}
 	}
 #endif
 
 	/*
-	 * We don\'t want to listen forever unless the other side
+	 * We don't want to listen forever unless the other side
 	 * successfully authenticates itself.  So we set up an alarm which is
 	 * cleared after successful authentication.  A limit of zero
-	 * indicates no limit. Note that we don\'t set the alarm in debugging
+	 * indicates no limit. Note that we don't set the alarm in debugging
 	 * mode; it is just annoying to have the server exit just when you
 	 * are about to discover the bug.
 	 */
@@ -1777,6 +1786,17 @@ es are %.8X",
 	}
 
  authenticated:
+	/*
+	 * Cancel the alarm we set to limit the time taken for
+	 * authentication.
+	 */
+	alarm(0);
+	signal(SIGALRM, SIG_DFL);
+	if (startup_pipe != -1) {
+		close(startup_pipe);
+		startup_pipe = -1;
+	}
+
 #ifdef SSH_AUDIT_EVENTS
 	audit_event(SSH_AUTH_SUCCESS);
 #endif

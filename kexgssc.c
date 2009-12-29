@@ -46,23 +46,20 @@ kexgss_client(Kex *kex) {
         gss_buffer_desc recv_tok, gssbuf, msg_tok, *token_ptr;
 	Gssctxt *ctxt;
 	OM_uint32 maj_status, min_status, ret_flags;
-	unsigned int klen, kout;
+	u_int klen, kout, slen = 0, hashlen, strlen;
 	DH *dh; 
 	BIGNUM *dh_server_pub = NULL;
 	BIGNUM *shared_secret = NULL;
 	BIGNUM *p = NULL;
 	BIGNUM *g = NULL;	
-	unsigned char *kbuf;
-	unsigned char *hash;
-	unsigned char *serverhostkey = NULL;
+	u_char *kbuf, *hash;
+	u_char *serverhostkey = NULL;
 	char *msg;
 	char *lang;
 	int type = 0;
 	int first = 1;
-	int slen = 0;
 	int gex = 0;
 	int nbits, min, max;
-	u_int strlen;
 
 	/* Initialise our GSSAPI world */	
 	ssh_gssapi_build_ctx(&ctxt);
@@ -244,7 +241,9 @@ kexgss_client(Kex *kex) {
 	xfree(kbuf);
 
 	if (gex) {
-		hash = kexgex_hash( kex->client_version_string,
+		kexgex_hash(
+		    kex->evp_md,
+		    kex->client_version_string,
 		    kex->server_version_string,
 		    buffer_ptr(&kex->my), buffer_len(&kex->my),
 		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
@@ -253,23 +252,25 @@ kexgss_client(Kex *kex) {
 		    dh->p, dh->g,
 		    dh->pub_key,
 		    dh_server_pub,
-		    shared_secret
+		    shared_secret,
+		    &hash, &hashlen
 		);
 	} else {
 		/* The GSS hash is identical to the DH one */
-		hash = kex_dh_hash( kex->client_version_string, 
+		kex_dh_hash( kex->client_version_string, 
 		    kex->server_version_string,
 		    buffer_ptr(&kex->my), buffer_len(&kex->my),
 		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
 		    serverhostkey, slen, /* server host key */
 		    dh->pub_key,	/* e */
 		    dh_server_pub,	/* f */
-		    shared_secret	/* K */
+		    shared_secret,	/* K */
+		    &hash, &hashlen
 		);
         }
 
 	gssbuf.value = hash;
-	gssbuf.length = 20;
+	gssbuf.length = hashlen;
 
         /* Verify that the hash matches the MIC we just got. */
 	if (GSS_ERROR(ssh_gssapi_checkmic(ctxt, &gssbuf, &msg_tok)))
@@ -284,7 +285,7 @@ kexgss_client(Kex *kex) {
 
 	/* save session id */
 	if (kex->session_id == NULL) {
-		kex->session_id_len = 20;
+		kex->session_id_len = hashlen;
 		kex->session_id = xmalloc(kex->session_id_len);
 		memcpy(kex->session_id, hash, kex->session_id_len);
 	}
@@ -294,7 +295,7 @@ kexgss_client(Kex *kex) {
 	else
 		ssh_gssapi_delete_ctx(&ctxt);
 
-	kex_derive_keys(kex, hash, shared_secret);
+	kex_derive_keys(kex, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
 	kex_finish(kex);
 }
