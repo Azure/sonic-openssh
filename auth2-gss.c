@@ -47,6 +47,39 @@ static void input_gssapi_mic(int type, u_int32_t plen, void *ctxt);
 static void input_gssapi_exchange_complete(int type, u_int32_t plen, void *ctxt);
 static void input_gssapi_errtok(int, u_int32_t, void *);
 
+/* 
+ * The 'gssapi_keyex' userauth mechanism.
+ */
+static int
+userauth_gsskeyex(Authctxt *authctxt)
+{
+	int authenticated = 0;
+	Buffer b;
+	gss_buffer_desc mic, gssbuf;
+	u_int len;
+
+	mic.value = packet_get_string(&len);
+	mic.length = len;
+
+	packet_check_eom();
+
+	ssh_gssapi_buildmic(&b, authctxt->user, authctxt->service,
+	    "gssapi-keyex");
+
+	gssbuf.value = buffer_ptr(&b);
+	gssbuf.length = buffer_len(&b);
+
+	/* gss_kex_context is NULL with privsep, so we can't check it here */
+	if (!GSS_ERROR(PRIVSEP(ssh_gssapi_checkmic(gss_kex_context, 
+	    &gssbuf, &mic))))
+		authenticated = PRIVSEP(ssh_gssapi_userok(authctxt->user));
+	
+	buffer_free(&b);
+	xfree(mic.value);
+
+	return (authenticated);
+}
+
 /*
  * We only support those mechanisms that we know about (ie ones that we know
  * how to check local user kuserok and the like
@@ -285,6 +318,12 @@ input_gssapi_mic(int type, u_int32_t plen, void *ctxt)
 	dispatch_set(SSH2_MSG_USERAUTH_GSSAPI_EXCHANGE_COMPLETE, NULL);
 	userauth_finish(authctxt, authenticated, "gssapi-with-mic");
 }
+
+Authmethod method_gsskeyex = {
+	"gssapi-keyx",
+	userauth_gsskeyex,
+	&options.gss_authentication
+};
 
 Authmethod method_gssapi = {
 	"gssapi-with-mic",
