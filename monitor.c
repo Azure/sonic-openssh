@@ -1,4 +1,4 @@
-/* $OpenBSD: monitor.c,v 1.99 2008/07/10 18:08:11 markus Exp $ */
+/* $OpenBSD: monitor.c,v 1.101 2009/02/12 03:26:22 djm Exp $ */
 /*
  * Copyright 2002 Niels Provos <provos@citi.umich.edu>
  * Copyright 2002 Markus Friedl <markus@openbsd.org>
@@ -87,6 +87,7 @@
 #include "misc.h"
 #include "compat.h"
 #include "ssh2.h"
+#include "jpake.h"
 
 #ifdef GSSAPI
 static Gssctxt *gsscontext = NULL;
@@ -150,6 +151,11 @@ int mm_answer_rsa_challenge(int, Buffer *);
 int mm_answer_rsa_response(int, Buffer *);
 int mm_answer_sesskey(int, Buffer *);
 int mm_answer_sessid(int, Buffer *);
+int mm_answer_jpake_get_pwdata(int, Buffer *);
+int mm_answer_jpake_step1(int, Buffer *);
+int mm_answer_jpake_step2(int, Buffer *);
+int mm_answer_jpake_key_confirm(int, Buffer *);
+int mm_answer_jpake_check_confirm(int, Buffer *);
 
 #ifdef USE_PAM
 int mm_answer_pam_start(int, Buffer *);
@@ -166,6 +172,7 @@ int mm_answer_gss_accept_ctx(int, Buffer *);
 int mm_answer_gss_userok(int, Buffer *);
 int mm_answer_gss_checkmic(int, Buffer *);
 int mm_answer_gss_sign(int, Buffer *);
+int mm_answer_gss_updatecreds(int, Buffer *);
 #endif
 
 #ifdef SSH_AUDIT_EVENTS
@@ -238,6 +245,13 @@ struct mon_table mon_dispatch_proto20[] = {
     {MONITOR_REQ_GSSCHECKMIC, MON_ISAUTH, mm_answer_gss_checkmic},
     {MONITOR_REQ_GSSSIGN, MON_ONCE, mm_answer_gss_sign},
 #endif
+#ifdef JPAKE
+    {MONITOR_REQ_JPAKE_GET_PWDATA, MON_ONCE, mm_answer_jpake_get_pwdata},
+    {MONITOR_REQ_JPAKE_STEP1, MON_ISAUTH, mm_answer_jpake_step1},
+    {MONITOR_REQ_JPAKE_STEP2, MON_ONCE, mm_answer_jpake_step2},
+    {MONITOR_REQ_JPAKE_KEY_CONFIRM, MON_ONCE, mm_answer_jpake_key_confirm},
+    {MONITOR_REQ_JPAKE_CHECK_CONFIRM, MON_AUTH, mm_answer_jpake_check_confirm},
+#endif
     {0, 0, NULL}
 };
 
@@ -246,6 +260,7 @@ struct mon_table mon_dispatch_postauth20[] = {
     {MONITOR_REQ_GSSSETUP, 0, mm_answer_gss_setup_ctx},
     {MONITOR_REQ_GSSSTEP, 0, mm_answer_gss_accept_ctx},
     {MONITOR_REQ_GSSSIGN, 0, mm_answer_gss_sign},
+    {MONITOR_REQ_GSSUPCREDS, 0, mm_answer_gss_updatecreds},
 #endif
     {MONITOR_REQ_MODULI, 0, mm_answer_moduli},
     {MONITOR_REQ_SIGN, 0, mm_answer_sign},
@@ -392,6 +407,15 @@ monitor_child_preauth(Authctxt *_authctxt, struct monitor *pmonitor)
 			if (!authenticated)
 				authctxt->failures++;
 		}
+#ifdef JPAKE
+		/* Cleanup JPAKE context after authentication */
+		if (ent->flags & MON_AUTHDECIDE) {
+			if (authctxt->jpake_ctx != NULL) {
+				jpake_free(authctxt->jpake_ctx);
+				authctxt->jpake_ctx = NULL;
+			}
+		}
+#endif
 	}
 
 	if (!authctxt->valid)
@@ -1519,7 +1543,9 @@ mm_answer_rsa_challenge(int sock, Buffer *m)
 		fatal("%s: key type mismatch", __func__);
 	if ((key = key_from_blob(blob, blen)) == NULL)
 		fatal("%s: received bad key", __func__);
-
+	if (key->type != KEY_RSA)
+		fatal("%s: received bad key type %d", __func__, key->type);
+	key->type = KEY_RSA1;
 	if (ssh1_challenge)
 		BN_clear_free(ssh1_challenge);
 	ssh1_challenge = auth_rsa_generate_challenge(key);
@@ -1717,9 +1743,11 @@ mm_get_kex(Buffer *m)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 	kex->kex[KEX_DH_GEX_SHA256] = kexgex_server;
 #ifdef GSSAPI
-	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
-	kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_server;
-	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
+	if (options.gss_keyex) {
+		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+		kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_server;
+		kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
+	}
 #endif
 	kex->server = 1;
 	kex->hostkey_type = buffer_get_int(m);
@@ -1920,6 +1948,9 @@ mm_answer_gss_setup_ctx(int sock, Buffer *m)
 	OM_uint32 major;
 	u_int len;
 
+	if (!options.gss_authentication && !options.gss_keyex)
+		fatal("In GSSAPI monitor when GSSAPI is disabled");
+
 	goid.elements = buffer_get_string(m, &len);
 	goid.length = len;
 
@@ -1946,6 +1977,9 @@ mm_answer_gss_accept_ctx(int sock, Buffer *m)
 	OM_uint32 major, minor;
 	OM_uint32 flags = 0; /* GSI needs this */
 	u_int len;
+
+	if (!options.gss_authentication && !options.gss_keyex)
+		fatal("In GSSAPI monitor when GSSAPI is disabled");
 
 	in.value = buffer_get_string(m, &len);
 	in.length = len;
@@ -1976,6 +2010,9 @@ mm_answer_gss_checkmic(int sock, Buffer *m)
 	OM_uint32 ret;
 	u_int len;
 
+	if (!options.gss_authentication && !options.gss_keyex)
+		fatal("In GSSAPI monitor when GSSAPI is disabled");
+
 	gssbuf.value = buffer_get_string(m, &len);
 	gssbuf.length = len;
 	mic.value = buffer_get_string(m, &len);
@@ -2002,7 +2039,11 @@ mm_answer_gss_userok(int sock, Buffer *m)
 {
 	int authenticated;
 
-	authenticated = authctxt->valid && ssh_gssapi_userok(authctxt->user);
+	if (!options.gss_authentication && !options.gss_keyex)
+		fatal("In GSSAPI monitor when GSSAPI is disabled");
+
+	authenticated = authctxt->valid && 
+	    ssh_gssapi_userok(authctxt->user, authctxt->pw);
 
 	buffer_clear(m);
 	buffer_put_int(m, authenticated);
@@ -2024,10 +2065,14 @@ mm_answer_gss_sign(int socket, Buffer *m)
 	OM_uint32 major, minor;
 	u_int len;
 
+	if (!options.gss_authentication && !options.gss_keyex)
+		fatal("In GSSAPI monitor when GSSAPI is disabled");
+
 	data.value = buffer_get_string(m, &len);
 	data.length = len;
 	if (data.length != 20) 
-		fatal("%s: data length incorrect: %d", __func__, data.length);
+		fatal("%s: data length incorrect: %d", __func__, 
+		    (int) data.length);
 
 	/* Save the session ID on the first time around */
 	if (session_id2_len == 0) {
@@ -2049,8 +2094,237 @@ mm_answer_gss_sign(int socket, Buffer *m)
 
 	/* Turn on getpwnam permissions */
 	monitor_permit(mon_dispatch, MONITOR_REQ_PWNAM, 1);
+	
+	/* And credential updating, for when rekeying */
+	monitor_permit(mon_dispatch, MONITOR_REQ_GSSUPCREDS, 1);
 
 	return (0);
 }
 
+int
+mm_answer_gss_updatecreds(int socket, Buffer *m) {
+	ssh_gssapi_ccache store;
+	int ok;
+
+	store.filename = buffer_get_string(m, NULL);
+	store.envvar   = buffer_get_string(m, NULL);
+	store.envval   = buffer_get_string(m, NULL);
+
+	ok = ssh_gssapi_update_creds(&store);
+
+	xfree(store.filename);
+	xfree(store.envvar);
+	xfree(store.envval);
+
+	buffer_clear(m);
+	buffer_put_int(m, ok);
+
+	mm_request_send(socket, MONITOR_ANS_GSSUPCREDS, m);
+
+	return(0);
+}
+
 #endif /* GSSAPI */
+
+#ifdef JPAKE
+int
+mm_answer_jpake_step1(int sock, Buffer *m)
+{
+	struct jpake_ctx *pctx;
+	u_char *x3_proof, *x4_proof;
+	u_int x3_proof_len, x4_proof_len;
+
+	if (!options.zero_knowledge_password_authentication)
+		fatal("zero_knowledge_password_authentication disabled");
+
+	if (authctxt->jpake_ctx != NULL)
+		fatal("%s: authctxt->jpake_ctx already set (%p)",
+		    __func__, authctxt->jpake_ctx);
+	authctxt->jpake_ctx = pctx = jpake_new();
+
+	jpake_step1(pctx->grp,
+	    &pctx->server_id, &pctx->server_id_len,
+	    &pctx->x3, &pctx->x4, &pctx->g_x3, &pctx->g_x4,
+	    &x3_proof, &x3_proof_len,
+	    &x4_proof, &x4_proof_len);
+
+	JPAKE_DEBUG_CTX((pctx, "step1 done in %s", __func__));
+
+	buffer_clear(m);
+
+	buffer_put_string(m, pctx->server_id, pctx->server_id_len);
+	buffer_put_bignum2(m, pctx->g_x3);
+	buffer_put_bignum2(m, pctx->g_x4);
+	buffer_put_string(m, x3_proof, x3_proof_len);
+	buffer_put_string(m, x4_proof, x4_proof_len);
+
+	debug3("%s: sending step1", __func__);
+	mm_request_send(sock, MONITOR_ANS_JPAKE_STEP1, m);
+
+	bzero(x3_proof, x3_proof_len);
+	bzero(x4_proof, x4_proof_len);
+	xfree(x3_proof);
+	xfree(x4_proof);
+
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_GET_PWDATA, 1);
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_STEP1, 0);
+
+	return 0;
+}
+
+int
+mm_answer_jpake_get_pwdata(int sock, Buffer *m)
+{
+	struct jpake_ctx *pctx = authctxt->jpake_ctx;
+	char *hash_scheme, *salt;
+
+	if (pctx == NULL)
+		fatal("%s: pctx == NULL", __func__);
+
+	auth2_jpake_get_pwdata(authctxt, &pctx->s, &hash_scheme, &salt);
+
+	buffer_clear(m);
+	/* pctx->s is sensitive, not returned to slave */
+	buffer_put_cstring(m, hash_scheme);
+	buffer_put_cstring(m, salt);
+
+	debug3("%s: sending pwdata", __func__);
+	mm_request_send(sock, MONITOR_ANS_JPAKE_GET_PWDATA, m);
+
+	bzero(hash_scheme, strlen(hash_scheme));
+	bzero(salt, strlen(salt));
+	xfree(hash_scheme);
+	xfree(salt);
+
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_STEP2, 1);
+
+	return 0;
+}
+
+int
+mm_answer_jpake_step2(int sock, Buffer *m)
+{
+	struct jpake_ctx *pctx = authctxt->jpake_ctx;
+	u_char *x1_proof, *x2_proof, *x4_s_proof;
+	u_int x1_proof_len, x2_proof_len, x4_s_proof_len;
+
+	if (pctx == NULL)
+		fatal("%s: pctx == NULL", __func__);
+
+	if ((pctx->g_x1 = BN_new()) == NULL ||
+	    (pctx->g_x2 = BN_new()) == NULL)
+		fatal("%s: BN_new", __func__);
+	buffer_get_bignum2(m, pctx->g_x1);
+	buffer_get_bignum2(m, pctx->g_x2);
+	pctx->client_id = buffer_get_string(m, &pctx->client_id_len);
+	x1_proof = buffer_get_string(m, &x1_proof_len);
+	x2_proof = buffer_get_string(m, &x2_proof_len);
+
+	jpake_step2(pctx->grp, pctx->s, pctx->g_x3,
+	    pctx->g_x1, pctx->g_x2, pctx->x4,
+	    pctx->client_id, pctx->client_id_len,
+	    pctx->server_id, pctx->server_id_len,
+	    x1_proof, x1_proof_len,
+	    x2_proof, x2_proof_len,
+	    &pctx->b,
+	    &x4_s_proof, &x4_s_proof_len);
+
+	JPAKE_DEBUG_CTX((pctx, "step2 done in %s", __func__));
+
+	bzero(x1_proof, x1_proof_len);
+	bzero(x2_proof, x2_proof_len);
+	xfree(x1_proof);
+	xfree(x2_proof);
+
+	buffer_clear(m);
+
+	buffer_put_bignum2(m, pctx->b);
+	buffer_put_string(m, x4_s_proof, x4_s_proof_len);
+
+	debug3("%s: sending step2", __func__);
+	mm_request_send(sock, MONITOR_ANS_JPAKE_STEP2, m);
+
+	bzero(x4_s_proof, x4_s_proof_len);
+	xfree(x4_s_proof);
+
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_KEY_CONFIRM, 1);
+
+	return 0;
+}
+
+int
+mm_answer_jpake_key_confirm(int sock, Buffer *m)
+{
+	struct jpake_ctx *pctx = authctxt->jpake_ctx;
+	u_char *x2_s_proof;
+	u_int x2_s_proof_len;
+
+	if (pctx == NULL)
+		fatal("%s: pctx == NULL", __func__);
+
+	if ((pctx->a = BN_new()) == NULL)
+		fatal("%s: BN_new", __func__);
+	buffer_get_bignum2(m, pctx->a);
+	x2_s_proof = buffer_get_string(m, &x2_s_proof_len);
+
+	jpake_key_confirm(pctx->grp, pctx->s, pctx->a,
+	    pctx->x4, pctx->g_x3, pctx->g_x4, pctx->g_x1, pctx->g_x2,
+	    pctx->server_id, pctx->server_id_len,
+	    pctx->client_id, pctx->client_id_len,
+	    session_id2, session_id2_len,
+	    x2_s_proof, x2_s_proof_len,
+	    &pctx->k,
+	    &pctx->h_k_sid_sessid, &pctx->h_k_sid_sessid_len);
+
+	JPAKE_DEBUG_CTX((pctx, "key_confirm done in %s", __func__));
+
+	bzero(x2_s_proof, x2_s_proof_len);
+	buffer_clear(m);
+
+	/* pctx->k is sensitive, not sent */
+	buffer_put_string(m, pctx->h_k_sid_sessid, pctx->h_k_sid_sessid_len);
+
+	debug3("%s: sending confirmation hash", __func__);
+	mm_request_send(sock, MONITOR_ANS_JPAKE_KEY_CONFIRM, m);
+
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_CHECK_CONFIRM, 1);
+
+	return 0;
+}
+
+int
+mm_answer_jpake_check_confirm(int sock, Buffer *m)
+{
+	int authenticated = 0;
+	u_char *peer_confirm_hash;
+	u_int peer_confirm_hash_len;
+	struct jpake_ctx *pctx = authctxt->jpake_ctx;
+
+	if (pctx == NULL)
+		fatal("%s: pctx == NULL", __func__);
+
+	peer_confirm_hash = buffer_get_string(m, &peer_confirm_hash_len);
+
+	authenticated = jpake_check_confirm(pctx->k,
+	    pctx->client_id, pctx->client_id_len,
+	    session_id2, session_id2_len,
+	    peer_confirm_hash, peer_confirm_hash_len) && authctxt->valid;
+
+	JPAKE_DEBUG_CTX((pctx, "check_confirm done in %s", __func__));
+
+	bzero(peer_confirm_hash, peer_confirm_hash_len);
+	xfree(peer_confirm_hash);
+
+	buffer_clear(m);
+	buffer_put_int(m, authenticated);
+
+	debug3("%s: sending result %d", __func__, authenticated);
+	mm_request_send(sock, MONITOR_ANS_JPAKE_CHECK_CONFIRM, m);
+
+	monitor_permit(mon_dispatch, MONITOR_REQ_JPAKE_STEP1, 1);
+
+	auth_method = "jpake-01@openssh.com";
+	return authenticated;
+}
+
+#endif /* JPAKE */

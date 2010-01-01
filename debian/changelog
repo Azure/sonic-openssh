@@ -1,5 +1,32 @@
-openssh (1:5.1p1-9) UNRELEASED; urgency=low
+openssh (1:5.2p1-1) UNRELEASED; urgency=low
 
+  * New upstream release (closes: #536182). Yes, I know 5.3p1 has been out
+    for a while, but there's no GSSAPI patch available for it yet.
+    - Change the default cipher order to prefer the AES CTR modes and the
+      revised "arcfour256" mode to CBC mode ciphers that are susceptible to
+      CPNI-957037 "Plaintext Recovery Attack Against SSH".
+    - Add countermeasures to mitigate CPNI-957037-style attacks against the
+      SSH protocol's use of CBC-mode ciphers. Upon detection of an invalid
+      packet length or Message Authentication Code, ssh/sshd will continue
+      reading up to the maximum supported packet length rather than
+      immediately terminating the connection. This eliminates most of the
+      known differences in behaviour that leaked information about the
+      plaintext of injected data which formed the basis of this attack
+      (closes: #506115, LP: #379329).
+    - ForceCommand directive now accepts commandline arguments for the
+      internal-sftp server (closes: #524423, LP: #362511).
+    - Add AllowAgentForwarding to available Match keywords list (closes:
+      #540623).
+    - Make ssh(1) send the correct channel number for
+      SSH2_MSG_CHANNEL_SUCCESS and SSH2_MSG_CHANNEL_FAILURE messages to
+      avoid triggering 'Non-public channel' error messages on sshd(8) in
+      openssh-5.1.
+    - Avoid printing 'Non-public channel' warnings in sshd(8), since the
+      ssh(1) has sent incorrect channel numbers since ~2004 (this reverts a
+      behaviour introduced in openssh-5.1; closes: #496017).
+  * Update to GSSAPI patch from
+    http://www.sxw.org.uk/computing/patches/openssh-5.2p1-gsskex-all-20090726.patch,
+    including cascading credentials support (LP: #416958).
   * Use x11.pc when compiling/linking gnome-ssh-askpass2 (closes: #555951).
   * Moved to bzr.debian.org; add Vcs-Bzr and Vcs-Browser control fields.
   * Add debian/README.source with instructions on bzr handling.

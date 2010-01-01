@@ -1,4 +1,4 @@
-/* $OpenBSD: monitor_wrap.h,v 1.20 2006/08/03 03:34:42 deraadt Exp $ */
+/* $OpenBSD: monitor_wrap.h,v 1.21 2008/11/04 08:22:13 djm Exp $ */
 
 /*
  * Copyright 2002 Niels Provos <provos@citi.umich.edu>
@@ -58,9 +58,10 @@ BIGNUM *mm_auth_rsa_generate_challenge(Key *);
 OM_uint32 mm_ssh_gssapi_server_ctx(Gssctxt **, gss_OID);
 OM_uint32 mm_ssh_gssapi_accept_ctx(Gssctxt *,
    gss_buffer_desc *, gss_buffer_desc *, OM_uint32 *);
-int mm_ssh_gssapi_userok(char *user);
+int mm_ssh_gssapi_userok(char *user, struct passwd *);
 OM_uint32 mm_ssh_gssapi_checkmic(Gssctxt *, gss_buffer_t, gss_buffer_t);
 OM_uint32 mm_ssh_gssapi_sign(Gssctxt *, gss_buffer_t, gss_buffer_t);
+int mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *);
 #endif
 
 #ifdef USE_PAM
@@ -102,6 +103,26 @@ int mm_bsdauth_respond(void *, u_int, char **);
 /* skey */
 int mm_skey_query(void *, char **, char **, u_int *, char ***, u_int **);
 int mm_skey_respond(void *, u_int, char **);
+
+/* jpake */
+struct jpake_group;
+void mm_auth2_jpake_get_pwdata(struct Authctxt *, BIGNUM **, char **, char **);
+void mm_jpake_step1(struct jpake_group *, u_char **, u_int *,
+    BIGNUM **, BIGNUM **, BIGNUM **, BIGNUM **,
+    u_char **, u_int *, u_char **, u_int *);
+void mm_jpake_step2(struct jpake_group *, BIGNUM *,
+    BIGNUM *, BIGNUM *, BIGNUM *, BIGNUM *,
+    const u_char *, u_int, const u_char *, u_int,
+    const u_char *, u_int, const u_char *, u_int,
+    BIGNUM **, u_char **, u_int *);
+void mm_jpake_key_confirm(struct jpake_group *, BIGNUM *, BIGNUM *,
+    BIGNUM *, BIGNUM *, BIGNUM *, BIGNUM *, BIGNUM *,
+    const u_char *, u_int, const u_char *, u_int,
+    const u_char *, u_int, const u_char *, u_int,
+    BIGNUM **, u_char **, u_int *);
+int mm_jpake_check_confirm(const BIGNUM *,
+    const u_char *, u_int, const u_char *, u_int, const u_char *, u_int);
+
 
 /* zlib allocation hooks */
 

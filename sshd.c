@@ -1,4 +1,4 @@
-/* $OpenBSD: sshd.c,v 1.364 2008/07/10 18:08:11 markus Exp $ */
+/* $OpenBSD: sshd.c,v 1.366 2009/01/22 10:02:34 djm Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -117,7 +117,6 @@
 #include "ssh-gss.h"
 #endif
 #include "monitor_wrap.h"
-#include "monitor_fdpass.h"
 #include "version.h"
 
 #ifdef USE_SECURITY_SESSION_API
@@ -1373,7 +1372,7 @@ main(int ac, char **av)
 				exit(1);
 			}
 			options.ports[options.num_ports++] = a2port(optarg);
-			if (options.ports[options.num_ports-1] == 0) {
+			if (options.ports[options.num_ports-1] <= 0) {
 				fprintf(stderr, "Bad port number.\n");
 				exit(1);
 			}
@@ -2354,9 +2353,11 @@ do_ssh2_kex(void)
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 	kex->kex[KEX_DH_GEX_SHA256] = kexgex_server;
 #ifdef GSSAPI
-	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
-	kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_server;
-	kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
+	if (options.gss_keyex) {
+		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+		kex->kex[KEX_GSS_GRP14_SHA1] = kexgss_server;
+		kex->kex[KEX_GSS_GEX_SHA1] = kexgss_server;
+	}
 #endif
 	kex->server = 1;
 	kex->client_version_string=client_version_string;

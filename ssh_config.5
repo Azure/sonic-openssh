@@ -34,8 +34,8 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.\" $OpenBSD: ssh_config.5,v 1.111 2008/06/26 11:46:31 grunk Exp $
-.Dd $Mdocdate: June 26 2008 $
+.\" $OpenBSD: ssh_config.5,v 1.119 2009/02/22 23:50:57 djm Exp $
+.Dd $Mdocdate: February 22 2009 $
 .Dt SSH_CONFIG 5
 .Os
 .Sh NAME
@@ -119,7 +119,7 @@ Restricts the following declarations (up to the next
 .Cm Host
 keyword) to be only for those hosts that match one of the patterns
 given after the keyword.
-If more than one pattern is provided, they should be separated by whitepsace.
+If more than one pattern is provided, they should be separated by whitespace.
 A single
 .Ql *
 as a pattern can be used to provide global
@@ -224,9 +224,9 @@ and
 .Dq cast128-cbc .
 The default is:
 .Bd -literal -offset 3n
-aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,arcfour128,
-arcfour256,arcfour,aes192-cbc,aes256-cbc,aes128-ctr,
-aes192-ctr,aes256-ctr
+aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,
+aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,
+aes256-cbc,arcfour
 .Ed
 .It Cm ClearAllForwardings
 Specifies that all local, remote, and dynamic port forwardings
@@ -505,18 +505,28 @@ GSSAPI key exchange the server need not have a host key.
 The default is
 .Dq no .
 Note that this option applies to protocol version 2 only.
+.It Cm GSSAPIClientIdentity
+If set, specifies the GSSAPI client identity that ssh should use when 
+connecting to the server. The default is unset, which means that the default 
+identity will be used.
 .It Cm GSSAPIDelegateCredentials
 Forward (delegate) credentials to the server.
 The default is
 .Dq no .
-Note that this option applies to protocol version 2 only.
+Note that this option applies to protocol version 2 connections using GSSAPI.
+.It Cm GSSAPIRenewalForcesRekey
+If set to 
+.Dq yes
+then renewal of the client's GSSAPI credentials will force the rekeying of the
+ssh connection. With a compatible server, this can delegate the renewed 
+credentials to a session on the server.
+The default is
+.Dq no .
 .It Cm GSSAPITrustDns
 Set to 
-.Dq yes 
-to indicate that the DNS is trusted to securely canonicalize
+.Dq yes to indicate that the DNS is trusted to securely canonicalize
 the name of the host being connected to. If 
-.Dq no , 
-the hostname entered on the
+.Dq no, the hostname entered on the
 command line will be passed untouched to the GSSAPI library.
 The default is
 .Dq no .
@@ -852,7 +862,15 @@ and
 .Ar host Ns / Ns Ar hostport .
 Multiple forwardings may be specified, and additional
 forwardings can be given on the command line.
-Only the superuser can forward privileged ports.
+Privileged ports can be forwarded only when
+logging in as root on the remote machine.
+.Pp
+If the
+.Ar port
+argument is
+.Ql 0 ,
+the listen port will be dynamically allocated on the server and reported
+to the client at run time.
 .Pp
 If the
 .Ar bind_address
@@ -1138,10 +1156,12 @@ in
 If this flag is set to
 .Dq yes ,
 an ASCII art representation of the remote host key fingerprint is
-printed additionally to the hex fingerprint string.
+printed in addition to the hex fingerprint string at login and
+for unknown host keys.
 If this flag is set to
 .Dq no ,
-only the hex fingerprint string will be printed.
+no fingerprint strings are printed at login and
+only the hex fingerprint string will be printed for unknown host keys.
 The default is
 .Dq no .
 .It Cm XAuthLocation
