@@ -131,3 +131,5 @@ conflicts, and commit. If you see lots of "Contents conflict" messages, you
 may have got the file-ids wrong. Once you've committed the merge, you can
 throw away the tarball branch, as all its history will have been
 incorporated.
+
+(TODO: The above does not describe how to handle the gssapi branch.)
