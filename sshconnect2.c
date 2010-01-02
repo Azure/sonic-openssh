@@ -305,6 +305,7 @@ Authmethod authmethods[] = {
 #ifdef GSSAPI
 	{"gssapi-keyex",
 		userauth_gsskeyex,
+		NULL,
 		&options.gss_authentication,
 		NULL},
 	{"gssapi-with-mic",
@@ -314,6 +315,7 @@ Authmethod authmethods[] = {
 		NULL},
 	{"gssapi",
 		userauth_gssapi,
+		NULL,
 		&options.gss_authentication,
 		NULL},
 #endif
