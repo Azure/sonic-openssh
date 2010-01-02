@@ -26,7 +26,7 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
       behaviour introduced in openssh-5.1; closes: #496017).
     - Disable nonfunctional ssh(1) ~C escape handler in multiplex slave
       connections (closes: #507541).
-    - Fix "whitepsace" typo in ssh_config(5) (closes: #514313).
+    - Fix "whitepsace" typo in ssh_config(5) (closes: #514313, LP: #303835).
   * Update to GSSAPI patch from
     http://www.sxw.org.uk/computing/patches/openssh-5.2p1-gsskex-all-20090726.patch,
     including cascading credentials support (LP: #416958).
