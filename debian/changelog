@@ -44,6 +44,7 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
   * Update OpenSSH FAQ to revision 1.110.
   * Remove ssh/new_config, only needed for direct upgrades from potato which
     are no longer particularly feasible anyway (closes: #420682).
+  * Cope with insserv reordering of init script links.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 

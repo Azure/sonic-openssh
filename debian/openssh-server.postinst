@@ -407,7 +407,7 @@ remove_old_init_links() {
 	if [ -e /etc/rc2.d/S20ssh ]; then
 		update-rc.d -f ssh remove >/dev/null 2>&1
 	fi
-	rm -f /etc/rc0.d/K20ssh /etc/rc6.d/K20ssh
+	rm -f /etc/rc0.d/K??ssh /etc/rc6.d/K??ssh
 }
 
 setup_init() {
