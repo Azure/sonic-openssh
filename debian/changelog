@@ -45,6 +45,7 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
   * Remove ssh/new_config, only needed for direct upgrades from potato which
     are no longer particularly feasible anyway (closes: #420682).
   * Cope with insserv reordering of init script links.
+  * Remove init script stop link in rc1, as killprocs handles it already.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 
