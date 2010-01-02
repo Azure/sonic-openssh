@@ -7302,6 +7302,117 @@ cat >>confdefs.h <<\_ACEOF
 #define SSH_TUN_PREPEND_AF 1
 _ACEOF
 
+	{ echo "$as_me:$LINENO: checking if we have the Security Authorization Session API" >&5
+echo $ECHO_N "checking if we have the Security Authorization Session API... $ECHO_C" >&6; }
+	cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <Security/AuthSession.h>
+int
+main ()
+{
+SessionCreate(0, 0);
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest.$ac_objext; then
+  ac_cv_use_security_session_api="yes"
+
+cat >>confdefs.h <<\_ACEOF
+#define USE_SECURITY_SESSION_API 1
+_ACEOF
+
+		 LIBS="$LIBS -framework Security"
+		 { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_cv_use_security_session_api="no"
+		 { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+	{ echo "$as_me:$LINENO: checking if we have an in-memory credentials cache" >&5
+echo $ECHO_N "checking if we have an in-memory credentials cache... $ECHO_C" >&6; }
+	cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <Kerberos/Kerberos.h>
+int
+main ()
+{
+cc_context_t c;
+		 (void) cc_initialize (&c, 0, NULL, NULL);
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest.$ac_objext; then
+
+cat >>confdefs.h <<\_ACEOF
+#define USE_CCAPI 1
+_ACEOF
+
+		 LIBS="$LIBS -framework Security"
+		 { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+		 if test "x$ac_cv_use_security_session_api" = "xno"; then
+			{ { echo "$as_me:$LINENO: error: *** Need a security framework to use the credentials cache API ***" >&5
+echo "$as_me: error: *** Need a security framework to use the credentials cache API ***" >&2;}
+   { (exit 1); exit 1; }; }
+		fi
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	{ echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
 
 	{ echo "$as_me:$LINENO: checking whether AU_IPv4 is declared" >&5
 echo $ECHO_N "checking whether AU_IPv4 is declared... $ECHO_C" >&6; }
