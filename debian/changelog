@@ -39,6 +39,8 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
     closes: #498684).
   * Don't duplicate backslashes when displaying server banner (thanks,
     Michał Górny; closes: #505378, LP: #425346).
+  * Use hardening-includes for hardening logic (thanks, Kees Cook; closes:
+    #561887).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 

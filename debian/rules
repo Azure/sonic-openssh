@@ -3,6 +3,8 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
+include /usr/share/hardening-includes/hardening.make
+
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
@@ -43,12 +45,6 @@ ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:))
     # Apparently this is not implied by -fPIE, at least on the mipsen.
     PIC_CFLAGS := -fPIC
     PIC_LDFLAGS := -fPIC
-  endif
-  ifeq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:hppa:m68k:mips:mipsel:))
-    # Use position-independent executables to take advantage of address space
-    # layout randomisation. TODO: This should be done in configure.
-    PIE_CFLAGS := -fPIE
-    PIE_LDFLAGS := -fPIE -pie
   endif
 endif
 
@@ -100,7 +96,7 @@ confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUS
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Compiler flags.
-cflags := $(OPTFLAGS) $(PIC_CFLAGS) $(PIE_CFLAGS)
+cflags := $(OPTFLAGS) $(PIC_CFLAGS) $(HARDENING_CFLAGS)
 cflags += -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
@@ -109,8 +105,8 @@ confflags += --with-cflags='$(cflags)'
 confflags_udeb += --with-cflags='$(cflags_udeb)'
 
 # Linker flags.
-ifneq ($(PIC_LDFLAGS)$(PIE_LDFLAGS),)
-confflags += --with-ldflags='$(strip $(PIC_LDFLAGS) $(PIE_LDFLAGS))'
+ifneq ($(PIC_LDFLAGS)$(HARDENING_LDFLAGS),)
+confflags += --with-ldflags='$(strip $(PIC_LDFLAGS) $(HARDENING_LDFLAGS))'
 endif
 
 build: build-deb build-udeb
