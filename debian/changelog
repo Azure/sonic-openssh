@@ -35,6 +35,8 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
   * Add debian/README.source with instructions on bzr handling.
   * Make ChrootDirectory work with SELinux (thanks, Russell Coker; closes:
     #556644).
+  * Initialise sc to NULL in ssh_selinux_getctxbyname (thanks, Václav Ovsík;
+    closes: #498684).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 

@@ -69,7 +69,7 @@ ssh_selinux_enabled(void)
 static security_context_t
 ssh_selinux_getctxbyname(char *pwname)
 {
-	security_context_t sc;
+	security_context_t sc = NULL;
 	char *sename = NULL, *role = NULL, *lvl = NULL;
 	int r;
 
