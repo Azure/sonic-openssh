@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
@@ -27,65 +27,13 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:1001
 #, fuzzy
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "生成新的配置文件"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"看来您正在从 Debian “Potato”升级，当前版本和 Debian “Potato”所带的 OpenSSH 版"
-"本的配置文件对比有了相当多的改变。我现在可以生成适用于新服务器版本的新配置文"
-"件 (/etc/ssh/sshd_config)，但是它不会保留您为旧版本定制的任何配置。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). It is the opinion of the maintainer that "
-#| "this is the correct default (see README.Debian for more details), but you "
-#| "can always edit sshd_config and set it to no if you wish."
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"请注意新的配置文件将会把“PermitRootLogin”的值设置为 yes，(这意味着任何一个知"
-"道 root 密码的人都可以直接以 root 登录)。维护者认为这是一个正确的默认值 (详情"
-"请阅读 README.Debian)，但如果您希望，也可以编辑 sshd_config 文件将其设置为 "
-"no。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "强烈建议让我为您生成一份新的配置文件。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr "您要继续吗(会有杀死活动的 ssh 会话的危险)？"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
@@ -101,7 +49,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
@@ -115,13 +63,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
@@ -134,7 +82,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
@@ -142,13 +90,13 @@ msgstr "您需要创建一个新的主机密钥。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -160,7 +108,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -170,13 +118,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -186,7 +134,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -196,18 +144,59 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "生成新的配置文件"
+
+#, fuzzy
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "看来您正在从 Debian “Potato”升级，当前版本和 Debian “Potato”所带的 "
+#~ "OpenSSH 版本的配置文件对比有了相当多的改变。我现在可以生成适用于新服务器版"
+#~ "本的新配置文件 (/etc/ssh/sshd_config)，但是它不会保留您为旧版本定制的任何"
+#~ "配置。"
+
+#, fuzzy
+#~| msgid ""
+#~| "Please note that this new configuration file will set the value of "
+#~| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#~| "can ssh directly in as root). It is the opinion of the maintainer that "
+#~| "this is the correct default (see README.Debian for more details), but "
+#~| "you can always edit sshd_config and set it to no if you wish."
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "请注意新的配置文件将会把“PermitRootLogin”的值设置为 yes，(这意味着任何一个"
+#~ "知道 root 密码的人都可以直接以 root 登录)。维护者认为这是一个正确的默认值 "
+#~ "(详情请阅读 README.Debian)，但如果您希望，也可以编辑 sshd_config 文件将其"
+#~ "设置为 no。"
+
+#, fuzzy
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr "强烈建议让我为您生成一份新的配置文件。"
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "警告：您必须创建一个新的主机密钥"

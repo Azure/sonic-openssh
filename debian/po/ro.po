@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1.4\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2008-05-28 17:54+0200\n"
 "Last-Translator: Cătălin Feștilă <catalinfest@gmail.com>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -23,59 +23,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Să se genereze un fișier nou de configurare pentru OpenSSH?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"Această versiune de OpenSSH are un fișier de configurare considerabil "
-"modificat față de versiunea care vine cu Debian 'Potato', pe care se pare că "
-"o actualizați. Acest pachet poate genera acum un nou fișier de configurare (/"
-"etc/ssh/sshd.config), care va funcționa cu noua versiune de server, dar nu "
-"va conține nici o personalizare făcută pentru versiunea anterioară."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"A se reține că acest fișier nou de configurare va stabili valoarea opțiunii "
-"'PermitRootLogin' la „yes” (ceea ce înseamnă că cine știe parola de root se "
-"poate autentifica prin ssh direct ca root). Părerea responsabilului de "
-"pachet este că aceasta trebuie să fie valoarea implicită (a se vedea "
-"fișierul README.Debian pentru detalii suplimentare), dar, dacă doriți, "
-"puteți edita oricând fișierul sshd_config pentru a stabili valoarea opțiunii "
-"la „no”."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "Este indicat să alegeți acum generarea un nou fișier de configurare."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr "Doriți să riscați întreruperea sesiunilor ssh active?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
@@ -88,7 +41,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
@@ -98,13 +51,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr "O cheie nouă este obligatorie"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
@@ -117,19 +70,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "You need to manually generate a new host key."
 msgstr "Va trebui să generați manual o nouă cheie pentru sistem."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr "Dezactivează modul de autentificare provocare-răspuns?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -147,7 +100,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -161,13 +114,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Cheile vulnerabile vor fi regenerate"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -181,7 +134,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -195,13 +148,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr "Cheile gazdă afectate sunt:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -211,6 +164,43 @@ msgstr ""
 "Comanda 'ssh-vulnkey' poate fi folosită ca un test parțial pentru acestea. A "
 "se vedea /usr/share/doc/openssh-server/README.compromised-keys.gz pentru mai "
 "multe detalii."
+
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "Să se genereze un fișier nou de configurare pentru OpenSSH?"
+
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "Această versiune de OpenSSH are un fișier de configurare considerabil "
+#~ "modificat față de versiunea care vine cu Debian 'Potato', pe care se pare "
+#~ "că o actualizați. Acest pachet poate genera acum un nou fișier de "
+#~ "configurare (/etc/ssh/sshd.config), care va funcționa cu noua versiune de "
+#~ "server, dar nu va conține nici o personalizare făcută pentru versiunea "
+#~ "anterioară."
+
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "A se reține că acest fișier nou de configurare va stabili valoarea "
+#~ "opțiunii 'PermitRootLogin' la „yes” (ceea ce înseamnă că cine știe parola "
+#~ "de root se poate autentifica prin ssh direct ca root). Părerea "
+#~ "responsabilului de pachet este că aceasta trebuie să fie valoarea "
+#~ "implicită (a se vedea fișierul README.Debian pentru detalii "
+#~ "suplimentare), dar, dacă doriți, puteți edita oricând fișierul "
+#~ "sshd_config pentru a stabili valoarea opțiunii la „no”."
+
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr ""
+#~ "Este indicat să alegeți acum generarea un nou fișier de configurare."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Avertizare: trebuie să creați o nouă cheie pentru sistem"

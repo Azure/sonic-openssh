@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2004-10-14 21:34+0300\n"
 "Last-Translator: Konstantinos Margaritis <markos@debian.org>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -29,64 +29,6 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:1001
 #, fuzzy
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Δημιουργία νέου αρχείου ρυθμίσεων"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"Αυτή η έκδοση του OpenSSH έχει σημαντικά διαφοροποιημένο αρχείο ρυθμίσεων "
-"από την έκδοση που περιλαμβάνεται στη διανομή 'Potato' του Debian, από την "
-"οποία φαίνεται ότι πραγματοποιείτε την αναβάθμιση. Στο σημείο αυτό, σας "
-"δίνεται η δυνατότητα να δημιουργήσετε ένα νέο αρχείο ρυθμίσεων (/etc/ssh/"
-"sshd_config), το οποίο χρησιμοποιείται από τη νέα έκδοση του δαίμονα, αλλά "
-"δεν θα περιέχει οποιαδήποτε παραμετροποίηση έχετε ήδη κάνει στην παλιά "
-"έκδοση."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). It is the opinion of the maintainer that "
-#| "this is the correct default (see README.Debian for more details), but you "
-#| "can always edit sshd_config and set it to no if you wish."
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"Σημειώστε ότι το νέο αρχείο ρυθμίσεων θα καθορίσει την τιμή της επιλογής "
-"'PermitRootLogin' σε yes (εννοώντας ότι οποιοσδήποτε γνωρίζει τον κωδικό "
-"πρόσβασης του root μπορεί να συνδεθεί ως χρήστης root). Κατά τον συντηρητή "
-"αυτή είναι και η σωστή προκαθορισμένη ρύθμιση (δείτε το README.Debian για "
-"περισσότερες λεπτομέρειες), αλλά μπορείτε οποιαδήποτε στιγμή να αλλάξετε την "
-"τιμή σε no στο αρχείο sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "Συνιστάται να επιλέξετε την δημιουργία του νέου αρχείου ρυθμίσεων."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr ""
@@ -94,7 +36,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
@@ -111,7 +53,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
@@ -125,13 +67,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
@@ -146,7 +88,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
@@ -154,13 +96,13 @@ msgstr "Πρέπει να δημιουργήσετε ένα νέο κλειδί 
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr "Να απενεργοποιηθεί η πιστοποίηση challenge-response;"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 #, fuzzy
 #| msgid ""
 #| "Password authentication appears to be disabled in your current OpenSSH "
@@ -186,7 +128,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -200,13 +142,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -216,7 +158,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -226,18 +168,64 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "Δημιουργία νέου αρχείου ρυθμίσεων"
+
+#, fuzzy
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "Αυτή η έκδοση του OpenSSH έχει σημαντικά διαφοροποιημένο αρχείο ρυθμίσεων "
+#~ "από την έκδοση που περιλαμβάνεται στη διανομή 'Potato' του Debian, από "
+#~ "την οποία φαίνεται ότι πραγματοποιείτε την αναβάθμιση. Στο σημείο αυτό, "
+#~ "σας δίνεται η δυνατότητα να δημιουργήσετε ένα νέο αρχείο ρυθμίσεων (/etc/"
+#~ "ssh/sshd_config), το οποίο χρησιμοποιείται από τη νέα έκδοση του δαίμονα, "
+#~ "αλλά δεν θα περιέχει οποιαδήποτε παραμετροποίηση έχετε ήδη κάνει στην "
+#~ "παλιά έκδοση."
+
+#, fuzzy
+#~| msgid ""
+#~| "Please note that this new configuration file will set the value of "
+#~| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#~| "can ssh directly in as root). It is the opinion of the maintainer that "
+#~| "this is the correct default (see README.Debian for more details), but "
+#~| "you can always edit sshd_config and set it to no if you wish."
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "Σημειώστε ότι το νέο αρχείο ρυθμίσεων θα καθορίσει την τιμή της επιλογής "
+#~ "'PermitRootLogin' σε yes (εννοώντας ότι οποιοσδήποτε γνωρίζει τον κωδικό "
+#~ "πρόσβασης του root μπορεί να συνδεθεί ως χρήστης root). Κατά τον "
+#~ "συντηρητή αυτή είναι και η σωστή προκαθορισμένη ρύθμιση (δείτε το README."
+#~ "Debian για περισσότερες λεπτομέρειες), αλλά μπορείτε οποιαδήποτε στιγμή "
+#~ "να αλλάξετε την τιμή σε no στο αρχείο sshd_config."
+
+#, fuzzy
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr "Συνιστάται να επιλέξετε την δημιουργία του νέου αρχείου ρυθμίσεων."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr ""

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh-uk\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 08:51+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2005-03-28 22:28+0300\n"
 "Last-Translator: Eugeniy Meshcheryakov <eugen@univ.kiev.ua>\n"
 "Language-Team: Ukrainian\n"
@@ -30,62 +30,6 @@ msgstr ""
 #. Description
 #: ../openssh-server.templates:1001
 #, fuzzy
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Створити новий файл налаштувань"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"В цій версії OpenSSH значно змінений файл налаштувань, в порівнянні з "
-"версією, що входила в Debian 'Potato', і яку ви, схоже, оновлюєте. Зараз "
-"можна створити новий файл налаштувань (/etc/ssh/sshd.config), що буде "
-"працювати з новою версією сервера, але не буде містити будь-які зміни, які "
-"ви внесли у стару версію."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "Please note that this new configuration file will set the value of "
-#| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
-#| "can ssh directly in as root). It is the opinion of the maintainer that "
-#| "this is the correct default (see README.Debian for more details), but you "
-#| "can always edit sshd_config and set it to no if you wish."
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"Зауважте, що в новій версії файла налаштувань змінна 'PermitRootLogin' буде "
-"мати значення yes (що означає, що будь-яка людина, котра знає пароль "
-"користувача root, зможе увійти в систему через ssh). На думку "
-"супроводжуючого пакунку - це вірне значення за замовчанням (дивіться також "
-"README.Debian), але ви завжди можете змінити значення цього параметра у "
-"файлі sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "Рекомендується дозволити створити новий файл налаштувань."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
-#, fuzzy
 #| msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr ""
@@ -93,7 +37,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
@@ -109,7 +53,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid ""
 #| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
@@ -123,13 +67,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
@@ -143,7 +87,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 #, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
@@ -151,13 +95,13 @@ msgstr "Вам потрібно створити новий ключ вузла.
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr "Заборонити автентифікацію запит-відповідь?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 #, fuzzy
 #| msgid ""
 #| "Password authentication appears to be disabled in your current OpenSSH "
@@ -183,7 +127,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -198,13 +142,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -214,7 +158,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -224,18 +168,62 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "Створити новий файл налаштувань"
+
+#, fuzzy
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "В цій версії OpenSSH значно змінений файл налаштувань, в порівнянні з "
+#~ "версією, що входила в Debian 'Potato', і яку ви, схоже, оновлюєте. Зараз "
+#~ "можна створити новий файл налаштувань (/etc/ssh/sshd.config), що буде "
+#~ "працювати з новою версією сервера, але не буде містити будь-які зміни, "
+#~ "які ви внесли у стару версію."
+
+#, fuzzy
+#~| msgid ""
+#~| "Please note that this new configuration file will set the value of "
+#~| "'PermitRootLogin' to yes (meaning that anyone knowing the root password "
+#~| "can ssh directly in as root). It is the opinion of the maintainer that "
+#~| "this is the correct default (see README.Debian for more details), but "
+#~| "you can always edit sshd_config and set it to no if you wish."
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "Зауважте, що в новій версії файла налаштувань змінна 'PermitRootLogin' "
+#~ "буде мати значення yes (що означає, що будь-яка людина, котра знає пароль "
+#~ "користувача root, зможе увійти в систему через ssh). На думку "
+#~ "супроводжуючого пакунку - це вірне значення за замовчанням (дивіться "
+#~ "також README.Debian), але ви завжди можете змінити значення цього "
+#~ "параметра у файлі sshd_config."
+
+#, fuzzy
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr "Рекомендується дозволити створити новий файл налаштувань."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Попередження: ви повинні створити новий ключ вузла"

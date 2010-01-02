@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2008-06-06 16:06-0400\n"
 "Last-Translator: Sunjae Park <darehanl@gmail.com>\n"
 "Language-Team: Korean <debian-l10n-korean@lists.debian.org>\n"
@@ -20,55 +20,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "OpenSSH 설정 파일을 새로 만들까요?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"이번 OpenSSH 버전은 지금 사용하고 계시는 듯한 데비안 'Potato'의 OpenSSH 버전"
-"과는 크게 다른 설정 파일을 사용합니다. 이 꾸러미는 새로 설치되는 서버 버전에 "
-"맞는 설정 파일(/etc/ssh/sshd.config)을 새로 만들 수 있습니다만, 이전 버전에"
-"서 변경한 내역은 적용되지 않습니다."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"참고로 새로 설치되는 설정파일은 'PermitRootLogin'의 값을 'yes'로 설정합니다"
-"(따라서 root 비밀번호를 알고 있는 사람은 누구나 root로 직접 ssh 로그인할 수 "
-"있습니다). 이렇게 결정한 이유에 대해서 자세히 알고자 하신다면 README.Debian "
-"파일을 참조하시기 바랍니다."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "설정 파일을 지금 새로 만드시길 강력히 권장합니다."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr "현재 사용중인 SSH 세션을 죽여도 괜찮습니까?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
@@ -80,7 +37,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
@@ -90,13 +47,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr "호스트키 새로 만들어야 함"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
@@ -109,19 +66,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "You need to manually generate a new host key."
 msgstr "호스트키를 직접 새로 생성하셔야 합니다."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr "제기-응답 인증방식을 해제하도록 할까요?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -137,7 +94,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -151,13 +108,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "취약한 호스트키를 다시 생성합니다"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -170,7 +127,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -184,13 +141,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr "관련된 호스트키의 목록은:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -199,3 +156,34 @@ msgstr ""
 "사용자 키 역시 이 문제에 영향을 받을 수 있습니다. 'ssh-vulnkey' 명령을 사용하"
 "여 부분적으로나마 그렇한지를 검사할 수 있습니다. 자세한 정보는 /usr/share/"
 "doc/openssh-server/README.compromised-keys.gz를 참조하십시오."
+
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "OpenSSH 설정 파일을 새로 만들까요?"
+
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "이번 OpenSSH 버전은 지금 사용하고 계시는 듯한 데비안 'Potato'의 OpenSSH 버"
+#~ "전과는 크게 다른 설정 파일을 사용합니다. 이 꾸러미는 새로 설치되는 서버 버"
+#~ "전에 맞는 설정 파일(/etc/ssh/sshd.config)을 새로 만들 수 있습니다만, 이전 "
+#~ "버전에서 변경한 내역은 적용되지 않습니다."
+
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "참고로 새로 설치되는 설정파일은 'PermitRootLogin'의 값을 'yes'로 설정합니"
+#~ "다(따라서 root 비밀번호를 알고 있는 사람은 누구나 root로 직접 ssh 로그인"
+#~ "할 수 있습니다). 이렇게 결정한 이유에 대해서 자세히 알고자 하신다면 "
+#~ "README.Debian 파일을 참조하시기 바랍니다."
+
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr "설정 파일을 지금 새로 만드시길 강력히 권장합니다."

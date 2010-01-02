@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-17 13:58+0200\n"
+"POT-Creation-Date: 2010-01-02 08:55+0000\n"
 "PO-Revision-Date: 2008-05-17 14:49+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -26,56 +26,12 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates:1001
-msgid "Generate a new configuration file for OpenSSH?"
-msgstr "Vytvořit nový konfigurační soubor OpenSSH?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"This version of OpenSSH has a considerably changed configuration file from "
-"the version shipped in Debian 'Potato', which you appear to be upgrading "
-"from. This package can now generate a new configuration file (/etc/ssh/sshd."
-"config), which will work with the new server version, but will not contain "
-"any customizations you made with the old version."
-msgstr ""
-"Tato verze OpenSSH má oproti verzi dodávané s Debianem 2.2, kterou nyní "
-"pravděpodobně aktualizujete, značně odlišný konfigurační soubor. Balík nyní "
-"může vytvořit nový konfigurační soubor (/etc/ssh/sshd.config), který bude "
-"fungovat s novou verzí serveru, ale nebude obsahovat žádné úpravy, které "
-"jste provedli ve staré verzi."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Please note that this new configuration file will set the value of "
-"'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
-"can ssh directly in as root). Please read the README.Debian file for more "
-"details about this design choice."
-msgstr ""
-"V novém konfiguračním souboru bude parametr PermitRootLogin nastaven na "
-"hodnotu „yes“. To znamená, že se kdokoliv se znalostí rootova hesla může "
-"přihlásit rovnou jako root. Více o tomto rozhodnutí se dozvíte v souboru "
-"README.Debian."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"It is strongly recommended that you choose to generate a new configuration "
-"file now."
-msgstr "Je vřele doporučeno nechat si nyní vytvořit nový konfigurační soubor."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:2001
 msgid "Do you want to risk killing active SSH sessions?"
 msgstr "Chcete riskovat ukončení aktivních SSH spojení?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "The currently installed version of /etc/init.d/ssh is likely to kill all "
 "running sshd instances. If you are doing this upgrade via an SSH session, "
@@ -87,7 +43,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
 "start-stop-daemon line in the stop section of the file."
@@ -97,13 +53,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "New host key mandatory"
 msgstr "Nutný nový serverový klíč"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
 "algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
@@ -116,19 +72,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "You need to manually generate a new host key."
 msgstr "Musíte ručně vygenerovat nový serverový klíč"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Disable challenge-response authentication?"
 msgstr "Zakázat autentizaci challenge-response?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -145,7 +101,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -159,13 +115,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Zranitelné serverové klíče budou přegenerovány"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -178,7 +134,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -192,13 +148,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid "The affected host keys are:"
 msgstr "Postižené serverové klíče:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:5001
+#: ../openssh-server.templates:4001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -207,6 +163,39 @@ msgstr ""
 "Tímto problémem mohou být postiženy také uživatelské klíče. Pro částečnou "
 "kontrolu můžete použít příkaz „ssh-vulnkey“. Více informací naleznete v "
 "souboru /usr/share/doc/openssh-server/README.compromised-keys.gz."
+
+#~ msgid "Generate a new configuration file for OpenSSH?"
+#~ msgstr "Vytvořit nový konfigurační soubor OpenSSH?"
+
+#~ msgid ""
+#~ "This version of OpenSSH has a considerably changed configuration file "
+#~ "from the version shipped in Debian 'Potato', which you appear to be "
+#~ "upgrading from. This package can now generate a new configuration file (/"
+#~ "etc/ssh/sshd.config), which will work with the new server version, but "
+#~ "will not contain any customizations you made with the old version."
+#~ msgstr ""
+#~ "Tato verze OpenSSH má oproti verzi dodávané s Debianem 2.2, kterou nyní "
+#~ "pravděpodobně aktualizujete, značně odlišný konfigurační soubor. Balík "
+#~ "nyní může vytvořit nový konfigurační soubor (/etc/ssh/sshd.config), který "
+#~ "bude fungovat s novou verzí serveru, ale nebude obsahovat žádné úpravy, "
+#~ "které jste provedli ve staré verzi."
+
+#~ msgid ""
+#~ "Please note that this new configuration file will set the value of "
+#~ "'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password "
+#~ "can ssh directly in as root). Please read the README.Debian file for more "
+#~ "details about this design choice."
+#~ msgstr ""
+#~ "V novém konfiguračním souboru bude parametr PermitRootLogin nastaven na "
+#~ "hodnotu „yes“. To znamená, že se kdokoliv se znalostí rootova hesla může "
+#~ "přihlásit rovnou jako root. Více o tomto rozhodnutí se dozvíte v souboru "
+#~ "README.Debian."
+
+#~ msgid ""
+#~ "It is strongly recommended that you choose to generate a new "
+#~ "configuration file now."
+#~ msgstr ""
+#~ "Je vřele doporučeno nechat si nyní vytvořit nový konfigurační soubor."
 
 #~ msgid "Warning: you must create a new host key"
 #~ msgstr "Varování: musíte vytvořit nový serverový klíč"

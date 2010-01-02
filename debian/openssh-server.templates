@@ -7,24 +7,6 @@
 # Even minor modifications require translation updates and such
 # changes should be coordinated with translators and reviewers.
 #
-Template: ssh/new_config
-Type: boolean
-Default: true
-_Description: Generate a new configuration file for OpenSSH?
- This version of OpenSSH has a considerably changed configuration file from
- the version shipped in Debian 'Potato', which you appear to be upgrading
- from. This package can now generate a new configuration file
- (/etc/ssh/sshd.config), which will work with the new server version, but
- will not contain any customizations you made with the old version.
- .
- Please note that this new configuration file will set the value of
- 'PermitRootLogin' to 'yes' (meaning that anyone knowing the root password
- can ssh directly in as root). Please read the README.Debian file for
- more details about this design choice.
- .
- It is strongly recommended that you choose to generate a new
- configuration file now.
-
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false

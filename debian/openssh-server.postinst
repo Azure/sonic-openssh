@@ -236,60 +236,55 @@ move_subsystem_sftp() {
 
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
-	    if dpkg --compare-versions "$oldversion" lt-nl 1:1.3 ; then
-		db_get ssh/new_config
-		if [ "$RET" = "false" ] ; then return 0; fi
-	    else
-		# Upgrade sshd configuration from a sane version.
+	    # Upgrade an existing sshd configuration.
 
-		if (dpkg --compare-versions "$oldversion" lt-nl 1:3.8p1-1 && \
-		    ! grep -iq ^UsePAM /etc/ssh/sshd_config) || \
-		   grep -Eiq '^(PAMAuthenticationViaKbdInt|RhostsAuthentication)' \
-		     /etc/ssh/sshd_config ; then
-		    # Upgrade from pre-3.7: UsePAM needed to maintain standard
-		    # Debian configuration.
-		    # Note that --compare-versions is sadly not reliable enough
-		    # here due to the package split of ssh into openssh-client
-		    # and openssh-server. The extra grep for some deprecated
-		    # options should with any luck be a good enough heuristic.
-		    echo -n 'Upgrading sshd_config (old version in .dpkg-old) ...'
-		    cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
-		    perl -pe 's/^(PAMAuthenticationViaKbdInt|RhostsAuthentication)\b/#$1/i' \
-			/etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
-		    echo >> /etc/ssh/sshd_config.dpkg-new
-		    echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
-		    chown --reference /etc/ssh/sshd_config \
-		                      /etc/ssh/sshd_config.dpkg-new
-		    chmod --reference /etc/ssh/sshd_config \
-		                      /etc/ssh/sshd_config.dpkg-new
-		    mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
-		    echo
-		fi
-
-		# An empty version means we're upgrading from before the
-		# package split, so check.
-		if dpkg --compare-versions "$oldversion" lt 1:3.8.1p1-11; then
-		    check_password_auth
-		fi
-
-		# libexecdir changed, so fix up 'Subsystem sftp'.
-		if dpkg --compare-versions "$oldversion" lt 1:4.1p1-1; then
-		    move_subsystem_sftp
-		fi
-
-		# Remove obsolete GSSAPI options.
-		if dpkg --compare-versions "$oldversion" lt 1:4.3p2-8; then
-		    remove_obsolete_gssapi
-		fi
-
-		# This option was renamed in 3.8p1, but we never took care
-		# of adjusting the configuration file until now.
-		if dpkg --compare-versions "$oldversion" lt 1:4.7p1-8; then
-		    rename_config_option KeepAlive TCPKeepAlive
-		fi
-
-		return 0
+	    if (dpkg --compare-versions "$oldversion" lt-nl 1:3.8p1-1 && \
+		! grep -iq ^UsePAM /etc/ssh/sshd_config) || \
+	       grep -Eiq '^(PAMAuthenticationViaKbdInt|RhostsAuthentication)' \
+		 /etc/ssh/sshd_config ; then
+		# Upgrade from pre-3.7: UsePAM needed to maintain standard
+		# Debian configuration.
+		# Note that --compare-versions is sadly not reliable enough
+		# here due to the package split of ssh into openssh-client
+		# and openssh-server. The extra grep for some deprecated
+		# options should with any luck be a good enough heuristic.
+		echo -n 'Upgrading sshd_config (old version in .dpkg-old) ...'
+		cp -a /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-old
+		perl -pe 's/^(PAMAuthenticationViaKbdInt|RhostsAuthentication)\b/#$1/i' \
+		    /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
+		echo >> /etc/ssh/sshd_config.dpkg-new
+		echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
+		chown --reference /etc/ssh/sshd_config \
+				  /etc/ssh/sshd_config.dpkg-new
+		chmod --reference /etc/ssh/sshd_config \
+				  /etc/ssh/sshd_config.dpkg-new
+		mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
+		echo
 	    fi
+
+	    # An empty version means we're upgrading from before the
+	    # package split, so check.
+	    if dpkg --compare-versions "$oldversion" lt 1:3.8.1p1-11; then
+		check_password_auth
+	    fi
+
+	    # libexecdir changed, so fix up 'Subsystem sftp'.
+	    if dpkg --compare-versions "$oldversion" lt 1:4.1p1-1; then
+		move_subsystem_sftp
+	    fi
+
+	    # Remove obsolete GSSAPI options.
+	    if dpkg --compare-versions "$oldversion" lt 1:4.3p2-8; then
+		remove_obsolete_gssapi
+	    fi
+
+	    # This option was renamed in 3.8p1, but we never took care
+	    # of adjusting the configuration file until now.
+	    if dpkg --compare-versions "$oldversion" lt 1:4.7p1-8; then
+		rename_config_option KeepAlive TCPKeepAlive
+	    fi
+
+	    return 0
 	fi
 
 	#Preserve old sshd_config before generating a new one
