@@ -294,7 +294,7 @@ create_sshdconfig() {
 
 	cat <<EOF > /etc/ssh/sshd_config
 # Package generated configuration file
-# See the sshd(8) manpage for details
+# See the sshd_config(5) manpage for details
 
 # What ports, IPs and protocols we listen for
 Port 22
@@ -369,6 +369,15 @@ AcceptEnv LANG LC_*
 
 Subsystem sftp /usr/lib/openssh/sftp-server
 
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
 UsePAM yes
 EOF
 }

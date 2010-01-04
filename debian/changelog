@@ -52,6 +52,10 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
     non-BSD systems (closes: #154434).
   * Remove/adjust manual page references to BSD-specific /etc/rc (closes:
     #513417).
+  * Refer to sshd_config(5) rather than sshd(8) in postinst-written
+    /etc/ssh/sshd_config, and add UsePAM commentary from upstream-shipped
+    configuration file (closes: #415008, although unfortunately this will
+    only be conveniently visible on new installations).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 
