@@ -1,4 +1,4 @@
-openssh (1:5.2p1-1) UNRELEASED; urgency=low
+openssh (1:5.2p1-1) unstable; urgency=low
 
   * New upstream release (closes: #536182). Yes, I know 5.3p1 has been out
     for a while, but there's no GSSAPI patch available for it yet.
@@ -60,7 +60,7 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
     source for the same information among Debian's manual pages (closes:
     #530692, LP: #456660).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2010 13:23:35 +0000
 
 openssh (1:5.1p1-8) unstable; urgency=low
 
