@@ -50,6 +50,8 @@ openssh (1:5.2p1-1) UNRELEASED; urgency=low
     rsh, based on suggestions from Reuben Thomas (closes: #512198).
   * Remove manual page references to login.conf, which aren't applicable on
     non-BSD systems (closes: #154434).
+  * Remove/adjust manual page references to BSD-specific /etc/rc (closes:
+    #513417).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 12 Nov 2009 21:31:44 +0000
 
