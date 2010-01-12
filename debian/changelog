@@ -4,6 +4,7 @@ openssh (1:5.2p1-2) UNRELEASED; urgency=low
     - After sshd receives a SIGHUP, ignore subsequent HUPs while sshd
       re-execs itself. Prevents two HUPs in quick succession from resulting
       in sshd dying (LP: #497781).
+  * Use host compiler for ssh-askpass-gnome when cross-compiling.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 10 Jan 2010 22:06:28 +0000
 
