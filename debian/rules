@@ -128,7 +128,9 @@ endif
 
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
 	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall'
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	$(MAKE) -C debian/tests
+endif
 
 	touch build-deb-stamp
 
@@ -148,7 +150,9 @@ build-udeb-stamp:
 clean:
 	dh_testdir
 	rm -rf build-deb build-udeb
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	$(MAKE) -C debian/tests clean
+endif
 	$(MAKE) -C contrib clean
 	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
 		> debian/copyright
