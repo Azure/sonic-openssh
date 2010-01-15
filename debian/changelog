@@ -2,7 +2,7 @@ openssh (1:5.2p1-2) UNRELEASED; urgency=low
 
   * Backport from upstream:
     - After sshd receives a SIGHUP, ignore subsequent HUPs while sshd
-      re-execs itself. Prevents two HUPs in quick succession from resulting
+      re-execs itself.  Prevents two HUPs in quick succession from resulting
       in sshd dying (LP: #497781).
   * Use host compiler for ssh-askpass-gnome when cross-compiling.
   * Don't run tests when cross-compiling.
