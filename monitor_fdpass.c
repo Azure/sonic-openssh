@@ -32,7 +32,6 @@
 #ifdef HAVE_SYS_UN_H
 #include <sys/un.h>
 #endif
-#include <sys/utsname.h>
 
 #include <errno.h>
 #include <string.h>
@@ -40,29 +39,6 @@
 
 #include "log.h"
 #include "monitor_fdpass.h"
-
-static int
-cmsg_type_is_broken(void)
-{
-	static int broken_cmsg_type = -1;
-
-	if (broken_cmsg_type != -1)
-		return broken_cmsg_type;
-	else {
-		struct utsname uts;
-		/* If uname() fails, play safe and assume that cmsg_type
-		 * isn't broken.
-		 */
-		if (!uname(&uts) &&
-		    strcmp(uts.sysname, "Linux") == 0 &&
-		    strncmp(uts.release, "2.0.", 4) == 0)
-			broken_cmsg_type = 1;
-		else
-			broken_cmsg_type = 0;
-	}
-
-	return broken_cmsg_type;
-}
 
 int
 mm_send_fd(int sock, int fd)
@@ -176,11 +152,13 @@ mm_receive_fd(int sock)
 		return -1;
 	}
 
-	if (!cmsg_type_is_broken() && cmsg->cmsg_type != SCM_RIGHTS) {
+#ifndef BROKEN_CMSG_TYPE
+	if (cmsg->cmsg_type != SCM_RIGHTS) {
 		error("%s: expected type %d got %d", __func__,
 		    SCM_RIGHTS, cmsg->cmsg_type);
 		return -1;
 	}
+#endif
 	fd = (*(int *)CMSG_DATA(cmsg));
 #endif
 	return fd;
