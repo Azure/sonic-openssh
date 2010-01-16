@@ -516,8 +516,12 @@ auth_openkeyfile(const char *file, struct passwd *pw, int strict_modes)
 	 * Open the file containing the authorized keys
 	 * Fail quietly if file does not exist
 	 */
-	if ((fd = open(file, O_RDONLY|O_NONBLOCK)) == -1)
+	if ((fd = open(file, O_RDONLY|O_NONBLOCK)) == -1) {
+		if (errno != ENOENT)
+			debug("Could not open keyfile '%s': %s", file,
+			   strerror(errno));
 		return NULL;
+	}
 
 	if (fstat(fd, &st) < 0) {
 		close(fd);

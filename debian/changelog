@@ -5,6 +5,7 @@ openssh (1:5.2p1-2) UNRELEASED; urgency=low
     - After sshd receives a SIGHUP, ignore subsequent HUPs while sshd
       re-execs itself.  Prevents two HUPs in quick succession from resulting
       in sshd dying (LP: #497781).
+    - Output a debug if we can't open an existing keyfile (LP: #505301).
   * Use host compiler for ssh-askpass-gnome when cross-compiling.
   * Don't run tests when cross-compiling.
   * Drop change from 1:3.6.1p2-5 to disable cmsg_type check for file
