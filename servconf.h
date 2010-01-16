@@ -154,6 +154,8 @@ typedef struct {
 
 	int	num_permitted_opens;
 
+	int	debian_banner;
+
 	char   *chroot_directory;
 }       ServerOptions;
 

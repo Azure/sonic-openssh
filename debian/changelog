@@ -1,5 +1,6 @@
 openssh (1:5.2p1-2) UNRELEASED; urgency=low
 
+  [ Colin Watson ]
   * Backport from upstream:
     - After sshd receives a SIGHUP, ignore subsequent HUPs while sshd
       re-execs itself.  Prevents two HUPs in quick succession from resulting
@@ -10,6 +11,11 @@ openssh (1:5.2p1-2) UNRELEASED; urgency=low
     descriptor passing when running on Linux 2.0.  The previous stable
     release of Debian dropped support for Linux 2.4, let alone 2.0, so this
     very likely has no remaining users depending on it.
+
+  [ Kees Cook ]
+  * Implement DebianBanner server configuration flag that can be set to "no"
+    to allow sshd to run without the Debian-specific extra version in the
+    initial protocol handshake (closes: #562048).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 10 Jan 2010 22:06:28 +0000
 

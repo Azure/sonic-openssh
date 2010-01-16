@@ -132,6 +132,7 @@ initialize_server_options(ServerOptions *options)
 	options->adm_forced_command = NULL;
 	options->chroot_directory = NULL;
 	options->zero_knowledge_password_authentication = -1;
+	options->debian_banner = -1;
 }
 
 void
@@ -273,6 +274,8 @@ fill_default_server_options(ServerOptions *options)
 		options->permit_tun = SSH_TUNMODE_NO;
 	if (options->zero_knowledge_password_authentication == -1)
 		options->zero_knowledge_password_authentication = 0;
+	if (options->debian_banner == -1)
+		options->debian_banner = 1;
 
 	/* Turn privilege separation on by default */
 	if (use_privsep == -1)
@@ -320,6 +323,7 @@ typedef enum {
 	sMatch, sPermitOpen, sForceCommand, sChrootDirectory,
 	sUsePrivilegeSeparation, sAllowAgentForwarding,
 	sZeroKnowledgePasswordAuthentication,
+	sDebianBanner,
 	sDeprecated, sUnsupported
 } ServerOpCodes;
 
@@ -449,6 +453,7 @@ static struct {
 	{ "permitopen", sPermitOpen, SSHCFG_ALL },
 	{ "forcecommand", sForceCommand, SSHCFG_ALL },
 	{ "chrootdirectory", sChrootDirectory, SSHCFG_ALL },
+	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
 
@@ -1334,6 +1339,10 @@ process_server_config_line(ServerOptions *options, char *line,
 		if (*activep && *charptr == NULL)
 			*charptr = xstrdup(arg);
 		break;
+
+	case sDebianBanner:
+		intptr = &options->debian_banner;
+		goto parse_int;
 
 	case sDeprecated:
 		logit("%s line %d: Deprecated option %s",

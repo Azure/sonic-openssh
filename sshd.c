@@ -425,7 +425,8 @@ sshd_exchange_identification(int sock_in, int sock_out)
 		minor = PROTOCOL_MINOR_1;
 	}
 	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s%s", major, minor,
-	    SSH_RELEASE, newline);
+	    options.debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
+	    newline);
 	server_version_string = xstrdup(buf);
 
 	/* Send our protocol version identification. */
