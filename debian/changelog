@@ -1,4 +1,4 @@
-openssh (1:5.2p1-2) UNRELEASED; urgency=low
+openssh (1:5.2p1-2) unstable; urgency=low
 
   [ Colin Watson ]
   * Backport from upstream:
@@ -18,7 +18,7 @@ openssh (1:5.2p1-2) UNRELEASED; urgency=low
     to allow sshd to run without the Debian-specific extra version in the
     initial protocol handshake (closes: #562048).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 10 Jan 2010 22:06:28 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 16 Jan 2010 01:28:58 +0000
 
 openssh (1:5.2p1-1) unstable; urgency=low
 
