@@ -133,7 +133,7 @@ http://www.sxw.org.uk/computing/patches/openssh.html; of course such a patch
 needs to exist first! To do this, run this in the gssapi branch:
 
   bzr merge /path/to/openssh/tarball/branch
-  bzr revert -rrevno:-1:/path/to/openssh/tarball/branch
+  bzr revert -rrevno:-1:/path/to/openssh/tarball/branch .
   patch -p1 </path/to/openssh/gssapi/patch
   bzr add --file-ids-from=/path/to/openssh/debian/trunk
   # you may need to deal with applying configure.ac changes to configure
