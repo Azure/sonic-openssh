@@ -1,3 +1,11 @@
+openssh (1:5.3p1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * Update to GSSAPI patch from
+    http://www.sxw.org.uk/computing/patches/openssh-5.3p1-gsskex-all-20100124.patch.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 24 Jan 2010 22:32:25 +0000
+
 openssh (1:5.2p1-2) unstable; urgency=low
 
   [ Colin Watson ]
