@@ -126,10 +126,22 @@ file-ids are correct (see above). Run:
   # the result will be mergeable
   bzr ci -m 'Import 5.3p1 tarball'
 
-You should now be able to 'bzr merge' from the tarball branch, resolve
-conflicts, and commit. If you see lots of "Contents conflict" messages, you
-may have got the file-ids wrong. Once you've committed the merge, you can
-throw away the tarball branch, as all its history will have been
-incorporated.
+Next, merge this into the gssapi branch
+(bzr+ssh://bzr.debian.org/bzr/pkg-ssh/openssh/gssapi/). For this branch, we
+want to ignore the normal results of merging and take only the patch from
+http://www.sxw.org.uk/computing/patches/openssh.html; of course such a patch
+needs to exist first! To do this, run this in the gssapi branch:
 
-(TODO: The above does not describe how to handle the gssapi branch.)
+  bzr merge /path/to/openssh/tarball/branch
+  bzr revert -rrevno:-1:/path/to/openssh/tarball/branch
+  patch -p1 </path/to/openssh/gssapi/patch
+  bzr add --file-ids-from=/path/to/openssh/debian/trunk
+  # you may need to deal with applying configure.ac changes to configure
+  # here
+  bzr ci -m 'import openssh-5.3p1-gsskex-all-20100124.patch'
+
+You should now be able to 'bzr merge' from the gssapi branch into the Debian
+trunk, resolve conflicts, and commit. If you see lots of "Contents conflict"
+messages, you may have got the file-ids wrong. Once you've committed the
+merge, you can throw away the tarball branch, as all its history will have
+been incorporated.
