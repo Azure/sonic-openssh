@@ -545,12 +545,6 @@ ssh_add_identity_constrained(AuthenticationConnection *auth, Key *key,
 	return decode_reply(type);
 }
 
-int
-ssh_add_identity(AuthenticationConnection *auth, Key *key, const char *comment)
-{
-	return ssh_add_identity_constrained(auth, key, comment, 0, 0);
-}
-
 /*
  * Removes an identity from the authentication server.  This call is not
  * meant to be used by normal applications.

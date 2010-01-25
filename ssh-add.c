@@ -203,9 +203,6 @@ add_file(AuthenticationConnection *ac, const char *filename)
 		if (confirm != 0)
 			fprintf(stderr,
 			    "The user has to confirm each use of the key\n");
-	} else if (ssh_add_identity(ac, private, comment)) {
-		fprintf(stderr, "Identity added: %s (%s)\n", filename, comment);
-		ret = 0;
 	} else {
 		fprintf(stderr, "Could not add identity: %s\n", filename);
 	}
