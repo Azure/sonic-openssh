@@ -1,4 +1,4 @@
-openssh (1:5.3p1-1) UNRELEASED; urgency=low
+openssh (1:5.3p1-1) unstable; urgency=low
 
   * New upstream release.
   * Update to GSSAPI patch from
@@ -12,7 +12,7 @@ openssh (1:5.3p1-1) UNRELEASED; urgency=low
     calls.  This only applied to Linux 2.2, which it's no longer feasible to
     run anyway (see 1:5.2p1-2 changelog).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 24 Jan 2010 22:32:25 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 26 Jan 2010 11:55:29 +0000
 
 openssh (1:5.2p1-2) unstable; urgency=low
 
