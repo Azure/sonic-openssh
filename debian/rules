@@ -242,6 +242,7 @@ binary-openssh-server: build install
 	dh_installdocs
 	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
 	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
+	dh_installexamples
 	install -m644 debian/openssh-server.lintian debian/openssh-server/usr/share/lintian/overrides/openssh-server
 	dh_installpam --name sshd
 	dh_link
