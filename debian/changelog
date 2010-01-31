@@ -1,3 +1,9 @@
+openssh (1:5.3p1-2) UNRELEASED; urgency=low
+
+  * Link with -Wl,--as-needed (closes: #560155).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 31 Jan 2010 00:11:43 +0000
+
 openssh (1:5.3p1-1) unstable; urgency=low
 
   * New upstream release.

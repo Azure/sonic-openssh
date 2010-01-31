@@ -107,9 +107,8 @@ confflags += --with-cflags='$(cflags)'
 confflags_udeb += --with-cflags='$(cflags_udeb)'
 
 # Linker flags.
-ifneq ($(PIC_LDFLAGS)$(HARDENING_LDFLAGS),)
-confflags += --with-ldflags='$(strip $(PIC_LDFLAGS) $(HARDENING_LDFLAGS))'
-endif
+confflags += --with-ldflags='$(strip -Wl,--as-needed $(PIC_LDFLAGS) $(HARDENING_LDFLAGS))'
+confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 build: build-deb build-udeb
 
@@ -123,7 +122,7 @@ build-deb-stamp:
 	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
 
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
-	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall'
+	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall -Wl,--as-needed'
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	$(MAKE) -C debian/tests
 endif
