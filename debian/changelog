@@ -3,6 +3,7 @@ openssh (1:5.3p1-2) UNRELEASED; urgency=low
   * Link with -Wl,--as-needed (closes: #560155).
   * Install upstream sshd_config as an example (closes: #415008).
   * Use dh_lintian.
+  * Honour DEB_BUILD_OPTIONS=nocheck.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 31 Jan 2010 00:11:43 +0000
 

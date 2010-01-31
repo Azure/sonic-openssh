@@ -14,6 +14,12 @@ else
 OPTFLAGS := -O0
 endif
 
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+  RUN_TESTS := yes
+else
+  RUN_TESTS :=
+endif
+
 DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
@@ -23,6 +29,7 @@ ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 else
   confflags += --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE)
   CC := $(DEB_HOST_GNU_TYPE)-gcc
+  RUN_TESTS :=
 endif
 
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
@@ -123,7 +130,7 @@ build-deb-stamp:
 
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
 	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall -Wl,--as-needed'
-ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C debian/tests
 endif
 
@@ -145,7 +152,7 @@ build-udeb-stamp:
 clean:
 	dh_testdir
 	rm -rf build-deb build-udeb
-ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C debian/tests clean
 endif
 	$(MAKE) -C contrib clean
