@@ -10,7 +10,7 @@ openssh (1:5.3p1-1) unstable; urgency=low
   * Update to GSSAPI patch from
     http://www.sxw.org.uk/computing/patches/openssh-5.3p1-gsskex-all-20100124.patch.
   * Backport from upstream:
-    - Do not fall back to adding keys without contraints (ssh-add -c / -t
+    - Do not fall back to adding keys without constraints (ssh-add -c / -t
       ...) when the agent refuses the constrained add request. This was a
       useful migration measure back in 2002 when constraints were new, but
       just adds risk now (LP: #209447).
