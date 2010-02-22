@@ -249,10 +249,10 @@ binary-openssh-server: build install
 	dh_installdocs
 	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
 	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
-	dh_installexamples
 	dh_installpam --name sshd
 	dh_lintian
 	dh_link
+	dh_installexamples
 	dh_strip
 	dh_compress
 	dh_fixperms
