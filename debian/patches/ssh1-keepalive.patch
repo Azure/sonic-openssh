@@ -1,3 +1,8 @@
+Description: Partial server keep-alive implementation for SSH1
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1712
+Last-Update: 2010-02-27
+
 Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c

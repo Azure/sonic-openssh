@@ -1,3 +1,15 @@
+Description: Reject vulnerable keys to mitigate Debian OpenSSL flaw
+ In 2008, Debian (and derived distributions such as Ubuntu) shipped an
+ OpenSSL package with a flawed random number generator, causing OpenSSH to
+ generate only a very limited set of keys which were subject to private half
+ precomputation.  To mitigate this, this patch checks key authentications
+ against a blacklist of known-vulnerable keys, and adds a new ssh-vulnkey
+ program which can be used to explicitly check keys against that blacklist.
+ See CVE-2008-0166.
+Author: Colin Watson <cjwatson@ubuntu.com>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1469
+Last-Update: 2010-02-27
+
 Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in

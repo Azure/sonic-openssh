@@ -1,3 +1,19 @@
+Description: Various keepalive extensions
+ Add compatibility aliases for ProtocolKeepAlives and SetupTimeOut,
+ supported in previous versions of Debian's OpenSSH package but since
+ superseded by ServerAliveInterval.  (We're probably stuck with this bit for
+ compatibility.)
+ .
+ In batch mode, default ServerAliveInterval to five minutes.
+ .
+ Adjust documentation to match and to give some more advice on use of
+ keepalives.
+Author: Richard Kettlewell <rjk@greenend.org.uk>
+Author: Ian Jackson <ian@chiark.greenend.org.uk>
+Author: Matthew Vernon <matthew@debian.org>
+Author: Colin Watson <cjwatson@debian.org>
+Last-Update: 2010-02-27
+
 Index: b/readconf.c
 ===================================================================
 --- a/readconf.c

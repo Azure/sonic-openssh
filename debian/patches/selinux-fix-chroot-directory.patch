@@ -1,3 +1,12 @@
+Description: Make ChrootDirectory work with SELinux
+ After chroot() is called the SE Linux context setting won't work unless
+ /selinux and /proc are mounted in the chroot environment.  Even worse, if
+ the user has control over the chroot environment then they may be able to
+ control the context that they get (I haven't verified this).
+Author: Russell Coker <russell@coker.com.au>
+Bug-Debian: http://bugs.debian.org/556644
+Last-Update: 2010-02-27
+
 Index: b/session.c
 ===================================================================
 --- a/session.c

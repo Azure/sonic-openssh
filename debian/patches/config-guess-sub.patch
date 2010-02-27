@@ -1,3 +1,8 @@
+Description: Update config.guess and config.sub from autotools-dev 20090611.1
+From: Bradley Smith <bradsmith@debian.org>
+Bug-Debian: http://bugs.debian.org/538301
+Last-Update: 2010-02-27
+
 Index: b/config.guess
 ===================================================================
 --- a/config.guess

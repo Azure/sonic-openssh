@@ -1,3 +1,12 @@
+Description: Handle SELinux authorisation roles
+ Rejected upstream due to discomfort with magic usernames; a better approach
+ will need an SSH protocol change.  In the meantime, this came from Debian's
+ SELinux maintainer, so we'll keep it until we have something better.
+Author: Manoj Srivastava <srivasta@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1641
+Bug-Debian: http://bugs.debian.org/394795
+Last-Update: 2010-02-27
+
 Index: b/auth.h
 ===================================================================
 --- a/auth.h

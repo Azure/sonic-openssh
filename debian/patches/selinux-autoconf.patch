@@ -1,3 +1,16 @@
+Description: Fix seusers detection at configure time
+ configure didn't add -lselinux to LIBS before it checked for the existence
+ of getseuserbyname and get_default_context_with_level.  This resulted in
+ seusers configuration not being handled correctly.  Most policies use the
+ seusers feature, and without it login security contexts will not be
+ correct.
+Author: Caleb Case <calebcase@gmail.com>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1713
+Bug-Debian: http://bugs.debian.org/465614
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/188136
+Reviewed-by: Colin Watson <cjwatson@debian.org>
+Last-Update: 2010-02-27
+
 Index: b/configure
 ===================================================================
 --- a/configure
