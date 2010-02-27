@@ -1,3 +1,10 @@
+Description: Disable the Linux kernel's OOM-killer for the sshd parent
+Author: Vaclav Ovsik <vaclav.ovsik@i.cz>
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1470
+Bug-Debian: http://bugs.debian.org/480020
+Last-Update: 2010-02-27
+
 Index: b/config.h.in
 ===================================================================
 --- a/config.h.in

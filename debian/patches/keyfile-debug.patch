@@ -1,3 +1,10 @@
+Description: Output a debug if we can't open an existing keyfile
+Origin: upstream, http://bazaar.launchpad.net/~vcs-imports/openssh/main/revision/5873
+Author: Darren Tucker <dtucker@zip.com.au>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1694
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/505301
+Last-Update: 2010-02-27
+
 Index: b/auth.c
 ===================================================================
 --- a/auth.c
