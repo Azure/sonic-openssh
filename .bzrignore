@@ -1,3 +1,4 @@
+./.pc
 ./*.out
 ./Makefile
 ./autom4te.cache

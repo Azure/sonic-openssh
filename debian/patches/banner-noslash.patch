@@ -1,0 +1,13 @@
+Index: b/sshconnect2.c
+===================================================================
+--- a/sshconnect2.c
++++ b/sshconnect2.c
+@@ -477,7 +477,7 @@
+ 		if (len > 65536)
+ 			len = 65536;
+ 		msg = xmalloc(len * 4 + 1); /* max expansion from strnvis() */
+-		strnvis(msg, raw, len * 4 + 1, VIS_SAFE|VIS_OCTAL);
++		strnvis(msg, raw, len * 4 + 1, VIS_SAFE|VIS_OCTAL|VIS_NOSLASH);
+ 		fprintf(stderr, "%s", msg);
+ 		xfree(msg);
+ 	}

@@ -1,0 +1,17 @@
+Index: b/clientloop.c
+===================================================================
+--- a/clientloop.c
++++ b/clientloop.c
+@@ -1526,8 +1526,10 @@
+ 		exit_status = 0;
+ 	}
+ 
+-	if (received_signal)
+-		fatal("Killed by signal %d.", (int) received_signal);
++	if (received_signal) {
++		debug("Killed by signal %d.", (int) received_signal);
++		cleanup_exit((int) received_signal + 128);
++	}
+ 
+ 	/*
+ 	 * In interactive mode (with pseudo tty) display a message indicating

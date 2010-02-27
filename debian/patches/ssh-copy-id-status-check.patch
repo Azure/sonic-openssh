@@ -1,0 +1,13 @@
+Index: b/contrib/ssh-copy-id
+===================================================================
+--- a/contrib/ssh-copy-id
++++ b/contrib/ssh-copy-id
+@@ -19,7 +19,7 @@
+     shift         # and this should leave $1 as the target name
+   fi
+ else
+-  if [ x$SSH_AUTH_SOCK != x ] ; then
++  if [ x$SSH_AUTH_SOCK != x ] && ssh-add -L >/dev/null 2>&1; then
+     GET_ID="$GET_ID ssh-add -L"
+   fi
+ fi
