@@ -1,3 +1,8 @@
+Description: Update config.h.in following GSSAPI patch
+Author: Colin Watson <cjwatson@debian.org>
+Forwarded: not-needed
+Last-Updated: 2010-02-27
+
 Index: b/config.h.in
 ===================================================================
 --- a/config.h.in

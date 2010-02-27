@@ -1,3 +1,20 @@
+Description: GSSAPI key exchange support
+ This patch has been rejected upstream: "None of the OpenSSH developers are
+ in favour of adding this, and this situation has not changed for several
+ years.  This is not a slight on Simon's patch, which is of fine quality,
+ but just that a) we don't trust GSSAPI implementations that much and b) we
+ don't like adding new KEX since they are pre-auth attack surface.  This one
+ is particularly scary, since it requires hooks out to typically root-owned
+ system resources."
+ .
+ However, quite a lot of people rely on this in Debian, and it's better to
+ have it merged into the main openssh package rather than having separate
+ -krb5 packages (as we used to have).  It seems to have a generally good
+ security history.
+Author: Simon Wilkinson <simon@sxw.org.uk>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
+Last-Updated: 2010-02-27
+
 Index: b/ChangeLog.gssapi
 ===================================================================
 --- /dev/null

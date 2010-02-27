@@ -1,6 +1,8 @@
 # GSSAPI
 gssapi.patch
 gssapi-autoconf.patch
+gssapi-compat.patch
+gssapi-dump.patch
 old-gssapi.patch
 
 # Autotools

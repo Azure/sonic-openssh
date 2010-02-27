@@ -1,38 +1,9 @@
-Index: b/servconf.c
-===================================================================
---- a/servconf.c
-+++ b/servconf.c
-@@ -375,16 +375,20 @@
- #ifdef GSSAPI
- 	{ "gssapiauthentication", sGssAuthentication, SSHCFG_ALL },
- 	{ "gssapicleanupcredentials", sGssCleanupCreds, SSHCFG_GLOBAL },
-+	{ "gssapicleanupcreds", sGssCleanupCreds, SSHCFG_GLOBAL },
- 	{ "gssapistrictacceptorcheck", sGssStrictAcceptor, SSHCFG_GLOBAL },
- 	{ "gssapikeyexchange", sGssKeyEx, SSHCFG_GLOBAL },
- 	{ "gssapistorecredentialsonrekey", sGssStoreRekey, SSHCFG_GLOBAL },
- #else
- 	{ "gssapiauthentication", sUnsupported, SSHCFG_ALL },
- 	{ "gssapicleanupcredentials", sUnsupported, SSHCFG_GLOBAL },
-+	{ "gssapicleanupcreds", sUnsupported, SSHCFG_GLOBAL },
- 	{ "gssapistrictacceptorcheck", sUnsupported, SSHCFG_GLOBAL },
- 	{ "gssapikeyexchange", sUnsupported, SSHCFG_GLOBAL },
- 	{ "gssapistorecredentialsonrekey", sUnsupported, SSHCFG_GLOBAL },
- #endif
-+	{ "gssusesessionccache", sUnsupported, SSHCFG_GLOBAL },
-+	{ "gssapiusesessioncredcache", sUnsupported, SSHCFG_GLOBAL },
- 	{ "passwordauthentication", sPasswordAuthentication, SSHCFG_ALL },
- 	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL },
- 	{ "challengeresponseauthentication", sChallengeResponseAuthentication, SSHCFG_GLOBAL },
-@@ -1620,7 +1624,9 @@
- #endif
- #ifdef GSSAPI
- 	dump_cfg_fmtint(sGssAuthentication, o->gss_authentication);
-+	dump_cfg_fmtint(sGssKeyEx, o->gss_keyex);
- 	dump_cfg_fmtint(sGssCleanupCreds, o->gss_cleanup_creds);
-+	dump_cfg_fmtint(sGssStrictAcceptor, o->gss_strict_acceptor);
- #endif
- #ifdef JPAKE
- 	dump_cfg_fmtint(sZeroKnowledgePasswordAuthentication,
+Description: Interoperate with old GSSAPI authentication method
+ ssh-krb5 << 3.8.1p1-1 servers used a slightly different version.
+Author: "Aaron M. Ucko" <ucko@debian.org>
+Bug-Debian: http://bugs.debian.org/328388
+Last-Updated: 2010-02-27
+
 Index: b/sshconnect2.c
 ===================================================================
 --- a/sshconnect2.c
