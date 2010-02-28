@@ -21,7 +21,7 @@ PermitRootLogin set to yes
 This is now the default setting (in line with upstream), and people
 who asked for an automatically-generated configuration file when
 upgrading from potato (or on a new install) will have this setting in
-their /etc/ssh/sshd_config file. 
+their /etc/ssh/sshd_config file.
 
 Should you wish to change this setting, edit /etc/ssh/sshd_config, and
 change:
@@ -144,7 +144,7 @@ OTHER ISSUES
 Due to Debian bug #164325, RhostsRSAAuthentication can only be used if ssh
 is SUID.  Until this is fixed, if that is a problem, use:
 
-   dpkg-statoverride 
+   dpkg-statoverride
 
 or if that's also missing, use this:
 
@@ -183,17 +183,17 @@ keys, it does this for you.
 ------------------------
 
 non-free ssh supported the usage of the option -L to use a non privileged
-port for scp. This option will not be supported by scp from openssh. 
+port for scp. This option will not be supported by scp from openssh.
 
-Please use instead scp -o "UsePrivilegedPort=no" as documented in the 
-manpage to scp itself. 
+Please use instead scp -o "UsePrivilegedPort=no" as documented in the
+manpage to scp itself.
 
 Problem logging in because of TCP-Wrappers
 ------------------------------------------
 
 ssh is compiled with support for tcp-wrappers. So if you can no longer
 log into your system, please check that /etc/hosts.allow and /etc/hosts.deny
-are configured so that ssh is not blocked. 
+are configured so that ssh is not blocked.
 
 Kerberos support
 ----------------
