@@ -10,6 +10,7 @@ openssh (1:5.3p1-3) UNRELEASED; urgency=low
     Support for this was removed in 1:4.7p1-2.
   * Remove obsolete header from README.Debian dating from when people
     expected non-free SSH.
+  * Update copyright years for GSSAPI patch.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 27 Feb 2010 01:07:15 +0000
 
