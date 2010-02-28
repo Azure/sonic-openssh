@@ -8,6 +8,8 @@ openssh (1:5.3p1-3) UNRELEASED; urgency=low
   * Add GSSAPIStoreCredentialsOnRekey to 'sshd -T' configuration dump.
   * Remove documentation of building for Debian 3.0 in README.Debian.
     Support for this was removed in 1:4.7p1-2.
+  * Remove obsolete header from README.Debian dating from when people
+    expected non-free SSH.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 27 Feb 2010 01:07:15 +0000
 

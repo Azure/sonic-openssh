@@ -1,21 +1,6 @@
 OpenSSH for Debian
 ------------------
 
-Although this package is widely referred to as OpenSSH, it is actually
-a branch of an early version of ssh which has been tidied up by the
-OpenBSD folks.
-
-It has been decided that this version should have the privilege of
-carrying the ``ssh'' name in Debian, since it is the only version of
-ssh that is going to make it into Debian proper, being the only one 
-that complies with the Debian Free Software Guidelines.
-
-If you were expecting to get the non-free version of ssh (1.2.27 or
-whatever) when you installed this package, then you're out of luck, as
-Debian don't ship it.
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 UPGRADE ISSUES
 ==============
 
