@@ -16,15 +16,6 @@ Debian don't ship it.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-BUILD ISSUES
-============
-
-To build the openssh package for woody, set DEB_BUILD_SSH_WOODY=1 in
-your environment. This is necessary due to non-backward-compatible
-changes in PAM support.
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 UPGRADE ISSUES
 ==============
 
