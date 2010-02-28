@@ -1,3 +1,11 @@
+Description: ssh-copy-id: Strip trailing colons from hostname
+Author: Karl Goetz <karl@kgoetz.id.au>
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1530
+Bug-Debian: http://bugs.debian.org/226172
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/249706
+Last-Update: 2010-02-27
+
 Index: b/contrib/ssh-copy-id
 ===================================================================
 --- a/contrib/ssh-copy-id

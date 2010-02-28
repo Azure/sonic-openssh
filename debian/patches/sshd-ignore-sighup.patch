@@ -1,3 +1,10 @@
+Description: sshd: Ignore subsequent SIGHUPs during re-exec
+ Prevents two HUPs in quick succession from resulting in sshd dying.
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1692
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/497781
+Last-Update: 2010-02-28
+
 Index: b/sshd.c
 ===================================================================
 --- a/sshd.c

@@ -1,3 +1,15 @@
+Description: Allow harmless group-writability
+ Allow ~/.ssh/config to be group-writable, provided that the group in
+ question contains only the file's owner.  Rejected upstream for IMO
+ incorrect reasons (e.g. a misunderstanding about the contents of
+ gr->gr_mem).  Given that per-user groups and umask 002 are the default
+ setup in Debian (for good reasons - this makes operating in setgid
+ directories with other groups much easier), we need to permit this.
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1060
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=314347
+Last-Update: 2010-02-27
+
 Index: b/readconf.c
 ===================================================================
 --- a/readconf.c

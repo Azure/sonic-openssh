@@ -1,3 +1,12 @@
+Description: ssh-add: Don't discard constraints when agent refuses request
+ This was a useful migration measure back in 2002 when constraints were new,
+ but just adds risk now.
+Origin: upstream, http://bazaar.launchpad.net/~vcs-imports/openssh/main/revision/5777
+Author: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1612
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/209447
+Last-Update: 2010-02-28
+
 Index: b/authfd.c
 ===================================================================
 --- a/authfd.c

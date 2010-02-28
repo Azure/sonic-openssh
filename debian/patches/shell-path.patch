@@ -1,3 +1,11 @@
+Description: Look for $SHELL on the path for ProxyCommand/LocalCommand
+ There's some debate on the upstream bug about whether POSIX requires this.
+ I (Colin Watson) agree with Vincent and think it does.
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1494
+Bug-Debian: http://bugs.debian.org/492728
+Last-Update: 2010-02-27
+
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
