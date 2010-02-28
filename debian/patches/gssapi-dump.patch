@@ -1,7 +1,10 @@
 Description: GSSAPI configuration dump fixes
  Add GSSAPIKeyExchange, GSSAPIStrictAcceptorCheck, and
  GSSAPIStoreCredentialsOnRekey to sshd -T configuration dump.
+ .
+ Forwarded to Simon Wilkinson for inclusion in the GSSAPI patch.
 Author: Colin Watson <cjwatson@debian.org>
+Forwarded: yes
 Last-Updated: 2010-02-27
 
 Index: b/servconf.c
