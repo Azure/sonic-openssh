@@ -33,7 +33,7 @@ keyfile-debug.patch
 # Miscellaneous bug fixes
 gnome-ssh-askpass2-link.patch
 user-group-modes.patch
-epfnosupport.patch
+hurd-epfnosupport.patch
 scp-quoting.patch
 shell-path.patch
 ssh-copy-id-status-check.patch
