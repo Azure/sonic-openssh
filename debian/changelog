@@ -5,6 +5,7 @@ openssh (1:5.3p1-3) UNRELEASED; urgency=low
     debian/rules for the benefit of those checking out the package from
     revision control.
   * All patches are now maintained separately and tagged according to DEP-3.
+  * Add GSSAPIStoreCredentialsOnRekey to 'sshd -T' configuration dump.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 27 Feb 2010 01:07:15 +0000
 
