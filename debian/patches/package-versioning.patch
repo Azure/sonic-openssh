@@ -1,3 +1,12 @@
+Description: Include the Debian version in our identification
+ This makes it easier to audit networks for versions patched against
+ security vulnerabilities.  It has little detrimental effect, as attackers
+ will generally just try attacks rather than bothering to scan for
+ vulnerable-looking version strings.  (However, see debian-banner.patch.)
+Author: Matthew Vernon <matthew@debian.org>
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c

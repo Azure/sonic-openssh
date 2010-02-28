@@ -1,3 +1,8 @@
+Description: Install authorized_keys(5) as a symlink to sshd(8)
+Author: Tomas Pospisek <tpo_deb@sourcepole.ch>
+Bug-Debian: http://bugs.debian.org/441817
+Last-Update: 2010-02-28
+
 Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in

@@ -1,3 +1,7 @@
+Description: Fix picky lintian errors about slogin symlinks
+Author: Colin Watson <cjwatson@debian.org>
+Last-Update: 2010-02-28
+
 Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in

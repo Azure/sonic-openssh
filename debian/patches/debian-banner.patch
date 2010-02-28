@@ -1,3 +1,11 @@
+Description: Add DebianBanner server configuration option
+ Setting this to "no" causes sshd to omit the Debian revision from its
+ initial protocol handshake, for those scared by package-versioning.patch.
+Author: Kees Cook <kees@debian.org>
+Bug-Debian: http://bugs.debian.org/562048
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
