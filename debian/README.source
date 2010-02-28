@@ -39,6 +39,71 @@ repository in ~/src/debian/openssh/, upstream checkouts in
 ~/src/debian/openssh/upstream/, and my own working trees in
 ~/src/debian/openssh/trunk/.
 
+Patch handling
+--------------
+
+This package uses quilt to manage all modifications to the upstream source.
+Changes are stored in the source package as diffs in debian/patches and
+applied automatically by dpkg-source when the source package is extracted.
+
+To configure quilt to use debian/patches instead of patches, you want either
+to export QUILT_PATCHES=debian/patches in your environment or use this
+snippet in your ~/.quiltrc:
+
+    for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
+        if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
+                export QUILT_PATCHES=debian/patches
+                break
+        fi
+    done
+
+After unpacking the source package, all patches will be applied, and you can
+use quilt normally.
+
+If you check out the source code from bzr, then all patches will be applied,
+but you will need to inform quilt of this manually.  Do this by running:
+
+    debian/rules quilt-setup
+
+To add a new set of changes, first run quilt push -a, and then run:
+
+    quilt new <patch>
+
+where <patch> is a descriptive name for the patch, used as the filename in
+debian/patches.  Then, for every file that will be modified by this patch,
+run:
+
+    quilt add <file>
+
+before editing those files.  You must tell quilt with quilt add what files
+will be part of the patch before making changes or quilt will not work
+properly.  After editing the files, run:
+
+    quilt refresh
+
+to save the results as a patch.
+
+Alternately, if you already have an external patch and you just want to add
+it to the build system, run quilt push -a and then:
+
+    quilt import -P <patch> /path/to/patch
+    quilt push -a
+
+(add -p 0 to quilt import if needed). <patch> as above is the filename to
+use in debian/patches.  The last quilt push -a will apply the patch to make
+sure it works properly.
+
+To remove an existing patch from the list of patches that will be applied,
+run:
+
+    quilt delete <patch>
+
+You may need to run quilt pop -a to unapply patches first before running
+this command.
+
+You should only commit changes to bzr with all patches applied, i.e. after
+'quilt push -a'.
+
 Merging new upstream releases
 -----------------------------
 

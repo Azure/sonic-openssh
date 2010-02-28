@@ -347,6 +347,15 @@ debian/faq.html:
 		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
 		> debian/faq.html
 
+# You only need to run this immediately after checking out the package from
+# revision control.
+quilt-setup:
+	[ ! -d .pc ]
+	set -e; for patch in $$(quilt series | tac); do \
+		patch -p1 -R <"debian/patches/$$patch"; \
+	done
+	quilt push -a
+
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
 .PHONY: binary-openssh-client binary-openssh-server binary-ssh
