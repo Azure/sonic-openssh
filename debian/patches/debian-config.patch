@@ -1,3 +1,25 @@
+Description: Various Debian-specific configuration changes
+ ssh: Enable ForwardX11Trusted, returning to earlier semantics which cause
+ fewer problems with existing setups (http://bugs.debian.org/237021).
+ .
+ ssh: Set 'SendEnv LANG LC_*' by default (http://bugs.debian.org/264024).
+ .
+ ssh: Enable HashKnownHosts by default to try to limit the spread of ssh
+ worms.
+ .
+ ssh: Enable GSSAPIAuthentication and disable GSSAPIDelegateCredentials by
+ default.
+ .
+ sshd: Refer to /usr/share/doc/openssh-server/README.Debian.gz alongside
+ PermitRootLogin default.
+ .
+ Document all of this, along with several sshd defaults set in
+ debian/openssh-server.postinst.
+Author: Colin Watson <cjwatson@debian.org>
+Author: Russ Allbery <rra@debian.org>
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/readconf.c
 ===================================================================
 --- a/readconf.c

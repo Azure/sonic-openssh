@@ -1,3 +1,13 @@
+Description: Adjust various OpenBSD-specific references in manual pages
+ No single bug reference for this patch, but history includes:
+  http://bugs.debian.org/154434 (login.conf(5))
+  http://bugs.debian.org/513417 (/etc/rc)
+  http://bugs.debian.org/530692 (ssl(8))
+  https://bugs.launchpad.net/bugs/456660 (ssl(8))
+Author: Colin Watson <cjwatson@debian.org>
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/moduli.5
 ===================================================================
 --- a/moduli.5

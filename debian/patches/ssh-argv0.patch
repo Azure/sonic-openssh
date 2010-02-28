@@ -1,3 +1,12 @@
+Description: ssh(1): Refer to ssh-argv0(1)
+ Old versions of OpenSSH (up to 2.5 or thereabouts) allowed creating
+ symlinks to ssh with the name of the host you want to connect to.  Debian
+ ships an ssh-argv0 script restoring this feature; this patch refers to its
+ manual page from ssh(1).
+Bug-Debian: http://bugs.debian.org/111341
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/ssh.1
 ===================================================================
 --- a/ssh.1

@@ -1,3 +1,13 @@
+Description: Disable OpenSSL version check
+ It may be that this patch should be replaced by more accurate dependencies,
+ and it certainly doesn't seem suitable for upstream.  This is a very old
+ change, though, and needs review of current practices in Debian's OpenSSL
+ package.
+Author: Philip Hands <phil@hands.com>
+Bug-Debian: http://bugs.debian.org/93581
+Forwarded: not-needed
+Last-Update: 2010-02-28
+
 Index: b/entropy.c
 ===================================================================
 --- a/entropy.c
