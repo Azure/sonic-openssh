@@ -1,4 +1,4 @@
-openssh (1:5.3p1-3) UNRELEASED; urgency=low
+openssh (1:5.3p1-3) unstable; urgency=low
 
   * Convert to source format 3.0 (quilt).
   * Update README.source to match, and add a 'quilt-setup' target to
@@ -12,7 +12,7 @@ openssh (1:5.3p1-3) UNRELEASED; urgency=low
     expected non-free SSH.
   * Update copyright years for GSSAPI patch.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 27 Feb 2010 01:07:15 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 28 Feb 2010 01:35:53 +0000
 
 openssh (1:5.3p1-2) unstable; urgency=low
 
