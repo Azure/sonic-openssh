@@ -244,9 +244,6 @@ If you do this, note that you will need to stop sshd being started in the
 normal way ('rm -f /etc/rc[2345].d/S16ssh') and that you will need to
 restart this sshd manually on upgrades.
 
---
-Matthew Vernon
-<matthew@debian.org>
-and
-Colin Watson
-<cjwatson@debian.org>
+-- 
+Matthew Vernon <matthew@debian.org>
+Colin Watson <cjwatson@debian.org>
