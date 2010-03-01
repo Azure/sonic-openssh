@@ -4,8 +4,9 @@ Description: Make ChrootDirectory work with SELinux
  the user has control over the chroot environment then they may be able to
  control the context that they get (I haven't verified this).
 Author: Russell Coker <russell@coker.com.au>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1726
 Bug-Debian: http://bugs.debian.org/556644
-Last-Update: 2010-02-27
+Last-Update: 2010-03-01
 
 Index: b/session.c
 ===================================================================
