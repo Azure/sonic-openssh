@@ -512,7 +512,7 @@ Index: b/servconf.c
  	case sEmptyPasswd:
  		intptr = &options->permit_empty_passwd;
  		goto parse_flag;
-@@ -1643,6 +1651,7 @@
+@@ -1644,6 +1652,7 @@
  	dump_cfg_fmtint(sX11UseLocalhost, o->x11_use_localhost);
  	dump_cfg_fmtint(sStrictModes, o->strict_modes);
  	dump_cfg_fmtint(sTCPKeepAlive, o->tcp_keep_alive);
