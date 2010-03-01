@@ -3,6 +3,12 @@ Description: Add "LogLevel SILENT" (-qq), suppressing even fatal errors
  implemented correctly, and there's no bug trail to be found for the
  original feature (although it has been tweaked by bug reports since it was
  added in Debian openssh 1:3.0.1p1-1).  Needs review.
+ .
+ Jonathan says that this patch was originally meant to match the behaviour
+ of non-free SSH, in which -q does not suppress fatal errors.  Given that
+ this was unintentionally broken in 1:4.6p1-2 and nobody's complained, we
+ can probably drop most of this.  The adjustment to "Pseudo-terminal will
+ not be allocated ..." should be split out into a separate patch.
 Author: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
