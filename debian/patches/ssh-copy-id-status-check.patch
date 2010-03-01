@@ -3,7 +3,7 @@ Description: ssh-copy-id: Check exit status of 'ssh-add -L'
 Author: Adeodato Simó <asp16@alu.ua.es>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1723
 Bug-Debian: http://bugs.debian.org/221675
-Last-Update: 2010-02-27
+Last-Update: 2010-03-01
 
 Index: b/contrib/ssh-copy-id
 ===================================================================

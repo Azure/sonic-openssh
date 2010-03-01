@@ -2,7 +2,7 @@ Description: Update config.guess and config.sub from autotools-dev 20090611.1
 From: Bradley Smith <bradsmith@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1722
 Bug-Debian: http://bugs.debian.org/538301
-Last-Update: 2010-02-27
+Last-Update: 2010-03-01
 
 Index: b/config.guess
 ===================================================================

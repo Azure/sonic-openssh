@@ -3,7 +3,7 @@ Description: Fix X forwarding on the Hurd
 Author: Robert Bihlmeyer <robbe@orcus.priv.at>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1721
 Bug-Debian: http://bugs.debian.org/102991
-Last-Update: 2010-02-27
+Last-Update: 2010-03-01
 
 Index: b/channels.c
 ===================================================================
