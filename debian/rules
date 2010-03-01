@@ -352,7 +352,7 @@ debian/faq.html:
 quilt-setup:
 	[ ! -d .pc ]
 	set -e; for patch in $$(quilt series | tac); do \
-		patch -p1 -R <"debian/patches/$$patch"; \
+		patch -p1 -R --no-backup-if-mismatch <"debian/patches/$$patch"; \
 	done
 	quilt push -a
 

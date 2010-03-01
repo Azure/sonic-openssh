@@ -1,3 +1,10 @@
+openssh (1:5.3p1-4) UNRELEASED; urgency=low
+
+  * Fix 'debian/rules quilt-setup' to avoid writing .orig files if some
+    patches apply with offsets.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
+
 openssh (1:5.3p1-3) unstable; urgency=low
 
   * Convert to source format 3.0 (quilt).
