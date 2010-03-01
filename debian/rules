@@ -361,3 +361,4 @@ quilt-setup:
 .PHONY: binary-openssh-client binary-openssh-server binary-ssh
 .PHONY: binary-ssh-krb5 binary-ssh-askpass-gnome
 .PHONY: binary-openssh-client-udeb binary-openssh-server-udeb
+.PHONY: quilt-setup
