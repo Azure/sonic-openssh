@@ -1,6 +1,7 @@
 Description: ssh(1): Document that '-S none' disables connection sharing.
 Author: martin f krafft <madduck@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1724
 Bug-Debian: http://bugs.debian.org/471437
 Last-Update: 2010-02-28
 
