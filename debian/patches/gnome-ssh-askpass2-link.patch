@@ -1,6 +1,7 @@
 Description: Use x11.pc when compiling/linking gnome-ssh-askpass2
  This fixes linking with binutils-gold.
 Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1725
 Bug-Debian: http://bugs.debian.org/555951
 Last-Update: 2010-02-27
 
