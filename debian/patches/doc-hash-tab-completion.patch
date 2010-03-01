@@ -1,7 +1,8 @@
 Description: Document that HashKnownHosts may break tab-completion
 Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1727
 Bug-Debian: http://bugs.debian.org/430154
-Last-Update: 2010-02-28
+Last-Update: 2010-03-01
 
 Index: b/ssh_config.5
 ===================================================================
