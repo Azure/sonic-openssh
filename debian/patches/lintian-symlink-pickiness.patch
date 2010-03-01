@@ -1,6 +1,7 @@
 Description: Fix picky lintian errors about slogin symlinks
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2010-02-28
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1728
+Last-Update: 2010-03-01
 
 Index: b/Makefile.in
 ===================================================================
