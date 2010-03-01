@@ -187,7 +187,7 @@ install: build
 
 	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
-	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
+	install -m 644 debian/ssh-askpass-gnome.png debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png
 
 	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
 	install -m 644 debian/ssh-argv0.1 debian/openssh-client/usr/share/man/man1/ssh-argv0.1
