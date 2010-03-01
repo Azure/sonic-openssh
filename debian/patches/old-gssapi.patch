@@ -1,8 +1,11 @@
 Description: Interoperate with old GSSAPI authentication method
  ssh-krb5 << 3.8.1p1-1 servers used a slightly different version.
+ .
+ Forwarded to Simon Wilkinson for inclusion in the GSSAPI patch.
 Author: "Aaron M. Ucko" <ucko@debian.org>
 Bug-Debian: http://bugs.debian.org/328388
-Last-Updated: 2010-02-27
+Forwarded: yes
+Last-Updated: 2010-03-01
 
 Index: b/sshconnect2.c
 ===================================================================
