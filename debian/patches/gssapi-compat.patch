@@ -1,7 +1,10 @@
 Description: Compatibility with old GSSAPI option names
  These options were supported by the old ssh-krb5 package in Debian.
+ .
+ Forwarded to Simon Wilkinson for inclusion in the GSSAPI patch.
 Author: Colin Watson <cjwatson@debian.org>
-Last-Updated: 2010-02-27
+Forwarded: yes
+Last-Updated: 2010-03-01
 
 Index: b/servconf.c
 ===================================================================
