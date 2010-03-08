@@ -314,11 +314,6 @@ Authmethod authmethods[] = {
 		NULL,
 		&options.gss_authentication,
 		NULL},
-	{"gssapi",
-		userauth_gssapi,
-		NULL,
-		&options.gss_authentication,
-		NULL},
 #endif
 	{"hostbased",
 		userauth_hostbased,
@@ -606,7 +601,6 @@ userauth_gssapi(Authctxt *authctxt)
 	OM_uint32 min;
 	int ok = 0;
 	const char *gss_host;
-	int old_gssapi_method;
 
 	if (options.gss_trust_dns)
 		gss_host = get_canonical_hostname(1);
@@ -645,25 +639,13 @@ userauth_gssapi(Authctxt *authctxt)
 	packet_put_cstring(authctxt->service);
 	packet_put_cstring(authctxt->method->name);
 
-	old_gssapi_method = !strcmp(authctxt->method->name, "gssapi");
-
-	/* Versions of Debian ssh-krb5 prior to 3.8.1p1-1 don't expect
-	 * tagged OIDs.  As such we include both tagged and untagged oids
-	 * for the old gssapi method.
-	 * We only include tagged oids for the new gssapi-with-mic method.
-	 */
-	packet_put_int(old_gssapi_method ? 2 : 1);
+	packet_put_int(1);
 
 	packet_put_int((gss_supported->elements[mech].length) + 2);
 	packet_put_char(SSH_GSS_OIDTYPE);
 	packet_put_char(gss_supported->elements[mech].length);
 	packet_put_raw(gss_supported->elements[mech].elements,
 	    gss_supported->elements[mech].length);
-	if (old_gssapi_method) {
-		packet_put_int(gss_supported->elements[mech].length);
-		packet_put_raw(gss_supported->elements[mech].elements,
-			       gss_supported->elements[mech].length);
-	}
 
 	packet_send();
 
@@ -703,10 +685,8 @@ process_gssapi_token(void *ctxt, gss_buffer_t recv_tok)
 	}
 
 	if (status == GSS_S_COMPLETE) {
-		int old_gssapi_method = !strcmp(authctxt->method->name,
-						"gssapi");
 		/* send either complete or MIC, depending on mechanism */
-		if (old_gssapi_method || !(flags & GSS_C_INTEG_FLAG)) {
+		if (!(flags & GSS_C_INTEG_FLAG)) {
 			packet_start(SSH2_MSG_USERAUTH_GSSAPI_EXCHANGE_COMPLETE);
 			packet_send();
 		} else {
@@ -740,7 +720,7 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt;
 	u_int oidlen;
-	u_char *oidv, *oidv_free;
+	u_char *oidv;
 
 	if (authctxt == NULL)
 		fatal("input_gssapi_response: no authentication context");
@@ -748,28 +728,22 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 
 	/* Setup our OID */
 	oidv = packet_get_string(&oidlen);
-	oidv_free = oidv;
 
 	if (oidlen <= 2 ||
 	    oidv[0] != SSH_GSS_OIDTYPE ||
 	    oidv[1] != oidlen - 2) {
+		xfree(oidv);
 		debug("Badly encoded mechanism OID received");
-		if (oidlen < 2) {
-			xfree(oidv_free);
-			userauth(authctxt, NULL);
-			return;
-		}
-	} else {
-		oidlen -= 2;
-		oidv += 2;
+		userauth(authctxt, NULL);
+		return;
 	}
 
-	if (!ssh_gssapi_check_oid(gssctxt, oidv, oidlen))
+	if (!ssh_gssapi_check_oid(gssctxt, oidv + 2, oidlen - 2))
 		fatal("Server returned different OID than expected");
 
 	packet_check_eom();
 
-	xfree(oidv_free);
+	xfree(oidv);
 
 	if (GSS_ERROR(process_gssapi_token(ctxt, GSS_C_NO_BUFFER))) {
 		/* Start again with next method on list */

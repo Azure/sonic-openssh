@@ -5,6 +5,11 @@ openssh (1:5.3p1-4) UNRELEASED; urgency=low
   * Include debian/ssh-askpass-gnome.png in the Debian tarball now that
     we're using a source format that permits this, rather than messing
     around with uudecode.
+  * Drop compatibility with the old gssapi mechanism used in ssh-krb5 <<
+    3.8.1p1-1.  Simon Wilkinson refused this patch since the old gssapi
+    mechanism was removed due to a serious security hole, and since these
+    versions of ssh-krb5 are no longer security-supported by Debian I don't
+    think there's any point keeping client compatibility for them.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 

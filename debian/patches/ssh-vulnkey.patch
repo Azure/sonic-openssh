@@ -1315,7 +1315,7 @@ Index: b/sshconnect2.c
 ===================================================================
 --- a/sshconnect2.c
 +++ b/sshconnect2.c
-@@ -1418,6 +1418,8 @@
+@@ -1392,6 +1392,8 @@
  
  	/* list of keys stored in the filesystem */
  	for (i = 0; i < options.num_identity_files; i++) {
@@ -1324,7 +1324,7 @@ Index: b/sshconnect2.c
  		key = options.identity_keys[i];
  		if (key && key->type == KEY_RSA1)
  			continue;
-@@ -1508,7 +1510,7 @@
+@@ -1482,7 +1484,7 @@
  		if (id->key && id->key->type != KEY_RSA1) {
  			debug("Offering public key: %s", id->filename);
  			sent = send_pubkey_test(authctxt, id);
