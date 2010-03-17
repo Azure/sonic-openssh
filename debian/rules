@@ -257,10 +257,12 @@ binary-openssh-server: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
+	# Yes, ETC_PAM_D_SSH is meant to be spelled that way, to match the
+	# old configuration file name we need to transfer.
 	perl -i debian/substitute-conffile.pl \
 		ETC_DEFAULT_SSH debian/openssh-server/etc/default/ssh \
 		ETC_INIT_D_SSH debian/openssh-server/etc/init.d/ssh \
-		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/ssh \
+		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/sshd \
 		debian/openssh-server/DEBIAN/preinst
 	dh_shlibdeps
 	dh_gencontrol

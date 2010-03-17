@@ -10,6 +10,7 @@ openssh (1:5.3p1-4) UNRELEASED; urgency=low
     mechanism was removed due to a serious security hole, and since these
     versions of ssh-krb5 are no longer security-supported by Debian I don't
     think there's any point keeping client compatibility for them.
+  * Fix substitution of ETC_PAM_D_SSH, following the rename in 1:4.7p1-4.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 
