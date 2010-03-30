@@ -191,6 +191,16 @@ file-ids are correct (see above). Run:
   # the result will be mergeable
   bzr ci -m 'Import 5.3p1 tarball'
 
+Add a parent revision for the previous tarball branch, to make it easier for
+bzr to compute accurate merges.
+
+  bzr log -n0 /path/to/openssh/debian/trunk | less
+  # find revision number for previous tarball import, hence 'PREVIOUS'
+  bzr merge -rPREVIOUS /path/to/openssh/debian/trunk
+  # merge history only, no file changes
+  bzr revert .
+  bzr ci -m 'add 5.2p1 tarball parent revision'
+
 Next, merge this into the gssapi branch
 (bzr+ssh://bzr.debian.org/bzr/pkg-ssh/openssh/gssapi/). For this branch, we
 want to ignore the normal results of merging and take only the patch from
