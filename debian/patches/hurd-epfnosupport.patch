@@ -9,7 +9,7 @@ Index: b/channels.c
 ===================================================================
 --- a/channels.c
 +++ b/channels.c
-@@ -3098,7 +3098,11 @@
+@@ -3252,7 +3252,11 @@
  			sock = socket(ai->ai_family, ai->ai_socktype,
  			    ai->ai_protocol);
  			if (sock < 0) {

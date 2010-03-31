@@ -1,4 +1,33 @@
-openssh (1:5.3p1-4) UNRELEASED; urgency=low
+openssh (1:5.4p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (LP: #535029).
+    - After a transition period of about 10 years, this release disables SSH
+      protocol 1 by default.  Clients and servers that need to use the
+      legacy protocol must explicitly enable it in ssh_config / sshd_config
+      or on the command-line.
+    - Remove the libsectok/OpenSC-based smartcard code and add support for
+      PKCS#11 tokens.  This support is enabled by default in the Debian
+      packaging, since it now doesn't involve additional library
+      dependencies (closes: #231472, LP: #16918).
+    - Add support for certificate authentication of users and hosts using a
+      new, minimal OpenSSH certificate format (closes: #482806).
+    - Added a 'netcat mode' to ssh(1): "ssh -W host:port ...".
+    - Add the ability to revoke keys in sshd(8) and ssh(1).  (For the Debian
+      package, this overlaps with the key blacklisting facility added in
+      openssh 1:4.7p1-9, but with different file formats and slightly
+      different scopes; for the moment, I've roughly merged the two.)
+    - Various multiplexing improvements, including support for requesting
+      port-forwardings via the multiplex protocol (closes: #360151).
+    - Allow setting an explicit umask on the sftp-server(8) commandline to
+      override whatever default the user has (closes: #496843).
+    - Many sftp client improvements, including tab-completion, more options,
+      and recursive transfer support for get/put (LP: #33378).  The old
+      mget/mput commands never worked properly and have been removed
+      (closes: #270399, #428082).
+    - Do not prompt for a passphrase if we fail to open a keyfile, and log
+      the reason why the open failed to debug (closes: #431538).
+    - Prevent sftp from crashing when given a "-" without a command.  Also,
+      allow whitespace to follow a "-" (closes: #531561).
 
   * Fix 'debian/rules quilt-setup' to avoid writing .orig files if some
     patches apply with offsets.

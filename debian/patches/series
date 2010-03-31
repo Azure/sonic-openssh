@@ -4,12 +4,8 @@ gssapi-autoconf.patch
 gssapi-compat.patch
 gssapi-dump.patch
 
-# Autotools
-config-guess-sub.patch
-
 # SELinux
 selinux-role.patch
-selinux-autoconf.patch
 selinux-fix-chroot-directory.patch
 
 # Key blacklisting
@@ -19,15 +15,10 @@ ssh-vulnkey.patch
 ssh1-keepalive.patch
 keepalive-extensions.patch
 
-# Linux OOM handling
-oom-adjust.patch
-
 # Message adjustments
 syslog-level-silent.patch
 quieter-signals.patch
 helpful-wait-terminate.patch
-banner-noslash.patch
-keyfile-debug.patch
 
 # Miscellaneous bug fixes
 gnome-ssh-askpass2-link.patch
@@ -37,8 +28,6 @@ scp-quoting.patch
 shell-path.patch
 ssh-copy-id-status-check.patch
 ssh-copy-id-trailing-colons.patch
-no-constraint-fallback.patch
-sshd-ignore-sighup.patch
 
 # Versioning
 package-versioning.patch

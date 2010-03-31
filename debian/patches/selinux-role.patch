@@ -186,7 +186,7 @@ Index: b/monitor_wrap.c
  {
  	Buffer m;
  
-@@ -291,11 +291,29 @@
+@@ -291,12 +291,30 @@
  	buffer_init(&m);
  	buffer_put_cstring(&m, service);
  	buffer_put_cstring(&m, style ? style : "");
@@ -196,7 +196,7 @@ Index: b/monitor_wrap.c
  
  	buffer_free(&m);
  }
-+
+ 
 +/* Inform the privileged process about role */
 +
 +void
@@ -213,9 +213,10 @@ Index: b/monitor_wrap.c
 +
 +	buffer_free(&m);
 +}
- 
++
  /* Do the password authentication */
  int
+ mm_auth_password(Authctxt *authctxt, char *password)
 Index: b/monitor_wrap.h
 ===================================================================
 --- a/monitor_wrap.h
@@ -234,20 +235,20 @@ Index: b/openbsd-compat/port-linux.c
 ===================================================================
 --- a/openbsd-compat/port-linux.c
 +++ b/openbsd-compat/port-linux.c
-@@ -28,6 +28,12 @@
+@@ -29,6 +29,12 @@
  #include <string.h>
+ #include <stdio.h>
  
- #ifdef WITH_SELINUX
++#ifdef WITH_SELINUX
 +#include "key.h"
 +#include "hostfile.h"
 +#include "auth.h"
-+#ifdef HAVE_GETSEUSERBYNAME
-+#include "xmalloc.h"
 +#endif
++
  #include "log.h"
+ #include "xmalloc.h"
  #include "port-linux.h"
- 
-@@ -35,6 +41,8 @@
+@@ -38,6 +44,8 @@
  #include <selinux/flask.h>
  #include <selinux/get_context_list.h>
  
@@ -256,7 +257,7 @@ Index: b/openbsd-compat/port-linux.c
  /* Wrapper around is_selinux_enabled() to log its return value once only */
  int
  ssh_selinux_enabled(void)
-@@ -53,8 +61,8 @@
+@@ -56,8 +64,8 @@
  static security_context_t
  ssh_selinux_getctxbyname(char *pwname)
  {
@@ -267,7 +268,7 @@ Index: b/openbsd-compat/port-linux.c
  	int r;
  
  #ifdef HAVE_GETSEUSERBYNAME
-@@ -64,11 +72,20 @@
+@@ -67,11 +75,20 @@
  	sename = pwname;
  	lvl = NULL;
  #endif

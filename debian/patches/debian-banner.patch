@@ -10,15 +10,15 @@ Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -132,6 +132,7 @@
- 	options->adm_forced_command = NULL;
- 	options->chroot_directory = NULL;
+@@ -135,6 +135,7 @@
  	options->zero_knowledge_password_authentication = -1;
+ 	options->revoked_keys_file = NULL;
+ 	options->trusted_user_ca_keys = NULL;
 +	options->debian_banner = -1;
  }
  
  void
-@@ -273,6 +274,8 @@
+@@ -277,6 +278,8 @@
  		options->permit_tun = SSH_TUNMODE_NO;
  	if (options->zero_knowledge_password_authentication == -1)
  		options->zero_knowledge_password_authentication = 0;
@@ -27,25 +27,25 @@ Index: b/servconf.c
  
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
-@@ -320,6 +323,7 @@
- 	sMatch, sPermitOpen, sForceCommand, sChrootDirectory,
+@@ -325,6 +328,7 @@
  	sUsePrivilegeSeparation, sAllowAgentForwarding,
- 	sZeroKnowledgePasswordAuthentication,
+ 	sZeroKnowledgePasswordAuthentication, sHostCertificate,
+ 	sRevokedKeys, sTrustedUserCAKeys,
 +	sDebianBanner,
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -449,6 +453,7 @@
- 	{ "permitopen", sPermitOpen, SSHCFG_ALL },
- 	{ "forcecommand", sForceCommand, SSHCFG_ALL },
- 	{ "chrootdirectory", sChrootDirectory, SSHCFG_ALL },
+@@ -457,6 +461,7 @@
+ 	{ "hostcertificate", sHostCertificate, SSHCFG_GLOBAL },
+ 	{ "revokedkeys", sRevokedKeys, SSHCFG_ALL },
+ 	{ "trustedusercakeys", sTrustedUserCAKeys, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1335,6 +1340,10 @@
- 			*charptr = xstrdup(arg);
- 		break;
+@@ -1377,6 +1382,10 @@
+ 		charptr = &options->revoked_keys_file;
+ 		goto parse_filename;
  
 +	case sDebianBanner:
 +		intptr = &options->debian_banner;
@@ -58,20 +58,20 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -154,6 +154,8 @@
+@@ -157,6 +157,8 @@
  
  	int	num_permitted_opens;
  
 +	int	debian_banner;
 +
  	char   *chroot_directory;
- }       ServerOptions;
- 
+ 	char   *revoked_keys_file;
+ 	char   *trusted_user_ca_keys;
 Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -426,7 +426,8 @@
+@@ -422,7 +422,8 @@
  		minor = PROTOCOL_MINOR_1;
  	}
  	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s%s", major, minor,

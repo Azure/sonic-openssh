@@ -9,7 +9,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -559,7 +559,10 @@
+@@ -563,7 +563,10 @@
  the listen port will be dynamically allocated on the server and reported
  to the client at run time.
  .It Fl S Ar ctl_path

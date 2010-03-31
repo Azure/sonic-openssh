@@ -7,13 +7,20 @@ Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -502,16 +502,21 @@
+@@ -507,16 +507,21 @@
  static void
  server_alive_check(void)
  {
 -	if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
 -		logit("Timeout, server not responding.");
 -		cleanup_exit(255);
+-	}
+-	packet_start(SSH2_MSG_GLOBAL_REQUEST);
+-	packet_put_cstring("keepalive@openssh.com");
+-	packet_put_char(1);     /* boolean: want reply */
+-	packet_send();
+-	/* Insert an empty placeholder to maintain ordering */
+-	client_register_global_confirm(NULL, NULL);
 +	if (compat20) {
 +		if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
 +			logit("Timeout, server not responding.");
@@ -28,17 +35,11 @@ Index: b/clientloop.c
 +	} else {
 +		packet_send_ignore(0);
 +		packet_send();
- 	}
--	packet_start(SSH2_MSG_GLOBAL_REQUEST);
--	packet_put_cstring("keepalive@openssh.com");
--	packet_put_char(1);     /* boolean: want reply */
--	packet_send();
--	/* Insert an empty placeholder to maintain ordering */
--	client_register_global_confirm(NULL, NULL);
++	}
  }
  
  /*
-@@ -572,7 +577,7 @@
+@@ -574,7 +579,7 @@
  	 * event pending.
  	 */
  
@@ -51,7 +52,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -935,7 +935,10 @@
+@@ -956,7 +956,10 @@
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.
