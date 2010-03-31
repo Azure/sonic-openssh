@@ -198,15 +198,19 @@ Index: b/auth2-pubkey.c
 ===================================================================
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
-@@ -325,7 +325,7 @@
+@@ -325,9 +325,10 @@
  	int success;
  	char *file;
  
 -	if (auth_key_is_revoked(key))
 +	if (auth_key_is_revoked(key, 0))
  		return 0;
- 	if (key_is_cert(key) && auth_key_is_revoked(key->cert->signature_key))
+-	if (key_is_cert(key) && auth_key_is_revoked(key->cert->signature_key))
++	if (key_is_cert(key) &&
++	    auth_key_is_revoked(key->cert->signature_key, 0))
  		return 0;
+ 
+ 	success = user_cert_trusted_ca(pw, key);
 Index: b/authfile.c
 ===================================================================
 --- a/authfile.c
