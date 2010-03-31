@@ -18,15 +18,8 @@ test -x /usr/sbin/sshd || exit 0
 
 umask 022
 
-export SSHD_OOM_ADJUST=-17
 if test -f /etc/default/ssh; then
     . /etc/default/ssh
-fi
-
-# Are we in a virtual environment that doesn't support modifying
-# /proc/self/oom_adj?
-if grep -q 'envID:.*[1-9]' /proc/self/status; then
-    unset SSHD_OOM_ADJUST
 fi
 
 . /lib/lsb/init-functions

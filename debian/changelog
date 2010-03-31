@@ -46,6 +46,9 @@ openssh (1:5.4p1-1) UNRELEASED; urgency=low
     have the /usr/bin/X11 symlink available.  I was taking advantage of the
     /usr/bin/X11 symlink to smooth X's move to /usr/bin, but this is far
     enough in the past now that it's probably safe to just use /usr/bin.
+  * Remove SSHD_OOM_ADJUST configuration.  sshd now unconditionally makes
+    itself non-OOM-killable, and doesn't require configuration to avoid log
+    spam in virtualisation containers (closes: #555625).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 
