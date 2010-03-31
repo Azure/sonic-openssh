@@ -44,6 +44,5 @@ doc-connection-sharing.patch
 doc-hash-tab-completion.patch
 
 # Debian-specific configuration
-no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 debian-config.patch

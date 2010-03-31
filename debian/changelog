@@ -49,6 +49,13 @@ openssh (1:5.4p1-1) UNRELEASED; urgency=low
   * Remove SSHD_OOM_ADJUST configuration.  sshd now unconditionally makes
     itself non-OOM-killable, and doesn't require configuration to avoid log
     spam in virtualisation containers (closes: #555625).
+  * Drop Debian-specific removal of OpenSSL version check.  Upstream ignores
+    the two patchlevel nybbles now, which is sufficient to address the
+    original reason this change was introduced, and it appears that any
+    change in the major/minor/fix nybbles would involve a new libssl package
+    name.  (We'd still lose if the status nybble were ever changed, but that
+    would mean somebody had packaged a development/beta version rather than
+    a proper release, which doesn't appear to be normal practice.)
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 

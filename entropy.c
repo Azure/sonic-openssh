@@ -151,8 +151,6 @@ seed_rng(void)
 void
 init_rng(void)
 {
-#if defined (DISABLED_BY_DEBIAN)
-  /* drow: Is this check still too strict for Debian?  */
 	/*
 	 * OpenSSL version numbers: MNNFFPPS: major minor fix patch status
 	 * We match major, minor, fix and status (not patch)
@@ -160,7 +158,6 @@ init_rng(void)
 	if ((SSLeay() ^ OPENSSL_VERSION_NUMBER) & ~0xff0L)
 		fatal("OpenSSL version mismatch. Built against %lx, you "
 		    "have %lx", OPENSSL_VERSION_NUMBER, SSLeay());
-#endif
 
 #ifndef OPENSSL_PRNG_ONLY
 	original_uid = getuid();
