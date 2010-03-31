@@ -234,6 +234,13 @@ move_subsystem_sftp() {
 }
 
 
+fix_loglevel_silent() {
+	if [ "$(get_config_option LogLevel)" = SILENT ]; then
+		set_config_option LogLevel QUIET
+	fi
+}
+
+
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
 	    # Upgrade an existing sshd configuration.
@@ -282,6 +289,11 @@ create_sshdconfig() {
 	    # of adjusting the configuration file until now.
 	    if dpkg --compare-versions "$oldversion" lt 1:4.7p1-8; then
 		rename_config_option KeepAlive TCPKeepAlive
+	    fi
+
+	    # 'LogLevel SILENT' is now equivalent to QUIET.
+	    if dpkg --compare-versions "$oldversion" lt 1:5.4p1-1; then
+		fix_loglevel_silent
 	    fi
 
 	    return 0

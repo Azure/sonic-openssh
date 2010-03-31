@@ -60,7 +60,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -764,6 +764,10 @@
+@@ -759,6 +759,10 @@
  .Sx HISTORY
  section of
  .Xr ssl 8
@@ -84,7 +84,7 @@ Index: b/sshd.8
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -838,7 +838,7 @@
+@@ -835,7 +835,7 @@
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
@@ -93,7 +93,7 @@ Index: b/sshd.8
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange".
  The file format is described in
  .Xr moduli 5 .
-@@ -934,7 +934,6 @@
+@@ -931,7 +931,6 @@
  .Xr ssh-vulnkey 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,

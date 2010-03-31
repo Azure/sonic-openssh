@@ -421,12 +421,7 @@ main(int ac, char **av)
 			options.exit_on_forward_failure = 1;
 			break;
 		case 'q':
-    		        if (options.log_level == SYSLOG_LEVEL_QUIET) {
-		                options.log_level = SYSLOG_LEVEL_SILENT;
-		        }
-		        else if (options.log_level != SYSLOG_LEVEL_SILENT) {
-		                options.log_level = SYSLOG_LEVEL_QUIET;
-		        }
+			options.log_level = SYSLOG_LEVEL_QUIET;
 			break;
 		case 'e':
 			if (optarg[0] == '^' && optarg[2] == 0 &&
@@ -629,7 +624,7 @@ main(int ac, char **av)
 		tty_flag = 0;
 	/* Do not allocate a tty if stdin is not a tty. */
 	if ((!isatty(fileno(stdin)) || stdin_null_flag) && !force_tty_flag) {
-		if (tty_flag && options.log_level > SYSLOG_LEVEL_QUIET)
+		if (tty_flag && options.log_level != SYSLOG_LEVEL_QUIET)
 			logit("Pseudo-terminal will not be allocated because "
 			    "stdin is not a terminal.");
 		tty_flag = 0;

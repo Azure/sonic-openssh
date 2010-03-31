@@ -1553,7 +1553,7 @@ mux_client_request_session(int fd)
 	} else
 		debug2("Received exit status from master %d", exitval);
 
-	if (tty_flag && options.log_level > SYSLOG_LEVEL_QUIET)
+	if (tty_flag && options.log_level != SYSLOG_LEVEL_QUIET)
 		fprintf(stderr, "Shared connection to %s closed.\r\n", host);
 
 	exit(exitval);

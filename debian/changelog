@@ -56,6 +56,12 @@ openssh (1:5.4p1-1) UNRELEASED; urgency=low
     name.  (We'd still lose if the status nybble were ever changed, but that
     would mean somebody had packaged a development/beta version rather than
     a proper release, which doesn't appear to be normal practice.)
+  * Drop most of our "LogLevel SILENT" (-qq) patch.  This was originally
+    introduced to match the behaviour of non-free SSH, in which -q does not
+    suppress fatal errors, but matching the behaviour of OpenSSH upstream is
+    much more important nowadays.  We no longer document that -q does not
+    suppress fatal errors (closes: #280609).  Migrate "LogLevel SILENT" to
+    "LogLevel QUIET" in sshd_config on upgrade.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 

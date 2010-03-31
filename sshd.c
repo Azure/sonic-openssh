@@ -1371,12 +1371,7 @@ main(int ac, char **av)
 			/* ignored */
 			break;
 		case 'q':
-		        if (options.log_level == SYSLOG_LEVEL_QUIET) { 
-		                options.log_level = SYSLOG_LEVEL_SILENT; 
-		        } 
-		        else if (options.log_level != SYSLOG_LEVEL_SILENT) { 
-		                options.log_level = SYSLOG_LEVEL_QUIET; 
-		        } 
+			options.log_level = SYSLOG_LEVEL_QUIET;
 			break;
 		case 'b':
 			options.server_key_bits = (int)strtonum(optarg, 256,
