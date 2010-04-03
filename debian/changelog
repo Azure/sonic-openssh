@@ -62,6 +62,8 @@ openssh (1:5.4p1-1) UNRELEASED; urgency=low
     much more important nowadays.  We no longer document that -q does not
     suppress fatal errors (closes: #280609).  Migrate "LogLevel SILENT" to
     "LogLevel QUIET" in sshd_config on upgrade.
+  * Policy version 3.8.4:
+    - Add a Homepage field.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
 
