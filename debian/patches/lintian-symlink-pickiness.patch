@@ -1,4 +1,6 @@
 Description: Fix picky lintian errors about slogin symlinks
+ Apparently this breaks some SVR4 packaging systems, so upstream can't win
+ either way and opted to keep the status quo.  We need this patch anyway.
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1728
 Last-Update: 2010-03-01
