@@ -1,4 +1,4 @@
-openssh (1:5.4p1-1) UNRELEASED; urgency=low
+openssh (1:5.4p1-1) unstable; urgency=low
 
   * New upstream release (LP: #535029).
     - After a transition period of about 10 years, this release disables SSH
@@ -65,7 +65,7 @@ openssh (1:5.4p1-1) UNRELEASED; urgency=low
   * Policy version 3.8.4:
     - Add a Homepage field.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 01 Mar 2010 12:24:41 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 Apr 2010 22:38:31 +0100
 
 openssh (1:5.3p1-3) unstable; urgency=low
 
