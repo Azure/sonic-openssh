@@ -24,10 +24,8 @@ DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
-  confflags += --build=$(DEB_HOST_GNU_TYPE)
   CC := gcc
 else
-  confflags += --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE)
   CC := $(DEB_HOST_GNU_TYPE)-gcc
   RUN_TESTS :=
 endif
@@ -69,7 +67,7 @@ endif
 SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11
 
 # Common path configuration.
-confflags += --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man
+confflags += --sysconfdir=/etc/ssh
 
 # Common build options.
 confflags += --disable-strip
@@ -117,40 +115,33 @@ confflags_udeb += --with-cflags='$(cflags_udeb)'
 confflags += --with-ldflags='$(strip -Wl,--as-needed $(PIC_LDFLAGS) $(HARDENING_LDFLAGS))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
-build: build-deb build-udeb
+%:
+	dh $@
 
-build-deb: build-deb-stamp
-build-deb-stamp:
-	dh_testdir
-	mkdir -p build-deb
-	cd build-deb && ../configure $(confflags)
+override_dh_auto_configure:
+	dh_auto_configure -Bbuild-deb -- $(confflags)
+	dh_auto_configure -Bbuild-udeb -- $(confflags_udeb)
 
+override_dh_auto_build:
 	# Debian's /var/log/btmp has inappropriate permissions.
 	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-udeb/config.h
+
+	# Avoid libnsl linkage. Ugh.
+	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
+	cd build-udeb && ./config.status
 
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
+
 	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall -Wl,--as-needed'
+
+override_dh_auto_test:
 ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C debian/tests
 endif
 
-	touch build-deb-stamp
-
-build-udeb: build-udeb-stamp
-build-udeb-stamp:
-	dh_testdir
-	mkdir -p build-udeb
-	cd build-udeb && ../configure $(confflags_udeb)
-	# Debian's /var/log/btmp has inappropriate permissions.
-	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-udeb/config.h
-	# Avoid libnsl linkage. Ugh.
-	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
-	cd build-udeb && ./config.status
-	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
-	touch build-udeb-stamp
-
-clean:
-	dh_testdir
+override_dh_auto_clean:
 	rm -rf build-deb build-udeb
 ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C debian/tests clean
@@ -158,15 +149,8 @@ endif
 	$(MAKE) -C contrib clean
 	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
 		> debian/copyright
-	dh_clean
 
-install: DH_OPTIONS=-a
-install: build
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-
+override_dh_auto_install:
 	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/openssh-client install-nokeys
 
 	rm -f debian/openssh-client/etc/ssh/sshd_config
@@ -182,18 +166,8 @@ install: build
 	mv debian/openssh-client/usr/share/man/man8/sftp-server.8 debian/openssh-server/usr/share/man/man8/
 	rmdir debian/openssh-client/usr/sbin debian/openssh-client/var/run/sshd
 
-	install -m 755 contrib/ssh-copy-id debian/openssh-client/usr/bin/ssh-copy-id
-	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
-
 	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
-	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
-	install -m 644 debian/ssh-askpass-gnome.png debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png
 
-	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
-	install -m 644 debian/ssh-argv0.1 debian/openssh-client/usr/share/man/man1/ssh-argv0.1
-
-	install -o root -g root debian/openssh-server.init debian/openssh-server/etc/init.d/ssh
-	install -o root -g root -m 644 debian/openssh-server.default debian/openssh-server/etc/default/ssh
 	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
 	install -o root -g root -m 644 debian/openssh-server.ufw.profile debian/openssh-server/etc/ufw/applications.d/openssh-server
 
@@ -209,26 +183,23 @@ install: build
 		debian/openssh-client/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
 
-# Build architecture-independent files here.
-binary-indep: binary-ssh binary-ssh-krb5
+override_dh_installdocs:
+	dh_installdocs -Nopenssh-server -Nssh
+	dh_installdocs -popenssh-server -pssh --link-doc=openssh-client
+	# Avoid breaking dh_installexamples later.
+	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
-# Build architecture-dependent files here.
-binary-arch: binary-openssh-client binary-openssh-server
-binary-arch: binary-ssh-askpass-gnome
-binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
+override_dh_installinit:
+	dh_installinit --name ssh
 
-binary-openssh-client: DH_OPTIONS=-popenssh-client
-binary-openssh-client: build install
-	dh_testdir
-	dh_testroot
-	dh_installdebconf
-	dh_installdocs
-	dh_installchangelogs
-	dh_lintian
-	dh_strip
-	dh_compress
+override_dh_installpam:
+	dh_installpam --name sshd
+
+override_dh_fixperms:
 	dh_fixperms
 	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
+
+override_dh_installdeb:
 	dh_installdeb
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
@@ -236,27 +207,6 @@ binary-openssh-client: build install
 		ETC_SSH_MODULI debian/openssh-client/etc/ssh/moduli \
 		ETC_SSH_SSH_CONFIG debian/openssh-client/etc/ssh/ssh_config \
 		debian/openssh-client/DEBIAN/preinst
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-openssh-server: DH_OPTIONS=-popenssh-server
-binary-openssh-server: build install
-	dh_testdir
-	dh_testroot
-	dh_installdebconf
-	dh_installdocs
-	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
-	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
-	dh_installpam --name sshd
-	dh_lintian
-	dh_link
-	dh_installexamples
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
 	# Yes, ETC_PAM_D_SSH is meant to be spelled that way, to match the
 	# old configuration file name we need to transfer.
 	perl -i debian/substitute-conffile.pl \
@@ -264,85 +214,6 @@ binary-openssh-server: build install
 		ETC_INIT_D_SSH debian/openssh-server/etc/init.d/ssh \
 		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/sshd \
 		debian/openssh-server/DEBIAN/preinst
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-ssh: DH_OPTIONS=-pssh
-binary-ssh: build install
-	dh_testdir
-	dh_testroot
-	dh_installdirs
-	dh_installdocs
-	mv debian/ssh/usr/share/doc/ssh debian/ssh/usr/share/doc/openssh-client
-	rm -f debian/ssh/usr/share/doc/openssh-client/copyright
-	dh_lintian
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-ssh-krb5: DH_OPTIONS=-pssh-krb5
-binary-ssh-krb5: build install
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installchangelogs
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-ssh-askpass-gnome: DH_OPTIONS=-pssh-askpass-gnome
-binary-ssh-askpass-gnome: build install
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples
-	dh_installchangelogs
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-openssh-client-udeb: DH_OPTIONS=-popenssh-client-udeb
-binary-openssh-client-udeb: build install
-	dh_testdir
-	dh_testroot
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-openssh-server-udeb: DH_OPTIONS=-popenssh-server-udeb
-binary-openssh-server-udeb: build install
-	dh_testdir
-	dh_testroot
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
 
 debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
@@ -358,9 +229,4 @@ quilt-setup:
 	done
 	quilt push -a
 
-.PHONY: build clean binary-indep binary-arch binary install
-.PHONY: build-deb build-udeb
-.PHONY: binary-openssh-client binary-openssh-server binary-ssh
-.PHONY: binary-ssh-krb5 binary-ssh-askpass-gnome
-.PHONY: binary-openssh-client-udeb binary-openssh-server-udeb
 .PHONY: quilt-setup
