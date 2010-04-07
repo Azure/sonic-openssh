@@ -5,6 +5,7 @@ openssh (1:5.4p1-2) UNRELEASED; urgency=low
     and VerifyHostKeyDNS=yes, then ssh will no longer prompt for host key
     verification (closes: #572049).
   * Convert to dh(1), and use dh_installdocs --link-doc.
+  * Drop lpia support, since Ubuntu no longer supports this architecture.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 06 Apr 2010 23:16:39 +0100
 
