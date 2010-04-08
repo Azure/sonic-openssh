@@ -151,29 +151,19 @@ endif
 		> debian/copyright
 
 override_dh_auto_install:
-	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/openssh-client install-nokeys
+	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/tmp install-nokeys
 
-	rm -f debian/openssh-client/etc/ssh/sshd_config
+override_dh_install:
+	rm -f debian/tmp/etc/ssh/sshd_config
 
-	# Split off the server.
-	mv debian/openssh-client/usr/sbin/sshd debian/openssh-server/usr/sbin/
-	mv debian/openssh-client/usr/lib/openssh/sftp-server debian/openssh-server/usr/lib/openssh/
-	mv debian/openssh-client/usr/share/man/man5/authorized_keys.5 debian/openssh-server/usr/share/man/man5/
-	mv debian/openssh-client/usr/share/man/man5/sshd_config.5 debian/openssh-server/usr/share/man/man5/
-	mv debian/openssh-client/usr/share/man/man8/sshd.8 debian/openssh-server/usr/share/man/man8/
-	mv debian/openssh-client/usr/share/man/man8/sftp-server.8 debian/openssh-server/usr/share/man/man8/
-	rmdir debian/openssh-client/usr/sbin debian/openssh-client/var/run/sshd
+	dh_install -Nopenssh-client-udeb -Nopenssh-server-udeb --fail-missing
+	dh_install -popenssh-client-udeb -popenssh-server-udeb \
+		--sourcedir=build-udeb
 
 	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
 
 	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
 	install -o root -g root -m 644 debian/openssh-server.ufw.profile debian/openssh-server/etc/ufw/applications.d/openssh-server
-
-	install -m 755 build-udeb/ssh debian/openssh-client-udeb/usr/bin/ssh
-	install -m 755 build-udeb/scp debian/openssh-client-udeb/usr/bin/scp
-	install -m 755 build-udeb/sftp debian/openssh-client-udeb/usr/bin/sftp
-	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
-	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
 	# Remove version control tags to avoid unnecessary conffile
 	# resolution steps for administrators.
