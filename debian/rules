@@ -154,8 +154,6 @@ override_dh_auto_install:
 	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/openssh-client install-nokeys
 
 	rm -f debian/openssh-client/etc/ssh/sshd_config
-	#Temporary hack: remove /usr/share/Ssh.bin, since we have no smartcard support anyway.
-	rm -f debian/openssh-client/usr/share/Ssh.bin
 
 	# Split off the server.
 	mv debian/openssh-client/usr/sbin/sshd debian/openssh-server/usr/sbin/
