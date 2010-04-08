@@ -201,8 +201,6 @@ override_dh_fixperms:
 
 override_dh_installdeb:
 	dh_installdeb
-	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
-	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
 	perl -i debian/substitute-conffile.pl \
 		ETC_SSH_MODULI debian/openssh-client/etc/ssh/moduli \
 		ETC_SSH_SSH_CONFIG debian/openssh-client/etc/ssh/ssh_config \
