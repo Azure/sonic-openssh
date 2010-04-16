@@ -1,4 +1,4 @@
-openssh (1:5.4p1-2) UNRELEASED; urgency=low
+openssh (1:5.4p1-2) unstable; urgency=low
 
   * Borrow patch from Fedora to add DNSSEC support: if glibc 2.11 is
     installed, the host key is published in an SSHFP RR secured with DNSSEC,
@@ -10,7 +10,7 @@ openssh (1:5.4p1-2) UNRELEASED; urgency=low
   * Add a NEWS.Debian entry about changes in smartcard support relative to
     previous unofficial builds (closes: #231472).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 06 Apr 2010 23:16:39 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 10 Apr 2010 01:08:59 +0100
 
 openssh (1:5.4p1-1) unstable; urgency=low
 

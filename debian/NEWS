@@ -6,7 +6,7 @@ openssh (1:5.4p1-2) unstable; urgency=low
   'ssh-add -s 0' will no longer work; you need to use 'ssh-add -s
   /usr/lib/opensc-pkcs11.so' instead.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 09 Apr 2010 21:40:02 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 10 Apr 2010 01:08:59 +0100
 
 openssh (1:3.8.1p1-9) experimental; urgency=low
 
