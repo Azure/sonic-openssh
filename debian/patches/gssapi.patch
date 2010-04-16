@@ -1918,7 +1918,7 @@ Index: b/key.c
 ===================================================================
 --- a/key.c
 +++ b/key.c
-@@ -969,6 +969,8 @@
+@@ -982,6 +982,8 @@
  		return KEY_RSA_CERT;
  	} else if (strcmp(name, "ssh-dss-cert-v00@openssh.com") == 0) {
  		return KEY_DSA_CERT;
@@ -2387,7 +2387,7 @@ Index: b/servconf.c
  #endif
  	{ "passwordauthentication", sPasswordAuthentication, SSHCFG_ALL },
  	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL },
-@@ -925,10 +942,22 @@
+@@ -924,10 +941,22 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  

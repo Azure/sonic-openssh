@@ -11,7 +11,7 @@ Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -1668,7 +1668,10 @@
+@@ -1677,7 +1677,10 @@
  #endif
  #ifdef GSSAPI
  	dump_cfg_fmtint(sGssAuthentication, o->gss_authentication);

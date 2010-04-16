@@ -45,7 +45,7 @@ Index: b/ssh-keygen.1
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -368,9 +366,7 @@
+@@ -367,9 +365,7 @@
  .It Fl q
  Silence
  .Nm ssh-keygen .
@@ -60,7 +60,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -759,6 +759,10 @@
+@@ -762,6 +762,10 @@
  .Sx HISTORY
  section of
  .Xr ssl 8

@@ -68,8 +68,8 @@ Index: b/ssh_config.5
  If set to
  .Dq yes ,
  passphrase/password querying will be disabled.
-+In addition, the 
-+.Cm ServerAliveInterval 
++In addition, the
++.Cm ServerAliveInterval
 +option will be set to 300 seconds by default.
  This option is useful in scripts and other batch jobs where no user
 -is present to supply the password.
@@ -78,7 +78,7 @@ Index: b/ssh_config.5
  The argument must be
  .Dq yes
  or
-@@ -967,8 +971,15 @@
+@@ -963,8 +967,15 @@
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -95,7 +95,7 @@ Index: b/ssh_config.5
  .It Cm StrictHostKeyChecking
  If this flag is set to
  .Dq yes ,
-@@ -1007,6 +1018,12 @@
+@@ -1003,6 +1014,12 @@
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.

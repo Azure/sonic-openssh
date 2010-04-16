@@ -43,7 +43,7 @@ Index: b/servconf.c
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1377,6 +1382,10 @@
+@@ -1386,6 +1391,10 @@
  		charptr = &options->revoked_keys_file;
  		goto parse_filename;
  

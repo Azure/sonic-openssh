@@ -60,7 +60,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1321,6 +1321,8 @@
+@@ -1324,6 +1324,8 @@
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -73,7 +73,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1208,6 +1208,8 @@
+@@ -1204,6 +1204,8 @@
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

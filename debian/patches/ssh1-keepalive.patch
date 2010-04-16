@@ -52,7 +52,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -956,7 +956,10 @@
+@@ -952,7 +952,10 @@
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

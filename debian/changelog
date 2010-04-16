@@ -1,3 +1,16 @@
+openssh (1:5.5p1-1) UNRELEASED; urgency=low
+
+  * New upstream release:
+    - Unbreak sshd_config's AuthorizedKeysFile option for $HOME-relative
+      paths.
+    - Include a language tag when sending a protocol 2 disconnection
+      message.
+    - Make logging of certificates used for user authentication more clear
+      and consistent between CAs specified using TrustedUserCAKeys and
+      authorized_keys.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 16 Apr 2010 10:21:10 +0100
+
 openssh (1:5.4p1-2) unstable; urgency=low
 
   * Borrow patch from Fedora to add DNSSEC support: if glibc 2.11 is

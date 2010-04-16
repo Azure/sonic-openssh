@@ -62,15 +62,15 @@ Index: b/Makefile.in
  # test driver for the loginrec code - not built by default
  logintest: logintest.o $(LIBCOMPAT) libssh.a loginrec.o
  	$(LD) -o $@ logintest.o $(LDFLAGS) loginrec.o -lopenbsd-compat -lssh $(LIBS)
-@@ -269,6 +274,7 @@
- 	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-pkcs11-helper $(DESTDIR)$(SSH_PKCS11_HELPER)
- 	$(INSTALL) -m 0755 $(STRIP_OPT) sftp $(DESTDIR)$(bindir)/sftp
- 	$(INSTALL) -m 0755 $(STRIP_OPT) sftp-server $(DESTDIR)$(SFTP_SERVER)
-+	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-vulnkey $(DESTDIR)$(bindir)/ssh-vulnkey
+@@ -268,6 +273,7 @@
+ 	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-pkcs11-helper$(EXEEXT) $(DESTDIR)$(SSH_PKCS11_HELPER)$(EXEEXT)
+ 	$(INSTALL) -m 0755 $(STRIP_OPT) sftp$(EXEEXT) $(DESTDIR)$(bindir)/sftp$(EXEEXT)
+ 	$(INSTALL) -m 0755 $(STRIP_OPT) sftp-server$(EXEEXT) $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
++	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-vulnkey$(EXEEXT) $(DESTDIR)$(bindir)/ssh-vulnkey$(EXEEXT)
  	$(INSTALL) -m 644 ssh.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh.1
  	$(INSTALL) -m 644 scp.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/scp.1
  	$(INSTALL) -m 644 ssh-add.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-add.1
-@@ -286,6 +292,7 @@
+@@ -285,6 +291,7 @@
  	$(INSTALL) -m 644 sftp-server.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/sftp-server.8
  	$(INSTALL) -m 644 ssh-keysign.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-keysign.8
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
@@ -78,7 +78,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/slogin
  	ln -s ./ssh$(EXEEXT) $(DESTDIR)$(bindir)/slogin
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/slogin.1
-@@ -367,6 +374,7 @@
+@@ -366,6 +373,7 @@
  	-rm -f $(DESTDIR)$(bindir)/ssh-agent$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keygen$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keyscan$(EXEEXT)
@@ -86,7 +86,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/sftp$(EXEEXT)
  	-rm -f $(DESTDIR)$(sbindir)/sshd$(EXEEXT)
  	-rm -r $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
-@@ -380,6 +388,7 @@
+@@ -379,6 +387,7 @@
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keygen.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/sftp.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keyscan.1
@@ -198,7 +198,7 @@ Index: b/auth2-pubkey.c
 ===================================================================
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
-@@ -325,9 +325,10 @@
+@@ -328,9 +328,10 @@
  	int success;
  	char *file;
  
@@ -498,7 +498,7 @@ Index: b/servconf.c
  	{ "permitemptypasswords", sEmptyPasswd, SSHCFG_ALL },
  	{ "permituserenvironment", sPermitUserEnvironment, SSHCFG_GLOBAL },
  	{ "uselogin", sUseLogin, SSHCFG_GLOBAL },
-@@ -1010,6 +1014,10 @@
+@@ -1009,6 +1013,10 @@
  		intptr = &options->tcp_keep_alive;
  		goto parse_flag;
  
@@ -509,7 +509,7 @@ Index: b/servconf.c
  	case sEmptyPasswd:
  		intptr = &options->permit_empty_passwd;
  		goto parse_flag;
-@@ -1688,6 +1696,7 @@
+@@ -1697,6 +1705,7 @@
  	dump_cfg_fmtint(sX11UseLocalhost, o->x11_use_localhost);
  	dump_cfg_fmtint(sStrictModes, o->strict_modes);
  	dump_cfg_fmtint(sTCPKeepAlive, o->tcp_keep_alive);
@@ -584,7 +584,7 @@ Index: b/ssh-keygen.1
 ===================================================================
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -629,6 +629,7 @@
+@@ -628,6 +628,7 @@
  .Xr ssh 1 ,
  .Xr ssh-add 1 ,
  .Xr ssh-agent 1 ,
@@ -1236,7 +1236,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1423,6 +1423,7 @@
+@@ -1426,6 +1426,7 @@
  .Xr ssh-agent 1 ,
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
@@ -1284,7 +1284,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1055,6 +1055,23 @@
+@@ -1051,6 +1051,23 @@
  .Dq any .
  The default is
  .Dq any:any .
