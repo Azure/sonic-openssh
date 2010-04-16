@@ -1,4 +1,4 @@
-openssh (1:5.5p1-1) UNRELEASED; urgency=low
+openssh (1:5.5p1-1) unstable; urgency=low
 
   * New upstream release:
     - Unbreak sshd_config's AuthorizedKeysFile option for $HOME-relative
@@ -9,7 +9,7 @@ openssh (1:5.5p1-1) UNRELEASED; urgency=low
       and consistent between CAs specified using TrustedUserCAKeys and
       authorized_keys.
 
- -- Colin Watson <cjwatson@ubuntu.com>  Fri, 16 Apr 2010 10:21:10 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 16 Apr 2010 10:27:30 +0100
 
 openssh (1:5.4p1-2) unstable; urgency=low
 
