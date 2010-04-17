@@ -178,7 +178,7 @@ override_dh_installdocs:
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
 override_dh_installinit:
-	dh_installinit --name ssh
+	dh_installinit -n --name ssh
 
 override_dh_installpam:
 	dh_installpam --name sshd

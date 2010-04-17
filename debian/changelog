@@ -1,3 +1,10 @@
+openssh (1:5.5p1-2) UNRELEASED; urgency=low
+
+  * Use dh_installinit -n, since our maintainer scripts already handle this
+    more carefully (thanks, Julien Cristau).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 17 Apr 2010 12:54:18 +0100
+
 openssh (1:5.5p1-1) unstable; urgency=low
 
   * New upstream release:
