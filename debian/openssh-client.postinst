@@ -42,7 +42,7 @@ create_alternatives() {
 	update-alternatives --quiet --remove rcp /usr/bin/ssh
 	for cmd in rsh rlogin rcp; do
 		scmd="s${cmd#r}"
-		if ! update-alternatives --display "$cmd" | \
+		if ! update-alternatives --display "$cmd" 2>/dev/null | \
 				grep -q "$scmd"; then
 			update-alternatives --quiet --install "/usr/bin/$cmd" "$cmd" "/usr/bin/$scmd" 20 \
 				--slave "/usr/share/man/man1/$cmd.1.gz" "$cmd.1.gz" "/usr/share/man/man1/$scmd.1.gz"
