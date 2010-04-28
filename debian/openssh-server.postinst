@@ -22,20 +22,6 @@ fix_doc_symlink() {
 	fi
 }
 
-check_idea_key() {
-	# check for old host_key files using IDEA, which openssh does not
-	# support
-	if [ -f /etc/ssh/ssh_host_key ] ; then
-		cp -a /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.check_idea
-		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key.check_idea 2>&1 | \
-				grep -q 'unknown cipher' 2>/dev/null; then
-			mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
-			mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
-		fi
-		rm -f /etc/ssh/ssh_host_key.check_idea
-	fi
-}
-
 
 get_config_option() {
 	option="$1"
@@ -465,7 +451,6 @@ commit_mv_conffile () {
 
 fix_doc_symlink
 create_sshdconfig
-check_idea_key
 create_keys
 vulnerable_host_keys
 fix_statoverride

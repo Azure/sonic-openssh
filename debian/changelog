@@ -2,6 +2,10 @@ openssh (1:5.5p1-3) UNRELEASED; urgency=low
 
   * Discard error messages while checking whether rsh, rlogin, and rcp
     alternatives exist (closes: #579285).
+  * Drop IDEA key check; I don't think it works properly any more due to
+    textual changes in error output, it's only relevant for direct upgrades
+    from truly ancient versions, and it breaks upgrades if
+    /etc/ssh/ssh_host_key can't be loaded (closes: #579570).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 Apr 2010 23:37:41 +0100
 
