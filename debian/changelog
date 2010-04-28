@@ -1,4 +1,4 @@
-openssh (1:5.5p1-3) UNRELEASED; urgency=low
+openssh (1:5.5p1-3) unstable; urgency=low
 
   * Discard error messages while checking whether rsh, rlogin, and rcp
     alternatives exist (closes: #579285).
@@ -7,7 +7,7 @@ openssh (1:5.5p1-3) UNRELEASED; urgency=low
     from truly ancient versions, and it breaks upgrades if
     /etc/ssh/ssh_host_key can't be loaded (closes: #579570).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 26 Apr 2010 23:37:41 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 28 Apr 2010 22:12:47 +0100
 
 openssh (1:5.5p1-2) unstable; urgency=low
 
