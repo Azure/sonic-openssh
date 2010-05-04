@@ -1,3 +1,11 @@
+openssh (1:5.5p1-4) UNRELEASED; urgency=low
+
+  [ Sebastian Andrzej Siewior ]
+  * Add powerpcspe to architecture list for libselinux1-dev build-dependency
+    (closes: #579843).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 04 May 2010 13:32:17 +0100
+
 openssh (1:5.5p1-3) unstable; urgency=low
 
   * Discard error messages while checking whether rsh, rlogin, and rcp
