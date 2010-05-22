@@ -1,4 +1,4 @@
-openssh (1:5.5p1-4) UNRELEASED; urgency=low
+openssh (1:5.5p1-4) unstable; urgency=low
 
   [ Sebastian Andrzej Siewior ]
   * Add powerpcspe to architecture list for libselinux1-dev build-dependency
@@ -14,7 +14,7 @@ openssh (1:5.5p1-4) UNRELEASED; urgency=low
     member, as zero-member groups are typically used by setgid binaries
     rather than being user-private groups (closes: #581697).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 04 May 2010 13:32:17 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 22 May 2010 23:37:20 +0100
 
 openssh (1:5.5p1-3) unstable; urgency=low
 
