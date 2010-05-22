@@ -9,6 +9,10 @@ openssh (1:5.5p1-4) UNRELEASED; urgency=low
     group-writable, provided that the group in question contains only the
     file's owner; this extends a patch previously applied to ~/.ssh/config
     (closes: #581919).
+  * Check primary group memberships as well as supplementary group
+    memberships, and only allow group-writability by groups with exactly one
+    member, as zero-member groups are typically used by setgid binaries
+    rather than being user-private groups (closes: #581697).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 04 May 2010 13:32:17 +0100
 
