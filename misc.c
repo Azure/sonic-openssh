@@ -45,8 +45,9 @@
 #include <netdb.h>
 #ifdef HAVE_PATHS_H
 # include <paths.h>
-#include <pwd.h>
 #endif
+#include <pwd.h>
+#include <grp.h>
 #ifdef SSH_TUN_OPENBSD
 #include <net/if.h>
 #endif
@@ -635,6 +636,30 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
 		}
 	}
 	return -1;
+}
+
+int
+secure_permissions(struct stat *st, uid_t uid)
+{
+	if (st->st_uid != 0 && st->st_uid != uid)
+		return 0;
+	if ((st->st_mode & 020) != 0) {
+		/* If the file is group-writable, the group in question must
+		 * have at most one member, namely the file's owner.
+		 */
+		struct passwd *pw = getpwuid(st->st_uid);
+		struct group *gr = getgrgid(st->st_gid);
+		if (!pw || !gr)
+			return 0;
+		else if (gr->gr_mem[0]) {
+			if (strcmp(pw->pw_name, gr->gr_mem[0]) ||
+			    gr->gr_mem[1])
+				return 0;
+		}
+	}
+	if ((st->st_mode & 002) != 0)
+		return 0;
+	return 1;
 }
 
 int

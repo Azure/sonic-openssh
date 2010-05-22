@@ -1002,30 +1002,10 @@ read_config_file(const char *filename, const char *host, Options *options,
 
 	if (checkperm) {
 		struct stat sb;
-		int bad_modes = 0;
 
 		if (fstat(fileno(f), &sb) == -1)
 			fatal("fstat %s: %s", filename, strerror(errno));
-		if (sb.st_uid != 0 && sb.st_uid != getuid())
-			bad_modes = 1;
-		if ((sb.st_mode & 020) != 0) {
-			/* If the file is group-writable, the group in
-			 * question must have at most one member, namely the
-			 * file's owner.
-			 */
-			struct passwd *pw = getpwuid(sb.st_uid);
-			struct group *gr = getgrgid(sb.st_gid);
-			if (!pw || !gr)
-				bad_modes = 1;
-			else if (gr->gr_mem[0]) {
-				if (strcmp(pw->pw_name, gr->gr_mem[0]) ||
-				    gr->gr_mem[1])
-					bad_modes = 1;
-			}
-		}
-		if ((sb.st_mode & 002) != 0)
-			bad_modes = 1;
-		if (bad_modes)
+		if (!secure_permissions(&sb, getuid()))
 			fatal("Bad owner or permissions on %s", filename);
 	}
 

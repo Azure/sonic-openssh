@@ -4,6 +4,12 @@ openssh (1:5.5p1-4) UNRELEASED; urgency=low
   * Add powerpcspe to architecture list for libselinux1-dev build-dependency
     (closes: #579843).
 
+  [ Colin Watson ]
+  * Allow ~/.ssh/authorized_keys and other secure files to be
+    group-writable, provided that the group in question contains only the
+    file's owner; this extends a patch previously applied to ~/.ssh/config
+    (closes: #581919).
+
  -- Colin Watson <cjwatson@debian.org>  Tue, 04 May 2010 13:32:17 +0100
 
 openssh (1:5.5p1-3) unstable; urgency=low
