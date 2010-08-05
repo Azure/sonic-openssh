@@ -1,3 +1,9 @@
+openssh (1:5.5p1-5) UNRELEASED; urgency=low
+
+  * Use an architecture wildcard for libselinux1-dev (closes: #591740).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 05 Aug 2010 10:19:08 -0500
+
 openssh (1:5.5p1-4) unstable; urgency=low
 
   [ Sebastian Andrzej Siewior ]
