@@ -925,7 +925,7 @@ Index: b/ssh-vulnkey.c
 +	exit(1);
 +}
 +
-+void
++static void
 +describe_key(const char *filename, u_long linenum, const char *msg,
 +    Key *key, const char *comment, int min_verbosity)
 +{
@@ -943,7 +943,7 @@ Index: b/ssh-vulnkey.c
 +	xfree(fp);
 +}
 +
-+int
++static int
 +do_key(const char *filename, u_long linenum,
 +    Key *key, const char *comment)
 +{
@@ -976,7 +976,7 @@ Index: b/ssh-vulnkey.c
 +	return ret;
 +}
 +
-+int
++static int
 +do_filename(const char *filename, int quiet_open)
 +{
 +	FILE *f;
@@ -1100,7 +1100,7 @@ Index: b/ssh-vulnkey.c
 +	return ret;
 +}
 +
-+int
++static int
 +do_host(int quiet_open)
 +{
 +	int i;
@@ -1117,7 +1117,7 @@ Index: b/ssh-vulnkey.c
 +	return ret;
 +}
 +
-+int
++static int
 +do_user(const char *dir)
 +{
 +	int i;
