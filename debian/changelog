@@ -1,4 +1,4 @@
-openssh (1:5.6p1-1) UNRELEASED; urgency=low
+openssh (1:5.6p1-1) experimental; urgency=low
 
   * New upstream release (http://www.openssh.com/txt/release-5.6):
     - Added a ControlPersist option to ssh_config(5) that automatically
@@ -12,7 +12,7 @@ openssh (1:5.6p1-1) UNRELEASED; urgency=low
     - sftp(1): fix ls in working directories that contain globbing
       characters in their pathnames (LP: #530714).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 23 Aug 2010 23:22:10 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 24 Aug 2010 00:37:54 +0100
 
 openssh (1:5.5p1-5) unstable; urgency=low
 
