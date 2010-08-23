@@ -26,6 +26,6 @@ Key	*key_load_private_pem(int, int, const char *, char **);
 int	 key_perm_ok(int, const char *);
 int	 key_in_file(Key *, const char *, int);
 
-int	 blacklisted_key(const Key *key, char **fp);
+int	 blacklisted_key(Key *key, char **fp);
 
 #endif

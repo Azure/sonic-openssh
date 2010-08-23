@@ -817,7 +817,7 @@ key_in_file(Key *key, const char *filename, int strict_type)
 
 /* Scan a blacklist of known-vulnerable keys in blacklist_file. */
 static int
-blacklisted_key_in_file(const Key *key, const char *blacklist_file, char **fp)
+blacklisted_key_in_file(Key *key, const char *blacklist_file, char **fp)
 {
 	int fd = -1;
 	char *dgst_hex = NULL;
@@ -922,7 +922,7 @@ out:
  * its fingerprint is returned in *fp, unless fp is NULL.
  */
 int
-blacklisted_key(const Key *key, char **fp)
+blacklisted_key(Key *key, char **fp)
 {
 	Key *public;
 	char *blacklist_file;
