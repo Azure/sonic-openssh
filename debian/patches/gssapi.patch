@@ -364,7 +364,7 @@ Index: b/clientloop.c
  /* import options */
  extern Options options;
  
-@@ -1431,6 +1435,15 @@
+@@ -1483,6 +1487,15 @@
  		/* Do channel operations unless rekeying in progress. */
  		if (!rekeying) {
  			channel_after_select(readset, writeset);
@@ -1918,9 +1918,9 @@ Index: b/key.c
 ===================================================================
 --- a/key.c
 +++ b/key.c
-@@ -982,6 +982,8 @@
+@@ -1020,6 +1020,8 @@
  		return KEY_RSA_CERT;
- 	} else if (strcmp(name, "ssh-dss-cert-v00@openssh.com") == 0) {
+ 	} else if (strcmp(name, "ssh-dss-cert-v01@openssh.com") == 0) {
  		return KEY_DSA_CERT;
 +	} else if (strcmp(name, "null") == 0) {
 +		return KEY_NULL;
@@ -1931,10 +1931,10 @@ Index: b/key.h
 ===================================================================
 --- a/key.h
 +++ b/key.h
-@@ -37,6 +37,7 @@
- 	KEY_DSA,
- 	KEY_RSA_CERT,
+@@ -39,6 +39,7 @@
  	KEY_DSA_CERT,
+ 	KEY_RSA_CERT_V00,
+ 	KEY_DSA_CERT_V00,
 +	KEY_NULL,
  	KEY_UNSPEC
  };
@@ -2239,9 +2239,9 @@ Index: b/readconf.c
  	oAddressFamily, oGssAuthentication, oGssDelegateCreds,
 +	oGssTrustDns, oGssKeyEx, oGssClientIdentity, oGssRenewalRekey,
  	oServerAliveInterval, oServerAliveCountMax, oIdentitiesOnly,
- 	oSendEnv, oControlPath, oControlMaster, oHashKnownHosts,
- 	oTunnel, oTunnelDevice, oLocalCommand, oPermitLocalCommand,
-@@ -164,10 +165,18 @@
+ 	oSendEnv, oControlPath, oControlMaster, oControlPersist,
+ 	oHashKnownHosts,
+@@ -166,10 +167,18 @@
  	{ "afstokenpassing", oUnsupported },
  #if defined(GSSAPI)
  	{ "gssapiauthentication", oGssAuthentication },
@@ -2260,7 +2260,7 @@ Index: b/readconf.c
  #endif
  	{ "fallbacktorsh", oDeprecated },
  	{ "usersh", oDeprecated },
-@@ -456,10 +465,26 @@
+@@ -474,10 +483,26 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -2287,7 +2287,7 @@ Index: b/readconf.c
  	case oBatchMode:
  		intptr = &options->batch_mode;
  		goto parse_flag;
-@@ -1015,7 +1040,11 @@
+@@ -1058,7 +1083,11 @@
  	options->pubkey_authentication = -1;
  	options->challenge_response_authentication = -1;
  	options->gss_authentication = -1;
@@ -2299,7 +2299,7 @@ Index: b/readconf.c
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->kbd_interactive_devices = NULL;
-@@ -1107,8 +1136,14 @@
+@@ -1156,8 +1185,14 @@
  		options->challenge_response_authentication = 1;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;
@@ -2318,7 +2318,7 @@ Index: b/readconf.h
 ===================================================================
 --- a/readconf.h
 +++ b/readconf.h
-@@ -44,7 +44,11 @@
+@@ -46,7 +46,11 @@
  	int     challenge_response_authentication;
  					/* Try S/Key or TIS, authentication. */
  	int     gss_authentication;	/* Try GSS authentication */
@@ -2345,7 +2345,7 @@ Index: b/servconf.c
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->challenge_response_authentication = -1;
-@@ -214,8 +217,14 @@
+@@ -215,8 +218,14 @@
  		options->kerberos_get_afs_token = 0;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;
@@ -2360,7 +2360,7 @@ Index: b/servconf.c
  	if (options->password_authentication == -1)
  		options->password_authentication = 1;
  	if (options->kbd_interactive_authentication == -1)
-@@ -306,7 +315,9 @@
+@@ -307,7 +316,9 @@
  	sBanner, sUseDNS, sHostbasedAuthentication,
  	sHostbasedUsesNameFromPacketOnly, sClientAliveInterval,
  	sClientAliveCountMax, sAuthorizedKeysFile, sAuthorizedKeysFile2,
@@ -2371,7 +2371,7 @@ Index: b/servconf.c
  	sMatch, sPermitOpen, sForceCommand, sChrootDirectory,
  	sUsePrivilegeSeparation, sAllowAgentForwarding,
  	sZeroKnowledgePasswordAuthentication, sHostCertificate,
-@@ -369,9 +380,15 @@
+@@ -370,9 +381,15 @@
  #ifdef GSSAPI
  	{ "gssapiauthentication", sGssAuthentication, SSHCFG_ALL },
  	{ "gssapicleanupcredentials", sGssCleanupCreds, SSHCFG_GLOBAL },
@@ -2387,7 +2387,7 @@ Index: b/servconf.c
  #endif
  	{ "passwordauthentication", sPasswordAuthentication, SSHCFG_ALL },
  	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL },
-@@ -924,10 +941,22 @@
+@@ -926,10 +943,22 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -2543,7 +2543,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -478,11 +478,38 @@
+@@ -509,11 +509,38 @@
  The default is
  .Dq no .
  Note that this option applies to protocol version 2 only.
@@ -2794,7 +2794,7 @@ Index: b/sshd.c
  #ifdef LIBWRAP
  #include <tcpd.h>
  #include <syslog.h>
-@@ -1577,10 +1581,13 @@
+@@ -1586,10 +1590,13 @@
  		logit("Disabling protocol version 1. Could not load host key");
  		options.protocol &= ~SSH_PROTO_1;
  	}
@@ -2808,7 +2808,7 @@ Index: b/sshd.c
  	if (!(options.protocol & (SSH_PROTO_1|SSH_PROTO_2))) {
  		logit("sshd: no hostkeys available -- exiting.");
  		exit(1);
-@@ -1909,6 +1916,60 @@
+@@ -1918,6 +1925,60 @@
  	/* Log the connection. */
  	verbose("Connection from %.500s port %d", remote_ip, remote_port);
  
@@ -2869,7 +2869,7 @@ Index: b/sshd.c
  	/*
  	 * We don't want to listen forever unless the other side
  	 * successfully authenticates itself.  So we set up an alarm which is
-@@ -2287,12 +2348,61 @@
+@@ -2296,12 +2357,61 @@
  
  	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = list_hostkey_types();
  
@@ -2948,7 +2948,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -379,12 +379,40 @@
+@@ -424,12 +424,40 @@
  The default is
  .Dq no .
  Note that this option applies to protocol version 2 only.

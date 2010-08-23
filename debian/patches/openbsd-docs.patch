@@ -34,7 +34,7 @@ Index: b/ssh-keygen.1
 ===================================================================
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -145,9 +145,7 @@
+@@ -148,9 +148,7 @@
  .Pa ~/.ssh/id_dsa
  or
  .Pa ~/.ssh/id_rsa .
@@ -45,7 +45,7 @@ Index: b/ssh-keygen.1
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -367,9 +365,7 @@
+@@ -394,9 +392,7 @@
  .It Fl q
  Silence
  .Nm ssh-keygen .
@@ -60,7 +60,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -762,6 +762,10 @@
+@@ -728,6 +728,10 @@
  .Sx HISTORY
  section of
  .Xr ssl 8
@@ -84,7 +84,7 @@ Index: b/sshd.8
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -835,7 +835,7 @@
+@@ -845,7 +845,7 @@
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
@@ -93,7 +93,7 @@ Index: b/sshd.8
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange".
  The file format is described in
  .Xr moduli 5 .
-@@ -931,7 +931,6 @@
+@@ -941,7 +941,6 @@
  .Xr ssh-vulnkey 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
@@ -105,7 +105,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -177,8 +177,7 @@
+@@ -222,8 +222,7 @@
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

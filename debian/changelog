@@ -1,3 +1,19 @@
+openssh (1:5.6p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (http://www.openssh.com/txt/release-5.6):
+    - Added a ControlPersist option to ssh_config(5) that automatically
+      starts a background ssh(1) multiplex master when connecting.  This
+      connection can stay alive indefinitely, or can be set to automatically
+      close after a user-specified duration of inactivity (closes: #335697,
+      #350898, #454787, #500573, #550262).
+    - Support AuthorizedKeysFile, AuthorizedPrincipalsFile,
+      HostbasedUsesNameFromPacketOnly, and PermitTunnel in sshd_config(5)
+      Match blocks (closes: #549858).
+    - sftp(1): fix ls in working directories that contain globbing
+      characters in their pathnames (LP: #530714).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 23 Aug 2010 23:22:10 +0100
+
 openssh (1:5.5p1-5) unstable; urgency=low
 
   * Use an architecture wildcard for libselinux1-dev (closes: #591740).

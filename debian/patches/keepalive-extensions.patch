@@ -18,15 +18,15 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -133,6 +133,7 @@
- 	oSendEnv, oControlPath, oControlMaster, oHashKnownHosts,
+@@ -134,6 +134,7 @@
+ 	oHashKnownHosts,
  	oTunnel, oTunnelDevice, oLocalCommand, oPermitLocalCommand,
  	oVisualHostKey, oUseRoaming, oZeroKnowledgePasswordAuthentication,
 +	oProtocolKeepAlives, oSetupTimeOut,
  	oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -248,6 +249,8 @@
+@@ -251,6 +252,8 @@
  #else
  	{ "zeroknowledgepasswordauthentication", oUnsupported },
  #endif
@@ -35,7 +35,7 @@ Index: b/readconf.c
  
  	{ NULL, oBadOption }
  };
-@@ -847,6 +850,8 @@
+@@ -865,6 +868,8 @@
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -44,7 +44,7 @@ Index: b/readconf.c
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -1235,8 +1240,13 @@
+@@ -1284,8 +1289,13 @@
  		options->rekey_limit = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -78,7 +78,7 @@ Index: b/ssh_config.5
  The argument must be
  .Dq yes
  or
-@@ -963,8 +967,15 @@
+@@ -994,8 +998,15 @@
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -95,7 +95,7 @@ Index: b/ssh_config.5
  .It Cm StrictHostKeyChecking
  If this flag is set to
  .Dq yes ,
-@@ -1003,6 +1014,12 @@
+@@ -1034,6 +1045,12 @@
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -112,7 +112,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -936,6 +936,9 @@
+@@ -985,6 +985,9 @@
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Dq no .

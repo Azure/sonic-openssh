@@ -24,15 +24,15 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1132,7 +1132,7 @@
+@@ -1179,7 +1179,7 @@
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
 -		options->forward_x11_trusted = 0;
 +		options->forward_x11_trusted = 1;
+ 	if (options->forward_x11_timeout == -1)
+ 		options->forward_x11_timeout = 1200;
  	if (options->exit_on_forward_failure == -1)
- 		options->exit_on_forward_failure = 0;
- 	if (options->xauth_location == NULL)
 Index: b/ssh_config
 ===================================================================
 --- a/ssh_config
@@ -84,7 +84,7 @@ Index: b/ssh_config.5
  The configuration file has the following format:
  .Pp
  Empty lines and lines starting with
-@@ -452,7 +468,8 @@
+@@ -483,7 +499,8 @@
  Remote clients will be refused access after this time.
  .Pp
  The default is

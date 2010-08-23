@@ -8,7 +8,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -531,6 +531,9 @@
+@@ -562,6 +562,9 @@
  will not be converted automatically,
  but may be manually hashed using
  .Xr ssh-keygen 1 .

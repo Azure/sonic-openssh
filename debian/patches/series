@@ -23,7 +23,6 @@ helpful-wait-terminate.patch
 user-group-modes.patch
 scp-quoting.patch
 shell-path.patch
-ssh-copy-id-trailing-colons.patch
 dnssec-sshfp.patch
 
 # Versioning
