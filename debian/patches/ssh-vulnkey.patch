@@ -927,7 +927,7 @@ Index: b/ssh-vulnkey.c
 +
 +void
 +describe_key(const char *filename, u_long linenum, const char *msg,
-+    const Key *key, const char *comment, int min_verbosity)
++    Key *key, const char *comment, int min_verbosity)
 +{
 +	char *fp;
 +
@@ -945,7 +945,7 @@ Index: b/ssh-vulnkey.c
 +
 +int
 +do_key(const char *filename, u_long linenum,
-+    const Key *key, const char *comment)
++    Key *key, const char *comment)
 +{
 +	Key *public;
 +	int blacklist_status;

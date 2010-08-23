@@ -81,7 +81,7 @@ usage(void)
 
 void
 describe_key(const char *filename, u_long linenum, const char *msg,
-    const Key *key, const char *comment, int min_verbosity)
+    Key *key, const char *comment, int min_verbosity)
 {
 	char *fp;
 
@@ -99,7 +99,7 @@ describe_key(const char *filename, u_long linenum, const char *msg,
 
 int
 do_key(const char *filename, u_long linenum,
-    const Key *key, const char *comment)
+    Key *key, const char *comment)
 {
 	Key *public;
 	int blacklist_status;
