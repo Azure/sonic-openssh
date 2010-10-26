@@ -1,3 +1,11 @@
+openssh (1:5.6p1-2) UNRELEASED; urgency=low
+
+  * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
+    child processes, preventing lots of zombies when using ControlPersist
+    (closes: #594687).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 26 Oct 2010 12:58:39 +0100
+
 openssh (1:5.6p1-1) experimental; urgency=low
 
   * New upstream release (http://www.openssh.com/txt/release-5.6):
