@@ -1,3 +1,10 @@
+openssh (1:5.6p1-3) UNRELEASED; urgency=low
+
+  * Drop override for desktop-file-but-no-dh_desktop-call, which Lintian no
+    longer issues.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 02 Nov 2010 23:00:07 +0000
+
 openssh (1:5.6p1-2) experimental; urgency=low
 
   * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
