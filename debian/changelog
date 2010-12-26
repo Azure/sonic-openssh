@@ -1,3 +1,12 @@
+openssh (1:5.5p1-6) UNRELEASED; urgency=low
+
+  * Touch /var/run/sshd/.placeholder in the preinst so that /var/run/sshd,
+    which is intentionally no longer shipped in the openssh-server package
+    due to /var/run often being a temporary directory, is not removed on
+    upgrade (closes: #575582).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 26 Dec 2010 18:01:12 +0000
+
 openssh (1:5.5p1-5) unstable; urgency=low
 
   * Use an architecture wildcard for libselinux1-dev (closes: #591740).
