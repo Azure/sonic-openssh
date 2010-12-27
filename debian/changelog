@@ -1,11 +1,11 @@
-openssh (1:5.5p1-6) UNRELEASED; urgency=low
+openssh (1:5.5p1-6) unstable; urgency=low
 
   * Touch /var/run/sshd/.placeholder in the preinst so that /var/run/sshd,
     which is intentionally no longer shipped in the openssh-server package
     due to /var/run often being a temporary directory, is not removed on
     upgrade (closes: #575582).
 
- -- Colin Watson <cjwatson@ubuntu.com>  Sun, 26 Dec 2010 18:01:12 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 26 Dec 2010 18:09:29 +0000
 
 openssh (1:5.5p1-5) unstable; urgency=low
 
