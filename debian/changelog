@@ -1,10 +1,10 @@
-openssh (1:5.6p1-3) UNRELEASED; urgency=low
+openssh (1:5.6p1-3) experimental; urgency=low
 
   * Drop override for desktop-file-but-no-dh_desktop-call, which Lintian no
     longer issues.
   * Merge 1:5.5p1-6.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 02 Nov 2010 23:00:07 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 30 Dec 2010 11:48:00 +0000
 
 openssh (1:5.6p1-2) experimental; urgency=low
 
