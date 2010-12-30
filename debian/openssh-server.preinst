@@ -134,6 +134,12 @@ EOF
   if dpkg --compare-versions "$version" lt 1:4.7p1-4; then
     prepare_mv_conffile /etc/pam.d/ssh
   fi
+
+  if dpkg --compare-versions "$version" lt 1:5.5p1-6 && \
+     [ -d /var/run/sshd ]; then
+    # make sure /var/run/sshd is not removed on upgrades
+    touch /var/run/sshd/.placeholder
+  fi
 fi
 
 #DEBHELPER#

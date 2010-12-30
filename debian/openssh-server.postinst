@@ -473,6 +473,9 @@ commit_mv_conffile /etc/pam.d/ssh /etc/pam.d/sshd
 if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
     rm -f /etc/ssh/primes
 fi
+if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
+    rm -f /var/run/sshd/.placeholder
+fi
 
 
 db_stop

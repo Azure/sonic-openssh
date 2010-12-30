@@ -2,6 +2,7 @@ openssh (1:5.6p1-3) UNRELEASED; urgency=low
 
   * Drop override for desktop-file-but-no-dh_desktop-call, which Lintian no
     longer issues.
+  * Merge 1:5.5p1-6.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 02 Nov 2010 23:00:07 +0000
 
@@ -28,6 +29,15 @@ openssh (1:5.6p1-1) experimental; urgency=low
       characters in their pathnames (LP: #530714).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 24 Aug 2010 00:37:54 +0100
+
+openssh (1:5.5p1-6) unstable; urgency=low
+
+  * Touch /var/run/sshd/.placeholder in the preinst so that /var/run/sshd,
+    which is intentionally no longer shipped in the openssh-server package
+    due to /var/run often being a temporary directory, is not removed on
+    upgrade (closes: #575582).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 26 Dec 2010 18:09:29 +0000
 
 openssh (1:5.5p1-5) unstable; urgency=low
 
