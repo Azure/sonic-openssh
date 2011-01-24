@@ -12,11 +12,11 @@ Index: b/clientloop.c
  server_alive_check(void)
  {
 -	if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
--		logit("Timeout, server not responding.");
+-		logit("Timeout, server %s not responding.", host);
 -		cleanup_exit(255);
 +	if (compat20) {
 +		if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
-+			logit("Timeout, server not responding.");
++			logit("Timeout, server %s not responding.", host);
 +			cleanup_exit(255);
 +		}
 +		packet_start(SSH2_MSG_GLOBAL_REQUEST);
@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -983,7 +983,10 @@
+@@ -1047,7 +1047,10 @@
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

@@ -1,3 +1,30 @@
+openssh (1:5.7p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (http://www.openssh.org/txt/release-5.7):
+    - Implement Elliptic Curve Cryptography modes for key exchange (ECDH)
+      and host/user keys (ECDSA) as specified by RFC5656.  ECDH and ECDSA
+      offer better performance than plain DH and DSA at the same equivalent
+      symmetric key length, as well as much shorter keys.
+    - sftp(1)/sftp-server(8): add a protocol extension to support a hard
+      link operation.  It is available through the "ln" command in the
+      client.  The old "ln" behaviour of creating a symlink is available
+      using its "-s" option or through the preexisting "symlink" command.
+    - scp(1): Add a new -3 option to scp: Copies between two remote hosts
+      are transferred through the local host (closes: #508613).
+    - ssh(1): "atomically" create the listening mux socket by binding it on
+      a temporary name and then linking it into position after listen() has
+      succeeded.  This allows the mux clients to determine that the server
+      socket is either ready or stale without races (closes: #454784).
+      Stale server sockets are now automatically removed (closes: #523250).
+    - ssh(1): install a SIGCHLD handler to reap expired child process
+      (closes: #594687).
+    - ssh(1)/ssh-agent(1): honour $TMPDIR for client xauth and ssh-agent
+      temporary directories (closes: #357469, although only if you arrange
+      for ssh-agent to actually see $TMPDIR since the setgid bit will cause
+      it to be stripped off).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 24 Jan 2011 12:07:24 +0000
+
 openssh (1:5.6p1-3) experimental; urgency=low
 
   * Drop override for desktop-file-but-no-dh_desktop-call, which Lintian no

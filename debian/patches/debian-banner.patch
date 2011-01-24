@@ -10,42 +10,42 @@ Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -136,6 +136,7 @@
- 	options->revoked_keys_file = NULL;
- 	options->trusted_user_ca_keys = NULL;
+@@ -143,6 +143,7 @@
  	options->authorized_principals_file = NULL;
+ 	options->ip_qos_interactive = -1;
+ 	options->ip_qos_bulk = -1;
 +	options->debian_banner = -1;
  }
  
  void
-@@ -278,6 +279,8 @@
- 		options->permit_tun = SSH_TUNMODE_NO;
- 	if (options->zero_knowledge_password_authentication == -1)
- 		options->zero_knowledge_password_authentication = 0;
+@@ -293,6 +294,8 @@
+ 		options->ip_qos_interactive = IPTOS_LOWDELAY;
+ 	if (options->ip_qos_bulk == -1)
+ 		options->ip_qos_bulk = IPTOS_THROUGHPUT;
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
-@@ -326,6 +329,7 @@
- 	sUsePrivilegeSeparation, sAllowAgentForwarding,
+@@ -342,6 +345,7 @@
  	sZeroKnowledgePasswordAuthentication, sHostCertificate,
  	sRevokedKeys, sTrustedUserCAKeys, sAuthorizedPrincipalsFile,
+ 	sKexAlgorithms, sIPQoS,
 +	sDebianBanner,
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -459,6 +463,7 @@
- 	{ "revokedkeys", sRevokedKeys, SSHCFG_ALL },
- 	{ "trustedusercakeys", sTrustedUserCAKeys, SSHCFG_ALL },
+@@ -477,6 +481,7 @@
  	{ "authorizedprincipalsfile", sAuthorizedPrincipalsFile, SSHCFG_ALL },
+ 	{ "kexalgorithms", sKexAlgorithms, SSHCFG_GLOBAL },
+ 	{ "ipqos", sIPQoS, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1392,6 +1397,10 @@
- 		charptr = &options->revoked_keys_file;
- 		goto parse_filename;
+@@ -1439,6 +1444,10 @@
+ 		}
+ 		break;
  
 +	case sDebianBanner:
 +		intptr = &options->debian_banner;
@@ -58,7 +58,7 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -157,6 +157,8 @@
+@@ -160,6 +160,8 @@
  
  	int	num_permitted_opens;
  
@@ -85,7 +85,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -340,6 +340,11 @@
+@@ -339,6 +339,11 @@
  .Dq no .
  The default is
  .Dq delayed .

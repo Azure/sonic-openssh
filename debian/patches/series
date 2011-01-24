@@ -1,8 +1,6 @@
 # GSSAPI
 gssapi.patch
 gssapi-autoconf.patch
-gssapi-compat.patch
-gssapi-dump.patch
 
 # SELinux
 selinux-role.patch
@@ -41,4 +39,3 @@ doc-hash-tab-completion.patch
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
-ssh-sigchld.patch

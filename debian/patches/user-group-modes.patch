@@ -15,7 +15,7 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -28,6 +28,8 @@
+@@ -30,6 +30,8 @@
  #include <stdio.h>
  #include <string.h>
  #include <unistd.h>
@@ -24,7 +24,7 @@ Index: b/readconf.c
  
  #include "xmalloc.h"
  #include "ssh.h"
-@@ -1045,8 +1047,7 @@
+@@ -1085,8 +1087,7 @@
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -38,20 +38,20 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1290,6 +1290,8 @@
+@@ -1293,6 +1293,8 @@
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
 +It may be group-writable provided that the group in question contains only
 +the user.
  .Pp
- .It ~/.ssh/environment
+ .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1235,6 +1235,8 @@
+@@ -1299,6 +1299,8 @@
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -64,7 +64,7 @@ Index: b/auth.c
 ===================================================================
 --- a/auth.c
 +++ b/auth.c
-@@ -393,8 +393,7 @@
+@@ -392,8 +392,7 @@
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -74,7 +74,7 @@ Index: b/auth.c
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -448,8 +447,7 @@
+@@ -454,8 +453,7 @@
  
  	/* check the open file to avoid races */
  	if (fstat(fileno(f), &st) < 0 ||
@@ -84,7 +84,7 @@ Index: b/auth.c
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -465,8 +463,7 @@
+@@ -471,8 +469,7 @@
  
  		debug3("secure_filename: checking '%s'", buf);
  		if (stat(buf, &st) < 0 ||
@@ -98,7 +98,7 @@ Index: b/misc.c
 ===================================================================
 --- a/misc.c
 +++ b/misc.c
-@@ -45,8 +45,9 @@
+@@ -48,8 +48,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -109,7 +109,7 @@ Index: b/misc.c
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -639,6 +640,55 @@
+@@ -642,6 +643,55 @@
  }
  
  int
@@ -169,7 +169,7 @@ Index: b/misc.h
 ===================================================================
 --- a/misc.h
 +++ b/misc.h
-@@ -92,4 +92,6 @@
+@@ -102,4 +102,6 @@
  int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
  int	 read_keyfile_line(FILE *, const char *, char *, size_t, u_long *);
  

@@ -7,7 +7,7 @@ Index: b/config.h.in
 ===================================================================
 --- a/config.h.in
 +++ b/config.h.in
-@@ -1387,6 +1387,9 @@
+@@ -1417,6 +1417,9 @@
  /* Use btmp to log bad logins */
  #undef USE_BTMP
  
@@ -17,7 +17,7 @@ Index: b/config.h.in
  /* Use libedit for sftp */
  #undef USE_LIBEDIT
  
-@@ -1399,6 +1402,9 @@
+@@ -1432,6 +1435,9 @@
  /* Use PIPES instead of a socketpair() */
  #undef USE_PIPES
  

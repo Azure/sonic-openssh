@@ -33,7 +33,7 @@ Index: b/auth1.c
  	/* Get the name of the user that we wish to log in as. */
  	packet_read_expect(SSH_CMSG_USER);
 @@ -392,11 +392,17 @@
- 	user = packet_get_string(&ulen);
+ 	user = packet_get_cstring(&ulen);
  	packet_check_eom();
  
 +	if ((role = strchr(user, '/')) != NULL)
@@ -173,7 +173,7 @@ Index: b/monitor_wrap.c
 ===================================================================
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -279,10 +279,10 @@
+@@ -280,10 +280,10 @@
  	return (banner);
  }
  
@@ -186,7 +186,7 @@ Index: b/monitor_wrap.c
  {
  	Buffer m;
  
-@@ -291,12 +291,30 @@
+@@ -292,11 +292,29 @@
  	buffer_init(&m);
  	buffer_put_cstring(&m, service);
  	buffer_put_cstring(&m, style ? style : "");
@@ -196,7 +196,7 @@ Index: b/monitor_wrap.c
  
  	buffer_free(&m);
  }
- 
++
 +/* Inform the privileged process about role */
 +
 +void
@@ -213,10 +213,9 @@ Index: b/monitor_wrap.c
 +
 +	buffer_free(&m);
 +}
-+
+ 
  /* Do the password authentication */
  int
- mm_auth_password(Authctxt *authctxt, char *password)
 Index: b/monitor_wrap.h
 ===================================================================
 --- a/monitor_wrap.h

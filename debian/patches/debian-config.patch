@@ -24,7 +24,7 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1179,7 +1179,7 @@
+@@ -1223,7 +1223,7 @@
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -61,7 +61,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -72,6 +72,22 @@
+@@ -71,6 +71,22 @@
  host-specific declarations should be given near the beginning of the
  file, and general defaults at the end.
  .Pp
@@ -84,7 +84,7 @@ Index: b/ssh_config.5
  The configuration file has the following format:
  .Pp
  Empty lines and lines starting with
-@@ -483,7 +499,8 @@
+@@ -482,7 +498,8 @@
  Remote clients will be refused access after this time.
  .Pp
  The default is
@@ -98,7 +98,7 @@ Index: b/sshd_config
 ===================================================================
 --- a/sshd_config
 +++ b/sshd_config
-@@ -36,6 +36,7 @@
+@@ -37,6 +37,7 @@
  # Authentication:
  
  #LoginGraceTime 2m
@@ -110,7 +110,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -58,6 +58,33 @@
+@@ -57,6 +57,33 @@
  .Pq \&"
  in order to represent arguments containing spaces.
  .Pp

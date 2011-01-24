@@ -10,18 +10,18 @@ Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -141,7 +141,7 @@
- 
+@@ -144,7 +144,7 @@
  		/* Execute the proxy command.  Note that we gave up any
  		   extra privileges above. */
+ 		signal(SIGPIPE, SIG_DFL);
 -		execv(argv[0], argv);
 +		execvp(argv[0], argv);
  		perror(argv[0]);
  		exit(1);
  	}
-@@ -1243,7 +1243,7 @@
- 	pid = fork();
+@@ -1274,7 +1274,7 @@
  	if (pid == 0) {
+ 		signal(SIGPIPE, SIG_DFL);
  		debug3("Executing %s -c \"%s\"", shell, args);
 -		execl(shell, shell, "-c", args, (char *)NULL);
 +		execlp(shell, shell, "-c", args, (char *)NULL);

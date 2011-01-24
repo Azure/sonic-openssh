@@ -18,24 +18,24 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -134,6 +134,7 @@
- 	oHashKnownHosts,
+@@ -138,6 +138,7 @@
  	oTunnel, oTunnelDevice, oLocalCommand, oPermitLocalCommand,
  	oVisualHostKey, oUseRoaming, oZeroKnowledgePasswordAuthentication,
+ 	oKexAlgorithms, oIPQoS,
 +	oProtocolKeepAlives, oSetupTimeOut,
  	oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -251,6 +252,8 @@
- #else
- 	{ "zeroknowledgepasswordauthentication", oUnsupported },
+@@ -258,6 +259,8 @@
  #endif
+ 	{ "kexalgorithms", oKexAlgorithms },
+ 	{ "ipqos", oIPQoS },
 +	{ "protocolkeepalives", oProtocolKeepAlives },
 +	{ "setuptimeout", oSetupTimeOut },
  
  	{ NULL, oBadOption }
  };
-@@ -865,6 +868,8 @@
+@@ -888,6 +891,8 @@
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -44,7 +44,7 @@ Index: b/readconf.c
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -1284,8 +1289,13 @@
+@@ -1336,8 +1341,13 @@
  		options->rekey_limit = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -64,7 +64,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -128,8 +128,12 @@
+@@ -127,8 +127,12 @@
  If set to
  .Dq yes ,
  passphrase/password querying will be disabled.
@@ -78,7 +78,7 @@ Index: b/ssh_config.5
  The argument must be
  .Dq yes
  or
-@@ -994,8 +998,15 @@
+@@ -1058,8 +1062,15 @@
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -95,7 +95,7 @@ Index: b/ssh_config.5
  .It Cm StrictHostKeyChecking
  If this flag is set to
  .Dq yes ,
-@@ -1034,6 +1045,12 @@
+@@ -1098,6 +1109,12 @@
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -112,7 +112,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -985,6 +985,9 @@
+@@ -1034,6 +1034,9 @@
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Dq no .

@@ -34,7 +34,7 @@ Index: b/ssh-keygen.1
 ===================================================================
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -148,9 +148,7 @@
+@@ -147,9 +147,7 @@
  .Pa ~/.ssh/id_dsa
  or
  .Pa ~/.ssh/id_rsa .
@@ -45,7 +45,7 @@ Index: b/ssh-keygen.1
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -394,9 +392,7 @@
+@@ -393,9 +391,7 @@
  .It Fl q
  Silence
  .Nm ssh-keygen .
@@ -60,7 +60,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -728,6 +728,10 @@
+@@ -726,6 +726,10 @@
  .Sx HISTORY
  section of
  .Xr ssl 8
@@ -68,14 +68,14 @@ Index: b/ssh.1
 +.nh
 +http://www.openbsd.org/cgi\-bin/man.cgi?query=ssl&sektion=8#HISTORY)
 +.hy
- contains a brief discussion of the two algorithms.
+ contains a brief discussion of the DSA and RSA algorithms.
  .Pp
  The file
 Index: b/sshd.8
 ===================================================================
 --- a/sshd.8
 +++ b/sshd.8
-@@ -70,7 +70,7 @@
+@@ -69,7 +69,7 @@
  .Nm
  listens for connections from clients.
  It is normally started at boot from
@@ -84,16 +84,16 @@ Index: b/sshd.8
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -845,7 +845,7 @@
+@@ -850,7 +850,7 @@
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
--.It /etc/moduli
-+.It /etc/ssh/moduli
+-.It Pa /etc/moduli
++.It Pa /etc/ssh/moduli
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange".
  The file format is described in
  .Xr moduli 5 .
-@@ -941,7 +941,6 @@
+@@ -948,7 +948,6 @@
  .Xr ssh-vulnkey 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
@@ -105,7 +105,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -222,8 +222,7 @@
+@@ -221,8 +221,7 @@
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via
