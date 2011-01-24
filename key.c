@@ -851,6 +851,8 @@ key_ssh_name(const Key *k)
 		return "ssh-rsa-cert-v01@openssh.com";
 	case KEY_DSA_CERT:
 		return "ssh-dss-cert-v01@openssh.com";
+	case KEY_NULL:
+		return "null";
 	}
 	return "ssh-unknown";
 }
