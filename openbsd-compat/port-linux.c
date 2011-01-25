@@ -222,6 +222,20 @@ ssh_selinux_change_context(const char *newname)
 	xfree(oldctx);
 	xfree(newctx);
 }
+
+void
+ssh_selinux_setfscreatecon(const char *path)
+{
+		security_context_t context;
+
+		if (path == NULL) {
+			setfscreatecon(NULL);
+			return;
+		}
+		matchpathcon(path, 0700, &context);
+		setfscreatecon(context);
+}
+
 #endif /* WITH_SELINUX */
 
 #ifdef LINUX_OOM_ADJUST

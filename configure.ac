@@ -761,7 +761,6 @@ mips-sony-bsd|mips-sony-newsos4)
 			[ AC_DEFINE(USE_SOLARIS_PROCESS_CONTRACTS, 1,
 				[Define if you have Solaris process contracts])
 			  SSHDLIBS="$SSHDLIBS -lcontract"
-			  AC_SUBST(SSHDLIBS)
 			  SPC_MSG="yes" ], )
 		],
 	)
@@ -772,7 +771,6 @@ mips-sony-bsd|mips-sony-newsos4)
 			[ AC_DEFINE(USE_SOLARIS_PROJECTS, 1,
 				[Define if you have Solaris projects])
 			SSHDLIBS="$SSHDLIBS -lproject"
-			AC_SUBST(SSHDLIBS)
 			SP_MSG="yes" ], )
 		],
 	)
@@ -3539,11 +3537,14 @@ AC_ARG_WITH(selinux,
 			  LIBS="$LIBS -lselinux"
 			],
 			AC_MSG_ERROR(SELinux support requires libselinux library))
+		SSHLIBS="$SSHLIBS $LIBSELINUX"
 		SSHDLIBS="$SSHDLIBS $LIBSELINUX"
 		AC_CHECK_FUNCS(getseuserbyname get_default_context_with_level)
 		LIBS="$save_LIBS"
 	fi ]
 )
+AC_SUBST(SSHLIBS)
+AC_SUBST(SSHDLIBS)
 
 # Check whether user wants Kerberos 5 support
 KRB5_MSG="no"
@@ -4364,6 +4365,9 @@ echo "      Linker flags: ${LDFLAGS}"
 echo "         Libraries: ${LIBS}"
 if test ! -z "${SSHDLIBS}"; then
 echo "         +for sshd: ${SSHDLIBS}"
+fi
+if test ! -z "${SSHLIBS}"; then
+echo "          +for ssh: ${SSHLIBS}"
 fi
 
 echo ""
