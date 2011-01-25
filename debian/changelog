@@ -27,6 +27,8 @@ openssh (1:5.7p1-1) UNRELEASED; urgency=low
     /etc/ssh/ssh_host_ecdsa_key' to /etc/ssh/sshd_config.
   * Build-depend on libssl-dev (>= 0.9.8g) to ensure sufficient ECC support.
   * Backport SELinux build fix from CVS.
+  * Rearrange selinux-role.patch so that it links properly given this
+    SELinux build fix.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 24 Jan 2011 12:07:24 +0000
 

@@ -44,8 +44,6 @@
 #include <selinux/flask.h>
 #include <selinux/get_context_list.h>
 
-extern Authctxt *the_authctxt;
-
 /* Wrapper around is_selinux_enabled() to log its return value once only */
 int
 ssh_selinux_enabled(void)
@@ -62,10 +60,10 @@ ssh_selinux_enabled(void)
 
 /* Return the default security context for the given username */
 static security_context_t
-ssh_selinux_getctxbyname(char *pwname)
+ssh_selinux_getctxbyname(char *pwname, const char *role)
 {
 	security_context_t sc = NULL;
-	char *sename = NULL, *role = NULL, *lvl = NULL;
+	char *sename = NULL, *lvl = NULL;
 	int r;
 
 #ifdef HAVE_GETSEUSERBYNAME
@@ -75,8 +73,6 @@ ssh_selinux_getctxbyname(char *pwname)
 	sename = pwname;
 	lvl = NULL;
 #endif
-	if (the_authctxt)
-		role = the_authctxt->role;
 
 #ifdef HAVE_GET_DEFAULT_CONTEXT_WITH_LEVEL
 	if (role != NULL && role[0])
@@ -119,7 +115,7 @@ ssh_selinux_getctxbyname(char *pwname)
 
 /* Set the execution context to the default for the specified user */
 void
-ssh_selinux_setup_exec_context(char *pwname)
+ssh_selinux_setup_exec_context(char *pwname, const char *role)
 {
 	security_context_t user_ctx = NULL;
 
@@ -128,7 +124,7 @@ ssh_selinux_setup_exec_context(char *pwname)
 
 	debug3("%s: setting execution context", __func__);
 
-	user_ctx = ssh_selinux_getctxbyname(pwname);
+	user_ctx = ssh_selinux_getctxbyname(pwname, role);
 	if (setexeccon(user_ctx) != 0) {
 		switch (security_getenforce()) {
 		case -1:
@@ -150,7 +146,7 @@ ssh_selinux_setup_exec_context(char *pwname)
 
 /* Set the TTY context for the specified user */
 void
-ssh_selinux_setup_pty(char *pwname, const char *tty)
+ssh_selinux_setup_pty(char *pwname, const char *tty, const char *role)
 {
 	security_context_t new_tty_ctx = NULL;
 	security_context_t user_ctx = NULL;
@@ -161,7 +157,7 @@ ssh_selinux_setup_pty(char *pwname, const char *tty)
 
 	debug3("%s: setting TTY context on %s", __func__, tty);
 
-	user_ctx = ssh_selinux_getctxbyname(pwname);
+	user_ctx = ssh_selinux_getctxbyname(pwname, role);
 
 	/* XXX: should these calls fatal() upon failure in enforcing mode? */
 

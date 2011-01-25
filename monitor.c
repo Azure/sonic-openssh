@@ -1353,7 +1353,7 @@ mm_answer_pty(int sock, Buffer *m)
 	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
 	if (res == 0)
 		goto error;
-	pty_setowner(authctxt->pw, s->tty);
+	pty_setowner(authctxt->pw, s->tty, authctxt->role);
 
 	buffer_put_int(m, 1);
 	buffer_put_cstring(m, s->tty);

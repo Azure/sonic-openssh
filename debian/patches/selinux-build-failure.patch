@@ -90,7 +90,7 @@ Index: b/configure
  KRB5CONF
  PRIVSEP_PATH
  xauth_path
-@@ -9047,7 +9159,6 @@
+@@ -9047,7 +9048,6 @@
  _ACEOF
  
  			  SSHDLIBS="$SSHDLIBS -lcontract"
@@ -98,7 +98,7 @@ Index: b/configure
  			  SPC_MSG="yes"
  fi
  
-@@ -9126,7 +9237,6 @@
+@@ -9126,7 +9126,6 @@
  _ACEOF
  
  			SSHDLIBS="$SSHDLIBS -lproject"
@@ -106,7 +106,7 @@ Index: b/configure
  			SP_MSG="yes"
  fi
  
-@@ -27806,6 +27916,7 @@
+@@ -27806,6 +27805,7 @@
     { (exit 1); exit 1; }; }
  fi
  
@@ -114,7 +114,7 @@ Index: b/configure
  		SSHDLIBS="$SSHDLIBS $LIBSELINUX"
  
  
-@@ -27908,6 +28019,8 @@
+@@ -27908,6 +27908,8 @@
  fi
  
  
@@ -123,7 +123,7 @@ Index: b/configure
  # Check whether user wants Kerberos 5 support
  KRB5_MSG="no"
  
-@@ -31416,7 +31529,6 @@
+@@ -31416,7 +31418,6 @@
  LOGIN_PROGRAM_FALLBACK!$LOGIN_PROGRAM_FALLBACK$ac_delim
  PATH_PASSWD_PROG!$PATH_PASSWD_PROG$ac_delim
  LD!$LD$ac_delim
@@ -131,7 +131,7 @@ Index: b/configure
  PKGCONFIG!$PKGCONFIG$ac_delim
  LIBEDIT!$LIBEDIT$ac_delim
  TEST_SSH_SHA256!$TEST_SSH_SHA256$ac_delim
-@@ -31433,6 +31545,7 @@
+@@ -31433,6 +31434,7 @@
  PROG_SAR!$PROG_SAR$ac_delim
  PROG_W!$PROG_W$ac_delim
  PROG_WHO!$PROG_WHO$ac_delim
@@ -139,7 +139,7 @@ Index: b/configure
  _ACEOF
  
    if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
-@@ -31474,7 +31587,6 @@
+@@ -31474,7 +31476,6 @@
  ac_delim='%!_!# '
  for ac_last_try in false false false false false :; do
    cat >conf$$subs.sed <<_ACEOF
@@ -147,7 +147,7 @@ Index: b/configure
  PROG_LASTLOG!$PROG_LASTLOG$ac_delim
  PROG_DF!$PROG_DF$ac_delim
  PROG_VMSTAT!$PROG_VMSTAT$ac_delim
-@@ -31482,6 +31594,8 @@
+@@ -31482,6 +31483,8 @@
  PROG_IPCS!$PROG_IPCS$ac_delim
  PROG_TAIL!$PROG_TAIL$ac_delim
  INSTALL_SSH_PRNG_CMDS!$INSTALL_SSH_PRNG_CMDS$ac_delim
@@ -156,7 +156,7 @@ Index: b/configure
  KRB5CONF!$KRB5CONF$ac_delim
  PRIVSEP_PATH!$PRIVSEP_PATH$ac_delim
  xauth_path!$xauth_path$ac_delim
-@@ -31496,7 +31610,7 @@
+@@ -31496,7 +31499,7 @@
  LTLIBOBJS!$LTLIBOBJS$ac_delim
  _ACEOF
  
@@ -165,7 +165,7 @@ Index: b/configure
      break
    elif $ac_last_try; then
      { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
-@@ -31993,6 +32107,9 @@
+@@ -31993,6 +31996,9 @@
  if test ! -z "${SSHDLIBS}"; then
  echo "         +for sshd: ${SSHDLIBS}"
  fi
@@ -179,7 +179,7 @@ Index: b/openbsd-compat/port-linux.c
 ===================================================================
 --- a/openbsd-compat/port-linux.c
 +++ b/openbsd-compat/port-linux.c
-@@ -222,6 +222,20 @@
+@@ -218,6 +218,20 @@
  	xfree(oldctx);
  	xfree(newctx);
  }
@@ -205,8 +205,8 @@ Index: b/openbsd-compat/port-linux.h
 --- a/openbsd-compat/port-linux.h
 +++ b/openbsd-compat/port-linux.h
 @@ -24,6 +24,7 @@
- void ssh_selinux_setup_pty(char *, const char *);
- void ssh_selinux_setup_exec_context(char *);
+ void ssh_selinux_setup_pty(char *, const char *, const char *);
+ void ssh_selinux_setup_exec_context(char *, const char *);
  void ssh_selinux_change_context(const char *);
 +void ssh_selinux_setfscreatecon(const char *);
  #endif
