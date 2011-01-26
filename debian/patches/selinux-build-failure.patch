@@ -15,7 +15,7 @@ Index: b/Makefile.in
  SSHDLIBS=@SSHDLIBS@
  LIBEDIT=@LIBEDIT@
  AR=@AR@
-@@ -144,7 +145,7 @@
+@@ -145,7 +146,7 @@
  	$(RANLIB) $@
  
  ssh$(EXEEXT): $(LIBCOMPAT) libssh.a $(SSHOBJS)
