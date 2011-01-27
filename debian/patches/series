@@ -39,6 +39,9 @@ doc-hash-tab-completion.patch
 # Upstream backports
 selinux-build-failure.patch
 
+# Miscellaneous bug fixes
+selinux-setfscreatecon-crash.patch
+
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
 debian-config.patch

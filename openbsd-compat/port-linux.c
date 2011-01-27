@@ -224,12 +224,15 @@ ssh_selinux_setfscreatecon(const char *path)
 {
 		security_context_t context;
 
+		if (!ssh_selinux_enabled())
+			return;
+
 		if (path == NULL) {
 			setfscreatecon(NULL);
 			return;
 		}
-		matchpathcon(path, 0700, &context);
-		setfscreatecon(context);
+		if (matchpathcon(path, 0700, &context) == 0)
+			setfscreatecon(context);
 }
 
 #endif /* WITH_SELINUX */
