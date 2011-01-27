@@ -1,4 +1,4 @@
-openssh (1:5.7p1-1) UNRELEASED; urgency=low
+openssh (1:5.7p1-1) experimental; urgency=low
 
   * New upstream release (http://www.openssh.org/txt/release-5.7):
     - Implement Elliptic Curve Cryptography modes for key exchange (ECDH)
@@ -34,7 +34,7 @@ openssh (1:5.7p1-1) UNRELEASED; urgency=low
   * Rearrange selinux-role.patch so that it links properly given this
     SELinux build fix.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 24 Jan 2011 12:07:24 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 26 Jan 2011 23:48:02 +0000
 
 openssh (1:5.6p1-3) experimental; urgency=low
 
