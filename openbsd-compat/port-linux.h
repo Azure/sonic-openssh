@@ -1,4 +1,4 @@
-/* $Id: port-linux.h,v 1.4 2009/12/08 02:39:48 dtucker Exp $ */
+/* $Id: port-linux.h,v 1.4.10.1 2011/02/04 00:42:21 djm Exp $ */
 
 /*
  * Copyright (c) 2006 Damien Miller <djm@openbsd.org>

@@ -1,3 +1,11 @@
+openssh (1:5.8p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (http://www.openssh.org/txt/release-5.8):
+    - Fix stack information leak in legacy certificate signing
+      (http://www.openssh.com/txt/legacy-cert.adv).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 05 Feb 2011 11:01:47 +0000
+
 openssh (1:5.7p1-2) experimental; urgency=low
 
   * Fix crash in ssh_selinux_setfscreatecon when SELinux is disabled

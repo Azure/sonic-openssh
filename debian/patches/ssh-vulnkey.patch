@@ -32,7 +32,7 @@ Index: b/Makefile.in
  
  CC=@CC@
  LD=@LD@
-@@ -63,7 +65,7 @@
+@@ -64,7 +66,7 @@
  INSTALL_SSH_PRNG_CMDS=@INSTALL_SSH_PRNG_CMDS@
  INSTALL_SSH_RAND_HELPER=@INSTALL_SSH_RAND_HELPER@
  
@@ -41,7 +41,7 @@ Index: b/Makefile.in
  
  LIBSSH_OBJS=acss.o authfd.o authfile.o bufaux.o bufbn.o buffer.o \
  	canohost.o channels.o cipher.o cipher-acss.o cipher-aes.o \
-@@ -96,8 +98,8 @@
+@@ -97,8 +99,8 @@
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o
  
@@ -52,7 +52,7 @@ Index: b/Makefile.in
  MANTYPE		= @MANTYPE@
  
  CONFIGFILES=sshd_config.out ssh_config.out moduli.out
-@@ -178,6 +180,9 @@
+@@ -179,6 +181,9 @@
  ssh-rand-helper${EXEEXT}: $(LIBCOMPAT) libssh.a ssh-rand-helper.o
  	$(LD) -o $@ ssh-rand-helper.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
  
@@ -62,7 +62,7 @@ Index: b/Makefile.in
  # test driver for the loginrec code - not built by default
  logintest: logintest.o $(LIBCOMPAT) libssh.a loginrec.o
  	$(LD) -o $@ logintest.o $(LDFLAGS) loginrec.o -lopenbsd-compat -lssh $(LIBS)
-@@ -272,6 +277,7 @@
+@@ -273,6 +278,7 @@
  	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-pkcs11-helper$(EXEEXT) $(DESTDIR)$(SSH_PKCS11_HELPER)$(EXEEXT)
  	$(INSTALL) -m 0755 $(STRIP_OPT) sftp$(EXEEXT) $(DESTDIR)$(bindir)/sftp$(EXEEXT)
  	$(INSTALL) -m 0755 $(STRIP_OPT) sftp-server$(EXEEXT) $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
@@ -70,7 +70,7 @@ Index: b/Makefile.in
  	$(INSTALL) -m 644 ssh.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh.1
  	$(INSTALL) -m 644 scp.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/scp.1
  	$(INSTALL) -m 644 ssh-add.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-add.1
-@@ -289,6 +295,7 @@
+@@ -290,6 +296,7 @@
  	$(INSTALL) -m 644 sftp-server.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/sftp-server.8
  	$(INSTALL) -m 644 ssh-keysign.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-keysign.8
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
@@ -78,7 +78,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/slogin
  	ln -s ./ssh$(EXEEXT) $(DESTDIR)$(bindir)/slogin
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/slogin.1
-@@ -378,6 +385,7 @@
+@@ -379,6 +386,7 @@
  	-rm -f $(DESTDIR)$(bindir)/ssh-agent$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keygen$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keyscan$(EXEEXT)
@@ -86,7 +86,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/sftp$(EXEEXT)
  	-rm -f $(DESTDIR)$(sbindir)/sshd$(EXEEXT)
  	-rm -r $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
-@@ -391,6 +399,7 @@
+@@ -392,6 +400,7 @@
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keygen.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/sftp.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keyscan.1
@@ -1248,7 +1248,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1448,7 +1448,7 @@
+@@ -1445,7 +1445,7 @@
  static void
  load_public_identity_files(void)
  {
@@ -1257,7 +1257,7 @@ Index: b/ssh.c
  	char *pwdir = NULL, *pwname = NULL;
  	int i = 0;
  	Key *public;
-@@ -1505,6 +1505,22 @@
+@@ -1502,6 +1502,22 @@
  		public = key_load_public(filename, NULL);
  		debug("identity file %s type %d", filename,
  		    public ? public->type : -1);

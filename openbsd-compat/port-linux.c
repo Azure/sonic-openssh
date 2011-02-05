@@ -1,4 +1,4 @@
-/* $Id: port-linux.c,v 1.11 2011/01/17 07:50:24 dtucker Exp $ */
+/* $Id: port-linux.c,v 1.11.4.2 2011/02/04 00:43:08 djm Exp $ */
 
 /*
  * Copyright (c) 2005 Daniel Walsh <dwalsh@redhat.com>
@@ -222,17 +222,16 @@ ssh_selinux_change_context(const char *newname)
 void
 ssh_selinux_setfscreatecon(const char *path)
 {
-		security_context_t context;
+	security_context_t context;
 
-		if (!ssh_selinux_enabled())
-			return;
-
-		if (path == NULL) {
-			setfscreatecon(NULL);
-			return;
-		}
-		if (matchpathcon(path, 0700, &context) == 0)
-			setfscreatecon(context);
+	if (!ssh_selinux_enabled())
+		return;
+	if (path == NULL) {
+		setfscreatecon(NULL);
+		return;
+	}
+	if (matchpathcon(path, 0700, &context) == 0)
+		setfscreatecon(context);
 }
 
 #endif /* WITH_SELINUX */
