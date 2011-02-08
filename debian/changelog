@@ -1,8 +1,8 @@
-openssh (1:5.8p1-2) UNRELEASED; urgency=low
+openssh (1:5.8p1-2) unstable; urgency=low
 
   * Upload to unstable.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 08 Feb 2011 10:57:05 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 08 Feb 2011 10:59:17 +0000
 
 openssh (1:5.8p1-1) experimental; urgency=low
 
