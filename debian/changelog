@@ -1,3 +1,9 @@
+openssh (1:5.8p1-2) UNRELEASED; urgency=low
+
+  * Upload to unstable.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 08 Feb 2011 10:57:05 +0000
+
 openssh (1:5.8p1-1) experimental; urgency=low
 
   * New upstream release (http://www.openssh.org/txt/release-5.8):
