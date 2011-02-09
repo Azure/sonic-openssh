@@ -1,3 +1,10 @@
+openssh (1:5.8p1-3) UNRELEASED; urgency=low
+
+  * Correct ssh-keygen instruction in the changelog for 1:5.7p1-1 (thanks,
+    Joel Stanley).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 09 Feb 2011 03:02:45 +0000
+
 openssh (1:5.8p1-2) unstable; urgency=low
 
   * Upload to unstable.
@@ -49,7 +56,7 @@ openssh (1:5.7p1-1) experimental; urgency=low
   * Generate ECDSA host keys on fresh installations.  Upgraders who wish to
     add such host keys should manually add 'HostKey
     /etc/ssh/ssh_host_ecdsa_key' to /etc/ssh/sshd_config and run 'ssh-keygen
-    -q -f /etc/ssh/sshd_config -N "" -t ecdsa'.
+    -q -f /etc/ssh/ssh_host_ecdsa_key -N "" -t ecdsa'.
   * Build-depend on libssl-dev (>= 0.9.8g) to ensure sufficient ECC support.
   * Backport SELinux build fix from CVS.
   * Rearrange selinux-role.patch so that it links properly given this
