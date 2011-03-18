@@ -1,11 +1,11 @@
-openssh (1:5.8p1-3) UNRELEASED; urgency=low
+openssh (1:5.8p1-3) unstable; urgency=low
 
   * Correct ssh-keygen instruction in the changelog for 1:5.7p1-1 (thanks,
     Joel Stanley).
   * Allow ssh-add to read from FIFOs (thanks, Daniel Kahn Gillmor; closes:
     #614897).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 09 Feb 2011 03:02:45 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 18 Mar 2011 16:42:42 +0000
 
 openssh (1:5.8p1-2) unstable; urgency=low
 
