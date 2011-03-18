@@ -317,7 +317,7 @@ key_parse_public_rsa1(Buffer *blob, char **commentp)
 static int
 key_load_file(int fd, const char *filename, Buffer *blob)
 {
-	size_t len;
+	size_t len, readcount;
 	u_char *cp;
 	struct stat st;
 
@@ -337,11 +337,14 @@ key_load_file(int fd, const char *filename, Buffer *blob)
 		return 0;
 	}
 	len = (size_t)st.st_size;		/* truncated */
+	if (0 == len && S_ISFIFO(st.st_mode))
+		len = 8192; /* we will try reading up to 8KiB from a FIFO */
 
 	buffer_init(blob);
 	cp = buffer_append_space(blob, len);
 
-	if (atomicio(read, fd, cp, len) != len) {
+	readcount = atomicio(read, fd, cp, len);
+	if (readcount != len && !(readcount > 0 && S_ISFIFO(st.st_mode))) {
 		debug("%s: read from key file %.200s%sfailed: %.100s", __func__,
 		    filename == NULL ? "" : filename,
 		    filename == NULL ? "" : " ",

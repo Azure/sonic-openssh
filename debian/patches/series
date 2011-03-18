@@ -38,6 +38,7 @@ doc-hash-tab-completion.patch
 
 # Miscellaneous bug fixes
 selinux-build-failure.patch
+ssh-add-fifo.patch
 
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
