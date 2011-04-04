@@ -1,11 +1,11 @@
-openssh (1:5.8p1-4) UNRELEASED; urgency=low
+openssh (1:5.8p1-4) unstable; urgency=low
 
   * Drop hardcoded dependencies on libssl0.9.8 and libcrypto0.9.8-udeb,
     since the required minimum versions are rather old now anyway and
     openssl has bumped its SONAME (thanks, Julien Cristau; closes: #620828).
   * Remove unreachable code from openssh-server.postinst.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 04 Apr 2011 15:44:29 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 04 Apr 2011 15:56:18 +0100
 
 openssh (1:5.8p1-3) unstable; urgency=low
 
