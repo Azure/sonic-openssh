@@ -1,3 +1,11 @@
+openssh (1:5.8p1-4) UNRELEASED; urgency=low
+
+  * Drop hardcoded dependencies on libssl0.9.8 and libcrypto0.9.8-udeb,
+    since the required minimum versions are rather old now anyway and
+    openssl has bumped its SONAME (thanks, Julien Cristau; closes: #620828).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 04 Apr 2011 15:44:29 +0100
+
 openssh (1:5.8p1-3) unstable; urgency=low
 
   * Correct ssh-keygen instruction in the changelog for 1:5.7p1-1 (thanks,
