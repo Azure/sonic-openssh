@@ -7,8 +7,8 @@ least version 1.16.1; the version in Debian testing as of the time of
 writing (2009-12-21) is fine, or you can use the version in lenny-backports.
 URLs are as follows:
 
-  Anonymous branch: http://bzr.debian.org/pkg-ssh/openssh/trunk
-  Web browsing:     http://bzr.debian.org/loggerhead/pkg-ssh/openssh/trunk
+  Anonymous branch: http://anonscm.debian.org/bzr/pkg-ssh/openssh/trunk
+  Web browsing:     http://anonscm.debian.org/loggerhead/pkg-ssh/openssh/trunk
   Authenticated, for developers with commit access only:
                     bzr+ssh://bzr.debian.org/bzr/pkg-ssh/openssh/trunk
 
