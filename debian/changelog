@@ -1,6 +1,9 @@
 openssh (1:5.8p1-6) UNRELEASED; urgency=low
 
   * openssh-client and openssh-server Suggests: monkeysphere.
+  * Quieten logs when multiple from= restrictions are used in different
+    authorized_keys lines for the same key; it's still not ideal, but at
+    least you'll only get one log entry per key (closes: #630606).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 11:57:27 +0100
 

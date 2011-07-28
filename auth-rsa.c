@@ -193,6 +193,8 @@ auth_rsa_key_allowed(struct passwd *pw, BIGNUM *client_n, Key **rkey)
 
 	key = key_new(KEY_RSA1);
 
+	auth_start_parse_options();
+
 	/*
 	 * Go though the accepted keys, looking for the current key.  If
 	 * found, perform a challenge-response dialog to verify that the

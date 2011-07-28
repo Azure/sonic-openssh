@@ -58,7 +58,18 @@ int forced_tun_device = -1;
 /* "principals=" option. */
 char *authorized_principals = NULL;
 
+/* Throttle log messages. */
+int logged_from_hostip = 0;
+int logged_cert_hostip = 0;
+
 extern ServerOptions options;
+
+void
+auth_start_parse_options(void)
+{
+	logged_from_hostip = 0;
+	logged_cert_hostip = 0;
+}
 
 void
 auth_clear_options(void)
@@ -288,10 +299,13 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
 				/* FALLTHROUGH */
 			case 0:
 				xfree(patterns);
-				logit("Authentication tried for %.100s with "
-				    "correct key but not from a permitted "
-				    "host (host=%.200s, ip=%.200s).",
-				    pw->pw_name, remote_host, remote_ip);
+				if (!logged_from_hostip) {
+					logit("Authentication tried for %.100s with "
+					    "correct key but not from a permitted "
+					    "host (host=%.200s, ip=%.200s).",
+					    pw->pw_name, remote_host, remote_ip);
+					logged_from_hostip = 1;
+				}
 				auth_debug_add("Your host '%.200s' is not "
 				    "permitted to use this key for login.",
 				    remote_host);
@@ -526,11 +540,14 @@ parse_option_list(u_char *optblob, size_t optblob_len, struct passwd *pw,
 					break;
 				case 0:
 					/* no match */
-					logit("Authentication tried for %.100s "
-					    "with valid certificate but not "
-					    "from a permitted host "
-					    "(ip=%.200s).", pw->pw_name,
-					    remote_ip);
+					if (!logged_cert_hostip) {
+						logit("Authentication tried for %.100s "
+						    "with valid certificate but not "
+						    "from a permitted host "
+						    "(ip=%.200s).", pw->pw_name,
+						    remote_ip);
+						logged_cert_hostip = 1;
+					}
 					auth_debug_add("Your address '%.200s' "
 					    "is not permitted to use this "
 					    "certificate for login.",
