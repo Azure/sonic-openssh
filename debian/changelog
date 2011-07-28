@@ -4,6 +4,9 @@ openssh (1:5.8p1-6) UNRELEASED; urgency=low
   * Quieten logs when multiple from= restrictions are used in different
     authorized_keys lines for the same key; it's still not ideal, but at
     least you'll only get one log entry per key (closes: #630606).
+  * Merge from Ubuntu (Dustin Kirkland):
+    - openssh-server Recommends: ssh-import-id (no-op in Debian since that
+      package doesn't exist there, but this reduces the Ubuntu delta).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 11:57:27 +0100
 
