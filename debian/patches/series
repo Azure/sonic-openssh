@@ -25,6 +25,7 @@ scp-quoting.patch
 shell-path.patch
 ssh-copy-id-trailing-colons.patch
 dnssec-sshfp.patch
+auth-log-verbosity.patch
 
 # Versioning
 package-versioning.patch

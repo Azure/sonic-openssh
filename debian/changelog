@@ -1,3 +1,11 @@
+openssh (1:5.5p1-6+squeeze1) UNRELEASED; urgency=low
+
+  * Quieten logs when multiple from= restrictions are used in different
+    authorized_keys lines for the same key; it's still not ideal, but at
+    least you'll only get one log entry per key (closes: #630606).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 17:31:22 +0100
+
 openssh (1:5.5p1-6) unstable; urgency=low
 
   * Touch /var/run/sshd/.placeholder in the preinst so that /var/run/sshd,

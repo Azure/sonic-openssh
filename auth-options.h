@@ -32,6 +32,7 @@ extern struct envstring *custom_environment;
 extern int forced_tun_device;
 extern int key_is_cert_authority;
 
+void	auth_start_parse_options(void);
 int	auth_parse_options(struct passwd *, char *, char *, u_long);
 void	auth_clear_options(void);
 int	auth_cert_constraints(Buffer *, struct passwd *);

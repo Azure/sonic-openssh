@@ -202,6 +202,8 @@ user_key_allowed2(struct passwd *pw, Key *key, char *file)
 	found_key = 0;
 	found = key_new(key_is_cert(key) ? KEY_UNSPEC : key->type);
 
+	auth_start_parse_options();
+
 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
 		char *cp, *key_options = NULL;
 
@@ -307,6 +309,7 @@ user_cert_trusted_ca(struct passwd *pw, Key *key)
 		auth_debug_add("%s", reason);
 		goto out;
 	}
+	auth_start_parse_options();
 	if (auth_cert_constraints(&key->cert->constraints, pw) != 0)
 		goto out;
 
