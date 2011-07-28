@@ -1,4 +1,4 @@
-openssh (1:5.8p1-6) UNRELEASED; urgency=low
+openssh (1:5.8p1-6) unstable; urgency=low
 
   * openssh-client and openssh-server Suggests: monkeysphere.
   * Quieten logs when multiple from= restrictions are used in different
@@ -8,7 +8,7 @@ openssh (1:5.8p1-6) UNRELEASED; urgency=low
     - openssh-server Recommends: ssh-import-id (no-op in Debian since that
       package doesn't exist there, but this reduces the Ubuntu delta).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 11:57:27 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 17:10:18 +0100
 
 openssh (1:5.8p1-5) unstable; urgency=low
 
