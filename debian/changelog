@@ -1,3 +1,9 @@
+openssh (1:5.8p1-6) UNRELEASED; urgency=low
+
+  * openssh-client and openssh-server Suggests: monkeysphere.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2011 11:57:27 +0100
+
 openssh (1:5.8p1-5) unstable; urgency=low
 
   * Drop openssh-server's dependency on openssh-blacklist to a
