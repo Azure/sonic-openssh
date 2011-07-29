@@ -1,3 +1,9 @@
+openssh (1:5.8p1-7) UNRELEASED; urgency=low
+
+  * Only recommend ssh-import-id when built on Ubuntu (closes: #635887).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jul 2011 13:51:26 +0100
+
 openssh (1:5.8p1-6) unstable; urgency=low
 
   * openssh-client and openssh-server Suggests: monkeysphere.

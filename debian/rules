@@ -66,6 +66,12 @@ DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games
 endif
 SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11
 
+ifeq ($(DISTRIBUTOR),Ubuntu)
+server_recommends := ssh-import-id
+else
+server_recommends :=
+endif
+
 # Common path configuration.
 confflags += --sysconfdir=/etc/ssh
 
@@ -200,6 +206,9 @@ override_dh_installdeb:
 		ETC_INIT_D_SSH debian/openssh-server/etc/init.d/ssh \
 		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/sshd \
 		debian/openssh-server/DEBIAN/preinst
+
+override_dh_gencontrol:
+	dh_gencontrol -- -V'openssh-server:Recommends=$(server_recommends)'
 
 debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
