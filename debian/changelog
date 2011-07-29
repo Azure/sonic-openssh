@@ -1,6 +1,9 @@
 openssh (1:5.8p1-7) UNRELEASED; urgency=low
 
   * Only recommend ssh-import-id when built on Ubuntu (closes: #635887).
+  * Use 'dpkg-vendor --derives-from Ubuntu' to detect Ubuntu systems rather
+    than 'lsb_release -is' so that Ubuntu derivatives behave the same way as
+    Ubuntu itself.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jul 2011 13:51:26 +0100
 
