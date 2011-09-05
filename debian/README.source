@@ -127,7 +127,7 @@ it out.
 
 To fetch the necessary code:
 
-  bzr get lp:~cjwatson/launchpad-cscvs/openssh-branch-imports
+  bzr branch lp:~cjwatson/launchpad-cscvs/openssh-branch-imports
   # or 'bzr pull' in the appropriate directory to update this, if you
   # already have a copy
 
@@ -152,12 +152,12 @@ To import a branch, V_5_3 in this example:
   # in modules/CVS/StorageLayer.py in cscvs. Please send Colin Watson a
   # patch if you do this.
 
-  # Next, look up the branchpoint revision in the main bzr import (bzr get
-  # lp:openssh). It's usually easiest to just look it up by commit message
-  # and double-check the timestamp. Substitute this revision number for
-  # "BPR" in the following. /path/to/openssh/main is wherever you've checked
-  # out lp:openssh.
-  bzr get -rBPR /path/to/openssh/main /path/to/openssh/5.3
+  # Next, look up the branchpoint revision in the main bzr import (bzr
+  # branch lp:openssh). It's usually easiest to just look it up by commit
+  # message and double-check the timestamp. Substitute this revision number
+  # for "BPR" in the following. /path/to/openssh/main is wherever you've
+  # checked out lp:openssh.
+  bzr branch -rBPR /path/to/openssh/main /path/to/openssh/5.3
   # If you're using Bazaar signed commits with a GPG agent, make sure that
   # your agent has seen your passphrase recently. Now you can start the
   # actual import!
