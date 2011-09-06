@@ -190,6 +190,7 @@ file-ids are correct (see above). Run:
   # compare this with 'bzr ls --show-ids' in the Debian trunk to make sure
   # the result will be mergeable
   bzr ci -m 'Import 5.3p1 tarball'
+  bzr tag upstream-5.3p1
 
 Add a parent revision for the previous tarball branch, to make it easier for
 bzr to compute accurate merges.
