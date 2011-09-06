@@ -311,7 +311,6 @@ main(int argc, char **argv)
 	/* We don't need the RNG ourselves, but symbol references here allow
 	 * ld to link us properly.
 	 */
-	init_rng();
 	seed_rng();
 
 	while ((opt = getopt(argc, argv, "ahqv")) != -1) {

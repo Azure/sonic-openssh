@@ -80,7 +80,6 @@ confflags += --disable-strip
 confflags += --with-mantype=doc
 confflags += --with-4in6
 confflags += --with-privsep-path=/var/run/sshd
-confflags += --without-rand-helper
 
 # The Hurd needs libcrypt for res_query et al.
 ifeq ($(DEB_HOST_ARCH_OS),hurd)

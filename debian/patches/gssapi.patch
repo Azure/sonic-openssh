@@ -137,7 +137,7 @@ Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -75,6 +75,7 @@
+@@ -70,6 +70,7 @@
  	atomicio.o key.o dispatch.o kex.o mac.o uidswap.o uuencode.o misc.o \
  	monitor_fdpass.o rijndael.o ssh-dss.o ssh-ecdsa.o ssh-rsa.o dh.o \
  	kexdh.o kexgex.o kexdhc.o kexgexc.o bufec.o kexecdh.o kexecdhc.o \
@@ -145,7 +145,7 @@ Index: b/Makefile.in
  	msg.o progressmeter.o dns.o entropy.o gss-genr.o umac.o jpake.o \
  	schnorr.o ssh-pkcs11.o
  
-@@ -91,7 +92,7 @@
+@@ -86,7 +87,7 @@
  	auth2-none.o auth2-passwd.o auth2-pubkey.o auth2-jpake.o \
  	monitor_mm.o monitor.o monitor_wrap.o kexdhs.o kexgexs.o kexecdhs.o \
  	auth-krb5.o \
@@ -153,7 +153,7 @@ Index: b/Makefile.in
 +	auth2-gss.o gss-serv.o gss-serv-krb5.o kexgsss.o\
  	loginrec.o auth-pam.o auth-shadow.o auth-sia.o md5crypt.o \
  	sftp-server.o sftp-common.o \
- 	roaming_common.o roaming_serv.o
+ 	roaming_common.o roaming_serv.o \
 Index: b/auth-krb5.c
 ===================================================================
 --- a/auth-krb5.c
@@ -205,24 +205,12 @@ Index: b/auth-krb5.c
  
  	return (krb5_cc_resolve(ctx, ccname, ccache));
  }
-Index: b/auth.h
-===================================================================
---- a/auth.h
-+++ b/auth.h
-@@ -53,6 +53,7 @@
- 	int		 valid;		/* user exists and is allowed to login */
- 	int		 attempt;
- 	int		 failures;
-+	int		 server_caused_failure; 
- 	int		 force_pwchange;
- 	char		*user;		/* username sent by the client */
- 	char		*service;
 Index: b/auth2-gss.c
 ===================================================================
 --- a/auth2-gss.c
 +++ b/auth2-gss.c
 @@ -1,7 +1,7 @@
- /* $OpenBSD: auth2-gss.c,v 1.16 2007/10/29 00:52:45 dtucker Exp $ */
+ /* $OpenBSD: auth2-gss.c,v 1.17 2011/03/10 02:52:57 djm Exp $ */
  
  /*
 - * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
@@ -271,23 +259,7 @@ Index: b/auth2-gss.c
  /*
   * We only support those mechanisms that we know about (ie ones that we know
   * how to check local user kuserok and the like)
-@@ -102,6 +136,7 @@
- 
- 	if (!present) {
- 		xfree(doid);
-+		authctxt->server_caused_failure = 1;
- 		return (0);
- 	}
- 
-@@ -109,6 +144,7 @@
- 		if (ctxt != NULL)
- 			ssh_gssapi_delete_ctx(&ctxt);
- 		xfree(doid);
-+		authctxt->server_caused_failure = 1;
- 		return (0);
- 	}
- 
-@@ -242,7 +278,8 @@
+@@ -244,7 +278,8 @@
  
  	packet_check_eom();
  
@@ -297,7 +269,7 @@ Index: b/auth2-gss.c
  
  	authctxt->postponed = 0;
  	dispatch_set(SSH2_MSG_USERAUTH_GSSAPI_TOKEN, NULL);
-@@ -277,7 +314,8 @@
+@@ -279,7 +314,8 @@
  	gssbuf.length = buffer_len(&b);
  
  	if (!GSS_ERROR(PRIVSEP(ssh_gssapi_checkmic(gssctxt, &gssbuf, &mic))))
@@ -307,7 +279,7 @@ Index: b/auth2-gss.c
  	else
  		logit("GSSAPI MIC check failed");
  
-@@ -292,6 +330,12 @@
+@@ -294,6 +330,12 @@
  	userauth_finish(authctxt, authenticated, "gssapi-with-mic");
  }
  
@@ -340,24 +312,6 @@ Index: b/auth2.c
  	&method_gssapi,
  #endif
  #ifdef JPAKE
-@@ -274,6 +276,7 @@
- #endif
- 
- 	authctxt->postponed = 0;
-+	authctxt->server_caused_failure = 0;
- 
- 	/* try to authenticate user */
- 	m = authmethod_lookup(method);
-@@ -346,7 +349,8 @@
- 	} else {
- 
- 		/* Allow initial try of "none" auth without failure penalty */
--		if (authctxt->attempt > 1 || strcmp(method, "none") != 0)
-+		if (!authctxt->server_caused_failure &&
-+		    (authctxt->attempt > 1 || strcmp(method, "none") != 0))
- 			authctxt->failures++;
- 		if (authctxt->failures >= options.max_authtries) {
- #ifdef SSH_AUDIT_EVENTS
 Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c
@@ -373,7 +327,7 @@ Index: b/clientloop.c
  /* import options */
  extern Options options;
  
-@@ -1483,6 +1487,15 @@
+@@ -1508,6 +1512,15 @@
  		/* Do channel operations unless rekeying in progress. */
  		if (!rekeying) {
  			channel_after_select(readset, writeset);
@@ -389,41 +343,133 @@ Index: b/clientloop.c
  			if (need_rekeying || packet_need_rekeying()) {
  				debug("need rekeying");
  				xxx_kex->done = 0;
+Index: b/config.h.in
+===================================================================
+--- a/config.h.in
++++ b/config.h.in
+@@ -1441,6 +1441,9 @@
+ /* Use btmp to log bad logins */
+ #undef USE_BTMP
+ 
++/* platform uses an in-memory credentials cache */
++#undef USE_CCAPI
++
+ /* Use libedit for sftp */
+ #undef USE_LIBEDIT
+ 
+@@ -1456,6 +1459,9 @@
+ /* Use PIPES instead of a socketpair() */
+ #undef USE_PIPES
+ 
++/* platform has the Security Authorization Session API */
++#undef USE_SECURITY_SESSION_API
++
+ /* Define if you have Solaris process contracts */
+ #undef USE_SOLARIS_PROCESS_CONTRACTS
+ 
+Index: b/configure
+===================================================================
+--- a/configure
++++ b/configure
+@@ -6521,6 +6521,63 @@
+ 
+ $as_echo "#define SSH_TUN_PREPEND_AF 1" >>confdefs.h
+ 
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if we have the Security Authorization Session API" >&5
++$as_echo_n "checking if we have the Security Authorization Session API... " >&6; }
++	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++#include <Security/AuthSession.h>
++int
++main ()
++{
++SessionCreate(0, 0);
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_c_try_compile "$LINENO"; then :
++  ac_cv_use_security_session_api="yes"
++
++$as_echo "#define USE_SECURITY_SESSION_API 1" >>confdefs.h
++
++		 LIBS="$LIBS -framework Security"
++		 { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++else
++  ac_cv_use_security_session_api="no"
++		 { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if we have an in-memory credentials cache" >&5
++$as_echo_n "checking if we have an in-memory credentials cache... " >&6; }
++	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++#include <Kerberos/Kerberos.h>
++int
++main ()
++{
++cc_context_t c;
++		 (void) cc_initialize (&c, 0, NULL, NULL);
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_c_try_compile "$LINENO"; then :
++
++$as_echo "#define USE_CCAPI 1" >>confdefs.h
++
++		 LIBS="$LIBS -framework Security"
++		 { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++		 if test "x$ac_cv_use_security_session_api" = "xno"; then
++			as_fn_error $? "*** Need a security framework to use the credentials cache API ***" "$LINENO" 5
++		fi
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++fi
++rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+ 
+ 	ac_fn_c_check_decl "$LINENO" "AU_IPv4" "ac_cv_have_decl_AU_IPv4" "$ac_includes_default"
+ if test "x$ac_cv_have_decl_AU_IPv4" = xyes; then :
 Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -514,6 +514,30 @@
+@@ -515,6 +515,30 @@
  	    [Use tunnel device compatibility to OpenBSD])
- 	AC_DEFINE(SSH_TUN_PREPEND_AF, 1,
+ 	AC_DEFINE([SSH_TUN_PREPEND_AF], [1],
  	    [Prepend the address family to IP tunnel traffic])
-+	AC_MSG_CHECKING(if we have the Security Authorization Session API)
++	AC_MSG_CHECKING([if we have the Security Authorization Session API])
 +	AC_TRY_COMPILE([#include <Security/AuthSession.h>],
 +		[SessionCreate(0, 0);],
 +		[ac_cv_use_security_session_api="yes"
-+		 AC_DEFINE(USE_SECURITY_SESSION_API, 1, 
++		 AC_DEFINE([USE_SECURITY_SESSION_API], [1], 
 +			[platform has the Security Authorization Session API])
 +		 LIBS="$LIBS -framework Security"
-+		 AC_MSG_RESULT(yes)],
++		 AC_MSG_RESULT([yes])],
 +		[ac_cv_use_security_session_api="no"
-+		 AC_MSG_RESULT(no)])
-+	AC_MSG_CHECKING(if we have an in-memory credentials cache)
++		 AC_MSG_RESULT([no])])
++	AC_MSG_CHECKING([if we have an in-memory credentials cache])
 +	AC_TRY_COMPILE(
 +		[#include <Kerberos/Kerberos.h>],
 +		[cc_context_t c;
 +		 (void) cc_initialize (&c, 0, NULL, NULL);],
-+		[AC_DEFINE(USE_CCAPI, 1, 
++		[AC_DEFINE([USE_CCAPI], [1], 
 +			[platform uses an in-memory credentials cache])
 +		 LIBS="$LIBS -framework Security"
-+		 AC_MSG_RESULT(yes)
++		 AC_MSG_RESULT([yes])
 +		 if test "x$ac_cv_use_security_session_api" = "xno"; then
-+			AC_MSG_ERROR(*** Need a security framework to use the credentials cache API ***)
++			AC_MSG_ERROR([*** Need a security framework to use the credentials cache API ***])
 +		fi],
-+		[AC_MSG_RESULT(no)]
++		[AC_MSG_RESULT([no])]
 +	)
- 	m4_pattern_allow(AU_IPv)
- 	AC_CHECK_DECL(AU_IPv4, [], 
- 	    AC_DEFINE(AU_IPv4, 0, [System only supports IPv4 audit records])
+ 	m4_pattern_allow([AU_IPv])
+ 	AC_CHECK_DECL([AU_IPv4], [], 
+ 	    AC_DEFINE([AU_IPv4], [0], [System only supports IPv4 audit records])
 Index: b/gss-genr.c
 ===================================================================
 --- a/gss-genr.c
@@ -904,7 +950,7 @@ Index: b/gss-serv.c
 --- a/gss-serv.c
 +++ b/gss-serv.c
 @@ -1,7 +1,7 @@
- /* $OpenBSD: gss-serv.c,v 1.22 2008/05/08 12:02:23 djm Exp $ */
+ /* $OpenBSD: gss-serv.c,v 1.23 2011/08/01 19:18:15 markus Exp $ */
  
  /*
 - * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
@@ -1023,7 +1069,7 @@ Index: b/gss-serv.c
  
  	while (supported_mechs[i]->name != NULL) {
  		if (GSS_ERROR(gss_test_oid_set_member(&min_status,
-@@ -247,8 +284,48 @@
+@@ -249,8 +286,48 @@
  ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
  {
  	int i = 0;
@@ -1073,7 +1119,7 @@ Index: b/gss-serv.c
  
  	client->mech = NULL;
  
-@@ -263,6 +340,13 @@
+@@ -265,6 +342,13 @@
  	if (client->mech == NULL)
  		return GSS_S_FAILURE;
  
@@ -1087,7 +1133,7 @@ Index: b/gss-serv.c
  	if ((ctx->major = gss_display_name(&ctx->minor, ctx->client,
  	    &client->displayname, NULL))) {
  		ssh_gssapi_error(ctx);
-@@ -280,6 +364,8 @@
+@@ -282,6 +366,8 @@
  		return (ctx->major);
  	}
  
@@ -1096,7 +1142,7 @@ Index: b/gss-serv.c
  	/* We can't copy this structure, so we just move the pointer to it */
  	client->creds = ctx->client_creds;
  	ctx->client_creds = GSS_C_NO_CREDENTIAL;
-@@ -327,7 +413,7 @@
+@@ -329,7 +415,7 @@
  
  /* Privileged */
  int
@@ -1105,7 +1151,7 @@ Index: b/gss-serv.c
  {
  	OM_uint32 lmin;
  
-@@ -337,9 +423,11 @@
+@@ -339,9 +425,11 @@
  		return 0;
  	}
  	if (gssapi_client.mech && gssapi_client.mech->userok)
@@ -1119,7 +1165,7 @@ Index: b/gss-serv.c
  			/* Destroy delegated credentials if userok fails */
  			gss_release_buffer(&lmin, &gssapi_client.displayname);
  			gss_release_buffer(&lmin, &gssapi_client.exportedname);
-@@ -352,14 +440,90 @@
+@@ -354,14 +442,90 @@
  	return (0);
  }
  
@@ -1961,7 +2007,7 @@ Index: b/monitor.c
 ===================================================================
 --- a/monitor.c
 +++ b/monitor.c
-@@ -172,6 +172,8 @@
+@@ -180,6 +180,8 @@
  int mm_answer_gss_accept_ctx(int, Buffer *);
  int mm_answer_gss_userok(int, Buffer *);
  int mm_answer_gss_checkmic(int, Buffer *);
@@ -1970,7 +2016,7 @@ Index: b/monitor.c
  #endif
  
  #ifdef SSH_AUDIT_EVENTS
-@@ -241,6 +243,7 @@
+@@ -251,6 +253,7 @@
      {MONITOR_REQ_GSSSTEP, MON_ISAUTH, mm_answer_gss_accept_ctx},
      {MONITOR_REQ_GSSUSEROK, MON_AUTH, mm_answer_gss_userok},
      {MONITOR_REQ_GSSCHECKMIC, MON_ISAUTH, mm_answer_gss_checkmic},
@@ -1978,7 +2024,7 @@ Index: b/monitor.c
  #endif
  #ifdef JPAKE
      {MONITOR_REQ_JPAKE_GET_PWDATA, MON_ONCE, mm_answer_jpake_get_pwdata},
-@@ -253,6 +256,12 @@
+@@ -263,6 +266,12 @@
  };
  
  struct mon_table mon_dispatch_postauth20[] = {
@@ -1991,7 +2037,7 @@ Index: b/monitor.c
      {MONITOR_REQ_MODULI, 0, mm_answer_moduli},
      {MONITOR_REQ_SIGN, 0, mm_answer_sign},
      {MONITOR_REQ_PTY, 0, mm_answer_pty},
-@@ -357,6 +366,10 @@
+@@ -371,6 +380,10 @@
  		/* Permit requests for moduli and signatures */
  		monitor_permit(mon_dispatch, MONITOR_REQ_MODULI, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_SIGN, 1);
@@ -2002,7 +2048,7 @@ Index: b/monitor.c
  	} else {
  		mon_dispatch = mon_dispatch_proto15;
  
-@@ -443,6 +456,10 @@
+@@ -468,6 +481,10 @@
  		monitor_permit(mon_dispatch, MONITOR_REQ_MODULI, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_SIGN, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_TERM, 1);
@@ -2013,7 +2059,7 @@ Index: b/monitor.c
  	} else {
  		mon_dispatch = mon_dispatch_postauth15;
  		monitor_permit(mon_dispatch, MONITOR_REQ_TERM, 1);
-@@ -1692,6 +1709,13 @@
+@@ -1802,6 +1819,13 @@
  	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
  	kex->kex[KEX_DH_GEX_SHA256] = kexgex_server;
  	kex->kex[KEX_ECDH_SHA2] = kexecdh_server;
@@ -2027,7 +2073,7 @@ Index: b/monitor.c
  	kex->server = 1;
  	kex->hostkey_type = buffer_get_int(m);
  	kex->kex_type = buffer_get_int(m);
-@@ -1898,6 +1922,9 @@
+@@ -2008,6 +2032,9 @@
  	OM_uint32 major;
  	u_int len;
  
@@ -2037,7 +2083,7 @@ Index: b/monitor.c
  	goid.elements = buffer_get_string(m, &len);
  	goid.length = len;
  
-@@ -1925,6 +1952,9 @@
+@@ -2035,6 +2062,9 @@
  	OM_uint32 flags = 0; /* GSI needs this */
  	u_int len;
  
@@ -2047,7 +2093,7 @@ Index: b/monitor.c
  	in.value = buffer_get_string(m, &len);
  	in.length = len;
  	major = ssh_gssapi_accept_ctx(gsscontext, &in, &out, &flags);
-@@ -1942,6 +1972,7 @@
+@@ -2052,6 +2082,7 @@
  		monitor_permit(mon_dispatch, MONITOR_REQ_GSSSTEP, 0);
  		monitor_permit(mon_dispatch, MONITOR_REQ_GSSUSEROK, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_GSSCHECKMIC, 1);
@@ -2055,7 +2101,7 @@ Index: b/monitor.c
  	}
  	return (0);
  }
-@@ -1953,6 +1984,9 @@
+@@ -2063,6 +2094,9 @@
  	OM_uint32 ret;
  	u_int len;
  
@@ -2065,7 +2111,7 @@ Index: b/monitor.c
  	gssbuf.value = buffer_get_string(m, &len);
  	gssbuf.length = len;
  	mic.value = buffer_get_string(m, &len);
-@@ -1979,7 +2013,11 @@
+@@ -2089,7 +2123,11 @@
  {
  	int authenticated;
  
@@ -2078,7 +2124,7 @@ Index: b/monitor.c
  
  	buffer_clear(m);
  	buffer_put_int(m, authenticated);
-@@ -1992,6 +2030,74 @@
+@@ -2102,6 +2140,74 @@
  	/* Monitor loop will terminate if authenticated */
  	return (authenticated);
  }
@@ -2170,7 +2216,7 @@ Index: b/monitor_wrap.c
 ===================================================================
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -1232,7 +1232,7 @@
+@@ -1270,7 +1270,7 @@
  }
  
  int
@@ -2179,7 +2225,7 @@ Index: b/monitor_wrap.c
  {
  	Buffer m;
  	int authenticated = 0;
-@@ -1249,6 +1249,51 @@
+@@ -1287,6 +1287,51 @@
  	debug3("%s: user %sauthenticated",__func__, authenticated ? "" : "not ");
  	return (authenticated);
  }
@@ -2235,7 +2281,7 @@ Index: b/monitor_wrap.h
 ===================================================================
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
-@@ -57,8 +57,10 @@
+@@ -58,8 +58,10 @@
  OM_uint32 mm_ssh_gssapi_server_ctx(Gssctxt **, gss_OID);
  OM_uint32 mm_ssh_gssapi_accept_ctx(Gssctxt *,
     gss_buffer_desc *, gss_buffer_desc *, OM_uint32 *);
@@ -2280,7 +2326,7 @@ Index: b/readconf.c
  #endif
  	{ "fallbacktorsh", oDeprecated },
  	{ "usersh", oDeprecated },
-@@ -479,10 +490,30 @@
+@@ -482,10 +493,30 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -2311,7 +2357,7 @@ Index: b/readconf.c
  	case oBatchMode:
  		intptr = &options->batch_mode;
  		goto parse_flag;
-@@ -1092,7 +1123,12 @@
+@@ -1138,7 +1169,12 @@
  	options->pubkey_authentication = -1;
  	options->challenge_response_authentication = -1;
  	options->gss_authentication = -1;
@@ -2324,7 +2370,7 @@ Index: b/readconf.c
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->kbd_interactive_devices = NULL;
-@@ -1193,8 +1229,14 @@
+@@ -1238,8 +1274,14 @@
  		options->challenge_response_authentication = 1;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;
@@ -2343,7 +2389,7 @@ Index: b/readconf.h
 ===================================================================
 --- a/readconf.h
 +++ b/readconf.h
-@@ -46,7 +46,12 @@
+@@ -47,7 +47,12 @@
  	int     challenge_response_authentication;
  					/* Try S/Key or TIS, authentication. */
  	int     gss_authentication;	/* Try GSS authentication */
@@ -2371,7 +2417,7 @@ Index: b/servconf.c
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->challenge_response_authentication = -1;
-@@ -226,8 +229,14 @@
+@@ -225,8 +228,14 @@
  		options->kerberos_get_afs_token = 0;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;
@@ -2386,10 +2432,10 @@ Index: b/servconf.c
  	if (options->password_authentication == -1)
  		options->password_authentication = 1;
  	if (options->kbd_interactive_authentication == -1)
-@@ -322,7 +331,9 @@
+@@ -318,7 +327,9 @@
  	sBanner, sUseDNS, sHostbasedAuthentication,
  	sHostbasedUsesNameFromPacketOnly, sClientAliveInterval,
- 	sClientAliveCountMax, sAuthorizedKeysFile, sAuthorizedKeysFile2,
+ 	sClientAliveCountMax, sAuthorizedKeysFile,
 -	sGssAuthentication, sGssCleanupCreds, sAcceptEnv, sPermitTunnel,
 +	sGssAuthentication, sGssCleanupCreds, sGssStrictAcceptor,
 +	sGssKeyEx, sGssStoreRekey,
@@ -2397,7 +2443,7 @@ Index: b/servconf.c
  	sMatch, sPermitOpen, sForceCommand, sChrootDirectory,
  	sUsePrivilegeSeparation, sAllowAgentForwarding,
  	sZeroKnowledgePasswordAuthentication, sHostCertificate,
-@@ -386,10 +397,20 @@
+@@ -382,10 +393,20 @@
  #ifdef GSSAPI
  	{ "gssapiauthentication", sGssAuthentication, SSHCFG_ALL },
  	{ "gssapicleanupcredentials", sGssCleanupCreds, SSHCFG_GLOBAL },
@@ -2418,7 +2464,7 @@ Index: b/servconf.c
  	{ "passwordauthentication", sPasswordAuthentication, SSHCFG_ALL },
  	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL },
  	{ "challengeresponseauthentication", sChallengeResponseAuthentication, SSHCFG_GLOBAL },
-@@ -944,10 +965,22 @@
+@@ -962,10 +983,22 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -2441,7 +2487,7 @@ Index: b/servconf.c
  	case sPasswordAuthentication:
  		intptr = &options->password_authentication;
  		goto parse_flag;
-@@ -1704,7 +1737,10 @@
+@@ -1720,7 +1753,10 @@
  #endif
  #ifdef GSSAPI
  	dump_cfg_fmtint(sGssAuthentication, o->gss_authentication);
@@ -2456,7 +2502,7 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -97,7 +97,10 @@
+@@ -103,7 +103,10 @@
  	int     kerberos_get_afs_token;		/* If true, try to get AFS token if
  						 * authenticated with Kerberos. */
  	int     gss_authentication;	/* If true, permit GSSAPI authentication */
@@ -2585,7 +2631,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -508,11 +508,43 @@
+@@ -527,11 +527,43 @@
  The default is
  .Dq no .
  Note that this option applies to protocol version 2 only.
@@ -2634,7 +2680,7 @@ Index: b/sshconnect2.c
 ===================================================================
 --- a/sshconnect2.c
 +++ b/sshconnect2.c
-@@ -159,9 +159,34 @@
+@@ -160,9 +160,34 @@
  {
  	Kex *kex;
  
@@ -2669,7 +2715,7 @@ Index: b/sshconnect2.c
  	if (options.ciphers == (char *)-1) {
  		logit("No valid ciphers for protocol version 2 given, using defaults.");
  		options.ciphers = NULL;
-@@ -196,6 +221,17 @@
+@@ -197,6 +222,17 @@
  	if (options.kex_algorithms != NULL)
  		myproposal[PROPOSAL_KEX_ALGS] = options.kex_algorithms;
  
@@ -2687,7 +2733,7 @@ Index: b/sshconnect2.c
  	if (options.rekey_limit)
  		packet_set_rekey_limit((u_int32_t)options.rekey_limit);
  
-@@ -206,10 +242,30 @@
+@@ -207,10 +243,30 @@
  	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
  	kex->kex[KEX_DH_GEX_SHA256] = kexgex_client;
  	kex->kex[KEX_ECDH_SHA2] = kexecdh_client;
@@ -2718,7 +2764,7 @@ Index: b/sshconnect2.c
  	xxx_kex = kex;
  
  	dispatch_run(DISPATCH_BLOCK, &kex->done, kex);
-@@ -304,6 +360,7 @@
+@@ -305,6 +361,7 @@
  void	input_gssapi_hash(int type, u_int32_t, void *);
  void	input_gssapi_error(int, u_int32_t, void *);
  void	input_gssapi_errtok(int, u_int32_t, void *);
@@ -2726,7 +2772,7 @@ Index: b/sshconnect2.c
  #endif
  
  void	userauth(Authctxt *, char *);
-@@ -319,6 +376,11 @@
+@@ -320,6 +377,11 @@
  
  Authmethod authmethods[] = {
  #ifdef GSSAPI
@@ -2738,7 +2784,7 @@ Index: b/sshconnect2.c
  	{"gssapi-with-mic",
  		userauth_gssapi,
  		NULL,
-@@ -625,19 +687,31 @@
+@@ -626,19 +688,31 @@
  	static u_int mech = 0;
  	OM_uint32 min;
  	int ok = 0;
@@ -2772,7 +2818,7 @@ Index: b/sshconnect2.c
  			ok = 1; /* Mechanism works */
  		} else {
  			mech++;
-@@ -734,8 +808,8 @@
+@@ -735,8 +809,8 @@
  {
  	Authctxt *authctxt = ctxt;
  	Gssctxt *gssctxt;
@@ -2783,7 +2829,7 @@ Index: b/sshconnect2.c
  
  	if (authctxt == NULL)
  		fatal("input_gssapi_response: no authentication context");
-@@ -845,6 +919,48 @@
+@@ -846,6 +920,48 @@
  	xfree(msg);
  	xfree(lang);
  }
@@ -2836,8 +2882,8 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -120,6 +120,10 @@
- #include "roaming.h"
+@@ -121,6 +121,10 @@
+ #include "ssh-sandbox.h"
  #include "version.h"
  
 +#ifdef USE_SECURITY_SESSION_API
@@ -2847,7 +2893,7 @@ Index: b/sshd.c
  #ifdef LIBWRAP
  #include <tcpd.h>
  #include <syslog.h>
-@@ -1590,10 +1594,13 @@
+@@ -1612,10 +1616,13 @@
  		logit("Disabling protocol version 1. Could not load host key");
  		options.protocol &= ~SSH_PROTO_1;
  	}
@@ -2861,7 +2907,7 @@ Index: b/sshd.c
  	if (!(options.protocol & (SSH_PROTO_1|SSH_PROTO_2))) {
  		logit("sshd: no hostkeys available -- exiting.");
  		exit(1);
-@@ -1922,6 +1929,60 @@
+@@ -1944,6 +1951,60 @@
  	/* Log the connection. */
  	verbose("Connection from %.500s port %d", remote_ip, remote_port);
  
@@ -2922,7 +2968,7 @@ Index: b/sshd.c
  	/*
  	 * We don't want to listen forever unless the other side
  	 * successfully authenticates itself.  So we set up an alarm which is
-@@ -2303,6 +2364,48 @@
+@@ -2325,6 +2386,48 @@
  
  	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = list_hostkey_types();
  
@@ -2971,7 +3017,7 @@ Index: b/sshd.c
  	/* start key exchange */
  	kex = kex_setup(myproposal);
  	kex->kex[KEX_DH_GRP1_SHA1] = kexdh_server;
-@@ -2310,6 +2413,13 @@
+@@ -2332,6 +2435,13 @@
  	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
  	kex->kex[KEX_DH_GEX_SHA256] = kexgex_server;
  	kex->kex[KEX_ECDH_SHA2] = kexecdh_server;
@@ -2989,7 +3035,7 @@ Index: b/sshd_config
 ===================================================================
 --- a/sshd_config
 +++ b/sshd_config
-@@ -72,6 +72,8 @@
+@@ -75,6 +75,8 @@
  # GSSAPI options
  #GSSAPIAuthentication no
  #GSSAPICleanupCredentials yes
@@ -3002,7 +3048,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -423,12 +423,40 @@
+@@ -424,12 +424,40 @@
  The default is
  .Dq no .
  Note that this option applies to protocol version 2 only.

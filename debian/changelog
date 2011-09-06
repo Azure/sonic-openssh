@@ -1,3 +1,30 @@
+openssh (1:5.9p1-1) UNRELEASED; urgency=low
+
+  * New upstream release (http://www.openssh.org/txt/release-5.9).
+    - Introduce sandboxing of the pre-auth privsep child using an optional
+      sshd_config(5) "UsePrivilegeSeparation=sandbox" mode that enables
+      mandatory restrictions on the syscalls the privsep child can perform.
+    - Add new SHA256-based HMAC transport integrity modes from
+      http://www.ietf.org/id/draft-dbider-sha2-mac-for-ssh-02.txt.
+    - The pre-authentication sshd(8) privilege separation slave process now
+      logs via a socket shared with the master process, avoiding the need to
+      maintain /dev/log inside the chroot (closes: #75043, #429243,
+      #599240).
+    - ssh(1) now warns when a server refuses X11 forwarding (closes:
+      #504757).
+    - sshd_config(5)'s AuthorizedKeysFile now accepts multiple paths,
+      separated by whitespace (closes: #76312).  The authorized_keys2
+      fallback is deprecated but documented (closes: #560156).
+    - ssh(1) and sshd(8): set IPv6 traffic class from IPQoS, as well as IPv4
+      ToS/DSCP (closes: #498297).
+    - ssh-add(1) now accepts keys piped from standard input.  E.g. "ssh-add
+      - < /path/to/key" (closes: #229124).
+    - Clean up lost-passphrase text in ssh-keygen(1) (closes: #444691).
+    - Say "required" rather than "recommended" in unprotected-private-key
+      warning (LP: #663455).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 Sep 2011 10:16:33 +0100
+
 openssh (1:5.8p1-7) unstable; urgency=low
 
   * Only recommend ssh-import-id when built on Ubuntu (closes: #635887).

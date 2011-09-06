@@ -24,7 +24,7 @@ Index: b/readconf.c
  
  #include "xmalloc.h"
  #include "ssh.h"
-@@ -1085,8 +1087,7 @@
+@@ -1131,8 +1133,7 @@
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -38,7 +38,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1293,6 +1293,8 @@
+@@ -1298,6 +1298,8 @@
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1299,6 +1299,8 @@
+@@ -1343,6 +1343,8 @@
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -64,7 +64,7 @@ Index: b/auth.c
 ===================================================================
 --- a/auth.c
 +++ b/auth.c
-@@ -392,8 +392,7 @@
+@@ -380,8 +380,7 @@
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -74,7 +74,7 @@ Index: b/auth.c
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -454,8 +453,7 @@
+@@ -442,8 +441,7 @@
  
  	/* check the open file to avoid races */
  	if (fstat(fileno(f), &st) < 0 ||
@@ -84,9 +84,9 @@ Index: b/auth.c
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -471,8 +469,7 @@
+@@ -458,8 +456,7 @@
+ 		strlcpy(buf, cp, sizeof(buf));
  
- 		debug3("secure_filename: checking '%s'", buf);
  		if (stat(buf, &st) < 0 ||
 -		    (st.st_uid != 0 && st.st_uid != uid) ||
 -		    (st.st_mode & 022) != 0) {
@@ -169,7 +169,7 @@ Index: b/misc.h
 ===================================================================
 --- a/misc.h
 +++ b/misc.h
-@@ -102,4 +102,6 @@
+@@ -103,4 +103,6 @@
  int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
  int	 read_keyfile_line(FILE *, const char *, char *, size_t, u_long *);
  

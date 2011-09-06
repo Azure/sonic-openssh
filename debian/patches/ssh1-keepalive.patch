@@ -7,7 +7,7 @@ Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -547,16 +547,21 @@
+@@ -545,16 +545,21 @@
  static void
  server_alive_check(void)
  {
@@ -38,7 +38,7 @@ Index: b/clientloop.c
  }
  
  /*
-@@ -616,7 +621,7 @@
+@@ -614,7 +619,7 @@
  	 */
  
  	timeout_secs = INT_MAX; /* we use INT_MAX to mean no timeout */
@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1047,7 +1047,10 @@
+@@ -1089,7 +1089,10 @@
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

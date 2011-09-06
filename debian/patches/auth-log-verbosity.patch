@@ -83,9 +83,9 @@ Index: b/auth-rsa.c
 ===================================================================
 --- a/auth-rsa.c
 +++ b/auth-rsa.c
-@@ -193,6 +193,8 @@
- 
- 	key = key_new(KEY_RSA1);
+@@ -175,6 +175,8 @@
+ 	if ((f = auth_openkeyfile(file, pw, options.strict_modes)) == NULL)
+ 		return 0;
  
 +	auth_start_parse_options();
 +

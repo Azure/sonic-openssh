@@ -1,6 +1,5 @@
 # GSSAPI
 gssapi.patch
-gssapi-autoconf.patch
 
 # SELinux
 selinux-role.patch
@@ -37,9 +36,6 @@ ssh-argv0.patch
 doc-hash-tab-completion.patch
 
 # Miscellaneous bug fixes
-selinux-build-failure.patch
-ssh-add-fifo.patch
-hostbased-ecdsa.patch
 auth-log-verbosity.patch
 
 # Debian-specific configuration

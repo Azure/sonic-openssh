@@ -1,4 +1,4 @@
-/* $OpenBSD: ssh-keysign.c,v 1.35 2010/08/31 12:33:38 djm Exp $ */
+/* $OpenBSD: ssh-keysign.c,v 1.36 2011/02/16 00:31:14 djm Exp $ */
 /*
  * Copyright (c) 2002 Markus Friedl.  All rights reserved.
  *
@@ -178,7 +178,6 @@ main(int argc, char **argv)
 
 	permanently_set_uid(pw);
 
-	init_rng();
 	seed_rng();
 	arc4random_stir();
 

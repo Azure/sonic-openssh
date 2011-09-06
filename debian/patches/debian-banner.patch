@@ -10,7 +10,7 @@ Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -143,6 +143,7 @@
+@@ -142,6 +142,7 @@
  	options->authorized_principals_file = NULL;
  	options->ip_qos_interactive = -1;
  	options->ip_qos_bulk = -1;
@@ -18,7 +18,7 @@ Index: b/servconf.c
  }
  
  void
-@@ -293,6 +294,8 @@
+@@ -289,6 +290,8 @@
  		options->ip_qos_interactive = IPTOS_LOWDELAY;
  	if (options->ip_qos_bulk == -1)
  		options->ip_qos_bulk = IPTOS_THROUGHPUT;
@@ -27,7 +27,7 @@ Index: b/servconf.c
  
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
-@@ -342,6 +345,7 @@
+@@ -338,6 +341,7 @@
  	sZeroKnowledgePasswordAuthentication, sHostCertificate,
  	sRevokedKeys, sTrustedUserCAKeys, sAuthorizedPrincipalsFile,
  	sKexAlgorithms, sIPQoS,
@@ -35,7 +35,7 @@ Index: b/servconf.c
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -477,6 +481,7 @@
+@@ -473,6 +477,7 @@
  	{ "authorizedprincipalsfile", sAuthorizedPrincipalsFile, SSHCFG_ALL },
  	{ "kexalgorithms", sKexAlgorithms, SSHCFG_GLOBAL },
  	{ "ipqos", sIPQoS, SSHCFG_ALL },
@@ -43,7 +43,7 @@ Index: b/servconf.c
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1439,6 +1444,10 @@
+@@ -1436,6 +1441,10 @@
  		}
  		break;
  
@@ -58,7 +58,7 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -160,6 +160,8 @@
+@@ -166,6 +166,8 @@
  
  	int	num_permitted_opens;
  
@@ -71,7 +71,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -422,7 +422,8 @@
+@@ -423,7 +423,8 @@
  		minor = PROTOCOL_MINOR_1;
  	}
  	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s%s", major, minor,
@@ -85,7 +85,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -339,6 +339,11 @@
+@@ -340,6 +340,11 @@
  .Dq no .
  The default is
  .Dq delayed .
