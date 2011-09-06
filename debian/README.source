@@ -190,7 +190,6 @@ file-ids are correct (see above). Run:
   # compare this with 'bzr ls --show-ids' in the Debian trunk to make sure
   # the result will be mergeable
   bzr ci -m 'Import 5.3p1 tarball'
-  bzr tag upstream-5.3p1
 
 Add a parent revision for the previous tarball branch, to make it easier for
 bzr to compute accurate merges.
@@ -201,6 +200,7 @@ bzr to compute accurate merges.
   # merge history only, no file changes
   bzr revert .
   bzr ci -m 'add 5.2p1 tarball parent revision'
+  bzr tag upstream-5.3p1
 
 Next, merge this into the gssapi branch
 (bzr+ssh://bzr.debian.org/bzr/pkg-ssh/openssh/gssapi/). For this branch, we
