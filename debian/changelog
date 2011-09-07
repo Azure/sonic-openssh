@@ -22,6 +22,7 @@ openssh (1:5.9p1-1) UNRELEASED; urgency=low
     - Clean up lost-passphrase text in ssh-keygen(1) (closes: #444691).
     - Say "required" rather than "recommended" in unprotected-private-key
       warning (LP: #663455).
+  * Update OpenSSH FAQ to revision 1.112.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 06 Sep 2011 10:16:33 +0100
 
