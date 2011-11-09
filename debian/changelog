@@ -1,3 +1,9 @@
+openssh (1:5.9p1-2) UNRELEASED; urgency=low
+
+  * Mark openssh-client and openssh-server as Multi-Arch: foreign.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 09 Nov 2011 02:05:10 +0000
+
 openssh (1:5.9p1-1) unstable; urgency=low
 
   * New upstream release (http://www.openssh.org/txt/release-5.9).
