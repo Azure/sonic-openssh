@@ -1,3 +1,10 @@
+openssh (1:5.9p1-3) UNRELEASED; urgency=low
+
+  * debconf template translations:
+    - Update Polish (thanks, Michał Kułach; closes: #659829).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 14 Feb 2012 11:01:44 +0000
+
 openssh (1:5.9p1-2) unstable; urgency=low
 
   * Mark openssh-client and openssh-server as Multi-Arch: foreign.
