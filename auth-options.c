@@ -174,7 +174,7 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
 				goto bad_option;
 			}
 			forced_command[i] = '\0';
-			auth_debug_add("Forced command: %.900s", forced_command);
+			auth_debug_add("Forced command.");
 			opts++;
 			goto next_option;
 		}

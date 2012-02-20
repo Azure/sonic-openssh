@@ -1,0 +1,19 @@
+Description: Don't send the actual forced command in a debug message
+Origin: upstream, http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/auth-options.c.diff?r1=1.53;r2=1.54
+Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=657445
+Forwarded: not-needed
+Last-Update: 2012-02-20
+
+Index: b/auth-options.c
+===================================================================
+--- a/auth-options.c
++++ b/auth-options.c
+@@ -174,7 +174,7 @@
+ 				goto bad_option;
+ 			}
+ 			forced_command[i] = '\0';
+-			auth_debug_add("Forced command: %.900s", forced_command);
++			auth_debug_add("Forced command.");
+ 			opts++;
+ 			goto next_option;
+ 		}

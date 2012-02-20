@@ -27,6 +27,9 @@ ssh-copy-id-trailing-colons.patch
 dnssec-sshfp.patch
 auth-log-verbosity.patch
 
+# Security fixes
+forced-command-debug-security.patch
+
 # Versioning
 package-versioning.patch
 debian-banner.patch
