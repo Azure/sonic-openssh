@@ -124,10 +124,8 @@ case "$1" in
 	check_privsep_dir
 	check_config
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd" || true
-	set +e
-	start-stop-daemon --stop --quiet --retry 30 --pidfile /var/run/sshd.pid
-	RET="$?"
-	set -e
+	RET=0
+	start-stop-daemon --stop --quiet --retry 30 --pidfile /var/run/sshd.pid || RET="$?"
 	case $RET in
 	    0)
 		# old daemon stopped
