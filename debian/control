@@ -82,6 +82,7 @@ Description: secure shell client and server (metapackage)
  may remove it if nothing depends on it.
 
 Package: ssh-krb5
+Section: oldlibs
 Priority: extra
 Architecture: all
 Depends: ${misc:Depends}, openssh-client, openssh-server
