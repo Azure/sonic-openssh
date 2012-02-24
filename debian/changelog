@@ -1,11 +1,11 @@
-openssh (1:5.9p1-3) UNRELEASED; urgency=low
+openssh (1:5.9p1-3) unstable; urgency=low
 
   * debconf template translations:
     - Update Polish (thanks, Michał Kułach; closes: #659829).
   * Ignore errors writing to console in init script (closes: #546743).
   * Move ssh-krb5 to Section: oldlibs.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 14 Feb 2012 11:01:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 24 Feb 2012 08:56:18 +0000
 
 openssh (1:5.9p1-2) unstable; urgency=low
 
