@@ -1,3 +1,10 @@
+openssh (1:5.9p1-4) UNRELEASED; urgency=low
+
+  * Disable OpenSSL version check again, as its SONAME is sufficient
+    nowadays (closes: #664383).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 19 Mar 2012 11:04:52 +0000
+
 openssh (1:5.9p1-3) unstable; urgency=low
 
   * debconf template translations:

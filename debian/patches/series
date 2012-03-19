@@ -39,5 +39,6 @@ doc-hash-tab-completion.patch
 auth-log-verbosity.patch
 
 # Debian-specific configuration
+no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
