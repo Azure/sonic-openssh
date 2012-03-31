@@ -3,16 +3,8 @@
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
-include /usr/share/hardening-includes/hardening.make
-
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
-
-ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-OPTFLAGS := -O2
-else
-OPTFLAGS := -O0
-endif
 
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
   RUN_TESTS := yes
@@ -31,27 +23,12 @@ else
 endif
 
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
-DEB_HOST_ARCH_CPU := $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU 2>/dev/null)
 
 # Take account of old dpkg-architecture output.
 ifeq ($(DEB_HOST_ARCH_OS),)
   DEB_HOST_ARCH_OS := $(subst -gnu,,$(shell dpkg-architecture -qDEB_HOST_GNU_SYSTEM))
   ifeq ($(DEB_HOST_ARCH_OS),gnu)
     DEB_HOST_ARCH_OS := hurd
-  endif
-endif
-ifeq ($(DEB_HOST_ARCH_CPU),)
-  DEB_HOST_ARCH_CPU := $(shell dpkg-architecture -qDEB_HOST_GNU_CPU)
-  ifeq ($(DEB_HOST_ARCH_CPU),x86_64)
-    DEB_HOST_ARCH_CPU := amd64
-  endif
-endif
-
-ifneq (,$(findstring :$(DEB_HOST_ARCH_OS):,:linux:knetbsd:))
-  ifneq (,$(findstring :$(DEB_HOST_ARCH_CPU):,:mips:mipsel:))
-    # Apparently this is not implied by -fPIE, at least on the mipsen.
-    PIC_CFLAGS := -fPIC
-    PIC_LDFLAGS := -fPIC
   endif
 endif
 
@@ -108,7 +85,9 @@ confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUS
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Compiler flags.
-cflags := $(OPTFLAGS) $(PIC_CFLAGS) $(HARDENING_CFLAGS)
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+default_cflags := $(shell dpkg-buildflags --get CPPFLAGS) $(shell dpkg-buildflags --get CFLAGS)
+cflags := $(default_cflags)
 cflags += -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
@@ -117,7 +96,7 @@ confflags += --with-cflags='$(cflags)'
 confflags_udeb += --with-cflags='$(cflags_udeb)'
 
 # Linker flags.
-confflags += --with-ldflags='$(strip -Wl,--as-needed $(PIC_LDFLAGS) $(HARDENING_LDFLAGS))'
+confflags += --with-ldflags='$(strip -Wl,--as-needed $(shell dpkg-buildflags --get LDFLAGS))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
@@ -139,7 +118,7 @@ override_dh_auto_build:
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
 	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
 
-	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(OPTFLAGS) -g -Wall -Wl,--as-needed'
+	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(default_cflags) -Wall -Wl,--as-needed'
 
 override_dh_auto_test:
 ifeq ($(RUN_TESTS),yes)

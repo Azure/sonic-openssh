@@ -1,3 +1,10 @@
+openssh (1:5.9p1-5) UNRELEASED; urgency=low
+
+  * Use dpkg-buildflags, including for hardening support; drop use of
+    hardening-includes.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 31 Mar 2012 11:13:09 +0100
+
 openssh (1:5.9p1-4) unstable; urgency=low
 
   * Disable OpenSSL version check again, as its SONAME is sufficient
