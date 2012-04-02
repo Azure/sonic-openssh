@@ -1,4 +1,4 @@
-openssh (1:5.9p1-5) UNRELEASED; urgency=low
+openssh (1:5.9p1-5) unstable; urgency=low
 
   * Use dpkg-buildflags, including for hardening support; drop use of
     hardening-includes.
@@ -8,7 +8,7 @@ openssh (1:5.9p1-5) UNRELEASED; urgency=low
     - Allow dh_strip to strip gnome-ssh-askpass, rather than calling
       'install -s'.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 31 Mar 2012 11:13:09 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 02 Apr 2012 11:20:33 +0100
 
 openssh (1:5.9p1-4) unstable; urgency=low
 
