@@ -17,8 +17,10 @@ DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
   CC := gcc
+  PKG_CONFIG = pkg-config
 else
   CC := $(DEB_HOST_GNU_TYPE)-gcc
+  PKG_CONFIG = $(DEB_HOST_GNU_TYPE)-pkg-config
   RUN_TESTS :=
 endif
 
@@ -96,7 +98,8 @@ confflags += --with-cflags='$(cflags)'
 confflags_udeb += --with-cflags='$(cflags_udeb)'
 
 # Linker flags.
-confflags += --with-ldflags='$(strip -Wl,--as-needed $(shell dpkg-buildflags --get LDFLAGS))'
+default_ldflags := $(shell dpkg-buildflags --get LDFLAGS)
+confflags += --with-ldflags='$(strip -Wl,--as-needed $(default_ldflags))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
@@ -118,7 +121,7 @@ override_dh_auto_build:
 	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
 	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
 
-	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(default_cflags) -Wall -Wl,--as-needed'
+	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(default_cflags) -Wall -Wl,--as-needed $(default_ldflags)' PKG_CONFIG=$(PKG_CONFIG)
 
 override_dh_auto_test:
 ifeq ($(RUN_TESTS),yes)
@@ -144,7 +147,7 @@ override_dh_install:
 	dh_install -popenssh-client-udeb -popenssh-server-udeb \
 		--sourcedir=build-udeb
 
-	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
+	install -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
 
 	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
 	install -o root -g root -m 644 debian/openssh-server.ufw.profile debian/openssh-server/etc/ufw/applications.d/openssh-server

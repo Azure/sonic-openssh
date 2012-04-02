@@ -37,6 +37,7 @@ doc-hash-tab-completion.patch
 
 # Miscellaneous bug fixes
 auth-log-verbosity.patch
+cross-pkg-config.patch
 
 # Debian-specific configuration
 no-openssl-version-check.patch

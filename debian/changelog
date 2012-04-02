@@ -2,6 +2,11 @@ openssh (1:5.9p1-5) UNRELEASED; urgency=low
 
   * Use dpkg-buildflags, including for hardening support; drop use of
     hardening-includes.
+  * Fix cross-building:
+    - Allow using a cross-architecture pkg-config.
+    - Pass default LDFLAGS to contrib/Makefile.
+    - Allow dh_strip to strip gnome-ssh-askpass, rather than calling
+      'install -s'.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 31 Mar 2012 11:13:09 +0100
 
