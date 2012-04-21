@@ -4,6 +4,10 @@ openssh (1:5.9p1-6) UNRELEASED; urgency=low
   * Display dynamic part of MOTD from /run/motd.dynamic, if it exists
     (closes: #669699).
 
+  [ Colin Watson ]
+  * Update OpenSSH FAQ to revision 1.113, fixing missing line break (closes:
+    #669667).
+
  -- Colin Watson <cjwatson@debian.org>  Sat, 21 Apr 2012 10:57:23 +0100
 
 openssh (1:5.9p1-5) unstable; urgency=low
