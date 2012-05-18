@@ -10,7 +10,7 @@ openssh (1:6.0p1-1) UNRELEASED; urgency=low
   * New upstream release (closes: #671010,
     http://www.openssh.org/txt/release-6.0).
     - Fix IPQoS not being set on non-mapped v4-in-v6 addressed connections
-      (closes: #643312, #650512).
+      (closes: #643312, #650512, #671075).
     - Add a new privilege separation sandbox implementation for Linux's new
       seccomp sandbox, automatically enabled on platforms that support it.
       (Note: privilege separation sandboxing is still experimental.)
