@@ -13,6 +13,7 @@ openssh (1:6.0p1-1) UNRELEASED; urgency=low
     - Add a new privilege separation sandbox implementation for Linux's new
       seccomp sandbox, automatically enabled on platforms that support it.
       (Note: privilege separation sandboxing is still experimental.)
+  * Fix a bashism in configure's seccomp_filter check.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 21 Apr 2012 10:57:23 +0100
 

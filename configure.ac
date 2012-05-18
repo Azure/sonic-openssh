@@ -2615,7 +2615,7 @@ elif test "x$sandbox_arg" = "xdarwin" || \
 	AC_DEFINE([SANDBOX_DARWIN], [1], [Sandbox using Darwin sandbox_init(3)])
 elif test "x$sandbox_arg" = "xseccomp_filter" || \
      ( test -z "$sandbox_arg" && \
-       test "x$have_seccomp_filter" == "x1" && \
+       test "x$have_seccomp_filter" = "x1" && \
        test "x$ac_cv_header_linux_audit_h" = "xyes" && \
        test "x$have_seccomp_audit_arch" = "x1" && \
        test "x$have_linux_no_new_privs" = "x1" && \
