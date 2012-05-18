@@ -108,7 +108,7 @@ Index: b/monitor.c
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -810,6 +812,7 @@
+@@ -811,6 +813,7 @@
  	else {
  		/* Allow service/style information on the auth context */
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -116,7 +116,7 @@ Index: b/monitor.c
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  	}
  #ifdef USE_PAM
-@@ -842,14 +845,37 @@
+@@ -843,14 +846,37 @@
  
  	authctxt->service = buffer_get_string(m, NULL);
  	authctxt->style = buffer_get_string(m, NULL);
@@ -156,7 +156,7 @@ Index: b/monitor.c
  	return (0);
  }
  
-@@ -1437,7 +1463,7 @@
+@@ -1438,7 +1464,7 @@
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -256,18 +256,15 @@ Index: b/openbsd-compat/port-linux.c
  #include "log.h"
  #include "xmalloc.h"
  #include "port-linux.h"
-@@ -58,9 +64,9 @@
+@@ -58,7 +64,7 @@
  
  /* Return the default security context for the given username */
  static security_context_t
 -ssh_selinux_getctxbyname(char *pwname)
 +ssh_selinux_getctxbyname(char *pwname, const char *role)
  {
--	security_context_t sc;
-+	security_context_t sc = NULL;
+ 	security_context_t sc = NULL;
  	char *sename = NULL, *lvl = NULL;
- 	int r;
- 
 @@ -73,9 +79,16 @@
  #endif
  
@@ -287,7 +284,7 @@ Index: b/openbsd-compat/port-linux.c
  #endif
  
  	if (r != 0) {
-@@ -106,7 +119,7 @@
+@@ -107,7 +120,7 @@
  
  /* Set the execution context to the default for the specified user */
  void
@@ -296,7 +293,7 @@ Index: b/openbsd-compat/port-linux.c
  {
  	security_context_t user_ctx = NULL;
  
-@@ -115,7 +128,7 @@
+@@ -116,7 +129,7 @@
  
  	debug3("%s: setting execution context", __func__);
  
@@ -305,7 +302,7 @@ Index: b/openbsd-compat/port-linux.c
  	if (setexeccon(user_ctx) != 0) {
  		switch (security_getenforce()) {
  		case -1:
-@@ -137,7 +150,7 @@
+@@ -138,7 +151,7 @@
  
  /* Set the TTY context for the specified user */
  void
@@ -314,7 +311,7 @@ Index: b/openbsd-compat/port-linux.c
  {
  	security_context_t new_tty_ctx = NULL;
  	security_context_t user_ctx = NULL;
-@@ -148,7 +161,7 @@
+@@ -149,7 +162,7 @@
  
  	debug3("%s: setting TTY context on %s", __func__, tty);
  
@@ -439,7 +436,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -730,7 +730,7 @@
+@@ -734,7 +734,7 @@
  	RAND_seed(rnd, sizeof(rnd));
  
  	/* Drop privileges */

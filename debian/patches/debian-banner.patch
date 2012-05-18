@@ -71,7 +71,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -423,7 +423,8 @@
+@@ -424,7 +424,8 @@
  		minor = PROTOCOL_MINOR_1;
  	}
  	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s%s", major, minor,

@@ -35,7 +35,7 @@ Index: b/readconf.c
  
  	{ NULL, oBadOption }
  };
-@@ -914,6 +917,8 @@
+@@ -915,6 +918,8 @@
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -44,7 +44,7 @@ Index: b/readconf.c
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -1385,8 +1390,13 @@
+@@ -1386,8 +1391,13 @@
  		options->rekey_limit = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;

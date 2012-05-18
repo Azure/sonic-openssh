@@ -26,7 +26,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -678,7 +678,7 @@
+@@ -680,7 +680,7 @@
  	/* Do not allocate a tty if stdin is not a tty. */
  	if ((!isatty(fileno(stdin)) || stdin_null_flag) &&
  	    options.request_tty != REQUEST_TTY_FORCE) {

@@ -24,7 +24,7 @@ Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1268,7 +1268,7 @@
+@@ -1269,7 +1269,7 @@
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)

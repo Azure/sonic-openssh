@@ -8,7 +8,7 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -8739,8 +8739,9 @@
+@@ -9194,8 +9194,9 @@
  if test "${with_libedit+set}" = set; then :
    withval=$with_libedit;  if test "x$withval" != "xno" ; then
  		if test "x$withval" = "xyes" ; then
@@ -20,7 +20,7 @@ Index: b/configure
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
  $as_echo_n "checking for $ac_word... " >&6; }
  if ${ac_cv_path_PKGCONFIG+:} false; then :
-@@ -8766,7 +8767,6 @@
+@@ -9221,7 +9222,6 @@
    done
  IFS=$as_save_IFS
  
@@ -28,7 +28,7 @@ Index: b/configure
    ;;
  esac
  fi
-@@ -8780,6 +8780,63 @@
+@@ -9235,6 +9235,63 @@
  fi
  
  
@@ -96,7 +96,7 @@ Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1349,7 +1349,7 @@
+@@ -1434,7 +1434,7 @@
  	[  --with-libedit[[=PATH]]   Enable libedit support for sftp],
  	[ if test "x$withval" != "xno" ; then
  		if test "x$withval" = "xyes" ; then

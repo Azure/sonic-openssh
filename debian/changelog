@@ -1,4 +1,4 @@
-openssh (1:5.9p1-6) UNRELEASED; urgency=low
+openssh (1:6.0p1-1) UNRELEASED; urgency=low
 
   [ Roger Leigh ]
   * Display dynamic part of MOTD from /run/motd.dynamic, if it exists
@@ -7,6 +7,12 @@ openssh (1:5.9p1-6) UNRELEASED; urgency=low
   [ Colin Watson ]
   * Update OpenSSH FAQ to revision 1.113, fixing missing line break (closes:
     #669667).
+  * New upstream release (http://www.openssh.org/txt/release-6.0).
+    - Fix IPQoS not being set on non-mapped v4-in-v6 addressed connections
+      (closes: #643312, #650512).
+    - Add a new privilege separation sandbox implementation for Linux's new
+      seccomp sandbox, automatically enabled on platforms that support it.
+      (Note: privilege separation sandboxing is still experimental.)
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 21 Apr 2012 10:57:23 +0100
 

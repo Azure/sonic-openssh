@@ -24,7 +24,7 @@ Index: b/readconf.c
  
  #include "xmalloc.h"
  #include "ssh.h"
-@@ -1131,8 +1133,7 @@
+@@ -1132,8 +1134,7 @@
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -38,7 +38,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1298,6 +1298,8 @@
+@@ -1312,6 +1312,8 @@
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

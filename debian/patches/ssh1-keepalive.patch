@@ -7,7 +7,7 @@ Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -545,16 +545,21 @@
+@@ -565,16 +565,21 @@
  static void
  server_alive_check(void)
  {
@@ -38,7 +38,7 @@ Index: b/clientloop.c
  }
  
  /*
-@@ -614,7 +619,7 @@
+@@ -634,7 +639,7 @@
  	 */
  
  	timeout_secs = INT_MAX; /* we use INT_MAX to mean no timeout */
