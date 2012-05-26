@@ -1,4 +1,4 @@
-openssh (1:6.0p1-1) UNRELEASED; urgency=low
+openssh (1:6.0p1-1) unstable; urgency=low
 
   [ Roger Leigh ]
   * Display dynamic part of MOTD from /run/motd.dynamic, if it exists
@@ -20,7 +20,7 @@ openssh (1:6.0p1-1) UNRELEASED; urgency=low
     build system's kernel (forwarded upstream as
     https://bugzilla.mindrot.org/show_bug.cgi?id=2011).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 21 Apr 2012 10:57:23 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 26 May 2012 13:48:14 +0100
 
 openssh (1:5.9p1-5) unstable; urgency=low
 
