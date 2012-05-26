@@ -126,25 +126,6 @@ AC_CHECK_DECL([SECCOMP_MODE_FILTER], [have_seccomp_filter=1], , [
 	#include <linux/seccomp.h>
 ])
 fi
-if test "x$have_seccomp_filter" = "x1" ; then
-AC_MSG_CHECKING([kernel for seccomp_filter support])
-AC_RUN_IFELSE([AC_LANG_PROGRAM([[
-		#include <errno.h>
-		#include <linux/seccomp.h>
-		#include <stdlib.h>
-		#include <sys/prctl.h>
-	]],
-	[[ errno = 0;
-	   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, NULL, 0, 0);
-	   exit(errno == EFAULT ? 0 : 1); ]])],
-	[ AC_MSG_RESULT([yes]) ], [
-		AC_MSG_RESULT([no])
-		# Disable seccomp filter as a target
-		have_seccomp_filter=0
-	],
-	[ AC_MSG_RESULT([cross-compiling, assuming yes]) ]
-)
-fi
 
 use_stack_protector=1
 AC_ARG_WITH([stackprotect],
@@ -2599,21 +2580,24 @@ AC_ARG_WITH([sandbox],
 		fi
 	]
 )
+SANDBOX_STYLE=""
 if test "x$sandbox_arg" = "xsystrace" || \
    ( test -z "$sandbox_arg" && test "x$have_systr_policy_kill" = "x1" ) ; then
 	test "x$have_systr_policy_kill" != "x1" && \
 		AC_MSG_ERROR([systrace sandbox requires systrace headers and SYSTR_POLICY_KILL support])
-	SANDBOX_STYLE="systrace"
+	SANDBOX_STYLE="$SANDBOX_STYLE systrace"
 	AC_DEFINE([SANDBOX_SYSTRACE], [1], [Sandbox using systrace(4)])
-elif test "x$sandbox_arg" = "xdarwin" || \
+fi
+if test "x$sandbox_arg" = "xdarwin" || \
      ( test -z "$sandbox_arg" && test "x$ac_cv_func_sandbox_init" = "xyes" && \
        test "x$ac_cv_header_sandbox_h" = "xyes") ; then
 	test "x$ac_cv_func_sandbox_init" != "xyes" -o \
 	     "x$ac_cv_header_sandbox_h" != "xyes" && \
 		AC_MSG_ERROR([Darwin seatbelt sandbox requires sandbox.h and sandbox_init function])
-	SANDBOX_STYLE="darwin"
+	SANDBOX_STYLE="$SANDBOX_STYLE darwin"
 	AC_DEFINE([SANDBOX_DARWIN], [1], [Sandbox using Darwin sandbox_init(3)])
-elif test "x$sandbox_arg" = "xseccomp_filter" || \
+fi
+if test "x$sandbox_arg" = "xseccomp_filter" || \
      ( test -z "$sandbox_arg" && \
        test "x$have_seccomp_filter" = "x1" && \
        test "x$ac_cv_header_linux_audit_h" = "xyes" && \
@@ -2628,21 +2612,24 @@ elif test "x$sandbox_arg" = "xseccomp_filter" || \
 		AC_MSG_ERROR([seccomp_filter sandbox requires seccomp headers])
 	test "x$ac_cv_func_prctl" != "xyes" && \
 		AC_MSG_ERROR([seccomp_filter sandbox requires prctl function])
-	SANDBOX_STYLE="seccomp_filter"
+	SANDBOX_STYLE="$SANDBOX_STYLE seccomp_filter"
 	AC_DEFINE([SANDBOX_SECCOMP_FILTER], [1], [Sandbox using seccomp filter])
-elif test "x$sandbox_arg" = "xrlimit" || \
+fi
+if test "x$sandbox_arg" = "xrlimit" || \
      ( test -z "$sandbox_arg" && test "x$ac_cv_func_setrlimit" = "xyes" ) ; then
 	test "x$ac_cv_func_setrlimit" != "xyes" && \
 		AC_MSG_ERROR([rlimit sandbox requires setrlimit function])
-	SANDBOX_STYLE="rlimit"
+	SANDBOX_STYLE="$SANDBOX_STYLE rlimit"
 	AC_DEFINE([SANDBOX_RLIMIT], [1], [Sandbox using setrlimit(2)])
-elif test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
+fi
+if test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
      test "x$sandbox_arg" = "xnone" || test "x$sandbox_arg" = "xnull" ; then
-	SANDBOX_STYLE="none"
-	AC_DEFINE([SANDBOX_NULL], [1], [no privsep sandboxing])
-else
+	SANDBOX_STYLE="$SANDBOX_STYLE none"
+fi
+if test -z "$SANDBOX_STYLE" ; then
 	AC_MSG_ERROR([unsupported --with-sandbox])
 fi
+SANDBOX_STYLE="${SANDBOX_STYLE# }"
 
 # Cheap hack to ensure NEWS-OS libraries are arranged right.
 if test ! -z "$SONY" ; then

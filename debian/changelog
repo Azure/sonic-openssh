@@ -15,6 +15,10 @@ openssh (1:6.0p1-1) UNRELEASED; urgency=low
       seccomp sandbox, automatically enabled on platforms that support it.
       (Note: privilege separation sandboxing is still experimental.)
   * Fix a bashism in configure's seccomp_filter check.
+  * Add a sandbox fallback mechanism, so that behaviour on Linux depends on
+    whether the running system's kernel has seccomp_filter support, not the
+    build system's kernel (forwarded upstream as
+    https://bugzilla.mindrot.org/show_bug.cgi?id=2011).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 21 Apr 2012 10:57:23 +0100
 

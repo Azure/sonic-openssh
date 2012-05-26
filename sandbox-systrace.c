@@ -17,9 +17,12 @@
 
 #include "includes.h"
 
+#include <sys/types.h>
+
+#include "ssh-sandbox.h"
+
 #ifdef SANDBOX_SYSTRACE
 
-#include <sys/types.h>
 #include <sys/param.h>
 #include <sys/ioctl.h>
 #include <sys/syscall.h>
@@ -38,7 +41,6 @@
 
 #include "atomicio.h"
 #include "log.h"
-#include "ssh-sandbox.h"
 #include "xmalloc.h"
 
 struct sandbox_policy {
@@ -74,8 +76,14 @@ struct ssh_sandbox {
 	pid_t child_pid;
 };
 
-struct ssh_sandbox *
-ssh_sandbox_init(void)
+static int
+sandbox_systrace_probe(void)
+{
+	return 1;
+}
+
+static void *
+sandbox_systrace_init(void)
 {
 	struct ssh_sandbox *box;
 	int s[2];
@@ -92,9 +100,10 @@ ssh_sandbox_init(void)
 	return box;
 }
 
-void
-ssh_sandbox_child(struct ssh_sandbox *box)
+static void
+sandbox_systrace_child(void *vbox)
 {
+	struct ssh_sandbox *box = vbox;
 	char whatever = 0;
 
 	close(box->parent_sock);
@@ -110,7 +119,7 @@ ssh_sandbox_child(struct ssh_sandbox *box)
 }
 
 static void
-ssh_sandbox_parent(struct ssh_sandbox *box, pid_t child_pid,
+sandbox_systrace_parent(struct ssh_sandbox *box, pid_t child_pid,
     const struct sandbox_policy *allowed_syscalls)
 {
 	int dev_systrace, i, j, found;
@@ -179,9 +188,11 @@ ssh_sandbox_parent(struct ssh_sandbox *box, pid_t child_pid,
 	close(box->parent_sock);
 }
 
-void
-ssh_sandbox_parent_finish(struct ssh_sandbox *box)
+static void
+sandbox_systrace_parent_finish(void *vbox)
 {
+	struct ssh_sandbox *box = vbox;
+
 	/* Closing this before the child exits will terminate it */
 	close(box->systrace_fd);
 
@@ -189,10 +200,32 @@ ssh_sandbox_parent_finish(struct ssh_sandbox *box)
 	debug3("%s: finished", __func__);
 }
 
-void
-ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
+static void
+sandbox_systrace_parent_preauth(void *vbox, pid_t child_pid)
 {
+	struct ssh_sandbox *box = vbox;
+
 	ssh_sandbox_parent(box, child_pid, preauth_policy);
 }
+
+Sandbox ssh_sandbox_systrace = {
+	"systrace",
+	sandbox_systrace_probe,
+	sandbox_systrace_init,
+	sandbox_systrace_child,
+	sandbox_systrace_parent_finish,
+	sandbox_systrace_parent_preauth
+};
+
+#else /* !SANDBOX_SYSTRACE */
+
+Sandbox ssh_sandbox_systrace = {
+	"systrace",
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+};
 
 #endif /* SANDBOX_SYSTRACE */

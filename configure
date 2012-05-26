@@ -5598,48 +5598,6 @@ if test "x$ac_cv_have_decl_SECCOMP_MODE_FILTER" = xyes; then :
 fi
 
 fi
-if test "x$have_seccomp_filter" = "x1" ; then
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking kernel for seccomp_filter support" >&5
-$as_echo_n "checking kernel for seccomp_filter support... " >&6; }
-if test "$cross_compiling" = yes; then :
-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: cross-compiling, assuming yes" >&5
-$as_echo "cross-compiling, assuming yes" >&6; }
-
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-		#include <errno.h>
-		#include <linux/seccomp.h>
-		#include <stdlib.h>
-		#include <sys/prctl.h>
-
-int
-main ()
-{
- errno = 0;
-	   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, NULL, 0, 0);
-	   exit(errno == EFAULT ? 0 : 1);
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_run "$LINENO"; then :
-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-else
-
-		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-		# Disable seccomp filter as a target
-		have_seccomp_filter=0
-
-fi
-rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
-  conftest.$ac_objext conftest.beam conftest.$ac_ext
-fi
-
-fi
 
 use_stack_protector=1
 
@@ -11898,25 +11856,28 @@ if test "${with_sandbox+set}" = set; then :
 
 fi
 
+SANDBOX_STYLE=""
 if test "x$sandbox_arg" = "xsystrace" || \
    ( test -z "$sandbox_arg" && test "x$have_systr_policy_kill" = "x1" ) ; then
 	test "x$have_systr_policy_kill" != "x1" && \
 		as_fn_error $? "systrace sandbox requires systrace headers and SYSTR_POLICY_KILL support" "$LINENO" 5
-	SANDBOX_STYLE="systrace"
+	SANDBOX_STYLE="$SANDBOX_STYLE systrace"
 
 $as_echo "#define SANDBOX_SYSTRACE 1" >>confdefs.h
 
-elif test "x$sandbox_arg" = "xdarwin" || \
+fi
+if test "x$sandbox_arg" = "xdarwin" || \
      ( test -z "$sandbox_arg" && test "x$ac_cv_func_sandbox_init" = "xyes" && \
        test "x$ac_cv_header_sandbox_h" = "xyes") ; then
 	test "x$ac_cv_func_sandbox_init" != "xyes" -o \
 	     "x$ac_cv_header_sandbox_h" != "xyes" && \
 		as_fn_error $? "Darwin seatbelt sandbox requires sandbox.h and sandbox_init function" "$LINENO" 5
-	SANDBOX_STYLE="darwin"
+	SANDBOX_STYLE="$SANDBOX_STYLE darwin"
 
 $as_echo "#define SANDBOX_DARWIN 1" >>confdefs.h
 
-elif test "x$sandbox_arg" = "xseccomp_filter" || \
+fi
+if test "x$sandbox_arg" = "xseccomp_filter" || \
      ( test -z "$sandbox_arg" && \
        test "x$have_seccomp_filter" = "x1" && \
        test "x$ac_cv_header_linux_audit_h" = "xyes" && \
@@ -11931,27 +11892,28 @@ elif test "x$sandbox_arg" = "xseccomp_filter" || \
 		as_fn_error $? "seccomp_filter sandbox requires seccomp headers" "$LINENO" 5
 	test "x$ac_cv_func_prctl" != "xyes" && \
 		as_fn_error $? "seccomp_filter sandbox requires prctl function" "$LINENO" 5
-	SANDBOX_STYLE="seccomp_filter"
+	SANDBOX_STYLE="$SANDBOX_STYLE seccomp_filter"
 
 $as_echo "#define SANDBOX_SECCOMP_FILTER 1" >>confdefs.h
 
-elif test "x$sandbox_arg" = "xrlimit" || \
+fi
+if test "x$sandbox_arg" = "xrlimit" || \
      ( test -z "$sandbox_arg" && test "x$ac_cv_func_setrlimit" = "xyes" ) ; then
 	test "x$ac_cv_func_setrlimit" != "xyes" && \
 		as_fn_error $? "rlimit sandbox requires setrlimit function" "$LINENO" 5
-	SANDBOX_STYLE="rlimit"
+	SANDBOX_STYLE="$SANDBOX_STYLE rlimit"
 
 $as_echo "#define SANDBOX_RLIMIT 1" >>confdefs.h
 
-elif test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
+fi
+if test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
      test "x$sandbox_arg" = "xnone" || test "x$sandbox_arg" = "xnull" ; then
-	SANDBOX_STYLE="none"
-
-$as_echo "#define SANDBOX_NULL 1" >>confdefs.h
-
-else
+	SANDBOX_STYLE="$SANDBOX_STYLE none"
+fi
+if test -z "$SANDBOX_STYLE" ; then
 	as_fn_error $? "unsupported --with-sandbox" "$LINENO" 5
 fi
+SANDBOX_STYLE="${SANDBOX_STYLE# }"
 
 # Cheap hack to ensure NEWS-OS libraries are arranged right.
 if test ! -z "$SONY" ; then

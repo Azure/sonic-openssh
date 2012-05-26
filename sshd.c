@@ -631,7 +631,7 @@ privsep_preauth(Authctxt *authctxt)
 {
 	int status;
 	pid_t pid;
-	struct ssh_sandbox *box = NULL;
+	void *box = NULL;
 
 	/* Set up unprivileged child process to deal with network data */
 	pmonitor = monitor_init();

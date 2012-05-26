@@ -35,11 +35,15 @@
 
 #include "includes.h"
 
+#include <sys/types.h>
+
+#include "ssh-sandbox.h"
+
 #ifdef SANDBOX_SECCOMP_FILTER
 
-#include <sys/types.h>
 #include <sys/resource.h>
 #include <sys/prctl.h>
+#include <sys/wait.h>
 
 #include <linux/audit.h>
 #include <linux/filter.h>
@@ -57,7 +61,6 @@
 #include <unistd.h>
 
 #include "log.h"
-#include "ssh-sandbox.h"
 #include "xmalloc.h"
 
 /* Linux seccomp_filter sandbox */
@@ -122,8 +125,33 @@ struct ssh_sandbox {
 	pid_t child_pid;
 };
 
-struct ssh_sandbox *
-ssh_sandbox_init(void)
+static int
+sandbox_seccomp_filter_probe(void)
+{
+	int status;
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1) {
+		fatal("fork of seccomp_filter probe child failed");
+	} else if (pid != 0) {
+		/* parent */
+		while (waitpid(pid, &status, 0) < 0) {
+			if (errno == EINTR)
+				continue;
+			fatal("%s: waitpid: %s", __func__, strerror(errno));
+		}
+		return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+	} else {
+		/* child */
+		errno = 0;
+		prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, NULL, 0, 0);
+		_exit(errno == EFAULT ? 0 : 1);
+	}
+}
+
+static void *
+sandbox_seccomp_filter_init(void)
 {
 	struct ssh_sandbox *box;
 
@@ -143,7 +171,8 @@ extern struct monitor *pmonitor;
 void mm_log_handler(LogLevel level, const char *msg, void *ctx);
 
 static void
-ssh_sandbox_violation(int signum, siginfo_t *info, void *void_context)
+sandbox_seccomp_filter_violation(int signum, siginfo_t *info,
+    void *void_context)
 {
 	char msg[256];
 
@@ -155,7 +184,7 @@ ssh_sandbox_violation(int signum, siginfo_t *info, void *void_context)
 }
 
 static void
-ssh_sandbox_child_debugging(void)
+sandbox_seccomp_filter_child_debugging(void)
 {
 	struct sigaction act;
 	sigset_t mask;
@@ -165,7 +194,7 @@ ssh_sandbox_child_debugging(void)
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGSYS);
 
-	act.sa_sigaction = &ssh_sandbox_violation;
+	act.sa_sigaction = &sandbox_seccomp_filter_violation;
 	act.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGSYS, &act, NULL) == -1)
 		fatal("%s: sigaction(SIGSYS): %s", __func__, strerror(errno));
@@ -175,8 +204,8 @@ ssh_sandbox_child_debugging(void)
 }
 #endif /* SANDBOX_SECCOMP_FILTER_DEBUG */
 
-void
-ssh_sandbox_child(struct ssh_sandbox *box)
+static void
+sandbox_seccomp_filter_child(void *vbox)
 {
 	struct rlimit rl_zero;
 
@@ -193,7 +222,7 @@ ssh_sandbox_child(struct ssh_sandbox *box)
 			__func__, strerror(errno));
 
 #ifdef SANDBOX_SECCOMP_FILTER_DEBUG
-	ssh_sandbox_child_debugging();
+	sandbox_seccomp_filter_child_debugging();
 #endif /* SANDBOX_SECCOMP_FILTER_DEBUG */
 
 	debug3("%s: setting PR_SET_NO_NEW_PRIVS", __func__);
@@ -206,17 +235,39 @@ ssh_sandbox_child(struct ssh_sandbox *box)
 		      __func__, strerror(errno));
 }
 
-void
-ssh_sandbox_parent_finish(struct ssh_sandbox *box)
+static void
+sandbox_seccomp_filter_parent_finish(void *vbox)
 {
-	free(box);
+	free(vbox);
 	debug3("%s: finished", __func__);
 }
 
-void
-ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
+static void
+sandbox_seccomp_filter_parent_preauth(void *vbox, pid_t child_pid)
 {
+	struct ssh_sandbox *box = vbox;
+
 	box->child_pid = child_pid;
 }
+
+Sandbox ssh_sandbox_seccomp_filter = {
+	"seccomp_filter",
+	sandbox_seccomp_filter_probe,
+	sandbox_seccomp_filter_init,
+	sandbox_seccomp_filter_child,
+	sandbox_seccomp_filter_parent_finish,
+	sandbox_seccomp_filter_parent_preauth
+};
+
+#else /* !SANDBOX_SECCOMP_FILTER */
+
+Sandbox ssh_sandbox_seccomp_filter = {
+	"seccomp_filter",
+	NULL,
+	NULL,
+	NULL,
+	NULL,
+	NULL
+};
 
 #endif /* SANDBOX_SECCOMP_FILTER */

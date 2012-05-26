@@ -1365,9 +1365,6 @@
 /* Sandbox using Darwin sandbox_init(3) */
 #undef SANDBOX_DARWIN
 
-/* no privsep sandboxing */
-#undef SANDBOX_NULL
-
 /* Sandbox using setrlimit(2) */
 #undef SANDBOX_RLIMIT
 
