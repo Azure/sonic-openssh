@@ -1,9 +1,9 @@
-openssh (1:6.0p1-2) UNRELEASED; urgency=low
+openssh (1:6.0p1-2) unstable; urgency=low
 
   * Tighten libssl1.0.0 and libcrypto1.0.0-udeb dependencies to the current
     "fix" version at build time (closes: #678661).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 24 Jun 2012 02:41:20 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 24 Jun 2012 12:16:06 +0100
 
 openssh (1:6.0p1-1) unstable; urgency=low
 
