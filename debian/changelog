@@ -2,6 +2,8 @@ openssh (1:6.0p1-3) UNRELEASED; urgency=low
 
   * debconf template translations:
     - Add Indonesian (thanks, Andika Triwidada; closes: #681670).
+  * Call restorecon on copied ~/.ssh/authorized_keys if possible, since some
+    SELinux policies require this (closes: #658675).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 16 Jul 2012 11:43:15 +0100
 

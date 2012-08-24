@@ -3,6 +3,7 @@ gssapi.patch
 
 # SELinux
 selinux-role.patch
+copy-id-restorecon.patch
 
 # Key blacklisting
 ssh-vulnkey.patch
