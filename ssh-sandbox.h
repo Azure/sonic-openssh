@@ -15,24 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-typedef struct Sandbox Sandbox;
+struct ssh_sandbox;
 
-struct Sandbox {
-	const char	*name;
-	int		(*probe)(void);
-	void		*(*init)(void);
-	void	    	(*child)(void *);
-	void		(*parent_finish)(void *);
-	void	    	(*parent_preauth)(void *, pid_t);
-};
-
-void *ssh_sandbox_init(void);
-void ssh_sandbox_child(void *);
-void ssh_sandbox_parent_finish(void *);
-void ssh_sandbox_parent_preauth(void *, pid_t);
-
-extern Sandbox ssh_sandbox_systrace;
-extern Sandbox ssh_sandbox_darwin;
-extern Sandbox ssh_sandbox_seccomp_filter;
-extern Sandbox ssh_sandbox_rlimit;
-extern Sandbox ssh_sandbox_null;
+struct ssh_sandbox *ssh_sandbox_init(void);
+void ssh_sandbox_child(struct ssh_sandbox *);
+void ssh_sandbox_parent_finish(struct ssh_sandbox *);
+void ssh_sandbox_parent_preauth(struct ssh_sandbox *, pid_t);

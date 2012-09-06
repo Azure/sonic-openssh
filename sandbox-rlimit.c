@@ -17,12 +17,9 @@
 
 #include "includes.h"
 
-#include <sys/types.h>
-
-#include "ssh-sandbox.h"
-
 #ifdef SANDBOX_RLIMIT
 
+#include <sys/types.h>
 #include <sys/param.h>
 #include <sys/time.h>
 #include <sys/resource.h>
@@ -35,6 +32,7 @@
 #include <unistd.h>
 
 #include "log.h"
+#include "ssh-sandbox.h"
 #include "xmalloc.h"
 
 /* Minimal sandbox that sets zero nfiles, nprocs and filesize rlimits */
@@ -43,14 +41,8 @@ struct ssh_sandbox {
 	pid_t child_pid;
 };
 
-static int
-sandbox_rlimit_probe(void)
-{
-	return 1;
-}
-
-static void *
-sandbox_rlimit_init(void)
+struct ssh_sandbox *
+ssh_sandbox_init(void)
 {
 	struct ssh_sandbox *box;
 
@@ -65,16 +57,18 @@ sandbox_rlimit_init(void)
 	return box;
 }
 
-static void
-sandbox_rlimit_child(void *vbox)
+void
+ssh_sandbox_child(struct ssh_sandbox *box)
 {
 	struct rlimit rl_zero;
 
 	rl_zero.rlim_cur = rl_zero.rlim_max = 0;
 
+#ifndef SANDBOX_SKIP_RLIMIT_FSIZE
 	if (setrlimit(RLIMIT_FSIZE, &rl_zero) == -1)
 		fatal("%s: setrlimit(RLIMIT_FSIZE, { 0, 0 }): %s",
 			__func__, strerror(errno));
+#endif
 	if (setrlimit(RLIMIT_NOFILE, &rl_zero) == -1)
 		fatal("%s: setrlimit(RLIMIT_NOFILE, { 0, 0 }): %s",
 			__func__, strerror(errno));
@@ -85,39 +79,17 @@ sandbox_rlimit_child(void *vbox)
 #endif
 }
 
-static void
-sandbox_rlimit_parent_finish(void *vbox)
+void
+ssh_sandbox_parent_finish(struct ssh_sandbox *box)
 {
-	free(vbox);
+	free(box);
 	debug3("%s: finished", __func__);
 }
 
-static void
-sandbox_rlimit_parent_preauth(void *vbox, pid_t child_pid)
+void
+ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
 {
-	struct ssh_sandbox *box = vbox;
-
 	box->child_pid = child_pid;
 }
-
-Sandbox ssh_sandbox_rlimit = {
-	"rlimit",
-	sandbox_rlimit_probe,
-	sandbox_rlimit_init,
-	sandbox_rlimit_child,
-	sandbox_rlimit_parent_finish,
-	sandbox_rlimit_parent_preauth
-};
-
-#else /* !SANDBOX_RLIMIT */
-
-Sandbox ssh_sandbox_rlimit = {
-	"rlimit",
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
-};
 
 #endif /* SANDBOX_RLIMIT */

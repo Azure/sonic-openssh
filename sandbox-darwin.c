@@ -16,11 +16,9 @@
 
 #include "includes.h"
 
-#include <sys/types.h>
-
-#include "ssh-sandbox.h"
-
 #ifdef SANDBOX_DARWIN
+
+#include <sys/types.h>
 
 #include <sandbox.h>
 
@@ -32,6 +30,7 @@
 #include <unistd.h>
 
 #include "log.h"
+#include "sandbox.h"
 #include "xmalloc.h"
 
 /* Darwin/OS X sandbox */
@@ -40,14 +39,8 @@ struct ssh_sandbox {
 	pid_t child_pid;
 };
 
-static int
-sandbox_darwin_probe(void)
-{
-	return 1;
-}
-
-static void *
-sandbox_darwin_init(void)
+struct ssh_sandbox *
+ssh_sandbox_init(void)
 {
 	struct ssh_sandbox *box;
 
@@ -62,10 +55,9 @@ sandbox_darwin_init(void)
 	return box;
 }
 
-static void
-sandbox_darwin_child(void *vbox)
+void
+ssh_sandbox_child(struct ssh_sandbox *box)
 {
-	struct ssh_sandbox *box = vbox;
 	char *errmsg;
 	struct rlimit rl_zero;
 
@@ -90,39 +82,17 @@ sandbox_darwin_child(void *vbox)
 			__func__, strerror(errno));
 }
 
-static void
-sandbox_darwin_parent_finish(void *vbox)
+void
+ssh_sandbox_parent_finish(struct ssh_sandbox *box)
 {
-	free(vbox);
+	free(box);
 	debug3("%s: finished", __func__);
 }
 
-static void
-sandbox_darwin_parent_preauth(void *box, pid_t child_pid)
+void
+ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
 {
-	struct ssh_sandbox *box = vbox;
-
 	box->child_pid = child_pid;
 }
-
-Sandbox ssh_sandbox_darwin = {
-	"darwin",
-	sandbox_darwin_probe,
-	sandbox_darwin_init,
-	sandbox_darwin_child,
-	sandbox_darwin_parent_finish,
-	sandbox_darwin_parent_preauth
-};
-
-#else /* !SANDBOX_DARWIN */
-
-Sandbox ssh_sandbox_darwin = {
-	"darwin",
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
-};
 
 #endif /* SANDBOX_DARWIN */

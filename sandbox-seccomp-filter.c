@@ -35,15 +35,11 @@
 
 #include "includes.h"
 
-#include <sys/types.h>
-
-#include "ssh-sandbox.h"
-
 #ifdef SANDBOX_SECCOMP_FILTER
 
+#include <sys/types.h>
 #include <sys/resource.h>
 #include <sys/prctl.h>
-#include <sys/wait.h>
 
 #include <linux/audit.h>
 #include <linux/filter.h>
@@ -61,6 +57,7 @@
 #include <unistd.h>
 
 #include "log.h"
+#include "ssh-sandbox.h"
 #include "xmalloc.h"
 
 /* Linux seccomp_filter sandbox */
@@ -125,33 +122,8 @@ struct ssh_sandbox {
 	pid_t child_pid;
 };
 
-static int
-sandbox_seccomp_filter_probe(void)
-{
-	int status;
-	pid_t pid;
-
-	pid = fork();
-	if (pid == -1) {
-		fatal("fork of seccomp_filter probe child failed");
-	} else if (pid != 0) {
-		/* parent */
-		while (waitpid(pid, &status, 0) < 0) {
-			if (errno == EINTR)
-				continue;
-			fatal("%s: waitpid: %s", __func__, strerror(errno));
-		}
-		return (WIFEXITED(status) && WEXITSTATUS(status) == 0);
-	} else {
-		/* child */
-		errno = 0;
-		prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, NULL, 0, 0);
-		_exit(errno == EFAULT ? 0 : 1);
-	}
-}
-
-static void *
-sandbox_seccomp_filter_init(void)
+struct ssh_sandbox *
+ssh_sandbox_init(void)
 {
 	struct ssh_sandbox *box;
 
@@ -171,8 +143,7 @@ extern struct monitor *pmonitor;
 void mm_log_handler(LogLevel level, const char *msg, void *ctx);
 
 static void
-sandbox_seccomp_filter_violation(int signum, siginfo_t *info,
-    void *void_context)
+ssh_sandbox_violation(int signum, siginfo_t *info, void *void_context)
 {
 	char msg[256];
 
@@ -184,7 +155,7 @@ sandbox_seccomp_filter_violation(int signum, siginfo_t *info,
 }
 
 static void
-sandbox_seccomp_filter_child_debugging(void)
+ssh_sandbox_child_debugging(void)
 {
 	struct sigaction act;
 	sigset_t mask;
@@ -194,7 +165,7 @@ sandbox_seccomp_filter_child_debugging(void)
 	sigemptyset(&mask);
 	sigaddset(&mask, SIGSYS);
 
-	act.sa_sigaction = &sandbox_seccomp_filter_violation;
+	act.sa_sigaction = &ssh_sandbox_violation;
 	act.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGSYS, &act, NULL) == -1)
 		fatal("%s: sigaction(SIGSYS): %s", __func__, strerror(errno));
@@ -204,10 +175,11 @@ sandbox_seccomp_filter_child_debugging(void)
 }
 #endif /* SANDBOX_SECCOMP_FILTER_DEBUG */
 
-static void
-sandbox_seccomp_filter_child(void *vbox)
+void
+ssh_sandbox_child(struct ssh_sandbox *box)
 {
 	struct rlimit rl_zero;
+	int nnp_failed = 0;
 
 	/* Set rlimits for completeness if possible. */
 	rl_zero.rlim_cur = rl_zero.rlim_max = 0;
@@ -222,52 +194,35 @@ sandbox_seccomp_filter_child(void *vbox)
 			__func__, strerror(errno));
 
 #ifdef SANDBOX_SECCOMP_FILTER_DEBUG
-	sandbox_seccomp_filter_child_debugging();
+	ssh_sandbox_child_debugging();
 #endif /* SANDBOX_SECCOMP_FILTER_DEBUG */
 
 	debug3("%s: setting PR_SET_NO_NEW_PRIVS", __func__);
-	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1)
-		fatal("%s: prctl(PR_SET_NO_NEW_PRIVS): %s",
+	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) == -1) {
+		debug("%s: prctl(PR_SET_NO_NEW_PRIVS): %s",
 		      __func__, strerror(errno));
+		nnp_failed = 1;
+	}
 	debug3("%s: attaching seccomp filter program", __func__);
 	if (prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &preauth_program) == -1)
-		fatal("%s: prctl(PR_SET_SECCOMP): %s",
+		debug("%s: prctl(PR_SET_SECCOMP): %s",
 		      __func__, strerror(errno));
+	else if (nnp_failed)
+		fatal("%s: SECCOMP_MODE_FILTER activated but "
+		    "PR_SET_NO_NEW_PRIVS failed", __func__);
 }
 
-static void
-sandbox_seccomp_filter_parent_finish(void *vbox)
+void
+ssh_sandbox_parent_finish(struct ssh_sandbox *box)
 {
-	free(vbox);
+	free(box);
 	debug3("%s: finished", __func__);
 }
 
-static void
-sandbox_seccomp_filter_parent_preauth(void *vbox, pid_t child_pid)
+void
+ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
 {
-	struct ssh_sandbox *box = vbox;
-
 	box->child_pid = child_pid;
 }
-
-Sandbox ssh_sandbox_seccomp_filter = {
-	"seccomp_filter",
-	sandbox_seccomp_filter_probe,
-	sandbox_seccomp_filter_init,
-	sandbox_seccomp_filter_child,
-	sandbox_seccomp_filter_parent_finish,
-	sandbox_seccomp_filter_parent_preauth
-};
-
-#else /* !SANDBOX_SECCOMP_FILTER */
-
-Sandbox ssh_sandbox_seccomp_filter = {
-	"seccomp_filter",
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
-};
 
 #endif /* SANDBOX_SECCOMP_FILTER */

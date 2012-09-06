@@ -17,6 +17,8 @@
 
 #include "includes.h"
 
+#ifdef SANDBOX_NULL
+
 #include <sys/types.h>
 
 #include <errno.h>
@@ -36,14 +38,8 @@ struct ssh_sandbox {
 	int junk;
 };
 
-static int
-sandbox_null_probe(void)
-{
-	return 1;
-}
-
-static void *
-sandbox_null_init(void)
+struct ssh_sandbox *
+ssh_sandbox_init(void)
 {
 	struct ssh_sandbox *box;
 
@@ -55,29 +51,22 @@ sandbox_null_init(void)
 	return box;
 }
 
-static void
-sandbox_null_child(void *vbox)
+void
+ssh_sandbox_child(struct ssh_sandbox *box)
 {
 	/* Nothing to do here */
 }
 
-static void
-sandbox_null_parent_finish(void *vbox)
+void
+ssh_sandbox_parent_finish(struct ssh_sandbox *box)
 {
-	free(vbox);
+	free(box);
 }
 
-static void
-sandbox_null_parent_preauth(void *box, pid_t child_pid)
+void
+ssh_sandbox_parent_preauth(struct ssh_sandbox *box, pid_t child_pid)
 {
 	/* Nothing to do here */
 }
 
-Sandbox ssh_sandbox_null = {
-	"null",
-	sandbox_null_probe,
-	sandbox_null_init,
-	sandbox_null_child,
-	sandbox_null_parent_finish,
-	sandbox_null_parent_preauth
-};
+#endif /* SANDBOX_NULL */

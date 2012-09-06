@@ -1,4 +1,4 @@
-# $Id: configure.ac,v 1.489 2012/04/19 11:46:38 djm Exp $
+# $Id: configure.ac,v 1.496 2012/07/06 01:49:29 djm Exp $
 #
 # Copyright (c) 1999-2004 Damien Miller
 #
@@ -15,7 +15,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 AC_INIT([OpenSSH], [Portable], [openssh-unix-dev@mindrot.org])
-AC_REVISION($Revision: 1.489 $)
+AC_REVISION($Revision: 1.496 $)
 AC_CONFIG_SRCDIR([ssh.c])
 AC_LANG([C])
 
@@ -125,6 +125,25 @@ AC_CHECK_DECL([SECCOMP_MODE_FILTER], [have_seccomp_filter=1], , [
 	#include <sys/types.h>
 	#include <linux/seccomp.h>
 ])
+fi
+if test "x$have_seccomp_filter" = "x1" ; then
+AC_MSG_CHECKING([kernel for seccomp_filter support])
+AC_RUN_IFELSE([AC_LANG_PROGRAM([[
+		#include <errno.h>
+		#include <linux/seccomp.h>
+		#include <stdlib.h>
+		#include <sys/prctl.h>
+	]],
+	[[ errno = 0;
+	   prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, NULL, 0, 0);
+	   exit(errno == EFAULT ? 0 : 1); ]])],
+	[ AC_MSG_RESULT([yes]) ], [
+		AC_MSG_RESULT([no])
+		# Disable seccomp filter as a target
+		have_seccomp_filter=0
+	],
+	[ AC_MSG_RESULT([cross-compiling, assuming yes]) ]
+)
 fi
 
 use_stack_protector=1
@@ -691,7 +710,8 @@ main() { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
 		AC_DEFINE([SSH_TUN_PREPEND_AF], [1],
 		    [Prepend the address family to IP tunnel traffic])
 	fi
-	AC_CHECK_HEADERS([linux/seccomp.h linux/filter.h linux/audit.h])
+	AC_CHECK_HEADERS([linux/seccomp.h linux/filter.h linux/audit.h], [],
+	    [], [#include <linux/types.h>])
 	AC_CHECK_FUNCS([prctl])
 	have_seccomp_audit_arch=1
 	case "$host" in
@@ -1575,6 +1595,7 @@ AC_CHECK_FUNCS([ \
 	seteuid \
 	setgroupent \
 	setgroups \
+	setlinebuf \
 	setlogin \
 	setpassent\
 	setpcred \
@@ -2580,24 +2601,79 @@ AC_ARG_WITH([sandbox],
 		fi
 	]
 )
-SANDBOX_STYLE=""
+
+# Some platforms (seems to be the ones that have a kernel poll(2)-type
+# function with which they implement select(2)) use an extra file descriptor
+# when calling select(2), which means we can't use the rlimit sandbox.
+AC_MSG_CHECKING([if select works with descriptor rlimit])
+AC_RUN_IFELSE(
+	[AC_LANG_PROGRAM([[
+#include <sys/types.h>
+#ifdef HAVE_SYS_TIME_H
+# include <sys/time.h>
+#endif
+#include <sys/resource.h>
+#ifdef HAVE_SYS_SELECT_H
+# include <sys/select.h>
+#endif
+#include <errno.h>
+#include <fcntl.h>
+#include <stdlib.h>
+	]],[[
+	struct rlimit rl_zero;
+	int fd, r;
+	fd_set fds;
+
+	fd = open("/dev/null", O_RDONLY);
+	FD_ZERO(&fds);
+	FD_SET(fd, &fds);
+	rl_zero.rlim_cur = rl_zero.rlim_max = 0;
+	setrlimit(RLIMIT_FSIZE, &rl_zero);
+	setrlimit(RLIMIT_NOFILE, &rl_zero);
+	r = select(fd+1, &fds, NULL, NULL, NULL);
+	exit (r == -1 ? 1 : 0);
+	]])],
+	[AC_MSG_RESULT([yes])
+	 select_works_with_rlimit=yes],
+	[AC_MSG_RESULT([no])
+	 select_works_with_rlimit=no],
+	[AC_MSG_WARN([cross compiling: assuming yes])]
+)
+
+AC_MSG_CHECKING([if setrlimit RLIMIT_FSIZE works])
+AC_RUN_IFELSE(
+	[AC_LANG_PROGRAM([[
+#include <sys/types.h>
+#include <sys/resource.h>
+#include <stdlib.h>
+	]],[[
+		struct rlimit rl_zero;
+
+		rl_zero.rlim_cur = rl_zero.rlim_max = 0;
+		exit(setrlimit(RLIMIT_FSIZE, &rl_zero) != 0);
+	]])],
+	[AC_MSG_RESULT([yes])],
+	[AC_MSG_RESULT([no])
+	 AC_DEFINE(SANDBOX_SKIP_RLIMIT_FSIZE, 1,
+	    [setrlimit RLIMIT_FSIZE works])],
+	[AC_MSG_WARN([cross compiling: assuming yes])]
+)
+
 if test "x$sandbox_arg" = "xsystrace" || \
    ( test -z "$sandbox_arg" && test "x$have_systr_policy_kill" = "x1" ) ; then
 	test "x$have_systr_policy_kill" != "x1" && \
 		AC_MSG_ERROR([systrace sandbox requires systrace headers and SYSTR_POLICY_KILL support])
-	SANDBOX_STYLE="$SANDBOX_STYLE systrace"
+	SANDBOX_STYLE="systrace"
 	AC_DEFINE([SANDBOX_SYSTRACE], [1], [Sandbox using systrace(4)])
-fi
-if test "x$sandbox_arg" = "xdarwin" || \
+elif test "x$sandbox_arg" = "xdarwin" || \
      ( test -z "$sandbox_arg" && test "x$ac_cv_func_sandbox_init" = "xyes" && \
        test "x$ac_cv_header_sandbox_h" = "xyes") ; then
 	test "x$ac_cv_func_sandbox_init" != "xyes" -o \
 	     "x$ac_cv_header_sandbox_h" != "xyes" && \
 		AC_MSG_ERROR([Darwin seatbelt sandbox requires sandbox.h and sandbox_init function])
-	SANDBOX_STYLE="$SANDBOX_STYLE darwin"
+	SANDBOX_STYLE="darwin"
 	AC_DEFINE([SANDBOX_DARWIN], [1], [Sandbox using Darwin sandbox_init(3)])
-fi
-if test "x$sandbox_arg" = "xseccomp_filter" || \
+elif test "x$sandbox_arg" = "xseccomp_filter" || \
      ( test -z "$sandbox_arg" && \
        test "x$have_seccomp_filter" = "x1" && \
        test "x$ac_cv_header_linux_audit_h" = "xyes" && \
@@ -2612,24 +2688,24 @@ if test "x$sandbox_arg" = "xseccomp_filter" || \
 		AC_MSG_ERROR([seccomp_filter sandbox requires seccomp headers])
 	test "x$ac_cv_func_prctl" != "xyes" && \
 		AC_MSG_ERROR([seccomp_filter sandbox requires prctl function])
-	SANDBOX_STYLE="$SANDBOX_STYLE seccomp_filter"
+	SANDBOX_STYLE="seccomp_filter"
 	AC_DEFINE([SANDBOX_SECCOMP_FILTER], [1], [Sandbox using seccomp filter])
-fi
-if test "x$sandbox_arg" = "xrlimit" || \
-     ( test -z "$sandbox_arg" && test "x$ac_cv_func_setrlimit" = "xyes" ) ; then
+elif test "x$sandbox_arg" = "xrlimit" || \
+     ( test -z "$sandbox_arg" && test "x$ac_cv_func_setrlimit" = "xyes" && \
+       test "x$select_works_with_rlimit" == "xyes" ) ; then
 	test "x$ac_cv_func_setrlimit" != "xyes" && \
 		AC_MSG_ERROR([rlimit sandbox requires setrlimit function])
-	SANDBOX_STYLE="$SANDBOX_STYLE rlimit"
+	test "x$select_works_with_rlimit" != "xyes" && \
+		AC_MSG_ERROR([rlimit sandbox requires select to work with rlimit])
+	SANDBOX_STYLE="rlimit"
 	AC_DEFINE([SANDBOX_RLIMIT], [1], [Sandbox using setrlimit(2)])
-fi
-if test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
+elif test -z "$sandbox_arg" || test "x$sandbox_arg" = "xno" || \
      test "x$sandbox_arg" = "xnone" || test "x$sandbox_arg" = "xnull" ; then
-	SANDBOX_STYLE="$SANDBOX_STYLE none"
-fi
-if test -z "$SANDBOX_STYLE" ; then
+	SANDBOX_STYLE="none"
+	AC_DEFINE([SANDBOX_NULL], [1], [no privsep sandboxing])
+else
 	AC_MSG_ERROR([unsupported --with-sandbox])
 fi
-SANDBOX_STYLE="${SANDBOX_STYLE# }"
 
 # Cheap hack to ensure NEWS-OS libraries are arranged right.
 if test ! -z "$SONY" ; then
@@ -3245,7 +3321,7 @@ fi
 
 AC_MSG_CHECKING([if struct statvfs.f_fsid is integral type])
 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
-#include <sys/types.h>
+#include <sys/param.h>
 #include <sys/stat.h>
 #ifdef HAVE_SYS_TIME_H
 # include <sys/time.h>
@@ -3953,13 +4029,16 @@ otherwise scp will not work.])
 		[ user_path="/usr/bin:/bin:/usr/sbin:/sbin" ]
 	)
 # make sure $bindir is in USER_PATH so scp will work
-		t_bindir=`eval echo ${bindir}`
-		case $t_bindir in
-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$prefix~"` ;;
-		esac
-		case $t_bindir in
-			NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$ac_default_prefix~"` ;;
-		esac
+		t_bindir="${bindir}"
+		while echo "${t_bindir}" | egrep '\$\{|NONE/' >/dev/null 2>&1; do
+			t_bindir=`eval echo ${t_bindir}`
+			case $t_bindir in
+				NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$prefix~"` ;;
+			esac
+			case $t_bindir in
+				NONE/*) t_bindir=`echo $t_bindir | sed "s~NONE~$ac_default_prefix~"` ;;
+			esac
+		done
 		echo $user_path | grep ":$t_bindir"  > /dev/null 2>&1
 		if test $? -ne 0  ; then
 			echo $user_path | grep "^$t_bindir"  > /dev/null 2>&1

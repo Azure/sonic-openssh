@@ -38,9 +38,6 @@ doc-hash-tab-completion.patch
 
 # Miscellaneous bug fixes
 auth-log-verbosity.patch
-cross-pkg-config.patch
-configure-bashism.patch
-sandbox-fallback.patch
 
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch

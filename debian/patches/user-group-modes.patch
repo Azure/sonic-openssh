@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1343,6 +1343,8 @@
+@@ -1342,6 +1342,8 @@
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -64,7 +64,7 @@ Index: b/auth.c
 ===================================================================
 --- a/auth.c
 +++ b/auth.c
-@@ -380,8 +380,7 @@
+@@ -381,8 +381,7 @@
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -74,7 +74,7 @@ Index: b/auth.c
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -442,8 +441,7 @@
+@@ -443,8 +442,7 @@
  
  	/* check the open file to avoid races */
  	if (fstat(fileno(f), &st) < 0 ||
@@ -84,7 +84,7 @@ Index: b/auth.c
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -458,8 +456,7 @@
+@@ -459,8 +457,7 @@
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) < 0 ||

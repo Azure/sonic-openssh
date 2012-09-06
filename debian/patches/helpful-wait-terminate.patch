@@ -7,7 +7,7 @@ Index: b/serverloop.c
 ===================================================================
 --- a/serverloop.c
 +++ b/serverloop.c
-@@ -680,7 +680,7 @@
+@@ -686,7 +686,7 @@
  			if (!channel_still_open())
  				break;
  			if (!waiting_termination) {

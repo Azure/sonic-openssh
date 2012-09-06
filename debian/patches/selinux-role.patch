@@ -108,7 +108,7 @@ Index: b/monitor.c
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -811,6 +813,7 @@
+@@ -808,6 +810,7 @@
  	else {
  		/* Allow service/style information on the auth context */
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -116,7 +116,7 @@ Index: b/monitor.c
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  	}
  #ifdef USE_PAM
-@@ -843,14 +846,37 @@
+@@ -840,14 +843,37 @@
  
  	authctxt->service = buffer_get_string(m, NULL);
  	authctxt->style = buffer_get_string(m, NULL);
@@ -156,7 +156,7 @@ Index: b/monitor.c
  	return (0);
  }
  
-@@ -1438,7 +1464,7 @@
+@@ -1435,7 +1461,7 @@
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -436,7 +436,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -734,7 +734,7 @@
+@@ -736,7 +736,7 @@
  	RAND_seed(rnd, sizeof(rnd));
  
  	/* Drop privileges */

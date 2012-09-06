@@ -130,7 +130,7 @@ Index: b/auth.c
  #include "auth.h"
  #include "auth-options.h"
  #include "canohost.h"
-@@ -606,10 +607,34 @@
+@@ -608,10 +609,34 @@
  
  /* Returns 1 if key is revoked by revoked_keys_file, 0 otherwise */
  int
@@ -462,7 +462,7 @@ Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -104,6 +104,7 @@
+@@ -107,6 +107,7 @@
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->challenge_response_authentication = -1;
@@ -470,7 +470,7 @@ Index: b/servconf.c
  	options->permit_empty_passwd = -1;
  	options->permit_user_env = -1;
  	options->use_login = -1;
-@@ -242,6 +243,8 @@
+@@ -246,6 +247,8 @@
  		options->kbd_interactive_authentication = 0;
  	if (options->challenge_response_authentication == -1)
  		options->challenge_response_authentication = 1;
@@ -479,7 +479,7 @@ Index: b/servconf.c
  	if (options->permit_empty_passwd == -1)
  		options->permit_empty_passwd = 0;
  	if (options->permit_user_env == -1)
-@@ -318,7 +321,7 @@
+@@ -323,7 +326,7 @@
  	sListenAddress, sAddressFamily,
  	sPrintMotd, sPrintLastLog, sIgnoreRhosts,
  	sX11Forwarding, sX11DisplayOffset, sX11UseLocalhost,
@@ -488,7 +488,7 @@ Index: b/servconf.c
  	sPermitUserEnvironment, sUseLogin, sAllowTcpForwarding, sCompression,
  	sAllowUsers, sDenyUsers, sAllowGroups, sDenyGroups,
  	sIgnoreUserKnownHosts, sCiphers, sMacs, sProtocol, sPidFile,
-@@ -428,6 +431,7 @@
+@@ -433,6 +436,7 @@
  	{ "x11uselocalhost", sX11UseLocalhost, SSHCFG_ALL },
  	{ "xauthlocation", sXAuthLocation, SSHCFG_GLOBAL },
  	{ "strictmodes", sStrictModes, SSHCFG_GLOBAL },
@@ -496,7 +496,7 @@ Index: b/servconf.c
  	{ "permitemptypasswords", sEmptyPasswd, SSHCFG_ALL },
  	{ "permituserenvironment", sPermitUserEnvironment, SSHCFG_GLOBAL },
  	{ "uselogin", sUseLogin, SSHCFG_GLOBAL },
-@@ -1047,6 +1051,10 @@
+@@ -1116,6 +1120,10 @@
  		intptr = &options->tcp_keep_alive;
  		goto parse_flag;
  
@@ -507,7 +507,7 @@ Index: b/servconf.c
  	case sEmptyPasswd:
  		intptr = &options->permit_empty_passwd;
  		goto parse_flag;
-@@ -1773,6 +1781,7 @@
+@@ -1921,6 +1929,7 @@
  	dump_cfg_fmtint(sX11UseLocalhost, o->x11_use_localhost);
  	dump_cfg_fmtint(sStrictModes, o->strict_modes);
  	dump_cfg_fmtint(sTCPKeepAlive, o->tcp_keep_alive);
@@ -582,7 +582,7 @@ Index: b/ssh-keygen.1
 ===================================================================
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -679,6 +679,7 @@
+@@ -691,6 +691,7 @@
  .Xr ssh 1 ,
  .Xr ssh-add 1 ,
  .Xr ssh-agent 1 ,
@@ -1245,7 +1245,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1492,7 +1492,7 @@
+@@ -1495,7 +1495,7 @@
  static void
  load_public_identity_files(void)
  {
@@ -1254,7 +1254,7 @@ Index: b/ssh.c
  	char *pwdir = NULL, *pwname = NULL;
  	int i = 0;
  	Key *public;
-@@ -1549,6 +1549,22 @@
+@@ -1552,6 +1552,22 @@
  		public = key_load_public(filename, NULL);
  		debug("identity file %s type %d", filename,
  		    public ? public->type : -1);
@@ -1281,7 +1281,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1188,6 +1188,23 @@
+@@ -1187,6 +1187,23 @@
  .Dq any .
  The default is
  .Dq any:any .
@@ -1331,7 +1331,7 @@ Index: b/sshd.8
 ===================================================================
 --- a/sshd.8
 +++ b/sshd.8
-@@ -951,6 +951,7 @@
+@@ -953,6 +953,7 @@
  .Xr ssh-agent 1 ,
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
@@ -1343,7 +1343,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -1602,6 +1602,11 @@
+@@ -1593,6 +1593,11 @@
  			sensitive_data.host_keys[i] = NULL;
  			continue;
  		}
@@ -1359,7 +1359,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -795,6 +795,20 @@
+@@ -803,6 +803,20 @@
  Specifies whether password authentication is allowed.
  The default is
  .Dq yes .
