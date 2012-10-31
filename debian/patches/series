@@ -17,6 +17,9 @@ syslog-level-silent.patch
 quieter-signals.patch
 helpful-wait-terminate.patch
 
+# ConsoleKit
+consolekit.patch
+
 # Miscellaneous bug fixes
 user-group-modes.patch
 scp-quoting.patch

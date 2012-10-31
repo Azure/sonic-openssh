@@ -9,7 +9,7 @@ Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -283,9 +283,9 @@
+@@ -284,9 +284,9 @@
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
  	$(INSTALL) -m 644 ssh-vulnkey.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-vulnkey.1
  	-rm -f $(DESTDIR)$(bindir)/slogin
