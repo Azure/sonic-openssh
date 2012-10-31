@@ -4,6 +4,9 @@ openssh (1:6.1p1-2) UNRELEASED; urgency=low
   * Merge from Ubuntu:
     - Add support for registering ConsoleKit sessions on login.  (This is
       currently enabled only when building for Ubuntu.)
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.  It's
+      been long enough since the relevant vulnerability that we shouldn't
+      need these installed by default nowadays.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 28 Sep 2012 17:54:42 +0100
 
