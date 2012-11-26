@@ -1,0 +1,21 @@
+Description: Refer to ssh's Upstart job as well as its init script
+Author: Colin Watson <cjwatson@ubuntu.com>
+Forwarded: not-needed
+Last-Update: 2012-11-26
+
+Index: b/sshd.8
+===================================================================
+--- a/sshd.8
++++ b/sshd.8
+@@ -69,7 +69,10 @@
+ .Nm
+ listens for connections from clients.
+ It is normally started at boot from
+-.Pa /etc/init.d/ssh .
++.Pa /etc/init.d/ssh
++(or
++.Pa /etc/init/ssh.conf
++on systems using the Upstart init daemon).
+ It forks a new
+ daemon for each incoming connection.
+ The forked daemons handle
