@@ -84,7 +84,7 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 endif
-ifeq (yes,$(shell dpkg-vendor --derives-from Ubuntu && echo yes))
+ifeq ($(DISTRIBUTOR),Ubuntu)
 confflags += --with-consolekit
 endif
 
