@@ -17,13 +17,24 @@ set -e
 
 case "$1" in
     remove|deconfigure)
-	if [ -x /etc/init.d/ssh ]; then
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh stop
-		else
-			/etc/init.d/ssh stop
+	case '@DISTRIBUTOR@' in
+	    Ubuntu)
+		# Both init script and Upstart job are present; we want to
+		# operate on the Upstart job.
+		if [ -e /etc/init/ssh.conf ]; then
+			stop ssh || true
 		fi
-	fi
+		;;
+	    *)
+		if [ -x /etc/init.d/ssh ]; then
+			if [ -x /usr/sbin/invoke-rc.d ]; then
+				invoke-rc.d ssh stop
+			else
+				/etc/init.d/ssh stop
+			fi
+		fi
+		;;
+	esac
 	;;
     upgrade)
 	# remove symlink on downgrade to when it was a directory

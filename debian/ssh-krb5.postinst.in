@@ -58,13 +58,25 @@ GSSAPIKeyExchange yes
 EOF
             fi
         fi
-        if [ -n "$changed" ] && [ -x /etc/init.d/ssh ] ; then
-            if [ -x /usr/sbin/invoke-rc.d ] ; then
-                invoke-rc.d ssh restart
-            else
-                /etc/init.d/ssh restart
-            fi
-        fi
+        case '@DISTRIBUTOR@' in
+            Ubuntu)
+                # Both init script and Upstart job are present; we want to
+                # operate on the Upstart job.
+                if [ -n "$changed" ] && [ -e /etc/init/ssh.conf ] ; then
+                    stop ssh || true
+                    start ssh || true
+                fi
+                ;;
+            *)
+                if [ -n "$changed" ] && [ -x /etc/init.d/ssh ] ; then
+                    if [ -x /usr/sbin/invoke-rc.d ] ; then
+                        invoke-rc.d ssh restart
+                    else
+                        /etc/init.d/ssh restart
+                    fi
+                fi
+                ;;
+        esac
     fi
 fi
 

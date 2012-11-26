@@ -417,14 +417,27 @@ remove_old_init_links() {
 }
 
 setup_init() {
-	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh start 16 2 3 4 5 . >/dev/null
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh restart
-		else
-			/etc/init.d/ssh restart
+	case '@DISTRIBUTOR@' in
+	    Ubuntu)
+		# Both init script and Upstart job are present; we want to
+		# operate on the Upstart job.
+		if [ -e /etc/init/ssh.conf ]; then
+			stop ssh 2>/dev/null || true
+			start ssh || true
 		fi
-	fi
+		update-rc.d -f ssh remove >/dev/null || true
+		;;
+	    *)
+		if [ -x /etc/init.d/ssh ]; then
+			update-rc.d ssh start 16 2 3 4 5 . >/dev/null
+			if [ -x /usr/sbin/invoke-rc.d ]; then
+				invoke-rc.d ssh restart
+			else
+				/etc/init.d/ssh restart
+			fi
+		fi
+		;;
+	esac
 }
 
 commit_transfer_conffile () {

@@ -16,6 +16,15 @@ set -e
 test -x /usr/sbin/sshd || exit 0
 ( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
 
+case '@DISTRIBUTOR@' in
+    Ubuntu)
+	# The init.d script is only for chroots.
+	if [ -e /etc/init/ssh.conf ] && ! ischroot; then
+	    exec /lib/init/upstart-job ssh "$@"
+	fi
+	;;
+esac
+
 umask 022
 
 if test -f /etc/default/ssh; then
