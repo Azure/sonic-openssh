@@ -8,6 +8,7 @@ openssh (1:6.1p1-2) UNRELEASED; urgency=low
       been long enough since the relevant vulnerability that we shouldn't
       need these installed by default nowadays.
     - Add an Upstart job (not currently used by default in Debian).
+    - Add mention of ssh-keygen in ssh connect warning (Scott Moser).
   * Only build with -j if DEB_BUILD_OPTIONS=parallel=* is used (closes:
     #694282).
 
