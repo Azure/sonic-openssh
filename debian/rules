@@ -182,6 +182,11 @@ override_dh_install: $(DISTRIBUTOR_REPLACE)
 		debian/openssh-client/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
 
+	# dh_apport would be neater, but at the time of writing it isn't in
+	# unstable yet.
+	install -p -m 644 debian/openssh-client.apport debian/openssh-client/usr/share/apport/package-hooks/openssh-client.py
+	install -p -m 644 debian/openssh-server.apport debian/openssh-server/usr/share/apport/package-hooks/openssh-server.py
+
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nssh
 	dh_installdocs -popenssh-server -pssh --link-doc=openssh-client
