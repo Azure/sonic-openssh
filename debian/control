@@ -75,7 +75,7 @@ Description: secure shell (SSH) server, for secure access from remote machines
 Package: ssh
 Priority: extra
 Architecture: all
-Depends: ${misc:Depends}, openssh-client, openssh-server
+Depends: ${misc:Depends}, openssh-client (>= ${binary:Version}), openssh-server (>= ${binary:Version})
 Description: secure shell client and server (metapackage)
  This metapackage is a convenient way to install both the OpenSSH client
  and the OpenSSH server. It provides nothing in and of itself, so you
@@ -85,7 +85,7 @@ Package: ssh-krb5
 Section: oldlibs
 Priority: extra
 Architecture: all
-Depends: ${misc:Depends}, openssh-client, openssh-server
+Depends: ${misc:Depends}, openssh-client (>= ${binary:Version}), openssh-server (>= ${binary:Version})
 Description: secure shell client and server (transitional package)
  This is a transitional package depending on the regular Debian OpenSSH
  client and server, which now support GSSAPI natively. It will add the
