@@ -107,7 +107,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
 #ClientAliveCountMax 3
 #UseDNS yes
 #PidFile /var/run/sshd.pid
-#MaxStartups 10
+#MaxStartups 10:30:100
 #PermitTunnel no
 #ChrootDirectory none
 
