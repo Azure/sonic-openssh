@@ -3,6 +3,8 @@ openssh (1:6.1p1-3) UNRELEASED; urgency=low
   * Give ssh and ssh-krb5 versioned dependencies on openssh-client and
     openssh-server, to try to reduce confusion when people run 'apt-get
     install ssh' or similar and expect that to upgrade everything relevant.
+  * CVE-2010-5107: Improve DoS resistance by changing default of MaxStartups
+    to 10:30:100 (closes: #700102).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 19 Dec 2012 10:50:33 +0000
 

@@ -265,11 +265,11 @@ fill_default_server_options(ServerOptions *options)
 	if (options->gateway_ports == -1)
 		options->gateway_ports = 0;
 	if (options->max_startups == -1)
-		options->max_startups = 10;
+		options->max_startups = 100;
 	if (options->max_startups_rate == -1)
-		options->max_startups_rate = 100;		/* 100% */
+		options->max_startups_rate = 30;		/* 30% */
 	if (options->max_startups_begin == -1)
-		options->max_startups_begin = options->max_startups;
+		options->max_startups_begin = 10;
 	if (options->max_authtries == -1)
 		options->max_authtries = DEFAULT_AUTH_FAIL_MAX;
 	if (options->max_sessions == -1)

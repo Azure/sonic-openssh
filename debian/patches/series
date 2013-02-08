@@ -27,6 +27,7 @@ shell-path.patch
 dnssec-sshfp.patch
 auth-log-verbosity.patch
 mention-ssh-keygen-on-keychange.patch
+max-startups-default.patch
 
 # Versioning
 package-versioning.patch
