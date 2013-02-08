@@ -1,0 +1,57 @@
+Description: Change default of MaxStartups to 10:30:100
+ This causes sshd to start doing random early drop at 10 connections up to
+ 100 connections.  This will make it harder to DoS as CPUs have come a long
+ way since the original value was set back in 2000.
+Author: Darren Tucker
+Origin: http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/servconf.c?r1=1.234#rev1.234
+Origin: http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/sshd_config.5?r1=1.156#rev1.156
+Origin: http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/sshd_config?r1=1.89#rev1.89
+Bug-Debian: http://bugs.debian.org/700102
+Forwarded: not-needed
+Last-Update: 2013-02-08
+
+Index: b/servconf.c
+===================================================================
+--- a/servconf.c
++++ b/servconf.c
+@@ -249,11 +249,11 @@
+ 	if (options->gateway_ports == -1)
+ 		options->gateway_ports = 0;
+ 	if (options->max_startups == -1)
+-		options->max_startups = 10;
++		options->max_startups = 100;
+ 	if (options->max_startups_rate == -1)
+-		options->max_startups_rate = 100;		/* 100% */
++		options->max_startups_rate = 30;		/* 30% */
+ 	if (options->max_startups_begin == -1)
+-		options->max_startups_begin = options->max_startups;
++		options->max_startups_begin = 10;
+ 	if (options->max_authtries == -1)
+ 		options->max_authtries = DEFAULT_AUTH_FAIL_MAX;
+ 	if (options->max_sessions == -1)
+Index: b/sshd_config
+===================================================================
+--- a/sshd_config
++++ b/sshd_config
+@@ -102,7 +102,7 @@
+ #ClientAliveCountMax 3
+ #UseDNS yes
+ #PidFile /var/run/sshd.pid
+-#MaxStartups 10
++#MaxStartups 10:30:100
+ #PermitTunnel no
+ #ChrootDirectory none
+ 
+Index: b/sshd_config.5
+===================================================================
+--- a/sshd_config.5
++++ b/sshd_config.5
+@@ -672,7 +672,7 @@
+ Additional connections will be dropped until authentication succeeds or the
+ .Cm LoginGraceTime
+ expires for a connection.
+-The default is 10.
++The default is 10:30:100.
+ .Pp
+ Alternatively, random early drop can be enabled by specifying
+ the three colon separated values
