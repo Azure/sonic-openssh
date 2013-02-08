@@ -1,9 +1,9 @@
-openssh (1:5.5p1-6+squeeze3) UNRELEASED; urgency=low
+openssh (1:5.5p1-6+squeeze3) stable; urgency=low
 
   * CVE-2010-5107: Improve DoS resistance by changing default of MaxStartups
     to 10:30:100 (closes: #700102).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 08 Feb 2013 21:36:18 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 08 Feb 2013 21:39:15 +0000
 
 openssh (1:5.5p1-6+squeeze2) stable; urgency=high
 
