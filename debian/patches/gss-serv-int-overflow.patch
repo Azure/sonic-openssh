@@ -1,0 +1,19 @@
+Description: Fix potential int overflow when using gssapi-with-mac auth
+Author: Markus Friedl
+Origin: http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/gss-serv.c?r1=1.23#rev1.23
+Forwarded: not-needed
+Last-Update: 2013-02-03
+
+Index: b/gss-serv.c
+===================================================================
+--- a/gss-serv.c
++++ b/gss-serv.c
+@@ -266,6 +266,8 @@
+ 	name->length = get_u32(tok+offset);
+ 	offset += 4;
+ 
++	if (UINT_MAX - offset < name->length)
++		return GSS_S_FAILURE;
+ 	if (ename->length < offset+name->length)
+ 		return GSS_S_FAILURE;
+ 

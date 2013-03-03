@@ -266,6 +266,8 @@ ssh_gssapi_parse_ename(Gssctxt *ctx, gss_buffer_t ename, gss_buffer_t name)
 	name->length = get_u32(tok+offset);
 	offset += 4;
 
+	if (UINT_MAX - offset < name->length)
+		return GSS_S_FAILURE;
 	if (ename->length < offset+name->length)
 		return GSS_S_FAILURE;
 

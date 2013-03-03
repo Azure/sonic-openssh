@@ -30,6 +30,7 @@ auth-log-verbosity.patch
 # Security fixes
 forced-command-debug-security.patch
 max-startups-default.patch
+gss-serv-int-overflow.patch
 
 # Versioning
 package-versioning.patch
