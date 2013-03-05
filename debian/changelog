@@ -1,9 +1,9 @@
-openssh (1:5.5p1-6+squeeze4) UNRELEASED; urgency=low
+openssh (1:5.5p1-6+squeeze4) stable; urgency=low
 
   * CVE-2011-5000: Fix potential int overflow when using gssapi-with-mac
     authentation.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 03 Mar 2013 13:56:27 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 03 Mar 2013 14:14:03 +0000
 
 openssh (1:5.5p1-6+squeeze3) stable; urgency=low
 
