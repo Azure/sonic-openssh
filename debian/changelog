@@ -1,4 +1,4 @@
-openssh (1:6.1p1-4) UNRELEASED; urgency=low
+openssh (1:6.1p1-4) experimental; urgency=low
 
   [ Gunnar Hjalmarsson ]
   * debian/openssh-server.sshd.pam: Explicitly state that ~/.pam_environment
@@ -10,7 +10,7 @@ openssh (1:6.1p1-4) UNRELEASED; urgency=low
     the 90x11-common_ssh-agent Xsession script.  That is, start ssh-agent
     and set the appropriate environment variables (closes: #703906).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 14 Feb 2013 09:33:00 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 25 Mar 2013 16:58:04 +0000
 
 openssh (1:6.1p1-3) experimental; urgency=low
 
