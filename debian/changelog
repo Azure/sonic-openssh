@@ -5,6 +5,11 @@ openssh (1:6.1p1-4) UNRELEASED; urgency=low
     should be read, and move the pam_env calls from "auth" to "session" so
     that it's also read when $HOME is encrypted (LP: #952185).
 
+  [ Stéphane Graber ]
+  * Add ssh-agent upstart user job.  This implements something similar to
+    the 90x11-common_ssh-agent Xsession script.  That is, start ssh-agent
+    and set the appropriate environment variables (closes: #703906).
+
  -- Colin Watson <cjwatson@debian.org>  Thu, 14 Feb 2013 09:33:00 +0100
 
 openssh (1:6.1p1-3) experimental; urgency=low

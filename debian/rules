@@ -187,6 +187,9 @@ override_dh_install: $(DISTRIBUTOR_REPLACE)
 	install -p -m 644 debian/openssh-client.apport debian/openssh-client/usr/share/apport/package-hooks/openssh-client.py
 	install -p -m 644 debian/openssh-server.apport debian/openssh-server/usr/share/apport/package-hooks/openssh-server.py
 
+	# Upstart user job (only used under user sessions)
+	install -p -m 644 -D debian/ssh-agent.user-session.upstart debian/openssh-client/usr/share/upstart/sessions/ssh-agent.conf
+
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nssh
 	dh_installdocs -popenssh-server -pssh --link-doc=openssh-client
