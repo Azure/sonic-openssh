@@ -113,7 +113,7 @@ confflags += --with-ldflags='$(strip -Wl,--as-needed $(default_ldflags))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
-	dh $@
+	dh $@ --with=autoreconf
 
 DISTRIBUTOR_REPLACE := \
 	debian/openssh-server.if-up \

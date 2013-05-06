@@ -1,3 +1,9 @@
+openssh (1:6.1p1-5) UNRELEASED; urgency=low
+
+  * Use dh-autoreconf.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 06 May 2013 10:47:33 +0100
+
 openssh (1:6.1p1-4) experimental; urgency=low
 
   [ Gunnar Hjalmarsson ]
