@@ -1,4 +1,4 @@
-openssh (1:6.2p1-1) UNRELEASED; urgency=low
+openssh (1:6.2p1-1) unstable; urgency=low
 
   * New upstream release (http://www.openssh.com/txt/release-6.2).
     - Add support for multiple required authentication in SSH protocol 2 via
@@ -8,7 +8,7 @@ openssh (1:6.2p1-1) UNRELEASED; urgency=low
       #99785, #322228, #620428; LP: #518883, #835901, #1074798).
   * Use dh-autoreconf.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 06 May 2013 10:47:33 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 07 May 2013 11:48:16 +0100
 
 openssh (1:6.1p1-4) experimental; urgency=low
 
