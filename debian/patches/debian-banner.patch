@@ -4,13 +4,13 @@ Description: Add DebianBanner server configuration option
 Author: Kees Cook <kees@debian.org>
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2012-09-07
+Last-Update: 2013-05-07
 
 Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -146,6 +146,7 @@
+@@ -150,6 +150,7 @@
  	options->ip_qos_interactive = -1;
  	options->ip_qos_bulk = -1;
  	options->version_addendum = NULL;
@@ -18,7 +18,7 @@ Index: b/servconf.c
  }
  
  void
-@@ -295,6 +296,8 @@
+@@ -299,6 +300,8 @@
  		options->ip_qos_bulk = IPTOS_THROUGHPUT;
  	if (options->version_addendum == NULL)
  		options->version_addendum = xstrdup("");
@@ -27,23 +27,23 @@ Index: b/servconf.c
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
  		use_privsep = PRIVSEP_NOSANDBOX;
-@@ -343,6 +346,7 @@
- 	sZeroKnowledgePasswordAuthentication, sHostCertificate,
- 	sRevokedKeys, sTrustedUserCAKeys, sAuthorizedPrincipalsFile,
+@@ -349,6 +352,7 @@
  	sKexAlgorithms, sIPQoS, sVersionAddendum,
+ 	sAuthorizedKeysCommand, sAuthorizedKeysCommandUser,
+ 	sAuthenticationMethods,
 +	sDebianBanner,
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -479,6 +483,7 @@
- 	{ "kexalgorithms", sKexAlgorithms, SSHCFG_GLOBAL },
- 	{ "ipqos", sIPQoS, SSHCFG_ALL },
+@@ -488,6 +492,7 @@
+ 	{ "authorizedkeyscommanduser", sAuthorizedKeysCommandUser, SSHCFG_ALL },
  	{ "versionaddendum", sVersionAddendum, SSHCFG_GLOBAL },
+ 	{ "authenticationmethods", sAuthenticationMethods, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1538,6 +1543,10 @@
+@@ -1593,6 +1598,10 @@
  		}
  		return 0;
  
@@ -58,10 +58,11 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -172,6 +172,7 @@
- 	char   *authorized_principals_file;
+@@ -184,6 +184,8 @@
  
- 	char   *version_addendum;	/* Appended to SSH banner */
+ 	u_int	num_auth_methods;
+ 	char   *auth_methods[MAX_AUTH_METHODS];
++
 +	int	debian_banner;
  }       ServerOptions;
  
@@ -70,7 +71,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -425,7 +425,8 @@
+@@ -434,7 +434,8 @@
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -84,7 +85,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -342,6 +342,11 @@
+@@ -397,6 +397,11 @@
  .Dq no .
  The default is
  .Dq delayed .

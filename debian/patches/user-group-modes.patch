@@ -9,7 +9,7 @@ Description: Allow harmless group-writability
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1060
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=314347
-Last-Update: 2010-02-27
+Last-Update: 2013-05-07
 
 Index: b/readconf.c
 ===================================================================
@@ -38,7 +38,7 @@ Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1312,6 +1312,8 @@
+@@ -1320,6 +1320,8 @@
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1342,6 +1342,8 @@
+@@ -1356,6 +1356,8 @@
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
@@ -64,7 +64,7 @@ Index: b/auth.c
 ===================================================================
 --- a/auth.c
 +++ b/auth.c
-@@ -381,8 +381,7 @@
+@@ -386,8 +386,7 @@
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -74,21 +74,21 @@ Index: b/auth.c
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -443,8 +442,7 @@
- 
- 	/* check the open file to avoid races */
- 	if (fstat(fileno(f), &st) < 0 ||
--	    (st.st_uid != 0 && st.st_uid != uid) ||
--	    (st.st_mode & 022) != 0) {
-+	    !secure_permissions(&st, uid)) {
+@@ -449,8 +448,7 @@
+ 		snprintf(err, errlen, "%s is not a regular file", buf);
+ 		return -1;
+ 	}
+-	if ((!platform_sys_dir_uid(stp->st_uid) && stp->st_uid != uid) ||
+-	    (stp->st_mode & 022) != 0) {
++	if (!secure_permissions(stp, uid)) {
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -459,8 +457,7 @@
+@@ -465,8 +463,7 @@
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) < 0 ||
--		    (st.st_uid != 0 && st.st_uid != uid) ||
+-		    (!platform_sys_dir_uid(st.st_uid) && st.st_uid != uid) ||
 -		    (st.st_mode & 022) != 0) {
 +		    !secure_permissions(&st, uid)) {
  			snprintf(err, errlen,
@@ -115,7 +115,7 @@ Index: b/misc.c
  int
 +secure_permissions(struct stat *st, uid_t uid)
 +{
-+	if (st->st_uid != 0 && st->st_uid != uid)
++	if (!platform_sys_dir_uid(st->st_uid) && st->st_uid != uid)
 +		return 0;
 +	if ((st->st_mode & 002) != 0)
 +		return 0;

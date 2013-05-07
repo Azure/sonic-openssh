@@ -5,13 +5,13 @@ Description: ssh(1): Refer to ssh-argv0(1)
  manual page from ssh(1).
 Bug-Debian: http://bugs.debian.org/111341
 Forwarded: not-needed
-Last-Update: 2010-02-28
+Last-Update: 2013-05-07
 
 Index: b/ssh.1
 ===================================================================
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1425,6 +1425,7 @@
+@@ -1433,6 +1433,7 @@
  .Xr sftp 1 ,
  .Xr ssh-add 1 ,
  .Xr ssh-agent 1 ,

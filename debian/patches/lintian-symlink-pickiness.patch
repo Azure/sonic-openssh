@@ -3,13 +3,13 @@ Description: Fix picky lintian errors about slogin symlinks
  either way and opted to keep the status quo.  We need this patch anyway.
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1728
-Last-Update: 2010-04-10
+Last-Update: 2013-05-07
 
 Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -284,9 +284,9 @@
+@@ -293,9 +293,9 @@
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
  	$(INSTALL) -m 644 ssh-vulnkey.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-vulnkey.1
  	-rm -f $(DESTDIR)$(bindir)/slogin

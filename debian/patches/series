@@ -3,7 +3,6 @@ gssapi.patch
 
 # SELinux
 selinux-role.patch
-copy-id-restorecon.patch
 
 # Key blacklisting
 ssh-vulnkey.patch
@@ -27,7 +26,6 @@ shell-path.patch
 dnssec-sshfp.patch
 auth-log-verbosity.patch
 mention-ssh-keygen-on-keychange.patch
-max-startups-default.patch
 
 # Versioning
 package-versioning.patch

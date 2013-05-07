@@ -1,7 +1,7 @@
 Description: Partial server keep-alive implementation for SSH1
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1712
-Last-Update: 2010-02-27
+Last-Update: 2013-05-07
 
 Index: b/clientloop.c
 ===================================================================
@@ -51,7 +51,7 @@ Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1088,7 +1088,10 @@
+@@ -1102,7 +1102,10 @@
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

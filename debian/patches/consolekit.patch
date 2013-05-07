@@ -1,13 +1,13 @@
 Description: Add support for registering ConsoleKit sessions on login
 Author: Colin Watson <cjwatson@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1450
-Last-Updated: 2012-10-31
+Last-Updated: 2013-05-07
 
 Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -94,7 +94,8 @@
+@@ -96,7 +96,8 @@
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o \
  	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
@@ -21,9 +21,9 @@ Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3672,6 +3672,30 @@
- 	]
- )
+@@ -3801,6 +3801,30 @@
+ AC_SUBST([GSSLIBS])
+ AC_SUBST([K5LIBS])
  
 +# Check whether user wants ConsoleKit support
 +CONSOLEKIT_MSG="no"
@@ -52,7 +52,7 @@ Index: b/configure.ac
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4435,6 +4459,7 @@
+@@ -4600,6 +4624,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -64,7 +64,7 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -735,6 +735,7 @@
+@@ -737,6 +737,7 @@
  with_sandbox
  with_selinux
  with_kerberos5
@@ -72,7 +72,7 @@ Index: b/configure
  with_privsep_path
  with_xauth
  enable_strip
-@@ -1425,6 +1426,7 @@
+@@ -1427,6 +1428,7 @@
    --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter)
    --with-selinux          Enable SELinux support
    --with-kerberos5=PATH   Enable Kerberos 5 support
@@ -80,8 +80,8 @@ Index: b/configure
    --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
    --with-xauth=PATH       Specify path to xauth program
    --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -15683,6 +15685,135 @@
- fi
+@@ -16002,6 +16004,135 @@
+ 
  
  
 +# Check whether user wants ConsoleKit support
@@ -216,7 +216,7 @@ Index: b/configure
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -18155,6 +18286,7 @@
+@@ -18527,6 +18658,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -522,7 +522,7 @@ Index: b/monitor.c
  static Authctxt *authctxt;
  static BIGNUM *ssh1_challenge = NULL;	/* used for ssh1 rsa auth */
  
-@@ -283,6 +290,9 @@
+@@ -284,6 +291,9 @@
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT, mm_answer_audit_command},
  #endif
@@ -532,7 +532,7 @@ Index: b/monitor.c
      {0, 0, NULL}
  };
  
-@@ -325,6 +335,9 @@
+@@ -326,6 +336,9 @@
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT|MON_ONCE, mm_answer_audit_command},
  #endif
@@ -542,7 +542,7 @@ Index: b/monitor.c
      {0, 0, NULL}
  };
  
-@@ -495,6 +508,9 @@
+@@ -514,6 +527,9 @@
  		monitor_permit(mon_dispatch, MONITOR_REQ_PTY, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_PTYCLEANUP, 1);
  	}
@@ -552,7 +552,7 @@ Index: b/monitor.c
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2196,6 +2212,34 @@
+@@ -2232,6 +2248,34 @@
  	buffer_put_int(m, major);
  	buffer_put_string(m, hash.value, hash.length);
  
@@ -591,19 +591,20 @@ Index: b/monitor.h
 ===================================================================
 --- a/monitor.h
 +++ b/monitor.h
-@@ -62,6 +62,7 @@
- 	MONITOR_REQ_PAM_RESPOND, MONITOR_ANS_PAM_RESPOND,
- 	MONITOR_REQ_PAM_FREE_CTX, MONITOR_ANS_PAM_FREE_CTX,
- 	MONITOR_REQ_AUDIT_EVENT, MONITOR_REQ_AUDIT_COMMAND,
-+	MONITOR_REQ_CONSOLEKIT_REGISTER, MONITOR_ANS_CONSOLEKIT_REGISTER,
- 	MONITOR_REQ_TERM,
- 	MONITOR_REQ_JPAKE_STEP1, MONITOR_ANS_JPAKE_STEP1,
- 	MONITOR_REQ_JPAKE_GET_PWDATA, MONITOR_ANS_JPAKE_GET_PWDATA,
+@@ -75,6 +75,8 @@
+ 
+ 	MONITOR_REQ_AUTHROLE = 300,
+ 
++	MONITOR_REQ_CONSOLEKIT_REGISTER = 400, MONITOR_ANS_CONSOLEKIT_REGISTER = 401,
++
+ };
+ 
+ struct mm_master;
 Index: b/monitor_wrap.c
 ===================================================================
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -1310,6 +1310,37 @@
+@@ -1311,6 +1311,37 @@
  mm_ssh_gssapi_sign(Gssctxt *ctx, gss_buffer_desc *data, gss_buffer_desc *hash)
  {
  	Buffer m;
@@ -666,7 +667,7 @@ Index: b/session.c
  
  #if defined(KRB5) && defined(USE_AFS)
  #include <kafs.h>
-@@ -1129,6 +1130,9 @@
+@@ -1132,6 +1133,9 @@
  #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
  	char *path = NULL;
  #endif
@@ -676,7 +677,7 @@ Index: b/session.c
  
  	/* Initialize the environment. */
  	envsize = 100;
-@@ -1273,6 +1277,11 @@
+@@ -1276,6 +1280,11 @@
  		child_set_env(&env, &envsize, "KRB5CCNAME",
  		    s->authctxt->krb5_ccname);
  #endif
@@ -688,7 +689,7 @@ Index: b/session.c
  #ifdef USE_PAM
  	/*
  	 * Pull in any environment variables that may have
-@@ -2300,6 +2309,10 @@
+@@ -2308,6 +2317,10 @@
  
  	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
  

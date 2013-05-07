@@ -1,5 +1,11 @@
-openssh (1:6.1p1-5) UNRELEASED; urgency=low
+openssh (1:6.2p1-1) UNRELEASED; urgency=low
 
+  * New upstream release (http://www.openssh.com/txt/release-6.2).
+    - Add support for multiple required authentication in SSH protocol 2 via
+      an AuthenticationMethods option (closes: #195716).
+    - Fix Sophie Germain formula in moduli(5) (closes: #698612).
+    - Update ssh-copy-id to Phil Hands' greatly revised version (closes:
+      #99785, #322228, #620428; LP: #518883, #835901, #1074798).
   * Use dh-autoreconf.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 06 May 2013 10:47:33 +0100

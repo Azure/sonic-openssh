@@ -6,7 +6,7 @@ Description: Adjust various OpenBSD-specific references in manual pages
   https://bugs.launchpad.net/bugs/456660 (ssl(8))
 Author: Colin Watson <cjwatson@debian.org>
 Forwarded: not-needed
-Last-Update: 2010-02-28
+Last-Update: 2013-05-07
 
 Index: b/moduli.5
 ===================================================================
@@ -34,7 +34,7 @@ Index: b/ssh-keygen.1
 ===================================================================
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -152,9 +152,7 @@
+@@ -171,9 +171,7 @@
  .Pa ~/.ssh/id_dsa
  or
  .Pa ~/.ssh/id_rsa .
@@ -45,7 +45,7 @@ Index: b/ssh-keygen.1
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -200,9 +198,7 @@
+@@ -219,9 +217,7 @@
  For each of the key types (rsa1, rsa, dsa and ecdsa) for which host keys
  do not exist, generate the host keys with the default key file path,
  an empty passphrase, default bits for the key type, and default comment.
@@ -56,7 +56,7 @@ Index: b/ssh-keygen.1
  .It Fl a Ar trials
  Specifies the number of primality tests to perform when screening DH-GEX
  candidates using the
-@@ -556,7 +552,7 @@
+@@ -606,7 +602,7 @@
  Valid generator values are 2, 3, and 5.
  .Pp
  Screened DH groups may be installed in
@@ -65,7 +65,7 @@ Index: b/ssh-keygen.1
  It is important that this file contains moduli of a range of bit lengths and
  that both ends of a connection share common moduli.
  .Sh CERTIFICATES
-@@ -682,7 +678,7 @@
+@@ -801,7 +797,7 @@
  where the user wishes to log in using public key authentication.
  There is no need to keep the contents of this file secret.
  .Pp
@@ -123,7 +123,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -224,8 +224,7 @@
+@@ -276,8 +276,7 @@
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

@@ -645,7 +645,7 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
 int
 secure_permissions(struct stat *st, uid_t uid)
 {
-	if (st->st_uid != 0 && st->st_uid != uid)
+	if (!platform_sys_dir_uid(st->st_uid) && st->st_uid != uid)
 		return 0;
 	if ((st->st_mode & 002) != 0)
 		return 0;

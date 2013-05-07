@@ -5,26 +5,30 @@ Description: Include the Debian version in our identification
  vulnerable-looking version strings.  (However, see debian-banner.patch.)
 Author: Matthew Vernon <matthew@debian.org>
 Forwarded: not-needed
-Last-Update: 2012-09-07
+Last-Update: 2013-05-07
 
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -556,7 +556,7 @@
- 	snprintf(buf, sizeof buf, "SSH-%d.%d-%.100s%s",
- 	    compat20 ? PROTOCOL_MAJOR_2 : PROTOCOL_MAJOR_1,
- 	    compat20 ? PROTOCOL_MINOR_2 : minor1,
--	    SSH_VERSION, compat20 ? "\r\n" : "\n");
-+	    SSH_RELEASE, compat20 ? "\r\n" : "\n");
- 	if (roaming_atomicio(vwrite, connection_out, buf, strlen(buf))
- 	    != strlen(buf))
- 		fatal("write: %.100s", strerror(errno));
+@@ -435,10 +435,10 @@
+ 	/* Send our own protocol version identification. */
+ 	if (compat20) {
+ 		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
+-		    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_VERSION);
++		    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE);
+ 	} else {
+ 		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\n",
+-		    PROTOCOL_MAJOR_1, minor1, SSH_VERSION);
++		    PROTOCOL_MAJOR_1, minor1, SSH_RELEASE);
+ 	}
+ 	if (roaming_atomicio(vwrite, connection_out, client_version_string,
+ 	    strlen(client_version_string)) != strlen(client_version_string))
 Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -425,7 +425,7 @@
+@@ -434,7 +434,7 @@
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -38,7 +42,7 @@ Index: b/version.h
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_6.1"
+ #define SSH_VERSION	"OpenSSH_6.2"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
