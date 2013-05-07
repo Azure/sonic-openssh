@@ -109,10 +109,35 @@ Index: b/misc.c
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -642,6 +643,55 @@
+@@ -58,6 +59,7 @@
+ #include "misc.h"
+ #include "log.h"
+ #include "ssh.h"
++#include "platform.h"
+ 
+ /* remove newline at end of string */
+ char *
+@@ -641,6 +643,71 @@
+ 	return -1;
  }
  
- int
++/*
++ * return 1 if the specified uid is a uid that may own a system directory
++ * otherwise 0.
++ */
++int
++platform_sys_dir_uid(uid_t uid)
++{
++	if (uid == 0)
++		return 1;
++#ifdef PLATFORM_SYS_DIR_UID
++	if (uid == PLATFORM_SYS_DIR_UID)
++		return 1;
++#endif
++	return 0;
++}
++
++int
 +secure_permissions(struct stat *st, uid_t uid)
 +{
 +	if (!platform_sys_dir_uid(st->st_uid) && st->st_uid != uid)
@@ -161,10 +186,9 @@ Index: b/misc.c
 +	return 1;
 +}
 +
-+int
+ int
  tun_open(int tun, int mode)
  {
- #if defined(CUSTOM_SYS_TUN_OPEN)
 Index: b/misc.h
 ===================================================================
 --- a/misc.h
@@ -200,3 +224,27 @@ Index: b/auth-rhosts.c
  			logit("Rhosts authentication refused for %.100s: bad modes for %.200s",
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
+Index: b/platform.c
+===================================================================
+--- a/platform.c
++++ b/platform.c
+@@ -194,19 +194,3 @@
+ 	return NULL;
+ #endif
+ }
+-
+-/*
+- * return 1 if the specified uid is a uid that may own a system directory
+- * otherwise 0.
+- */
+-int
+-platform_sys_dir_uid(uid_t uid)
+-{
+-	if (uid == 0)
+-		return 1;
+-#ifdef PLATFORM_SYS_DIR_UID
+-	if (uid == PLATFORM_SYS_DIR_UID)
+-		return 1;
+-#endif
+-	return 0;
+-}
