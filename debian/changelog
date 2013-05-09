@@ -1,3 +1,10 @@
+openssh (1:6.2p1-2) UNRELEASED; urgency=low
+
+  * Fix build failure on Ubuntu:
+    - Include openbsd-compat/sys-queue.h from consolekit.c.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 09 May 2013 00:55:50 +0100
+
 openssh (1:6.2p1-1) unstable; urgency=low
 
   * New upstream release (http://www.openssh.com/txt/release-6.2).

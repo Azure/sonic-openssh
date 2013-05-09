@@ -1,7 +1,7 @@
 Description: Add support for registering ConsoleKit sessions on login
 Author: Colin Watson <cjwatson@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1450
-Last-Updated: 2013-05-07
+Last-Updated: 2013-05-09
 
 Index: b/Makefile.in
 ===================================================================
@@ -228,7 +228,7 @@ Index: b/consolekit.c
 ===================================================================
 --- /dev/null
 +++ b/consolekit.c
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,240 @@
 +/*
 + * Copyright (c) 2008 Colin Watson.  All rights reserved.
 + *
@@ -277,6 +277,7 @@ Index: b/consolekit.c
 +
 +#include <ck-connector.h>
 +
++#include "openbsd-compat/sys-queue.h"
 +#include "xmalloc.h"
 +#include "channels.h"
 +#include "key.h"

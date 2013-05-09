@@ -46,6 +46,7 @@
 
 #include <ck-connector.h>
 
+#include "openbsd-compat/sys-queue.h"
 #include "xmalloc.h"
 #include "channels.h"
 #include "key.h"
