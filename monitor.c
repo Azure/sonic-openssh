@@ -2248,34 +2248,6 @@ mm_answer_gss_sign(int socket, Buffer *m)
 	buffer_put_int(m, major);
 	buffer_put_string(m, hash.value, hash.length);
 
-#ifdef USE_CONSOLEKIT
-int
-mm_answer_consolekit_register(int sock, Buffer *m)
-{
-	Session *s;
-	char *tty, *display;
-	char *cookie = NULL;
-
-	debug3("%s entering", __func__);
-
-	tty = buffer_get_string(m, NULL);
-	display = buffer_get_string(m, NULL);
-	s = session_by_tty(tty);
-	if (s != NULL)
-		cookie = consolekit_register(s, display);
-	buffer_clear(m);
-	buffer_put_cstring(m, cookie != NULL ? cookie : "");
-	mm_request_send(sock, MONITOR_ANS_CONSOLEKIT_REGISTER, m);
-
-	if (cookie != NULL)
-		xfree(cookie);
-	xfree(display);
-	xfree(tty);
-
-	return (0);
-}
-#endif /* USE_CONSOLEKIT */
-
 	mm_request_send(socket, MONITOR_ANS_GSSSIGN, m);
 
 	gss_release_buffer(&minor, &hash);
@@ -2516,3 +2488,31 @@ mm_answer_jpake_check_confirm(int sock, Buffer *m)
 }
 
 #endif /* JPAKE */
+
+#ifdef USE_CONSOLEKIT
+int
+mm_answer_consolekit_register(int sock, Buffer *m)
+{
+	Session *s;
+	char *tty, *display;
+	char *cookie = NULL;
+
+	debug3("%s entering", __func__);
+
+	tty = buffer_get_string(m, NULL);
+	display = buffer_get_string(m, NULL);
+	s = session_by_tty(tty);
+	if (s != NULL)
+		cookie = consolekit_register(s, display);
+	buffer_clear(m);
+	buffer_put_cstring(m, cookie != NULL ? cookie : "");
+	mm_request_send(sock, MONITOR_ANS_CONSOLEKIT_REGISTER, m);
+
+	if (cookie != NULL)
+		xfree(cookie);
+	xfree(display);
+	xfree(tty);
+
+	return (0);
+}
+#endif /* USE_CONSOLEKIT */
