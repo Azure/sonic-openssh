@@ -1,7 +1,7 @@
 Description: Add support for registering ConsoleKit sessions on login
 Author: Colin Watson <cjwatson@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1450
-Last-Updated: 2013-05-09
+Last-Updated: 2013-05-13
 
 Index: b/Makefile.in
 ===================================================================
@@ -591,9 +591,9 @@ Index: b/monitor.h
 +++ b/monitor.h
 @@ -75,6 +75,8 @@
  
- 	MONITOR_REQ_AUTHROLE = 300,
+ 	MONITOR_REQ_AUTHROLE = 154,
  
-+	MONITOR_REQ_CONSOLEKIT_REGISTER = 400, MONITOR_ANS_CONSOLEKIT_REGISTER = 401,
++	MONITOR_REQ_CONSOLEKIT_REGISTER = 156, MONITOR_ANS_CONSOLEKIT_REGISTER = 157,
 +
  };
  

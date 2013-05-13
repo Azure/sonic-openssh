@@ -13,7 +13,7 @@ Description: GSSAPI key exchange support
  security history.
 Author: Simon Wilkinson <simon@sxw.org.uk>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2013-05-07
+Last-Updated: 2013-05-13
 
 Index: b/ChangeLog.gssapi
 ===================================================================
@@ -2207,8 +2207,8 @@ Index: b/monitor.h
  	MONITOR_REQ_PAM_FREE_CTX = 110, MONITOR_ANS_PAM_FREE_CTX = 111,
  	MONITOR_REQ_AUDIT_EVENT = 112, MONITOR_REQ_AUDIT_COMMAND = 113,
  
-+	MONITOR_REQ_GSSSIGN = 200, MONITOR_ANS_GSSSIGN = 201,
-+	MONITOR_REQ_GSSUPCREDS = 202, MONITOR_ANS_GSSUPCREDS = 203,
++	MONITOR_REQ_GSSSIGN = 150, MONITOR_ANS_GSSSIGN = 151,
++	MONITOR_REQ_GSSUPCREDS = 152, MONITOR_ANS_GSSUPCREDS = 153,
 +
  };
  

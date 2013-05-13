@@ -5,7 +5,7 @@ Description: Handle SELinux authorisation roles
 Author: Manoj Srivastava <srivasta@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1641
 Bug-Debian: http://bugs.debian.org/394795
-Last-Update: 2013-05-07
+Last-Update: 2013-05-13
 
 Index: b/auth.h
 ===================================================================
@@ -170,10 +170,10 @@ Index: b/monitor.h
 --- a/monitor.h
 +++ b/monitor.h
 @@ -73,6 +73,8 @@
- 	MONITOR_REQ_GSSSIGN = 200, MONITOR_ANS_GSSSIGN = 201,
- 	MONITOR_REQ_GSSUPCREDS = 202, MONITOR_ANS_GSSUPCREDS = 203,
+ 	MONITOR_REQ_GSSSIGN = 150, MONITOR_ANS_GSSSIGN = 151,
+ 	MONITOR_REQ_GSSUPCREDS = 152, MONITOR_ANS_GSSUPCREDS = 153,
  
-+	MONITOR_REQ_AUTHROLE = 300,
++	MONITOR_REQ_AUTHROLE = 154,
 +
  };
  
