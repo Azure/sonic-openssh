@@ -1,9 +1,9 @@
-openssh (1:6.2p1-3) UNRELEASED; urgency=low
+openssh (1:6.2p1-3) unstable; urgency=low
 
   * Renumber Debian-specific additions to enum monitor_reqtype so that they
     fit within a single byte (thanks, Jason Conti; LP: #1179202).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 13 May 2013 10:54:05 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 13 May 2013 10:56:04 +0100
 
 openssh (1:6.2p1-2) unstable; urgency=low
 
