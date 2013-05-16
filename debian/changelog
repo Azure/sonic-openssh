@@ -1,3 +1,13 @@
+openssh (1:6.2p2-1) UNRELEASED; urgency=low
+
+  * New upstream release (http://www.openssh.com/txt/release-6.2p2):
+    - Only warn for missing identity files that were explicitly specified
+      (closes: #708275).
+    - Fix bug in contributed contrib/ssh-copy-id script that could result in
+      "rm *" being called on mktemp failure (closes: #708419).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 16 May 2013 13:56:20 +0100
+
 openssh (1:6.2p1-3) unstable; urgency=low
 
   * Renumber Debian-specific additions to enum monitor_reqtype so that they

@@ -8,7 +8,7 @@ Description: "LogLevel SILENT" compatibility
 Author: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2010-03-31
+Last-Update: 2013-05-16
 
 Index: b/log.c
 ===================================================================
@@ -26,7 +26,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -714,7 +714,7 @@
+@@ -711,7 +711,7 @@
  	/* Do not allocate a tty if stdin is not a tty. */
  	if ((!isatty(fileno(stdin)) || stdin_null_flag) &&
  	    options.request_tty != REQUEST_TTY_FORCE) {

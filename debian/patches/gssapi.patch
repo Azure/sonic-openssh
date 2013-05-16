@@ -13,7 +13,7 @@ Description: GSSAPI key exchange support
  security history.
 Author: Simon Wilkinson <simon@sxw.org.uk>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2013-05-13
+Last-Updated: 2013-05-16
 
 Index: b/ChangeLog.gssapi
 ===================================================================
@@ -2327,7 +2327,7 @@ Index: b/readconf.c
  #endif
  	{ "fallbacktorsh", oDeprecated },
  	{ "usersh", oDeprecated },
-@@ -483,10 +494,30 @@
+@@ -503,10 +514,30 @@
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -2358,7 +2358,7 @@ Index: b/readconf.c
  	case oBatchMode:
  		intptr = &options->batch_mode;
  		goto parse_flag;
-@@ -1139,7 +1170,12 @@
+@@ -1158,7 +1189,12 @@
  	options->pubkey_authentication = -1;
  	options->challenge_response_authentication = -1;
  	options->gss_authentication = -1;
@@ -2371,7 +2371,7 @@ Index: b/readconf.c
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->kbd_interactive_devices = NULL;
-@@ -1239,8 +1275,14 @@
+@@ -1258,8 +1294,14 @@
  		options->challenge_response_authentication = 1;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;

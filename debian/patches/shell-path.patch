@@ -4,13 +4,13 @@ Description: Look for $SHELL on the path for ProxyCommand/LocalCommand
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1494
 Bug-Debian: http://bugs.debian.org/492728
-Last-Update: 2013-05-07
+Last-Update: 2013-05-16
 
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -144,7 +144,7 @@
+@@ -151,7 +151,7 @@
  		/* Execute the proxy command.  Note that we gave up any
  		   extra privileges above. */
  		signal(SIGPIPE, SIG_DFL);
@@ -19,7 +19,7 @@ Index: b/sshconnect.c
  		perror(argv[0]);
  		exit(1);
  	}
-@@ -1292,7 +1292,7 @@
+@@ -1299,7 +1299,7 @@
  	if (pid == 0) {
  		signal(SIGPIPE, SIG_DFL);
  		debug3("Executing %s -c \"%s\"", shell, args);

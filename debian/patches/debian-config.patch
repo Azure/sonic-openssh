@@ -18,13 +18,13 @@ Description: Various Debian-specific configuration changes
 Author: Colin Watson <cjwatson@debian.org>
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2013-05-07
+Last-Update: 2013-05-16
 
 Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1269,7 +1269,7 @@
+@@ -1288,7 +1288,7 @@
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)

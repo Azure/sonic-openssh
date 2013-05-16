@@ -8,7 +8,7 @@ Description: Reject vulnerable keys to mitigate Debian OpenSSL flaw
  See CVE-2008-0166.
 Author: Colin Watson <cjwatson@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1469
-Last-Update: 2013-05-07
+Last-Update: 2013-05-16
 
 Index: b/Makefile.in
 ===================================================================
@@ -420,7 +420,7 @@ Index: b/readconf.c
  	{ "rsaauthentication", oRSAAuthentication },
  	{ "pubkeyauthentication", oPubkeyAuthentication },
  	{ "dsaauthentication", oPubkeyAuthentication },		    /* alias */
-@@ -490,6 +492,10 @@
+@@ -510,6 +512,10 @@
  		intptr = &options->challenge_response_authentication;
  		goto parse_flag;
  
@@ -431,7 +431,7 @@ Index: b/readconf.c
  	case oGssAuthentication:
  		intptr = &options->gss_authentication;
  		goto parse_flag;
-@@ -1181,6 +1187,7 @@
+@@ -1200,6 +1206,7 @@
  	options->kbd_interactive_devices = NULL;
  	options->rhosts_rsa_authentication = -1;
  	options->hostbased_authentication = -1;
@@ -439,7 +439,7 @@ Index: b/readconf.c
  	options->batch_mode = -1;
  	options->check_host_ip = -1;
  	options->strict_host_key_checking = -1;
-@@ -1291,6 +1298,8 @@
+@@ -1310,6 +1317,8 @@
  		options->rhosts_rsa_authentication = 0;
  	if (options->hostbased_authentication == -1)
  		options->hostbased_authentication = 0;
@@ -1247,7 +1247,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1495,7 +1495,7 @@
+@@ -1492,7 +1492,7 @@
  static void
  load_public_identity_files(void)
  {
@@ -1256,7 +1256,7 @@ Index: b/ssh.c
  	char *pwdir = NULL, *pwname = NULL;
  	int i = 0;
  	Key *public;
-@@ -1552,6 +1552,22 @@
+@@ -1550,6 +1550,22 @@
  		public = key_load_public(filename, NULL);
  		debug("identity file %s type %d", filename,
  		    public ? public->type : -1);

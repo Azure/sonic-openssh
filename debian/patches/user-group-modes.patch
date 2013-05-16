@@ -9,7 +9,7 @@ Description: Allow harmless group-writability
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1060
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=314347
-Last-Update: 2013-05-07
+Last-Update: 2013-05-16
 
 Index: b/readconf.c
 ===================================================================
@@ -24,7 +24,7 @@ Index: b/readconf.c
  
  #include "xmalloc.h"
  #include "ssh.h"
-@@ -1132,8 +1134,7 @@
+@@ -1150,8 +1152,7 @@
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));

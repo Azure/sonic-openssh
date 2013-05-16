@@ -5,13 +5,13 @@ Description: Include the Debian version in our identification
  vulnerable-looking version strings.  (However, see debian-banner.patch.)
 Author: Matthew Vernon <matthew@debian.org>
 Forwarded: not-needed
-Last-Update: 2013-05-07
+Last-Update: 2013-05-16
 
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -435,10 +435,10 @@
+@@ -442,10 +442,10 @@
  	/* Send our own protocol version identification. */
  	if (compat20) {
  		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
@@ -44,7 +44,7 @@ Index: b/version.h
 @@ -3,4 +3,9 @@
  #define SSH_VERSION	"OpenSSH_6.2"
  
- #define SSH_PORTABLE	"p1"
+ #define SSH_PORTABLE	"p2"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
 +#define SSH_RELEASE_MINIMUM	SSH_VERSION SSH_PORTABLE
 +#ifdef SSH_EXTRAVERSION
