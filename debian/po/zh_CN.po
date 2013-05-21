@@ -15,61 +15,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-11\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2010-01-02 08:55+0000\n"
+"POT-Creation-Date: 2013-05-21 23:52+0100\n"
 "PO-Revision-Date: 2004-02-02 18:48+1300\n"
 "Last-Translator: Hiei Xu <nicky@mail.edu.cn>\n"
 "Language-Team: Chinese/Simplified <i18n-translation@lists.linux.net.cn>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgid "Do you want to risk killing active SSH sessions?"
-msgstr "您要继续吗(会有杀死活动的 ssh 会话的危险)？"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "The version of /etc/init.d/ssh that you have installed, is likely to kill "
-#| "all running sshd instances.  If you are doing this upgrade via an ssh "
-#| "session, that would be a Bad Thing(tm)."
-msgid ""
-"The currently installed version of /etc/init.d/ssh is likely to kill all "
-"running sshd instances. If you are doing this upgrade via an SSH session, "
-"you're likely to be disconnected and leave the upgrade procedure unfinished."
-msgstr ""
-"您安装的 /etc/init.d/ssh 版本很可能会杀死所有运行中的 sshd 例程。如果您是在通"
-"过 ssh 会话进行这项升级，那可真是件糟糕的事情(tm)。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
-#| "stop-daemon line in the stop section of the file."
-msgid ""
-"This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to the "
-"start-stop-daemon line in the stop section of the file."
-msgstr ""
-"您可以通过添加“--pidfile /var/run/sshd.pid”到这个文件的 stop 部分的 start-"
-"stop-daemon 行来修正这个问题。"
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "New host key mandatory"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 msgid ""
 "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
@@ -82,7 +45,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 #, fuzzy
 #| msgid "You will need to generate a new host key."
 msgid "You need to manually generate a new host key."
@@ -90,13 +53,13 @@ msgstr "您需要创建一个新的主机密钥。"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -108,7 +71,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -118,13 +81,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -134,7 +97,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -144,18 +107,48 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:4001
+#: ../openssh-server.templates:3001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Do you want to continue (and risk killing active ssh sessions)?"
+#~ msgid "Do you want to risk killing active SSH sessions?"
+#~ msgstr "您要继续吗(会有杀死活动的 ssh 会话的危险)？"
+
+#, fuzzy
+#~| msgid ""
+#~| "The version of /etc/init.d/ssh that you have installed, is likely to "
+#~| "kill all running sshd instances.  If you are doing this upgrade via an "
+#~| "ssh session, that would be a Bad Thing(tm)."
+#~ msgid ""
+#~ "The currently installed version of /etc/init.d/ssh is likely to kill all "
+#~ "running sshd instances. If you are doing this upgrade via an SSH session, "
+#~ "you're likely to be disconnected and leave the upgrade procedure "
+#~ "unfinished."
+#~ msgstr ""
+#~ "您安装的 /etc/init.d/ssh 版本很可能会杀死所有运行中的 sshd 例程。如果您是"
+#~ "在通过 ssh 会话进行这项升级，那可真是件糟糕的事情(tm)。"
+
+#, fuzzy
+#~| msgid ""
+#~| "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-"
+#~| "stop-daemon line in the stop section of the file."
+#~ msgid ""
+#~ "This can be fixed by manually adding \"--pidfile /var/run/sshd.pid\" to "
+#~ "the start-stop-daemon line in the stop section of the file."
+#~ msgstr ""
+#~ "您可以通过添加“--pidfile /var/run/sshd.pid”到这个文件的 stop 部分的 start-"
+#~ "stop-daemon 行来修正这个问题。"
 
 #, fuzzy
 #~ msgid "Generate a new configuration file for OpenSSH?"

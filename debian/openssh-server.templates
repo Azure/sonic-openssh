@@ -7,18 +7,6 @@
 # Even minor modifications require translation updates and such
 # changes should be coordinated with translators and reviewers.
 #
-Template: ssh/use_old_init_script
-Type: boolean
-Default: false
-_Description: Do you want to risk killing active SSH sessions?
- The currently installed version of /etc/init.d/ssh is likely to kill
- all running sshd instances. If you are doing this upgrade via an SSH
- session, you're likely to be disconnected and leave the upgrade
- procedure unfinished.
- .
- This can be fixed by manually adding "--pidfile /var/run/sshd.pid" to
- the start-stop-daemon line in the stop section of the file.
-
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
 _Description: New host key mandatory

@@ -479,6 +479,9 @@ if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
     rm -f /var/run/sshd/.placeholder
 fi
 
+# Clean up old debconf templates.
+db_unregister ssh/use_old_init_script
+
 
 db_stop
 
