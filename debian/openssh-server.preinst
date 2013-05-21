@@ -3,25 +3,8 @@
 action=$1
 version=$2
 
-prepare_mv_conffile () {
-	CONFFILE="$1"
-	[ -e "$CONFFILE" ] || return 0
-
-	md5sum="$(md5sum "$CONFFILE" | sed -e 's/ .*//')"
-	old_md5sum="$(dpkg-query -W -f '${Conffiles}\n' openssh-server 2>/dev/null | sed 's/^ *//' | awk '$1 == "'"$CONFFILE"'" { print $2 }')"
-	if [ "$md5sum" = "$old_md5sum" ]; then
-		mv -f "$CONFFILE" "$CONFFILE.dpkg-old"
-	else
-		mv -f "$CONFFILE" "$CONFFILE.moving"
-	fi
-}
-
 if [ "$action" = upgrade ] || [ "$action" = install ]
 then
-  if dpkg --compare-versions "$version" lt 1:4.7p1-4; then
-    prepare_mv_conffile /etc/pam.d/ssh
-  fi
-
   if dpkg --compare-versions "$version" lt 1:5.5p1-6 && \
      [ -d /var/run/sshd ]; then
     # make sure /var/run/sshd is not removed on upgrades
@@ -30,3 +13,5 @@ then
 fi
 
 #DEBHELPER#
+
+exit 0

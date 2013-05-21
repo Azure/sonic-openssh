@@ -2,32 +2,7 @@
 
 #DEBHELPER#
 
-abort_mv_conffile () {
-	CONFFILE="$1"
-
-	if [ ! -e "$CONFFILE" ]; then
-		if [ -e "$CONFFILE.dpkg-old" ]; then
-			mv -f "$CONFFILE.dpkg-old" "$CONFFILE"
-		elif [ -e "$CONFFILE.moving" ]; then
-			mv -f "$CONFFILE.moving" "$CONFFILE"
-		fi
-	fi
-}
-
-finish_mv_conffile () {
-	CONFFILE="$1"
-
-	if [ -e "$CONFFILE.dpkg-old" ]; then
-		rm -f "$CONFFILE.dpkg-old"
-	fi
-}
-
 case $1 in
-	abort-install|abort-upgrade)
-		if dpkg --compare-versions "$2" lt 1:4.7p1-4; then
-			abort_mv_conffile /etc/pam.d/ssh
-		fi
-		;;
 	purge)
 		# Remove all non-conffiles that ssh might create, so that we
 		# can smoothly remove /etc/ssh if and only if the user
@@ -46,8 +21,6 @@ case $1 in
 		if which deluser >/dev/null 2>&1; then
 			deluser --quiet sshd > /dev/null || true
 		fi
-
-		finish_mv_conffile /etc/pam.d/ssh
 		;;
 esac
 

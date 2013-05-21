@@ -19,6 +19,8 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     pre-etch (three releases before current stable).
   * Add #DEBHELPER# tokens to openssh-client.postinst and
     openssh-server.postinst.
+  * Replace old manual conffile handling code with dpkg-maintscript-helper,
+    via dh_installdeb.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

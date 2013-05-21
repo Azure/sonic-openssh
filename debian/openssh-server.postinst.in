@@ -320,20 +320,6 @@ setup_init() {
 	esac
 }
 
-commit_mv_conffile () {
-	OLDCONFFILE="$1"
-	NEWCONFFILE="$2"
-
-	if [ -e "$OLDCONFFILE.moving" ]; then
-		echo "Preserving user changes to $NEWCONFFILE ..."
-		mv -f "$NEWCONFFILE" "$NEWCONFFILE.dpkg-new"
-		mv -f "$OLDCONFFILE.moving" "$NEWCONFFILE"
-	elif [ -e "$OLDCONFFILE.dpkg-old" ]; then
-		rm -f "$OLDCONFFILE.dpkg-old"
-	fi
-}
-
-
 if [ "$action" = configure ]; then
 	create_sshdconfig
 	create_keys
@@ -344,7 +330,6 @@ if [ "$action" = configure ]; then
 	    remove_old_init_links
 	fi
 	setup_init
-	commit_mv_conffile /etc/pam.d/ssh /etc/pam.d/sshd
 	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
 	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
 	    rm -f /etc/ssh/primes
