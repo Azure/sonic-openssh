@@ -6,6 +6,11 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     is not really necessary since one of static-network-up and failsafe-boot
     is guaranteed to happen and will trigger entry to the default runlevel,
     and we don't care about ssh starting before the network (LP: #1098299).
+  * Drop conffile handling for upgrades from pre-split ssh package; this was
+    originally added in 1:4.3p2-7 / 1:4.3p2-8, and contained a truly ghastly
+    hack around a misbehaviour in sarge's dpkg.  Since this is now four
+    Debian releases ago, we can afford to drop this and simplify the
+    packaging.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

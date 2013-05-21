@@ -219,17 +219,6 @@ override_dh_shlibdeps:
 
 override_dh_installdeb: $(DISTRIBUTOR_REPLACE)
 	dh_installdeb
-	perl -i debian/substitute-conffile.pl \
-		ETC_SSH_MODULI debian/openssh-client/etc/ssh/moduli \
-		ETC_SSH_SSH_CONFIG debian/openssh-client/etc/ssh/ssh_config \
-		debian/openssh-client/DEBIAN/preinst
-	# Yes, ETC_PAM_D_SSH is meant to be spelled that way, to match the
-	# old configuration file name we need to transfer.
-	perl -i debian/substitute-conffile.pl \
-		ETC_DEFAULT_SSH debian/openssh-server/etc/default/ssh \
-		ETC_INIT_D_SSH debian/openssh-server/etc/init.d/ssh \
-		ETC_PAM_D_SSH debian/openssh-server/etc/pam.d/sshd \
-		debian/openssh-server/DEBIAN/preinst
 
 override_dh_gencontrol:
 	dh_gencontrol -- -V'openssh-server:Recommends=$(server_recommends)'
