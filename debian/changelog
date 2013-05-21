@@ -13,7 +13,7 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     the packaging.
   * Remove ssh/use_old_init_script, which was a workaround for a very old
     bug in /etc/init.d/ssh.  If anyone has ignored this for >10 years then
-    they aren't going to be convinced now.
+    they aren't going to be convinced now (closes: #214182).
   * Remove support for upgrading directly from ssh-nonfree.
   * Remove lots of maintainer script support for direct upgrades from
     pre-etch (three releases before current stable).
