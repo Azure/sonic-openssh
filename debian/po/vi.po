@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1:4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-19 16:49+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -17,59 +17,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.7b3\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Tắt chức năng xác thực kiểu yêu cầu/đáp ứng không?"
-
-# Password authentication appears to be disabled in your current OpenSSH
-# server configuration. In order to prevent users from logging in using
-# passwords (perhaps using only public key authentication instead) with
-# recent versions of OpenSSH, you must disable challenge-response
-# authentication, or else ensure that your PAM configuration does not allow
-# Unix password file authentication.
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Có vẻ là chức năng xác thực bằng mật khẩu bị tắt trong cấu hình trình phục "
-"vụ OpenSSH hiện thời. Để ngăn cản người dùng đăng nhập bằng mật khẩu (có lẽ "
-"chỉ xác thực bằng khoá công)  với phiên bản OpenSSH gần đây, bạn cần phải "
-"tắt khả năng xác thực kiểu yêu cầu/đáp ứng (challenge-response "
-"authentication), không thì đảm bảo cấu hình PAM không cho phép xác thực bằng "
-"tập tin mật khẩu UNIX."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Nếu bạn tắt khả năng xác thực kiểu yêu cầu/đáp ứng, người dùng sẽ không thể "
-"đăng nhập bằng mật khẩu. Để lại hoạt động (trả lời mặc định) thì tùy chọn « "
-"PasswordAuthentication no » (xác thực bằng mật khẩu : không) sẽ không có tác "
-"động thật, nếu bạn không điều chỉnh cấu hình PAM trong « /etc/pam.d/ssh »"
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Mọi khoá máy dễ bị tấn công đều sẽ được tạo lại"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -83,7 +39,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -97,13 +53,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "Những máy khoá bị ảnh hưởng:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -113,6 +69,42 @@ msgstr ""
 "vulnkey » có thể được sử dụng làm thử bộ phận để phát hiện các khoá vẫn còn "
 "dễ tấn công. Xem tài liệu Đọc Đi «  /usr/share/doc/openssh-server/README."
 "compromised-keys.gz » để tìm thêm chi tiết."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Tắt chức năng xác thực kiểu yêu cầu/đáp ứng không?"
+
+# Password authentication appears to be disabled in your current OpenSSH
+# server configuration. In order to prevent users from logging in using
+# passwords (perhaps using only public key authentication instead) with
+# recent versions of OpenSSH, you must disable challenge-response
+# authentication, or else ensure that your PAM configuration does not allow
+# Unix password file authentication.
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Có vẻ là chức năng xác thực bằng mật khẩu bị tắt trong cấu hình trình "
+#~ "phục vụ OpenSSH hiện thời. Để ngăn cản người dùng đăng nhập bằng mật khẩu "
+#~ "(có lẽ chỉ xác thực bằng khoá công)  với phiên bản OpenSSH gần đây, bạn "
+#~ "cần phải tắt khả năng xác thực kiểu yêu cầu/đáp ứng (challenge-response "
+#~ "authentication), không thì đảm bảo cấu hình PAM không cho phép xác thực "
+#~ "bằng tập tin mật khẩu UNIX."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Nếu bạn tắt khả năng xác thực kiểu yêu cầu/đáp ứng, người dùng sẽ không "
+#~ "thể đăng nhập bằng mật khẩu. Để lại hoạt động (trả lời mặc định) thì tùy "
+#~ "chọn « PasswordAuthentication no » (xác thực bằng mật khẩu : không) sẽ "
+#~ "không có tác động thật, nếu bạn không điều chỉnh cấu hình PAM trong « /"
+#~ "etc/pam.d/ssh »"
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Bắt buộc phải có khoá máy mới"

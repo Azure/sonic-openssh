@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh debconf 1-6.0p1-2\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2012-07-15 18:29+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -18,53 +18,15 @@ msgstr ""
 "X-Poedit-Language: Indonesian\n"
 "X-Poedit-Country: INDONESIA\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Nonaktifkan otentikasi challenge-response?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Otentikasi sandi nampaknya dinonaktifkan dalam konfigurasi server OpenSSH "
-"saat ini. Untuk mencegah pengguna log masuk memakai sandi (mungkin "
-"digantikan hanya dengan memakai otentikasi kunci publik) dengan versi "
-"OpenSSH terkini, Anda mesti menonaktifkan otentikasi challenge-response, "
-"atau bisa juga dengan memastikan bahwa konfigurasi PAM Anda tak mengijinkan "
-"otentikasi berkas sandi Unix."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Bila Anda menonaktifkan otentikasi challenge-response, maka pengguna tak "
-"akan bisa log masuk memakai sandi. Bila Anda membiarkannya aktif (jawaban "
-"baku), maka opsi 'PasswordAuthentication no' tak akan memiliki efek yang "
-"berguna kecuali Anda juga mengubah konfigurasi PAM Anda dalam /etc/pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Kunci host yang vulnerable akan dibuat ulang"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -78,7 +40,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -92,13 +54,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "Kunci host yang terpengaruh adalah:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -107,6 +69,36 @@ msgstr ""
 "Kunci pengguna mungkin juga terpengaruh oleh masalah ini. Perintah 'ssh-"
 "vulnkey' dapat dipakai sebagai uji parsial untuk ini. Lihat /usr/share/doc/"
 "openssh-server/README.compromised-keys.gz untuk rincian lebih lanjut."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Nonaktifkan otentikasi challenge-response?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Otentikasi sandi nampaknya dinonaktifkan dalam konfigurasi server OpenSSH "
+#~ "saat ini. Untuk mencegah pengguna log masuk memakai sandi (mungkin "
+#~ "digantikan hanya dengan memakai otentikasi kunci publik) dengan versi "
+#~ "OpenSSH terkini, Anda mesti menonaktifkan otentikasi challenge-response, "
+#~ "atau bisa juga dengan memastikan bahwa konfigurasi PAM Anda tak "
+#~ "mengijinkan otentikasi berkas sandi Unix."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Bila Anda menonaktifkan otentikasi challenge-response, maka pengguna tak "
+#~ "akan bisa log masuk memakai sandi. Bila Anda membiarkannya aktif (jawaban "
+#~ "baku), maka opsi 'PasswordAuthentication no' tak akan memiliki efek yang "
+#~ "berguna kecuali Anda juga mengubah konfigurasi PAM Anda dalam /etc/pam.d/"
+#~ "ssh."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Kunci host baru wajib"

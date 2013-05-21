@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2007-04-24 20:52+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
@@ -17,52 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்யவா?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"இப்போதைய ஓபன் எஸ்எஸ்ஹெச் சேவையக வடிவமைப்பில் கடவுச்சொல் உறுதிப்படுத்தலை செயலிழக்க "
-"செய்துள்ளது. (திறந்த விசையை பயன்படுத்தி) பயனர்கள் உள்நுழைவதை தடுக்க சமீபத்திய ஓபன் "
-"எஸ்எஸ்ஹெச் பதிப்புகளில் நீங்கள் கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்ய வேண்டும். அல்லது "
-"உங்கள் பாம் வடிவமைப்பு யூனிக்ஸ் கடவுச்சொல் கோப்பு உறுதிப்படுத்தலை ஏற்காதவாறு அமைக்க "
-"வேண்டும்."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"நீங்கள் கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்தால் பயனர்கள் கடவுச்சொற்களை பயன் படுத்தி "
-"உள் நுழைய இயலாது. அதை செயல் படச்செய்தால் (கடவுச்சொல் உறுதிப்படுத்தல் தேர்வு இல்லை) "
-"'PasswordAuthentication no'  தேர்வு /etc/pam.d/ssh இல் பாம் வடிவமைப்பை சரி "
-"செய்தால் ஒழிய பயன் தராது."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -72,7 +35,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -82,18 +45,46 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்யவா?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "இப்போதைய ஓபன் எஸ்எஸ்ஹெச் சேவையக வடிவமைப்பில் கடவுச்சொல் உறுதிப்படுத்தலை செயலிழக்க "
+#~ "செய்துள்ளது. (திறந்த விசையை பயன்படுத்தி) பயனர்கள் உள்நுழைவதை தடுக்க சமீபத்திய ஓபன் "
+#~ "எஸ்எஸ்ஹெச் பதிப்புகளில் நீங்கள் கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்ய வேண்டும். "
+#~ "அல்லது உங்கள் பாம் வடிவமைப்பு யூனிக்ஸ் கடவுச்சொல் கோப்பு உறுதிப்படுத்தலை ஏற்காதவாறு "
+#~ "அமைக்க வேண்டும்."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "நீங்கள் கேள்வி பதில் உறுதிப்படுத்தலை செயலிழக்க செய்தால் பயனர்கள் கடவுச்சொற்களை பயன் "
+#~ "படுத்தி உள் நுழைய இயலாது. அதை செயல் படச்செய்தால் (கடவுச்சொல் உறுதிப்படுத்தல் தேர்வு "
+#~ "இல்லை) 'PasswordAuthentication no'  தேர்வு /etc/pam.d/ssh இல் பாம் வடிவமைப்பை "
+#~ "சரி செய்தால் ஒழிய பயன் தராது."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "புதிய புரவலன் விசை கட்டாயமாகும்"

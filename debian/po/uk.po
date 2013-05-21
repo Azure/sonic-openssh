@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh-uk\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2005-03-28 22:28+0300\n"
 "Last-Translator: Eugeniy Meshcheryakov <eugen@univ.kiev.ua>\n"
 "Language-Team: Ukrainian\n"
@@ -27,62 +27,15 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Заборонити автентифікацію запит-відповідь?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-#, fuzzy
-#| msgid ""
-#| "Password authentication appears to be disabled in your current OpenSSH "
-#| "server configuration. In order to prevent users from logging in using "
-#| "passwords (perhaps using only public key authentication instead) with "
-#| "recent versions of OpenSSH, you must disable challenge-response "
-#| "authentication, or else ensure that your PAM configuration does not allow "
-#| "Unix password file authentication."
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Схоже, що автентифікація з використанням паролів заборонена у поточній "
-"конфігурації сервера OpenSSH. Щоб перешкодити користувачам реєструватися з "
-"використанням паролів (можливо, для автентифікації тільки за допомогою "
-"відкритих ключів) з останніми версіями OpenSSH, необхідно заборонити "
-"автентифікацію виклик-відгук або впевнитися, що налаштування PAM не "
-"дозволяють автентифікацію за допомогою файла паролів Unix."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Якщо ви забороните автентифікацію виклик-відгук, то ваші користувачі не "
-"зможуть реєструватися використовуючи паролі. Якщо ви залишите її дозволеною "
-"(відповідь за замовчанням), то опція 'PasswordAuthentication no' не буде "
-"мати корисного ефекту доки ви не пристосуєте також налаштування PAM в /etc/"
-"pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -92,7 +45,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -102,18 +55,56 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz for more details."
 msgstr ""
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Заборонити автентифікацію запит-відповідь?"
+
+#, fuzzy
+#~| msgid ""
+#~| "Password authentication appears to be disabled in your current OpenSSH "
+#~| "server configuration. In order to prevent users from logging in using "
+#~| "passwords (perhaps using only public key authentication instead) with "
+#~| "recent versions of OpenSSH, you must disable challenge-response "
+#~| "authentication, or else ensure that your PAM configuration does not "
+#~| "allow Unix password file authentication."
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Схоже, що автентифікація з використанням паролів заборонена у поточній "
+#~ "конфігурації сервера OpenSSH. Щоб перешкодити користувачам реєструватися "
+#~ "з використанням паролів (можливо, для автентифікації тільки за допомогою "
+#~ "відкритих ключів) з останніми версіями OpenSSH, необхідно заборонити "
+#~ "автентифікацію виклик-відгук або впевнитися, що налаштування PAM не "
+#~ "дозволяють автентифікацію за допомогою файла паролів Unix."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Якщо ви забороните автентифікацію виклик-відгук, то ваші користувачі не "
+#~ "зможуть реєструватися використовуючи паролі. Якщо ви залишите її "
+#~ "дозволеною (відповідь за замовчанням), то опція 'PasswordAuthentication "
+#~ "no' не буде мати корисного ефекту доки ви не пристосуєте також "
+#~ "налаштування PAM в /etc/pam.d/ssh."
 
 #, fuzzy
 #~ msgid ""

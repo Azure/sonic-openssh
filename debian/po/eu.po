@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh-templates\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2007-04-27 12:10+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: librezale <librezale@librezale.org>\n"
@@ -18,53 +18,15 @@ msgstr ""
 "X-Generator: Pootle 0.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "erronka-erantzun autentifikazioa desgaitu?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Pasahitz egiaztapena dirudienez desgaiturik dago instalaturik dagoen OpenSSH "
-"konfigurazioan. Pasahitzak erabiliaz OpenSSH bertsio berrietan saio hastea "
-"ezintzeko (agian gako publiko autentifikazioa bakarrik erabiliaz), erronka-"
-"erantzun (challenge-response) autentifikazioa desgaitu edo zure PAM "
-"konfigurazioak UNIX pasahitz fitxategi autentifikazioa onartzen ez duela "
-"ziurtatu beharko duzu."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Erronka-erantzun autentifikazioa des\tgaituaz gero erabiltzaileak ez dira "
-"pasahitza erabiliaz saio hasteko gai izango. Berau gaiturik utziaz gero "
-"(lehenetsiriko erantzuna), 'PasswordAuthentication no' aukerak ez du "
-"ondoriorik izango /etc/pam.d/ssh-eko PAM konfigurazioa doitzen ez baduzu."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Ostalari gako ahulak birsortu egingo dira"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -78,7 +40,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -92,13 +54,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "Ostalari gako hauei eragingo die:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -108,6 +70,35 @@ msgstr ""
 "vulnkey' komandoak honetarako proba bezala erdi-ziur erabili daiteke. Ikusi /"
 "usr/share/doc/openssh-server/README.compromised-keys.gz xehetasun "
 "gehiagorako."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "erronka-erantzun autentifikazioa desgaitu?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Pasahitz egiaztapena dirudienez desgaiturik dago instalaturik dagoen "
+#~ "OpenSSH konfigurazioan. Pasahitzak erabiliaz OpenSSH bertsio berrietan "
+#~ "saio hastea ezintzeko (agian gako publiko autentifikazioa bakarrik "
+#~ "erabiliaz), erronka-erantzun (challenge-response) autentifikazioa "
+#~ "desgaitu edo zure PAM konfigurazioak UNIX pasahitz fitxategi "
+#~ "autentifikazioa onartzen ez duela ziurtatu beharko duzu."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Erronka-erantzun autentifikazioa des\tgaituaz gero erabiltzaileak ez dira "
+#~ "pasahitza erabiliaz saio hasteko gai izango. Berau gaiturik utziaz gero "
+#~ "(lehenetsiriko erantzuna), 'PasswordAuthentication no' aukerak ez du "
+#~ "ondoriorik izango /etc/pam.d/ssh-eko PAM konfigurazioa doitzen ez baduzu."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Ostalari gako berria beharrezkoa"

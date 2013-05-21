@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-17 10:29+0100\n"
 "Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -16,54 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "¿Desactivar a autenticación por desafío-resposta?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Semella que a autenticación por contrasinal está desactivada na "
-"configuración actual do servidor de OpenSSH. Para impedir que os usuarios se "
-"conecten empregando contrasinais (empregando no seu canto, por exemplo, "
-"autenticación mediante clave pública), nas versións recentes de OpenSSH ten "
-"que desactivar a autenticación por desafío-resposta ou asegurarse de que a "
-"súa configuración de PAM non permita a autenticación por ficheiro de "
-"contrasinais de Unix."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Se desactiva a autenticación por desafío-resposta, os usuarios non han poder "
-"conectarse empregando contrasinais. Se a deixa activada (a resposta por "
-"defecto) a opción \"PasswordAuthentication no\" non ha ter ningún efecto "
-"útil a menos que tamén axuste a súa configuración de PAM en /etc/pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Hanse rexenerar as claves de servidor vulnerables"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -78,7 +39,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -92,13 +53,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "As claves de servidor afectadas son:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -108,6 +69,37 @@ msgstr ""
 "empregar a orde \"ssh-vulnkey\" para facer unha comprobación parcial disto. "
 "Consulte /usr/share/doc/openssh-server/README.compromised-keys.gz para máis "
 "detalles."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "¿Desactivar a autenticación por desafío-resposta?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Semella que a autenticación por contrasinal está desactivada na "
+#~ "configuración actual do servidor de OpenSSH. Para impedir que os usuarios "
+#~ "se conecten empregando contrasinais (empregando no seu canto, por "
+#~ "exemplo, autenticación mediante clave pública), nas versións recentes de "
+#~ "OpenSSH ten que desactivar a autenticación por desafío-resposta ou "
+#~ "asegurarse de que a súa configuración de PAM non permita a autenticación "
+#~ "por ficheiro de contrasinais de Unix."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Se desactiva a autenticación por desafío-resposta, os usuarios non han "
+#~ "poder conectarse empregando contrasinais. Se a deixa activada (a resposta "
+#~ "por defecto) a opción \"PasswordAuthentication no\" non ha ter ningún "
+#~ "efecto útil a menos que tamén axuste a súa configuración de PAM en /etc/"
+#~ "pam.d/ssh."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "É obrigatorio ter unha nova clave de servidor"

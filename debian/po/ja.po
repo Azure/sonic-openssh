@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-17 21:28+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -24,52 +24,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "チャレンジ-レスポンス認証を無効にしますか?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"現在の OpenSSH サーバの設定ではパスワード認証が無効になっているようです。"
-"OpenSSH の最近のバージョンでパスワードを使ってユーザがログインするのを防ぐ "
-"(多分公開鍵認証だけを代わりに使う) ためには、チャレンジ-レスポンス認証を無効"
-"にするか、PAM 設定で Unix パスワードファイル認証を絶対に許可しないようにする"
-"必要があります。"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"チャレンジ-レスポンス認証を無効にする場合、ユーザはパスワードを使ってログイン"
-"できなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/ssh にあ"
-"る PAM 設定を調節しない限り、'PasswordAuthentication no' オプションは効果を持"
-"たなくなります。"
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "脆弱なホストキーは再生成されます"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -83,7 +46,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -96,13 +59,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "影響を受けるホストキーは次のとおりです:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -111,6 +74,34 @@ msgstr ""
 "ユーザキーもこの問題の影響を受けている恐れがあります。この部分的なテストとし"
 "て、'ssh-vulnkey' コマンドを利用できます。詳細については /usr/share/doc/"
 "openssh-server/README.compromised-keys.gz を参照してください。"
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "チャレンジ-レスポンス認証を無効にしますか?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "現在の OpenSSH サーバの設定ではパスワード認証が無効になっているようです。"
+#~ "OpenSSH の最近のバージョンでパスワードを使ってユーザがログインするのを防"
+#~ "ぐ (多分公開鍵認証だけを代わりに使う) ためには、チャレンジ-レスポンス認証"
+#~ "を無効にするか、PAM 設定で Unix パスワードファイル認証を絶対に許可しないよ"
+#~ "うにする必要があります。"
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "チャレンジ-レスポンス認証を無効にする場合、ユーザはパスワードを使ってログ"
+#~ "インできなくなります。有効 (デフォルト) のままにしておくと、/etc/pam.d/"
+#~ "ssh にある PAM 設定を調節しない限り、'PasswordAuthentication no' オプショ"
+#~ "ンは効果を持たなくなります。"
 
 #~ msgid "New host key mandatory"
 #~ msgstr "新しいホストキーが必要です"

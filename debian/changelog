@@ -15,6 +15,8 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     bug in /etc/init.d/ssh.  If anyone has ignored this for >10 years then
     they aren't going to be convinced now.
   * Remove support for upgrading from ssh-nonfree.
+  * Remove lots of maintainer script support for upgrades from pre-etch
+    (three releases before current stable).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

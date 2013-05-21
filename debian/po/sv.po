@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-25 23:32+0200\n"
 "Last-Translator: Martin Bagge <martin.bagge@bthstudent.se>\n"
 "Language-Team: swedish <sv@li.org>\n"
@@ -17,53 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Inaktivera challenge-response-autentisering?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Lösenordsautentisering verkar vara inaktiverat i din aktuella konfiguration "
-"av OpenSSH-servern. För att förhindra att användare loggar in med lösenord "
-"(istället kanske endast använder publik nyckelautentisering) med senare "
-"versioner av OpenSSH, måste du inaktivera challenge-response-autentisering "
-"eller försäkra dig om att din PAM-konfiguration inte tillåter autentisering "
-"via Unix lösenordsfil."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Om du inaktiverar  challenge-response-autentisering så kan användarna inte "
-"logga in med lösenord. Om du lämnar det aktiverat (som är standard) så "
-"kommer \"PasswordAuthentication no\" inte att ha någon effekt om du inte "
-"justerar din PAM-konfiguration i /etc/pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Sårbara värdnycklar kommer att omskapas"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -77,7 +39,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -91,13 +53,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "De drabbade värdnycklarna är:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -106,6 +68,35 @@ msgstr ""
 "Användarnycklar kan också vara drabbade av detta fel. Kommandot 'ssh-"
 "vulnkey' kan användas som ett deltest. Läs /usr/share/doc/openssh-server/"
 "README.compromised-keys.gz för mer ingående detaljer."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Inaktivera challenge-response-autentisering?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Lösenordsautentisering verkar vara inaktiverat i din aktuella "
+#~ "konfiguration av OpenSSH-servern. För att förhindra att användare loggar "
+#~ "in med lösenord (istället kanske endast använder publik "
+#~ "nyckelautentisering) med senare versioner av OpenSSH, måste du inaktivera "
+#~ "challenge-response-autentisering eller försäkra dig om att din PAM-"
+#~ "konfiguration inte tillåter autentisering via Unix lösenordsfil."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Om du inaktiverar  challenge-response-autentisering så kan användarna "
+#~ "inte logga in med lösenord. Om du lämnar det aktiverat (som är standard) "
+#~ "så kommer \"PasswordAuthentication no\" inte att ha någon effekt om du "
+#~ "inte justerar din PAM-konfiguration i /etc/pam.d/ssh."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Ny värdnyckel är obligatorisk"

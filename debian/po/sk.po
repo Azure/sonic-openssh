@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1_4.6p1-5\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-29 08:51+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -11,53 +11,15 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Vypnúť autentifikáciu výzva-odpoveď?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Zdá sa, že autentifikácia pomocou hesla je v aktuálnej konfigurácii OpenSSH "
-"servera vypnutá. Aby ste zabránili používateľom prihlasovať sa pomocou "
-"hesiel (snáď iba použitím autentifikácie svojím verejným kľúčom) pri novších "
-"verziách OpenSSH musíte vypnúť autentifikáciu výzva-odpoveď alebo sa inak "
-"uistiť, že vaša konfigurácia PAM neumožňuje autentifikáciu pomocu unixového "
-"súboru s heslami."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Ak vypnete autentifikáciu výzva-odpoveď, používatelia sa nebudú môcť "
-"prihlasovať pomocou hesiel. Ak ju necháte zapnutú (štandardná odpoveď), "
-"potom nebude mať voľba „PasswordAuthentication no“ žiadny účinok v prípade, "
-"že tiež vhodne nenastavíte vašu konfiguráciu PAM v /etc/pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Namiesto zneužiteľných kľúčov hostiteľa sa vytvoria nové"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -71,7 +33,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -85,13 +47,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "Postihnuté kľúče sú:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -100,6 +62,36 @@ msgstr ""
 "Používateľské kľúče tiež mohol ovplyvniť tento problém. Na čiastočný test "
 "zraniteľnosti je možné použiť príkaz „ssh-vulnkey“. Podrobnosti nájdete v /"
 "usr/share/doc/openssh-server/README.compromised-keys.gz"
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Vypnúť autentifikáciu výzva-odpoveď?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Zdá sa, že autentifikácia pomocou hesla je v aktuálnej konfigurácii "
+#~ "OpenSSH servera vypnutá. Aby ste zabránili používateľom prihlasovať sa "
+#~ "pomocou hesiel (snáď iba použitím autentifikácie svojím verejným kľúčom) "
+#~ "pri novších verziách OpenSSH musíte vypnúť autentifikáciu výzva-odpoveď "
+#~ "alebo sa inak uistiť, že vaša konfigurácia PAM neumožňuje autentifikáciu "
+#~ "pomocu unixového súboru s heslami."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Ak vypnete autentifikáciu výzva-odpoveď, používatelia sa nebudú môcť "
+#~ "prihlasovať pomocou hesiel. Ak ju necháte zapnutú (štandardná odpoveď), "
+#~ "potom nebude mať voľba „PasswordAuthentication no“ žiadny účinok v "
+#~ "prípade, že tiež vhodne nenastavíte vašu konfiguráciu PAM v /etc/pam.d/"
+#~ "ssh."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Nový kľúč hostiteľa je povinný"

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1:4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:58+0100\n"
+"POT-Creation-Date: 2013-05-22 00:05+0100\n"
 "PO-Revision-Date: 2008-05-18 08:55+0400\n"
 "Last-Translator: Yuri Kozlov <kozlov.y@gmail.com>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
@@ -29,53 +29,15 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid "Disable challenge-response authentication?"
-msgstr "Отключить аутентификацию запрос-ответ?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"Password authentication appears to be disabled in the current OpenSSH server "
-"configuration. In order to prevent users from logging in using passwords "
-"(perhaps using only public key authentication instead) with recent versions "
-"of OpenSSH, you must disable challenge-response authentication, or else "
-"ensure that your PAM configuration does not allow Unix password file "
-"authentication."
-msgstr ""
-"Кажется, что парольная аутентификация отключена в текущей настройке сервера "
-"OpenSSH. Чтобы запретить пользователям вход с использованием паролей "
-"(возможно, использовав вместо этого только аутентификацию по публичному "
-"ключу) в новых версиях OpenSSH, вы должны отключить аутентификацию запрос-"
-"ответ, либо убедиться, что ваша настройка PAM не разрешает аутентификацию по "
-"файлу паролей Unix."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"If you disable challenge-response authentication, then users will not be "
-"able to log in using passwords. If you leave it enabled (the default "
-"answer), then the 'PasswordAuthentication no' option will have no useful "
-"effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
-msgstr ""
-"Если вы запретите аутентификацию запрос-ответ, пользователи не смогут войти "
-"с использованием паролей. Если вы оставите её разрешенной (ответ по "
-"умолчанию), то параметр 'PasswordAuthentication no' не будет иметь силы до "
-"тех пор, пока вы также не откорректируете настройки PAM в /etc/pam.d/ssh."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Уязвимые ключи хоста будут созданы заново"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -90,7 +52,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -104,13 +66,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "The affected host keys are:"
 msgstr "Ключи хоста, которые будут заменены:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -119,6 +81,36 @@ msgstr ""
 "Пользовательские ключи также имеют данную проблему. Для частичной проверки "
 "можно воспользоваться командой 'ssh-vulnkey'. В файле /usr/share/doc/openssh-"
 "server/README.compromised-keys.gz дано более подробное описание."
+
+#~ msgid "Disable challenge-response authentication?"
+#~ msgstr "Отключить аутентификацию запрос-ответ?"
+
+#~ msgid ""
+#~ "Password authentication appears to be disabled in the current OpenSSH "
+#~ "server configuration. In order to prevent users from logging in using "
+#~ "passwords (perhaps using only public key authentication instead) with "
+#~ "recent versions of OpenSSH, you must disable challenge-response "
+#~ "authentication, or else ensure that your PAM configuration does not allow "
+#~ "Unix password file authentication."
+#~ msgstr ""
+#~ "Кажется, что парольная аутентификация отключена в текущей настройке "
+#~ "сервера OpenSSH. Чтобы запретить пользователям вход с использованием "
+#~ "паролей (возможно, использовав вместо этого только аутентификацию по "
+#~ "публичному ключу) в новых версиях OpenSSH, вы должны отключить "
+#~ "аутентификацию запрос-ответ, либо убедиться, что ваша настройка PAM не "
+#~ "разрешает аутентификацию по файлу паролей Unix."
+
+#~ msgid ""
+#~ "If you disable challenge-response authentication, then users will not be "
+#~ "able to log in using passwords. If you leave it enabled (the default "
+#~ "answer), then the 'PasswordAuthentication no' option will have no useful "
+#~ "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
+#~ msgstr ""
+#~ "Если вы запретите аутентификацию запрос-ответ, пользователи не смогут "
+#~ "войти с использованием паролей. Если вы оставите её разрешенной (ответ по "
+#~ "умолчанию), то параметр 'PasswordAuthentication no' не будет иметь силы "
+#~ "до тех пор, пока вы также не откорректируете настройки PAM в /etc/pam.d/"
+#~ "ssh."
 
 #~ msgid "New host key mandatory"
 #~ msgstr "Необходим новый ключ хоста"
