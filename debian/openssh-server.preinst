@@ -16,36 +16,8 @@ prepare_mv_conffile () {
 	fi
 }
 
-if [ -d /etc/ssh-nonfree ] && [ ! -d /etc/ssh ]; then
-  version=1.2.27
-fi
-
 if [ "$action" = upgrade ] || [ "$action" = install ]
 then
-  # deal with upgrading from pre-OpenSSH versions
-  key=/etc/ssh/ssh_host_key
-  export key
-  if [ -n "$version" ] && [ -x /usr/bin/ssh-keygen ] && [ -f $key ] &&
-     dpkg --compare-versions "$version" lt 1.2.28
-  then
-    # make sure that keys get updated to get rid of IDEA
-    #
-    # N.B. this only works because we've still got the old
-    # nonfree ssh-keygen at this point
-    #
-    # First, check if we need to bother
-    printf '\0\0' | 3<&0 sh -c \
-        'dd if=$key bs=1 skip=32 count=2 2>/dev/null | cmp -s - /dev/fd/3' || {
-      # this means that bytes 32&33 of the key were not both zero, in which
-      # case the key is encrypted, which we need to fix
-      chmod 600 $key
-      ssh-keygen -u -f $key >/dev/null
-      if which restorecon >/dev/null 2>&1; then
-        restorecon "$key.pub"
-      fi
-    }
-  fi
-
   if dpkg --compare-versions "$version" lt 1:4.7p1-4; then
     prepare_mv_conffile /etc/pam.d/ssh
   fi

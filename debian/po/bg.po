@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:52+0100\n"
+"POT-Creation-Date: 2013-05-21 23:58+0100\n"
 "PO-Revision-Date: 2008-05-19 09:27+0300\n"
 "Last-Translator: Damyan Ivanov <dmn@debian.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -17,40 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "New host key mandatory"
-msgstr "Необходим е нов ключ за хоста"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
-"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
-"utility from the old (non-free) SSH installation does not appear to be "
-"available."
-msgstr ""
-"В момента ключа на хоста в /etc/ssh/ssh_host_key е шифриран с алгоритъма "
-"IDEA. OpenSSH не може да работи с този файл, а програмата ssh-keygen от "
-"старата инсталация не е налична."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "You need to manually generate a new host key."
-msgstr "Необходимо е да се генерира ръчно нов ключ за хоста."
-
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Disable challenge-response authentication?"
 msgstr "Забрана на удостоверяването challenge-response?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -68,7 +43,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -82,13 +57,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Уязвимите ключове на хоста ще бъдат създадени наново"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -101,7 +76,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -115,13 +90,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "The affected host keys are:"
 msgstr "Засегнатите ключове на хоста са:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -131,6 +106,22 @@ msgstr ""
 "да използвате програмата „ssh-vulnkey“ за да ги проверите. За повече "
 "информация погледнете /usr/share/doc/openssh-server/README.compromised-keys."
 "gz."
+
+#~ msgid "New host key mandatory"
+#~ msgstr "Необходим е нов ключ за хоста"
+
+#~ msgid ""
+#~ "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the "
+#~ "IDEA algorithm. OpenSSH can not handle this host key file, and the ssh-"
+#~ "keygen utility from the old (non-free) SSH installation does not appear "
+#~ "to be available."
+#~ msgstr ""
+#~ "В момента ключа на хоста в /etc/ssh/ssh_host_key е шифриран с алгоритъма "
+#~ "IDEA. OpenSSH не може да работи с този файл, а програмата ssh-keygen от "
+#~ "старата инсталация не е налична."
+
+#~ msgid "You need to manually generate a new host key."
+#~ msgstr "Необходимо е да се генерира ръчно нов ключ за хоста."
 
 #~ msgid "Do you want to risk killing active SSH sessions?"
 #~ msgstr "Да се прекъснат ли текущите връзки по SSH?"

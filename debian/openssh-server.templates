@@ -7,16 +7,6 @@
 # Even minor modifications require translation updates and such
 # changes should be coordinated with translators and reviewers.
 #
-Template: ssh/encrypted_host_key_but_no_keygen
-Type: note
-_Description: New host key mandatory
- The current host key, in /etc/ssh/ssh_host_key, is encrypted with the
- IDEA algorithm. OpenSSH can not handle this host key file, and the
- ssh-keygen utility from the old (non-free) SSH installation does not
- appear to be available.
- .
- You need to manually generate a new host key.
-
 Template: ssh/disable_cr_auth
 Type: boolean
 Default: false

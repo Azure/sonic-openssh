@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1:4.7p1-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:52+0100\n"
+"POT-Creation-Date: 2013-05-21 23:58+0100\n"
 "PO-Revision-Date: 2008-05-27 10:10-0300\n"
 "Last-Translator: Eder L. Marques (frolic) <frolic@debian-ce.org>\n"
 "Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
@@ -19,41 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "pt_BR utf-8\n"
 
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "New host key mandatory"
-msgstr "Nova chave de máquina obrigatória"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
-"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
-"utility from the old (non-free) SSH installation does not appear to be "
-"available."
-msgstr ""
-"A chave de máquina atual, em /etc/ssh/ssh_host_key, é criptografada "
-"utilizando o algoritmo IDEA. O OpenSSH não pode gerenciar esse arquivo de "
-"chave de máquina, e o utilitário ssh-keygen da antiga (e não livre) "
-"instalação SSH não parece estar disponível."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "You need to manually generate a new host key."
-msgstr "Você precisa gerar manualmente uma chave de máquina."
-
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Disable challenge-response authentication?"
 msgstr "Desabilitar autenticação desafio-resposta (\"challenge-response\")?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -72,7 +46,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -87,13 +61,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Chaves de host vulneráveis serão regeradas"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -107,7 +81,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -121,13 +95,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "The affected host keys are:"
 msgstr "As chaves de host afetadas são:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -136,6 +110,23 @@ msgstr ""
 "Chaves de usuários também podem ser afetadas por este problema. O comando "
 "'ssh-vulnkey' pode ser usado como um teste parcial para isso. Veja /usr/"
 "share/doc/openssh-server/README.compromised-keys.gz para mais detalhes."
+
+#~ msgid "New host key mandatory"
+#~ msgstr "Nova chave de máquina obrigatória"
+
+#~ msgid ""
+#~ "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the "
+#~ "IDEA algorithm. OpenSSH can not handle this host key file, and the ssh-"
+#~ "keygen utility from the old (non-free) SSH installation does not appear "
+#~ "to be available."
+#~ msgstr ""
+#~ "A chave de máquina atual, em /etc/ssh/ssh_host_key, é criptografada "
+#~ "utilizando o algoritmo IDEA. O OpenSSH não pode gerenciar esse arquivo de "
+#~ "chave de máquina, e o utilitário ssh-keygen da antiga (e não livre) "
+#~ "instalação SSH não parece estar disponível."
+
+#~ msgid "You need to manually generate a new host key."
+#~ msgstr "Você precisa gerar manualmente uma chave de máquina."
 
 #~ msgid "Do you want to risk killing active SSH sessions?"
 #~ msgstr "Você deseja arriscar matar (\"kill\") as sessões SSH ativas?"

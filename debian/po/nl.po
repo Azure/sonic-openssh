@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1p2-9\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:52+0100\n"
+"POT-Creation-Date: 2013-05-21 23:58+0100\n"
 "PO-Revision-Date: 2008-05-26 15:19+0200\n"
 "Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
 "Language-Team: debian-l10n-dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -25,41 +25,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Dutch\n"
 
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "New host key mandatory"
-msgstr "Een nieuwe computersleutel is verplicht"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
-"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
-"utility from the old (non-free) SSH installation does not appear to be "
-"available."
-msgstr ""
-"De huidige computersleutel in /etc/ssh/ssh_host_key is versleuteld met het "
-"IDEA-algoritme. OpenSSH kan dit computer-sleutelbestand niet aan, en het ssh-"
-"keygen programma van de oude (niet-vrije) SSH-installatie is niet "
-"beschikbaar."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "You need to manually generate a new host key."
-msgstr "U dient bijgevolg handmatig een nieuwe computersleutel te genereren."
-
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Disable challenge-response authentication?"
 msgstr "Challenge-response-authenticatie deactiveren?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -77,7 +51,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -91,13 +65,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Kwetsbare computersleutels worden opnieuw aangemaakt"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -111,7 +85,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -126,13 +100,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "The affected host keys are:"
 msgstr "De getroffen computersleutels zijn:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -142,6 +116,24 @@ msgstr ""
 "'ssh-vulnkey' commando kan gebruikt worden als een gedeeltelijke test, meer "
 "details vindt u in /usr/share/doc/openssh-server/README.compromised-keys."
 "gz . "
+
+#~ msgid "New host key mandatory"
+#~ msgstr "Een nieuwe computersleutel is verplicht"
+
+#~ msgid ""
+#~ "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the "
+#~ "IDEA algorithm. OpenSSH can not handle this host key file, and the ssh-"
+#~ "keygen utility from the old (non-free) SSH installation does not appear "
+#~ "to be available."
+#~ msgstr ""
+#~ "De huidige computersleutel in /etc/ssh/ssh_host_key is versleuteld met "
+#~ "het IDEA-algoritme. OpenSSH kan dit computer-sleutelbestand niet aan, en "
+#~ "het ssh-keygen programma van de oude (niet-vrije) SSH-installatie is niet "
+#~ "beschikbaar."
+
+#~ msgid "You need to manually generate a new host key."
+#~ msgstr ""
+#~ "U dient bijgevolg handmatig een nieuwe computersleutel te genereren."
 
 #~ msgid "Do you want to risk killing active SSH sessions?"
 #~ msgstr "Wilt u het afsluiten van actieve SSH-sessies riskeren?"

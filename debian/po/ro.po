@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 1.4\n"
 "Report-Msgid-Bugs-To: openssh@packages.debian.org\n"
-"POT-Creation-Date: 2013-05-21 23:52+0100\n"
+"POT-Creation-Date: 2013-05-21 23:58+0100\n"
 "PO-Revision-Date: 2008-05-28 17:54+0200\n"
 "Last-Translator: Cătălin Feștilă <catalinfest@gmail.com>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -21,40 +21,15 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "New host key mandatory"
-msgstr "O cheie nouă este obligatorie"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid ""
-"The current host key, in /etc/ssh/ssh_host_key, is encrypted with the IDEA "
-"algorithm. OpenSSH can not handle this host key file, and the ssh-keygen "
-"utility from the old (non-free) SSH installation does not appear to be "
-"available."
-msgstr ""
-"Cheia curentă în /etc/ssh/ssh_host_key este criptată cu algoritmul IDEA. "
-"OpenSSH nu suportă acest tip de cheie, iar utilitarul ssh-keygen din "
-"versiunea SSH (non-liberă) anterior instalată nu pare să fie disponibil."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates:1001
-msgid "You need to manually generate a new host key."
-msgstr "Va trebui să generați manual o nouă cheie pentru sistem."
-
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid "Disable challenge-response authentication?"
 msgstr "Dezactivează modul de autentificare provocare-răspuns?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "Password authentication appears to be disabled in the current OpenSSH server "
 "configuration. In order to prevent users from logging in using passwords "
@@ -72,7 +47,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates:2001
+#: ../openssh-server.templates:1001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
@@ -86,13 +61,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "Vulnerable host keys will be regenerated"
 msgstr "Cheile vulnerabile vor fi regenerate"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Some of the OpenSSH server host keys on this system were generated with a "
 "version of OpenSSL that had a broken random number generator. As a result, "
@@ -106,7 +81,7 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "Users of this system should be informed of this change, as they will be "
 "prompted about the host key change the next time they log in. Use 'ssh-"
@@ -120,13 +95,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid "The affected host keys are:"
 msgstr "Cheile gazdă afectate sunt:"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates:3001
+#: ../openssh-server.templates:2001
 msgid ""
 "User keys may also be affected by this problem. The 'ssh-vulnkey' command "
 "may be used as a partial test for this. See /usr/share/doc/openssh-server/"
@@ -136,6 +111,22 @@ msgstr ""
 "Comanda 'ssh-vulnkey' poate fi folosită ca un test parțial pentru acestea. A "
 "se vedea /usr/share/doc/openssh-server/README.compromised-keys.gz pentru mai "
 "multe detalii."
+
+#~ msgid "New host key mandatory"
+#~ msgstr "O cheie nouă este obligatorie"
+
+#~ msgid ""
+#~ "The current host key, in /etc/ssh/ssh_host_key, is encrypted with the "
+#~ "IDEA algorithm. OpenSSH can not handle this host key file, and the ssh-"
+#~ "keygen utility from the old (non-free) SSH installation does not appear "
+#~ "to be available."
+#~ msgstr ""
+#~ "Cheia curentă în /etc/ssh/ssh_host_key este criptată cu algoritmul IDEA. "
+#~ "OpenSSH nu suportă acest tip de cheie, iar utilitarul ssh-keygen din "
+#~ "versiunea SSH (non-liberă) anterior instalată nu pare să fie disponibil."
+
+#~ msgid "You need to manually generate a new host key."
+#~ msgstr "Va trebui să generați manual o nouă cheie pentru sistem."
 
 #~ msgid "Do you want to risk killing active SSH sessions?"
 #~ msgstr "Doriți să riscați întreruperea sesiunilor ssh active?"
