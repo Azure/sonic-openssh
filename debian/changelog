@@ -17,6 +17,8 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
   * Remove support for upgrading directly from ssh-nonfree.
   * Remove lots of maintainer script support for direct upgrades from
     pre-etch (three releases before current stable).
+  * Add #DEBHELPER# tokens to openssh-client.postinst and
+    openssh-server.postinst.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

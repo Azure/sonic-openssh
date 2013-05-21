@@ -5,11 +5,6 @@ oldversion="$2"
 
 umask 022
 
-if [ "$action" != configure ]
-  then
-  exit 0
-fi
-
 
 create_alternatives() {
 # Create alternatives for the various r* tools.
@@ -40,7 +35,11 @@ set_ssh_agent_permissions() {
 }
 
 
-create_alternatives
-set_ssh_agent_permissions
+if [ "$action" = configure ]; then
+	create_alternatives
+	set_ssh_agent_permissions
+fi
+
+#DEBHELPER#
 
 exit 0

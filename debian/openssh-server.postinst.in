@@ -8,11 +8,6 @@ db_version 2.0
 
 umask 022
 
-if [ "$action" != configure ]
-  then
-  exit 0
-fi
-
 
 get_config_option() {
 	option="$1"
@@ -339,29 +334,32 @@ commit_mv_conffile () {
 }
 
 
-create_sshdconfig
-create_keys
-vulnerable_host_keys
-fix_statoverride
-setup_sshd_user
-if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
-    remove_old_init_links
-fi
-setup_init
-commit_mv_conffile /etc/pam.d/ssh /etc/pam.d/sshd
-# Renamed to /etc/ssh/moduli in 2.9.9 (!)
-if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
-    rm -f /etc/ssh/primes
-fi
-if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
-    rm -f /var/run/sshd/.placeholder
+if [ "$action" = configure ]; then
+	create_sshdconfig
+	create_keys
+	vulnerable_host_keys
+	fix_statoverride
+	setup_sshd_user
+	if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
+	    remove_old_init_links
+	fi
+	setup_init
+	commit_mv_conffile /etc/pam.d/ssh /etc/pam.d/sshd
+	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
+	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
+	    rm -f /etc/ssh/primes
+	fi
+	if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
+	    rm -f /var/run/sshd/.placeholder
+	fi
+
+	# Clean up old debconf templates.
+	db_unregister ssh/use_old_init_script
+	db_unregister ssh/encrypted_host_key_but_no_keygen
+	db_unregister ssh/disable_cr_auth
 fi
 
-# Clean up old debconf templates.
-db_unregister ssh/use_old_init_script
-db_unregister ssh/encrypted_host_key_but_no_keygen
-db_unregister ssh/disable_cr_auth
-
+#DEBHELPER#
 
 db_stop
 
