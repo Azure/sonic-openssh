@@ -1,3 +1,14 @@
+openssh (1:6.2p2-2) UNRELEASED; urgency=low
+
+  * Change start condition of Upstart job to be just the standard "runlevel
+    [2345]", rather than "filesystem or runlevel [2345]"; the latter makes
+    it unreasonably difficult to ensure that urandom starts before ssh, and
+    is not really necessary since one of static-network-up and failsafe-boot
+    is guaranteed to happen and will trigger entry to the default runlevel,
+    and we don't care about ssh starting before the network (LP: #1098299).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
+
 openssh (1:6.2p2-1) unstable; urgency=low
 
   * New upstream release (http://www.openssh.com/txt/release-6.2p2):
