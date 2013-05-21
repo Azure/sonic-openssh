@@ -481,6 +481,7 @@ fi
 
 # Clean up old debconf templates.
 db_unregister ssh/use_old_init_script
+db_unregister ssh/encrypted_host_key_but_no_keygen
 
 
 db_stop
