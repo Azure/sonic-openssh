@@ -3,9 +3,6 @@
 action="$1"
 oldversion="$2"
 
-. /usr/share/debconf/confmodule
-db_version 2.0
-
 umask 022
 
 
@@ -123,35 +120,6 @@ create_keys() {
 		"$hostkeys" /etc/ssh/ssh_host_dsa_key -t dsa
 	create_key "Creating SSH2 ECDSA key; this may take some time ..." \
 		"$hostkeys" /etc/ssh/ssh_host_ecdsa_key -t ecdsa
-}
-
-
-vulnerable_host_keys() {
-	# If the admin has explicitly put the vulnerable keys back, we
-	# assume they can look after themselves.
-	db_fget ssh/vulnerable_host_keys seen
-	if [ "$RET" = true ]; then
-		return 0
-	fi
-
-	hostkeys="$(host_keys_required)"
-	vulnerable=
-	for hostkey in $hostkeys; do
-		[ -f "$hostkey" ] || continue
-		if ssh-vulnkey -q "$hostkey"; then
-			vulnerable="${vulnerable:+$vulnerable }$hostkey"
-		fi
-	done
-	if [ "$vulnerable" ]; then
-		db_subst ssh/vulnerable_host_keys HOST_KEYS "$vulnerable"
-		db_input critical ssh/vulnerable_host_keys || true
-		db_go
-		for hostkey in $vulnerable; do
-			mv "$hostkey" "$hostkey.broken" || true
-			mv "$hostkey.pub" "$hostkey.pub.broken" || true
-		done
-		create_keys
-	fi
 }
 
 
@@ -299,7 +267,6 @@ remove_old_init_links() {
 if [ "$action" = configure ]; then
 	create_sshdconfig
 	create_keys
-	vulnerable_host_keys
 	fix_statoverride
 	setup_sshd_user
 	if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
@@ -312,15 +279,8 @@ if [ "$action" = configure ]; then
 	if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
 	    rm -f /var/run/sshd/.placeholder
 	fi
-
-	# Clean up old debconf templates.
-	db_unregister ssh/use_old_init_script
-	db_unregister ssh/encrypted_host_key_but_no_keygen
-	db_unregister ssh/disable_cr_auth
 fi
 
 #DEBHELPER#
-
-db_stop
 
 exit 0

@@ -29,6 +29,11 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     automatically in chroots if the running Upstart predates 0.9.0; but the
     main goal is simply not to break when openssh-server is installed in a
     chroot.
+  * Remove the check for vulnerable host keys; this was first added five
+    years ago, and everyone should have upgraded through a version that
+    applied these checks by now.  The ssh-vulnkey tool and the blacklisting
+    support in sshd are still here, at least for the moment.
+  * This removes the last of our uses of debconf (closes: #221531).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 
