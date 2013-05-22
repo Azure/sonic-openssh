@@ -21,6 +21,14 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     openssh-server.postinst.
   * Replace old manual conffile handling code with dpkg-maintscript-helper,
     via dh_installdeb.
+  * Switch to new unified layout for Upstart jobs as documented in
+    https://wiki.ubuntu.com/UpstartCompatibleInitScripts: the init script
+    checks for a running Upstart, and we now let dh_installinit handle most
+    of the heavy lifting in maintainer scripts.  Ubuntu users should be
+    essentially unaffected except that sshd may no longer start
+    automatically in chroots if the running Upstart predates 0.9.0; but the
+    main goal is simply not to break when openssh-server is installed in a
+    chroot.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

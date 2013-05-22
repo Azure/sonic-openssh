@@ -16,8 +16,6 @@ case $1 in
 		rm -f /etc/ssh/sshd_not_to_be_run
 		rmdir --ignore-fail-on-non-empty /etc/ssh
 
-		update-rc.d ssh remove >/dev/null
-
 		if which deluser >/dev/null 2>&1; then
 			deluser --quiet sshd > /dev/null || true
 		fi

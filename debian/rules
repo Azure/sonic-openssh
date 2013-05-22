@@ -115,16 +115,6 @@ confflags_udeb += --with-ldflags='-Wl,--as-needed'
 %:
 	dh $@ --with=autoreconf
 
-DISTRIBUTOR_REPLACE := \
-	debian/openssh-server.if-up \
-	debian/openssh-server.ssh.init \
-	debian/openssh-server.postinst \
-	debian/openssh-server.prerm \
-	debian/ssh-krb5.postinst
-
-debian/%: debian/%.in
-	sed 's/@DISTRIBUTOR@/$(DISTRIBUTOR)/g' $< >$@
-
 override_dh_auto_configure:
 	dh_auto_configure -Bbuild-deb -- $(confflags)
 	dh_auto_configure -Bbuild-udeb -- $(confflags_udeb)
@@ -157,14 +147,10 @@ endif
 	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \
 		> debian/copyright
 
-override_dh_clean:
-	dh_clean
-	rm -f $(DISTRIBUTOR_REPLACE)
-
 override_dh_auto_install:
 	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/tmp install-nokeys
 
-override_dh_install: $(DISTRIBUTOR_REPLACE)
+override_dh_install:
 	rm -f debian/tmp/etc/ssh/sshd_config
 
 	dh_install -Nopenssh-client-udeb -Nopenssh-server-udeb --fail-missing
@@ -197,13 +183,7 @@ override_dh_installdocs:
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
 override_dh_installinit:
-	dh_installinit -n --name ssh
-ifeq ($(DISTRIBUTOR),Ubuntu)
-	# We need to keep the init script as well as the Upstart job for
-	# now, for the benefit of people running sshd in chroots.
-	install -D -o root -g root debian/openssh-server.ssh.init debian/openssh-server/etc/init.d/ssh
-	install -D -o root -g root -m 644 debian/openssh-server.ssh.default debian/openssh-server/etc/default/ssh
-endif
+	dh_installinit -R --name ssh -- start 16 2 3 4 5 .
 
 override_dh_installpam:
 	dh_installpam --name sshd
@@ -216,9 +196,6 @@ override_dh_fixperms:
 override_dh_shlibdeps:
 	dh_shlibdeps
 	debian/adjust-openssl-dependencies
-
-override_dh_installdeb: $(DISTRIBUTOR_REPLACE)
-	dh_installdeb
 
 override_dh_gencontrol:
 	dh_gencontrol -- -V'openssh-server:Recommends=$(server_recommends)'

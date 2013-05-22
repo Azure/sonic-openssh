@@ -296,30 +296,6 @@ remove_old_init_links() {
 	rm -f /etc/rc0.d/K??ssh /etc/rc1.d/K??ssh /etc/rc6.d/K??ssh
 }
 
-setup_init() {
-	case '@DISTRIBUTOR@' in
-	    Ubuntu)
-		# Both init script and Upstart job are present; we want to
-		# operate on the Upstart job.
-		if [ -e /etc/init/ssh.conf ]; then
-			stop ssh 2>/dev/null || true
-			start ssh || true
-		fi
-		update-rc.d -f ssh remove >/dev/null || true
-		;;
-	    *)
-		if [ -x /etc/init.d/ssh ]; then
-			update-rc.d ssh start 16 2 3 4 5 . >/dev/null
-			if [ -x /usr/sbin/invoke-rc.d ]; then
-				invoke-rc.d ssh restart
-			else
-				/etc/init.d/ssh restart
-			fi
-		fi
-		;;
-	esac
-}
-
 if [ "$action" = configure ]; then
 	create_sshdconfig
 	create_keys
@@ -329,7 +305,6 @@ if [ "$action" = configure ]; then
 	if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
 	    remove_old_init_links
 	fi
-	setup_init
 	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
 	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
 	    rm -f /etc/ssh/primes
