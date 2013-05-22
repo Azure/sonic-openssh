@@ -1,3 +1,13 @@
+openssh (1:6.2p2-3) UNRELEASED; urgency=low
+
+  * If the running init daemon is Upstart, then, on the first upgrade to
+    this version, check whether sysvinit is still managing sshd; if so,
+    manually stop it so that it can be restarted under upstart.  We do this
+    near the end of the postinst, so it shouldn't result in any appreciable
+    extra window where sshd is not running during upgrade.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 22 May 2013 15:59:14 +0100
+
 openssh (1:6.2p2-2) unstable; urgency=low
 
   * Change start condition of Upstart job to be just the standard "runlevel

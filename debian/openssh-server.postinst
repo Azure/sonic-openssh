@@ -279,6 +279,13 @@ if [ "$action" = configure ]; then
 	if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
 	    rm -f /var/run/sshd/.placeholder
 	fi
+	if dpkg --compare-versions "$2" lt 1:6.2p2-3 && \
+	   which initctl >/dev/null && initctl version | grep -q upstart && \
+	   ! status ssh 2>/dev/null | grep -q ' start/'; then
+	    # We must stop the sysvinit-controlled sshd before we can
+	    # restart it under Upstart.
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
+	fi
 fi
 
 #DEBHELPER#
