@@ -201,7 +201,7 @@ override_dh_gencontrol:
 	dh_gencontrol -- -V'openssh-server:Recommends=$(server_recommends)'
 
 override_dh_builddeb:
-	dh_builddeb -Zxz
+	dh_builddeb -- -Zxz
 
 debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
