@@ -1,4 +1,4 @@
-openssh (1:6.2p2-2) UNRELEASED; urgency=low
+openssh (1:6.2p2-2) unstable; urgency=low
 
   * Change start condition of Upstart job to be just the standard "runlevel
     [2345]", rather than "filesystem or runlevel [2345]"; the latter makes
@@ -41,7 +41,7 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
   * Fix dh_builddeb invocation so that we really use xz compression for
     binary packages, as intended since 1:6.1p1-2.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 22 May 2013 09:07:42 +0100
 
 openssh (1:6.2p2-1) unstable; urgency=low
 
