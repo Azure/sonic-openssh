@@ -34,6 +34,8 @@ openssh (1:6.2p2-2) UNRELEASED; urgency=low
     applied these checks by now.  The ssh-vulnkey tool and the blacklisting
     support in sshd are still here, at least for the moment.
   * This removes the last of our uses of debconf (closes: #221531).
+  * Use the pam_loginuid session module (thanks, Laurent Bigonville; closes:
+    #677440, LP: #1067779).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 21 May 2013 17:49:35 +0100
 

@@ -13,6 +13,9 @@ account    required     pam_nologin.so
 # Standard Un*x authorization.
 @include common-account
 
+# Set the loginuid process attribute.
+session    required     pam_loginuid.so
+
 # Standard Un*x session setup and teardown.
 @include common-session
 
