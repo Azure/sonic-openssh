@@ -1,0 +1,20 @@
+Description: Fix non-portable shell in ssh-copy-id
+Author: Colin Watson <cjwatson@debian.org>
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=2117
+Bug-Debian: http://bugs.debian.org/711162
+Forwarded: https://bugzilla.mindrot.org/show_bug.cgi?id=2117
+Last-Update: 2013-06-05
+
+Index: b/contrib/ssh-copy-id
+===================================================================
+--- a/contrib/ssh-copy-id
++++ b/contrib/ssh-copy-id
+@@ -165,7 +165,7 @@
+ 
+ eval set -- "$SAVEARGS"
+ 
+-if [ $# == 0 ] ; then
++if [ $# = 0 ] ; then
+   usage
+ fi
+ if [ $# != 1 ] ; then

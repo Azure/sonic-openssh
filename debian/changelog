@@ -1,3 +1,9 @@
+openssh (1:6.2p2-4) UNRELEASED; urgency=low
+
+  * Fix non-portable shell in ssh-copy-id (closes: #711162).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 31 May 2013 16:20:49 +0100
+
 openssh (1:6.2p2-3) unstable; urgency=low
 
   * If the running init daemon is Upstart, then, on the first upgrade to
