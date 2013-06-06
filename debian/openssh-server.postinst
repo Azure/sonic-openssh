@@ -102,7 +102,7 @@ create_key() {
 		ssh-keygen -q -f "$file" -N '' "$@"
 		echo
 		if which restorecon >/dev/null 2>&1; then
-			restorecon "$file.pub"
+			restorecon "$file" "$file.pub"
 		fi
 	fi
 }
