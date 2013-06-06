@@ -1,4 +1,4 @@
-openssh (1:6.2p2-4) UNRELEASED; urgency=low
+openssh (1:6.2p2-4) unstable; urgency=low
 
   * Fix non-portable shell in ssh-copy-id (closes: #711162).
   * Rebuild against debhelper 9.20130604 with fixed dependencies for
@@ -6,7 +6,7 @@ openssh (1:6.2p2-4) UNRELEASED; urgency=low
   * Set SELinux context on private host keys as well as public host keys
     (closes: #687436).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 31 May 2013 16:20:49 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 06 Jun 2013 17:06:31 +0100
 
 openssh (1:6.2p2-3) unstable; urgency=low
 
