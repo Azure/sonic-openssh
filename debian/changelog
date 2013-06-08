@@ -1,3 +1,10 @@
+openssh (1:6.2p2-5) UNRELEASED; urgency=low
+
+  * Document consequences of ssh-agent being setgid in ssh-agent(1); see
+    #711623.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 08 Jun 2013 22:12:27 +0100
+
 openssh (1:6.2p2-4) unstable; urgency=low
 
   * Fix non-portable shell in ssh-copy-id (closes: #711162).
