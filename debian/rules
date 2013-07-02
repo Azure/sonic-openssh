@@ -116,6 +116,13 @@ confflags_udeb += --with-ldflags='-Wl,--as-needed'
 %:
 	dh $@ --with=autoreconf
 
+autoreconf:
+	autoreconf -f -i
+	cp -f /usr/share/misc/config.guess /usr/share/misc/config.sub ./
+
+override_dh_autoreconf:
+	dh_autoreconf debian/rules -- autoreconf
+
 override_dh_auto_configure:
 	dh_auto_configure -Bbuild-deb -- $(confflags)
 	dh_auto_configure -Bbuild-udeb -- $(confflags_udeb)

@@ -1,3 +1,11 @@
+openssh (1:6.2p2-6) UNRELEASED; urgency=low
+
+  * Update config.guess and config.sub automatically at build time.
+    dh_autoreconf does not take care of that by default because openssh does
+    not use automake.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 02 Jul 2013 22:53:47 +0100
+
 openssh (1:6.2p2-5) unstable; urgency=low
 
   [ Colin Watson ]
