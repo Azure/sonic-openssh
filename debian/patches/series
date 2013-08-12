@@ -45,4 +45,5 @@ ssh-agent-setgid.patch
 
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
+sigstop.patch
 debian-config.patch

@@ -11,6 +11,9 @@ respawn
 respawn limit 10 5
 umask 022
 
+env SSH_SIGSTOP=1
+expect stop
+
 # 'sshd -D' leaks stderr and confuses things in conjunction with 'console log'
 console none
 

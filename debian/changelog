@@ -1,3 +1,11 @@
+openssh (1:6.2p2-7) UNRELEASED; urgency=low
+
+  * When running under Upstart, only consider the daemon started once it is
+    ready to accept connections (by raising SIGSTOP at that point and using
+    "expect stop").
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 12 Aug 2013 12:52:19 +0100
+
 openssh (1:6.2p2-6) unstable; urgency=low
 
   * Update config.guess and config.sub automatically at build time.

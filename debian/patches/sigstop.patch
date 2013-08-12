@@ -1,0 +1,20 @@
+Description: Support synchronisation with service supervisor using SIGSTOP
+Author: Colin Watson <cjwatson@debian.org>
+Forwarded: no
+Last-Update: 2013-08-12
+
+Index: b/sshd.c
+===================================================================
+--- a/sshd.c
++++ b/sshd.c
+@@ -1855,6 +1855,10 @@
+ 			}
+ 		}
+ 
++		if (getenv("SSH_SIGSTOP"))
++			/* Tell service supervisor that we are ready. */
++			kill(getpid(), SIGSTOP);
++
+ 		/* Accept a connection and return in a forked child */
+ 		server_accept_loop(&sock_in, &sock_out,
+ 		    &newsock, config_s);
