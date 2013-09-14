@@ -229,7 +229,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 		orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
 		xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS], 
 		    "%s,null", orig);
-		xfree(gss);
+		free(gss);
 	}
 #endif
 

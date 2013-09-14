@@ -81,7 +81,7 @@ userauth_gsskeyex(Authctxt *authctxt)
 		    authctxt->pw));
 	
 	buffer_free(&b);
-	xfree(mic.value);
+	free(mic.value);
 
 	return (authenticated);
 }

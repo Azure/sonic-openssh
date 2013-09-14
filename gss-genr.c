@@ -101,8 +101,8 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 
 	if (gss_enc2oid != NULL) {
 		for (i = 0; gss_enc2oid[i].encoded != NULL; i++)
-			xfree(gss_enc2oid[i].encoded);
-		xfree(gss_enc2oid);
+			free(gss_enc2oid[i].encoded);
+		free(gss_enc2oid);
 	}
 
 	gss_enc2oid = xmalloc(sizeof(ssh_gss_kex_mapping) *
@@ -159,7 +159,7 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	buffer_free(&buf);
 
 	if (strlen(mechs) == 0) {
-		xfree(mechs);
+		free(mechs);
 		mechs = NULL;
 	}
 	

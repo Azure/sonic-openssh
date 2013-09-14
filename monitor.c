@@ -2220,7 +2220,7 @@ mm_answer_gss_sign(int socket, Buffer *m)
 	}
 	major = ssh_gssapi_sign(gsscontext, &data, &hash);
 
-	xfree(data.value);
+	free(data.value);
 
 	buffer_clear(m);
 	buffer_put_int(m, major);
@@ -2250,9 +2250,9 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
 
 	ok = ssh_gssapi_update_creds(&store);
 
-	xfree(store.filename);
-	xfree(store.envvar);
-	xfree(store.envval);
+	free(store.filename);
+	free(store.envvar);
+	free(store.envval);
 
 	buffer_clear(m);
 	buffer_put_int(m, ok);
