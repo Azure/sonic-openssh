@@ -1,7 +1,7 @@
 Description: Add support for registering ConsoleKit sessions on login
 Author: Colin Watson <cjwatson@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1450
-Last-Updated: 2013-05-13
+Last-Updated: 2013-09-14
 
 Index: b/Makefile.in
 ===================================================================
@@ -21,7 +21,7 @@ Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3801,6 +3801,30 @@
+@@ -3841,6 +3841,30 @@
  AC_SUBST([GSSLIBS])
  AC_SUBST([K5LIBS])
  
@@ -52,7 +52,7 @@ Index: b/configure.ac
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4600,6 +4624,7 @@
+@@ -4641,6 +4665,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -64,7 +64,7 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -737,6 +737,7 @@
+@@ -738,6 +738,7 @@
  with_sandbox
  with_selinux
  with_kerberos5
@@ -72,7 +72,7 @@ Index: b/configure
  with_privsep_path
  with_xauth
  enable_strip
-@@ -1427,6 +1428,7 @@
+@@ -1428,6 +1429,7 @@
    --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter)
    --with-selinux          Enable SELinux support
    --with-kerberos5=PATH   Enable Kerberos 5 support
@@ -80,7 +80,7 @@ Index: b/configure
    --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
    --with-xauth=PATH       Specify path to xauth program
    --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -16002,6 +16004,135 @@
+@@ -16375,6 +16377,135 @@
  
  
  
@@ -216,7 +216,7 @@ Index: b/configure
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -18527,6 +18658,7 @@
+@@ -18902,6 +19033,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -502,17 +502,17 @@ Index: b/monitor.c
 ===================================================================
 --- a/monitor.c
 +++ b/monitor.c
-@@ -97,6 +97,9 @@
- #include "ssh2.h"
+@@ -98,6 +98,9 @@
  #include "jpake.h"
  #include "roaming.h"
+ #include "authfd.h"
 +#ifdef USE_CONSOLEKIT
 +#include "consolekit.h"
 +#endif
  
  #ifdef GSSAPI
  static Gssctxt *gsscontext = NULL;
-@@ -192,6 +195,10 @@
+@@ -193,6 +196,10 @@
  
  static int monitor_read_log(struct monitor *);
  
@@ -523,7 +523,7 @@ Index: b/monitor.c
  static Authctxt *authctxt;
  static BIGNUM *ssh1_challenge = NULL;	/* used for ssh1 rsa auth */
  
-@@ -284,6 +291,9 @@
+@@ -285,6 +292,9 @@
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT, mm_answer_audit_command},
  #endif
@@ -533,7 +533,7 @@ Index: b/monitor.c
      {0, 0, NULL}
  };
  
-@@ -326,6 +336,9 @@
+@@ -327,6 +337,9 @@
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT|MON_ONCE, mm_answer_audit_command},
  #endif
@@ -553,7 +553,7 @@ Index: b/monitor.c
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2472,3 +2488,31 @@
+@@ -2492,3 +2508,30 @@
  }
  
  #endif /* JPAKE */
@@ -577,10 +577,9 @@ Index: b/monitor.c
 +	buffer_put_cstring(m, cookie != NULL ? cookie : "");
 +	mm_request_send(sock, MONITOR_ANS_CONSOLEKIT_REGISTER, m);
 +
-+	if (cookie != NULL)
-+		xfree(cookie);
-+	xfree(display);
-+	xfree(tty);
++	free(cookie);
++	free(display);
++	free(tty);
 +
 +	return (0);
 +}
@@ -602,7 +601,7 @@ Index: b/monitor_wrap.c
 ===================================================================
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -1514,3 +1514,34 @@
+@@ -1516,3 +1516,34 @@
  	return success;
  }
  #endif /* JPAKE */
@@ -631,7 +630,7 @@ Index: b/monitor_wrap.c
 +
 +	/* treat empty cookie as missing cookie */
 +	if (strlen(cookie) == 0) {
-+		xfree(cookie);
++		free(cookie);
 +		cookie = NULL;
 +	}
 +	return (cookie);
@@ -654,7 +653,7 @@ Index: b/session.c
 ===================================================================
 --- a/session.c
 +++ b/session.c
-@@ -91,6 +91,7 @@
+@@ -92,6 +92,7 @@
  #include "kex.h"
  #include "monitor_wrap.h"
  #include "sftp.h"
@@ -684,7 +683,7 @@ Index: b/session.c
  #ifdef USE_PAM
  	/*
  	 * Pull in any environment variables that may have
-@@ -2308,6 +2317,10 @@
+@@ -2320,6 +2329,10 @@
  
  	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
  

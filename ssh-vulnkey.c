@@ -94,7 +94,7 @@ describe_key(const char *filename, u_long linenum, const char *msg,
 		printf(":%lu: %s: %s %u %s %s\n", linenum, msg,
 		    key_type(key), key_size(key), fp, comment);
 	}
-	xfree(fp);
+	free(fp);
 }
 
 static int
@@ -247,8 +247,7 @@ do_filename(const char *filename, int quiet_open)
 				ret = 0;
 			found = 1;
 		}
-		if (comment)
-			xfree(comment);
+		free(comment);
 	}
 
 	return ret;
@@ -282,12 +281,12 @@ do_user(const char *dir)
 	for (i = 0; default_files[i]; i++) {
 		xasprintf(&file, "%s/%s", dir, default_files[i]);
 		if (stat(file, &st) < 0 && errno == ENOENT) {
-			xfree(file);
+			free(file);
 			continue;
 		}
 		if (!do_filename(file, 0))
 			ret = 0;
-		xfree(file);
+		free(file);
 	}
 
 	return ret;

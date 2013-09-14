@@ -1,5 +1,16 @@
-openssh (1:6.2p2-7) UNRELEASED; urgency=low
+openssh (1:6.3p1-1) UNRELEASED; urgency=low
 
+  * New upstream release (http://www.openssh.com/txt/release-6.3).
+    - sftp(1): add support for resuming partial downloads using the "reget"
+      command and on the sftp commandline or on the "get" commandline using
+      the "-a" (append) option (closes: #158590).
+    - ssh(1): add an "IgnoreUnknown" configuration option to selectively
+      suppress errors arising from unknown configuration directives (closes:
+      #436052).
+    - sftp(1): update progressmeter when data is acknowledged, not when it's
+      sent (partially addresses #708372).
+    - ssh(1): do not fatally exit when attempting to cleanup multiplexing-
+      created channels that are incompletely opened (closes: #651357).
   * When running under Upstart, only consider the daemon started once it is
     ready to accept connections (by raising SIGSTOP at that point and using
     "expect stop").

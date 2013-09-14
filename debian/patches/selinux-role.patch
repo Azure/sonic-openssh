@@ -5,7 +5,7 @@ Description: Handle SELinux authorisation roles
 Author: Manoj Srivastava <srivasta@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1641
 Bug-Debian: http://bugs.debian.org/394795
-Last-Update: 2013-05-13
+Last-Update: 2013-09-14
 
 Index: b/auth.h
 ===================================================================
@@ -17,13 +17,13 @@ Index: b/auth.h
  	char		*style;
 +	char		*role;
  	void		*kbdintctxt;
+ 	char		*info;		/* Extra info for next auth_log */
  	void		*jpake_ctx;
- #ifdef BSD_AUTH
 Index: b/auth1.c
 ===================================================================
 --- a/auth1.c
 +++ b/auth1.c
-@@ -385,7 +385,7 @@
+@@ -380,7 +380,7 @@
  do_authentication(Authctxt *authctxt)
  {
  	u_int ulen;
@@ -32,7 +32,7 @@ Index: b/auth1.c
  
  	/* Get the name of the user that we wish to log in as. */
  	packet_read_expect(SSH_CMSG_USER);
-@@ -394,11 +394,17 @@
+@@ -389,11 +389,17 @@
  	user = packet_get_cstring(&ulen);
  	packet_check_eom();
  
@@ -54,7 +54,7 @@ Index: b/auth2.c
 ===================================================================
 --- a/auth2.c
 +++ b/auth2.c
-@@ -219,7 +219,7 @@
+@@ -222,7 +222,7 @@
  {
  	Authctxt *authctxt = ctxt;
  	Authmethod *m = NULL;
@@ -63,7 +63,7 @@ Index: b/auth2.c
  	int authenticated = 0;
  
  	if (authctxt == NULL)
-@@ -231,8 +231,13 @@
+@@ -234,8 +234,13 @@
  	debug("userauth-request for user %s service %s method %s", user, service, method);
  	debug("attempt %d failures %d", authctxt->attempt, authctxt->failures);
  
@@ -77,7 +77,7 @@ Index: b/auth2.c
  
  	if (authctxt->attempt++ == 0) {
  		/* setup auth context */
-@@ -256,8 +261,9 @@
+@@ -259,8 +264,9 @@
  		    use_privsep ? " [net]" : "");
  		authctxt->service = xstrdup(service);
  		authctxt->style = style ? xstrdup(style) : NULL;
@@ -92,7 +92,7 @@ Index: b/monitor.c
 ===================================================================
 --- a/monitor.c
 +++ b/monitor.c
-@@ -145,6 +145,7 @@
+@@ -146,6 +146,7 @@
  int mm_answer_pwnamallow(int, Buffer *);
  int mm_answer_auth2_read_banner(int, Buffer *);
  int mm_answer_authserv(int, Buffer *);
@@ -100,7 +100,7 @@ Index: b/monitor.c
  int mm_answer_authpassword(int, Buffer *);
  int mm_answer_bsdauthquery(int, Buffer *);
  int mm_answer_bsdauthrespond(int, Buffer *);
-@@ -226,6 +227,7 @@
+@@ -227,6 +228,7 @@
      {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
      {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
      {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
@@ -108,7 +108,7 @@ Index: b/monitor.c
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -837,6 +839,7 @@
+@@ -844,6 +846,7 @@
  	else {
  		/* Allow service/style information on the auth context */
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -116,7 +116,7 @@ Index: b/monitor.c
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  	}
  #ifdef USE_PAM
-@@ -869,14 +872,37 @@
+@@ -874,14 +877,37 @@
  
  	authctxt->service = buffer_get_string(m, NULL);
  	authctxt->style = buffer_get_string(m, NULL);
@@ -127,12 +127,12 @@ Index: b/monitor.c
 +	    __func__, authctxt->service, authctxt->style, authctxt->role);
  
  	if (strlen(authctxt->style) == 0) {
- 		xfree(authctxt->style);
+ 		free(authctxt->style);
  		authctxt->style = NULL;
  	}
  
 +	if (strlen(authctxt->role) == 0) {
-+		xfree(authctxt->role);
++		free(authctxt->role);
 +		authctxt->role = NULL;
 +	}
 +
@@ -149,14 +149,14 @@ Index: b/monitor.c
 +	    __func__, authctxt->role);
 +
 +	if (strlen(authctxt->role) == 0) {
-+		xfree(authctxt->role);
++		free(authctxt->role);
 +		authctxt->role = NULL;
 +	}
 +
  	return (0);
  }
  
-@@ -1471,7 +1497,7 @@
+@@ -1486,7 +1512,7 @@
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -182,7 +182,7 @@ Index: b/monitor_wrap.c
 ===================================================================
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -318,10 +318,10 @@
+@@ -320,10 +320,10 @@
  	return (banner);
  }
  
@@ -195,7 +195,7 @@ Index: b/monitor_wrap.c
  {
  	Buffer m;
  
-@@ -330,11 +330,29 @@
+@@ -332,11 +332,29 @@
  	buffer_init(&m);
  	buffer_put_cstring(&m, service);
  	buffer_put_cstring(&m, style ? style : "");
@@ -284,7 +284,7 @@ Index: b/openbsd-compat/port-linux.c
  #endif
  
  	if (r != 0) {
-@@ -107,7 +120,7 @@
+@@ -105,7 +118,7 @@
  
  /* Set the execution context to the default for the specified user */
  void
@@ -293,7 +293,7 @@ Index: b/openbsd-compat/port-linux.c
  {
  	security_context_t user_ctx = NULL;
  
-@@ -116,7 +129,7 @@
+@@ -114,7 +127,7 @@
  
  	debug3("%s: setting execution context", __func__);
  
@@ -302,7 +302,7 @@ Index: b/openbsd-compat/port-linux.c
  	if (setexeccon(user_ctx) != 0) {
  		switch (security_getenforce()) {
  		case -1:
-@@ -138,7 +151,7 @@
+@@ -136,7 +149,7 @@
  
  /* Set the TTY context for the specified user */
  void
@@ -311,7 +311,7 @@ Index: b/openbsd-compat/port-linux.c
  {
  	security_context_t new_tty_ctx = NULL;
  	security_context_t user_ctx = NULL;
-@@ -149,7 +162,7 @@
+@@ -147,7 +160,7 @@
  
  	debug3("%s: setting TTY context on %s", __func__, tty);
  
@@ -392,7 +392,7 @@ Index: b/session.c
  
  		if (options.chroot_directory != NULL &&
  		    strcasecmp(options.chroot_directory, "none") != 0) {
-@@ -1633,7 +1633,7 @@
+@@ -1646,7 +1646,7 @@
  
  	/* Force a password change */
  	if (s->authctxt->force_pwchange) {
@@ -401,7 +401,7 @@ Index: b/session.c
  		child_close_fds();
  		do_pwchange(s);
  		exit(1);
-@@ -1660,7 +1660,7 @@
+@@ -1673,7 +1673,7 @@
  		/* When PAM is enabled we rely on it to do the nologin check */
  		if (!options.use_pam)
  			do_nologin(pw);
@@ -410,7 +410,7 @@ Index: b/session.c
  		/*
  		 * PAM session modules in do_setusercontext may have
  		 * generated messages, so if this in an interactive
-@@ -2072,7 +2072,7 @@
+@@ -2084,7 +2084,7 @@
  	tty_parse_modes(s->ttyfd, &n_bytes);
  
  	if (!use_privsep)
@@ -436,7 +436,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -745,7 +745,7 @@
+@@ -753,7 +753,7 @@
  	RAND_seed(rnd, sizeof(rnd));
  
  	/* Drop privileges */

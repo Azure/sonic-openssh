@@ -1,13 +1,13 @@
 Description: Support synchronisation with service supervisor using SIGSTOP
 Author: Colin Watson <cjwatson@debian.org>
 Forwarded: no
-Last-Update: 2013-08-12
+Last-Update: 2013-09-14
 
 Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -1855,6 +1855,10 @@
+@@ -1914,6 +1914,10 @@
  			}
  		}
  

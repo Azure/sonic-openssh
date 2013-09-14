@@ -8,13 +8,13 @@ Description: "LogLevel SILENT" compatibility
 Author: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2013-05-16
+Last-Update: 2013-09-14
 
 Index: b/log.c
 ===================================================================
 --- a/log.c
 +++ b/log.c
-@@ -92,6 +92,7 @@
+@@ -94,6 +94,7 @@
  	LogLevel val;
  } log_levels[] =
  {
@@ -26,7 +26,7 @@ Index: b/ssh.c
 ===================================================================
 --- a/ssh.c
 +++ b/ssh.c
-@@ -711,7 +711,7 @@
+@@ -740,7 +740,7 @@
  	/* Do not allocate a tty if stdin is not a tty. */
  	if ((!isatty(fileno(stdin)) || stdin_null_flag) &&
  	    options.request_tty != REQUEST_TTY_FORCE) {
