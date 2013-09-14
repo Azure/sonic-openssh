@@ -1,4 +1,4 @@
-/* $OpenBSD: sftp-client.c,v 1.103 2013/08/09 03:39:13 djm Exp $ */
+/* $OpenBSD: sftp-client.c,v 1.101 2013/07/25 00:56:51 djm Exp $ */
 /*
  * Copyright (c) 2001-2004 Damien Miller <djm@openbsd.org>
  *
@@ -337,8 +337,7 @@ do_init(int fd_in, int fd_out, u_int transfer_buflen, u_int num_requests,
 	Buffer msg;
 	struct sftp_conn *ret;
 
-	ret = xcalloc(1, sizeof(*ret));
-	ret->msg_id = 1;
+	ret = xmalloc(sizeof(*ret));
 	ret->fd_in = fd_in;
 	ret->fd_out = fd_out;
 	ret->transfer_buflen = transfer_buflen;
@@ -769,18 +768,16 @@ do_realpath(struct sftp_conn *conn, char *path)
 }
 
 int
-do_rename(struct sftp_conn *conn, char *oldpath, char *newpath,
-    int force_legacy)
+do_rename(struct sftp_conn *conn, char *oldpath, char *newpath)
 {
 	Buffer msg;
 	u_int status, id;
-	int use_ext = (conn->exts & SFTP_EXT_POSIX_RENAME) && !force_legacy;
 
 	buffer_init(&msg);
 
 	/* Send rename request */
 	id = conn->msg_id++;
-	if (use_ext) {
+	if ((conn->exts & SFTP_EXT_POSIX_RENAME)) {
 		buffer_put_char(&msg, SSH2_FXP_EXTENDED);
 		buffer_put_int(&msg, id);
 		buffer_put_cstring(&msg, "posix-rename@openssh.com");
@@ -792,8 +789,8 @@ do_rename(struct sftp_conn *conn, char *oldpath, char *newpath,
 	buffer_put_cstring(&msg, newpath);
 	send_msg(conn, &msg);
 	debug3("Sent message %s \"%s\" -> \"%s\"",
-	    use_ext ? "posix-rename@openssh.com" : "SSH2_FXP_RENAME",
-	    oldpath, newpath);
+	    (conn->exts & SFTP_EXT_POSIX_RENAME) ? "posix-rename@openssh.com" :
+	    "SSH2_FXP_RENAME", oldpath, newpath);
 	buffer_free(&msg);
 
 	status = get_status(conn, id);
@@ -1222,7 +1219,6 @@ do_download(struct sftp_conn *conn, char *remote_path, char *local_path,
 	if (read_error) {
 		error("Couldn't read from remote file \"%s\" : %s",
 		    remote_path, fx2txt(status));
-		status = -1;
 		do_close(conn, handle, handle_len);
 	} else if (write_error) {
 		error("Couldn't write to \"%s\": %s", local_path,
@@ -1231,7 +1227,7 @@ do_download(struct sftp_conn *conn, char *remote_path, char *local_path,
 		do_close(conn, handle, handle_len);
 	} else {
 		status = do_close(conn, handle, handle_len);
-		if (interrupted || status != SSH2_FX_OK)
+		if (interrupted)
 			status = -1;
 		/* Override umask and utimes if asked */
 #ifdef HAVE_FCHMOD
