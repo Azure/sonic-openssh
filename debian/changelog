@@ -1,4 +1,4 @@
-openssh (1:6.4p1-1) UNRELEASED; urgency=high
+openssh (1:6.4p1-1) unstable; urgency=high
 
   * New upstream release.  Important changes:
     - 6.3/6.3p1 (http://www.openssh.com/txt/release-6.3):
@@ -21,7 +21,7 @@ openssh (1:6.4p1-1) UNRELEASED; urgency=high
     ready to accept connections (by raising SIGSTOP at that point and using
     "expect stop").
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 12 Aug 2013 12:52:19 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 09 Nov 2013 18:24:16 +0000
 
 openssh (1:6.2p2-6) unstable; urgency=low
 
