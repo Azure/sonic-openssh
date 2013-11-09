@@ -13,7 +13,7 @@ Description: GSSAPI key exchange support
  security history.
 Author: Simon Wilkinson <simon@sxw.org.uk>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2013-09-14
+Last-Updated: 2013-11-09
 
 Index: b/ChangeLog.gssapi
 ===================================================================
@@ -475,7 +475,7 @@ Index: b/gss-genr.c
 --- a/gss-genr.c
 +++ b/gss-genr.c
 @@ -1,7 +1,7 @@
- /* $OpenBSD: gss-genr.c,v 1.21 2013/05/17 00:13:13 djm Exp $ */
+ /* $OpenBSD: gss-genr.c,v 1.22 2013/11/08 00:39:15 djm Exp $ */
  
  /*
 - * Copyright (c) 2001-2007 Simon Wilkinson. All rights reserved.
