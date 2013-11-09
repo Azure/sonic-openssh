@@ -13,9 +13,9 @@ openssh (1:6.4p1-1) UNRELEASED; urgency=low
       + ssh(1): do not fatally exit when attempting to cleanup multiplexing-
         created channels that are incompletely opened (closes: #651357).
     - 6.4/6.4p1 (http://www.openssh.com/txt/release-6.4):
-      + sshd(8): fix a memory corruption problem triggered during rekeying
-        when an AES-GCM cipher is selected (closes: #729029).  Full details
-        of the vulnerability are available at:
+      + CVE-2013-4548: sshd(8): fix a memory corruption problem triggered
+        during rekeying when an AES-GCM cipher is selected (closes:
+        #729029).  Full details of the vulnerability are available at:
         http://www.openssh.com/txt/gcmrekey.adv
   * When running under Upstart, only consider the daemon started once it is
     ready to accept connections (by raising SIGSTOP at that point and using
