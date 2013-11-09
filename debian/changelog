@@ -1,4 +1,4 @@
-openssh (1:6.4p1-1) UNRELEASED; urgency=low
+openssh (1:6.4p1-1) UNRELEASED; urgency=high
 
   * New upstream release.  Important changes:
     - 6.3/6.3p1 (http://www.openssh.com/txt/release-6.3):
