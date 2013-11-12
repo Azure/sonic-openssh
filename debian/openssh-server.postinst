@@ -131,6 +131,13 @@ fix_loglevel_silent() {
 }
 
 
+update_server_key_bits() {
+	if [ "$(get_config_option ServerKeyBits)" = 768 ]; then
+		set_config_option ServerKeyBits 1024
+	fi
+}
+
+
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
 	    # Upgrade an existing sshd configuration.
@@ -144,6 +151,12 @@ create_sshdconfig() {
 	    # 'LogLevel SILENT' is now equivalent to QUIET.
 	    if dpkg --compare-versions "$oldversion" lt 1:5.4p1-1; then
 		fix_loglevel_silent
+	    fi
+
+	    # Changed upstream in 5.1p1, but we forgot to update the
+	    # package-generated configuration file until now.
+	    if dpkg --compare-versions "$oldversion" lt 1:6.4p1-2; then
+		update_server_key_bits
 	    fi
 
 	    return 0
@@ -168,7 +181,7 @@ UsePrivilegeSeparation yes
 
 # Lifetime and size of ephemeral version 1 server key
 KeyRegenerationInterval 3600
-ServerKeyBits 768
+ServerKeyBits 1024
 
 # Logging
 SyslogFacility AUTH

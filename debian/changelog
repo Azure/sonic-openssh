@@ -1,3 +1,10 @@
+openssh (1:6.4p1-2) UNRELEASED; urgency=low
+
+  * Increase ServerKeyBits value in package-generated sshd_config to 1024
+    (closes: #727622, LP: #1244272).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 12 Nov 2013 11:14:41 +0000
+
 openssh (1:6.4p1-1) unstable; urgency=high
 
   * New upstream release.  Important changes:
