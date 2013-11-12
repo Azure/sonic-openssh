@@ -1,8 +1,33 @@
-openssh (1:6.2p2-6~bpo70+1) wheezy-backports; urgency=low
+openssh (1:6.4p1-1~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 16 Sep 2013 16:15:53 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 12 Nov 2013 12:16:26 +0000
+
+openssh (1:6.4p1-1) unstable; urgency=high
+
+  * New upstream release.  Important changes:
+    - 6.3/6.3p1 (http://www.openssh.com/txt/release-6.3):
+      + sftp(1): add support for resuming partial downloads using the
+        "reget" command and on the sftp commandline or on the "get"
+        commandline using the "-a" (append) option (closes: #158590).
+      + ssh(1): add an "IgnoreUnknown" configuration option to selectively
+        suppress errors arising from unknown configuration directives
+        (closes: #436052).
+      + sftp(1): update progressmeter when data is acknowledged, not when
+        it's sent (partially addresses #708372).
+      + ssh(1): do not fatally exit when attempting to cleanup multiplexing-
+        created channels that are incompletely opened (closes: #651357).
+    - 6.4/6.4p1 (http://www.openssh.com/txt/release-6.4):
+      + CVE-2013-4548: sshd(8): fix a memory corruption problem triggered
+        during rekeying when an AES-GCM cipher is selected (closes:
+        #729029).  Full details of the vulnerability are available at:
+        http://www.openssh.com/txt/gcmrekey.adv
+  * When running under Upstart, only consider the daemon started once it is
+    ready to accept connections (by raising SIGSTOP at that point and using
+    "expect stop").
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 09 Nov 2013 18:24:16 +0000
 
 openssh (1:6.2p2-6) unstable; urgency=low
 

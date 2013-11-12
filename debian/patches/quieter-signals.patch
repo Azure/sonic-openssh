@@ -10,13 +10,13 @@ Author: Peter Samuelson <peter@p12n.org>
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1118
 Bug-Debian: http://bugs.debian.org/313371
-Last-Update: 2013-05-07
+Last-Update: 2013-09-14
 
 Index: b/clientloop.c
 ===================================================================
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -1710,8 +1710,10 @@
+@@ -1717,8 +1717,10 @@
  		exit_status = 0;
  	}
  

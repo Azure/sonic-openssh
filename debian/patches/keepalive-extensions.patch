@@ -12,30 +12,30 @@ Author: Richard Kettlewell <rjk@greenend.org.uk>
 Author: Ian Jackson <ian@chiark.greenend.org.uk>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2013-05-16
+Last-Update: 2013-09-14
 
 Index: b/readconf.c
 ===================================================================
 --- a/readconf.c
 +++ b/readconf.c
-@@ -138,6 +138,7 @@
+@@ -141,6 +141,7 @@
  	oTunnel, oTunnelDevice, oLocalCommand, oPermitLocalCommand,
  	oVisualHostKey, oUseRoaming, oZeroKnowledgePasswordAuthentication,
- 	oKexAlgorithms, oIPQoS, oRequestTTY,
+ 	oKexAlgorithms, oIPQoS, oRequestTTY, oIgnoreUnknown,
 +	oProtocolKeepAlives, oSetupTimeOut,
- 	oDeprecated, oUnsupported
+ 	oIgnoredUnknownOption, oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -259,6 +260,8 @@
- 	{ "kexalgorithms", oKexAlgorithms },
+@@ -263,6 +264,8 @@
  	{ "ipqos", oIPQoS },
  	{ "requesttty", oRequestTTY },
+ 	{ "ignoreunknown", oIgnoreUnknown },
 +	{ "protocolkeepalives", oProtocolKeepAlives },
 +	{ "setuptimeout", oSetupTimeOut },
  
  	{ NULL, oBadOption }
  };
-@@ -933,6 +936,8 @@
+@@ -939,6 +942,8 @@
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -44,8 +44,8 @@ Index: b/readconf.c
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -1392,8 +1397,13 @@
- 		options->rekey_limit = 0;
+@@ -1404,8 +1409,13 @@
+ 		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
 -	if (options->server_alive_interval == -1)
@@ -78,7 +78,7 @@ Index: b/ssh_config.5
  The argument must be
  .Dq yes
  or
-@@ -1113,8 +1117,15 @@
+@@ -1141,8 +1145,15 @@
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -95,7 +95,7 @@ Index: b/ssh_config.5
  .It Cm StrictHostKeyChecking
  If this flag is set to
  .Dq yes ,
-@@ -1153,6 +1164,12 @@
+@@ -1181,6 +1192,12 @@
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -112,7 +112,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1122,6 +1122,9 @@
+@@ -1161,6 +1161,9 @@
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Dq no .

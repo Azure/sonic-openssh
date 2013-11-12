@@ -4,13 +4,13 @@ Description: Add DebianBanner server configuration option
 Author: Kees Cook <kees@debian.org>
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2013-05-07
+Last-Update: 2013-09-14
 
 Index: b/servconf.c
 ===================================================================
 --- a/servconf.c
 +++ b/servconf.c
-@@ -150,6 +150,7 @@
+@@ -157,6 +157,7 @@
  	options->ip_qos_interactive = -1;
  	options->ip_qos_bulk = -1;
  	options->version_addendum = NULL;
@@ -18,7 +18,7 @@ Index: b/servconf.c
  }
  
  void
-@@ -299,6 +300,8 @@
+@@ -310,6 +311,8 @@
  		options->ip_qos_bulk = IPTOS_THROUGHPUT;
  	if (options->version_addendum == NULL)
  		options->version_addendum = xstrdup("");
@@ -27,15 +27,15 @@ Index: b/servconf.c
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
  		use_privsep = PRIVSEP_NOSANDBOX;
-@@ -349,6 +352,7 @@
+@@ -360,6 +363,7 @@
  	sKexAlgorithms, sIPQoS, sVersionAddendum,
  	sAuthorizedKeysCommand, sAuthorizedKeysCommandUser,
- 	sAuthenticationMethods,
+ 	sAuthenticationMethods, sHostKeyAgent,
 +	sDebianBanner,
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -488,6 +492,7 @@
+@@ -501,6 +505,7 @@
  	{ "authorizedkeyscommanduser", sAuthorizedKeysCommandUser, SSHCFG_ALL },
  	{ "versionaddendum", sVersionAddendum, SSHCFG_GLOBAL },
  	{ "authenticationmethods", sAuthenticationMethods, SSHCFG_ALL },
@@ -43,7 +43,7 @@ Index: b/servconf.c
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1593,6 +1598,10 @@
+@@ -1648,6 +1653,10 @@
  		}
  		return 0;
  
@@ -58,7 +58,7 @@ Index: b/servconf.h
 ===================================================================
 --- a/servconf.h
 +++ b/servconf.h
-@@ -184,6 +184,8 @@
+@@ -188,6 +188,8 @@
  
  	u_int	num_auth_methods;
  	char   *auth_methods[MAX_AUTH_METHODS];
@@ -71,7 +71,7 @@ Index: b/sshd.c
 ===================================================================
 --- a/sshd.c
 +++ b/sshd.c
-@@ -434,7 +434,8 @@
+@@ -440,7 +440,8 @@
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -85,7 +85,7 @@ Index: b/sshd_config.5
 ===================================================================
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -397,6 +397,11 @@
+@@ -404,6 +404,11 @@
  .Dq no .
  The default is
  .Dq delayed .

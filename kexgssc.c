@@ -144,7 +144,7 @@ kexgss_client(Kex *kex) {
 
 		/* If we've got an old receive buffer get rid of it */
 		if (token_ptr != GSS_C_NO_BUFFER)
-			xfree(recv_tok.value);
+			free(recv_tok.value);
 
 		if (maj_status == GSS_S_COMPLETE) {
 			/* If mutual state flag is not true, kex fails */
@@ -261,7 +261,7 @@ kexgss_client(Kex *kex) {
 		fatal("kexdh_client: BN_bin2bn failed");
 
 	memset(kbuf, 0, klen);
-	xfree(kbuf);
+	free(kbuf);
 
 	switch (kex->kex_type) {
 	case KEX_GSS_GRP1_SHA1:
@@ -304,11 +304,10 @@ kexgss_client(Kex *kex) {
 	if (GSS_ERROR(ssh_gssapi_checkmic(ctxt, &gssbuf, &msg_tok)))
 		packet_disconnect("Hash's MIC didn't verify");
 
-	xfree(msg_tok.value);
+	free(msg_tok.value);
 
 	DH_free(dh);
-	if (serverhostkey)
-		xfree(serverhostkey);
+	free(serverhostkey);
 	BN_clear_free(dh_server_pub);
 
 	/* save session id */

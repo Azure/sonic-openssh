@@ -2,13 +2,13 @@ Description: Document that HashKnownHosts may break tab-completion
 Author: Colin Watson <cjwatson@debian.org>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1727
 Bug-Debian: http://bugs.debian.org/430154
-Last-Update: 2013-05-07
+Last-Update: 2013-09-14
 
 Index: b/ssh_config.5
 ===================================================================
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -588,6 +588,9 @@
+@@ -587,6 +587,9 @@
  will not be converted automatically,
  but may be manually hashed using
  .Xr ssh-keygen 1 .

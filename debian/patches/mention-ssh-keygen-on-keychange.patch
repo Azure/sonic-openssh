@@ -2,13 +2,13 @@ Description: Mention ssh-keygen in ssh fingerprint changed warning
 Author: Scott Moser <smoser@ubuntu.com>
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1843
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/686607
-Last-Update: 2013-05-16
+Last-Update: 2013-09-14
 
 Index: b/sshconnect.c
 ===================================================================
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -982,9 +982,12 @@
+@@ -981,9 +981,12 @@
  			error("%s. This could either mean that", key_msg);
  			error("DNS SPOOFING is happening or the IP address for the host");
  			error("and its host key have changed at the same time.");
@@ -22,7 +22,7 @@ Index: b/sshconnect.c
  		}
  		/* The host key has changed. */
  		warn_changed_key(host_key);
-@@ -992,6 +995,8 @@
+@@ -991,6 +994,8 @@
  		    user_hostfiles[0]);
  		error("Offending %s key in %s:%lu", key_type(host_found->key),
  		    host_found->file, host_found->line);
