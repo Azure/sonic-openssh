@@ -44,6 +44,7 @@ configure-bashism.patch
 sandbox-fallback.patch
 
 # Debian-specific configuration
+no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
 CVE-2014-2532.patch
