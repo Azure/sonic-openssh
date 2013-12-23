@@ -1,10 +1,10 @@
-openssh (1:6.4p1-2) UNRELEASED; urgency=high
+openssh (1:6.4p1-2) unstable; urgency=high
 
   * Increase ServerKeyBits value in package-generated sshd_config to 1024
     (closes: #727622, LP: #1244272).
   * Restore patch to disable OpenSSL version check (closes: #732940).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 12 Nov 2013 11:14:41 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 23 Dec 2013 10:44:04 +0000
 
 openssh (1:6.4p1-1) unstable; urgency=high
 
