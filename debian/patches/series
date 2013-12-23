@@ -43,6 +43,7 @@ doc-upstart.patch
 ssh-agent-setgid.patch
 
 # Debian-specific configuration
+no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 sigstop.patch
 debian-config.patch
