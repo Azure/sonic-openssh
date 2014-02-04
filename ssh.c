@@ -780,7 +780,6 @@ main(int ac, char **av)
 	if (!host)
 		usage();
 
-	lowercase(host);
 	host_arg = xstrdup(host);
 
 	OpenSSL_add_all_algorithms();
@@ -914,6 +913,7 @@ main(int ac, char **av)
 	}
 
 	/* If canonicalization requested then try to apply it */
+	lowercase(host);
 	if (options.canonicalize_hostname != SSH_CANONICALISE_NO)
 		addrs = resolve_canonicalize(&host, options.port);
 	/*
