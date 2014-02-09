@@ -76,7 +76,7 @@ void	 session_pty_cleanup2(Session *);
 Session	*session_new(void);
 Session	*session_by_tty(char *);
 void	 session_close(Session *);
-void	 do_setusercontext(struct passwd *);
+void	 do_setusercontext(struct passwd *, const char *);
 void	 child_set_env(char ***envp, u_int *envsizep, const char *name,
 		       const char *value);
 
