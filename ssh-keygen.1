@@ -171,9 +171,7 @@ key in
 .Pa ~/.ssh/id_dsa
 or
 .Pa ~/.ssh/id_rsa .
-Additionally, the system administrator may use this to generate host keys,
-as seen in
-.Pa /etc/rc .
+Additionally, the system administrator may use this to generate host keys.
 .Pp
 Normally this program generates the key and asks for a file in which
 to store the private key.
@@ -219,9 +217,7 @@ The options are as follows:
 For each of the key types (rsa1, rsa, dsa and ecdsa) for which host keys
 do not exist, generate the host keys with the default key file path,
 an empty passphrase, default bits for the key type, and default comment.
-This is used by
-.Pa /etc/rc
-to generate new host keys.
+This is used by system administration scripts to generate new host keys.
 .It Fl a Ar trials
 Specifies the number of primality tests to perform when screening DH-GEX
 candidates using the
@@ -605,7 +601,7 @@ option.
 Valid generator values are 2, 3, and 5.
 .Pp
 Screened DH groups may be installed in
-.Pa /etc/moduli .
+.Pa /etc/ssh/moduli .
 It is important that this file contains moduli of a range of bit lengths and
 that both ends of a connection share common moduli.
 .Sh CERTIFICATES
@@ -800,7 +796,7 @@ on all machines
 where the user wishes to log in using public key authentication.
 There is no need to keep the contents of this file secret.
 .Pp
-.It Pa /etc/moduli
+.It Pa /etc/ssh/moduli
 Contains Diffie-Hellman groups used for DH-GEX.
 The file format is described in
 .Xr moduli 5 .
