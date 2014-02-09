@@ -179,6 +179,8 @@ rsa_key_allowed_in_file(struct passwd *pw, char *file,
 	if ((f = auth_openkeyfile(file, pw, options.strict_modes)) == NULL)
 		return 0;
 
+	auth_start_parse_options();
+
 	/*
 	 * Go though the accepted keys, looking for the current key.  If
 	 * found, perform a challenge-response dialog to verify that the
