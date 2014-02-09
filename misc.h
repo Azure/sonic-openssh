@@ -135,4 +135,6 @@ char	*read_passphrase(const char *, int);
 int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
 int	 read_keyfile_line(FILE *, const char *, char *, size_t, u_long *);
 
+int	 secure_permissions(struct stat *st, uid_t uid);
+
 #endif /* _MISC_H */
