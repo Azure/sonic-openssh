@@ -59,6 +59,7 @@ struct Authctxt {
 	char		*service;
 	struct passwd	*pw;		/* set if 'valid' */
 	char		*style;
+	char		*role;
 	void		*kbdintctxt;
 	char		*info;		/* Extra info for next auth_log */
 #ifdef BSD_AUTH
