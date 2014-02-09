@@ -127,6 +127,7 @@ int mm_answer_sign(int, Buffer *);
 int mm_answer_pwnamallow(int, Buffer *);
 int mm_answer_auth2_read_banner(int, Buffer *);
 int mm_answer_authserv(int, Buffer *);
+int mm_answer_authrole(int, Buffer *);
 int mm_answer_authpassword(int, Buffer *);
 int mm_answer_bsdauthquery(int, Buffer *);
 int mm_answer_bsdauthrespond(int, Buffer *);
@@ -204,6 +205,7 @@ struct mon_table mon_dispatch_proto20[] = {
     {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
     {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
     {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
+    {MONITOR_REQ_AUTHROLE, MON_ONCE, mm_answer_authrole},
     {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
     {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
 #ifdef USE_PAM
@@ -799,6 +801,7 @@ mm_answer_pwnamallow(int sock, Buffer *m)
 
 	/* Allow service/style information on the auth context */
 	monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
+	monitor_permit(mon_dispatch, MONITOR_REQ_AUTHROLE, 1);
 	monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
 
 #ifdef USE_PAM
@@ -829,12 +832,35 @@ mm_answer_authserv(int sock, Buffer *m)
 
 	authctxt->service = buffer_get_string(m, NULL);
 	authctxt->style = buffer_get_string(m, NULL);
-	debug3("%s: service=%s, style=%s",
-	    __func__, authctxt->service, authctxt->style);
+	authctxt->role = buffer_get_string(m, NULL);
+	debug3("%s: service=%s, style=%s, role=%s",
+	    __func__, authctxt->service, authctxt->style, authctxt->role);
 
 	if (strlen(authctxt->style) == 0) {
 		free(authctxt->style);
 		authctxt->style = NULL;
+	}
+
+	if (strlen(authctxt->role) == 0) {
+		free(authctxt->role);
+		authctxt->role = NULL;
+	}
+
+	return (0);
+}
+
+int
+mm_answer_authrole(int sock, Buffer *m)
+{
+	monitor_permit_authentications(1);
+
+	authctxt->role = buffer_get_string(m, NULL);
+	debug3("%s: role=%s",
+	    __func__, authctxt->role);
+
+	if (strlen(authctxt->role) == 0) {
+		free(authctxt->role);
+		authctxt->role = NULL;
 	}
 
 	return (0);
@@ -1471,7 +1497,7 @@ mm_answer_pty(int sock, Buffer *m)
 	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
 	if (res == 0)
 		goto error;
-	pty_setowner(authctxt->pw, s->tty);
+	pty_setowner(authctxt->pw, s->tty, authctxt->role);
 
 	buffer_put_int(m, 1);
 	buffer_put_cstring(m, s->tty);
