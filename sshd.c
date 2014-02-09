@@ -378,7 +378,7 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
 	char remote_version[256];	/* Must be at least as big as buf. */
 
 	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s\r\n",
-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_VERSION,
+	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
 	    *options.version_addendum == '\0' ? "" : " ",
 	    options.version_addendum);
 
