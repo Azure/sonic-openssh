@@ -985,6 +985,7 @@ static const struct keytype keytypes[] = {
 	    KEY_DSA_CERT_V00, 0, 1 },
 	{ "ssh-ed25519-cert-v01@openssh.com", "ED25519-CERT",
 	    KEY_ED25519_CERT, 0, 1 },
+	{ "null", "null", KEY_NULL, 0, 0 },
 	{ NULL, NULL, -1, -1, 0 }
 };
 
@@ -1063,7 +1064,7 @@ key_alg_list(int certs_only, int plain_only)
 	const struct keytype *kt;
 
 	for (kt = keytypes; kt->type != -1; kt++) {
-		if (kt->name == NULL)
+		if (kt->name == NULL || kt->type == KEY_NULL)
 			continue;
 		if ((certs_only && !kt->cert) || (plain_only && kt->cert))
 			continue;
