@@ -1080,4 +1080,3 @@ blacklisted_key(Key *key, char **fp)
 	key_free(public);
 	return ret;
 }
-

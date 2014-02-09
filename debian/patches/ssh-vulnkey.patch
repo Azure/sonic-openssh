@@ -223,7 +223,7 @@ Index: b/authfile.c
  
  #define MAX_KEY_FILE_SIZE	(1024 * 1024)
  
-@@ -944,3 +945,139 @@
+@@ -944,3 +945,138 @@
  	return ret;
  }
  
@@ -362,7 +362,6 @@ Index: b/authfile.c
 +	key_free(public);
 +	return ret;
 +}
-+
 Index: b/authfile.h
 ===================================================================
 --- a/authfile.h
