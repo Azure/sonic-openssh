@@ -683,7 +683,7 @@ server_loop(pid_t pid, int fdin_arg, int fdout_arg, int fderr_arg)
 			if (!channel_still_open())
 				break;
 			if (!waiting_termination) {
-				const char *s = "Waiting for forwarded connections to terminate...\r\n";
+				const char *s = "Waiting for forwarded connections to terminate... (press ~& to background)\r\n";
 				char *cp;
 				waiting_termination = 1;
 				buffer_append(&stderr_buffer, s, strlen(s));
