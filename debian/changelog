@@ -1,3 +1,9 @@
+openssh (1:6.4p1-3) UNRELEASED; urgency=medium
+
+  * Switch to git; adjust Vcs-* fields.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
+
 openssh (1:6.4p1-2) unstable; urgency=high
 
   * Increase ServerKeyBits value in package-generated sshd_config to 1024
