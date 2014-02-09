@@ -786,7 +786,7 @@ privsep_postauth(Authctxt *authctxt)
 	explicit_bzero(rnd, sizeof(rnd));
 
 	/* Drop privileges */
-	do_setusercontext(authctxt->pw);
+	do_setusercontext(authctxt->pw, authctxt->role);
 
  skip:
 	/* It is safe now to apply the key state */
