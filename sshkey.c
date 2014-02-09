@@ -112,6 +112,7 @@ static const struct keytype keytypes[] = {
 #  endif /* OPENSSL_HAS_NISTP521 */
 # endif /* OPENSSL_HAS_ECC */
 #endif /* WITH_OPENSSL */
+	{ "null", "null", KEY_NULL, 0, 0 },
 	{ NULL, NULL, -1, -1, 0 }
 };
 
@@ -200,7 +201,7 @@ key_alg_list(int certs_only, int plain_only)
 	const struct keytype *kt;
 
 	for (kt = keytypes; kt->type != -1; kt++) {
-		if (kt->name == NULL)
+		if (kt->name == NULL || kt->type == KEY_NULL)
 			continue;
 		if ((certs_only && !kt->cert) || (plain_only && kt->cert))
 			continue;
