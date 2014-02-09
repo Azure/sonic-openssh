@@ -263,6 +263,7 @@ match_principals_file(char *file, struct passwd *pw, struct KeyCert *cert)
 		restore_uid();
 		return 0;
 	}
+	auth_start_parse_options();
 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
 		/* Skip leading whitespace. */
 		for (cp = line; *cp == ' ' || *cp == '\t'; cp++)
@@ -324,6 +325,7 @@ check_authkeys_file(FILE *f, char *file, Key* key, struct passwd *pw)
 	found_key = 0;
 
 	found = NULL;
+	auth_start_parse_options();
 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
 		char *cp, *key_options = NULL;
 		if (found != NULL)
@@ -459,6 +461,7 @@ user_cert_trusted_ca(struct passwd *pw, Key *key)
 	if (key_cert_check_authority(key, 0, 1,
 	    principals_file == NULL ? pw->pw_name : NULL, &reason) != 0)
 		goto fail_reason;
+	auth_start_parse_options();
 	if (auth_cert_options(key, pw) != 0)
 		goto out;
 

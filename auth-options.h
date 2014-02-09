@@ -33,6 +33,7 @@ extern int forced_tun_device;
 extern int key_is_cert_authority;
 extern char *authorized_principals;
 
+void	auth_start_parse_options(void);
 int	auth_parse_options(struct passwd *, char *, char *, u_long);
 void	auth_clear_options(void);
 int	auth_cert_options(Key *, struct passwd *);
