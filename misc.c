@@ -50,8 +50,9 @@
 #include <netdb.h>
 #ifdef HAVE_PATHS_H
 # include <paths.h>
-#include <pwd.h>
 #endif
+#include <pwd.h>
+#include <grp.h>
 #ifdef SSH_TUN_OPENBSD
 #include <net/if.h>
 #endif
@@ -60,6 +61,7 @@
 #include "misc.h"
 #include "log.h"
 #include "ssh.h"
+#include "platform.h"
 
 /* remove newline at end of string */
 char *
@@ -642,6 +644,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
 		}
 	}
 	return -1;
+}
+
+/*
+ * return 1 if the specified uid is a uid that may own a system directory
+ * otherwise 0.
+ */
+int
+platform_sys_dir_uid(uid_t uid)
+{
+	if (uid == 0)
+		return 1;
+#ifdef PLATFORM_SYS_DIR_UID
+	if (uid == PLATFORM_SYS_DIR_UID)
+		return 1;
+#endif
+	return 0;
+}
+
+int
+secure_permissions(struct stat *st, uid_t uid)
+{
+	if (!platform_sys_dir_uid(st->st_uid) && st->st_uid != uid)
+		return 0;
+	if ((st->st_mode & 002) != 0)
+		return 0;
+	if ((st->st_mode & 020) != 0) {
+		/* If the file is group-writable, the group in question must
+		 * have exactly one member, namely the file's owner.
+		 * (Zero-member groups are typically used by setgid
+		 * binaries, and are unlikely to be suitable.)
+		 */
+		struct passwd *pw;
+		struct group *gr;
+		int members = 0;
+
+		gr = getgrgid(st->st_gid);
+		if (!gr)
+			return 0;
+
+		/* Check primary group memberships. */
+		while ((pw = getpwent()) != NULL) {
+			if (pw->pw_gid == gr->gr_gid) {
+				++members;
+				if (pw->pw_uid != uid)
+					return 0;
+			}
+		}
+		endpwent();
+
+		pw = getpwuid(st->st_uid);
+		if (!pw)
+			return 0;
+
+		/* Check supplementary group memberships. */
+		if (gr->gr_mem[0]) {
+			++members;
+			if (strcmp(pw->pw_name, gr->gr_mem[0]) ||
+			    gr->gr_mem[1])
+				return 0;
+		}
+
+		if (!members)
+			return 0;
+	}
+	return 1;
 }
 
 int
