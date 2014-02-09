@@ -7,7 +7,7 @@ void     ssh_packet_start(struct ssh *, u_char);
 void     ssh_packet_put_char(struct ssh *, int ch);
 void     ssh_packet_put_int(struct ssh *, u_int value);
 void     ssh_packet_put_int64(struct ssh *, u_int64_t value);
-void     ssh_packet_put_bignum2(struct ssh *, BIGNUM * value);
+void     ssh_packet_put_bignum2(struct ssh *, const BIGNUM * value);
 void     ssh_packet_put_ecpoint(struct ssh *, const EC_GROUP *, const EC_POINT *);
 void     ssh_packet_put_string(struct ssh *, const void *buf, u_int len);
 void     ssh_packet_put_cstring(struct ssh *, const char *str);
