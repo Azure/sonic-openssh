@@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
 host-specific declarations should be given near the beginning of the
 file, and general defaults at the end.
 .Pp
+Note that the Debian
+.Ic openssh-client
+package sets several options as standard in
+.Pa /etc/ssh/ssh_config
+which are not the default in
+.Xr ssh 1 :
+.Pp
+.Bl -bullet -offset indent -compact
+.It
+.Cm SendEnv No LANG LC_*
+.It
+.Cm HashKnownHosts No yes
+.It
+.Cm GSSAPIAuthentication No yes
+.El
+.Pp
 The configuration file has the following format:
 .Pp
 Empty lines and lines starting with
@@ -648,7 +664,8 @@ token used for the session will be set to expire after 20 minutes.
 Remote clients will be refused access after this time.
 .Pp
 The default is
-.Dq no .
+.Dq yes
+(Debian-specific).
 .Pp
 See the X11 SECURITY extension specification for full details on
 the restrictions imposed on untrusted clients.
