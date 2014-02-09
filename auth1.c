@@ -383,7 +383,7 @@ void
 do_authentication(Authctxt *authctxt)
 {
 	u_int ulen;
-	char *user, *style = NULL;
+	char *user, *style = NULL, *role = NULL;
 
 	/* Get the name of the user that we wish to log in as. */
 	packet_read_expect(SSH_CMSG_USER);
@@ -392,11 +392,17 @@ do_authentication(Authctxt *authctxt)
 	user = packet_get_cstring(&ulen);
 	packet_check_eom();
 
+	if ((role = strchr(user, '/')) != NULL)
+		*role++ = '\0';
+
 	if ((style = strchr(user, ':')) != NULL)
+		*style++ = '\0';
+	else if (role && (style = strchr(role, ':')) != NULL)
 		*style++ = '\0';
 
 	authctxt->user = user;
 	authctxt->style = style;
+	authctxt->role = role;
 
 	/* Verify that the user is a valid user. */
 	if ((authctxt->pw = PRIVSEP(getpwnamallow(user))) != NULL)
