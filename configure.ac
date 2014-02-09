@@ -3841,6 +3841,30 @@ AC_ARG_WITH([kerberos5],
 AC_SUBST([GSSLIBS])
 AC_SUBST([K5LIBS])
 
+# Check whether user wants ConsoleKit support
+CONSOLEKIT_MSG="no"
+LIBCK_CONNECTOR=""
+AC_ARG_WITH(consolekit,
+	[  --with-consolekit       Enable ConsoleKit support],
+	[ if test "x$withval" != "xno" ; then
+		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
+		if test "$PKGCONFIG" != "no"; then
+			AC_MSG_CHECKING([for ck-connector])
+			if $PKGCONFIG --exists ck-connector; then
+				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
+				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
+				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
+				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
+				AC_MSG_RESULT([yes])
+				AC_DEFINE(USE_CONSOLEKIT, 1, [Define if you want ConsoleKit support.])
+				CONSOLEKIT_MSG="yes"
+			else
+				AC_MSG_RESULT([no])
+			fi
+		fi
+	fi ]
+)
+
 # Looking for programs, paths and files
 
 PRIVSEP_PATH=/var/empty
@@ -4641,6 +4665,7 @@ echo "              MD5 password support: $MD5_MSG"
 echo "                   libedit support: $LIBEDIT_MSG"
 echo "  Solaris process contract support: $SPC_MSG"
 echo "           Solaris project support: $SP_MSG"
+echo "                ConsoleKit support: $CONSOLEKIT_MSG"
 echo "       IP address in \$DISPLAY hack: $DISPLAY_HACK_MSG"
 echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
 echo "                  BSD Auth support: $BSD_AUTH_MSG"

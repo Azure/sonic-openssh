@@ -92,6 +92,7 @@
 #include "kex.h"
 #include "monitor_wrap.h"
 #include "sftp.h"
+#include "consolekit.h"
 
 #if defined(KRB5) && defined(USE_AFS)
 #include <kafs.h>
@@ -1132,6 +1133,9 @@ do_setup_env(Session *s, const char *shell)
 #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
 	char *path = NULL;
 #endif
+#ifdef USE_CONSOLEKIT
+	const char *ckcookie = NULL;
+#endif /* USE_CONSOLEKIT */
 
 	/* Initialize the environment. */
 	envsize = 100;
@@ -1276,6 +1280,11 @@ do_setup_env(Session *s, const char *shell)
 		child_set_env(&env, &envsize, "KRB5CCNAME",
 		    s->authctxt->krb5_ccname);
 #endif
+#ifdef USE_CONSOLEKIT
+	ckcookie = PRIVSEP(consolekit_register(s, s->display));
+	if (ckcookie)
+		child_set_env(&env, &envsize, "XDG_SESSION_COOKIE", ckcookie);
+#endif /* USE_CONSOLEKIT */
 #ifdef USE_PAM
 	/*
 	 * Pull in any environment variables that may have
@@ -2319,6 +2328,10 @@ session_pty_cleanup2(Session *s)
 		return;
 
 	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
+
+#ifdef USE_CONSOLEKIT
+	consolekit_unregister(s);
+#endif /* USE_CONSOLEKIT */
 
 	/* Record that the user has logged out. */
 	if (s->pid != 0)

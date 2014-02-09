@@ -26,6 +26,8 @@
 #ifndef SESSION_H
 #define SESSION_H
 
+struct _CkConnector;
+
 #define TTYSZ 64
 typedef struct Session Session;
 struct Session {
@@ -60,6 +62,10 @@ struct Session {
 		char	*name;
 		char	*val;
 	} *env;
+
+#ifdef USE_CONSOLEKIT
+	struct _CkConnector *ckc;
+#endif /* USE_CONSOLEKIT */
 };
 
 void	 do_authenticated(Authctxt *);
