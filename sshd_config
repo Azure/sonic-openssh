@@ -41,7 +41,8 @@
 # Authentication:
 
 #LoginGraceTime 2m
-#PermitRootLogin no
+# See /usr/share/doc/openssh-server/README.Debian.gz.
+#PermitRootLogin without-password
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
