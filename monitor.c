@@ -97,6 +97,9 @@
 #include "ssh2.h"
 #include "roaming.h"
 #include "authfd.h"
+#ifdef USE_CONSOLEKIT
+#include "consolekit.h"
+#endif
 
 #ifdef GSSAPI
 static Gssctxt *gsscontext = NULL;
@@ -187,6 +190,10 @@ int mm_answer_audit_command(int, Buffer *);
 
 static int monitor_read_log(struct monitor *);
 
+#ifdef USE_CONSOLEKIT
+int mm_answer_consolekit_register(int, Buffer *);
+#endif
+
 static Authctxt *authctxt;
 static BIGNUM *ssh1_challenge = NULL;	/* used for ssh1 rsa auth */
 
@@ -272,6 +279,9 @@ struct mon_table mon_dispatch_postauth20[] = {
     {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
     {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT, mm_answer_audit_command},
 #endif
+#ifdef USE_CONSOLEKIT
+    {MONITOR_REQ_CONSOLEKIT_REGISTER, 0, mm_answer_consolekit_register},
+#endif
     {0, 0, NULL}
 };
 
@@ -313,6 +323,9 @@ struct mon_table mon_dispatch_postauth15[] = {
 #ifdef SSH_AUDIT_EVENTS
     {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
     {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT|MON_ONCE, mm_answer_audit_command},
+#endif
+#ifdef USE_CONSOLEKIT
+    {MONITOR_REQ_CONSOLEKIT_REGISTER, 0, mm_answer_consolekit_register},
 #endif
     {0, 0, NULL}
 };
@@ -492,6 +505,9 @@ monitor_child_postauth(struct monitor *pmonitor)
 		monitor_permit(mon_dispatch, MONITOR_REQ_PTY, 1);
 		monitor_permit(mon_dispatch, MONITOR_REQ_PTYCLEANUP, 1);
 	}
+#ifdef USE_CONSOLEKIT
+	monitor_permit(mon_dispatch, MONITOR_REQ_CONSOLEKIT_REGISTER, 1);
+#endif
 
 	for (;;)
 		monitor_read(pmonitor, mon_dispatch, NULL);
@@ -2269,3 +2285,29 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
 
 #endif /* GSSAPI */
 
+#ifdef USE_CONSOLEKIT
+int
+mm_answer_consolekit_register(int sock, Buffer *m)
+{
+	Session *s;
+	char *tty, *display;
+	char *cookie = NULL;
+
+	debug3("%s entering", __func__);
+
+	tty = buffer_get_string(m, NULL);
+	display = buffer_get_string(m, NULL);
+	s = session_by_tty(tty);
+	if (s != NULL)
+		cookie = consolekit_register(s, display);
+	buffer_clear(m);
+	buffer_put_cstring(m, cookie != NULL ? cookie : "");
+	mm_request_send(sock, MONITOR_ANS_CONSOLEKIT_REGISTER, m);
+
+	free(cookie);
+	free(display);
+	free(tty);
+
+	return (0);
+}
+#endif /* USE_CONSOLEKIT */

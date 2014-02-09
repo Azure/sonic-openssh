@@ -1353,3 +1353,33 @@ mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *store)
 
 #endif /* GSSAPI */
 
+#ifdef USE_CONSOLEKIT
+char *
+mm_consolekit_register(Session *s, const char *display)
+{
+	Buffer m;
+	char *cookie;
+
+	debug3("%s entering", __func__);
+
+	if (s->ttyfd == -1)
+		return NULL;
+	buffer_init(&m);
+	buffer_put_cstring(&m, s->tty);
+	buffer_put_cstring(&m, display != NULL ? display : "");
+	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_CONSOLEKIT_REGISTER, &m);
+	buffer_clear(&m);
+
+	mm_request_receive_expect(pmonitor->m_recvfd,
+	    MONITOR_ANS_CONSOLEKIT_REGISTER, &m);
+	cookie = buffer_get_string(&m, NULL);
+	buffer_free(&m);
+
+	/* treat empty cookie as missing cookie */
+	if (strlen(cookie) == 0) {
+		free(cookie);
+		cookie = NULL;
+	}
+	return (cookie);
+}
+#endif /* USE_CONSOLEKIT */

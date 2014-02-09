@@ -111,4 +111,8 @@ void *mm_zalloc(struct mm_master *, u_int, u_int);
 void mm_zfree(struct mm_master *, void *);
 void mm_init_compression(struct mm_master *);
 
+#ifdef USE_CONSOLEKIT
+char *mm_consolekit_register(struct Session *, const char *);
+#endif /* USE_CONSOLEKIT */
+
 #endif /* _MM_WRAP_H_ */
