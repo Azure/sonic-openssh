@@ -269,6 +269,7 @@ process_principals(FILE *f, const char *file, struct passwd *pw,
 	u_long linenum = 0;
 	u_int i, found_principal = 0;
 
+	auth_start_parse_options();
 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
 		/* Always consume entire input */
 		if (found_principal)
@@ -471,6 +472,7 @@ check_authkeys_file(FILE *f, char *file, struct sshkey *key, struct passwd *pw)
 	u_long linenum = 0;
 	struct sshkey *found = NULL;
 
+	auth_start_parse_options();
 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
 		char *cp, *key_options = NULL, *fp = NULL;
 		const char *reason = NULL;
@@ -624,6 +626,7 @@ user_cert_trusted_ca(struct passwd *pw, struct sshkey *key)
 	if (sshkey_cert_check_authority(key, 0, 1,
 	    use_authorized_principals ? NULL : pw->pw_name, &reason) != 0)
 		goto fail_reason;
+	auth_start_parse_options();
 	if (auth_cert_options(key, pw, &reason) != 0)
 		goto fail_reason;
 
