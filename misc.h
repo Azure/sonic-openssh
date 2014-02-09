@@ -192,6 +192,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
 	__attribute__((format(printf, 2, 3)));
 void	notify_complete(struct notifier_ctx *);
 
+int	 secure_permissions(struct stat *st, uid_t uid);
+
 #define MINIMUM(a, b)	(((a) < (b)) ? (a) : (b))
 #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
 #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
