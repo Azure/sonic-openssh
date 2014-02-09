@@ -1914,6 +1914,10 @@ main(int ac, char **av)
 			}
 		}
 
+		if (getenv("SSH_SIGSTOP"))
+			/* Tell service supervisor that we are ready. */
+			kill(getpid(), SIGSTOP);
+
 		/* Accept a connection and return in a forked child */
 		server_accept_loop(&sock_in, &sock_out,
 		    &newsock, config_s);
