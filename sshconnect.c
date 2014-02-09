@@ -1287,7 +1287,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
 	lowercase(host);
 
 	/* Exchange protocol version identification strings with the server. */
-	if (kex_exchange_identification(ssh, timeout_ms, NULL) != 0)
+	if (kex_exchange_identification(ssh, timeout_ms, 1, NULL) != 0)
 		cleanup_exit(255); /* error already logged */
 
 	/* Put the connection into non-blocking mode. */
