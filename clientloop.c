@@ -577,16 +577,21 @@ client_global_request_reply(int type, u_int32_t seq, void *ctxt)
 static void
 server_alive_check(void)
 {
-	if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
-		logit("Timeout, server %s not responding.", host);
-		cleanup_exit(255);
+	if (compat20) {
+		if (packet_inc_alive_timeouts() > options.server_alive_count_max) {
+			logit("Timeout, server %s not responding.", host);
+			cleanup_exit(255);
+		}
+		packet_start(SSH2_MSG_GLOBAL_REQUEST);
+		packet_put_cstring("keepalive@openssh.com");
+		packet_put_char(1);     /* boolean: want reply */
+		packet_send();
+		/* Insert an empty placeholder to maintain ordering */
+		client_register_global_confirm(NULL, NULL);
+	} else {
+		packet_send_ignore(0);
+		packet_send();
 	}
-	packet_start(SSH2_MSG_GLOBAL_REQUEST);
-	packet_put_cstring("keepalive@openssh.com");
-	packet_put_char(1);     /* boolean: want reply */
-	packet_send();
-	/* Insert an empty placeholder to maintain ordering */
-	client_register_global_confirm(NULL, NULL);
 }
 
 /*
@@ -648,7 +653,7 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
 	 */
 
 	timeout_secs = INT_MAX; /* we use INT_MAX to mean no timeout */
-	if (options.server_alive_interval > 0 && compat20) {
+	if (options.server_alive_interval > 0) {
 		timeout_secs = options.server_alive_interval;
 		server_alive_time = now + options.server_alive_interval;
 	}
