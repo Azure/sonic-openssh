@@ -378,7 +378,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
 	char remote_version[256];	/* Must be at least as big as buf. */
 
 	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
+	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
+	    options.debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
 	    *options.version_addendum == '\0' ? "" : " ",
 	    options.version_addendum, newline);
 
