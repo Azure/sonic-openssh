@@ -621,6 +621,12 @@ Specifies whether user authentication based on GSSAPI is allowed.
 The default is
 .Dq no .
 Note that this option applies to protocol version 2 only.
+.It Cm GSSAPIKeyExchange
+Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange
+doesn't rely on ssh keys to verify host identity.
+The default is
+.Dq no .
+Note that this option applies to protocol version 2 only.
 .It Cm GSSAPICleanupCredentials
 Specifies whether to automatically destroy the user's credentials cache
 on logout.
@@ -642,6 +648,11 @@ machine's default store.
 This facility is provided to assist with operation on multi homed machines.
 The default is
 .Dq yes .
+.It Cm GSSAPIStoreCredentialsOnRekey
+Controls whether the user's GSSAPI credentials should be updated following a 
+successful connection rekeying. This option can be used to accepted renewed 
+or updated credentials from a compatible client. The default is
+.Dq no .
 .It Cm HostbasedAcceptedKeyTypes
 Specifies the key types that will be accepted for hostbased authentication
 as a comma-separated pattern list.
