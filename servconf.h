@@ -186,6 +186,8 @@ typedef struct {
 
 	u_int	num_auth_methods;
 	char   *auth_methods[MAX_AUTH_METHODS];
+
+	int	debian_banner;
 }       ServerOptions;
 
 /* Information about the incoming connection as used by Match */
