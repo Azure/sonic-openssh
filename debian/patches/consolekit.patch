@@ -1,4 +1,4 @@
-From cfae2bfa1e95cbb6c7a9799f13b82e8e804ca869 Mon Sep 17 00:00:00 2001
+From 05609b1cb381eafb999214bf4a95138e63abdbf2 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:57 +0000
 Subject: Add support for registering ConsoleKit sessions on login
@@ -24,10 +24,10 @@ Patch-Name: consolekit.patch
  create mode 100644 consolekit.h
 
 diff --git a/Makefile.in b/Makefile.in
-index b8f5099..ca6eee5 100644
+index f979926..b2dbead 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -96,7 +96,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
+@@ -94,7 +94,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o \
  	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
@@ -35,8 +35,8 @@ index b8f5099..ca6eee5 100644
 +	sandbox-seccomp-filter.o \
 +	consolekit.o
  
- MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out ssh-vulnkey.1.out sshd_config.5.out ssh_config.5.out
- MANPAGES_IN	= moduli.5 scp.1 ssh-add.1 ssh-agent.1 ssh-keygen.1 ssh-keyscan.1 ssh.1 sshd.8 sftp-server.8 sftp.1 ssh-keysign.8 ssh-pkcs11-helper.8 ssh-vulnkey.1 sshd_config.5 ssh_config.5
+ MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out sshd_config.5.out ssh_config.5.out
+ MANPAGES_IN	= moduli.5 scp.1 ssh-add.1 ssh-agent.1 ssh-keygen.1 ssh-keyscan.1 ssh.1 sshd.8 sftp-server.8 sftp.1 ssh-keysign.8 ssh-pkcs11-helper.8 sshd_config.5 ssh_config.5
 diff --git a/configure b/configure
 index ceb1b5d..78bbcd0 100755
 --- a/configure

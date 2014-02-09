@@ -1,4 +1,4 @@
-From 6d50dc6d561af1bcf41eaf1dc69e7920abe5aa4b Mon Sep 17 00:00:00 2001
+From 9ffc99332ff1bac6be9f0af430268e7981bd3dd2 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:08 +0000
 Subject: Fix picky lintian errors about slogin symlinks
@@ -15,12 +15,12 @@ Patch-Name: lintian-symlink-pickiness.patch
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index 7cd3a08..839abbd 100644
+index 7849979..095f4ff 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -296,9 +296,9 @@ install-files:
+@@ -289,9 +289,9 @@ install-files:
+ 	$(INSTALL) -m 644 ssh-keysign.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-keysign.8
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
- 	$(INSTALL) -m 644 ssh-vulnkey.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-vulnkey.1
  	-rm -f $(DESTDIR)$(bindir)/slogin
 -	ln -s ./ssh$(EXEEXT) $(DESTDIR)$(bindir)/slogin
 +	ln -s ssh$(EXEEXT) $(DESTDIR)$(bindir)/slogin

@@ -3,6 +3,12 @@ openssh (1:6.4p1-3) UNRELEASED; urgency=medium
   * Switch to git; adjust Vcs-* fields.
   * Convert to git-dpm, and drop source package documentation associated
     with the old bzr/quilt patch handling workflow.
+  * Drop ssh-vulnkey and the associated ssh/ssh-add/sshd integration code,
+    leaving only basic configuration file compatibility, since it has been
+    nearly six years since the original vulnerability and this code is not
+    likely to be of much value any more.  See
+    https://lists.debian.org/debian-devel/2013/09/msg00240.html for my full
+    reasoning.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 

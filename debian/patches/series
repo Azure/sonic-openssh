@@ -1,6 +1,6 @@
 gssapi.patch
 selinux-role.patch
-ssh-vulnkey.patch
+ssh-vulnkey-compat.patch
 ssh1-keepalive.patch
 keepalive-extensions.patch
 syslog-level-silent.patch

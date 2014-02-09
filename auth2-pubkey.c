@@ -650,10 +650,9 @@ user_key_allowed(struct passwd *pw, Key *key)
 	u_int success, i;
 	char *file;
 
-	if (auth_key_is_revoked(key, 0))
+	if (auth_key_is_revoked(key))
 		return 0;
-	if (key_is_cert(key) &&
-	    auth_key_is_revoked(key->cert->signature_key, 0))
+	if (key_is_cert(key) && auth_key_is_revoked(key->cert->signature_key))
 		return 0;
 
 	success = user_cert_trusted_ca(pw, key);

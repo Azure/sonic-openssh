@@ -1,4 +1,4 @@
-From 4c7ed5c80e5f67277620ac973317cc516b67d0e7 Mon Sep 17 00:00:00 2001
+From 3d498ae4180b8338db5f960865882b3f781aec2a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:51 +0000
 Subject: Partial server keep-alive implementation for SSH1
@@ -57,7 +57,7 @@ index 311dc13..dc76d69 100644
  		server_alive_time = now + options.server_alive_interval;
  	}
 diff --git a/ssh_config.5 b/ssh_config.5
-index 8d806c7..89b25cd 100644
+index e72919a..1fc0a6b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -1130,7 +1130,10 @@ If, for example,

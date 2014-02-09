@@ -1,4 +1,4 @@
-From 98517b1b99dceff74e4a1e50d5a345f5b569ad6f Mon Sep 17 00:00:00 2001
+From d087ec8cf190df54fa8cb77c6ffd55a819dd1777 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -44,7 +44,7 @@ index ef0de08..149846c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 144be7d..753cc62 100644
+index 0d55854..151cab0 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -171,9 +171,7 @@ key in
@@ -88,7 +88,7 @@ index 144be7d..753cc62 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 0b38ae1..b3c3924 100644
+index 05ae6ad..6e2e03b 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -756,6 +756,10 @@ Protocol 1 is restricted to using only RSA keys,
@@ -103,7 +103,7 @@ index 0b38ae1..b3c3924 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index a604429..6bdd219 100644
+index b0c7ab6..95c1845 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -70,7 +70,7 @@ over an insecure network.
@@ -124,8 +124,8 @@ index a604429..6bdd219 100644
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange".
  The file format is described in
  .Xr moduli 5 .
-@@ -957,7 +957,6 @@ The content of this file is not sensitive; it can be world-readable.
- .Xr ssh-vulnkey 1 ,
+@@ -956,7 +956,6 @@ The content of this file is not sensitive; it can be world-readable.
+ .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
 -.Xr login.conf 5 ,
@@ -133,7 +133,7 @@ index a604429..6bdd219 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index eaf8d01..ec4851a 100644
+index 50eec53..04b5f1a 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -283,8 +283,7 @@ This option is only available for protocol version 2.

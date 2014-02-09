@@ -1,4 +1,4 @@
-From bbddcd71a027a33919f859f35dae800335a2de6a Mon Sep 17 00:00:00 2001
+From b8a355b5db58dc489fca181e333dacf5e14f4f1d Mon Sep 17 00:00:00 2001
 From: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility
@@ -33,7 +33,7 @@ index 32e1d2e..53e7b65 100644
  	{ "FATAL",	SYSLOG_LEVEL_FATAL },
  	{ "ERROR",	SYSLOG_LEVEL_ERROR },
 diff --git a/ssh.c b/ssh.c
-index 567248d..219a466 100644
+index 87233bc..5502889 100644
 --- a/ssh.c
 +++ b/ssh.c
 @@ -740,7 +740,7 @@ main(int ac, char **av)

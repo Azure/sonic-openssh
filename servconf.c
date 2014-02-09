@@ -114,7 +114,6 @@ initialize_server_options(ServerOptions *options)
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
 	options->challenge_response_authentication = -1;
-	options->permit_blacklisted_keys = -1;
 	options->permit_empty_passwd = -1;
 	options->permit_user_env = -1;
 	options->use_login = -1;
@@ -259,8 +258,6 @@ fill_default_server_options(ServerOptions *options)
 		options->kbd_interactive_authentication = 0;
 	if (options->challenge_response_authentication == -1)
 		options->challenge_response_authentication = 1;
-	if (options->permit_blacklisted_keys == -1)
-		options->permit_blacklisted_keys = 0;
 	if (options->permit_empty_passwd == -1)
 		options->permit_empty_passwd = 0;
 	if (options->permit_user_env == -1)
@@ -344,7 +341,7 @@ typedef enum {
 	sListenAddress, sAddressFamily,
 	sPrintMotd, sPrintLastLog, sIgnoreRhosts,
 	sX11Forwarding, sX11DisplayOffset, sX11UseLocalhost,
-	sStrictModes, sPermitBlacklistedKeys, sEmptyPasswd, sTCPKeepAlive,
+	sStrictModes, sEmptyPasswd, sTCPKeepAlive,
 	sPermitUserEnvironment, sUseLogin, sAllowTcpForwarding, sCompression,
 	sRekeyLimit, sAllowUsers, sDenyUsers, sAllowGroups, sDenyGroups,
 	sIgnoreUserKnownHosts, sCiphers, sMacs, sProtocol, sPidFile,
@@ -458,7 +455,7 @@ static struct {
 	{ "x11uselocalhost", sX11UseLocalhost, SSHCFG_ALL },
 	{ "xauthlocation", sXAuthLocation, SSHCFG_GLOBAL },
 	{ "strictmodes", sStrictModes, SSHCFG_GLOBAL },
-	{ "permitblacklistedkeys", sPermitBlacklistedKeys, SSHCFG_GLOBAL },
+	{ "permitblacklistedkeys", sDeprecated, SSHCFG_GLOBAL },
 	{ "permitemptypasswords", sEmptyPasswd, SSHCFG_ALL },
 	{ "permituserenvironment", sPermitUserEnvironment, SSHCFG_GLOBAL },
 	{ "uselogin", sUseLogin, SSHCFG_GLOBAL },
@@ -1165,10 +1162,6 @@ process_server_config_line(ServerOptions *options, char *line,
 
 	case sTCPKeepAlive:
 		intptr = &options->tcp_keep_alive;
-		goto parse_flag;
-
-	case sPermitBlacklistedKeys:
-		intptr = &options->permit_blacklisted_keys;
 		goto parse_flag;
 
 	case sEmptyPasswd:
@@ -2053,7 +2046,6 @@ dump_config(ServerOptions *o)
 	dump_cfg_fmtint(sX11UseLocalhost, o->x11_use_localhost);
 	dump_cfg_fmtint(sStrictModes, o->strict_modes);
 	dump_cfg_fmtint(sTCPKeepAlive, o->tcp_keep_alive);
-	dump_cfg_fmtint(sPermitBlacklistedKeys, o->permit_blacklisted_keys);
 	dump_cfg_fmtint(sEmptyPasswd, o->permit_empty_passwd);
 	dump_cfg_fmtint(sPermitUserEnvironment, o->permit_user_env);
 	dump_cfg_fmtint(sUseLogin, o->use_login);

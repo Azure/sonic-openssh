@@ -1,4 +1,4 @@
-From bb5616c94d6d6b97890e90dd01a7ad07c663dc0b Mon Sep 17 00:00:00 2001
+From b65a0ded7a8cfe7d351e28266d7851216d679e05 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -34,10 +34,10 @@ Patch-Name: debian-config.patch
  5 files changed, 53 insertions(+), 3 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 389de7d..2778176 100644
+index c741934..e1e82c5 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1298,7 +1298,7 @@ fill_default_options(Options * options)
+@@ -1292,7 +1292,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -71,7 +71,7 @@ index 3234321..064b593 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 5bca932..127540a 100644
+index 7b05e5f..01e7b6f 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
@@ -120,7 +120,7 @@ index 9450141..9cfe28d 100644
  #StrictModes yes
  #MaxAuthTries 6
 diff --git a/sshd_config.5 b/sshd_config.5
-index ec4851a..faf93fc 100644
+index 04b5f1a..ca4cb19 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -57,6 +57,33 @@ Arguments may optionally be enclosed in double quotes
