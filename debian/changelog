@@ -1,6 +1,8 @@
 openssh (1:6.4p1-3) UNRELEASED; urgency=medium
 
   * Switch to git; adjust Vcs-* fields.
+  * Convert to git-dpm, and drop source package documentation associated
+    with the old bzr/quilt patch handling workflow.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 

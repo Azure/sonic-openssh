@@ -1,14 +1,22 @@
-Description: Document that HashKnownHosts may break tab-completion
-Author: Colin Watson <cjwatson@debian.org>
+From cee45b00a94730c9a49a52a967ec08b9c29b9ca2 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Sun, 9 Feb 2014 16:10:11 +0000
+Subject: Document that HashKnownHosts may break tab-completion
+
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1727
 Bug-Debian: http://bugs.debian.org/430154
 Last-Update: 2013-09-14
 
-Index: b/ssh_config.5
-===================================================================
+Patch-Name: doc-hash-tab-completion.patch
+---
+ ssh_config.5 | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/ssh_config.5 b/ssh_config.5
+index 1497cfc..5bca932 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -587,6 +587,9 @@
+@@ -587,6 +587,9 @@ Note that existing names and addresses in known hosts files
  will not be converted automatically,
  but may be manually hashed using
  .Xr ssh-keygen 1 .

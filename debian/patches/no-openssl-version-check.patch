@@ -1,17 +1,26 @@
-Description: Disable OpenSSL version check
- OpenSSL's SONAME is sufficient nowadays.
-Author: Philip Hands <phil@hands.com>
+From bc87a22e258193138419d6615c0e92e4124dbe90 Mon Sep 17 00:00:00 2001
+From: Philip Hands <phil@hands.com>
+Date: Sun, 9 Feb 2014 16:10:14 +0000
+Subject: Disable OpenSSL version check
+
+OpenSSL's SONAME is sufficient nowadays.
+
 Author: Colin Watson <cjwatson@debian.org>
 Bug-Debian: http://bugs.debian.org/93581
 Bug-Debian: http://bugs.debian.org/664383
 Forwarded: not-needed
 Last-Update: 2013-12-23
 
-Index: b/entropy.c
-===================================================================
+Patch-Name: no-openssl-version-check.patch
+---
+ entropy.c | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/entropy.c b/entropy.c
+index 2d483b3..2aee2d9 100644
 --- a/entropy.c
 +++ b/entropy.c
-@@ -209,18 +209,6 @@
+@@ -209,18 +209,6 @@ seed_rng(void)
  #ifndef OPENSSL_PRNG_ONLY
  	unsigned char buf[RANDOM_SEED_SIZE];
  #endif

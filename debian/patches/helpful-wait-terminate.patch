@@ -1,13 +1,21 @@
-Description: Mention ~& when waiting for forwarded connections to terminate
-Author: Matthew Vernon <matthew@debian.org>
+From ea2e0af0bc3a683edb32b508c03eb793617f6f31 Mon Sep 17 00:00:00 2001
+From: Matthew Vernon <matthew@debian.org>
+Date: Sun, 9 Feb 2014 16:09:56 +0000
+Subject: Mention ~& when waiting for forwarded connections to terminate
+
 Bug-Debian: http://bugs.debian.org/50308
 Last-Update: 2010-02-27
 
-Index: b/serverloop.c
-===================================================================
+Patch-Name: helpful-wait-terminate.patch
+---
+ serverloop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/serverloop.c b/serverloop.c
+index ccbad61..5f22df3 100644
 --- a/serverloop.c
 +++ b/serverloop.c
-@@ -686,7 +686,7 @@
+@@ -686,7 +686,7 @@ server_loop(pid_t pid, int fdin_arg, int fdout_arg, int fderr_arg)
  			if (!channel_still_open())
  				break;
  			if (!waiting_termination) {

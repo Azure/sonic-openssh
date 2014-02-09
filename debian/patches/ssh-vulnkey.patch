@@ -1,20 +1,56 @@
-Description: Reject vulnerable keys to mitigate Debian OpenSSL flaw
- In 2008, Debian (and derived distributions such as Ubuntu) shipped an
- OpenSSL package with a flawed random number generator, causing OpenSSH to
- generate only a very limited set of keys which were subject to private half
- precomputation.  To mitigate this, this patch checks key authentications
- against a blacklist of known-vulnerable keys, and adds a new ssh-vulnkey
- program which can be used to explicitly check keys against that blacklist.
- See CVE-2008-0166.
-Author: Colin Watson <cjwatson@ubuntu.com>
+From 8909ff0e3cd07d1b042d1be1c8b8828dbf6c9a83 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@ubuntu.com>
+Date: Sun, 9 Feb 2014 16:09:50 +0000
+Subject: Reject vulnerable keys to mitigate Debian OpenSSL flaw
+
+In 2008, Debian (and derived distributions such as Ubuntu) shipped an
+OpenSSL package with a flawed random number generator, causing OpenSSH to
+generate only a very limited set of keys which were subject to private half
+precomputation.  To mitigate this, this patch checks key authentications
+against a blacklist of known-vulnerable keys, and adds a new ssh-vulnkey
+program which can be used to explicitly check keys against that blacklist.
+See CVE-2008-0166.
+
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1469
 Last-Update: 2013-09-14
 
-Index: b/Makefile.in
-===================================================================
+Patch-Name: ssh-vulnkey.patch
+---
+ Makefile.in       |  17 ++-
+ auth-rh-rsa.c     |   2 +-
+ auth-rsa.c        |   2 +-
+ auth.c            |  27 +++-
+ auth.h            |   2 +-
+ auth2-hostbased.c |   2 +-
+ auth2-pubkey.c    |   5 +-
+ authfile.c        | 136 +++++++++++++++++++
+ authfile.h        |   2 +
+ pathnames.h       |   7 +
+ readconf.c        |   9 ++
+ readconf.h        |   1 +
+ servconf.c        |  11 +-
+ servconf.h        |   1 +
+ ssh-add.1         |   5 +
+ ssh-add.c         |  10 +-
+ ssh-keygen.1      |   1 +
+ ssh-vulnkey.1     | 242 ++++++++++++++++++++++++++++++++++
+ ssh-vulnkey.c     | 386 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ ssh.1             |   1 +
+ ssh.c             |  18 ++-
+ ssh_config.5      |  17 +++
+ sshconnect2.c     |   4 +-
+ sshd.8            |   1 +
+ sshd.c            |   5 +
+ sshd_config.5     |  14 ++
+ 26 files changed, 913 insertions(+), 15 deletions(-)
+ create mode 100644 ssh-vulnkey.1
+ create mode 100644 ssh-vulnkey.c
+
+diff --git a/Makefile.in b/Makefile.in
+index f979926..b8f5099 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -26,6 +26,7 @@
+@@ -26,6 +26,7 @@ ASKPASS_PROGRAM=$(libexecdir)/ssh-askpass
  SFTP_SERVER=$(libexecdir)/sftp-server
  SSH_KEYSIGN=$(libexecdir)/ssh-keysign
  SSH_PKCS11_HELPER=$(libexecdir)/ssh-pkcs11-helper
@@ -22,7 +58,7 @@ Index: b/Makefile.in
  PRIVSEP_PATH=@PRIVSEP_PATH@
  SSH_PRIVSEP_USER=@SSH_PRIVSEP_USER@
  STRIP_OPT=@STRIP_OPT@
-@@ -37,7 +38,8 @@
+@@ -37,7 +38,8 @@ PATHS= -DSSHDIR=\"$(sysconfdir)\" \
  	-D_PATH_SSH_KEY_SIGN=\"$(SSH_KEYSIGN)\" \
  	-D_PATH_SSH_PKCS11_HELPER=\"$(SSH_PKCS11_HELPER)\" \
  	-D_PATH_SSH_PIDDIR=\"$(piddir)\" \
@@ -32,7 +68,7 @@ Index: b/Makefile.in
  
  CC=@CC@
  LD=@LD@
-@@ -61,7 +63,7 @@
+@@ -61,7 +63,7 @@ LDFLAGS=-L. -Lopenbsd-compat/ @LDFLAGS@
  EXEEXT=@EXEEXT@
  MANFMT=@MANFMT@
  
@@ -41,7 +77,7 @@ Index: b/Makefile.in
  
  LIBSSH_OBJS=authfd.o authfile.o bufaux.o bufbn.o buffer.o \
  	canohost.o channels.o cipher.o cipher-aes.o \
-@@ -96,8 +98,8 @@
+@@ -96,8 +98,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
  	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
  	sandbox-seccomp-filter.o
  
@@ -52,7 +88,7 @@ Index: b/Makefile.in
  MANTYPE		= @MANTYPE@
  
  CONFIGFILES=sshd_config.out ssh_config.out moduli.out
-@@ -176,6 +178,9 @@
+@@ -176,6 +178,9 @@ sftp-server$(EXEEXT): $(LIBCOMPAT) libssh.a sftp.o sftp-common.o sftp-server.o s
  sftp$(EXEEXT): $(LIBCOMPAT) libssh.a sftp.o sftp-client.o sftp-common.o sftp-glob.o progressmeter.o
  	$(LD) -o $@ progressmeter.o sftp.o sftp-client.o sftp-common.o sftp-glob.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS) $(LIBEDIT)
  
@@ -62,7 +98,7 @@ Index: b/Makefile.in
  # test driver for the loginrec code - not built by default
  logintest: logintest.o $(LIBCOMPAT) libssh.a loginrec.o
  	$(LD) -o $@ logintest.o $(LDFLAGS) loginrec.o -lopenbsd-compat -lssh $(LIBS)
-@@ -272,6 +277,7 @@
+@@ -272,6 +277,7 @@ install-files:
  	$(INSTALL) -m 0755 $(STRIP_OPT) ssh-pkcs11-helper$(EXEEXT) $(DESTDIR)$(SSH_PKCS11_HELPER)$(EXEEXT)
  	$(INSTALL) -m 0755 $(STRIP_OPT) sftp$(EXEEXT) $(DESTDIR)$(bindir)/sftp$(EXEEXT)
  	$(INSTALL) -m 0755 $(STRIP_OPT) sftp-server$(EXEEXT) $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
@@ -70,7 +106,7 @@ Index: b/Makefile.in
  	$(INSTALL) -m 644 ssh.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh.1
  	$(INSTALL) -m 644 scp.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/scp.1
  	$(INSTALL) -m 644 ssh-add.1.out $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-add.1
-@@ -286,6 +292,7 @@
+@@ -286,6 +292,7 @@ install-files:
  	$(INSTALL) -m 644 sftp-server.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/sftp-server.8
  	$(INSTALL) -m 644 ssh-keysign.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-keysign.8
  	$(INSTALL) -m 644 ssh-pkcs11-helper.8.out $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-pkcs11-helper.8
@@ -78,7 +114,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/slogin
  	ln -s ./ssh$(EXEEXT) $(DESTDIR)$(bindir)/slogin
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/slogin.1
-@@ -367,6 +374,7 @@
+@@ -367,6 +374,7 @@ uninstall:
  	-rm -f $(DESTDIR)$(bindir)/ssh-agent$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keygen$(EXEEXT)
  	-rm -f $(DESTDIR)$(bindir)/ssh-keyscan$(EXEEXT)
@@ -86,7 +122,7 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(bindir)/sftp$(EXEEXT)
  	-rm -f $(DESTDIR)$(sbindir)/sshd$(EXEEXT)
  	-rm -r $(DESTDIR)$(SFTP_SERVER)$(EXEEXT)
-@@ -379,6 +387,7 @@
+@@ -379,6 +387,7 @@ uninstall:
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keygen.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/sftp.1
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)1/ssh-keyscan.1
@@ -94,11 +130,11 @@ Index: b/Makefile.in
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)8/sshd.8
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)8/sftp-server.8
  	-rm -f $(DESTDIR)$(mandir)/$(mansubdir)8/ssh-keysign.8
-Index: b/auth-rh-rsa.c
-===================================================================
+diff --git a/auth-rh-rsa.c b/auth-rh-rsa.c
+index b21a0f4..891ec32 100644
 --- a/auth-rh-rsa.c
 +++ b/auth-rh-rsa.c
-@@ -44,7 +44,7 @@
+@@ -44,7 +44,7 @@ auth_rhosts_rsa_key_allowed(struct passwd *pw, char *cuser, char *chost,
  {
  	HostStatus host_status;
  
@@ -107,11 +143,11 @@ Index: b/auth-rh-rsa.c
  		return 0;
  
  	/* Check if we would accept it using rhosts authentication. */
-Index: b/auth-rsa.c
-===================================================================
+diff --git a/auth-rsa.c b/auth-rsa.c
+index 545aa49..6ed152c 100644
 --- a/auth-rsa.c
 +++ b/auth-rsa.c
-@@ -237,7 +237,7 @@
+@@ -237,7 +237,7 @@ rsa_key_allowed_in_file(struct passwd *pw, char *file,
  		free(fp);
  
  		/* Never accept a revoked key */
@@ -120,8 +156,8 @@ Index: b/auth-rsa.c
  			break;
  
  		/* We have found the desired key. */
-Index: b/auth.c
-===================================================================
+diff --git a/auth.c b/auth.c
+index 9a36f1d..6662e9a 100644
 --- a/auth.c
 +++ b/auth.c
 @@ -59,6 +59,7 @@
@@ -132,7 +168,7 @@ Index: b/auth.c
  #include "auth.h"
  #include "auth-options.h"
  #include "canohost.h"
-@@ -657,10 +658,34 @@
+@@ -657,10 +658,34 @@ getpwnamallow(const char *user)
  
  /* Returns 1 if key is revoked by revoked_keys_file, 0 otherwise */
  int
@@ -168,11 +204,11 @@ Index: b/auth.c
  	if (options.revoked_keys_file == NULL)
  		return 0;
  	switch (ssh_krl_file_contains_key(options.revoked_keys_file, key)) {
-Index: b/auth.h
-===================================================================
+diff --git a/auth.h b/auth.h
+index 5b6824f..ec95460 100644
 --- a/auth.h
 +++ b/auth.h
-@@ -191,7 +191,7 @@
+@@ -191,7 +191,7 @@ char	*authorized_principals_file(struct passwd *);
  
  FILE	*auth_openkeyfile(const char *, struct passwd *, int);
  FILE	*auth_openprincipals(const char *, struct passwd *, int);
@@ -181,11 +217,11 @@ Index: b/auth.h
  
  HostStatus
  check_key_in_hostfiles(struct passwd *, Key *, const char *,
-Index: b/auth2-hostbased.c
-===================================================================
+diff --git a/auth2-hostbased.c b/auth2-hostbased.c
+index a344dcc..3a17f1b 100644
 --- a/auth2-hostbased.c
 +++ b/auth2-hostbased.c
-@@ -150,7 +150,7 @@
+@@ -150,7 +150,7 @@ hostbased_key_allowed(struct passwd *pw, const char *cuser, char *chost,
  	int len;
  	char *fp;
  
@@ -194,11 +230,11 @@ Index: b/auth2-hostbased.c
  		return 0;
  
  	resolvedname = get_canonical_hostname(options.use_dns);
-Index: b/auth2-pubkey.c
-===================================================================
+diff --git a/auth2-pubkey.c b/auth2-pubkey.c
+index 2b3ecb1..12eb8a6 100644
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
-@@ -647,9 +647,10 @@
+@@ -647,9 +647,10 @@ user_key_allowed(struct passwd *pw, Key *key)
  	u_int success, i;
  	char *file;
  
@@ -211,8 +247,8 @@ Index: b/auth2-pubkey.c
  		return 0;
  
  	success = user_cert_trusted_ca(pw, key);
-Index: b/authfile.c
-===================================================================
+diff --git a/authfile.c b/authfile.c
+index 63ae16b..9833591 100644
 --- a/authfile.c
 +++ b/authfile.c
 @@ -68,6 +68,7 @@
@@ -223,7 +259,7 @@ Index: b/authfile.c
  
  #define MAX_KEY_FILE_SIZE	(1024 * 1024)
  
-@@ -944,3 +945,138 @@
+@@ -944,3 +945,138 @@ key_in_file(Key *key, const char *filename, int strict_type)
  	return ret;
  }
  
@@ -362,19 +398,19 @@ Index: b/authfile.c
 +	key_free(public);
 +	return ret;
 +}
-Index: b/authfile.h
-===================================================================
+diff --git a/authfile.h b/authfile.h
+index 78349be..3f2bdcb 100644
 --- a/authfile.h
 +++ b/authfile.h
-@@ -28,4 +28,6 @@
+@@ -28,4 +28,6 @@ Key	*key_load_private_pem(int, int, const char *, char **);
  int	 key_perm_ok(int, const char *);
  int	 key_in_file(Key *, const char *, int);
  
 +int	 blacklisted_key(Key *key, char **fp);
 +
  #endif
-Index: b/pathnames.h
-===================================================================
+diff --git a/pathnames.h b/pathnames.h
+index 5027fba..47f7867 100644
 --- a/pathnames.h
 +++ b/pathnames.h
 @@ -18,6 +18,10 @@
@@ -398,11 +434,11 @@ Index: b/pathnames.h
  #ifndef _PATH_SSH_PROGRAM
  #define _PATH_SSH_PROGRAM		"/usr/bin/ssh"
  #endif
-Index: b/readconf.c
-===================================================================
+diff --git a/readconf.c b/readconf.c
+index 2695fd6..22e5a3a 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -128,6 +128,7 @@
+@@ -128,6 +128,7 @@ typedef enum {
  	oGlobalKnownHostsFile2, oUserKnownHostsFile2, oPubkeyAuthentication,
  	oKbdInteractiveAuthentication, oKbdInteractiveDevices, oHostKeyAlias,
  	oDynamicForward, oPreferredAuthentications, oHostbasedAuthentication,
@@ -410,7 +446,7 @@ Index: b/readconf.c
  	oHostKeyAlgorithms, oBindAddress, oPKCS11Provider,
  	oClearAllForwardings, oNoHostAuthenticationForLocalhost,
  	oEnableSSHKeysign, oRekeyLimit, oVerifyHostKeyDNS, oConnectTimeout,
-@@ -161,6 +162,7 @@
+@@ -161,6 +162,7 @@ static struct {
  	{ "passwordauthentication", oPasswordAuthentication },
  	{ "kbdinteractiveauthentication", oKbdInteractiveAuthentication },
  	{ "kbdinteractivedevices", oKbdInteractiveDevices },
@@ -418,7 +454,7 @@ Index: b/readconf.c
  	{ "rsaauthentication", oRSAAuthentication },
  	{ "pubkeyauthentication", oPubkeyAuthentication },
  	{ "dsaauthentication", oPubkeyAuthentication },		    /* alias */
-@@ -523,6 +525,10 @@
+@@ -523,6 +525,10 @@ parse_flag:
  		intptr = &options->challenge_response_authentication;
  		goto parse_flag;
  
@@ -429,7 +465,7 @@ Index: b/readconf.c
  	case oGssAuthentication:
  		intptr = &options->gss_authentication;
  		goto parse_flag;
-@@ -1210,6 +1216,7 @@
+@@ -1210,6 +1216,7 @@ initialize_options(Options * options)
  	options->kbd_interactive_devices = NULL;
  	options->rhosts_rsa_authentication = -1;
  	options->hostbased_authentication = -1;
@@ -437,7 +473,7 @@ Index: b/readconf.c
  	options->batch_mode = -1;
  	options->check_host_ip = -1;
  	options->strict_host_key_checking = -1;
-@@ -1320,6 +1327,8 @@
+@@ -1320,6 +1327,8 @@ fill_default_options(Options * options)
  		options->rhosts_rsa_authentication = 0;
  	if (options->hostbased_authentication == -1)
  		options->hostbased_authentication = 0;
@@ -446,11 +482,11 @@ Index: b/readconf.c
  	if (options->batch_mode == -1)
  		options->batch_mode = 0;
  	if (options->check_host_ip == -1)
-Index: b/readconf.h
-===================================================================
+diff --git a/readconf.h b/readconf.h
+index 675b35d..a508151 100644
 --- a/readconf.h
 +++ b/readconf.h
-@@ -59,6 +59,7 @@
+@@ -59,6 +59,7 @@ typedef struct {
  	int     kbd_interactive_authentication; /* Try keyboard-interactive auth. */
  	char	*kbd_interactive_devices; /* Keyboard-interactive auth devices. */
  	int     zero_knowledge_password_authentication;	/* Try jpake */
@@ -458,11 +494,11 @@ Index: b/readconf.h
  	int     batch_mode;	/* Batch mode: do not ask for passwords. */
  	int     check_host_ip;	/* Also keep track of keys for IP address */
  	int     strict_host_key_checking;	/* Strict host key checking. */
-Index: b/servconf.c
-===================================================================
+diff --git a/servconf.c b/servconf.c
+index c938ae3..9155a8b 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -114,6 +114,7 @@
+@@ -114,6 +114,7 @@ initialize_server_options(ServerOptions *options)
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->challenge_response_authentication = -1;
@@ -470,7 +506,7 @@ Index: b/servconf.c
  	options->permit_empty_passwd = -1;
  	options->permit_user_env = -1;
  	options->use_login = -1;
-@@ -257,6 +258,8 @@
+@@ -257,6 +258,8 @@ fill_default_server_options(ServerOptions *options)
  		options->kbd_interactive_authentication = 0;
  	if (options->challenge_response_authentication == -1)
  		options->challenge_response_authentication = 1;
@@ -479,7 +515,7 @@ Index: b/servconf.c
  	if (options->permit_empty_passwd == -1)
  		options->permit_empty_passwd = 0;
  	if (options->permit_user_env == -1)
-@@ -338,7 +341,7 @@
+@@ -338,7 +341,7 @@ typedef enum {
  	sListenAddress, sAddressFamily,
  	sPrintMotd, sPrintLastLog, sIgnoreRhosts,
  	sX11Forwarding, sX11DisplayOffset, sX11UseLocalhost,
@@ -488,7 +524,7 @@ Index: b/servconf.c
  	sPermitUserEnvironment, sUseLogin, sAllowTcpForwarding, sCompression,
  	sRekeyLimit, sAllowUsers, sDenyUsers, sAllowGroups, sDenyGroups,
  	sIgnoreUserKnownHosts, sCiphers, sMacs, sProtocol, sPidFile,
-@@ -451,6 +454,7 @@
+@@ -451,6 +454,7 @@ static struct {
  	{ "x11uselocalhost", sX11UseLocalhost, SSHCFG_ALL },
  	{ "xauthlocation", sXAuthLocation, SSHCFG_GLOBAL },
  	{ "strictmodes", sStrictModes, SSHCFG_GLOBAL },
@@ -496,7 +532,7 @@ Index: b/servconf.c
  	{ "permitemptypasswords", sEmptyPasswd, SSHCFG_ALL },
  	{ "permituserenvironment", sPermitUserEnvironment, SSHCFG_GLOBAL },
  	{ "uselogin", sUseLogin, SSHCFG_GLOBAL },
-@@ -1158,6 +1162,10 @@
+@@ -1158,6 +1162,10 @@ process_server_config_line(ServerOptions *options, char *line,
  		intptr = &options->tcp_keep_alive;
  		goto parse_flag;
  
@@ -507,7 +543,7 @@ Index: b/servconf.c
  	case sEmptyPasswd:
  		intptr = &options->permit_empty_passwd;
  		goto parse_flag;
-@@ -2036,6 +2044,7 @@
+@@ -2036,6 +2044,7 @@ dump_config(ServerOptions *o)
  	dump_cfg_fmtint(sX11UseLocalhost, o->x11_use_localhost);
  	dump_cfg_fmtint(sStrictModes, o->strict_modes);
  	dump_cfg_fmtint(sTCPKeepAlive, o->tcp_keep_alive);
@@ -515,11 +551,11 @@ Index: b/servconf.c
  	dump_cfg_fmtint(sEmptyPasswd, o->permit_empty_passwd);
  	dump_cfg_fmtint(sPermitUserEnvironment, o->permit_user_env);
  	dump_cfg_fmtint(sUseLogin, o->use_login);
-Index: b/servconf.h
-===================================================================
+diff --git a/servconf.h b/servconf.h
+index ab6e346..f655c5b 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -121,6 +121,7 @@
+@@ -121,6 +121,7 @@ typedef struct {
  	int     challenge_response_authentication;
  	int     zero_knowledge_password_authentication;
  					/* If true, permit jpake auth */
@@ -527,11 +563,11 @@ Index: b/servconf.h
  	int     permit_empty_passwd;	/* If false, do not permit empty
  					 * passwords. */
  	int     permit_user_env;	/* If true, read ~/.ssh/environment */
-Index: b/ssh-add.1
-===================================================================
+diff --git a/ssh-add.1 b/ssh-add.1
+index 44846b6..d394b26 100644
 --- a/ssh-add.1
 +++ b/ssh-add.1
-@@ -81,6 +81,10 @@
+@@ -81,6 +81,10 @@ environment variable must contain the name of its socket for
  .Nm
  to work.
  .Pp
@@ -542,7 +578,7 @@ Index: b/ssh-add.1
  The options are as follows:
  .Bl -tag -width Ds
  .It Fl c
-@@ -186,6 +190,7 @@
+@@ -186,6 +190,7 @@ is unable to contact the authentication agent.
  .Xr ssh 1 ,
  .Xr ssh-agent 1 ,
  .Xr ssh-keygen 1 ,
@@ -550,11 +586,11 @@ Index: b/ssh-add.1
  .Xr sshd 8
  .Sh AUTHORS
  OpenSSH is a derivative of the original and free
-Index: b/ssh-add.c
-===================================================================
+diff --git a/ssh-add.c b/ssh-add.c
+index 5e8166f..b309582 100644
 --- a/ssh-add.c
 +++ b/ssh-add.c
-@@ -167,7 +167,7 @@
+@@ -167,7 +167,7 @@ static int
  add_file(AuthenticationConnection *ac, const char *filename, int key_only)
  {
  	Key *private, *cert;
@@ -563,7 +599,7 @@ Index: b/ssh-add.c
  	char msg[1024], *certpath = NULL;
  	int fd, perms_ok, ret = -1;
  	Buffer keyblob;
-@@ -243,6 +243,14 @@
+@@ -243,6 +243,14 @@ add_file(AuthenticationConnection *ac, const char *filename, int key_only)
  	} else {
  		fprintf(stderr, "Could not add identity: %s\n", filename);
  	}
@@ -578,11 +614,11 @@ Index: b/ssh-add.c
  
  	/* Skip trying to load the cert if requested */
  	if (key_only)
-Index: b/ssh-keygen.1
-===================================================================
+diff --git a/ssh-keygen.1 b/ssh-keygen.1
+index 0d55854..144be7d 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -809,6 +809,7 @@
+@@ -809,6 +809,7 @@ The file format is described in
  .Xr ssh 1 ,
  .Xr ssh-add 1 ,
  .Xr ssh-agent 1 ,
@@ -590,8 +626,9 @@ Index: b/ssh-keygen.1
  .Xr moduli 5 ,
  .Xr sshd 8
  .Rs
-Index: b/ssh-vulnkey.1
-===================================================================
+diff --git a/ssh-vulnkey.1 b/ssh-vulnkey.1
+new file mode 100644
+index 0000000..bcb9d31
 --- /dev/null
 +++ b/ssh-vulnkey.1
 @@ -0,0 +1,242 @@
@@ -837,8 +874,9 @@ Index: b/ssh-vulnkey.1
 +of processing
 +.Xr ssh-keyscan 1
 +output.
-Index: b/ssh-vulnkey.c
-===================================================================
+diff --git a/ssh-vulnkey.c b/ssh-vulnkey.c
+new file mode 100644
+index 0000000..ca1a5be
 --- /dev/null
 +++ b/ssh-vulnkey.c
 @@ -0,0 +1,386 @@
@@ -1228,11 +1266,11 @@ Index: b/ssh-vulnkey.c
 +
 +	return ret;
 +}
-Index: b/ssh.1
-===================================================================
+diff --git a/ssh.1 b/ssh.1
+index 62292cc..66a7007 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1447,6 +1447,7 @@
+@@ -1447,6 +1447,7 @@ if an error occurred.
  .Xr ssh-agent 1 ,
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
@@ -1240,11 +1278,11 @@ Index: b/ssh.1
  .Xr tun 4 ,
  .Xr hosts.equiv 5 ,
  .Xr ssh_config 5 ,
-Index: b/ssh.c
-===================================================================
+diff --git a/ssh.c b/ssh.c
+index 87233bc..567248d 100644
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1525,7 +1525,7 @@
+@@ -1525,7 +1525,7 @@ ssh_session2(void)
  static void
  load_public_identity_files(void)
  {
@@ -1253,7 +1291,7 @@ Index: b/ssh.c
  	char *pwdir = NULL, *pwname = NULL;
  	int i = 0;
  	Key *public;
-@@ -1583,6 +1583,22 @@
+@@ -1583,6 +1583,22 @@ load_public_identity_files(void)
  		public = key_load_public(filename, NULL);
  		debug("identity file %s type %d", filename,
  		    public ? public->type : -1);
@@ -1276,11 +1314,11 @@ Index: b/ssh.c
  		free(options.identity_files[i]);
  		identity_files[n_ids] = filename;
  		identity_keys[n_ids] = public;
-Index: b/ssh_config.5
-===================================================================
+diff --git a/ssh_config.5 b/ssh_config.5
+index e72919a..8d806c7 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1229,6 +1229,23 @@
+@@ -1229,6 +1229,23 @@ is not specified, it defaults to
  .Dq any .
  The default is
  .Dq any:any .
@@ -1304,11 +1342,11 @@ Index: b/ssh_config.5
  .It Cm UsePrivilegedPort
  Specifies whether to use a privileged port for outgoing connections.
  The argument must be
-Index: b/sshconnect2.c
-===================================================================
+diff --git a/sshconnect2.c b/sshconnect2.c
+index 0b13530..93818c9 100644
 --- a/sshconnect2.c
 +++ b/sshconnect2.c
-@@ -1491,6 +1491,8 @@
+@@ -1491,6 +1491,8 @@ pubkey_prepare(Authctxt *authctxt)
  
  	/* list of keys stored in the filesystem and PKCS#11 */
  	for (i = 0; i < options.num_identity_files; i++) {
@@ -1317,7 +1355,7 @@ Index: b/sshconnect2.c
  		key = options.identity_keys[i];
  		if (key && key->type == KEY_RSA1)
  			continue;
-@@ -1608,7 +1610,7 @@
+@@ -1608,7 +1610,7 @@ userauth_pubkey(Authctxt *authctxt)
  			debug("Offering %s public key: %s", key_type(id->key),
  			    id->filename);
  			sent = send_pubkey_test(authctxt, id);
@@ -1326,11 +1364,11 @@ Index: b/sshconnect2.c
  			debug("Trying private key: %s", id->filename);
  			id->key = load_identity_file(id->filename,
  			    id->userprovided);
-Index: b/sshd.8
-===================================================================
+diff --git a/sshd.8 b/sshd.8
+index b0c7ab6..a604429 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -954,6 +954,7 @@
+@@ -954,6 +954,7 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-agent 1 ,
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
@@ -1338,11 +1376,11 @@ Index: b/sshd.8
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
  .Xr login.conf 5 ,
-Index: b/sshd.c
-===================================================================
+diff --git a/sshd.c b/sshd.c
+index e5c9835..fbe3284 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -1688,6 +1688,11 @@
+@@ -1688,6 +1688,11 @@ main(int ac, char **av)
  			sensitive_data.host_pubkeys[i] = NULL;
  			continue;
  		}
@@ -1354,11 +1392,11 @@ Index: b/sshd.c
  
  		switch (keytype) {
  		case KEY_RSA1:
-Index: b/sshd_config.5
-===================================================================
+diff --git a/sshd_config.5 b/sshd_config.5
+index 525d9c8..18ec81f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -885,6 +885,20 @@
+@@ -885,6 +885,20 @@ are refused if the number of unauthenticated connections reaches
  Specifies whether password authentication is allowed.
  The default is
  .Dq yes .
