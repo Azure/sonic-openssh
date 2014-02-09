@@ -670,12 +670,33 @@ option and the
 directive in
 .Xr ssh_config 5
 for more information.
+.Pp
+(Debian-specific: X11 forwarding is not subjected to X11 SECURITY extension
+restrictions by default, because too many programs currently crash in this
+mode.
+Set the
+.Cm ForwardX11Trusted
+option to
+.Dq no
+to restore the upstream behaviour.
+This may change in future depending on client-side improvements.)
 .It Fl x
 Disables X11 forwarding.
 .It Fl Y
 Enables trusted X11 forwarding.
 Trusted X11 forwardings are not subjected to the X11 SECURITY extension
 controls.
+.Pp
+(Debian-specific: This option does nothing in the default configuration: it
+is equivalent to
+.Dq Cm ForwardX11Trusted No yes ,
+which is the default as described above.
+Set the
+.Cm ForwardX11Trusted
+option to
+.Dq no
+to restore the upstream behaviour.
+This may change in future depending on client-side improvements.)
 .It Fl y
 Send log information using the
 .Xr syslog 3
