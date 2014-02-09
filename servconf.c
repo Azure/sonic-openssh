@@ -166,6 +166,7 @@ initialize_server_options(ServerOptions *options)
 	options->version_addendum = NULL;
 	options->fingerprint_hash = -1;
 	options->disable_forwarding = -1;
+	options->debian_banner = -1;
 }
 
 /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
@@ -339,6 +340,8 @@ fill_default_server_options(ServerOptions *options)
 		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
 	if (options->disable_forwarding == -1)
 		options->disable_forwarding = 0;
+	if (options->debian_banner == -1)
+		options->debian_banner = 1;
 
 	assemble_algorithms(options);
 
@@ -425,6 +428,7 @@ typedef enum {
 	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
 	sStreamLocalBindMask, sStreamLocalBindUnlink,
 	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
+	sDebianBanner,
 	sDeprecated, sIgnore, sUnsupported
 } ServerOpCodes;
 
@@ -577,6 +581,7 @@ static struct {
 	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
 	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
 	{ "disableforwarding", sDisableForwarding, SSHCFG_ALL },
+	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
 
@@ -1865,6 +1870,10 @@ process_server_config_line(ServerOptions *options, char *line,
 		if (*activep)
 			options->fingerprint_hash = value;
 		break;
+
+	case sDebianBanner:
+		intptr = &options->debian_banner;
+		goto parse_int;
 
 	case sDeprecated:
 	case sIgnore:
