@@ -171,6 +171,7 @@ initialize_server_options(ServerOptions *options)
 	options->ip_qos_bulk = -1;
 	options->version_addendum = NULL;
 	options->fingerprint_hash = -1;
+	options->debian_banner = -1;
 }
 
 /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
@@ -347,6 +348,8 @@ fill_default_server_options(ServerOptions *options)
 		options->fwd_opts.streamlocal_bind_unlink = 0;
 	if (options->fingerprint_hash == -1)
 		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
+	if (options->debian_banner == -1)
+		options->debian_banner = 1;
 
 	if (kex_assemble_names(KEX_SERVER_ENCRYPT, &options->ciphers) != 0 ||
 	    kex_assemble_names(KEX_SERVER_MAC, &options->macs) != 0 ||
@@ -430,6 +433,7 @@ typedef enum {
 	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
 	sStreamLocalBindMask, sStreamLocalBindUnlink,
 	sAllowStreamLocalForwarding, sFingerprintHash,
+	sDebianBanner,
 	sDeprecated, sUnsupported
 } ServerOpCodes;
 
@@ -577,6 +581,7 @@ static struct {
 	{ "streamlocalbindunlink", sStreamLocalBindUnlink, SSHCFG_ALL },
 	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
 	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
+	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
 
@@ -1866,6 +1871,10 @@ process_server_config_line(ServerOptions *options, char *line,
 		if (*activep)
 			options->fingerprint_hash = value;
 		break;
+
+	case sDebianBanner:
+		intptr = &options->debian_banner;
+		goto parse_int;
 
 	case sDeprecated:
 		logit("%s line %d: Deprecated option %s",
