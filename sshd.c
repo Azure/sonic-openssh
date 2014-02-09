@@ -2165,7 +2165,8 @@ main(int ac, char **av)
 	if (!debug_flag)
 		alarm(options.login_grace_time);
 
-	if (kex_exchange_identification(ssh, -1, options.version_addendum) != 0)
+	if (kex_exchange_identification(ssh, -1, options.debian_banner,
+	    options.version_addendum) != 0)
 		cleanup_exit(255); /* error already logged */
 
 	ssh_packet_set_nonblocking(ssh);
