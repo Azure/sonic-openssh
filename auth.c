@@ -435,8 +435,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
 		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
 		if (options.strict_modes &&
 		    (stat(user_hostfile, &st) == 0) &&
-		    ((st.st_uid != 0 && st.st_uid != pw->pw_uid) ||
-		    (st.st_mode & 022) != 0)) {
+		    !secure_permissions(&st, pw->pw_uid)) {
 			logit("Authentication refused for %.100s: "
 			    "bad owner or modes for %.200s",
 			    pw->pw_name, user_hostfile);
@@ -498,8 +497,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
 		snprintf(err, errlen, "%s is not a regular file", buf);
 		return -1;
 	}
-	if ((!platform_sys_dir_uid(stp->st_uid) && stp->st_uid != uid) ||
-	    (stp->st_mode & 022) != 0) {
+	if (!secure_permissions(stp, uid)) {
 		snprintf(err, errlen, "bad ownership or modes for file %s",
 		    buf);
 		return -1;
@@ -514,8 +512,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
 		strlcpy(buf, cp, sizeof(buf));
 
 		if (stat(buf, &st) < 0 ||
-		    (!platform_sys_dir_uid(st.st_uid) && st.st_uid != uid) ||
-		    (st.st_mode & 022) != 0) {
+		    !secure_permissions(&st, uid)) {
 			snprintf(err, errlen,
 			    "bad ownership or modes for directory %s", buf);
 			return -1;
