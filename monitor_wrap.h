@@ -108,4 +108,8 @@ int mm_skey_respond(void *, u_int, char **);
 /* zlib allocation hooks */
 void mm_init_compression(struct mm_master *);
 
+#ifdef USE_CONSOLEKIT
+char *mm_consolekit_register(struct Session *, const char *);
+#endif /* USE_CONSOLEKIT */
+
 #endif /* _MM_WRAP_H_ */
