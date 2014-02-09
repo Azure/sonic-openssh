@@ -1688,6 +1688,11 @@ main(int ac, char **av)
 			sensitive_data.host_pubkeys[i] = NULL;
 			continue;
 		}
+		if (auth_key_is_revoked(key != NULL ? key : pubkey, 1)) {
+			sensitive_data.host_keys[i] = NULL;
+			sensitive_data.host_pubkeys[i] = NULL;
+			continue;
+		}
 
 		switch (keytype) {
 		case KEY_RSA1:

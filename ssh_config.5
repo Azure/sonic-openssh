@@ -1229,6 +1229,23 @@ is not specified, it defaults to
 .Dq any .
 The default is
 .Dq any:any .
+.It Cm UseBlacklistedKeys
+Specifies whether
+.Xr ssh 1
+should use keys recorded in its blacklist of known-compromised keys (see
+.Xr ssh-vulnkey 1 )
+for authentication.
+If
+.Dq yes ,
+then attempts to use compromised keys for authentication will be logged but
+accepted.
+It is strongly recommended that this be used only to install new authorized
+keys on the remote system, and even then only with the utmost care.
+If
+.Dq no ,
+then attempts to use compromised keys for authentication will be prevented.
+The default is
+.Dq no .
 .It Cm UsePrivilegedPort
 Specifies whether to use a privileged port for outgoing connections.
 The argument must be

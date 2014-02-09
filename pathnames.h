@@ -18,6 +18,10 @@
 #define SSHDIR				ETCDIR "/ssh"
 #endif
 
+#ifndef _PATH_SSH_DATADIR
+#define _PATH_SSH_DATADIR		"/usr/share/ssh"
+#endif
+
 #ifndef _PATH_SSH_PIDDIR
 #define _PATH_SSH_PIDDIR		"/var/run"
 #endif
@@ -43,6 +47,9 @@
 #define _PATH_DH_MODULI			SSHDIR "/moduli"
 /* Backwards compatibility */
 #define _PATH_DH_PRIMES			SSHDIR "/primes"
+
+#define _PATH_BLACKLIST			_PATH_SSH_DATADIR "/blacklist"
+#define _PATH_BLACKLIST_CONFIG		SSHDIR "/blacklist"
 
 #ifndef _PATH_SSH_PROGRAM
 #define _PATH_SSH_PROGRAM		"/usr/bin/ssh"

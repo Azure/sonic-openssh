@@ -44,7 +44,7 @@ auth_rhosts_rsa_key_allowed(struct passwd *pw, char *cuser, char *chost,
 {
 	HostStatus host_status;
 
-	if (auth_key_is_revoked(client_host_key))
+	if (auth_key_is_revoked(client_host_key, 0))
 		return 0;
 
 	/* Check if we would accept it using rhosts authentication. */

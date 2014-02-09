@@ -121,6 +121,7 @@ typedef struct {
 	int     challenge_response_authentication;
 	int     zero_knowledge_password_authentication;
 					/* If true, permit jpake auth */
+	int     permit_blacklisted_keys;	/* If true, permit */
 	int     permit_empty_passwd;	/* If false, do not permit empty
 					 * passwords. */
 	int     permit_user_env;	/* If true, read ~/.ssh/environment */

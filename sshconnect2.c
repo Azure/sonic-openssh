@@ -1491,6 +1491,8 @@ pubkey_prepare(Authctxt *authctxt)
 
 	/* list of keys stored in the filesystem and PKCS#11 */
 	for (i = 0; i < options.num_identity_files; i++) {
+		if (options.identity_files[i] == NULL)
+			continue;
 		key = options.identity_keys[i];
 		if (key && key->type == KEY_RSA1)
 			continue;
@@ -1608,7 +1610,7 @@ userauth_pubkey(Authctxt *authctxt)
 			debug("Offering %s public key: %s", key_type(id->key),
 			    id->filename);
 			sent = send_pubkey_test(authctxt, id);
-		} else if (id->key == NULL) {
+		} else if (id->key == NULL && id->filename) {
 			debug("Trying private key: %s", id->filename);
 			id->key = load_identity_file(id->filename,
 			    id->userprovided);

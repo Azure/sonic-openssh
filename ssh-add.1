@@ -81,6 +81,10 @@ environment variable must contain the name of its socket for
 .Nm
 to work.
 .Pp
+Any keys recorded in the blacklist of known-compromised keys (see
+.Xr ssh-vulnkey 1 )
+will be refused.
+.Pp
 The options are as follows:
 .Bl -tag -width Ds
 .It Fl c
@@ -186,6 +190,7 @@ is unable to contact the authentication agent.
 .Xr ssh 1 ,
 .Xr ssh-agent 1 ,
 .Xr ssh-keygen 1 ,
+.Xr ssh-vulnkey 1 ,
 .Xr sshd 8
 .Sh AUTHORS
 OpenSSH is a derivative of the original and free

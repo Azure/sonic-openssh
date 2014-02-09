@@ -59,6 +59,7 @@
 #include "servconf.h"
 #include "key.h"
 #include "hostfile.h"
+#include "authfile.h"
 #include "auth.h"
 #include "auth-options.h"
 #include "canohost.h"
@@ -657,9 +658,33 @@ getpwnamallow(const char *user)
 
 /* Returns 1 if key is revoked by revoked_keys_file, 0 otherwise */
 int
-auth_key_is_revoked(Key *key)
+auth_key_is_revoked(Key *key, int hostkey)
 {
 	char *key_fp;
+
+	if (blacklisted_key(key, &key_fp) == 1) {
+		if (options.permit_blacklisted_keys) {
+			if (hostkey)
+				error("Host key %s blacklisted (see "
+				    "ssh-vulnkey(1)); continuing anyway",
+				    key_fp);
+			else
+				logit("Public key %s from %s blacklisted (see "
+				    "ssh-vulnkey(1)); continuing anyway",
+				    key_fp, get_remote_ipaddr());
+			free(key_fp);
+		} else {
+			if (hostkey)
+				error("Host key %s blacklisted (see "
+				    "ssh-vulnkey(1))", key_fp);
+			else
+				logit("Public key %s from %s blacklisted (see "
+				    "ssh-vulnkey(1))",
+				    key_fp, get_remote_ipaddr());
+			free(key_fp);
+			return 1;
+		}
+	}
 
 	if (options.revoked_keys_file == NULL)
 		return 0;

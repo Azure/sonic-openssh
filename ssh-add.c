@@ -167,7 +167,7 @@ static int
 add_file(AuthenticationConnection *ac, const char *filename, int key_only)
 {
 	Key *private, *cert;
-	char *comment = NULL;
+	char *comment = NULL, *fp;
 	char msg[1024], *certpath = NULL;
 	int fd, perms_ok, ret = -1;
 	Buffer keyblob;
@@ -242,6 +242,14 @@ add_file(AuthenticationConnection *ac, const char *filename, int key_only)
 			    "The user must confirm each use of the key\n");
 	} else {
 		fprintf(stderr, "Could not add identity: %s\n", filename);
+	}
+	if (blacklisted_key(private, &fp) == 1) {
+		fprintf(stderr, "Public key %s blacklisted (see "
+		    "ssh-vulnkey(1)); refusing to add it\n", fp);
+		free(fp);
+		key_free(private);
+		free(comment);
+		return -1;
 	}
 
 	/* Skip trying to load the cert if requested */
