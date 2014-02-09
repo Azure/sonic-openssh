@@ -517,7 +517,7 @@ send_client_banner(int connection_out, int minor1)
 {
 	/* Send our own protocol version identification. */
 	xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_VERSION);
+	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE);
 	if (atomicio(vwrite, connection_out, client_version_string,
 	    strlen(client_version_string)) != strlen(client_version_string))
 		fatal("write: %.100s", strerror(errno));
