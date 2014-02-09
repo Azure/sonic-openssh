@@ -38,6 +38,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
 #ifdef HAVE_UTIL_H
 #include <util.h>
 #endif
@@ -1516,8 +1518,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
 
 		if (fstat(fileno(f), &sb) == -1)
 			fatal("fstat %s: %s", filename, strerror(errno));
-		if (((sb.st_uid != 0 && sb.st_uid != getuid()) ||
-		    (sb.st_mode & 022) != 0))
+		if (!secure_permissions(&sb, getuid()))
 			fatal("Bad owner or permissions on %s", filename);
 	}
 
