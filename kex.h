@@ -74,6 +74,9 @@ enum kex_exchange {
 	KEX_DH_GEX_SHA1,
 	KEX_DH_GEX_SHA256,
 	KEX_ECDH_SHA2,
+	KEX_GSS_GRP1_SHA1,
+	KEX_GSS_GRP14_SHA1,
+	KEX_GSS_GEX_SHA1,
 	KEX_MAX
 };
 
@@ -133,6 +136,12 @@ struct Kex {
 	int	flags;
 	const EVP_MD *evp_md;
 	int	ec_nid;
+#ifdef GSSAPI
+	int	gss_deleg_creds;
+	int	gss_trust_dns;
+	char    *gss_host;
+	char	*gss_client;
+#endif
 	char	*client_version_string;
 	char	*server_version_string;
 	int	(*verify_host_key)(Key *);
@@ -161,6 +170,11 @@ void	 kexgex_client(Kex *);
 void	 kexgex_server(Kex *);
 void	 kexecdh_client(Kex *);
 void	 kexecdh_server(Kex *);
+
+#ifdef GSSAPI
+void	kexgss_client(Kex *);
+void	kexgss_server(Kex *);
+#endif
 
 void
 kex_dh_hash(char *, char *, char *, int, char *, int, u_char *, int,
