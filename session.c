@@ -1489,7 +1489,7 @@ safely_chroot(const char *path, uid_t uid)
 
 /* Set login name, uid, gid, and groups. */
 void
-do_setusercontext(struct passwd *pw)
+do_setusercontext(struct passwd *pw, const char *role)
 {
 	char *chroot_path, *tmp;
 
@@ -1517,7 +1517,7 @@ do_setusercontext(struct passwd *pw)
 		endgrent();
 #endif
 
-		platform_setusercontext_post_groups(pw);
+		platform_setusercontext_post_groups(pw, role);
 
 		if (!in_chroot && options.chroot_directory != NULL &&
 		    strcasecmp(options.chroot_directory, "none") != 0) {
@@ -1674,7 +1674,7 @@ do_child(Session *s, const char *command)
 
 	/* Force a password change */
 	if (s->authctxt->force_pwchange) {
-		do_setusercontext(pw);
+		do_setusercontext(pw, s->authctxt->role);
 		child_close_fds();
 		do_pwchange(s);
 		exit(1);
@@ -1701,7 +1701,7 @@ do_child(Session *s, const char *command)
 		/* When PAM is enabled we rely on it to do the nologin check */
 		if (!options.use_pam)
 			do_nologin(pw);
-		do_setusercontext(pw);
+		do_setusercontext(pw, s->authctxt->role);
 		/*
 		 * PAM session modules in do_setusercontext may have
 		 * generated messages, so if this in an interactive
@@ -2112,7 +2112,7 @@ session_pty_req(Session *s)
 	tty_parse_modes(s->ttyfd, &n_bytes);
 
 	if (!use_privsep)
-		pty_setowner(s->pw, s->tty);
+		pty_setowner(s->pw, s->tty, s->authctxt->role);
 
 	/* Set window size from the packet. */
 	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
