@@ -18,6 +18,8 @@ openssh (1:6.5p1-1) UNRELEASED; urgency=medium
     reasoning.
   * Add OpenPGP signature checking configuration to watch file (thanks,
     Daniel Kahn Gillmor; closes: #732441).
+  * Add the pam_keyinit session module, to create a new session keyring on
+    login (closes: #734816).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 
