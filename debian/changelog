@@ -28,6 +28,7 @@ openssh (1:6.5p1-1) UNRELEASED; urgency=medium
     'ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N "" -t ed25519'.
   * Drop long-obsolete "SSH now uses protocol 2 by default" section from
     README.Debian.
+  * Add systemd support (thanks, Sven Joachim; closes: #676830).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 

@@ -304,6 +304,13 @@ if [ "$action" = configure ]; then
 	    # restart it under Upstart.
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
 	fi
+	if dpkg --compare-versions "$2" lt 1:6.5p1-1 && \
+	   [ -d /run/systemd/system ] && \
+	   ! systemctl --quiet is-active ssh; then
+	    # We must stop the sysvinit-controlled sshd before we can
+	    # restart it under systemd.
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
+	fi
 fi
 
 #DEBHELPER#

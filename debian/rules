@@ -114,7 +114,7 @@ confflags += --with-ldflags='$(strip -Wl,--as-needed $(default_ldflags))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
-	dh $@ --with=autoreconf
+	dh $@ --with=autoreconf,systemd
 
 autoreconf:
 	autoreconf -f -i
@@ -189,6 +189,9 @@ override_dh_installdocs:
 	dh_installdocs -popenssh-server -pssh --link-doc=openssh-client
 	# Avoid breaking dh_installexamples later.
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
+
+override_dh_systemd_enable:
+	dh_systemd_enable --name ssh
 
 override_dh_installinit:
 	dh_installinit -R --name ssh -- start 16 2 3 4 5 .
