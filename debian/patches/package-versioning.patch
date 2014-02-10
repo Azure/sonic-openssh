@@ -1,4 +1,4 @@
-From 893bd5a6f70b58e1ed98d496c4f465d8c1df71a7 Mon Sep 17 00:00:00 2001
+From 03b1ae877da1db4c517747bee89f1a494cce8566 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -19,10 +19,10 @@ Patch-Name: package-versioning.patch
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index bda83b2..ad960fd 100644
+index 4ff5c73..a2fbf9e 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -442,10 +442,10 @@ send_client_banner(int connection_out, int minor1)
+@@ -517,10 +517,10 @@ send_client_banner(int connection_out, int minor1)
  	/* Send our own protocol version identification. */
  	if (compat20) {
  		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
@@ -36,7 +36,7 @@ index bda83b2..ad960fd 100644
  	if (roaming_atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
 diff --git a/sshd.c b/sshd.c
-index e5c9835..46ec1a7 100644
+index 0a30101..82168a1 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -440,7 +440,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
@@ -49,11 +49,11 @@ index e5c9835..46ec1a7 100644
  	    options.version_addendum, newline);
  
 diff --git a/version.h b/version.h
-index 39033ed..036277d 100644
+index 83d70c6..0c6ea0f 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_6.4"
+ #define SSH_VERSION	"OpenSSH_6.5"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE

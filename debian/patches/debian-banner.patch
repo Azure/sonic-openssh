@@ -1,4 +1,4 @@
-From e1e1e23ca98c59a031217da0ea50b70de5427683 Mon Sep 17 00:00:00 2001
+From 68ebfc0e90ceb0f7b24dfb38979df6a80b7ec9e4 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -19,10 +19,10 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index dcb8caf..802db1d 100644
+index 65f71ad..63ff4ff 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -156,6 +156,7 @@ initialize_server_options(ServerOptions *options)
+@@ -157,6 +157,7 @@ initialize_server_options(ServerOptions *options)
  	options->ip_qos_interactive = -1;
  	options->ip_qos_bulk = -1;
  	options->version_addendum = NULL;
@@ -30,7 +30,7 @@ index dcb8caf..802db1d 100644
  }
  
  void
-@@ -307,6 +308,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -312,6 +313,8 @@ fill_default_server_options(ServerOptions *options)
  		options->ip_qos_bulk = IPTOS_THROUGHPUT;
  	if (options->version_addendum == NULL)
  		options->version_addendum = xstrdup("");
@@ -39,7 +39,7 @@ index dcb8caf..802db1d 100644
  	/* Turn privilege separation on by default */
  	if (use_privsep == -1)
  		use_privsep = PRIVSEP_NOSANDBOX;
-@@ -357,6 +360,7 @@ typedef enum {
+@@ -362,6 +365,7 @@ typedef enum {
  	sKexAlgorithms, sIPQoS, sVersionAddendum,
  	sAuthorizedKeysCommand, sAuthorizedKeysCommandUser,
  	sAuthenticationMethods, sHostKeyAgent,
@@ -47,7 +47,7 @@ index dcb8caf..802db1d 100644
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -498,6 +502,7 @@ static struct {
+@@ -504,6 +508,7 @@ static struct {
  	{ "authorizedkeyscommanduser", sAuthorizedKeysCommandUser, SSHCFG_ALL },
  	{ "versionaddendum", sVersionAddendum, SSHCFG_GLOBAL },
  	{ "authenticationmethods", sAuthenticationMethods, SSHCFG_ALL },
@@ -55,7 +55,7 @@ index dcb8caf..802db1d 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1641,6 +1646,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -1666,6 +1671,10 @@ process_server_config_line(ServerOptions *options, char *line,
  		}
  		return 0;
  
@@ -67,10 +67,10 @@ index dcb8caf..802db1d 100644
  		logit("%s line %d: Deprecated option %s",
  		    filename, linenum, arg);
 diff --git a/servconf.h b/servconf.h
-index ab6e346..1891a95 100644
+index eba76ee..98d68ce 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -187,6 +187,8 @@ typedef struct {
+@@ -188,6 +188,8 @@ typedef struct {
  
  	u_int	num_auth_methods;
  	char   *auth_methods[MAX_AUTH_METHODS];
@@ -80,7 +80,7 @@ index ab6e346..1891a95 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index 46ec1a7..63b9357 100644
+index 82168a1..c49a877 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -440,7 +440,8 @@ sshd_exchange_identification(int sock_in, int sock_out)
@@ -94,10 +94,10 @@ index 46ec1a7..63b9357 100644
  	    options.version_addendum, newline);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index e29604a..50eec53 100644
+index 39643de..bdca797 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -404,6 +404,11 @@ or
+@@ -413,6 +413,11 @@ or
  .Dq no .
  The default is
  .Dq delayed .

@@ -1,4 +1,4 @@
-From 2bb37315c1e077bc176e703fbf0028a1f6315d37 Mon Sep 17 00:00:00 2001
+From b63620615d5c8af09e350608233f69191ad6c275 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -86,10 +86,10 @@ index 9a36f1d..0c45f09 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.c b/misc.c
-index c3c8099..eb57bfc 100644
+index e4c8c32..4e756b0 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -48,8 +48,9 @@
+@@ -49,8 +49,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -100,7 +100,7 @@ index c3c8099..eb57bfc 100644
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -58,6 +59,7 @@
+@@ -59,6 +60,7 @@
  #include "misc.h"
  #include "log.h"
  #include "ssh.h"
@@ -108,7 +108,7 @@ index c3c8099..eb57bfc 100644
  
  /* remove newline at end of string */
  char *
-@@ -642,6 +644,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
+@@ -643,6 +645,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
  	return -1;
  }
  
@@ -181,10 +181,10 @@ index c3c8099..eb57bfc 100644
  tun_open(int tun, int mode)
  {
 diff --git a/misc.h b/misc.h
-index fceb306..51ba182 100644
+index d4df619..ceb173b 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -104,4 +104,6 @@ char	*read_passphrase(const char *, int);
+@@ -106,4 +106,6 @@ char	*read_passphrase(const char *, int);
  int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
  int	 read_keyfile_line(FILE *, const char *, char *, size_t, u_long *);
  
@@ -192,10 +192,10 @@ index fceb306..51ba182 100644
 +
  #endif /* _MISC_H */
 diff --git a/platform.c b/platform.c
-index a962f15..0b3bee1 100644
+index 4aab9a9..f99de7f 100644
 --- a/platform.c
 +++ b/platform.c
-@@ -194,19 +194,3 @@ platform_krb5_get_principal_name(const char *pw_name)
+@@ -196,19 +196,3 @@ platform_krb5_get_principal_name(const char *pw_name)
  	return NULL;
  #endif
  }
@@ -216,10 +216,10 @@ index a962f15..0b3bee1 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index dab7963..c741934 100644
+index e79e355..273552d 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -30,6 +30,8 @@
+@@ -36,6 +36,8 @@
  #include <stdio.h>
  #include <string.h>
  #include <unistd.h>
@@ -228,7 +228,7 @@ index dab7963..c741934 100644
  #ifdef HAVE_UTIL_H
  #include <util.h>
  #endif
-@@ -1155,8 +1157,7 @@ read_config_file(const char *filename, const char *host, Options *options,
+@@ -1475,8 +1477,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -239,10 +239,10 @@ index dab7963..c741934 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 62292cc..05ae6ad 100644
+index 27794e2..ff5e6ac 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1338,6 +1338,8 @@ The file format and configuration options are described in
+@@ -1352,6 +1352,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -252,10 +252,10 @@ index 62292cc..05ae6ad 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 6948680..a1e18d2 100644
+index b3c5dc6..3c6b9d4 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1365,6 +1365,8 @@ The format of this file is described above.
+@@ -1523,6 +1523,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

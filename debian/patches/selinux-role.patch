@@ -1,4 +1,4 @@
-From 07f2a771c490bd68cd5c5ea9c535705e93bd94f3 Mon Sep 17 00:00:00 2001
+From cc5ecb35ae6572d13ed523d143439a8559d1fee2 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -113,7 +113,7 @@ index 6ed8f04..b55bbcd 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			packet_disconnect("no authentication methods enabled");
 diff --git a/monitor.c b/monitor.c
-index 9079c97..e8d63eb 100644
+index a777c4c..88f472e 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -146,6 +146,7 @@ int mm_answer_sign(int, Buffer *);
@@ -361,10 +361,10 @@ index e3d1004..80ce13a 100644
  void ssh_selinux_setfscreatecon(const char *);
  #endif
 diff --git a/platform.c b/platform.c
-index 3262b24..a962f15 100644
+index 30fc609..4aab9a9 100644
 --- a/platform.c
 +++ b/platform.c
-@@ -134,7 +134,7 @@ platform_setusercontext(struct passwd *pw)
+@@ -142,7 +142,7 @@ platform_setusercontext(struct passwd *pw)
   * called if sshd is running as root.
   */
  void
@@ -373,7 +373,7 @@ index 3262b24..a962f15 100644
  {
  #if !defined(HAVE_LOGIN_CAP) && defined(USE_PAM)
  	/*
-@@ -181,7 +181,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
+@@ -183,7 +183,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
  	}
  #endif /* HAVE_SETPCRED */
  #ifdef WITH_SELINUX
@@ -383,10 +383,10 @@ index 3262b24..a962f15 100644
  }
  
 diff --git a/platform.h b/platform.h
-index 19f6bfd..3188a3d 100644
+index 1c7a45d..436ae7c 100644
 --- a/platform.h
 +++ b/platform.h
-@@ -26,7 +26,7 @@ void platform_post_fork_parent(pid_t child_pid);
+@@ -27,7 +27,7 @@ void platform_post_fork_parent(pid_t child_pid);
  void platform_post_fork_child(void);
  int  platform_privileged_uidswap(void);
  void platform_setusercontext(struct passwd *);
@@ -396,10 +396,10 @@ index 19f6bfd..3188a3d 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index d4b57bd..b4d74d9 100644
+index 12dd9ab..5ddd82a 100644
 --- a/session.c
 +++ b/session.c
-@@ -1474,7 +1474,7 @@ safely_chroot(const char *path, uid_t uid)
+@@ -1497,7 +1497,7 @@ safely_chroot(const char *path, uid_t uid)
  
  /* Set login name, uid, gid, and groups. */
  void
@@ -408,7 +408,7 @@ index d4b57bd..b4d74d9 100644
  {
  	char *chroot_path, *tmp;
  
-@@ -1502,7 +1502,7 @@ do_setusercontext(struct passwd *pw)
+@@ -1525,7 +1525,7 @@ do_setusercontext(struct passwd *pw)
  		endgrent();
  #endif
  
@@ -417,7 +417,7 @@ index d4b57bd..b4d74d9 100644
  
  		if (options.chroot_directory != NULL &&
  		    strcasecmp(options.chroot_directory, "none") != 0) {
-@@ -1646,7 +1646,7 @@ do_child(Session *s, const char *command)
+@@ -1674,7 +1674,7 @@ do_child(Session *s, const char *command)
  
  	/* Force a password change */
  	if (s->authctxt->force_pwchange) {
@@ -426,7 +426,7 @@ index d4b57bd..b4d74d9 100644
  		child_close_fds();
  		do_pwchange(s);
  		exit(1);
-@@ -1673,7 +1673,7 @@ do_child(Session *s, const char *command)
+@@ -1701,7 +1701,7 @@ do_child(Session *s, const char *command)
  		/* When PAM is enabled we rely on it to do the nologin check */
  		if (!options.use_pam)
  			do_nologin(pw);
@@ -435,7 +435,7 @@ index d4b57bd..b4d74d9 100644
  		/*
  		 * PAM session modules in do_setusercontext may have
  		 * generated messages, so if this in an interactive
-@@ -2084,7 +2084,7 @@ session_pty_req(Session *s)
+@@ -2112,7 +2112,7 @@ session_pty_req(Session *s)
  	tty_parse_modes(s->ttyfd, &n_bytes);
  
  	if (!use_privsep)
@@ -445,10 +445,10 @@ index d4b57bd..b4d74d9 100644
  	/* Set window size from the packet. */
  	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
 diff --git a/session.h b/session.h
-index cbb8e3a..cb4f196 100644
+index 6a2f35e..ef6593c 100644
 --- a/session.h
 +++ b/session.h
-@@ -76,7 +76,7 @@ void	 session_pty_cleanup2(Session *);
+@@ -77,7 +77,7 @@ void	 session_pty_cleanup2(Session *);
  Session	*session_new(void);
  Session	*session_by_tty(char *);
  void	 session_close(Session *);
@@ -458,11 +458,11 @@ index cbb8e3a..cb4f196 100644
  		       const char *value);
  
 diff --git a/sshd.c b/sshd.c
-index 4eddeb8..e5c9835 100644
+index fe65132..0a30101 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -753,7 +753,7 @@ privsep_postauth(Authctxt *authctxt)
- 	RAND_seed(rnd, sizeof(rnd));
+@@ -763,7 +763,7 @@ privsep_postauth(Authctxt *authctxt)
+ 	bzero(rnd, sizeof(rnd));
  
  	/* Drop privileges */
 -	do_setusercontext(authctxt->pw);

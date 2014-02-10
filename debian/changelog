@@ -1,5 +1,12 @@
-openssh (1:6.4p1-3) UNRELEASED; urgency=medium
+openssh (1:6.5p1-1) UNRELEASED; urgency=medium
 
+  * New upstream release (http://www.openssh.com/txt/release-6.5,
+    LP: #1275068):
+    - ssh(1): Add support for client-side hostname canonicalisation using a
+      set of DNS suffixes and rules in ssh_config(5).  This allows
+      unqualified names to be canonicalised to fully-qualified domain names
+      to eliminate ambiguity when looking up keys in known_hosts or checking
+      host certificate names (closes: #115286).
   * Switch to git; adjust Vcs-* fields.
   * Convert to git-dpm, and drop source package documentation associated
     with the old bzr/quilt patch handling workflow.

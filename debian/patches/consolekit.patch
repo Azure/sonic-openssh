@@ -1,4 +1,4 @@
-From 05609b1cb381eafb999214bf4a95138e63abdbf2 Mon Sep 17 00:00:00 2001
+From efe70e315cfcc70e765ebd070e83528a6be6c125 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:57 +0000
 Subject: Add support for registering ConsoleKit sessions on login
@@ -24,24 +24,24 @@ Patch-Name: consolekit.patch
  create mode 100644 consolekit.h
 
 diff --git a/Makefile.in b/Makefile.in
-index f979926..b2dbead 100644
+index 35c6fd6..598d55a 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -94,7 +94,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
+@@ -97,7 +97,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o \
  	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
--	sandbox-seccomp-filter.o
-+	sandbox-seccomp-filter.o \
+-	sandbox-seccomp-filter.o sandbox-capsicum.o
++	sandbox-seccomp-filter.o sandbox-capsicum.o \
 +	consolekit.o
  
  MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out sshd_config.5.out ssh_config.5.out
  MANPAGES_IN	= moduli.5 scp.1 ssh-add.1 ssh-agent.1 ssh-keygen.1 ssh-keyscan.1 ssh.1 sshd.8 sftp-server.8 sftp.1 ssh-keysign.8 ssh-pkcs11-helper.8 sshd_config.5 ssh_config.5
 diff --git a/configure b/configure
-index ceb1b5d..78bbcd0 100755
+index 5a9db2d..57b68e2 100755
 --- a/configure
 +++ b/configure
-@@ -738,6 +738,7 @@ with_privsep_user
+@@ -740,6 +740,7 @@ with_privsep_user
  with_sandbox
  with_selinux
  with_kerberos5
@@ -49,15 +49,15 @@ index ceb1b5d..78bbcd0 100755
  with_privsep_path
  with_xauth
  enable_strip
-@@ -1428,6 +1429,7 @@ Optional Packages:
-   --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter)
+@@ -1432,6 +1433,7 @@ Optional Packages:
+   --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter, capsicum)
    --with-selinux          Enable SELinux support
    --with-kerberos5=PATH   Enable Kerberos 5 support
 +  --with-consolekit       Enable ConsoleKit support
    --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
    --with-xauth=PATH       Specify path to xauth program
    --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -16375,6 +16377,135 @@ fi
+@@ -17215,6 +17217,135 @@ fi
  
  
  
@@ -193,7 +193,7 @@ index ceb1b5d..78bbcd0 100755
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -18902,6 +19033,7 @@ echo "              MD5 password support: $MD5_MSG"
+@@ -19744,6 +19875,7 @@ echo "              MD5 password support: $MD5_MSG"
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -202,10 +202,10 @@ index ceb1b5d..78bbcd0 100755
  echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
  echo "                  BSD Auth support: $BSD_AUTH_MSG"
 diff --git a/configure.ac b/configure.ac
-index 4c1a658..d7d500a 100644
+index 90eebf5..e2289cd 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3841,6 +3841,30 @@ AC_ARG_WITH([kerberos5],
+@@ -4070,6 +4070,30 @@ AC_ARG_WITH([kerberos5],
  AC_SUBST([GSSLIBS])
  AC_SUBST([K5LIBS])
  
@@ -236,7 +236,7 @@ index 4c1a658..d7d500a 100644
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4641,6 +4665,7 @@ echo "              MD5 password support: $MD5_MSG"
+@@ -4871,6 +4895,7 @@ echo "              MD5 password support: $MD5_MSG"
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -521,7 +521,7 @@ index 0000000..8ce3716
 +
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor.c b/monitor.c
-index e8d63eb..9bc4f0b 100644
+index 88f472e..8ffea4f 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -98,6 +98,9 @@
@@ -575,7 +575,7 @@ index e8d63eb..9bc4f0b 100644
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2492,3 +2508,30 @@ mm_answer_jpake_check_confirm(int sock, Buffer *m)
+@@ -2493,3 +2509,30 @@ mm_answer_jpake_check_confirm(int sock, Buffer *m)
  }
  
  #endif /* JPAKE */
@@ -672,7 +672,7 @@ index 4d12e29..360fb9f 100644
 +
  #endif /* _MM_WRAP_H_ */
 diff --git a/session.c b/session.c
-index b4d74d9..15bdb1b 100644
+index 5ddd82a..14df226 100644
 --- a/session.c
 +++ b/session.c
 @@ -92,6 +92,7 @@
@@ -683,7 +683,7 @@ index b4d74d9..15bdb1b 100644
  
  #if defined(KRB5) && defined(USE_AFS)
  #include <kafs.h>
-@@ -1132,6 +1133,9 @@ do_setup_env(Session *s, const char *shell)
+@@ -1155,6 +1156,9 @@ do_setup_env(Session *s, const char *shell)
  #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
  	char *path = NULL;
  #endif
@@ -693,7 +693,7 @@ index b4d74d9..15bdb1b 100644
  
  	/* Initialize the environment. */
  	envsize = 100;
-@@ -1276,6 +1280,11 @@ do_setup_env(Session *s, const char *shell)
+@@ -1299,6 +1303,11 @@ do_setup_env(Session *s, const char *shell)
  		child_set_env(&env, &envsize, "KRB5CCNAME",
  		    s->authctxt->krb5_ccname);
  #endif
@@ -705,7 +705,7 @@ index b4d74d9..15bdb1b 100644
  #ifdef USE_PAM
  	/*
  	 * Pull in any environment variables that may have
-@@ -2320,6 +2329,10 @@ session_pty_cleanup2(Session *s)
+@@ -2348,6 +2357,10 @@ session_pty_cleanup2(Session *s)
  
  	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
  
@@ -717,7 +717,7 @@ index b4d74d9..15bdb1b 100644
  	if (s->pid != 0)
  		record_logout(s->pid, s->tty, s->pw->pw_name);
 diff --git a/session.h b/session.h
-index cb4f196..7e51b6a 100644
+index ef6593c..a6b6983 100644
 --- a/session.h
 +++ b/session.h
 @@ -26,6 +26,8 @@
@@ -729,7 +729,7 @@ index cb4f196..7e51b6a 100644
  #define TTYSZ 64
  typedef struct Session Session;
  struct Session {
-@@ -60,6 +62,10 @@ struct Session {
+@@ -61,6 +63,10 @@ struct Session {
  		char	*name;
  		char	*val;
  	} *env;
