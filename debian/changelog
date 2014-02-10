@@ -26,6 +26,8 @@ openssh (1:6.5p1-1) UNRELEASED; urgency=medium
     to add such host keys should manually add 'HostKey
     /etc/ssh/ssh_host_ed25519_key' to /etc/ssh/sshd_config and run
     'ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N "" -t ed25519'.
+  * Drop long-obsolete "SSH now uses protocol 2 by default" section from
+    README.Debian.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 

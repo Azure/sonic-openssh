@@ -49,34 +49,6 @@ incorrect, and feel strongly enough to want to argue about it, then
 send email to debian-ssh@lists.debian.org. I will close bug reports
 claiming the default is incorrect.
 
-SSH now uses protocol 2 by default
-----------------------------------
-
-This means all your keyfiles you used for protocol version 1 need to
-be re-generated. The server keys are done automatically, but for RSA
-authentication, please read the ssh-keygen manpage.
-
-If you have an automatically generated configuration file, and decide
-at a later stage that you do want to support protocol version 1 (not
-recommended, but note that the ssh client shipped with Debian potato
-only supported protocol version 1), then you need to do the following:
-
-Change /etc/ssh/sshd_config such that:
-Protocol 2
-becomes:
-Protocol 2,1
-Also add the line:
-HostKey /etc/ssh/ssh_host_key
-
-If you do not already have an RSA1 host key in /etc/ssh/ssh_host_key,
-you will need to generate one. To do so, run this command as root:
-
-  ssh-keygen -f /etc/ssh/ssh_host_key -N '' -t rsa1
-
-As of openssh-server 1:4.1p1-2, the option to support protocol version 1
-is no longer available via debconf. You must edit the configuration file
-instead.
-
 X11 Forwarding
 --------------
 
