@@ -47,11 +47,11 @@ SSH_EXTRAVERSION := $(DISTRIBUTION)-$(shell dpkg-parsechangelog | sed -n -e '/^V
 
 DISTRIBUTOR := $(shell if dpkg-vendor --derives-from Ubuntu 2>/dev/null; then echo Ubuntu; else echo Debian; fi)
 ifeq ($(DISTRIBUTOR),Ubuntu)
-DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/games
+DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 else
-DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games
+DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/games
 endif
-SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11
+SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ifeq ($(DISTRIBUTOR),Ubuntu)
 server_recommends := ssh-import-id
@@ -93,7 +93,7 @@ endif
 confflags += --with-xauth=/usr/bin/xauth
 confflags_udeb += --without-xauth
 
-# Default paths. The udeb build has /usr/bin/X11 and /usr/games removed.
+# Default paths. The udeb build has /usr/games removed.
 confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUSER_PATH)
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
