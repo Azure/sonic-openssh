@@ -22,6 +22,10 @@ openssh (1:6.5p1-1) UNRELEASED; urgency=medium
     login (closes: #734816).
   * Incorporate default path changes from shadow 1:4.0.18.1-8, removing
     /usr/bin/X11 (closes: #644521).
+  * Generate ED25519 host keys on fresh installations.  Upgraders who wish
+    to add such host keys should manually add 'HostKey
+    /etc/ssh/ssh_host_ed25519_key' to /etc/ssh/sshd_config and run
+    'ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N "" -t ed25519'.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 
