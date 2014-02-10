@@ -9,6 +9,8 @@ openssh (1:6.4p1-3) UNRELEASED; urgency=medium
     likely to be of much value any more.  See
     https://lists.debian.org/debian-devel/2013/09/msg00240.html for my full
     reasoning.
+  * Add OpenPGP signature checking configuration to watch file (thanks,
+    Daniel Kahn Gillmor; closes: #732441).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 09 Feb 2014 15:52:14 +0000
 
