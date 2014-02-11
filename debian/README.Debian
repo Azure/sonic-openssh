@@ -204,8 +204,9 @@ restart this sshd manually on upgrades.
 systemd socket activation
 -------------------------
 
-If you want to reconfigure systemd to launch sshd using socket activation,
-then you can run:
+If you want to reconfigure systemd to listen on port 22 itself and launch an
+instance of sshd for each connection (inetd-style socket activation), then
+you can run:
 
   systemctl stop ssh.service
   systemctl start ssh.socket

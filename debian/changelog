@@ -1,3 +1,10 @@
+openssh (1:6.5p1-3) UNRELEASED; urgency=medium
+
+  * Clarify socket activation mode in README.Debian, as suggested by Uoti
+    Urpala.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
+
 openssh (1:6.5p1-2) unstable; urgency=medium
 
   * Only enable ssh.service for systemd, not both ssh.service and
