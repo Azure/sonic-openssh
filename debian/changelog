@@ -2,6 +2,8 @@ openssh (1:6.5p1-2) UNRELEASED; urgency=medium
 
   * Only enable ssh.service for systemd, not both ssh.service and
     ssh.socket.  Thanks to Michael Biebl for spotting this.
+  * Backport upstream patch to unbreak case-sensitive matching of ssh_config
+    (closes: #738619).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 10:41:26 +0000
 
