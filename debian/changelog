@@ -14,6 +14,8 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
     Upstart job and the systemd service files; it's there to avoid a
     confusing failure mode in daemon(), but with modern init systems we use
     the -D option to suppress daemonisation anyway.
+  * Refer to /usr/share/common-licenses/GPL-2 in debian/copyright (for the
+    Debian patch) rather than plain GPL.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 
