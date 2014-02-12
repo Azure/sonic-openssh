@@ -16,6 +16,11 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
     the -D option to suppress daemonisation anyway.
   * Refer to /usr/share/common-licenses/GPL-2 in debian/copyright (for the
     Debian patch) rather than plain GPL.
+  * Drop some very old Conflicts and Replaces (ssh (<< 1:3.8.1p1-9),
+    rsh-client (<< 0.16.1-1), ssh-krb5 (<< 1:4.3p2-7), ssh-nonfree (<< 2),
+    and openssh-client (<< 1:3.8.1p1-11)).  These all relate to pre-etch
+    versions, for which we no longer have maintainer script code, and per
+    policy they would have to become Breaks nowadays anyway.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 
