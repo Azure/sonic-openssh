@@ -305,11 +305,10 @@ if [ "$action" = configure ]; then
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
 	fi
 	if dpkg --compare-versions "$2" lt 1:6.5p1-1 && \
-	   [ -d /run/systemd/system ] && \
-	   ! systemctl --quiet is-active ssh; then
+	   [ -d /run/systemd/system ]; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under systemd.
-	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd || true
 	fi
 	if dpkg --compare-versions "$2" lt 1:6.5p1-2 && \
 	   deb-systemd-helper debian-installed ssh.socket && \

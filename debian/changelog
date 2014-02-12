@@ -5,6 +5,9 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
   * Stop claiming that "Protocol 2" is a Debian-specific default; this has
     been upstream's default since 5.4p1.
   * Avoid stdout noise from which(1) on purge of openssh-client.
+  * Fix sysvinit->systemd transition code to cope with still-running
+    sysvinit jobs being considered active by systemd (thanks, Uoti Urpala
+    and Michael Biebl).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 
