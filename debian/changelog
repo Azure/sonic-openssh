@@ -23,6 +23,7 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
     policy they would have to become Breaks nowadays anyway.
   * Policy version 3.9.5.
   * Drop unnecessary -1 in zlib1g Build-Depends version.
+  * Tweak dh_systemd_enable invocations to avoid lots of error noise.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 
