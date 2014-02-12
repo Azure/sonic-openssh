@@ -8,6 +8,8 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
   * Fix sysvinit->systemd transition code to cope with still-running
     sysvinit jobs being considered active by systemd (thanks, Uoti Urpala
     and Michael Biebl).
+  * Bump guard version for sysvinit->systemd transition to 1:6.5p1-3; we may
+    have got it wrong before, and it's fairly harmless to repeat it.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 
