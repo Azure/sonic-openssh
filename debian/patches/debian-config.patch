@@ -1,4 +1,4 @@
-From ee8d8b97cc2c6081df3af453a228992b87309ec4 Mon Sep 17 00:00:00 2001
+From f08f2d9c3fedf37f97f1b2d06f1fe36af4e5f1c3 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -22,7 +22,7 @@ debian/openssh-server.postinst.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2013-09-14
+Last-Update: 2014-02-12
 
 Patch-Name: debian-config.patch
 ---
@@ -30,8 +30,8 @@ Patch-Name: debian-config.patch
  ssh_config    |  7 ++++++-
  ssh_config.5  | 19 ++++++++++++++++++-
  sshd_config   |  1 +
- sshd_config.5 | 27 +++++++++++++++++++++++++++
- 5 files changed, 53 insertions(+), 3 deletions(-)
+ sshd_config.5 | 25 +++++++++++++++++++++++++
+ 5 files changed, 51 insertions(+), 3 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index 273552d..6ac8bea 100644
@@ -120,10 +120,10 @@ index d9b8594..4db32f5 100644
  #StrictModes yes
  #MaxAuthTries 6
 diff --git a/sshd_config.5 b/sshd_config.5
-index 9fa6086..e7ac846 100644
+index 9fa6086..496530b 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -57,6 +57,33 @@ Arguments may optionally be enclosed in double quotes
+@@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes
  .Pq \&"
  in order to represent arguments containing spaces.
  .Pp
@@ -138,8 +138,6 @@ index 9fa6086..e7ac846 100644
 +following:
 +.Pp
 +.Bl -bullet -offset indent -compact
-+.It
-+.Cm Protocol No 2
 +.It
 +.Cm ChallengeResponseAuthentication No no
 +.It
