@@ -20,7 +20,6 @@ console none
 pre-start script
     test -x /usr/sbin/sshd || { stop; exit 0; }
     test -e /etc/ssh/sshd_not_to_be_run && { stop; exit 0; }
-    test -c /dev/null || { stop; exit 0; }
 
     mkdir -p -m0755 /var/run/sshd
 end script

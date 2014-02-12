@@ -10,6 +10,10 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
     and Michael Biebl).
   * Bump guard version for sysvinit->systemd transition to 1:6.5p1-3; we may
     have got it wrong before, and it's fairly harmless to repeat it.
+  * Remove tests for whether /dev/null is a character device from the
+    Upstart job and the systemd service files; it's there to avoid a
+    confusing failure mode in daemon(), but with modern init systems we use
+    the -D option to suppress daemonisation anyway.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
 

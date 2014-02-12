@@ -5,7 +5,6 @@ ConditionPathExists=!/etc/ssh/sshd_not_to_be_run
 
 [Service]
 EnvironmentFile=-/etc/default/ssh
-ExecStartPre=/usr/bin/test -c /dev/null
 ExecStart=/usr/sbin/sshd -D $SSHD_OPTS
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process

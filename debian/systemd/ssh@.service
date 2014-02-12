@@ -4,6 +4,5 @@ After=auditd.service
 
 [Service]
 EnvironmentFile=-/etc/default/ssh
-ExecStartPre=/usr/bin/test -c /dev/null
 ExecStart=-/usr/sbin/sshd -i $SSHD_OPTS
 StandardInput=socket
