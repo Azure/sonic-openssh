@@ -1,4 +1,4 @@
-openssh (1:6.5p1-3) UNRELEASED; urgency=medium
+openssh (1:6.5p1-3) unstable; urgency=medium
 
   * Clarify socket activation mode in README.Debian, as suggested by Uoti
     Urpala.
@@ -25,7 +25,7 @@ openssh (1:6.5p1-3) UNRELEASED; urgency=medium
   * Drop unnecessary -1 in zlib1g Build-Depends version.
   * Tweak dh_systemd_enable invocations to avoid lots of error noise.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 21:36:14 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 12 Feb 2014 13:10:08 +0000
 
 openssh (1:6.5p1-2) unstable; urgency=medium
 
