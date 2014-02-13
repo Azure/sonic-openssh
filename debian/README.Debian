@@ -198,8 +198,8 @@ stop'), add the following line to /etc/inittab, and run 'telinit q':
   ss:2345:respawn:/usr/sbin/sshd -D
 
 If you do this, note that you will need to stop sshd being started in the
-normal way ('rm -f /etc/rc[2345].d/S16ssh') and that you will need to
-restart this sshd manually on upgrades.
+normal way ('update-rc.d ssh disable') and that you will need to restart
+this sshd manually on upgrades.
 
 Per-connection sshd instances with systemd
 ------------------------------------------

@@ -2,6 +2,9 @@ openssh (1:6.5p1-4) UNRELEASED; urgency=medium
 
   * Configure --without-hardening on hppa, to work around
     http://gcc.gnu.org/bugzilla/show_bug.cgi?id=60155 (closes: #738798).
+  * Amend "Running sshd from inittab" instructions in README.Debian to
+    recommend 'update-rc.d ssh disable', rather than manual removal of rc*.d
+    symlinks that won't work with dependency-based sysv-rc.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 13 Feb 2014 10:53:22 +0000
 
