@@ -272,24 +272,11 @@ setup_sshd_user() {
 	fi
 }
 
-remove_old_init_links() {
-	# Yes, this only works with the SysV init script layout. I know.
-	# The important thing is that it doesn't actually *break* with
-	# file-rc ...
-	if [ -e /etc/rc2.d/S20ssh ]; then
-		update-rc.d -f ssh remove >/dev/null 2>&1
-	fi
-	rm -f /etc/rc0.d/K??ssh /etc/rc1.d/K??ssh /etc/rc6.d/K??ssh
-}
-
 if [ "$action" = configure ]; then
 	create_sshdconfig
 	create_keys
 	fix_statoverride
 	setup_sshd_user
-	if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
-	    remove_old_init_links
-	fi
 	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
 	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
 	    rm -f /etc/ssh/primes

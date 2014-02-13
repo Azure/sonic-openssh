@@ -5,6 +5,8 @@ openssh (1:6.5p1-4) UNRELEASED; urgency=medium
   * Amend "Running sshd from inittab" instructions in README.Debian to
     recommend 'update-rc.d ssh disable', rather than manual removal of rc*.d
     symlinks that won't work with dependency-based sysv-rc.
+  * Remove code related to non-dependency-based sysv-rc ordering, since that
+    is no longer supported.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 13 Feb 2014 10:53:22 +0000
 
