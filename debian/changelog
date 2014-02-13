@@ -1,3 +1,10 @@
+openssh (1:6.5p1-4) UNRELEASED; urgency=medium
+
+  * Configure --without-hardening on hppa, to work around
+    http://gcc.gnu.org/bugzilla/show_bug.cgi?id=60155 (closes: #738798).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 13 Feb 2014 10:53:22 +0000
+
 openssh (1:6.5p1-3) unstable; urgency=medium
 
   * Clarify socket activation mode in README.Debian, as suggested by Uoti
