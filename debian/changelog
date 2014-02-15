@@ -1,4 +1,4 @@
-openssh (1:6.5p1-4) UNRELEASED; urgency=medium
+openssh (1:6.5p1-4) unstable; urgency=medium
 
   * Configure --without-hardening on hppa, to work around
     http://gcc.gnu.org/bugzilla/show_bug.cgi?id=60155 (closes: #738798).
@@ -10,7 +10,7 @@ openssh (1:6.5p1-4) UNRELEASED; urgency=medium
   * Apply patch from https://bugzilla.mindrot.org/show_bug.cgi?id=2200 to
     fix getsockname errors when using "ssh -W" (closes: #738693).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 13 Feb 2014 10:53:22 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 15 Feb 2014 02:19:36 +0000
 
 openssh (1:6.5p1-3) unstable; urgency=medium
 
