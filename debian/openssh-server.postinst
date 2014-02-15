@@ -84,6 +84,7 @@ host_keys_required() {
 			echo /etc/ssh/ssh_host_rsa_key
 			echo /etc/ssh/ssh_host_dsa_key
 			echo /etc/ssh/ssh_host_ecdsa_key
+			echo /etc/ssh/ssh_host_ed25519_key
 		fi
 	fi
 }
@@ -121,12 +122,21 @@ create_keys() {
 		"$hostkeys" /etc/ssh/ssh_host_dsa_key -t dsa
 	create_key "Creating SSH2 ECDSA key; this may take some time ..." \
 		"$hostkeys" /etc/ssh/ssh_host_ecdsa_key -t ecdsa
+	create_key "Creating SSH2 ED25519 key; this may take some time ..." \
+		"$hostkeys" /etc/ssh/ssh_host_ed25519_key -t ed25519
 }
 
 
 fix_loglevel_silent() {
 	if [ "$(get_config_option LogLevel)" = SILENT ]; then
 		set_config_option LogLevel QUIET
+	fi
+}
+
+
+update_server_key_bits() {
+	if [ "$(get_config_option ServerKeyBits)" = 768 ]; then
+		set_config_option ServerKeyBits 1024
 	fi
 }
 
@@ -146,6 +156,12 @@ create_sshdconfig() {
 		fix_loglevel_silent
 	    fi
 
+	    # Changed upstream in 5.1p1, but we forgot to update the
+	    # package-generated configuration file until now.
+	    if dpkg --compare-versions "$oldversion" lt 1:6.4p1-2; then
+		update_server_key_bits
+	    fi
+
 	    return 0
 	fi
 
@@ -163,12 +179,13 @@ Protocol 2
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 
 # Lifetime and size of ephemeral version 1 server key
 KeyRegenerationInterval 3600
-ServerKeyBits 768
+ServerKeyBits 1024
 
 # Logging
 SyslogFacility AUTH
@@ -255,24 +272,11 @@ setup_sshd_user() {
 	fi
 }
 
-remove_old_init_links() {
-	# Yes, this only works with the SysV init script layout. I know.
-	# The important thing is that it doesn't actually *break* with
-	# file-rc ...
-	if [ -e /etc/rc2.d/S20ssh ]; then
-		update-rc.d -f ssh remove >/dev/null 2>&1
-	fi
-	rm -f /etc/rc0.d/K??ssh /etc/rc1.d/K??ssh /etc/rc6.d/K??ssh
-}
-
 if [ "$action" = configure ]; then
 	create_sshdconfig
 	create_keys
 	fix_statoverride
 	setup_sshd_user
-	if dpkg --compare-versions "$2" lt 1:5.2p1-1; then
-	    remove_old_init_links
-	fi
 	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
 	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
 	    rm -f /etc/ssh/primes
@@ -286,6 +290,20 @@ if [ "$action" = configure ]; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under Upstart.
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
+	fi
+	if dpkg --compare-versions "$2" lt 1:6.5p1-2 && \
+	   deb-systemd-helper debian-installed ssh.socket && \
+	   deb-systemd-helper --quiet was-enabled ssh.service && \
+	   deb-systemd-helper --quiet was-enabled ssh.socket; then
+	    # 1:6.5p1-1 mistakenly left both ssh.service and ssh.socket
+	    # enabled.
+	    deb-systemd-helper disable ssh.socket >/dev/null || true
+	fi
+	if dpkg --compare-versions "$2" lt 1:6.5p1-3 && \
+	   [ -d /run/systemd/system ]; then
+	    # We must stop the sysvinit-controlled sshd before we can
+	    # restart it under systemd.
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd || true
 	fi
 fi
 

@@ -47,11 +47,11 @@ SSH_EXTRAVERSION := $(DISTRIBUTION)-$(shell dpkg-parsechangelog | sed -n -e '/^V
 
 DISTRIBUTOR := $(shell if dpkg-vendor --derives-from Ubuntu 2>/dev/null; then echo Ubuntu; else echo Debian; fi)
 ifeq ($(DISTRIBUTOR),Ubuntu)
-DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/games
+DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 else
-DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games
+DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/games
 endif
-SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11
+SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ifeq ($(DISTRIBUTOR),Ubuntu)
 server_recommends := ssh-import-id
@@ -71,6 +71,11 @@ confflags += --with-privsep-path=/var/run/sshd
 # The Hurd needs libcrypt for res_query et al.
 ifeq ($(DEB_HOST_ARCH_OS),hurd)
 confflags += --with-libs=-lcrypt
+endif
+
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=60155
+ifeq ($(DEB_HOST_ARCH),hppa)
+confflags += --without-hardening
 endif
 
 # Everything above here is common to the deb and udeb builds.
@@ -93,7 +98,7 @@ endif
 confflags += --with-xauth=/usr/bin/xauth
 confflags_udeb += --without-xauth
 
-# Default paths. The udeb build has /usr/bin/X11 and /usr/games removed.
+# Default paths. The udeb build has /usr/games removed.
 confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUSER_PATH)
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
@@ -114,7 +119,7 @@ confflags += --with-ldflags='$(strip -Wl,--as-needed $(default_ldflags))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
-	dh $@ --with=autoreconf
+	dh $@ --with=autoreconf,systemd
 
 autoreconf:
 	autoreconf -f -i
@@ -190,8 +195,12 @@ override_dh_installdocs:
 	# Avoid breaking dh_installexamples later.
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
+override_dh_systemd_enable:
+	dh_systemd_enable -popenssh-server --name ssh ssh.service
+	dh_systemd_enable -popenssh-server --name ssh --no-enable ssh.socket
+
 override_dh_installinit:
-	dh_installinit -R --name ssh -- start 16 2 3 4 5 .
+	dh_installinit -R --name ssh
 
 override_dh_installpam:
 	dh_installpam --name sshd
@@ -215,14 +224,3 @@ debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
 		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
 		> debian/faq.html
-
-# You only need to run this immediately after checking out the package from
-# revision control.
-quilt-setup:
-	[ ! -d .pc ]
-	set -e; for patch in $$(quilt series | tac); do \
-		patch -p1 -R --no-backup-if-mismatch <"debian/patches/$$patch"; \
-	done
-	quilt push -a
-
-.PHONY: quilt-setup

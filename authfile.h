@@ -1,4 +1,4 @@
-/* $OpenBSD: authfile.h,v 1.16 2011/05/04 21:15:29 djm Exp $ */
+/* $OpenBSD: authfile.h,v 1.17 2013/12/06 13:34:54 markus Exp $ */
 
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
@@ -15,7 +15,8 @@
 #ifndef AUTHFILE_H
 #define AUTHFILE_H
 
-int	 key_save_private(Key *, const char *, const char *, const char *);
+int	 key_save_private(Key *, const char *, const char *, const char *,
+    int, const char *, int);
 int	 key_load_file(int, const char *, Buffer *);
 Key	*key_load_cert(const char *);
 Key	*key_load_public(const char *, char **);
@@ -27,7 +28,5 @@ Key	*key_load_private_type(int, const char *, const char *, char **, int *);
 Key	*key_load_private_pem(int, int, const char *, char **);
 int	 key_perm_ok(int, const char *);
 int	 key_in_file(Key *, const char *, int);
-
-int	 blacklisted_key(Key *key, char **fp);
 
 #endif

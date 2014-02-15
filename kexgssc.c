@@ -279,7 +279,7 @@ kexgss_client(Kex *kex) {
 		break;
 	case KEX_GSS_GEX_SHA1:
 		kexgex_hash(
-		    kex->evp_md,
+		    kex->hash_alg,
 		    kex->client_version_string,
 		    kex->server_version_string,
 		    buffer_ptr(&kex->my), buffer_len(&kex->my),
@@ -325,7 +325,7 @@ kexgss_client(Kex *kex) {
 	else
 		ssh_gssapi_delete_ctx(&ctxt);
 
-	kex_derive_keys(kex, hash, hashlen, shared_secret);
+	kex_derive_keys_bn(kex, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
 	kex_finish(kex);
 }

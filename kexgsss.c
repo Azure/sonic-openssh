@@ -224,7 +224,7 @@ kexgss_server(Kex *kex)
 		break;
 	case KEX_GSS_GEX_SHA1:
 		kexgex_hash(
-		    kex->evp_md,
+		    kex->hash_alg,
 		    kex->client_version_string, kex->server_version_string,
 		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
 		    buffer_ptr(&kex->my), buffer_len(&kex->my),
@@ -277,7 +277,7 @@ kexgss_server(Kex *kex)
 
 	DH_free(dh);
 
-	kex_derive_keys(kex, hash, hashlen, shared_secret);
+	kex_derive_keys_bn(kex, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
 	kex_finish(kex);
 

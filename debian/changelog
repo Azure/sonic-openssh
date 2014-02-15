@@ -1,8 +1,102 @@
-openssh (1:6.4p1-1~bpo70+1) wheezy-backports; urgency=low
+openssh (1:6.5p1-4~bpo70+1) wheezy-backports; urgency=low
 
   * Rebuild for wheezy-backports.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 12 Nov 2013 12:16:26 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 26 Feb 2014 18:02:59 +0000
+
+openssh (1:6.5p1-4) unstable; urgency=medium
+
+  * Configure --without-hardening on hppa, to work around
+    http://gcc.gnu.org/bugzilla/show_bug.cgi?id=60155 (closes: #738798).
+  * Amend "Running sshd from inittab" instructions in README.Debian to
+    recommend 'update-rc.d ssh disable', rather than manual removal of rc*.d
+    symlinks that won't work with dependency-based sysv-rc.
+  * Remove code related to non-dependency-based sysv-rc ordering, since that
+    is no longer supported.
+  * Apply patch from https://bugzilla.mindrot.org/show_bug.cgi?id=2200 to
+    fix getsockname errors when using "ssh -W" (closes: #738693).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 15 Feb 2014 02:19:36 +0000
+
+openssh (1:6.5p1-3) unstable; urgency=medium
+
+  * Clarify socket activation mode in README.Debian, as suggested by Uoti
+    Urpala.
+  * Stop claiming that "Protocol 2" is a Debian-specific default; this has
+    been upstream's default since 5.4p1.
+  * Avoid stdout noise from which(1) on purge of openssh-client.
+  * Fix sysvinit->systemd transition code to cope with still-running
+    sysvinit jobs being considered active by systemd (thanks, Uoti Urpala
+    and Michael Biebl).
+  * Bump guard version for sysvinit->systemd transition to 1:6.5p1-3; we may
+    have got it wrong before, and it's fairly harmless to repeat it.
+  * Remove tests for whether /dev/null is a character device from the
+    Upstart job and the systemd service files; it's there to avoid a
+    confusing failure mode in daemon(), but with modern init systems we use
+    the -D option to suppress daemonisation anyway.
+  * Refer to /usr/share/common-licenses/GPL-2 in debian/copyright (for the
+    Debian patch) rather than plain GPL.
+  * Drop some very old Conflicts and Replaces (ssh (<< 1:3.8.1p1-9),
+    rsh-client (<< 0.16.1-1), ssh-krb5 (<< 1:4.3p2-7), ssh-nonfree (<< 2),
+    and openssh-client (<< 1:3.8.1p1-11)).  These all relate to pre-etch
+    versions, for which we no longer have maintainer script code, and per
+    policy they would have to become Breaks nowadays anyway.
+  * Policy version 3.9.5.
+  * Drop unnecessary -1 in zlib1g Build-Depends version.
+  * Tweak dh_systemd_enable invocations to avoid lots of error noise.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 12 Feb 2014 13:10:08 +0000
+
+openssh (1:6.5p1-2) unstable; urgency=medium
+
+  * Only enable ssh.service for systemd, not both ssh.service and
+    ssh.socket.  Thanks to Michael Biebl for spotting this.
+  * Backport upstream patch to unbreak case-sensitive matching of ssh_config
+    (closes: #738619).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 11 Feb 2014 11:28:35 +0000
+
+openssh (1:6.5p1-1) unstable; urgency=medium
+
+  * New upstream release (http://www.openssh.com/txt/release-6.5,
+    LP: #1275068):
+    - ssh(1): Add support for client-side hostname canonicalisation using a
+      set of DNS suffixes and rules in ssh_config(5).  This allows
+      unqualified names to be canonicalised to fully-qualified domain names
+      to eliminate ambiguity when looking up keys in known_hosts or checking
+      host certificate names (closes: #115286).
+  * Switch to git; adjust Vcs-* fields.
+  * Convert to git-dpm, and drop source package documentation associated
+    with the old bzr/quilt patch handling workflow.
+  * Drop ssh-vulnkey and the associated ssh/ssh-add/sshd integration code,
+    leaving only basic configuration file compatibility, since it has been
+    nearly six years since the original vulnerability and this code is not
+    likely to be of much value any more (closes: #481853, #570651).  See
+    https://lists.debian.org/debian-devel/2013/09/msg00240.html for my full
+    reasoning.
+  * Add OpenPGP signature checking configuration to watch file (thanks,
+    Daniel Kahn Gillmor; closes: #732441).
+  * Add the pam_keyinit session module, to create a new session keyring on
+    login (closes: #734816).
+  * Incorporate default path changes from shadow 1:4.0.18.1-8, removing
+    /usr/bin/X11 (closes: #644521).
+  * Generate ED25519 host keys on fresh installations.  Upgraders who wish
+    to add such host keys should manually add 'HostKey
+    /etc/ssh/ssh_host_ed25519_key' to /etc/ssh/sshd_config and run
+    'ssh-keygen -q -f /etc/ssh/ssh_host_ed25519_key -N "" -t ed25519'.
+  * Drop long-obsolete "SSH now uses protocol 2 by default" section from
+    README.Debian.
+  * Add systemd support (thanks, Sven Joachim; closes: #676830).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 10 Feb 2014 14:58:26 +0000
+
+openssh (1:6.4p1-2) unstable; urgency=high
+
+  * Increase ServerKeyBits value in package-generated sshd_config to 1024
+    (closes: #727622, LP: #1244272).
+  * Restore patch to disable OpenSSL version check (closes: #732940).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 23 Dec 2013 10:44:04 +0000
 
 openssh (1:6.4p1-1) unstable; urgency=high
 
