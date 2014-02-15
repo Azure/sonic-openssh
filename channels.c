@@ -1386,7 +1386,7 @@ port_open_helper(Channel *c, char *rtype)
 	int direct;
 	char buf[1024];
 	char *local_ipaddr = get_local_ipaddr(c->sock);
-	int local_port = get_sock_port(c->sock, 1);
+	int local_port = c->sock == -1 ? 65536 : get_sock_port(c->sock, 1);
 	char *remote_ipaddr = get_peer_ipaddr(c->sock);
 	int remote_port = get_peer_port(c->sock);
 
