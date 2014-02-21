@@ -1,3 +1,10 @@
+openssh (1:6.5p1-5) UNRELEASED; urgency=medium
+
+  * Add Alias=sshd.service to systemd ssh.service file, to match "Provides:
+    sshd" in the sysvinit script (thanks, Michael Biebl).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 21 Feb 2014 15:21:30 +0000
+
 openssh (1:6.5p1-4) unstable; urgency=medium
 
   * Configure --without-hardening on hppa, to work around
