@@ -1,7 +1,12 @@
 openssh (1:6.5p1-5) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Add Alias=sshd.service to systemd ssh.service file, to match "Provides:
     sshd" in the sysvinit script (thanks, Michael Biebl).
+
+  [ Axel Beckert ]
+  * Split sftp-server into its own package to allow it to also be used by
+    other SSH server implementations like dropbear (closes: #504290).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 21 Feb 2014 15:21:30 +0000
 
