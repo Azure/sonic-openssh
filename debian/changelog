@@ -3,6 +3,9 @@ openssh (1:6.5p1-5) UNRELEASED; urgency=medium
   [ Colin Watson ]
   * Add Alias=sshd.service to systemd ssh.service file, to match "Provides:
     sshd" in the sysvinit script (thanks, Michael Biebl).
+  * Add Before=ssh.service to systemd ssh.socket file, since otherwise
+    nothing guarantees that ssh.service has stopped before ssh.socket starts
+    (thanks, Uoti Urpala).
 
   [ Axel Beckert ]
   * Split sftp-server into its own package to allow it to also be used by
