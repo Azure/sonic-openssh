@@ -190,8 +190,9 @@ override_dh_install:
 	install -p -m 644 -D debian/ssh-agent.user-session.upstart debian/openssh-client/usr/share/upstart/sessions/ssh-agent.conf
 
 override_dh_installdocs:
-	dh_installdocs -Nopenssh-server -Nssh
-	dh_installdocs -popenssh-server -pssh --link-doc=openssh-client
+	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server -Nssh
+	dh_installdocs -popenssh-server -popenssh-sftp-server -pssh \
+		--link-doc=openssh-client
 	# Avoid breaking dh_installexamples later.
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
