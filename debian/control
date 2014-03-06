@@ -78,8 +78,8 @@ Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: openssh-server | ssh-server
-Breaks: openssh-server (<< 1:6.5p1-4)
-Replaces: openssh-server (<< 1:6.5p1-4)
+Breaks: openssh-server (<< 1:6.5p1-5)
+Replaces: openssh-server (<< 1:6.5p1-5)
 Enhances: openssh-server, ssh-server
 Description: secure shell (SSH) sftp server module, for SFTP access from remote machines
  This is the portable version of OpenSSH, a free implementation of
