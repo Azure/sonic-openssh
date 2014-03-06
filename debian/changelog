@@ -1,4 +1,4 @@
-openssh (1:6.5p1-5) UNRELEASED; urgency=medium
+openssh (1:6.5p1-5) unstable; urgency=medium
 
   [ Colin Watson ]
   * Add Alias=sshd.service to systemd ssh.service file, to match "Provides:
@@ -11,7 +11,7 @@ openssh (1:6.5p1-5) UNRELEASED; urgency=medium
   * Split sftp-server into its own package to allow it to also be used by
     other SSH server implementations like dropbear (closes: #504290).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 21 Feb 2014 15:21:30 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 05 Mar 2014 13:53:08 +0000
 
 openssh (1:6.5p1-4) unstable; urgency=medium
 
