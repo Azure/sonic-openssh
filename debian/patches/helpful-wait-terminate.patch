@@ -1,4 +1,4 @@
-From 71003a35537df521296408d9f6bd0a200ed2a854 Mon Sep 17 00:00:00 2001
+From 29a3d408fe0b8e91aed47ec4ad26d0c0a16e8f65 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:09:56 +0000
 Subject: Mention ~& when waiting for forwarded connections to terminate

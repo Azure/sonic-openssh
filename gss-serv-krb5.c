@@ -120,7 +120,6 @@ ssh_gssapi_krb5_storecreds(ssh_gssapi_client *client)
 	krb5_error_code problem;
 	krb5_principal princ;
 	OM_uint32 maj_status, min_status;
-	int len;
 	const char *errmsg;
 	const char *new_ccname;
 

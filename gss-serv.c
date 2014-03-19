@@ -128,7 +128,7 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
 
 /* Unprivileged */
 char *
-ssh_gssapi_server_mechanisms() {
+ssh_gssapi_server_mechanisms(void) {
 	gss_OID_set	supported;
 
 	ssh_gssapi_supported_oids(&supported);
@@ -462,7 +462,7 @@ static int ssh_gssapi_simple_conv(int n, const struct pam_message **msg,
 #endif
 
 void
-ssh_gssapi_rekey_creds() {
+ssh_gssapi_rekey_creds(void) {
 	int ok;
 	int ret;
 #ifdef USE_PAM

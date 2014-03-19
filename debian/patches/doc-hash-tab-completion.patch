@@ -1,4 +1,4 @@
-From 5e0540a17ace7dbbcec332ad3828d09dfa69dc6f Mon Sep 17 00:00:00 2001
+From 465d1a333520edbd2f0fac77c76e06bdd1d94cb9 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:11 +0000
 Subject: Document that HashKnownHosts may break tab-completion

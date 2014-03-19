@@ -1,4 +1,4 @@
-From 18e1479bf4586a14b88dab082af10a8981b9d48d Mon Sep 17 00:00:00 2001
+From 6dbd954a28d3fc2631f1c0b42c23452e1e493e6f Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Sat, 15 Feb 2014 02:08:20 +0000
 Subject: Skip get_sock_port call for c->sock==-1

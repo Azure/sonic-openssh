@@ -155,9 +155,11 @@ void ssh_gssapi_cleanup_creds(void);
 void ssh_gssapi_storecreds(void);
 
 char *ssh_gssapi_server_mechanisms(void);
-int ssh_gssapi_oid_table_ok();
+int ssh_gssapi_oid_table_ok(void);
 
 int ssh_gssapi_update_creds(ssh_gssapi_ccache *store);
+void ssh_gssapi_rekey_creds(void);
+
 #endif /* GSSAPI */
 
 #endif /* _SSH_GSS_H */

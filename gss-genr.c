@@ -64,7 +64,7 @@ Gssctxt *gss_kex_context = NULL;
 static ssh_gss_kex_mapping *gss_enc2oid = NULL;
 
 int 
-ssh_gssapi_oid_table_ok() {
+ssh_gssapi_oid_table_ok(void) {
 	return (gss_enc2oid != NULL);
 }
 
@@ -498,7 +498,6 @@ ssh_gssapi_credentials_updated(Gssctxt *ctxt) {
 	static OM_uint32 last_call = 0;
 	OM_uint32 lifetime, now, major, minor;
 	int equal;
-	gss_cred_usage_t usage = GSS_C_INITIATE;
 	
 	now = time(NULL);
 
