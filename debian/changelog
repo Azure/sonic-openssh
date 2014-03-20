@@ -10,6 +10,9 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
       the characters before the wildcard character.
   * Re-enable btmp logging, as its permissions were fixed a long time ago in
     response to #370050 (closes: #341883).
+  * Change to "PermitRootLogin without-password" for new installations, and
+    ask a debconf question when upgrading systems with "PermitRootLogin yes"
+    from previous versions (closes: #298138).
 
   [ Matthew Vernon ]
   * Fix failure to check SSHFP records if server presents a certificate
