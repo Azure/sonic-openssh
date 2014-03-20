@@ -26,5 +26,3 @@ no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 sigstop.patch
 debian-config.patch
-fix-case-sensitive-matching.patch
-getsockname-error.patch
