@@ -16,6 +16,7 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
   * Debconf translations:
     - Danish (thanks, Joe Hansen).
     - Portuguese (thanks, Américo Monteiro).
+    - Russian (thanks, Yuri Kozlov; closes: #742308).
 
   [ Matthew Vernon ]
   * Fix failure to check SSHFP records if server presents a certificate
