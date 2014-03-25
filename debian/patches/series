@@ -26,3 +26,4 @@ no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 sigstop.patch
 debian-config.patch
+sshfp_with_server_cert

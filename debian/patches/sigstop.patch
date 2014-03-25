@@ -8,7 +8,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: sigstop.patch
 ---
- sshd.c | 4 ++++
+ sshd.c |    4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/sshd.c b/sshd.c

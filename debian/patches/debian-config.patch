@@ -26,11 +26,11 @@ Last-Update: 2014-02-12
 
 Patch-Name: debian-config.patch
 ---
- readconf.c    |  2 +-
- ssh_config    |  7 ++++++-
- ssh_config.5  | 19 ++++++++++++++++++-
- sshd_config   |  1 +
- sshd_config.5 | 25 +++++++++++++++++++++++++
+ readconf.c    |    2 +-
+ ssh_config    |    7 ++++++-
+ ssh_config.5  |   19 ++++++++++++++++++-
+ sshd_config   |    1 +
+ sshd_config.5 |   25 +++++++++++++++++++++++++
  5 files changed, 51 insertions(+), 3 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
