@@ -1,5 +1,6 @@
 openssh (1:6.6p1-1) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Apply various warning-suppression and regression-test fixes to
     gssapi.patch from Damien Miller.
   * New upstream release (http://www.openssh.com/txt/release-6.6):
@@ -7,6 +8,10 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
       sshd_config(5) AcceptEnv pattern with a wildcard, OpenSSH prior to 6.6
       could be tricked into accepting any environment variable that contains
       the characters before the wildcard character.
+
+  [ Matthew Vernon ]
+  * Fix failure to check SSHFP records if server presents a certificate
+    (bug reported by me, patch largely by Mark Wooding) (Closes: #742513)
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 20 Mar 2014 00:32:46 +0000
 
