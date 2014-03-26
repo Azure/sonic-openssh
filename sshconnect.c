@@ -1218,63 +1218,46 @@ fail:
 	return -1;
 }
 
-static int
-check_host_key_sshfp(char *host, struct sockaddr *hostaddr, Key *host_key)
-{
-	int rc = -1;
-	int flags = 0;
-	Key *raw_key = NULL;
-
-	if (!options.verify_host_key_dns)
-		goto done;
-
-	/* XXX certs are not yet supported for DNS; try looking the raw key
-	 * up in the DNS anyway.
-	 */
-	if (key_is_cert(host_key)) {
-	  debug2("Extracting key from cert for SSHFP lookup");
-		raw_key = key_from_private(host_key);
-		if (key_drop_cert(raw_key))
-			fatal("Couldn't drop certificate");
-		host_key = raw_key;
-	}
-
-	if (verify_host_key_dns(host, hostaddr, host_key, &flags))
-		goto done;
-
-	if (flags & DNS_VERIFY_FOUND) {
-
-		if (options.verify_host_key_dns == 1 &&
-		    flags & DNS_VERIFY_MATCH &&
-		    flags & DNS_VERIFY_SECURE) {
-			rc = 0;
-		} else if (flags & DNS_VERIFY_MATCH) {
-			matching_host_key_dns = 1;
-		} else {
-			warn_changed_key(host_key);
-			error("Update the SSHFP RR in DNS with the new "
-			      "host key to get rid of this message.");
-		}
-	}
-
-done:
-	if (raw_key)
-		key_free(raw_key);
-	return rc;
-}
-
 /* returns 0 if key verifies or -1 if key does NOT verify */
 int
 verify_host_key(char *host, struct sockaddr *hostaddr, Key *host_key)
 {
+	int flags = 0;
 	char *fp;
+	Key *plain = NULL;
 
 	fp = key_fingerprint(host_key, SSH_FP_MD5, SSH_FP_HEX);
 	debug("Server host key: %s %s", key_type(host_key), fp);
 	free(fp);
 
-	if (check_host_key_sshfp(host, hostaddr, host_key) == 0)
-		return 0;
+	if (options.verify_host_key_dns) {
+		/*
+		 * XXX certs are not yet supported for DNS, so downgrade
+		 * them and try the plain key.
+		 */
+		plain = key_from_private(host_key);
+		if (key_is_cert(plain))
+			key_drop_cert(plain);
+		if (verify_host_key_dns(host, hostaddr, plain, &flags) == 0) {
+			if (flags & DNS_VERIFY_FOUND) {
+				if (options.verify_host_key_dns == 1 &&
+				    flags & DNS_VERIFY_MATCH &&
+				    flags & DNS_VERIFY_SECURE) {
+					key_free(plain);
+					return 0;
+				}
+				if (flags & DNS_VERIFY_MATCH) {
+					matching_host_key_dns = 1;
+				} else {
+					warn_changed_key(plain);
+					error("Update the SSHFP RR in DNS "
+					    "with the new host key to get rid "
+					    "of this message.");
+				}
+			}
+		}
+		key_free(plain);
+	}
 
 	return check_host_key(host, hostaddr, options.port, host_key, RDRW,
 	    options.user_hostfiles, options.num_user_hostfiles,
