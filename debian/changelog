@@ -22,6 +22,9 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
     - Japanese (thanks, victory).
     - German (thanks, Stephan Beck; closes: #742541).
     - Italian (thanks, Beatrice Torracca).
+  * Don't start ssh-agent from the Upstart user session job if something
+    like Xsession has already done so (based on work by Bruno Vasselle;
+    LP: #1244736).
 
   [ Matthew Vernon ]
   * CVE-2014-2653: Fix failure to check SSHFP records if server presents a
