@@ -3,7 +3,8 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
   [ Colin Watson ]
   * Apply various warning-suppression and regression-test fixes to
     gssapi.patch from Damien Miller.
-  * New upstream release (http://www.openssh.com/txt/release-6.6):
+  * New upstream release (http://www.openssh.com/txt/release-6.6,
+    LP: #1298280):
     - CVE-2014-2532: sshd(8): when using environment passing with an
       sshd_config(5) AcceptEnv pattern with a wildcard, OpenSSH prior to 6.6
       could be tricked into accepting any environment variable that contains
