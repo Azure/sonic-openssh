@@ -1,5 +1,6 @@
 # openssh.
-# Copyright (C) 2014
+# Copyright (C) 2014 Colin Watson
+# Copyright (C) 2014 Stephan Beck
 # This file is distributed under the same license as the openssh package.
 # Stephan Beck <sbeck@mailbox.org>, 2014.
 #
