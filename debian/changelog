@@ -24,9 +24,10 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
     - Italian (thanks, Beatrice Torracca).
 
   [ Matthew Vernon ]
-  * Fix failure to check SSHFP records if server presents a certificate
-    (bug reported by me, patch by upstream's Damien Miller; thanks also to
-    Mark Wooding for his help in fixing this) (Closes: #742513)
+  * CVE-2014-2653: Fix failure to check SSHFP records if server presents a
+    certificate (bug reported by me, patch by upstream's Damien Miller;
+    thanks also to Mark Wooding for his help in fixing this) (Closes:
+    #742513)
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 20 Mar 2014 00:32:46 +0000
 
