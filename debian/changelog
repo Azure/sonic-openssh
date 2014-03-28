@@ -1,4 +1,4 @@
-openssh (1:6.6p1-1) UNRELEASED; urgency=medium
+openssh (1:6.6p1-1) unstable; urgency=medium
 
   [ Colin Watson ]
   * Apply various warning-suppression and regression-test fixes to
@@ -32,7 +32,7 @@ openssh (1:6.6p1-1) UNRELEASED; urgency=medium
     thanks also to Mark Wooding for his help in fixing this) (Closes:
     #742513)
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 20 Mar 2014 00:32:46 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 28 Mar 2014 18:04:41 +0000
 
 openssh (1:6.5p1-6) unstable; urgency=medium
 
