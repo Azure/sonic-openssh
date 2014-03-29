@@ -1,4 +1,4 @@
-From a3e8cef2bae563fe8c87cf9f32511a0808dd47eb Mon Sep 17 00:00:00 2001
+From 912129ba92bea401d8cdeadc7aa7084fbf7625a1 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:01 +0000
 Subject: Force use of DNSSEC even if "options edns0" isn't in resolv.conf
@@ -12,9 +12,9 @@ Last-Update: 2010-04-06
 
 Patch-Name: dnssec-sshfp.patch
 ---
- dns.c                           | 14 +++++++++++++-
- openbsd-compat/getrrsetbyname.c | 10 +++++-----
- openbsd-compat/getrrsetbyname.h |  3 +++
+ dns.c                           |   14 +++++++++++++-
+ openbsd-compat/getrrsetbyname.c |   10 +++++-----
+ openbsd-compat/getrrsetbyname.h |    3 +++
  3 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/dns.c b/dns.c

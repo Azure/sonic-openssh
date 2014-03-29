@@ -61,7 +61,6 @@ kexgss_client(Kex *kex) {
 	u_char *serverhostkey = NULL;
 	u_char *empty = "";
 	char *msg;
-	char *lang;
 	int type = 0;
 	int first = 1;
 	int nbits = 0, min = DH_GRP_MIN, max = DH_GRP_MAX;
@@ -220,7 +219,7 @@ kexgss_client(Kex *kex) {
 				maj_status = packet_get_int();
 				min_status = packet_get_int();
 				msg = packet_get_string(NULL);
-				lang = packet_get_string(NULL);
+				(void) packet_get_string_ptr(NULL);
 				fatal("GSSAPI Error: \n%.400s",msg);
 			default:
 				packet_disconnect("Protocol error: didn't expect packet type %d",
