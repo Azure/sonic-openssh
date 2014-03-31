@@ -1,9 +1,9 @@
-openssh (1:6.6p1-2) UNRELEASED; urgency=medium
+openssh (1:6.6p1-2) unstable; urgency=medium
 
   * If no root password is set, then switch to "PermitRootLogin
     without-password" without asking (LP: #1300127).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 31 Mar 2014 11:15:02 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 31 Mar 2014 12:20:46 +0100
 
 openssh (1:6.6p1-1) unstable; urgency=medium
 
