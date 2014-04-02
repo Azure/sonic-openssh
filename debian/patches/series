@@ -47,3 +47,4 @@ sandbox-fallback.patch
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
 CVE-2014-2532.patch
+CVE-2014-2653.patch
