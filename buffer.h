@@ -68,6 +68,7 @@ void    buffer_put_char(Buffer *, int);
 void   *buffer_get_string(Buffer *, u_int *);
 void   *buffer_get_string_ptr(Buffer *, u_int *);
 void    buffer_put_string(Buffer *, const void *, u_int);
+char   *buffer_get_cstring(Buffer *, u_int *);
 void	buffer_put_cstring(Buffer *, const char *);
 
 #define buffer_skip_string(b) \
@@ -81,6 +82,7 @@ int	buffer_get_short_ret(u_short *, Buffer *);
 int	buffer_get_int_ret(u_int *, Buffer *);
 int	buffer_get_int64_ret(u_int64_t *, Buffer *);
 void	*buffer_get_string_ret(Buffer *, u_int *);
+char	*buffer_get_cstring_ret(Buffer *, u_int *);
 void	*buffer_get_string_ptr_ret(Buffer *, u_int *);
 int	buffer_get_char_ret(char *, Buffer *);
 

@@ -1546,6 +1546,13 @@ packet_get_string_ptr(u_int *length_ptr)
 	return buffer_get_string_ptr(&active_state->incoming_packet, length_ptr);
 }
 
+/* Ensures the returned string has no embedded \0 characters in it. */
+char *
+packet_get_cstring(u_int *length_ptr)
+{
+	return buffer_get_cstring(&active_state->incoming_packet, length_ptr);
+}
+
 /*
  * Sends a diagnostic message from the server to the client.  This message
  * can be sent at any time (but not while constructing another message). The

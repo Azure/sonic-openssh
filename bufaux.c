@@ -200,6 +200,39 @@ buffer_get_string(Buffer *buffer, u_int *length_ptr)
 	return (ret);
 }
 
+char *
+buffer_get_cstring_ret(Buffer *buffer, u_int *length_ptr)
+{
+	u_int length;
+	char *cp, *ret = buffer_get_string_ret(buffer, &length);
+
+	if (ret == NULL)
+		return NULL;
+	if ((cp = memchr(ret, '\0', length)) != NULL) {
+		/* XXX allow \0 at end-of-string for a while, remove later */
+		if (cp == ret + length - 1)
+			error("buffer_get_cstring_ret: string contains \\0");
+		else {
+			bzero(ret, length);
+			xfree(ret);
+			return NULL;
+		}
+	}
+	if (length_ptr != NULL)
+		*length_ptr = length;
+	return ret;
+}
+
+char *
+buffer_get_cstring(Buffer *buffer, u_int *length_ptr)
+{
+	char *ret;
+
+	if ((ret = buffer_get_cstring_ret(buffer, length_ptr)) == NULL)
+		fatal("buffer_get_cstring: buffer error");
+	return ret;
+}
+
 void *
 buffer_get_string_ptr_ret(Buffer *buffer, u_int *length_ptr)
 {
