@@ -1,11 +1,11 @@
-openssh (1:5.5p1-6+squeeze5) UNRELEASED; urgency=medium
+openssh (1:5.5p1-6+squeeze5) oldstable-security; urgency=high
 
   * CVE-2014-2532: Disallow invalid characters in environment variable names
     to prevent bypassing AcceptEnv wildcard restrictions.
   * CVE-2014-2653: Attempt SSHFP lookup even if server presents a
     certificate (closes: #742513).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 03 Apr 2014 00:31:20 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 03 Apr 2014 01:05:27 +0100
 
 openssh (1:5.5p1-6+squeeze4) stable; urgency=low
 
