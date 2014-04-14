@@ -9,7 +9,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: mention-ssh-keygen-on-keychange.patch
 ---
- sshconnect.c |    7 ++++++-
+ sshconnect.c | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/sshconnect.c b/sshconnect.c

@@ -1,4 +1,4 @@
-From 9cbb60f5e4932634db04c330c88abc49cc5567bd Mon Sep 17 00:00:00 2001
+From df5c8d109fb3d9ec16a487107a44300ed3006849 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -26,11 +26,11 @@ Last-Update: 2014-02-12
 
 Patch-Name: debian-config.patch
 ---
- readconf.c    |    2 +-
- ssh_config    |    7 ++++++-
- ssh_config.5  |   19 ++++++++++++++++++-
- sshd_config   |    1 +
- sshd_config.5 |   25 +++++++++++++++++++++++++
+ readconf.c    |  2 +-
+ ssh_config    |  7 ++++++-
+ ssh_config.5  | 19 ++++++++++++++++++-
+ sshd_config   |  1 +
+ sshd_config.5 | 25 +++++++++++++++++++++++++
  5 files changed, 51 insertions(+), 3 deletions(-)
 
 diff --git a/readconf.c b/readconf.c

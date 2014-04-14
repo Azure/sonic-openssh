@@ -12,8 +12,8 @@ Last-Update: 2014-02-09
 
 Patch-Name: ssh-vulnkey-compat.patch
 ---
- readconf.c |    1 +
- servconf.c |    1 +
+ readconf.c | 1 +
+ servconf.c | 1 +
  2 files changed, 2 insertions(+)
 
 diff --git a/readconf.c b/readconf.c

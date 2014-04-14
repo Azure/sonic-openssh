@@ -9,7 +9,7 @@ Last-Update: 2013-06-08
 
 Patch-Name: ssh-agent-setgid.patch
 ---
- ssh-agent.1 |   15 +++++++++++++++
+ ssh-agent.1 | 15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
 diff --git a/ssh-agent.1 b/ssh-agent.1

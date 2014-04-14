@@ -1,4 +1,4 @@
-From 63d5fa28e16d96db6bac2dbe3fcecb65328f8966 Mon Sep 17 00:00:00 2001
+From 08a63152deb5deda168aaef870bdb9f56425acb3 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <mcv21@cam.ac.uk>
 Date: Wed, 26 Mar 2014 15:32:23 +0000
 Subject: Attempt SSHFP lookup even if server presents a certificate
@@ -18,7 +18,7 @@ Signed-off-by: Matthew Vernon <matthew@debian.org>
 Bug-Debian: http://bugs.debian.org/742513
 Patch-Name: sshfp_with_server_cert_upstr
 ---
- sshconnect.c |   42 ++++++++++++++++++++++++++----------------
+ sshconnect.c | 42 ++++++++++++++++++++++++++----------------
  1 file changed, 26 insertions(+), 16 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c

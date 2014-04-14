@@ -9,7 +9,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: doc-hash-tab-completion.patch
 ---
- ssh_config.5 |    3 +++
+ ssh_config.5 | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/ssh_config.5 b/ssh_config.5

@@ -14,7 +14,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: ssh-argv0.patch
 ---
- ssh.1 |    1 +
+ ssh.1 | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/ssh.1 b/ssh.1

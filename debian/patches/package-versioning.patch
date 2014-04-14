@@ -13,9 +13,9 @@ Last-Update: 2013-09-14
 
 Patch-Name: package-versioning.patch
 ---
- sshconnect.c |    4 ++--
- sshd.c       |    2 +-
- version.h    |    7 ++++++-
+ sshconnect.c | 4 ++--
+ sshd.c       | 2 +-
+ version.h    | 7 ++++++-
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c

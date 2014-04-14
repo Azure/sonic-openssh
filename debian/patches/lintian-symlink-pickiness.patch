@@ -11,7 +11,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: lintian-symlink-pickiness.patch
 ---
- Makefile.in |    4 ++--
+ Makefile.in | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in

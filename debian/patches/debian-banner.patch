@@ -12,10 +12,10 @@ Last-Update: 2013-09-14
 
 Patch-Name: debian-banner.patch
 ---
- servconf.c    |    9 +++++++++
- servconf.h    |    2 ++
- sshd.c        |    3 ++-
- sshd_config.5 |    5 +++++
+ servconf.c    | 9 +++++++++
+ servconf.h    | 2 ++
+ sshd.c        | 3 ++-
+ sshd_config.5 | 5 +++++
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c

@@ -13,22 +13,22 @@ Last-Update: 2013-09-14
 
 Patch-Name: selinux-role.patch
 ---
- auth.h                      |    1 +
- auth1.c                     |    8 +++++++-
- auth2.c                     |   10 ++++++++--
- monitor.c                   |   32 +++++++++++++++++++++++++++++---
- monitor.h                   |    2 ++
- monitor_wrap.c              |   22 ++++++++++++++++++++--
- monitor_wrap.h              |    3 ++-
- openbsd-compat/port-linux.c |   27 ++++++++++++++++++++-------
- openbsd-compat/port-linux.h |    4 ++--
- platform.c                  |    4 ++--
- platform.h                  |    2 +-
- session.c                   |   10 +++++-----
- session.h                   |    2 +-
- sshd.c                      |    2 +-
- sshpty.c                    |    4 ++--
- sshpty.h                    |    2 +-
+ auth.h                      |  1 +
+ auth1.c                     |  8 +++++++-
+ auth2.c                     | 10 ++++++++--
+ monitor.c                   | 32 +++++++++++++++++++++++++++++---
+ monitor.h                   |  2 ++
+ monitor_wrap.c              | 22 ++++++++++++++++++++--
+ monitor_wrap.h              |  3 ++-
+ openbsd-compat/port-linux.c | 27 ++++++++++++++++++++-------
+ openbsd-compat/port-linux.h |  4 ++--
+ platform.c                  |  4 ++--
+ platform.h                  |  2 +-
+ session.c                   | 10 +++++-----
+ session.h                   |  2 +-
+ sshd.c                      |  2 +-
+ sshpty.c                    |  4 ++--
+ sshpty.h                    |  2 +-
  16 files changed, 104 insertions(+), 31 deletions(-)
 
 diff --git a/auth.h b/auth.h

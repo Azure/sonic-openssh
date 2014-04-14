@@ -13,7 +13,7 @@ Last-Update: 2013-12-23
 
 Patch-Name: no-openssl-version-check.patch
 ---
- entropy.c |   12 ------------
+ entropy.c | 12 ------------
  1 file changed, 12 deletions(-)
 
 diff --git a/entropy.c b/entropy.c

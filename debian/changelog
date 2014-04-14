@@ -2,6 +2,8 @@ openssh (1:6.6p1-3) UNRELEASED; urgency=medium
 
   * Debconf translations:
     - French (thanks, Étienne Gilli; closes: #743242).
+  * Never signal the service supervisor with SIGSTOP more than once, to
+    prevent a hang on re-exec (thanks, Robie Basak; LP: #1306877).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2014 11:58:52 +0100
 

@@ -8,7 +8,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: doc-upstart.patch
 ---
- sshd.8 |    5 ++++-
+ sshd.8 | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/sshd.8 b/sshd.8
