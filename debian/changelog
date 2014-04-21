@@ -2,6 +2,8 @@ openssh (1:6.6p1-4) UNRELEASED; urgency=medium
 
   * Debconf translations:
     - Spanish (thanks, Matías Bellone; closes: #744867).
+  * Apply upstream-recommended patch to fix bignum encoding for
+    curve25519-sha256@libssh.org, fixing occasional key exchange failures.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Apr 2014 17:27:21 +0100
 
