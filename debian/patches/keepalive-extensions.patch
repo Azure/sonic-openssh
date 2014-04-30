@@ -20,9 +20,9 @@ Last-Update: 2013-09-14
 
 Patch-Name: keepalive-extensions.patch
 ---
- readconf.c    |   14 ++++++++++++--
- ssh_config.5  |   21 +++++++++++++++++++--
- sshd_config.5 |    3 +++
+ readconf.c    | 14 ++++++++++++--
+ ssh_config.5  | 21 +++++++++++++++++++--
+ sshd_config.5 |  3 +++
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c

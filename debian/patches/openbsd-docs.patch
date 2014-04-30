@@ -14,11 +14,11 @@ Last-Update: 2013-09-14
 
 Patch-Name: openbsd-docs.patch
 ---
- moduli.5      |    4 ++--
- ssh-keygen.1  |   12 ++++--------
- ssh.1         |    4 ++++
- sshd.8        |    5 ++---
- sshd_config.5 |    3 +--
+ moduli.5      |  4 ++--
+ ssh-keygen.1  | 12 ++++--------
+ ssh.1         |  4 ++++
+ sshd.8        |  5 ++---
+ sshd_config.5 |  3 +--
  5 files changed, 13 insertions(+), 15 deletions(-)
 
 diff --git a/moduli.5 b/moduli.5

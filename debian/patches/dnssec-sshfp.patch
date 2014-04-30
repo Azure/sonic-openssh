@@ -12,9 +12,9 @@ Last-Update: 2010-04-06
 
 Patch-Name: dnssec-sshfp.patch
 ---
- dns.c                           |   14 +++++++++++++-
- openbsd-compat/getrrsetbyname.c |   10 +++++-----
- openbsd-compat/getrrsetbyname.h |    3 +++
+ dns.c                           | 14 +++++++++++++-
+ openbsd-compat/getrrsetbyname.c | 10 +++++-----
+ openbsd-compat/getrrsetbyname.h |  3 +++
  3 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/dns.c b/dns.c

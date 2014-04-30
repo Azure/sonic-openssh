@@ -8,17 +8,17 @@ Last-Updated: 2014-03-20
 
 Patch-Name: consolekit.patch
 ---
- Makefile.in    |    3 +-
- configure      |  132 +++++++++++++++++++++++++++++++
- configure.ac   |   25 ++++++
- consolekit.c   |  240 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- consolekit.h   |   24 ++++++
- monitor.c      |   42 ++++++++++
- monitor.h      |    2 +
- monitor_wrap.c |   30 +++++++
- monitor_wrap.h |    4 +
- session.c      |   13 +++
- session.h      |    6 ++
+ Makefile.in    |   3 +-
+ configure      | 132 +++++++++++++++++++++++++++++++
+ configure.ac   |  25 ++++++
+ consolekit.c   | 240 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ consolekit.h   |  24 ++++++
+ monitor.c      |  42 ++++++++++
+ monitor.h      |   2 +
+ monitor_wrap.c |  30 ++++++++
+ monitor_wrap.h |   4 +
+ session.c      |  13 ++++
+ session.h      |   6 ++
  11 files changed, 520 insertions(+), 1 deletion(-)
  create mode 100644 consolekit.c
  create mode 100644 consolekit.h

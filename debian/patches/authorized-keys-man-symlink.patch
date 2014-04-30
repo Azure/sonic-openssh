@@ -9,7 +9,7 @@ Last-Update: 2013-09-14
 
 Patch-Name: authorized-keys-man-symlink.patch
 ---
- Makefile.in |    1 +
+ Makefile.in | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/Makefile.in b/Makefile.in

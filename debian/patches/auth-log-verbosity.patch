@@ -9,10 +9,10 @@ Last-Update: 2013-09-14
 
 Patch-Name: auth-log-verbosity.patch
 ---
- auth-options.c |   35 ++++++++++++++++++++++++++---------
- auth-options.h |    1 +
- auth-rsa.c     |    2 ++
- auth2-pubkey.c |    3 +++
+ auth-options.c | 35 ++++++++++++++++++++++++++---------
+ auth-options.h |  1 +
+ auth-rsa.c     |  2 ++
+ auth2-pubkey.c |  3 +++
  4 files changed, 32 insertions(+), 9 deletions(-)
 
 diff --git a/auth-options.c b/auth-options.c

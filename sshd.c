@@ -1931,9 +1931,15 @@ main(int ac, char **av)
 			}
 		}
 
-		if (getenv("SSH_SIGSTOP"))
+		if (getenv("SSH_SIGSTOP")) {
 			/* Tell service supervisor that we are ready. */
 			kill(getpid(), SIGSTOP);
+			/* The service supervisor only ever expects a single
+			 * STOP signal, so do not ever signal it again, even
+			 * in the case of a re-exec or future children.
+			 */
+			unsetenv("SSH_SIGSTOP");
+		}
 
 		/* Accept a connection and return in a forked child */
 		server_accept_loop(&sock_in, &sock_out,
@@ -2527,6 +2533,9 @@ do_ssh2_kex(void)
 	}
 	if (options.kex_algorithms != NULL)
 		myproposal[PROPOSAL_KEX_ALGS] = options.kex_algorithms;
+
+	myproposal[PROPOSAL_KEX_ALGS] = compat_kex_proposal(
+	    myproposal[PROPOSAL_KEX_ALGS]);
 
 	if (options.rekey_limit || options.rekey_interval)
 		packet_set_rekey_limits((u_int32_t)options.rekey_limit,

@@ -8,7 +8,7 @@ Last-Update: 2010-02-27
 
 Patch-Name: helpful-wait-terminate.patch
 ---
- serverloop.c |    2 +-
+ serverloop.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/serverloop.c b/serverloop.c

@@ -17,14 +17,14 @@ Last-Update: 2013-09-14
 
 Patch-Name: user-group-modes.patch
 ---
- auth-rhosts.c |    6 ++---
- auth.c        |    9 +++-----
- misc.c        |   69 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
- misc.h        |    2 ++
- platform.c    |   16 -------------
- readconf.c    |    5 +++--
- ssh.1         |    2 ++
- ssh_config.5  |    2 ++
+ auth-rhosts.c |  6 ++----
+ auth.c        |  9 +++-----
+ misc.c        | 69 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ misc.h        |  2 ++
+ platform.c    | 16 --------------
+ readconf.c    |  5 +++--
+ ssh.1         |  2 ++
+ ssh_config.5  |  2 ++
  8 files changed, 82 insertions(+), 29 deletions(-)
 
 diff --git a/auth-rhosts.c b/auth-rhosts.c
