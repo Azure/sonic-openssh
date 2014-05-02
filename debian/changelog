@@ -1,9 +1,9 @@
-openssh (1:6.2p2-6ubuntu0.5) UNRELEASED; urgency=medium
+openssh (1:6.2p2-6ubuntu0.5) saucy; urgency=medium
 
   * Force ssh-agent Upstart job to use sh syntax regardless of the user's
     shell (thanks, Steffen Stempel; LP: #1312928).
 
- -- Colin Watson <cjwatson@ubuntu.com>  Fri, 02 May 2014 09:52:21 +0100
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 02 May 2014 09:53:07 +0100
 
 openssh (1:6.2p2-6ubuntu0.4) saucy; urgency=medium
 
