@@ -1,3 +1,12 @@
+openssh (1:6.2p2-6ubuntu0.2) saucy-security; urgency=medium
+
+  * SECURITY UPDATE: AcceptEnv wildcard environment restrictions bypass
+    - debian/patches/CVE-2014-2532.patch: don't allow invalid chars in
+      session.c.
+    - CVE-2014-2532
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Fri, 21 Mar 2014 10:58:07 -0400
+
 openssh (1:6.2p2-6ubuntu0.1) saucy-security; urgency=low
 
   * SECURITY UPDATE: code execution via memory corruption when using an

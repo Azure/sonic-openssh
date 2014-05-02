@@ -966,6 +966,11 @@ child_set_env(char ***envp, u_int *envsizep, const char *name,
 		*envsizep = 1;
 	}
 
+	if (strchr(name, '=') != NULL) {
+		error("Invalid environment variable \"%.100s\"", name);
+		return;
+	}
+
 	/*
 	 * Find the slot where the value should be stored.  If the variable
 	 * already exists, we reuse the slot; otherwise we append a new slot
@@ -2194,8 +2199,8 @@ session_env_req(Session *s)
 	char *name, *val;
 	u_int name_len, val_len, i;
 
-	name = packet_get_string(&name_len);
-	val = packet_get_string(&val_len);
+	name = packet_get_cstring(&name_len);
+	val = packet_get_cstring(&val_len);
 	packet_check_eom();
 
 	/* Don't set too many environment variables */
