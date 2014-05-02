@@ -1,3 +1,12 @@
+openssh (1:6.2p2-6ubuntu0.3) saucy-security; urgency=medium
+
+  * SECURITY UPDATE: failure to check SSHFP records if server presents a
+    certificate
+    - debian/patches/CVE-2014-2653.patch: fix logic in sshconnect.c.
+    - CVE-2014-2653
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 07 Apr 2014 09:32:06 -0400
+
 openssh (1:6.2p2-6ubuntu0.2) saucy-security; urgency=medium
 
   * SECURITY UPDATE: AcceptEnv wildcard environment restrictions bypass
