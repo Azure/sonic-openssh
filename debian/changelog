@@ -1,11 +1,12 @@
-openssh (1:6.6p1-3) UNRELEASED; urgency=medium
+openssh (1:6.6p1-2ubuntu1) trusty; urgency=medium
 
+  * Upload from Debian git repository to fix a release-critical bug.
   * Debconf translations:
     - French (thanks, Étienne Gilli; closes: #743242).
   * Never signal the service supervisor with SIGSTOP more than once, to
     prevent a hang on re-exec (thanks, Robie Basak; LP: #1306877).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 01 Apr 2014 11:58:52 +0100
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 14 Apr 2014 12:20:48 +0100
 
 openssh (1:6.6p1-2) unstable; urgency=medium
 
