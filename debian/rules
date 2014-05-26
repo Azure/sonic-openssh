@@ -200,7 +200,14 @@ override_dh_systemd_enable:
 override_dh_installinit:
 	dh_installinit -R --name ssh
 
-override_dh_installpam:
+debian/openssh-server.sshd.pam: debian/openssh-server.sshd.pam.in
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	sed 's/^@IF_KEYINIT@//' $< > $@
+else
+	sed '/^@IF_KEYINIT@/d' $< > $@
+endif
+
+override_dh_installpam: debian/openssh-server.sshd.pam
 	dh_installpam --name sshd
 
 override_dh_fixperms:

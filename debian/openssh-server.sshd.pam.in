@@ -21,8 +21,8 @@ session [success=ok ignore=ignore module_unknown=ignore default=bad]        pam_
 # Set the loginuid process attribute.
 session    required     pam_loginuid.so
 
-# Create a new session keyring.
-session    optional     pam_keyinit.so force revoke
+@IF_KEYINIT@# Create a new session keyring.
+@IF_KEYINIT@session    optional     pam_keyinit.so force revoke
 
 # Standard Un*x session setup and teardown.
 @include common-session
