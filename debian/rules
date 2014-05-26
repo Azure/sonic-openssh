@@ -61,6 +61,7 @@ endif
 
 # Common path configuration.
 confflags += --sysconfdir=/etc/ssh
+confflags += --libexecdir=\$${prefix}/lib/openssh
 
 # Common build options.
 confflags += --disable-strip
