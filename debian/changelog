@@ -1,8 +1,8 @@
-openssh (1:6.0p1-4+deb7u2) UNRELEASED; urgency=medium
+openssh (1:6.0p1-4+deb7u2) stable; urgency=medium
 
   * Restore patch to disable OpenSSL version check (closes: #749472).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 28 Jun 2014 14:24:59 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 28 Jun 2014 14:27:46 +0100
 
 openssh (1:6.0p1-4+deb7u1) stable-security; urgency=high
 
