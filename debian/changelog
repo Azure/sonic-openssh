@@ -2,6 +2,8 @@ openssh (1:6.6p1-6) UNRELEASED; urgency=medium
 
   * Upgrade to debhelper v9.
   * Only use pam_keyinit on Linux architectures (closes: #747245).
+  * Make get_config_option more robust against trailing whitespace (thanks,
+    LaMont Jones).
   * Debconf translations:
     - Czech (thanks, Michal Šimůnek; closes: #751419).
 

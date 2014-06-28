@@ -16,7 +16,9 @@ get_config_option() {
 	[ -f /etc/ssh/sshd_config ] || return
 
 	# TODO: actually only one '=' allowed after option
-	perl -lne 's/\s+/ /g; print if s/^\s*'"$option"'[[:space:]=]+//i' \
+	perl -lne '
+		s/[[:space:]]+/ /g; s/[[:space:]]+$//;
+		print if s/^[[:space:]]*'"$option"'[[:space:]=]+//i' \
 	   /etc/ssh/sshd_config
 }
 
