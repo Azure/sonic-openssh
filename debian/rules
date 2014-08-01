@@ -168,24 +168,11 @@ override_dh_install:
 	dh_install -popenssh-client-udeb -popenssh-server-udeb \
 		--sourcedir=build-udeb
 
-	install -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
-
-	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
-	install -o root -g root -m 644 debian/openssh-server.ufw.profile debian/openssh-server/etc/ufw/applications.d/openssh-server
-
 	# Remove version control tags to avoid unnecessary conffile
 	# resolution steps for administrators.
 	sed -i '/\$$OpenBSD:/d' \
 		debian/openssh-client/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
-
-	# dh_apport would be neater, but at the time of writing it isn't in
-	# unstable yet.
-	install -p -m 644 debian/openssh-client.apport debian/openssh-client/usr/share/apport/package-hooks/openssh-client.py
-	install -p -m 644 debian/openssh-server.apport debian/openssh-server/usr/share/apport/package-hooks/openssh-server.py
-
-	# Upstart user job (only used under user sessions)
-	install -p -m 644 -D debian/ssh-agent.user-session.upstart debian/openssh-client/usr/share/upstart/sessions/ssh-agent.conf
 
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server -Nssh
