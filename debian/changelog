@@ -3,6 +3,8 @@ openssh (1:6.6p1-7) UNRELEASED; urgency=medium
   * Make sure that DEB_HOST_ARCH is set, even when invoking debian/rules
     directly.
   * Use dh-exec to simplify override_dh_install target.
+  * Debconf translations:
+    - Turkish (thanks, Mert Dirik; closes: #756757).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 20 Jul 2014 21:42:58 +0100
 
