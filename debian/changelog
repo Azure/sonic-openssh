@@ -4,6 +4,8 @@ openssh (1:6.6p1-7) UNRELEASED; urgency=medium
     directly.
   * Use dh-exec to simplify override_dh_install target.
   * Remove several unnecessary entries in debian/*.dirs.
+  * Pass noupdate to the second call to pam_motd, not the first (thanks, Ken
+    T Takusagawa; closes: #757059).
   * Debconf translations:
     - Turkish (thanks, Mert Dirik; closes: #756757).
 
