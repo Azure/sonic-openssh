@@ -2,6 +2,8 @@ openssh (1:6.6p1-8) UNRELEASED; urgency=medium
 
   * Make the if-up hook use "reload" rather than "restart" if the system was
     booted using systemd (closes: #756547).
+  * Show fingerprints of new keys after creating them in the postinst
+    (closes: #762128).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 13 Aug 2014 00:59:23 +0100
 
