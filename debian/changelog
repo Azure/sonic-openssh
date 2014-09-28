@@ -4,6 +4,7 @@ openssh (1:6.6p1-8) UNRELEASED; urgency=medium
     booted using systemd (closes: #756547).
   * Show fingerprints of new keys after creating them in the postinst
     (closes: #762128).
+  * Policy version 3.9.6: no changes required.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 13 Aug 2014 00:59:23 +0100
 
