@@ -101,6 +101,7 @@ Description: secure shell (SSH) sftp server module, for SFTP access from remote 
 Package: ssh
 Priority: extra
 Architecture: all
+Pre-Depends: dpkg (>= 1.17.5)
 Depends: ${misc:Depends}, openssh-client (>= ${binary:Version}), openssh-server (>= ${binary:Version})
 Description: secure shell client and server (metapackage)
  This metapackage is a convenient way to install both the OpenSSH client
