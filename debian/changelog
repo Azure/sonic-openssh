@@ -2,6 +2,7 @@ openssh (1:6.6p1-9) UNRELEASED; urgency=medium
 
   * Build-depend on a new enough dpkg-dev for dpkg-buildflags, rather than
     simply a new enough dpkg.
+  * Simplify debian/rules using /usr/share/dpkg/buildflags.mk.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 06 Oct 2014 13:42:36 +0100
 
