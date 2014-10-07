@@ -1,5 +1,46 @@
-openssh (1:6.6p1-9) UNRELEASED; urgency=medium
+openssh (1:6.7p1-1) UNRELEASED; urgency=medium
 
+  * New upstream release (http://www.openssh.com/txt/release-6.7):
+    - sshd(8): The default set of ciphers and MACs has been altered to
+      remove unsafe algorithms.  In particular, CBC ciphers and arcfour* are
+      disabled by default.  The full set of algorithms remains available if
+      configured explicitly via the Ciphers and MACs sshd_config options.
+    - ssh(1), sshd(8): Add support for Unix domain socket forwarding.  A
+      remote TCP port may be forwarded to a local Unix domain socket and
+      vice versa or both ends may be a Unix domain socket (closes: #236718).
+    - ssh(1), ssh-keygen(1): Add support for SSHFP DNS records for ED25519
+      key types.
+    - sftp(1): Allow resumption of interrupted uploads.
+    - ssh(1): When rekeying, skip file/DNS lookups of the hostkey if it is
+      the same as the one sent during initial key exchange.
+    - sshd(8): Allow explicit ::1 and 127.0.0.1 forwarding bind addresses
+      when GatewayPorts=no; allows client to choose address family.
+    - sshd(8): Add a sshd_config PermitUserRC option to control whether
+      ~/.ssh/rc is executed, mirroring the no-user-rc authorized_keys
+      option.
+    - ssh(1): Add a %C escape sequence for LocalCommand and ControlPath that
+      expands to a unique identifer based on a hash of the tuple of (local
+      host, remote user, hostname, port).  Helps avoid exceeding miserly
+      pathname limits for Unix domain sockets in multiplexing control paths.
+    - sshd(8): Make the "Too many authentication failures" message include
+      the user, source address, port and protocol in a format similar to the
+      authentication success / failure messages.
+    - Use CLOCK_BOOTTIME in preference to CLOCK_MONOTONIC when it is
+      available. It considers time spent suspended, thereby ensuring
+      timeouts (e.g. for expiring agent keys) fire correctly (closes:
+      #734553).
+    - Use prctl() to prevent sftp-server from accessing
+      /proc/self/{mem,maps}.
+  * Restore TCP wrappers support, removed upstream in 6.7.  It is true that
+    dropping this reduces preauth attack surface in sshd.  On the other
+    hand, this support seems to be quite widely used, and abruptly dropping
+    it (from the perspective of users who don't read openssh-unix-dev) could
+    easily cause more serious problems in practice.  It's not entirely clear
+    what the right long-term answer for Debian is, but it at least probably
+    doesn't involve dropping this feature shortly before a freeze.
+  * Replace patch to disable OpenSSL version check with an updated version
+    of Kurt Roeckx's patch from #732940 to just avoid checking the status
+    field.
   * Build-depend on a new enough dpkg-dev for dpkg-buildflags, rather than
     simply a new enough dpkg.
   * Simplify debian/rules using /usr/share/dpkg/buildflags.mk.

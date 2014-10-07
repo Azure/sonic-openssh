@@ -1,4 +1,4 @@
-From 283322f493ee7dc75511f6cf9e9b88e536de0874 Mon Sep 17 00:00:00 2001
+From 1ecd5db58295874d8b9a7ce98fe1880ab08fbcaf Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:02 +0000
 Subject: Quieten logs when multiple from= restrictions are used
@@ -16,7 +16,7 @@ Patch-Name: auth-log-verbosity.patch
  4 files changed, 32 insertions(+), 9 deletions(-)
 
 diff --git a/auth-options.c b/auth-options.c
-index fa209ea..df61330 100644
+index f3d9c9d..d4d22d7 100644
 --- a/auth-options.c
 +++ b/auth-options.c
 @@ -54,9 +54,20 @@ int forced_tun_device = -1;
@@ -58,7 +58,7 @@ index fa209ea..df61330 100644
  				auth_debug_add("Your host '%.200s' is not "
  				    "permitted to use this key for login.",
  				    remote_host);
-@@ -510,11 +524,14 @@ parse_option_list(u_char *optblob, size_t optblob_len, struct passwd *pw,
+@@ -511,11 +525,14 @@ parse_option_list(u_char *optblob, size_t optblob_len, struct passwd *pw,
  					break;
  				case 0:
  					/* no match */
@@ -91,10 +91,10 @@ index 7455c94..a3f0a02 100644
  void	auth_clear_options(void);
  int	auth_cert_options(Key *, struct passwd *);
 diff --git a/auth-rsa.c b/auth-rsa.c
-index 5dad6c3..260ce2f 100644
+index e9f4ede..5d7bdcb 100644
 --- a/auth-rsa.c
 +++ b/auth-rsa.c
-@@ -178,6 +178,8 @@ rsa_key_allowed_in_file(struct passwd *pw, char *file,
+@@ -179,6 +179,8 @@ rsa_key_allowed_in_file(struct passwd *pw, char *file,
  	if ((f = auth_openkeyfile(file, pw, options.strict_modes)) == NULL)
  		return 0;
  
@@ -104,10 +104,10 @@ index 5dad6c3..260ce2f 100644
  	 * Go though the accepted keys, looking for the current key.  If
  	 * found, perform a challenge-response dialog to verify that the
 diff --git a/auth2-pubkey.c b/auth2-pubkey.c
-index 0fd27bb..7c56927 100644
+index f3ca965..f78b046 100644
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
-@@ -263,6 +263,7 @@ match_principals_file(char *file, struct passwd *pw, struct KeyCert *cert)
+@@ -263,6 +263,7 @@ match_principals_file(char *file, struct passwd *pw, struct sshkey_cert *cert)
  		restore_uid();
  		return 0;
  	}

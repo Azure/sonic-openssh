@@ -43,6 +43,8 @@
 #include <openssl/crypto.h>
 #include <openssl/err.h>
 
+#include "openbsd-compat/openssl-compat.h"
+
 #include "ssh.h"
 #include "misc.h"
 #include "xmalloc.h"
@@ -209,6 +211,9 @@ seed_rng(void)
 #ifndef OPENSSL_PRNG_ONLY
 	unsigned char buf[RANDOM_SEED_SIZE];
 #endif
+	if (!ssh_compatible_openssl(OPENSSL_VERSION_NUMBER, SSLeay()))
+		fatal("OpenSSL version mismatch. Built against %lx, you "
+		    "have %lx", (u_long)OPENSSL_VERSION_NUMBER, SSLeay());
 
 #ifndef OPENSSL_PRNG_ONLY
 	if (RAND_status() == 1) {

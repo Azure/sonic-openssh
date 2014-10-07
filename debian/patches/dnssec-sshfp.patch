@@ -1,4 +1,4 @@
-From 912129ba92bea401d8cdeadc7aa7084fbf7625a1 Mon Sep 17 00:00:00 2001
+From 4ac9937c1d9f1901ab0694114d76e59a138aae96 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:01 +0000
 Subject: Force use of DNSSEC even if "options edns0" isn't in resolv.conf
@@ -18,10 +18,10 @@ Patch-Name: dnssec-sshfp.patch
  3 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/dns.c b/dns.c
-index 630b97a..478c3d9 100644
+index c4d073c..e5872c1 100644
 --- a/dns.c
 +++ b/dns.c
-@@ -196,6 +196,7 @@ verify_host_key_dns(const char *hostname, struct sockaddr *address,
+@@ -203,6 +203,7 @@ verify_host_key_dns(const char *hostname, struct sockaddr *address,
  {
  	u_int counter;
  	int result;
@@ -29,7 +29,7 @@ index 630b97a..478c3d9 100644
  	struct rrsetinfo *fingerprints = NULL;
  
  	u_int8_t hostkey_algorithm;
-@@ -219,8 +220,19 @@ verify_host_key_dns(const char *hostname, struct sockaddr *address,
+@@ -226,8 +227,19 @@ verify_host_key_dns(const char *hostname, struct sockaddr *address,
  		return -1;
  	}
  

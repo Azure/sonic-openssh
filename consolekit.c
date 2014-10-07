@@ -53,6 +53,7 @@
 #include "hostfile.h"
 #include "auth.h"
 #include "log.h"
+#include "misc.h"
 #include "servconf.h"
 #include "canohost.h"
 #include "session.h"

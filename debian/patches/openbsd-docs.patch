@@ -1,4 +1,4 @@
-From ec9bfd62211fdf5a3004ef2045c2eb3baccfd375 Mon Sep 17 00:00:00 2001
+From 0b9407d3023938b02bccf7dd1874a871d0cc8eb5 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -10,7 +10,7 @@ No single bug reference for this patch, but history includes:
  https://bugs.launchpad.net/bugs/456660 (ssl(8))
 
 Forwarded: not-needed
-Last-Update: 2013-09-14
+Last-Update: 2014-10-07
 
 Patch-Name: openbsd-docs.patch
 ---
@@ -44,7 +44,7 @@ index ef0de08..149846c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 12e00d4..a71de74 100644
+index 723a016..79b948c 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -172,9 +172,7 @@ key in
@@ -88,10 +88,10 @@ index 12e00d4..a71de74 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index ff5e6ac..67b4f44 100644
+index 7f6ab77..de178cd 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -763,6 +763,10 @@ Protocol 1 is restricted to using only RSA keys,
+@@ -753,6 +753,10 @@ Protocol 1 is restricted to using only RSA keys,
  but protocol 2 may use any.
  The HISTORY section of
  .Xr ssl 8
@@ -103,10 +103,10 @@ index ff5e6ac..67b4f44 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index e6a900b..b016e90 100644
+index eaeac45..3538208 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -70,7 +70,7 @@ over an insecure network.
+@@ -67,7 +67,7 @@ over an insecure network.
  .Nm
  listens for connections from clients.
  It is normally started at boot from
@@ -133,14 +133,14 @@ index e6a900b..b016e90 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 8f078f6..908e0bb 100644
+index 58997d3..7396b23 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -283,8 +283,7 @@ This option is only available for protocol version 2.
+@@ -303,8 +303,7 @@ This option is only available for protocol version 2.
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via
--PAM or though authentication styles supported in
+-PAM or through authentication styles supported in
 -.Xr login.conf 5 )
 +PAM).
  The default is

@@ -1,4 +1,4 @@
-From 77638f6662ecd8500e1b97e537233b1277ca829f Mon Sep 17 00:00:00 2001
+From 28ea747089f695e58a476a2849133402d4f86b92 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -28,7 +28,7 @@ Patch-Name: user-group-modes.patch
  8 files changed, 82 insertions(+), 29 deletions(-)
 
 diff --git a/auth-rhosts.c b/auth-rhosts.c
-index 06ae7f0..f202787 100644
+index b5bedee..11fcca6 100644
 --- a/auth-rhosts.c
 +++ b/auth-rhosts.c
 @@ -256,8 +256,7 @@ auth_rhosts2_raw(struct passwd *pw, const char *client_user, const char *hostnam
@@ -52,10 +52,10 @@ index 06ae7f0..f202787 100644
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
 diff --git a/auth.c b/auth.c
-index 9a36f1d..0c45f09 100644
+index 5e60682..18de51a 100644
 --- a/auth.c
 +++ b/auth.c
-@@ -407,8 +407,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
+@@ -421,8 +421,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -65,7 +65,7 @@ index 9a36f1d..0c45f09 100644
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -470,8 +469,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -484,8 +483,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
  		snprintf(err, errlen, "%s is not a regular file", buf);
  		return -1;
  	}
@@ -75,7 +75,7 @@ index 9a36f1d..0c45f09 100644
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -486,8 +484,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -500,8 +498,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) < 0 ||
@@ -86,10 +86,10 @@ index 9a36f1d..0c45f09 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.c b/misc.c
-index e4c8c32..4e756b0 100644
+index 94b05b0..c25ccd8 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -49,8 +49,9 @@
+@@ -50,8 +50,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -100,7 +100,7 @@ index e4c8c32..4e756b0 100644
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -59,6 +60,7 @@
+@@ -60,6 +61,7 @@
  #include "misc.h"
  #include "log.h"
  #include "ssh.h"
@@ -108,7 +108,7 @@ index e4c8c32..4e756b0 100644
  
  /* remove newline at end of string */
  char *
-@@ -643,6 +645,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
+@@ -644,6 +646,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
  	return -1;
  }
  
@@ -181,10 +181,10 @@ index e4c8c32..4e756b0 100644
  tun_open(int tun, int mode)
  {
 diff --git a/misc.h b/misc.h
-index d4df619..ceb173b 100644
+index 374c33c..89e1f75 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -106,4 +106,6 @@ char	*read_passphrase(const char *, int);
+@@ -135,4 +135,6 @@ char	*read_passphrase(const char *, int);
  int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
  int	 read_keyfile_line(FILE *, const char *, char *, size_t, u_long *);
  
@@ -192,10 +192,10 @@ index d4df619..ceb173b 100644
 +
  #endif /* _MISC_H */
 diff --git a/platform.c b/platform.c
-index 4aab9a9..f99de7f 100644
+index f35ec39..9a23e6e 100644
 --- a/platform.c
 +++ b/platform.c
-@@ -196,19 +196,3 @@ platform_krb5_get_principal_name(const char *pw_name)
+@@ -197,19 +197,3 @@ platform_krb5_get_principal_name(const char *pw_name)
  	return NULL;
  #endif
  }
@@ -216,10 +216,10 @@ index 4aab9a9..f99de7f 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index 6409937..32c4b42 100644
+index 337818c..0648867 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -37,6 +37,8 @@
+@@ -38,6 +38,8 @@
  #include <stdio.h>
  #include <string.h>
  #include <unistd.h>
@@ -228,7 +228,7 @@ index 6409937..32c4b42 100644
  #ifdef HAVE_UTIL_H
  #include <util.h>
  #endif
-@@ -1477,8 +1479,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
+@@ -1516,8 +1518,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -239,10 +239,10 @@ index 6409937..32c4b42 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 27794e2..ff5e6ac 100644
+index fa5cfb2..7f6ab77 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1352,6 +1352,8 @@ The file format and configuration options are described in
+@@ -1342,6 +1342,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -252,10 +252,10 @@ index 27794e2..ff5e6ac 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 3172fd4..4bf7cbb 100644
+index ea92ea8..d68b45a 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1529,6 +1529,8 @@ The format of this file is described above.
+@@ -1587,6 +1587,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

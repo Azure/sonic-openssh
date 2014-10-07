@@ -42,6 +42,7 @@
 #include "dh.h"
 #include "ssh-gss.h"
 #include "monitor_wrap.h"
+#include "misc.h"
 #include "servconf.h"
 
 extern ServerOptions options;
