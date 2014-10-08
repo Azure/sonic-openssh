@@ -145,13 +145,22 @@ override_dh_auto_build:
 
 override_dh_auto_test:
 ifeq ($(RUN_TESTS),yes)
-	$(MAKE) -C debian/tests
+	$(MAKE) -C build-deb regress-prep
+	$(MAKE) -C build-deb $(PARALLEL) \
+		regress/unittests/sshbuf/test_sshbuf \
+		regress/unittests/sshkey/test_sshkey
+	$(MAKE) -C build-deb/regress \
+		.OBJDIR="$(CURDIR)/build-deb/regress" \
+		.CURDIR="$(CURDIR)/regress" \
+		unit
+	$(MAKE) -C build-deb compat-tests
+	$(MAKE) -C debian/keygen-test
 endif
 
 override_dh_auto_clean:
 	rm -rf build-deb build-udeb
 ifeq ($(RUN_TESTS),yes)
-	$(MAKE) -C debian/tests clean
+	$(MAKE) -C debian/keygen-test clean
 endif
 	$(MAKE) -C contrib clean
 	(cat debian/copyright.head; iconv -f ISO-8859-1 -t UTF-8 LICENCE) \

@@ -46,6 +46,8 @@ openssh (1:6.7p1-1) UNRELEASED; urgency=medium
   * Simplify debian/rules using /usr/share/dpkg/buildflags.mk.
   * Use Package-Type rather than XC-Package-Type, now that it is an official
     field.
+  * Run a subset of the upstream regression test suite at package build
+    time, and the rest of it under autopkgtest.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 06 Oct 2014 13:42:36 +0100
 

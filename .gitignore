@@ -35,6 +35,10 @@ debian/*.debhelper*
 debian/*substvars
 debian/copyright
 debian/files
+debian/keygen-test/key1
+debian/keygen-test/key1.pub
+debian/keygen-test/key2
+debian/keygen-test/key2.pub
 debian/openssh-client
 debian/openssh-client-udeb
 debian/openssh-server
@@ -42,8 +46,4 @@ debian/openssh-server-udeb
 debian/ssh
 debian/ssh-askpass-gnome
 debian/ssh-krb5
-debian/tests/key1
-debian/tests/key1.pub
-debian/tests/key2
-debian/tests/key2.pub
 debian/tmp
