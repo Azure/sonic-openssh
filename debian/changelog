@@ -19,7 +19,7 @@ openssh (1:6.7p1-1) unstable; urgency=medium
       ~/.ssh/rc is executed, mirroring the no-user-rc authorized_keys
       option.
     - ssh(1): Add a %C escape sequence for LocalCommand and ControlPath that
-      expands to a unique identifer based on a hash of the tuple of (local
+      expands to a unique identifier based on a hash of the tuple of (local
       host, remote user, hostname, port).  Helps avoid exceeding miserly
       pathname limits for Unix domain sockets in multiplexing control paths.
     - sshd(8): Make the "Too many authentication failures" message include
