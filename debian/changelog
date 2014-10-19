@@ -1,3 +1,10 @@
+openssh (1:6.7p1-3) UNRELEASED; urgency=medium
+
+  * Debconf translations:
+    - Dutch (thanks, Frans Spiesschaert; closes: #765851).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 19 Oct 2014 06:07:21 +0100
+
 openssh (1:6.7p1-2) unstable; urgency=medium
 
   * debian/tests/control: Drop isolation-container, since the tests run on a
