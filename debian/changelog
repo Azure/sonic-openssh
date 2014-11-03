@@ -1,11 +1,11 @@
-openssh (1:6.7p1-3) UNRELEASED; urgency=medium
+openssh (1:6.7p1-3) unstable; urgency=medium
 
   * Debconf translations:
     - Dutch (thanks, Frans Spiesschaert; closes: #765851).
   * Assume that dpkg-statoverride exists and drop the test for an obsolete
     compatibility path.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 19 Oct 2014 06:07:21 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 03 Nov 2014 20:29:52 +0000
 
 openssh (1:6.7p1-2) unstable; urgency=medium
 
