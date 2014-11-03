@@ -2,6 +2,8 @@ openssh (1:6.7p1-3) UNRELEASED; urgency=medium
 
   * Debconf translations:
     - Dutch (thanks, Frans Spiesschaert; closes: #765851).
+  * Assume that dpkg-statoverride exists and drop the test for an obsolete
+    compatibility path.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 19 Oct 2014 06:07:21 +0100
 
