@@ -75,7 +75,11 @@ following:
 .It
 .Cm PrintMotd No no
 .It
-.Cm AcceptEnv No LANG LC_*
+.Cm AcceptEnv No LANG Xo
+.No LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT
+.No LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME
+.No LC_ALL
+.Xc
 .It
 .Cm Subsystem No sftp /usr/lib/openssh/sftp-server
 .It

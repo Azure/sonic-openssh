@@ -80,7 +80,11 @@ which are not the default in
 .Pp
 .Bl -bullet -offset indent -compact
 .It
-.Cm SendEnv No LANG LC_*
+.Cm SendEnv No LANG Xo
+.No LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT
+.No LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME
+.No LC_ALL
+.Xc
 .It
 .Cm HashKnownHosts No yes
 .It
