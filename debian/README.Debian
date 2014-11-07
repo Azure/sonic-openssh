@@ -224,6 +224,11 @@ MaxConnections cannot quite replace this as it cannot distinguish between
 authenticated and unauthenticated connections; see
 https://bugzilla.redhat.com/show_bug.cgi?id=963268 for more discussion.
 
+The provided ssh.socket unit file sets ListenStream=22.  If you need to have
+it listen on a different address or port, then you will need to do this by
+copying /lib/systemd/system/ssh.socket to /etc/systemd/system/ssh.socket and
+modifying the ListenStream option.  See systemd.socket(5) for details.
+
 -- 
 Matthew Vernon <matthew@debian.org>
 Colin Watson <cjwatson@debian.org>

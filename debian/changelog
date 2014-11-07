@@ -2,6 +2,8 @@ openssh (1:6.7p1-4) UNRELEASED; urgency=medium
 
   * Send/accept only specific known LC_* variables, rather than using a
     wildcard (closes: #765633).
+  * Document interactions between ListenAddress/Port and ssh.socket in
+    README.Debian (closes: #764842).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 06 Nov 2014 10:39:11 +0000
 
