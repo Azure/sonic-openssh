@@ -1,4 +1,4 @@
-openssh (1:6.7p1-4) UNRELEASED; urgency=medium
+openssh (1:6.7p1-4) unstable; urgency=medium
 
   * Send/accept only specific known LC_* variables, rather than using a
     wildcard (closes: #765633).
@@ -7,7 +7,7 @@ openssh (1:6.7p1-4) UNRELEASED; urgency=medium
   * Debconf translations:
     - Brazilian Portuguese (thanks, José de Figueiredo; closes: #771859).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 06 Nov 2014 10:39:11 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 18 Mar 2015 15:34:13 +0000
 
 openssh (1:6.7p1-3) unstable; urgency=medium
 
