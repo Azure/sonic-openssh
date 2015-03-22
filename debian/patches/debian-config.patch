@@ -1,4 +1,4 @@
-From 44f0937b56758f662ff388d474213107e3290863 Mon Sep 17 00:00:00 2001
+From 581424965d2d722a991c3247d4c0bb5950cb4fc5 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -22,16 +22,16 @@ debian/openssh-server.postinst.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2014-11-06
+Last-Update: 2015-03-22
 
 Patch-Name: debian-config.patch
 ---
  readconf.c    |  2 +-
  ssh_config    |  7 ++++++-
- ssh_config.5  | 23 ++++++++++++++++++++++-
+ ssh_config.5  | 19 ++++++++++++++++++-
  sshd_config   |  1 +
- sshd_config.5 | 29 +++++++++++++++++++++++++++++
- 5 files changed, 59 insertions(+), 3 deletions(-)
+ sshd_config.5 | 25 +++++++++++++++++++++++++
+ 5 files changed, 51 insertions(+), 3 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index 0648867..29338b6 100644
@@ -47,7 +47,7 @@ index 0648867..29338b6 100644
  		options->forward_x11_timeout = 1200;
  	if (options->exit_on_forward_failure == -1)
 diff --git a/ssh_config b/ssh_config
-index 228e5ab..91be1e7 100644
+index 228e5ab..c9386aa 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -66,15 +66,15 @@ index 228e5ab..91be1e7 100644
  #   VisualHostKey no
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
-+    SendEnv LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL
++    SendEnv LANG LC_*
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index a1005ba..5985769 100644
+index a1005ba..da3c177 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -71,6 +71,26 @@ Since the first obtained value for each parameter is used, more
+@@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
  host-specific declarations should be given near the beginning of the
  file, and general defaults at the end.
  .Pp
@@ -87,11 +87,7 @@ index a1005ba..5985769 100644
 +.Pp
 +.Bl -bullet -offset indent -compact
 +.It
-+.Cm SendEnv No LANG Xo
-+.No LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT
-+.No LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME
-+.No LC_ALL
-+.Xc
++.Cm SendEnv No LANG LC_*
 +.It
 +.Cm HashKnownHosts No yes
 +.It
@@ -101,7 +97,7 @@ index a1005ba..5985769 100644
  The configuration file has the following format:
  .Pp
  Empty lines and lines starting with
-@@ -673,7 +693,8 @@ token used for the session will be set to expire after 20 minutes.
+@@ -673,7 +689,8 @@ token used for the session will be set to expire after 20 minutes.
  Remote clients will be refused access after this time.
  .Pp
  The default is
@@ -124,10 +120,10 @@ index d9b8594..4db32f5 100644
  #StrictModes yes
  #MaxAuthTries 6
 diff --git a/sshd_config.5 b/sshd_config.5
-index 7396b23..09bb5fe 100644
+index 7396b23..7aa7b47 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -57,6 +57,35 @@ Arguments may optionally be enclosed in double quotes
+@@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes
  .Pq \&"
  in order to represent arguments containing spaces.
  .Pp
@@ -149,11 +145,7 @@ index 7396b23..09bb5fe 100644
 +.It
 +.Cm PrintMotd No no
 +.It
-+.Cm AcceptEnv No LANG Xo
-+.No LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT
-+.No LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME
-+.No LC_ALL
-+.Xc
++.Cm AcceptEnv No LANG LC_*
 +.It
 +.Cm Subsystem No sftp /usr/lib/openssh/sftp-server
 +.It

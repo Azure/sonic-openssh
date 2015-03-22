@@ -1,3 +1,12 @@
+openssh (1:6.7p1-5) UNRELEASED; urgency=medium
+
+  * Revert change from previous upload, which causes far more trouble than
+    it is worth (closes: #780797):
+    - Send/accept only specific known LC_* variables, rather than using a
+      wildcard.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 22 Mar 2015 23:09:32 +0000
+
 openssh (1:6.7p1-4) unstable; urgency=medium
 
   * Send/accept only specific known LC_* variables, rather than using a

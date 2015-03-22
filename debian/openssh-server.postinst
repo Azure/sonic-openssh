@@ -147,13 +147,6 @@ update_server_key_bits() {
 }
 
 
-update_accept_env() {
-	if [ "$(get_config_option AcceptEnv)" = 'LANG LC_*' ]; then
-		set_config_option AcceptEnv 'LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL'
-	fi
-}
-
-
 create_sshdconfig() {
 	if [ -e /etc/ssh/sshd_config ] ; then
 	    # Upgrade an existing sshd configuration.
@@ -173,10 +166,6 @@ create_sshdconfig() {
 	    # package-generated configuration file until now.
 	    if dpkg --compare-versions "$oldversion" lt 1:6.4p1-2; then
 		update_server_key_bits
-	    fi
-
-	    if dpkg --compare-versions "$oldversion" lt 1:6.7p1-4; then
-		update_accept_env
 	    fi
 
 	    return 0
@@ -257,7 +246,7 @@ TCPKeepAlive yes
 #Banner /etc/issue.net
 
 # Allow client to pass locale environment variables
-AcceptEnv LANG LC_ADDRESS LC_COLLATE LC_CTYPE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME LC_ALL
+AcceptEnv LANG LC_*
 
 Subsystem sftp /usr/lib/openssh/sftp-server
 
