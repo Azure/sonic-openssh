@@ -282,20 +282,20 @@ if [ "$action" = configure ]; then
 	fix_statoverride
 	setup_sshd_user
 	# Renamed to /etc/ssh/moduli in 2.9.9 (!)
-	if dpkg --compare-versions "$2" lt 1:4.7p1-1; then
+	if dpkg --compare-versions "$2" lt-nl 1:4.7p1-1; then
 	    rm -f /etc/ssh/primes
 	fi
-	if dpkg --compare-versions "$2" lt 1:5.5p1-6; then
+	if dpkg --compare-versions "$2" lt-nl 1:5.5p1-6; then
 	    rm -f /var/run/sshd/.placeholder
 	fi
-	if dpkg --compare-versions "$2" lt 1:6.2p2-3 && \
-	   which initctl >/dev/null && initctl version | grep -q upstart && \
+	if dpkg --compare-versions "$2" lt-nl 1:6.2p2-3 && \
+	   which initctl >/dev/null && initctl version 2>/dev/null | grep -q upstart && \
 	   ! status ssh 2>/dev/null | grep -q ' start/'; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under Upstart.
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
 	fi
-	if dpkg --compare-versions "$2" lt 1:6.5p1-2 && \
+	if dpkg --compare-versions "$2" lt-nl 1:6.5p1-2 && \
 	   deb-systemd-helper debian-installed ssh.socket && \
 	   deb-systemd-helper --quiet was-enabled ssh.service && \
 	   deb-systemd-helper --quiet was-enabled ssh.socket; then
@@ -303,7 +303,7 @@ if [ "$action" = configure ]; then
 	    # enabled.
 	    deb-systemd-helper disable ssh.socket >/dev/null || true
 	fi
-	if dpkg --compare-versions "$2" lt 1:6.5p1-3 && \
+	if dpkg --compare-versions "$2" lt-nl 1:6.5p1-3 && \
 	   [ -d /run/systemd/system ]; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under systemd.

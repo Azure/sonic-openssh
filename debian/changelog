@@ -1,3 +1,13 @@
+openssh (1:6.7p1-6) UNRELEASED; urgency=medium
+
+  * openssh-server.postinst: Quiesce "Unable to connect to Upstart" error
+    message from initctl if upstart is installed, but not the current init
+    system. (LP: #1440070)
+  * openssh-server.postinst: Fix version comparisons of upgrade adjustments
+    to not apply to fresh installs.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 09 Apr 2015 09:20:36 +0200
+
 openssh (1:6.7p1-5) unstable; urgency=medium
 
   * Revert change from previous upload, which causes far more trouble than
