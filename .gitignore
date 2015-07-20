@@ -33,7 +33,6 @@ contrib/gnome-ssh-askpass2
 openbsd-compat/Makefile
 debian/*.debhelper*
 debian/*substvars
-debian/copyright
 debian/files
 debian/keygen-test/key1
 debian/keygen-test/key1.pub
