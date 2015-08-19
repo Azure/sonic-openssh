@@ -64,12 +64,13 @@ openssh (1:6.9p1-1) UNRELEASED; urgency=medium
       formats.
     - ssh-keygen(1): Fix KRL generation bug when multiple CAs are in use.
   * New upstream release (http://www.openssh.com/txt/release-6.9):
-    - SECURITY: ssh(1): When forwarding X11 connections with
+    - CVE-2015-5352: ssh(1): When forwarding X11 connections with
       ForwardX11Trusted=no, connections made after ForwardX11Timeout expired
       could be permitted and no longer subject to XSECURITY restrictions
       because of an ineffective timeout check in ssh(1) coupled with "fail
       open" behaviour in the X11 server when clients attempted connections
-      with expired credentials.  This problem was reported by Jann Horn.
+      with expired credentials (closes: #790798).  This problem was reported
+      by Jann Horn.
     - SECURITY: ssh-agent(1): Fix weakness of agent locking (ssh-add -x) to
       password guessing by implementing an increasing failure delay, storing
       a salted hash of the password rather than the password itself and
