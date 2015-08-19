@@ -1,4 +1,4 @@
-From 8b3111d597316954caaf8ddf2e7746491976c248 Mon Sep 17 00:00:00 2001
+From 1197fd975ab8fd11b1ac83557ef750129b16c0d8 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:57 +0000
 Subject: Add support for registering ConsoleKit sessions on login
@@ -37,10 +37,10 @@ index 3d2a328..c406aec 100644
  MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out sshd_config.5.out ssh_config.5.out
  MANPAGES_IN	= moduli.5 scp.1 ssh-add.1 ssh-agent.1 ssh-keygen.1 ssh-keyscan.1 ssh.1 sshd.8 sftp-server.8 sftp.1 ssh-keysign.8 ssh-pkcs11-helper.8 sshd_config.5 ssh_config.5
 diff --git a/configure.ac b/configure.ac
-index 5f606ea..f7ce777 100644
+index 4d55c46..cd6acaf 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -4180,6 +4180,30 @@ AC_ARG_WITH([kerberos5],
+@@ -4188,6 +4188,30 @@ AC_ARG_WITH([kerberos5],
  AC_SUBST([GSSLIBS])
  AC_SUBST([K5LIBS])
  
@@ -71,7 +71,7 @@ index 5f606ea..f7ce777 100644
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4981,6 +5005,7 @@ echo "              MD5 password support: $MD5_MSG"
+@@ -4989,6 +5013,7 @@ echo "              MD5 password support: $MD5_MSG"
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -357,7 +357,7 @@ index 0000000..8ce3716
 +
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor.c b/monitor.c
-index 6ff05e4..ce7ba07 100644
+index 3a3d2f0..12ed6fd 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -104,6 +104,9 @@
@@ -411,7 +411,7 @@ index 6ff05e4..ce7ba07 100644
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2187,3 +2203,29 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
+@@ -2191,3 +2207,29 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
  
  #endif /* GSSAPI */
  
@@ -455,10 +455,10 @@ index 2d82b8b..fd8d92c 100644
  
  struct mm_master;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 5aa9c47..a5f4e9d 100644
+index 6ae72a0..2a0fe9b 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -1150,3 +1150,33 @@ mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *store)
+@@ -1151,3 +1151,33 @@ mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *store)
  
  #endif /* GSSAPI */
  
@@ -493,7 +493,7 @@ index 5aa9c47..a5f4e9d 100644
 +}
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 4d1e899..f99c31c 100644
+index 57e740f..6829392 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
 @@ -108,4 +108,8 @@ int mm_skey_respond(void *, u_int, char **);
@@ -506,7 +506,7 @@ index 4d1e899..f99c31c 100644
 +
  #endif /* _MM_WRAP_H_ */
 diff --git a/session.c b/session.c
-index d4b7725..785833f 100644
+index afac4a5..c6bd728 100644
 --- a/session.c
 +++ b/session.c
 @@ -94,6 +94,7 @@

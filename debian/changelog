@@ -1,4 +1,4 @@
-openssh (1:6.8p1-1) UNRELEASED; urgency=medium
+openssh (1:6.9p1-1) UNRELEASED; urgency=medium
 
   * New upstream release (http://www.openssh.com/txt/release-6.8):
     - sshd(8): UseDNS now defaults to 'no'.  Configurations that match
@@ -63,6 +63,72 @@ openssh (1:6.8p1-1) UNRELEASED; urgency=medium
     - ssh-keygen(1): Fix broken private key conversion from non-OpenSSH
       formats.
     - ssh-keygen(1): Fix KRL generation bug when multiple CAs are in use.
+  * New upstream release (http://www.openssh.com/txt/release-6.9):
+    - SECURITY: ssh(1): When forwarding X11 connections with
+      ForwardX11Trusted=no, connections made after ForwardX11Timeout expired
+      could be permitted and no longer subject to XSECURITY restrictions
+      because of an ineffective timeout check in ssh(1) coupled with "fail
+      open" behaviour in the X11 server when clients attempted connections
+      with expired credentials.  This problem was reported by Jann Horn.
+    - SECURITY: ssh-agent(1): Fix weakness of agent locking (ssh-add -x) to
+      password guessing by implementing an increasing failure delay, storing
+      a salted hash of the password rather than the password itself and
+      using a timing-safe comparison function for verifying unlock attempts.
+      This problem was reported by Ryan Castellucci.
+    - sshd(8): Support admin-specified arguments to AuthorizedKeysCommand
+      (closes: #740494).
+    - sshd(8): Add AuthorizedPrincipalsCommand that allows retrieving
+      authorized principals information from a subprocess rather than a
+      file.
+    - ssh(1), ssh-add(1): Support PKCS#11 devices with external PIN entry
+      devices.
+    - ssh-keygen(1): Support "ssh-keygen -lF hostname" to search known_hosts
+      and print key hashes rather than full keys.
+    - ssh-agent(1): Add -D flag to leave ssh-agent in foreground without
+      enabling debug mode.
+    - ssh(1), sshd(8): Deprecate legacy SSH2_MSG_KEX_DH_GEX_REQUEST_OLD
+      message and do not try to use it against some 3rd-party SSH
+      implementations that use it (older PuTTY, WinSCP).
+    - ssh(1), sshd(8): Cap DH-GEX group size at 4Kbits for Cisco
+      implementations as some would fail when attempting to use group sizes
+      >4K (closes: #740307, LP: #1287222).
+    - ssh(1): Fix out-of-bound read in EscapeChar configuration option
+      parsing.
+    - sshd(8): Fix application of PermitTunnel, LoginGraceTime,
+      AuthenticationMethods and StreamLocalBindMask options in Match blocks.
+    - ssh(1), sshd(8): Improve disconnection message on TCP reset.
+    - ssh(1): Remove failed remote forwards established by multiplexing from
+      the list of active forwards.
+    - sshd(8): Make parsing of authorized_keys "environment=" options
+      independent of PermitUserEnv being enabled.
+    - sshd(8): Fix post-auth crash with permitopen=none (closes: #778807).
+    - ssh(1), ssh-add(1), ssh-keygen(1): Allow new-format private keys to be
+      encrypted with AEAD ciphers.
+    - ssh(1): Allow ListenAddress, Port and AddressFamily configuration
+      options to appear in any order.
+    - sshd(8): Check for and reject missing arguments for VersionAddendum
+      and ForceCommand.
+    - ssh(1), sshd(8): Don't treat unknown certificate extensions as fatal.
+    - ssh-keygen(1): Make stdout and stderr output consistent.
+    - ssh(1): Mention missing DISPLAY environment in debug log when X11
+      forwarding requested.
+    - sshd(8): Correctly record login when UseLogin is set.
+    - sshd(8): Add some missing options to sshd -T output and fix output of
+      VersionAddendum and HostCertificate.
+    - Document and improve consistency of options that accept a "none"
+      argument: TrustedUserCAKeys, RevokedKeys, AuthorizedPrincipalsFile.
+    - ssh(1): Include remote username in debug output.
+    - sshd(8): Avoid compatibility problem with some versions of Tera Term,
+      which would crash when they received the hostkeys notification message
+      (hostkeys-00@openssh.com).
+    - sshd(8): Mention ssh-keygen -E as useful when comparing legacy MD5
+      host key fingerprints.
+    - ssh(1): Clarify pseudo-terminal request behaviour and make manual
+      language consistent.
+    - ssh(1): Document that the TERM environment variable is not subject to
+      SendEnv and AcceptEnv; bz#2386
+    - sshd(8): Format UsePAM setting when using sshd -T (closes: #767648).
+    - moduli(5): Update DH-GEX moduli (closes: #787037).
   * Thanks to Jakub Jelen of Red Hat for Fedora's rebased version of the
     GSSAPI key exchange patch.
 

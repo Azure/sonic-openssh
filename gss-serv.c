@@ -1,4 +1,4 @@
-/* $OpenBSD: gss-serv.c,v 1.28 2015/01/20 23:14:00 deraadt Exp $ */
+/* $OpenBSD: gss-serv.c,v 1.29 2015/05/22 03:50:02 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
@@ -49,6 +49,8 @@
 
 #include "ssh-gss.h"
 #include "monitor_wrap.h"
+
+extern ServerOptions options;
 
 extern ServerOptions options;
 
@@ -109,7 +111,7 @@ ssh_gssapi_acquire_cred(Gssctxt *ctx)
 		gss_create_empty_oid_set(&status, &oidset);
 		gss_add_oid_set_member(&status, ctx->oid, &oidset);
 
-		if (gethostname(lname, sizeof(lname))) {
+		if (gethostname(lname, MAXHOSTNAMELEN)) {
 			gss_release_oid_set(&status, &oidset);
 			return (-1);
 		}
@@ -120,7 +122,7 @@ ssh_gssapi_acquire_cred(Gssctxt *ctx)
 		}
 
 		if ((ctx->major = gss_acquire_cred(&ctx->minor,
-		    ctx->name, 0, oidset, GSS_C_ACCEPT, &ctx->creds, 
+		    ctx->name, 0, oidset, GSS_C_ACCEPT, &ctx->creds,
 		    NULL, NULL)))
 			ssh_gssapi_error(ctx);
 

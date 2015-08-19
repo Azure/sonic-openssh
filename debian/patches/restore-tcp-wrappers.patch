@@ -1,4 +1,4 @@
-From 7df209aed8ded9a6cab34e704576998786bdc890 Mon Sep 17 00:00:00 2001
+From ace4bfab52b31a2833636a243ba150fdf0f48293 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 216a9fd..5f606ea 100644
+index df21693..4d55c46 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1440,6 +1440,62 @@ AC_ARG_WITH([skey],
+@@ -1448,6 +1448,62 @@ AC_ARG_WITH([skey],
  	]
  )
  
@@ -94,7 +94,7 @@ index 216a9fd..5f606ea 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -4920,6 +4976,7 @@ echo "                 KerberosV support: $KRB5_MSG"
+@@ -4928,6 +4984,7 @@ echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
  echo "                 Smartcard support: $SCARD_MSG"
  echo "                     S/KEY support: $SKEY_MSG"
@@ -103,10 +103,10 @@ index 216a9fd..5f606ea 100644
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
 diff --git a/sshd.8 b/sshd.8
-index 3c53f7c..fc2154c 100644
+index dcf20f0..5afd10f 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -851,6 +851,12 @@ the user's home directory becomes accessible.
+@@ -853,6 +853,12 @@ the user's home directory becomes accessible.
  This file should be writable only by the user, and need not be
  readable by anyone else.
  .Pp
@@ -119,7 +119,7 @@ index 3c53f7c..fc2154c 100644
  .It Pa /etc/hosts.equiv
  This file is for host-based authentication (see
  .Xr ssh 1 ) .
-@@ -954,6 +960,7 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -956,6 +962,7 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
@@ -128,7 +128,7 @@ index 3c53f7c..fc2154c 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index cf38bae..9cbe8c4 100644
+index 6b85e6c..186ad55 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -129,6 +129,13 @@
@@ -145,7 +145,7 @@ index cf38bae..9cbe8c4 100644
  #ifndef O_NOCTTY
  #define O_NOCTTY	0
  #endif
-@@ -2133,6 +2140,24 @@ main(int ac, char **av)
+@@ -2141,6 +2148,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif
@@ -169,4 +169,4 @@ index cf38bae..9cbe8c4 100644
 +#endif /* LIBWRAP */
  
  	/* Log the connection. */
- 	verbose("Connection from %s port %d on %s port %d",
+ 	laddr = get_local_ipaddr(sock_in);

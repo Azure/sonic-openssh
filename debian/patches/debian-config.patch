@@ -1,4 +1,4 @@
-From 8698446b972003b63dfe5dcbdb86acfe986afb85 Mon Sep 17 00:00:00 2001
+From 810eecd6b2e03770f21e46b5cb8ce8c7fcd46da8 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -29,12 +29,12 @@ Patch-Name: debian-config.patch
  readconf.c    |  2 +-
  ssh_config    |  7 ++++++-
  ssh_config.5  | 19 ++++++++++++++++++-
- sshd_config   |  1 +
+ sshd_config   |  3 ++-
  sshd_config.5 | 25 +++++++++++++++++++++++++
- 5 files changed, 51 insertions(+), 3 deletions(-)
+ 5 files changed, 52 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 2ef8d7b..66a62f2 100644
+index 5f6c37f..f0769b5 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -1748,7 +1748,7 @@ fill_default_options(Options * options)
@@ -71,7 +71,7 @@ index 228e5ab..c9386aa 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 3bd80fd..da8e544 100644
+index acd581b..844d1a0 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
@@ -97,7 +97,7 @@ index 3bd80fd..da8e544 100644
  The configuration file has the following format:
  .Pp
  Empty lines and lines starting with
-@@ -715,7 +731,8 @@ token used for the session will be set to expire after 20 minutes.
+@@ -716,7 +732,8 @@ token used for the session will be set to expire after 20 minutes.
  Remote clients will be refused access after this time.
  .Pp
  The default is
@@ -108,19 +108,21 @@ index 3bd80fd..da8e544 100644
  See the X11 SECURITY extension specification for full details on
  the restrictions imposed on untrusted clients.
 diff --git a/sshd_config b/sshd_config
-index a71ad19..3391233 100644
+index 1dfd0f1..23a338f 100644
 --- a/sshd_config
 +++ b/sshd_config
-@@ -41,6 +41,7 @@
+@@ -41,7 +41,8 @@
  # Authentication:
  
  #LoginGraceTime 2m
+-#PermitRootLogin no
 +# See /usr/share/doc/openssh-server/README.Debian.gz.
- #PermitRootLogin yes
++#PermitRootLogin without-password
  #StrictModes yes
  #MaxAuthTries 6
+ #MaxSessions 10
 diff --git a/sshd_config.5 b/sshd_config.5
-index 453d741..db1f2fd 100644
+index 355b445..eb6bff8 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes

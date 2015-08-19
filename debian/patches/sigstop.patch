@@ -1,4 +1,4 @@
-From a8e779107942d044d281461c609ec29129dec51e Mon Sep 17 00:00:00 2001
+From b0b95d9689563856ac4992c90b65ed4fd8f3fae6 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:17 +0000
 Subject: Support synchronisation with service supervisor using SIGSTOP
@@ -13,10 +13,10 @@ Patch-Name: sigstop.patch
  1 file changed, 10 insertions(+)
 
 diff --git a/sshd.c b/sshd.c
-index 5435968..f8db3ae 100644
+index 7886d0e..cc8ecaf 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2030,6 +2030,16 @@ main(int ac, char **av)
+@@ -2038,6 +2038,16 @@ main(int ac, char **av)
  			}
  		}
  

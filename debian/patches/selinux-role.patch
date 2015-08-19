@@ -1,4 +1,4 @@
-From b9e97e15e25e4c836cb550213e3ee59b19096f9d Mon Sep 17 00:00:00 2001
+From 8b3e4a6ddad01fef62d153ac3b033de61a02696e Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -32,7 +32,7 @@ Patch-Name: selinux-role.patch
  16 files changed, 104 insertions(+), 31 deletions(-)
 
 diff --git a/auth.h b/auth.h
-index db86037..4985cd8 100644
+index 8b27575..3c2222f 100644
 --- a/auth.h
 +++ b/auth.h
 @@ -62,6 +62,7 @@ struct Authctxt {
@@ -113,7 +113,7 @@ index 3f49bdc..6eb3cc7 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			packet_disconnect("no authentication methods enabled");
 diff --git a/monitor.c b/monitor.c
-index a2027e5..6ff05e4 100644
+index bdc2972..3a3d2f0 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -127,6 +127,7 @@ int mm_answer_sign(int, Buffer *);
@@ -180,7 +180,7 @@ index a2027e5..6ff05e4 100644
  	return (0);
  }
  
-@@ -1540,7 +1566,7 @@ mm_answer_pty(int sock, Buffer *m)
+@@ -1544,7 +1570,7 @@ mm_answer_pty(int sock, Buffer *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -203,10 +203,10 @@ index bc50ade..2d82b8b 100644
  
  struct mm_master;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index b667218..5aa9c47 100644
+index 71e7c08..6ae72a0 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -329,10 +329,10 @@ mm_auth2_read_banner(void)
+@@ -327,10 +327,10 @@ mm_auth2_read_banner(void)
  	return (banner);
  }
  
@@ -219,7 +219,7 @@ index b667218..5aa9c47 100644
  {
  	Buffer m;
  
-@@ -341,12 +341,30 @@ mm_inform_authserv(char *service, char *style)
+@@ -339,12 +339,30 @@ mm_inform_authserv(char *service, char *style)
  	buffer_init(&m);
  	buffer_put_cstring(&m, service);
  	buffer_put_cstring(&m, style ? style : "");
@@ -251,7 +251,7 @@ index b667218..5aa9c47 100644
  int
  mm_auth_password(Authctxt *authctxt, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 0c770e8..4d1e899 100644
+index 9758290..57e740f 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
 @@ -41,7 +41,8 @@ void mm_log_handler(LogLevel, const char *, void *);
@@ -396,7 +396,7 @@ index 1c7a45d..436ae7c 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index 54bac36..d4b7725 100644
+index 5a64715..afac4a5 100644
 --- a/session.c
 +++ b/session.c
 @@ -1487,7 +1487,7 @@ safely_chroot(const char *path, uid_t uid)
@@ -458,7 +458,7 @@ index 6a2f35e..ef6593c 100644
  		       const char *value);
  
 diff --git a/sshd.c b/sshd.c
-index 9cbe8c4..3b4e97c 100644
+index 186ad55..9ff9e8b 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -781,7 +781,7 @@ privsep_postauth(Authctxt *authctxt)
@@ -471,7 +471,7 @@ index 9cbe8c4..3b4e97c 100644
   skip:
  	/* It is safe now to apply the key state */
 diff --git a/sshpty.c b/sshpty.c
-index d2ff8c1..f7b1f6d 100644
+index 7bb7641..0e32b39 100644
 --- a/sshpty.c
 +++ b/sshpty.c
 @@ -187,7 +187,7 @@ pty_change_window_size(int ptyfd, u_int row, u_int col,

@@ -1,4 +1,4 @@
-From 7efad61f1e562f504a5ff3fb0ae90ac05a208e66 Mon Sep 17 00:00:00 2001
+From 02a61bcb045503a5f3f7e274ac1f4524e30f87c8 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,7 +26,7 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 278fe15..1d2d596 100644
+index 85eea48..5c5890c 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -159,6 +159,7 @@ typedef enum {
@@ -72,7 +72,7 @@ index 278fe15..1d2d596 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index dd35dd8..250c0d1 100644
+index f7510b6..21d3e94 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -233,8 +233,12 @@ Valid arguments are
@@ -89,7 +89,7 @@ index dd35dd8..250c0d1 100644
  The argument must be
  .Dq yes
  or
-@@ -1420,8 +1424,15 @@ from the server,
+@@ -1425,8 +1429,15 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -106,7 +106,7 @@ index dd35dd8..250c0d1 100644
  .It Cm StreamLocalBindMask
  Sets the octal file creation mode mask
  .Pq umask
-@@ -1487,6 +1498,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -1492,6 +1503,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -120,10 +120,10 @@ index dd35dd8..250c0d1 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 0331496..d14576e 100644
+index 68424f1..1269bbd 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1392,6 +1392,9 @@ This avoids infinitely hanging sessions.
+@@ -1443,6 +1443,9 @@ This avoids infinitely hanging sessions.
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Dq no .
@@ -132,4 +132,4 @@ index 0331496..d14576e 100644
 +.Cm KeepAlive .
  .It Cm TrustedUserCAKeys
  Specifies a file containing public keys of certificate authorities that are
- trusted to sign user certificates for authentication.
+ trusted to sign user certificates for authentication, or
