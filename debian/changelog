@@ -63,6 +63,8 @@ openssh (1:6.8p1-1) UNRELEASED; urgency=medium
     - ssh-keygen(1): Fix broken private key conversion from non-OpenSSH
       formats.
     - ssh-keygen(1): Fix KRL generation bug when multiple CAs are in use.
+  * Thanks to Jakub Jelen of Red Hat for Fedora's rebased version of the
+    GSSAPI key exchange patch.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 19 Aug 2015 15:19:54 +0100
 
