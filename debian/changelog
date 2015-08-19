@@ -154,6 +154,8 @@ openssh (1:6.9p1-1) UNRELEASED; urgency=medium
       mechanism itself were still applied.  Found by Kingcope.
   * Thanks to Jakub Jelen of Red Hat for Fedora's rebased version of the
     GSSAPI key exchange patch.
+  * Document the Debian-specific change to the default value of
+    ForwardX11Trusted in ssh(1) (closes: #781469).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 19 Aug 2015 15:19:54 +0100
 

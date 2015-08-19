@@ -1,4 +1,4 @@
-From c0ec3def4bec4afe1cad9e99081e658200b13a02 Mon Sep 17 00:00:00 2001
+From a97f75bc484762111ae4e994791f4a5af6294c26 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Tue, 11 Aug 2015 13:34:12 +1000
 Subject: set sshpam_ctxt to NULL after free
