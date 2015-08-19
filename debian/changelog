@@ -144,6 +144,13 @@ openssh (1:6.9p1-1) UNRELEASED; urgency=medium
       reachable by attackers who could compromise the pre-authentication
       process for remote code execution (closes: #795711).  Also reported by
       Moritz Jodeit.
+    - CVE-2015-5600: sshd(8): Fix circumvention of MaxAuthTries using
+      keyboard-interactive authentication (closes: #793616).  By specifying
+      a long, repeating keyboard-interactive "devices" string, an attacker
+      could request the same authentication method be tried thousands of
+      times in a single pass.  The LoginGraceTime timeout in sshd(8) and any
+      authentication failure delays implemented by the authentication
+      mechanism itself were still applied.  Found by Kingcope.
   * Thanks to Jakub Jelen of Red Hat for Fedora's rebased version of the
     GSSAPI key exchange patch.
 

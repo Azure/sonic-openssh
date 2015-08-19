@@ -30,3 +30,4 @@ debian-config.patch
 backport-fix-pty-permissions.patch
 backport-do-not-resend-username-to-pam.patch
 backport-pam-use-after-free.patch
+backport-kbdint-duplicates.patch
