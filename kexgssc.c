@@ -42,43 +42,46 @@
 #include "log.h"
 #include "packet.h"
 #include "dh.h"
+#include "digest.h"
 
 #include "ssh-gss.h"
 
-void
-kexgss_client(Kex *kex) {
+int
+kexgss_client(struct ssh *ssh) {
 	gss_buffer_desc send_tok = GSS_C_EMPTY_BUFFER;
 	gss_buffer_desc recv_tok, gssbuf, msg_tok, *token_ptr;
 	Gssctxt *ctxt;
 	OM_uint32 maj_status, min_status, ret_flags;
-	u_int klen, kout, slen = 0, hashlen, strlen;
+	u_int klen, kout, slen = 0, strlen;
 	DH *dh; 
 	BIGNUM *dh_server_pub = NULL;
 	BIGNUM *shared_secret = NULL;
 	BIGNUM *p = NULL;
 	BIGNUM *g = NULL;	
-	u_char *kbuf, *hash;
+	u_char *kbuf;
 	u_char *serverhostkey = NULL;
 	u_char *empty = "";
 	char *msg;
 	int type = 0;
 	int first = 1;
 	int nbits = 0, min = DH_GRP_MIN, max = DH_GRP_MAX;
+	u_char hash[SSH_DIGEST_MAX_LENGTH];
+	size_t hashlen;
 
 	/* Initialise our GSSAPI world */	
 	ssh_gssapi_build_ctx(&ctxt);
-	if (ssh_gssapi_id_kex(ctxt, kex->name, kex->kex_type) 
+	if (ssh_gssapi_id_kex(ctxt, ssh->kex->name, ssh->kex->kex_type) 
 	    == GSS_C_NO_OID)
 		fatal("Couldn't identify host exchange");
 
-	if (ssh_gssapi_import_name(ctxt, kex->gss_host))
+	if (ssh_gssapi_import_name(ctxt, ssh->kex->gss_host))
 		fatal("Couldn't import hostname");
 
-	if (kex->gss_client && 
-	    ssh_gssapi_client_identity(ctxt, kex->gss_client))
+	if (ssh->kex->gss_client && 
+	    ssh_gssapi_client_identity(ctxt, ssh->kex->gss_client))
 		fatal("Couldn't acquire client credentials");
 
-	switch (kex->kex_type) {
+	switch (ssh->kex->kex_type) {
 	case KEX_GSS_GRP1_SHA1:
 		dh = dh_new_group1();
 		break;
@@ -87,7 +90,7 @@ kexgss_client(Kex *kex) {
 		break;
 	case KEX_GSS_GEX_SHA1:
 		debug("Doing group exchange\n");
-		nbits = dh_estimate(kex->we_need * 8);
+		nbits = dh_estimate(ssh->kex->we_need * 8);
 		packet_start(SSH2_MSG_KEXGSS_GROUPREQ);
 		packet_put_int(min);
 		packet_put_int(nbits);
@@ -112,11 +115,11 @@ kexgss_client(Kex *kex) {
 		dh = dh_new_group(g, p);
 		break;
 	default:
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal("%s: Unexpected KEX type %d", __func__, ssh->kex->kex_type);
 	}
 	
 	/* Step 1 - e is dh->pub_key */
-	dh_gen_key(dh, kex->we_need * 8);
+	dh_gen_key(dh, ssh->kex->we_need * 8);
 
 	/* This is f, we initialise it now to make life easier */
 	dh_server_pub = BN_new();
@@ -129,7 +132,7 @@ kexgss_client(Kex *kex) {
 		debug("Calling gss_init_sec_context");
 		
 		maj_status = ssh_gssapi_init_ctx(ctxt,
-		    kex->gss_deleg_creds, token_ptr, &send_tok,
+		    ssh->kex->gss_deleg_creds, token_ptr, &send_tok,
 		    &ret_flags);
 
 		if (GSS_ERROR(maj_status)) {
@@ -262,38 +265,39 @@ kexgss_client(Kex *kex) {
 	memset(kbuf, 0, klen);
 	free(kbuf);
 
-	switch (kex->kex_type) {
+	hashlen = sizeof(hash);
+	switch (ssh->kex->kex_type) {
 	case KEX_GSS_GRP1_SHA1:
 	case KEX_GSS_GRP14_SHA1:
-		kex_dh_hash( kex->client_version_string, 
-		    kex->server_version_string,
-		    buffer_ptr(&kex->my), buffer_len(&kex->my),
-		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
+		kex_dh_hash( ssh->kex->client_version_string, 
+		    ssh->kex->server_version_string,
+		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
+		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
 		    dh->pub_key,	/* e */
 		    dh_server_pub,	/* f */
 		    shared_secret,	/* K */
-		    &hash, &hashlen
+		    hash, &hashlen
 		);
 		break;
 	case KEX_GSS_GEX_SHA1:
 		kexgex_hash(
-		    kex->hash_alg,
-		    kex->client_version_string,
-		    kex->server_version_string,
-		    buffer_ptr(&kex->my), buffer_len(&kex->my),
-		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
+		    ssh->kex->hash_alg,
+		    ssh->kex->client_version_string,
+		    ssh->kex->server_version_string,
+		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
+		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
  		    min, nbits, max,
 		    dh->p, dh->g,
 		    dh->pub_key,
 		    dh_server_pub,
 		    shared_secret,
-		    &hash, &hashlen
+		    hash, &hashlen
 		);
 		break;
 	default:
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal("%s: Unexpected KEX type %d", __func__, ssh->kex->kex_type);
 	}
 
 	gssbuf.value = hash;
@@ -310,13 +314,13 @@ kexgss_client(Kex *kex) {
 	BN_clear_free(dh_server_pub);
 
 	/* save session id */
-	if (kex->session_id == NULL) {
-		kex->session_id_len = hashlen;
-		kex->session_id = xmalloc(kex->session_id_len);
-		memcpy(kex->session_id, hash, kex->session_id_len);
+	if (ssh->kex->session_id == NULL) {
+		ssh->kex->session_id_len = hashlen;
+		ssh->kex->session_id = xmalloc(ssh->kex->session_id_len);
+		memcpy(ssh->kex->session_id, hash, ssh->kex->session_id_len);
 	}
 
-	if (kex->gss_deleg_creds)
+	if (ssh->kex->gss_deleg_creds)
 		ssh_gssapi_credentials_updated(ctxt);
 
 	if (gss_kex_context == NULL)
@@ -324,9 +328,9 @@ kexgss_client(Kex *kex) {
 	else
 		ssh_gssapi_delete_ctx(&ctxt);
 
-	kex_derive_keys_bn(kex, hash, hashlen, shared_secret);
+	kex_derive_keys_bn(ssh, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
-	kex_finish(kex);
+	return kex_send_newkeys(ssh);
 }
 
 #endif /* GSSAPI */

@@ -1,15 +1,14 @@
-From f51fe0c55e54c12db952624e980d18f39c41e581 Mon Sep 17 00:00:00 2001
+From 8b3111d597316954caaf8ddf2e7746491976c248 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:57 +0000
 Subject: Add support for registering ConsoleKit sessions on login
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1450
-Last-Updated: 2014-10-07
+Last-Updated: 2015-08-19
 
 Patch-Name: consolekit.patch
 ---
  Makefile.in    |   3 +-
- configure      | 132 +++++++++++++++++++++++++++++++
  configure.ac   |  25 ++++++
  consolekit.c   | 241 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  consolekit.h   |  24 ++++++
@@ -19,15 +18,15 @@ Patch-Name: consolekit.patch
  monitor_wrap.h |   4 +
  session.c      |  13 ++++
  session.h      |   6 ++
- 11 files changed, 521 insertions(+), 1 deletion(-)
+ 10 files changed, 389 insertions(+), 1 deletion(-)
  create mode 100644 consolekit.c
  create mode 100644 consolekit.h
 
 diff --git a/Makefile.in b/Makefile.in
-index 086d8dd..c4cb8ea 100644
+index 3d2a328..c406aec 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -107,7 +107,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
+@@ -111,7 +111,8 @@ SSHDOBJS=sshd.o auth-rhosts.o auth-passwd.o auth-rsa.o auth-rh-rsa.o \
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o \
  	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
@@ -37,175 +36,11 @@ index 086d8dd..c4cb8ea 100644
  
  MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out sshd_config.5.out ssh_config.5.out
  MANPAGES_IN	= moduli.5 scp.1 ssh-add.1 ssh-agent.1 ssh-keygen.1 ssh-keyscan.1 ssh.1 sshd.8 sftp-server.8 sftp.1 ssh-keysign.8 ssh-pkcs11-helper.8 sshd_config.5 ssh_config.5
-diff --git a/configure b/configure
-index ea5f200..7be478a 100755
---- a/configure
-+++ b/configure
-@@ -739,6 +739,7 @@ with_privsep_user
- with_sandbox
- with_selinux
- with_kerberos5
-+with_consolekit
- with_privsep_path
- with_xauth
- enable_strip
-@@ -1430,6 +1431,7 @@ Optional Packages:
-   --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter, capsicum)
-   --with-selinux          Enable SELinux support
-   --with-kerberos5=PATH   Enable Kerberos 5 support
-+  --with-consolekit       Enable ConsoleKit support
-   --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
-   --with-xauth=PATH       Specify path to xauth program
-   --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -17211,6 +17213,135 @@ fi
- 
- 
- 
-+# Check whether user wants ConsoleKit support
-+CONSOLEKIT_MSG="no"
-+LIBCK_CONNECTOR=""
-+
-+# Check whether --with-consolekit was given.
-+if test "${with_consolekit+set}" = set; then :
-+  withval=$with_consolekit;  if test "x$withval" != "xno" ; then
-+		if test -n "$ac_tool_prefix"; then
-+  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
-+set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_PKGCONFIG+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $PKGCONFIG in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_PKGCONFIG="$PKGCONFIG" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-+    ac_cv_path_PKGCONFIG="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+PKGCONFIG=$ac_cv_path_PKGCONFIG
-+if test -n "$PKGCONFIG"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKGCONFIG" >&5
-+$as_echo "$PKGCONFIG" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+
-+fi
-+if test -z "$ac_cv_path_PKGCONFIG"; then
-+  ac_pt_PKGCONFIG=$PKGCONFIG
-+  # Extract the first word of "pkg-config", so it can be a program name with args.
-+set dummy pkg-config; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_ac_pt_PKGCONFIG+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $ac_pt_PKGCONFIG in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_ac_pt_PKGCONFIG="$ac_pt_PKGCONFIG" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-+    ac_cv_path_ac_pt_PKGCONFIG="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+ac_pt_PKGCONFIG=$ac_cv_path_ac_pt_PKGCONFIG
-+if test -n "$ac_pt_PKGCONFIG"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKGCONFIG" >&5
-+$as_echo "$ac_pt_PKGCONFIG" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+  if test "x$ac_pt_PKGCONFIG" = x; then
-+    PKGCONFIG="no"
-+  else
-+    case $cross_compiling:$ac_tool_warned in
-+yes:)
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: using cross tools not prefixed with host triplet" >&5
-+$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-+ac_tool_warned=yes ;;
-+esac
-+    PKGCONFIG=$ac_pt_PKGCONFIG
-+  fi
-+else
-+  PKGCONFIG="$ac_cv_path_PKGCONFIG"
-+fi
-+
-+		if test "$PKGCONFIG" != "no"; then
-+			{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for ck-connector" >&5
-+$as_echo_n "checking for ck-connector... " >&6; }
-+			if $PKGCONFIG --exists ck-connector; then
-+				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
-+				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
-+				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
-+				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
-+				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-+$as_echo "yes" >&6; }
-+
-+$as_echo "#define USE_CONSOLEKIT 1" >>confdefs.h
-+
-+				CONSOLEKIT_MSG="yes"
-+			else
-+				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+			fi
-+		fi
-+	fi
-+
-+fi
-+
-+
- # Looking for programs, paths and files
- 
- PRIVSEP_PATH=/var/empty
-@@ -19739,6 +19870,7 @@ echo "              MD5 password support: $MD5_MSG"
- echo "                   libedit support: $LIBEDIT_MSG"
- echo "  Solaris process contract support: $SPC_MSG"
- echo "           Solaris project support: $SP_MSG"
-+echo "                ConsoleKit support: $CONSOLEKIT_MSG"
- echo "       IP address in \$DISPLAY hack: $DISPLAY_HACK_MSG"
- echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
- echo "                  BSD Auth support: $BSD_AUTH_MSG"
 diff --git a/configure.ac b/configure.ac
-index 7f160f1..f5c65c5 100644
+index 5f606ea..f7ce777 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -4113,6 +4113,30 @@ AC_ARG_WITH([kerberos5],
+@@ -4180,6 +4180,30 @@ AC_ARG_WITH([kerberos5],
  AC_SUBST([GSSLIBS])
  AC_SUBST([K5LIBS])
  
@@ -236,7 +71,7 @@ index 7f160f1..f5c65c5 100644
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4914,6 +4938,7 @@ echo "              MD5 password support: $MD5_MSG"
+@@ -4981,6 +5005,7 @@ echo "              MD5 password support: $MD5_MSG"
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -522,20 +357,20 @@ index 0000000..8ce3716
 +
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor.c b/monitor.c
-index 94b194d..cc15ce4 100644
+index 6ff05e4..ce7ba07 100644
 --- a/monitor.c
 +++ b/monitor.c
-@@ -100,6 +100,9 @@
- #include "ssh2.h"
- #include "roaming.h"
+@@ -104,6 +104,9 @@
  #include "authfd.h"
+ #include "match.h"
+ #include "ssherr.h"
 +#ifdef USE_CONSOLEKIT
 +#include "consolekit.h"
 +#endif
  
  #ifdef GSSAPI
  static Gssctxt *gsscontext = NULL;
-@@ -190,6 +193,10 @@ int mm_answer_audit_command(int, Buffer *);
+@@ -169,6 +172,10 @@ int mm_answer_audit_command(int, Buffer *);
  
  static int monitor_read_log(struct monitor *);
  
@@ -546,7 +381,7 @@ index 94b194d..cc15ce4 100644
  static Authctxt *authctxt;
  
  #ifdef WITH_SSH1
-@@ -282,6 +289,9 @@ struct mon_table mon_dispatch_postauth20[] = {
+@@ -261,6 +268,9 @@ struct mon_table mon_dispatch_postauth20[] = {
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT, mm_answer_audit_command},
  #endif
@@ -556,7 +391,7 @@ index 94b194d..cc15ce4 100644
      {0, 0, NULL}
  };
  
-@@ -327,6 +337,9 @@ struct mon_table mon_dispatch_postauth15[] = {
+@@ -306,6 +316,9 @@ struct mon_table mon_dispatch_postauth15[] = {
      {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
      {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT|MON_ONCE, mm_answer_audit_command},
  #endif
@@ -566,7 +401,7 @@ index 94b194d..cc15ce4 100644
  #endif /* WITH_SSH1 */
      {0, 0, NULL}
  };
-@@ -509,6 +522,9 @@ monitor_child_postauth(struct monitor *pmonitor)
+@@ -488,6 +501,9 @@ monitor_child_postauth(struct monitor *pmonitor)
  		monitor_permit(mon_dispatch, MONITOR_REQ_PTY, 1);
  		monitor_permit(mon_dispatch, MONITOR_REQ_PTYCLEANUP, 1);
  	}
@@ -576,7 +411,7 @@ index 94b194d..cc15ce4 100644
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2296,3 +2312,29 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
+@@ -2187,3 +2203,29 @@ mm_answer_gss_updatecreds(int socket, Buffer *m) {
  
  #endif /* GSSAPI */
  
@@ -607,7 +442,7 @@ index 94b194d..cc15ce4 100644
 +}
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor.h b/monitor.h
-index 4d5e8fa..10ba59e 100644
+index 2d82b8b..fd8d92c 100644
 --- a/monitor.h
 +++ b/monitor.h
 @@ -70,6 +70,8 @@ enum monitor_reqtype {
@@ -620,10 +455,10 @@ index 4d5e8fa..10ba59e 100644
  
  struct mm_master;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 6dc890a..4c57d4d 100644
+index 5aa9c47..a5f4e9d 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
-@@ -1363,3 +1363,33 @@ mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *store)
+@@ -1150,3 +1150,33 @@ mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *store)
  
  #endif /* GSSAPI */
  
@@ -658,11 +493,11 @@ index 6dc890a..4c57d4d 100644
 +}
 +#endif /* USE_CONSOLEKIT */
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 9c2ee49..00e93fe 100644
+index 4d1e899..f99c31c 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
-@@ -111,4 +111,8 @@ void *mm_zalloc(struct mm_master *, u_int, u_int);
- void mm_zfree(struct mm_master *, void *);
+@@ -108,4 +108,8 @@ int mm_skey_respond(void *, u_int, char **);
+ /* zlib allocation hooks */
  void mm_init_compression(struct mm_master *);
  
 +#ifdef USE_CONSOLEKIT
@@ -671,10 +506,10 @@ index 9c2ee49..00e93fe 100644
 +
  #endif /* _MM_WRAP_H_ */
 diff --git a/session.c b/session.c
-index 6f389ac..6250c20 100644
+index d4b7725..785833f 100644
 --- a/session.c
 +++ b/session.c
-@@ -93,6 +93,7 @@
+@@ -94,6 +94,7 @@
  #include "kex.h"
  #include "monitor_wrap.h"
  #include "sftp.h"
@@ -682,7 +517,7 @@ index 6f389ac..6250c20 100644
  
  #if defined(KRB5) && defined(USE_AFS)
  #include <kafs.h>
-@@ -1143,6 +1144,9 @@ do_setup_env(Session *s, const char *shell)
+@@ -1144,6 +1145,9 @@ do_setup_env(Session *s, const char *shell)
  #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
  	char *path = NULL;
  #endif
@@ -692,7 +527,7 @@ index 6f389ac..6250c20 100644
  
  	/* Initialize the environment. */
  	envsize = 100;
-@@ -1287,6 +1291,11 @@ do_setup_env(Session *s, const char *shell)
+@@ -1288,6 +1292,11 @@ do_setup_env(Session *s, const char *shell)
  		child_set_env(&env, &envsize, "KRB5CCNAME",
  		    s->authctxt->krb5_ccname);
  #endif
@@ -704,7 +539,7 @@ index 6f389ac..6250c20 100644
  #ifdef USE_PAM
  	/*
  	 * Pull in any environment variables that may have
-@@ -2350,6 +2359,10 @@ session_pty_cleanup2(Session *s)
+@@ -2351,6 +2360,10 @@ session_pty_cleanup2(Session *s)
  
  	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
  

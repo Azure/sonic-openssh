@@ -1,3 +1,71 @@
+openssh (1:6.8p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (http://www.openssh.com/txt/release-6.8):
+    - sshd(8): UseDNS now defaults to 'no'.  Configurations that match
+      against the client host name (via sshd_config or authorized_keys) may
+      need to re-enable it or convert to matching against addresses.
+    - Add FingerprintHash option to ssh(1) and sshd(8), and equivalent
+      command-line flags to the other tools to control algorithm used for
+      key fingerprints.  The default changes from MD5 to SHA256 and format
+      from hex to base64.
+      Fingerprints now have the hash algorithm prepended.  An example of the
+      new format: SHA256:mVPwvezndPv/ARoIadVY98vAC0g+P/5633yTC4d/wXE
+      Please note that visual host keys will also be different.
+    - ssh(1), sshd(8): Experimental host key rotation support.  Add a
+      protocol extension for a server to inform a client of all its
+      available host keys after authentication has completed.  The client
+      may record the keys in known_hosts, allowing it to upgrade to better
+      host key algorithms and a server to gracefully rotate its keys.
+      The client side of this is controlled by a UpdateHostkeys config
+      option (default off).
+    - ssh(1): Add a ssh_config HostbasedKeyType option to control which host
+      public key types are tried during host-based authentication.
+    - ssh(1), sshd(8): Fix connection-killing host key mismatch errors when
+      sshd offers multiple ECDSA keys of different lengths.
+    - ssh(1): When host name canonicalisation is enabled, try to parse host
+      names as addresses before looking them up for canonicalisation.  Fixes
+      bz#2074 and avoids needless DNS lookups in some cases.
+    - ssh(1), ssh-keysign(8): Make ed25519 keys work for host based
+      authentication.
+    - sshd(8): SSH protocol v.1 workaround for the Meyer, et al,
+      Bleichenbacher Side Channel Attack.  Fake up a bignum key before RSA
+      decryption.
+    - sshd(8): Remember which public keys have been used for authentication
+      and refuse to accept previously-used keys.  This allows
+      AuthenticationMethods=publickey,publickey to require that users
+      authenticate using two _different_ public keys.
+    - sshd(8): add sshd_config HostbasedAcceptedKeyTypes and
+      PubkeyAcceptedKeyTypes options to allow sshd to control what public
+      key types will be accepted (closes: #481133).  Currently defaults to
+      all.
+    - sshd(8): Don't count partial authentication success as a failure
+      against MaxAuthTries.
+    - ssh(1): Add RevokedHostKeys option for the client to allow text-file
+      or KRL-based revocation of host keys.
+    - ssh-keygen(1), sshd(8): Permit KRLs that revoke certificates by serial
+      number or key ID without scoping to a particular CA.
+    - ssh(1): Add a "Match canonical" criteria that allows ssh_config Match
+      blocks to trigger only in the second config pass.
+    - ssh(1): Add a -G option to ssh that causes it to parse its
+      configuration and dump the result to stdout, similar to "sshd -T".
+    - ssh(1): Allow Match criteria to be negated. E.g. "Match !host".
+    - ssh-keyscan(1): ssh-keyscan has been made much more robust against
+      servers that hang or violate the SSH protocol (closes: #241119).
+    - ssh(1), ssh-keygen(1): Fix regression bz#2306: Key path names were
+      being lost as comment fields (closes: #787776).
+    - ssh(1): Allow ssh_config Port options set in the second config parse
+      phase to be applied (they were being ignored; closes: #774369).
+    - ssh(1): Tweak config re-parsing with host canonicalisation - make the
+      second pass through the config files always run when host name
+      canonicalisation is enabled (and not whenever the host name changes)
+    - ssh(1): Fix passing of wildcard forward bind addresses when connection
+      multiplexing is in use.
+    - ssh-keygen(1): Fix broken private key conversion from non-OpenSSH
+      formats.
+    - ssh-keygen(1): Fix KRL generation bug when multiple CAs are in use.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 19 Aug 2015 15:19:54 +0100
+
 openssh (1:6.7p1-6) unstable; urgency=medium
 
   [ Martin Pitt ]

@@ -1,5 +1,5 @@
 
-/* $OpenBSD: servconf.c,v 1.251 2014/07/15 15:54:14 millert Exp $ */
+/* $OpenBSD: servconf.c,v 1.260 2015/02/02 01:57:44 deraadt Exp $ */
 /*
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
  *                    All rights reserved
@@ -28,6 +28,7 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <errno.h>
 #ifdef HAVE_UTIL_H
@@ -54,6 +55,8 @@
 #include "packet.h"
 #include "hostfile.h"
 #include "auth.h"
+#include "myproposal.h"
+#include "digest.h"
 
 static void add_listen_addr(ServerOptions *, char *, int);
 static void add_one_listen_addr(ServerOptions *, char *, int);
@@ -102,8 +105,10 @@ initialize_server_options(ServerOptions *options)
 	options->rhosts_rsa_authentication = -1;
 	options->hostbased_authentication = -1;
 	options->hostbased_uses_name_from_packet_only = -1;
+	options->hostbased_key_types = NULL;
 	options->rsa_authentication = -1;
 	options->pubkey_authentication = -1;
+	options->pubkey_key_types = NULL;
 	options->kerberos_authentication = -1;
 	options->kerberos_or_local_passwd = -1;
 	options->kerberos_ticket_cleanup = -1;
@@ -160,12 +165,22 @@ initialize_server_options(ServerOptions *options)
 	options->ip_qos_interactive = -1;
 	options->ip_qos_bulk = -1;
 	options->version_addendum = NULL;
+	options->fingerprint_hash = -1;
 	options->debian_banner = -1;
+}
+
+/* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
+static int
+option_clear_or_none(const char *o)
+{
+	return o == NULL || strcasecmp(o, "none") == 0;
 }
 
 void
 fill_default_server_options(ServerOptions *options)
 {
+	int i;
+
 	/* Portable-specific options */
 	if (options->use_pam == -1)
 		options->use_pam = 0;
@@ -197,7 +212,7 @@ fill_default_server_options(ServerOptions *options)
 	if (options->listen_addrs == NULL)
 		add_listen_addr(options, NULL, 0);
 	if (options->pid_file == NULL)
-		options->pid_file = _PATH_SSH_DAEMON_PID_FILE;
+		options->pid_file = xstrdup(_PATH_SSH_DAEMON_PID_FILE);
 	if (options->server_key_bits == -1)
 		options->server_key_bits = 1024;
 	if (options->login_grace_time == -1)
@@ -221,7 +236,7 @@ fill_default_server_options(ServerOptions *options)
 	if (options->x11_use_localhost == -1)
 		options->x11_use_localhost = 1;
 	if (options->xauth_location == NULL)
-		options->xauth_location = _PATH_XAUTH;
+		options->xauth_location = xstrdup(_PATH_XAUTH);
 	if (options->permit_tty == -1)
 		options->permit_tty = 1;
 	if (options->permit_user_rc == -1)
@@ -240,10 +255,14 @@ fill_default_server_options(ServerOptions *options)
 		options->hostbased_authentication = 0;
 	if (options->hostbased_uses_name_from_packet_only == -1)
 		options->hostbased_uses_name_from_packet_only = 0;
+	if (options->hostbased_key_types == NULL)
+		options->hostbased_key_types = xstrdup("*");
 	if (options->rsa_authentication == -1)
 		options->rsa_authentication = 1;
 	if (options->pubkey_authentication == -1)
 		options->pubkey_authentication = 1;
+	if (options->pubkey_key_types == NULL)
+		options->pubkey_key_types = xstrdup("*");
 	if (options->kerberos_authentication == -1)
 		options->kerberos_authentication = 0;
 	if (options->kerberos_or_local_passwd == -1)
@@ -299,7 +318,7 @@ fill_default_server_options(ServerOptions *options)
 	if (options->max_sessions == -1)
 		options->max_sessions = DEFAULT_SESSIONS_MAX;
 	if (options->use_dns == -1)
-		options->use_dns = 1;
+		options->use_dns = 0;
 	if (options->client_alive_interval == -1)
 		options->client_alive_interval = 0;
 	if (options->client_alive_count_max == -1)
@@ -322,11 +341,31 @@ fill_default_server_options(ServerOptions *options)
 		options->fwd_opts.streamlocal_bind_mask = 0177;
 	if (options->fwd_opts.streamlocal_bind_unlink == -1)
 		options->fwd_opts.streamlocal_bind_unlink = 0;
+	if (options->fingerprint_hash == -1)
+		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
 	if (options->debian_banner == -1)
 		options->debian_banner = 1;
 	/* Turn privilege separation on by default */
 	if (use_privsep == -1)
 		use_privsep = PRIVSEP_NOSANDBOX;
+
+#define CLEAR_ON_NONE(v) \
+	do { \
+		if (option_clear_or_none(v)) { \
+			free(v); \
+			v = NULL; \
+		} \
+	} while(0)
+	CLEAR_ON_NONE(options->pid_file);
+	CLEAR_ON_NONE(options->xauth_location);
+	CLEAR_ON_NONE(options->banner);
+	CLEAR_ON_NONE(options->trusted_user_ca_keys);
+	CLEAR_ON_NONE(options->revoked_keys_file);
+	for (i = 0; i < options->num_host_key_files; i++)
+		CLEAR_ON_NONE(options->host_key_files[i]);
+	for (i = 0; i < options->num_host_cert_files; i++)
+		CLEAR_ON_NONE(options->host_cert_files[i]);
+#undef CLEAR_ON_NONE
 
 #ifndef HAVE_MMAP
 	if (use_privsep && options->compression == 1) {
@@ -345,8 +384,8 @@ typedef enum {
 	/* Portable-specific options */
 	sUsePAM,
 	/* Standard Options */
-	sPort, sHostKeyFile, sServerKeyBits, sLoginGraceTime, sKeyRegenerationTime,
-	sPermitRootLogin, sLogFacility, sLogLevel,
+	sPort, sHostKeyFile, sServerKeyBits, sLoginGraceTime,
+	sKeyRegenerationTime, sPermitRootLogin, sLogFacility, sLogLevel,
 	sRhostsRSAAuthentication, sRSAAuthentication,
 	sKerberosAuthentication, sKerberosOrLocalPasswd, sKerberosTicketCleanup,
 	sKerberosGetAFSToken,
@@ -359,11 +398,11 @@ typedef enum {
 	sPermitUserEnvironment, sUseLogin, sAllowTcpForwarding, sCompression,
 	sRekeyLimit, sAllowUsers, sDenyUsers, sAllowGroups, sDenyGroups,
 	sIgnoreUserKnownHosts, sCiphers, sMacs, sProtocol, sPidFile,
-	sGatewayPorts, sPubkeyAuthentication, sXAuthLocation, sSubsystem,
-	sMaxStartups, sMaxAuthTries, sMaxSessions,
+	sGatewayPorts, sPubkeyAuthentication, sPubkeyAcceptedKeyTypes,
+	sXAuthLocation, sSubsystem, sMaxStartups, sMaxAuthTries, sMaxSessions,
 	sBanner, sUseDNS, sHostbasedAuthentication,
-	sHostbasedUsesNameFromPacketOnly, sClientAliveInterval,
-	sClientAliveCountMax, sAuthorizedKeysFile,
+	sHostbasedUsesNameFromPacketOnly, sHostbasedAcceptedKeyTypes,
+	sClientAliveInterval, sClientAliveCountMax, sAuthorizedKeysFile,
 	sGssAuthentication, sGssCleanupCreds, sGssStrictAcceptor,
 	sGssKeyEx, sGssStoreRekey,
 	sAcceptEnv, sPermitTunnel,
@@ -375,7 +414,7 @@ typedef enum {
 	sAuthorizedKeysCommand, sAuthorizedKeysCommandUser,
 	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
 	sStreamLocalBindMask, sStreamLocalBindUnlink,
-	sAllowStreamLocalForwarding,
+	sAllowStreamLocalForwarding, sFingerprintHash,
 	sDebianBanner,
 	sDeprecated, sUnsupported
 } ServerOpCodes;
@@ -413,8 +452,10 @@ static struct {
 	{ "rhostsrsaauthentication", sRhostsRSAAuthentication, SSHCFG_ALL },
 	{ "hostbasedauthentication", sHostbasedAuthentication, SSHCFG_ALL },
 	{ "hostbasedusesnamefrompacketonly", sHostbasedUsesNameFromPacketOnly, SSHCFG_ALL },
+	{ "hostbasedacceptedkeytypes", sHostbasedAcceptedKeyTypes, SSHCFG_ALL },
 	{ "rsaauthentication", sRSAAuthentication, SSHCFG_ALL },
 	{ "pubkeyauthentication", sPubkeyAuthentication, SSHCFG_ALL },
+	{ "pubkeyacceptedkeytypes", sPubkeyAcceptedKeyTypes, SSHCFG_ALL },
 	{ "dsaauthentication", sPubkeyAuthentication, SSHCFG_GLOBAL }, /* alias */
 #ifdef KRB5
 	{ "kerberosauthentication", sKerberosAuthentication, SSHCFG_ALL },
@@ -518,6 +559,7 @@ static struct {
 	{ "streamlocalbindmask", sStreamLocalBindMask, SSHCFG_ALL },
 	{ "streamlocalbindunlink", sStreamLocalBindUnlink, SSHCFG_ALL },
 	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
+	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
 	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
 	{ NULL, sBadOption, 0 }
 };
@@ -557,8 +599,10 @@ parse_token(const char *cp, const char *filename,
 char *
 derelativise_path(const char *path)
 {
-	char *expanded, *ret, cwd[MAXPATHLEN];
+	char *expanded, *ret, cwd[PATH_MAX];
 
+	if (strcasecmp(path, "none") == 0)
+		return xstrdup("none");
 	expanded = tilde_expand_filename(path, getuid());
 	if (*expanded == '/')
 		return expanded;
@@ -1103,6 +1147,20 @@ process_server_config_line(ServerOptions *options, char *line,
 		intptr = &options->hostbased_uses_name_from_packet_only;
 		goto parse_flag;
 
+	case sHostbasedAcceptedKeyTypes:
+		charptr = &options->hostbased_key_types;
+ parse_keytypes:
+		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%s line %d: Missing argument.",
+			    filename, linenum);
+		if (!sshkey_names_valid2(arg, 1))
+			fatal("%s line %d: Bad key types '%s'.",
+			    filename, linenum, arg ? arg : "<NONE>");
+		if (*activep && *charptr == NULL)
+			*charptr = xstrdup(arg);
+		break;
+
 	case sRSAAuthentication:
 		intptr = &options->rsa_authentication;
 		goto parse_flag;
@@ -1110,6 +1168,10 @@ process_server_config_line(ServerOptions *options, char *line,
 	case sPubkeyAuthentication:
 		intptr = &options->pubkey_authentication;
 		goto parse_flag;
+
+	case sPubkeyAcceptedKeyTypes:
+		charptr = &options->pubkey_key_types;
+		goto parse_keytypes;
 
 	case sKerberosAuthentication:
 		intptr = &options->kerberos_authentication;
@@ -1650,6 +1712,9 @@ process_server_config_line(ServerOptions *options, char *line,
 		return 0;
 
 	case sAuthorizedKeysCommand:
+		if (cp == NULL)
+			fatal("%.200s line %d: Missing argument.", filename,
+			    linenum);
 		len = strspn(cp, WHITESPACE);
 		if (*activep && options->authorized_keys_command == NULL) {
 			if (cp[len] != '/' && strcasecmp(cp + len, "none") != 0)
@@ -1664,6 +1729,9 @@ process_server_config_line(ServerOptions *options, char *line,
 		charptr = &options->authorized_keys_command_user;
 
 		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%s line %d: missing AuthorizedKeysCommandUser "
+			    "argument.", filename, linenum);
 		if (*activep && *charptr == NULL)
 			*charptr = xstrdup(arg);
 		break;
@@ -1701,6 +1769,18 @@ process_server_config_line(ServerOptions *options, char *line,
 	case sStreamLocalBindUnlink:
 		intptr = &options->fwd_opts.streamlocal_bind_unlink;
 		goto parse_flag;
+
+	case sFingerprintHash:
+		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%.200s line %d: Missing argument.",
+			    filename, linenum);
+		if ((value = ssh_digest_alg_by_name(arg)) == -1)
+			fatal("%.200s line %d: Invalid hash algorithm \"%s\".",
+			    filename, linenum, arg);
+		if (*activep)
+			options->fingerprint_hash = value;
+		break;
 
 	case sDebianBanner:
 		intptr = &options->debian_banner;
@@ -1948,6 +2028,8 @@ fmt_intarg(ServerOpCodes code, int val)
 		return fmt_multistate_int(val, multistate_tcpfwd);
 	case sAllowStreamLocalForwarding:
 		return fmt_multistate_int(val, multistate_tcpfwd);
+	case sFingerprintHash:
+		return ssh_digest_alg_name(val);
 	case sProtocol:
 		switch (val) {
 		case SSH_PROTO_1:
@@ -1999,7 +2081,8 @@ dump_cfg_string(ServerOpCodes code, const char *val)
 {
 	if (val == NULL)
 		return;
-	printf("%s %s\n", lookup_opcode_name(code), val);
+	printf("%s %s\n", lookup_opcode_name(code),
+	    val == NULL ? "none" : val);
 }
 
 static void
@@ -2112,13 +2195,13 @@ dump_config(ServerOptions *o)
 	dump_cfg_fmtint(sAllowTcpForwarding, o->allow_tcp_forwarding);
 	dump_cfg_fmtint(sAllowStreamLocalForwarding, o->allow_streamlocal_forwarding);
 	dump_cfg_fmtint(sUsePrivilegeSeparation, use_privsep);
+	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
 
 	/* string arguments */
 	dump_cfg_string(sPidFile, o->pid_file);
 	dump_cfg_string(sXAuthLocation, o->xauth_location);
-	dump_cfg_string(sCiphers, o->ciphers ? o->ciphers :
-	    cipher_alg_list(',', 0));
-	dump_cfg_string(sMacs, o->macs ? o->macs : mac_alg_list(','));
+	dump_cfg_string(sCiphers, o->ciphers ? o->ciphers : KEX_SERVER_ENCRYPT);
+	dump_cfg_string(sMacs, o->macs ? o->macs : KEX_SERVER_MAC);
 	dump_cfg_string(sBanner, o->banner);
 	dump_cfg_string(sForceCommand, o->adm_forced_command);
 	dump_cfg_string(sChrootDirectory, o->chroot_directory);
@@ -2130,8 +2213,12 @@ dump_config(ServerOptions *o)
 	dump_cfg_string(sAuthorizedKeysCommand, o->authorized_keys_command);
 	dump_cfg_string(sAuthorizedKeysCommandUser, o->authorized_keys_command_user);
 	dump_cfg_string(sHostKeyAgent, o->host_key_agent);
-	dump_cfg_string(sKexAlgorithms, o->kex_algorithms ? o->kex_algorithms :
-	    kex_alg_list(','));
+	dump_cfg_string(sKexAlgorithms,
+	    o->kex_algorithms ? o->kex_algorithms : KEX_SERVER_KEX);
+	dump_cfg_string(sHostbasedAcceptedKeyTypes, o->hostbased_key_types ?
+	    o->hostbased_key_types : KEX_DEFAULT_PK_ALG);
+	dump_cfg_string(sPubkeyAcceptedKeyTypes, o->pubkey_key_types ?
+	    o->pubkey_key_types : KEX_DEFAULT_PK_ALG);
 
 	/* string arguments requiring a lookup */
 	dump_cfg_string(sLogLevel, log_level_name(o->log_level));

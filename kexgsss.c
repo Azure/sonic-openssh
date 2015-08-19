@@ -44,11 +44,12 @@
 #include "monitor_wrap.h"
 #include "misc.h"
 #include "servconf.h"
+#include "digest.h"
 
 extern ServerOptions options;
 
-void
-kexgss_server(Kex *kex)
+int
+kexgss_server(struct ssh *ssh)
 {
 	OM_uint32 maj_status, min_status;
 	
@@ -63,8 +64,8 @@ kexgss_server(Kex *kex)
 	gss_buffer_desc gssbuf, recv_tok, msg_tok;
 	gss_buffer_desc send_tok = GSS_C_EMPTY_BUFFER;
 	Gssctxt *ctxt = NULL;
-	u_int slen, klen, kout, hashlen;
-	u_char *kbuf, *hash;
+	u_int slen, klen, kout;
+	u_char *kbuf;
 	DH *dh;
 	int min = -1, max = -1, nbits = -1;
 	BIGNUM *shared_secret = NULL;
@@ -72,6 +73,8 @@ kexgss_server(Kex *kex)
 	int type = 0;
 	gss_OID oid;
 	char *mechs;
+	u_char hash[SSH_DIGEST_MAX_LENGTH];
+	size_t hashlen;
 
 	/* Initialise GSSAPI */
 
@@ -84,8 +87,8 @@ kexgss_server(Kex *kex)
 		free(mechs);
 	}
 
-	debug2("%s: Identifying %s", __func__, kex->name);
-	oid = ssh_gssapi_id_kex(NULL, kex->name, kex->kex_type);
+	debug2("%s: Identifying %s", __func__, ssh->kex->name);
+	oid = ssh_gssapi_id_kex(NULL, ssh->kex->name, ssh->kex->kex_type);
 	if (oid == GSS_C_NO_OID)
 	   fatal("Unknown gssapi mechanism");
 
@@ -94,7 +97,7 @@ kexgss_server(Kex *kex)
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, oid))))
 		fatal("Unable to acquire credentials for the server");
 
-	switch (kex->kex_type) {
+	switch (ssh->kex->kex_type) {
 	case KEX_GSS_GRP1_SHA1:
 		dh = dh_new_group1();
 		break;
@@ -125,10 +128,10 @@ kexgss_server(Kex *kex)
 		packet_write_wait();
 		break;
 	default:
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal("%s: Unexpected KEX type %d", __func__, ssh->kex->kex_type);
 	}
 
-	dh_gen_key(dh, kex->we_need * 8);
+	dh_gen_key(dh, ssh->kex->we_need * 8);
 
 	do {
 		debug("Wait SSH2_MSG_GSSAPI_INIT");
@@ -211,43 +214,44 @@ kexgss_server(Kex *kex)
 	memset(kbuf, 0, klen);
 	free(kbuf);
 
-	switch (kex->kex_type) {
+	hashlen = sizeof(hash);
+	switch (ssh->kex->kex_type) {
 	case KEX_GSS_GRP1_SHA1:
 	case KEX_GSS_GRP14_SHA1:
 		kex_dh_hash(
-		    kex->client_version_string, kex->server_version_string,
-		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
-		    buffer_ptr(&kex->my), buffer_len(&kex->my),
+		    ssh->kex->client_version_string, ssh->kex->server_version_string,
+		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
+		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
 		    NULL, 0, /* Change this if we start sending host keys */
 		    dh_client_pub, dh->pub_key, shared_secret,
-		    &hash, &hashlen
+		    hash, &hashlen
 		);
 		break;
 	case KEX_GSS_GEX_SHA1:
 		kexgex_hash(
-		    kex->hash_alg,
-		    kex->client_version_string, kex->server_version_string,
-		    buffer_ptr(&kex->peer), buffer_len(&kex->peer),
-		    buffer_ptr(&kex->my), buffer_len(&kex->my),
+		    ssh->kex->hash_alg,
+		    ssh->kex->client_version_string, ssh->kex->server_version_string,
+		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
+		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
 		    NULL, 0,
 		    min, nbits, max,
 		    dh->p, dh->g,
 		    dh_client_pub,
 		    dh->pub_key,
 		    shared_secret,
-		    &hash, &hashlen
+		    hash, &hashlen
 		);
 		break;
 	default:
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal("%s: Unexpected KEX type %d", __func__, ssh->kex->kex_type);
 	}
 
 	BN_clear_free(dh_client_pub);
 
-	if (kex->session_id == NULL) {
-		kex->session_id_len = hashlen;
-		kex->session_id = xmalloc(kex->session_id_len);
-		memcpy(kex->session_id, hash, kex->session_id_len);
+	if (ssh->kex->session_id == NULL) {
+		ssh->kex->session_id_len = hashlen;
+		ssh->kex->session_id = xmalloc(ssh->kex->session_id_len);
+		memcpy(ssh->kex->session_id, hash, ssh->kex->session_id_len);
 	}
 
 	gssbuf.value = hash;
@@ -278,13 +282,14 @@ kexgss_server(Kex *kex)
 
 	DH_free(dh);
 
-	kex_derive_keys_bn(kex, hash, hashlen, shared_secret);
+	kex_derive_keys_bn(ssh, hash, hashlen, shared_secret);
 	BN_clear_free(shared_secret);
-	kex_finish(kex);
+	kex_send_newkeys(ssh);
 
 	/* If this was a rekey, then save out any delegated credentials we
 	 * just exchanged.  */
 	if (options.gss_store_rekey)
 		ssh_gssapi_rekey_creds();
+	return 0;
 }
 #endif /* GSSAPI */

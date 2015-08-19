@@ -1,4 +1,4 @@
-From b25d6dd3b6b5a2cb93723586c56d6fa0277ea56a Mon Sep 17 00:00:00 2001
+From 7df209aed8ded9a6cab34e704576998786bdc890 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 90e81e1..7f160f1 100644
+index 216a9fd..5f606ea 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1404,6 +1404,62 @@ AC_ARG_WITH([skey],
+@@ -1440,6 +1440,62 @@ AC_ARG_WITH([skey],
  	]
  )
  
@@ -94,7 +94,7 @@ index 90e81e1..7f160f1 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -4853,6 +4909,7 @@ echo "                 KerberosV support: $KRB5_MSG"
+@@ -4920,6 +4976,7 @@ echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
  echo "                 Smartcard support: $SCARD_MSG"
  echo "                     S/KEY support: $SKEY_MSG"
@@ -103,7 +103,7 @@ index 90e81e1..7f160f1 100644
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
 diff --git a/sshd.8 b/sshd.8
-index 01459d6..eaeac45 100644
+index 3c53f7c..fc2154c 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -851,6 +851,12 @@ the user's home directory becomes accessible.
@@ -128,10 +128,10 @@ index 01459d6..eaeac45 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index e6706a8..3a6be65 100644
+index cf38bae..9cbe8c4 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -127,6 +127,13 @@
+@@ -129,6 +129,13 @@
  #include <Security/AuthSession.h>
  #endif
  
@@ -145,7 +145,7 @@ index e6706a8..3a6be65 100644
  #ifndef O_NOCTTY
  #define O_NOCTTY	0
  #endif
-@@ -2061,6 +2068,24 @@ main(int ac, char **av)
+@@ -2133,6 +2140,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif

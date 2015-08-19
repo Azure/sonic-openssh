@@ -1,4 +1,4 @@
-From 0b9407d3023938b02bccf7dd1874a871d0cc8eb5 Mon Sep 17 00:00:00 2001
+From 96c2797aaa79d687e75dc56f40f7102131d87fb1 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -44,10 +44,10 @@ index ef0de08..149846c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 723a016..79b948c 100644
+index 9b93666..19bed1e 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -172,9 +172,7 @@ key in
+@@ -174,9 +174,7 @@ key in
  .Pa ~/.ssh/id_ed25519
  or
  .Pa ~/.ssh/id_rsa .
@@ -58,7 +58,7 @@ index 723a016..79b948c 100644
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -221,9 +219,7 @@ For each of the key types (rsa1, rsa, dsa, ecdsa and ed25519)
+@@ -223,9 +221,7 @@ For each of the key types (rsa1, rsa, dsa, ecdsa and ed25519)
  for which host keys
  do not exist, generate the host keys with the default key file path,
  an empty passphrase, default bits for the key type, and default comment.
@@ -69,7 +69,7 @@ index 723a016..79b948c 100644
  .It Fl a Ar rounds
  When saving a new-format private key (i.e. an ed25519 key or any SSH protocol
  2 key when the
-@@ -628,7 +624,7 @@ option.
+@@ -638,7 +634,7 @@ option.
  Valid generator values are 2, 3, and 5.
  .Pp
  Screened DH groups may be installed in
@@ -78,7 +78,7 @@ index 723a016..79b948c 100644
  It is important that this file contains moduli of a range of bit lengths and
  that both ends of a connection share common moduli.
  .Sh CERTIFICATES
-@@ -827,7 +823,7 @@ on all machines
+@@ -837,7 +833,7 @@ on all machines
  where the user wishes to log in using public key authentication.
  There is no need to keep the contents of this file secret.
  .Pp
@@ -88,10 +88,10 @@ index 723a016..79b948c 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 7f6ab77..de178cd 100644
+index 53c711a..04de6cf 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -753,6 +753,10 @@ Protocol 1 is restricted to using only RSA keys,
+@@ -766,6 +766,10 @@ Protocol 1 is restricted to using only RSA keys,
  but protocol 2 may use any.
  The HISTORY section of
  .Xr ssl 8
@@ -103,7 +103,7 @@ index 7f6ab77..de178cd 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index eaeac45..3538208 100644
+index fc2154c..8dba6cf 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -67,7 +67,7 @@ over an insecure network.
@@ -133,10 +133,10 @@ index eaeac45..3538208 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 58997d3..7396b23 100644
+index ec58635..453d741 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -303,8 +303,7 @@ This option is only available for protocol version 2.
+@@ -322,8 +322,7 @@ This option is only available for protocol version 2.
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

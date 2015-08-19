@@ -148,7 +148,10 @@ ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C build-deb regress-prep
 	$(MAKE) -C build-deb $(PARALLEL) \
 		regress/unittests/sshbuf/test_sshbuf \
-		regress/unittests/sshkey/test_sshkey
+		regress/unittests/sshkey/test_sshkey \
+		regress/unittests/bitmap/test_bitmap \
+		regress/unittests/hostkeys/test_hostkeys \
+		regress/unittests/kex/test_kex
 	$(MAKE) -C build-deb/regress \
 		.OBJDIR="$(CURDIR)/build-deb/regress" \
 		.CURDIR="$(CURDIR)/regress" \
