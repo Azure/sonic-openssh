@@ -20,8 +20,12 @@ make
 make regress-prep
 make regress/modpipe \
      regress/setuid-allowed \
+     regress/netcat \
      regress/unittests/sshbuf/test_sshbuf \
-     regress/unittests/sshkey/test_sshkey
+     regress/unittests/sshkey/test_sshkey \
+     regress/unittests/bitmap/test_bitmap \
+     regress/unittests/hostkeys/test_hostkeys \
+     regress/unittests/kex/test_kex
 
 SRCDIR="$(pwd)"
 BUILDDIR="$SRCDIR"
