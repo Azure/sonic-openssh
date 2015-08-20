@@ -131,7 +131,8 @@ openssh (1:6.9p1-1) UNRELEASED; urgency=medium
     - sshd(8): Format UsePAM setting when using sshd -T (closes: #767648).
     - moduli(5): Update DH-GEX moduli (closes: #787037).
   * There are some things I want to fix before upgrading to 7.0p1, though I
-    intend to do that soon.  In the meantime, backport security patches:
+    intend to do that soon.  In the meantime, backport some patches, mainly
+    to fix security issues:
     - SECURITY: sshd(8): OpenSSH 6.8 and 6.9 incorrectly set TTYs to be
       world-writable.  Local attackers may be able to write arbitrary
       messages to logged-in users, including terminal escape sequences.
@@ -152,6 +153,7 @@ openssh (1:6.9p1-1) UNRELEASED; urgency=medium
       times in a single pass.  The LoginGraceTime timeout in sshd(8) and any
       authentication failure delays implemented by the authentication
       mechanism itself were still applied.  Found by Kingcope.
+    - Let principals-command.sh work for noexec /var/run.
   * Thanks to Jakub Jelen of Red Hat for Fedora's rebased version of the
     GSSAPI key exchange patch.
   * Document the Debian-specific change to the default value of
