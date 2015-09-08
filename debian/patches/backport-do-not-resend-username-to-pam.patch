@@ -1,4 +1,4 @@
-From f84305e9391e13c01a78df0d93e2edd40c14f601 Mon Sep 17 00:00:00 2001
+From 7de26a97986c8032bf1869347a2ceaee1d64f857 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Tue, 11 Aug 2015 13:33:24 +1000
 Subject: Don't resend username to PAM; it already has it.

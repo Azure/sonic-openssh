@@ -1,4 +1,4 @@
-From b0b95d9689563856ac4992c90b65ed4fd8f3fae6 Mon Sep 17 00:00:00 2001
+From ef16932c23264c749f4b02af34dbd62a2075c04f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:17 +0000
 Subject: Support synchronisation with service supervisor using SIGSTOP

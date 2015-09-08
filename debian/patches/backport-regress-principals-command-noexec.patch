@@ -1,4 +1,4 @@
-From 4c2916a2d9c0445b41e34805ddfbd7e323cbe6ec Mon Sep 17 00:00:00 2001
+From fb43a1fa9d049900efd76861b9496a9585ba4759 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Mon, 10 Aug 2015 11:13:44 +1000
 Subject: let principals-command.sh work for noexec /var/run

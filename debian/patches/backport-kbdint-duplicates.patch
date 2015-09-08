@@ -1,4 +1,4 @@
-From 5c0c1192be30b7c0e60d96b5e6739c4ad49f087b Mon Sep 17 00:00:00 2001
+From e1c118c1cd5b0c691e6d080c87c440c262fc6b12 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Sat, 18 Jul 2015 07:57:14 +0000
 Subject: only query each keyboard-interactive device once per authentication
