@@ -1,4 +1,4 @@
-openssh (1:6.9p1-2) UNRELEASED; urgency=medium
+openssh (1:6.9p1-2) unstable; urgency=medium
 
   [ Colin Watson ]
   * mention-ssh-keygen-on-keychange.patch: Move example ssh-keygen
@@ -8,7 +8,7 @@ openssh (1:6.9p1-2) UNRELEASED; urgency=medium
   [ Tyler Hicks ]
   * Build with audit support on Linux (closes: #797727, LP: #1478087).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 08 Sep 2015 14:50:16 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 10 Sep 2015 12:26:11 +0100
 
 openssh (1:6.9p1-1) unstable; urgency=medium
 
