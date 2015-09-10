@@ -91,6 +91,7 @@ confflags += --with-kerberos5=/usr
 confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
+confflags += --with-audit=linux
 endif
 ifeq ($(DISTRIBUTOR),Ubuntu)
 confflags += --with-consolekit
