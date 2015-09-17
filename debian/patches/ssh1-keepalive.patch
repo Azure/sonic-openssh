@@ -1,4 +1,4 @@
-From b3d7661669a0f5255ede81f82c25951aeba9576c Mon Sep 17 00:00:00 2001
+From 634f3188e7f3c104cc7b13a078059f15f3f4a68a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:51 +0000
 Subject: Partial server keep-alive implementation for SSH1
@@ -57,10 +57,10 @@ index 77d5498..964353d 100644
  		server_alive_time = now + options.server_alive_interval;
  	}
 diff --git a/ssh_config.5 b/ssh_config.5
-index b840261..f7510b6 100644
+index 59ce400..e60a5b4 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1414,7 +1414,10 @@ If, for example,
+@@ -1416,7 +1416,10 @@ If, for example,
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

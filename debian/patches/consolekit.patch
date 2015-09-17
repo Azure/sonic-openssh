@@ -1,4 +1,4 @@
-From 1197fd975ab8fd11b1ac83557ef750129b16c0d8 Mon Sep 17 00:00:00 2001
+From 2219c0ae6be6750432932833b69264a53e0496e4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:57 +0000
 Subject: Add support for registering ConsoleKit sessions on login

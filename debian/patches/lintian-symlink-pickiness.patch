@@ -1,4 +1,4 @@
-From 5919db7dc21a34c31be70170728c2838ff59b740 Mon Sep 17 00:00:00 2001
+From 927f8421a046c30addfb0befb20a6c63fb9dc861 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:08 +0000
 Subject: Fix picky lintian errors about slogin symlinks

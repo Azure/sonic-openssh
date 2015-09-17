@@ -1,4 +1,4 @@
-From 5d3dc7ea4c96cab9483d5389a3b04163771fdee2 Mon Sep 17 00:00:00 2001
+From 70b18066d3921277861e98902c9cf41a10ac6898 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -17,7 +17,7 @@ have it merged into the main openssh package rather than having separate
 security history.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2015-08-19
+Last-Updated: 2015-09-17
 
 Patch-Name: gssapi.patch
 ---
@@ -46,14 +46,14 @@ Patch-Name: gssapi.patch
  servconf.h       |   2 +
  ssh-gss.h        |  41 ++++++-
  ssh_config       |   2 +
- ssh_config.5     |  34 +++++-
+ ssh_config.5     |  36 +++++-
  sshconnect2.c    | 124 +++++++++++++++++++-
  sshd.c           | 110 ++++++++++++++++++
  sshd_config      |   2 +
  sshd_config.5    |  11 ++
  sshkey.c         |   3 +-
  sshkey.h         |   1 +
- 32 files changed, 1955 insertions(+), 46 deletions(-)
+ 32 files changed, 1957 insertions(+), 46 deletions(-)
  create mode 100644 ChangeLog.gssapi
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
@@ -2540,10 +2540,10 @@ index 03a228f..228e5ab 100644
  #   CheckHostIP yes
  #   AddressFamily any
 diff --git a/ssh_config.5 b/ssh_config.5
-index 268a627..b840261 100644
+index 268a627..59ce400 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -744,11 +744,43 @@ Specifies whether user authentication based on GSSAPI is allowed.
+@@ -744,11 +744,45 @@ Specifies whether user authentication based on GSSAPI is allowed.
  The default is
  .Dq no .
  Note that this option applies to protocol version 2 only.
@@ -2578,9 +2578,11 @@ index 268a627..b840261 100644
 +.Dq no .
 +.It Cm GSSAPITrustDns
 +Set to 
-+.Dq yes to indicate that the DNS is trusted to securely canonicalize
++.Dq yes
++to indicate that the DNS is trusted to securely canonicalize
 +the name of the host being connected to. If 
-+.Dq no, the hostname entered on the
++.Dq no ,
++the hostname entered on the
 +command line will be passed untouched to the GSSAPI library.
 +The default is
 +.Dq no .

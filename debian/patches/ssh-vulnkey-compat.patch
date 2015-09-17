@@ -1,4 +1,4 @@
-From dd02db02d322c9db67d42fe491727854f951c828 Mon Sep 17 00:00:00 2001
+From 654750762053d631bd1e1176c230eaeaad9b4250 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:50 +0000
 Subject: Accept obsolete ssh-vulnkey configuration options
