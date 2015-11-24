@@ -7,7 +7,6 @@ keepalive-extensions.patch
 syslog-level-silent.patch
 quieter-signals.patch
 helpful-wait-terminate.patch
-consolekit.patch
 user-group-modes.patch
 scp-quoting.patch
 shell-path.patch

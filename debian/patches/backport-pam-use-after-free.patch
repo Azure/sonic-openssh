@@ -1,4 +1,4 @@
-From 86eebf92deb8023b009cfd3989bc34fb04f6f21c Mon Sep 17 00:00:00 2001
+From fddd7fcb2ccb2cfdd88328d1149c0c31fcf21447 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Tue, 11 Aug 2015 13:34:12 +1000
 Subject: set sshpam_ctxt to NULL after free
@@ -16,10 +16,10 @@ Patch-Name: backport-pam-use-after-free.patch
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/monitor.c b/monitor.c
-index 870a6b9..e8541b4 100644
+index 3fc9253..c063ad1 100644
 --- a/monitor.c
 +++ b/monitor.c
-@@ -1225,14 +1225,16 @@ mm_answer_pam_respond(int sock, Buffer *m)
+@@ -1209,14 +1209,16 @@ mm_answer_pam_respond(int sock, Buffer *m)
  int
  mm_answer_pam_free_ctx(int sock, Buffer *m)
  {

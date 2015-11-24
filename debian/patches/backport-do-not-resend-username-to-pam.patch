@@ -1,4 +1,4 @@
-From 8d73726cdce65479aaad386c290c71176dc83e31 Mon Sep 17 00:00:00 2001
+From 4e1468d9745c5e32d99cd85386dfc74e90a5cf14 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Tue, 11 Aug 2015 13:33:24 +1000
 Subject: Don't resend username to PAM; it already has it.
@@ -16,10 +16,10 @@ Patch-Name: backport-do-not-resend-username-to-pam.patch
  2 files changed, 3 deletions(-)
 
 diff --git a/monitor.c b/monitor.c
-index 12ed6fd..870a6b9 100644
+index 3a3d2f0..3fc9253 100644
 --- a/monitor.c
 +++ b/monitor.c
-@@ -1143,9 +1143,7 @@ extern KbdintDevice sshpam_device;
+@@ -1127,9 +1127,7 @@ extern KbdintDevice sshpam_device;
  int
  mm_answer_pam_init_ctx(int sock, Buffer *m)
  {
@@ -30,7 +30,7 @@ index 12ed6fd..870a6b9 100644
  	sshpam_authok = NULL;
  	buffer_clear(m);
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 2a0fe9b..e2fcf75 100644
+index 6ae72a0..6799911 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -632,7 +632,6 @@ mm_sshpam_init_ctx(Authctxt *authctxt)

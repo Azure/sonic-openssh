@@ -1,4 +1,4 @@
-From 8a07c2ecd69a0692757a08fb757a00ba7a9019bd Mon Sep 17 00:00:00 2001
+From fe597b453a89c6d1dcbbd91cacef80adc3b52fc9 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Thu, 30 Jul 2015 23:09:15 +0000
 Subject: Fix pty permissions
