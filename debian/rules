@@ -173,7 +173,7 @@ endif
 override_dh_auto_install:
 	$(MAKE) -C build-deb DESTDIR=`pwd`/debian/tmp install-nokeys
 
-override_dh_install:
+override_dh_install-arch:
 	rm -f debian/tmp/etc/ssh/sshd_config
 
 	dh_install -Nopenssh-client-udeb -Nopenssh-server-udeb --fail-missing
@@ -185,6 +185,10 @@ override_dh_install:
 	sed -i '/\$$OpenBSD:/d' \
 		debian/openssh-client/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
+
+override_dh_install-indep:
+	rm -f debian/tmp/etc/ssh/sshd_config
+	dh_install --fail-missing
 
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server
@@ -210,7 +214,7 @@ endif
 override_dh_installpam: debian/openssh-server.sshd.pam
 	dh_installpam --name sshd
 
-override_dh_fixperms:
+override_dh_fixperms-arch:
 	dh_fixperms
 	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
 
