@@ -43,6 +43,9 @@ openssh (1:7.0p1-1) UNRELEASED; urgency=medium
     - sshd(8): Clarify documentation for UseDNS option.
     - Check realpath(3) behaviour matches what sftp-server requires and use
       a replacement if necessary.
+  * Change "PermitRootLogin without-password" to the new preferred spelling
+    of "PermitRootLogin prohibit-password" in sshd_config, and update
+    documentation to reflect the new upstream default.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 29 Nov 2015 17:32:44 +0000
 

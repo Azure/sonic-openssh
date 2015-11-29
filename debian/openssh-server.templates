@@ -4,7 +4,7 @@ Default: false
 _Description: Disable SSH password authentication for root?
  Previous versions of openssh-server permitted logging in as root over SSH
  using password authentication. The default for new installations is now
- "PermitRootLogin without-password", which disables password authentication
+ "PermitRootLogin prohibit-password", which disables password authentication
  for root without breaking systems that have explicitly configured SSH
  public key authentication for root.
  .
