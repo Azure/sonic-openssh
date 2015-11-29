@@ -1,3 +1,51 @@
+openssh (1:7.0p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (http://www.openssh.com/txt/release-7.0, closes:
+    #785190):
+    - Support for the legacy SSH version 1 protocol is disabled by default
+      at compile time.
+    - Support for the 1024-bit diffie-hellman-group1-sha1 key exchange is
+      disabled by default at run-time.  It may be re-enabled using the
+      instructions at http://www.openssh.com/legacy.html
+    - Support for ssh-dss, ssh-dss-cert-* host and user keys is disabled by
+      default at run-time.  These may be re-enabled using the instructions
+      at http://www.openssh.com/legacy.html
+    - Support for the legacy v00 cert format has been removed.
+    - The default for the sshd_config(5) PermitRootLogin option has changed
+      from "yes" to "prohibit-password".
+    - PermitRootLogin=without-password/prohibit-password now bans all
+      interactive authentication methods, allowing only public-key,
+      hostbased and GSSAPI authentication (previously it permitted
+      keyboard-interactive and password-less authentication if those were
+      enabled).
+    - ssh_config(5): Add PubkeyAcceptedKeyTypes option to control which
+      public key types are available for user authentication.
+    - sshd_config(5): Add HostKeyAlgorithms option to control which public
+      key types are offered for host authentications.
+    - ssh(1), sshd(8): Extend Ciphers, MACs, KexAlgorithms,
+      HostKeyAlgorithms, PubkeyAcceptedKeyTypes and HostbasedKeyTypes
+      options to allow appending to the default set of algorithms instead of
+      replacing it.  Options may now be prefixed with a '+' to append to the
+      default, e.g. "HostKeyAlgorithms=+ssh-dss".
+    - sshd_config(5): PermitRootLogin now accepts an argument of
+      'prohibit-password' as a less-ambiguous synonym of 'without-
+      password'.
+    - ssh(1), sshd(8): Add compatability workarounds for Cisco and more
+      PuTTY versions.
+    - Fix some omissions and errors in the PROTOCOL and PROTOCOL.mux
+      documentation relating to Unix domain socket forwarding.
+    - ssh(1): Improve the ssh(1) manual page to include a better description
+      of Unix domain socket forwarding (closes: #779068).
+    - ssh(1), ssh-agent(1): Skip uninitialised PKCS#11 slots, fixing
+      failures to load keys when they are present.
+    - ssh(1), ssh-agent(1): Do not ignore PKCS#11 hosted keys that wth empty
+      CKA_ID.
+    - sshd(8): Clarify documentation for UseDNS option.
+    - Check realpath(3) behaviour matches what sftp-server requires and use
+      a replacement if necessary.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 29 Nov 2015 17:32:44 +0000
+
 openssh (1:6.9p1-3) unstable; urgency=medium
 
   * ssh_config(5): Fix markup errors in description of GSSAPITrustDns

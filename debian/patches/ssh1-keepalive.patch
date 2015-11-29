@@ -1,4 +1,4 @@
-From 634f3188e7f3c104cc7b13a078059f15f3f4a68a Mon Sep 17 00:00:00 2001
+From f1b6288dd90b72d4cad7e65f35d05148a5ba1874 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:51 +0000
 Subject: Partial server keep-alive implementation for SSH1
@@ -13,10 +13,10 @@ Patch-Name: ssh1-keepalive.patch
  2 files changed, 19 insertions(+), 11 deletions(-)
 
 diff --git a/clientloop.c b/clientloop.c
-index 77d5498..964353d 100644
+index fba1b54..9e45d24 100644
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -577,16 +577,21 @@ client_global_request_reply(int type, u_int32_t seq, void *ctxt)
+@@ -578,16 +578,21 @@ client_global_request_reply(int type, u_int32_t seq, void *ctxt)
  static void
  server_alive_check(void)
  {
@@ -47,7 +47,7 @@ index 77d5498..964353d 100644
  }
  
  /*
-@@ -648,7 +653,7 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
+@@ -649,7 +654,7 @@ client_wait_until_can_do_something(fd_set **readsetp, fd_set **writesetp,
  	 */
  
  	timeout_secs = INT_MAX; /* we use INT_MAX to mean no timeout */
@@ -57,10 +57,10 @@ index 77d5498..964353d 100644
  		server_alive_time = now + options.server_alive_interval;
  	}
 diff --git a/ssh_config.5 b/ssh_config.5
-index 59ce400..e60a5b4 100644
+index b2dc49b..82dcf0c 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1416,7 +1416,10 @@ If, for example,
+@@ -1468,7 +1468,10 @@ If, for example,
  .Cm ServerAliveCountMax
  is left at the default, if the server becomes unresponsive,
  ssh will disconnect after approximately 45 seconds.

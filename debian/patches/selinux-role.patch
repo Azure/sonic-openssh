@@ -1,4 +1,4 @@
-From a12d63c53c0eb8926f64580eec2e4ccc57ee6f5c Mon Sep 17 00:00:00 2001
+From 10dec1266aa5cf1ad906b1bef6f67edc322c00cb Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -113,7 +113,7 @@ index 3f49bdc..6eb3cc7 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			packet_disconnect("no authentication methods enabled");
 diff --git a/monitor.c b/monitor.c
-index bdc2972..3a3d2f0 100644
+index 2658aaa..c063ad1 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -127,6 +127,7 @@ int mm_answer_sign(int, Buffer *);
@@ -203,7 +203,7 @@ index bc50ade..2d82b8b 100644
  
  struct mm_master;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 71e7c08..6ae72a0 100644
+index 81ceddb..6799911 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -327,10 +327,10 @@ mm_auth2_read_banner(void)
@@ -265,7 +265,7 @@ index 9758290..57e740f 100644
  char *mm_auth2_read_banner(void);
  int mm_auth_password(struct Authctxt *, char *);
 diff --git a/openbsd-compat/port-linux.c b/openbsd-compat/port-linux.c
-index 4637a7a..de6ad3f 100644
+index f36999d..f9cdc15 100644
 --- a/openbsd-compat/port-linux.c
 +++ b/openbsd-compat/port-linux.c
 @@ -29,6 +29,12 @@
@@ -458,10 +458,10 @@ index 6a2f35e..ef6593c 100644
  		       const char *value);
  
 diff --git a/sshd.c b/sshd.c
-index 186ad55..9ff9e8b 100644
+index 4d8a5e8..f60c9e0 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -781,7 +781,7 @@ privsep_postauth(Authctxt *authctxt)
+@@ -782,7 +782,7 @@ privsep_postauth(Authctxt *authctxt)
  	explicit_bzero(rnd, sizeof(rnd));
  
  	/* Drop privileges */
@@ -471,7 +471,7 @@ index 186ad55..9ff9e8b 100644
   skip:
  	/* It is safe now to apply the key state */
 diff --git a/sshpty.c b/sshpty.c
-index 7bb7641..0e32b39 100644
+index 15da8c6..e89efb7 100644
 --- a/sshpty.c
 +++ b/sshpty.c
 @@ -187,7 +187,7 @@ pty_change_window_size(int ptyfd, u_int row, u_int col,

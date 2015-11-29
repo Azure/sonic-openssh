@@ -1,4 +1,4 @@
-From c239fee2fa5aae0a6e3086330562241bd9330bca Mon Sep 17 00:00:00 2001
+From 49f2be4bc5297798aa3cd54ba1417804c14f8d38 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:12 +0000
 Subject: Refer to ssh's Upstart job as well as its init script
@@ -12,7 +12,7 @@ Patch-Name: doc-upstart.patch
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/sshd.8 b/sshd.8
-index 2f4d4f3..42f1520 100644
+index 42ba596..17b917c 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -67,7 +67,10 @@ over an insecure network.

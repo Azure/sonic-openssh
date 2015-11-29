@@ -1,4 +1,4 @@
-From c38beb3f8dcdd55621ad9d8fd3bc204d19a0a741 Mon Sep 17 00:00:00 2001
+From 1b41ad6426301c5131aa93d0915f6c5e69cff645 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:02 +0000
 Subject: Quieten logs when multiple from= restrictions are used
@@ -16,7 +16,7 @@ Patch-Name: auth-log-verbosity.patch
  4 files changed, 32 insertions(+), 9 deletions(-)
 
 diff --git a/auth-options.c b/auth-options.c
-index facfc02..9ab1880 100644
+index e387697..f1e3ddf 100644
 --- a/auth-options.c
 +++ b/auth-options.c
 @@ -58,9 +58,20 @@ int forced_tun_device = -1;

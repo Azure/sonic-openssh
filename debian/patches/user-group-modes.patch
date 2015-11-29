@@ -1,4 +1,4 @@
-From 113450cad7a19b997e51945f012539836bba6f17 Mon Sep 17 00:00:00 2001
+From d0e69ff6f823231b121af1fe8bbe9442bfed4fe8 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -52,10 +52,10 @@ index ee9e827..2ff2cff 100644
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
 diff --git a/auth.c b/auth.c
-index e6c094d..a99c475 100644
+index fc32f6c..8255d22 100644
 --- a/auth.c
 +++ b/auth.c
-@@ -422,8 +422,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
+@@ -424,8 +424,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -65,7 +65,7 @@ index e6c094d..a99c475 100644
  			logit("Authentication refused for %.100s: "
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
-@@ -485,8 +484,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -487,8 +486,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
  		snprintf(err, errlen, "%s is not a regular file", buf);
  		return -1;
  	}
@@ -75,7 +75,7 @@ index e6c094d..a99c475 100644
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -501,8 +499,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -503,8 +501,7 @@ auth_secure_path(const char *name, struct stat *stp, const char *pw_dir,
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) < 0 ||
@@ -216,7 +216,7 @@ index f35ec39..9a23e6e 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index 5c5890c..5f6c37f 100644
+index 46c343f..c0ba5a7 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -39,6 +39,8 @@
@@ -239,10 +239,10 @@ index 5c5890c..5f6c37f 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index df7ac86..c84196f 100644
+index 2ea0a20..ff80022 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1371,6 +1371,8 @@ The file format and configuration options are described in
+@@ -1458,6 +1458,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -252,10 +252,10 @@ index df7ac86..c84196f 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 67e0dff..4e799cf 100644
+index f517159..b07e866 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1708,6 +1708,8 @@ The format of this file is described above.
+@@ -1760,6 +1760,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

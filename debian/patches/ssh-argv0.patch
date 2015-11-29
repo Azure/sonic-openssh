@@ -1,4 +1,4 @@
-From eb8700714181bd9e84a110edfd5978a932622aa0 Mon Sep 17 00:00:00 2001
+From c243ac551b1f62aae59ee8ae29166fd410d4e9d4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:10 +0000
 Subject: ssh(1): Refer to ssh-argv0(1)
@@ -18,10 +18,10 @@ Patch-Name: ssh-argv0.patch
  1 file changed, 1 insertion(+)
 
 diff --git a/ssh.1 b/ssh.1
-index c3e1266..2178863 100644
+index 4fba77f..05b7f10 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1487,6 +1487,7 @@ if an error occurred.
+@@ -1574,6 +1574,7 @@ if an error occurred.
  .Xr sftp 1 ,
  .Xr ssh-add 1 ,
  .Xr ssh-agent 1 ,

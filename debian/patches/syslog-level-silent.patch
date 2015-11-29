@@ -1,4 +1,4 @@
-From ff5dffb6e1e7b0c5cd6cf8f47fa89bcef10e666d Mon Sep 17 00:00:00 2001
+From 19ab567e88d730a6862aab3fb33e399a9c3f67b2 Mon Sep 17 00:00:00 2001
 From: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility
@@ -21,10 +21,10 @@ Patch-Name: syslog-level-silent.patch
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/log.c b/log.c
-index 32e1d2e..53e7b65 100644
+index ad12930..e68b84a 100644
 --- a/log.c
 +++ b/log.c
-@@ -94,6 +94,7 @@ static struct {
+@@ -93,6 +93,7 @@ static struct {
  	LogLevel val;
  } log_levels[] =
  {
@@ -33,10 +33,10 @@ index 32e1d2e..53e7b65 100644
  	{ "FATAL",	SYSLOG_LEVEL_FATAL },
  	{ "ERROR",	SYSLOG_LEVEL_ERROR },
 diff --git a/ssh.c b/ssh.c
-index 3fd5a94..d99f7ef 100644
+index 59c1f93..712ea0e 100644
 --- a/ssh.c
 +++ b/ssh.c
-@@ -1105,7 +1105,7 @@ main(int ac, char **av)
+@@ -1106,7 +1106,7 @@ main(int ac, char **av)
  	/* Do not allocate a tty if stdin is not a tty. */
  	if ((!isatty(fileno(stdin)) || stdin_null_flag) &&
  	    options.request_tty != REQUEST_TTY_FORCE) {
