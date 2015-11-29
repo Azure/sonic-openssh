@@ -20,7 +20,7 @@ PermitRootLogin
 
 As of 1:6.6p1-1, new installations will be set to "PermitRootLogin
 without-password" (or the synonymous "PermitRootLogin prohibit-password" as
-of 1:7.0p1-1).  This disables password authentication for root, foiling
+of 1:7.1p1-1).  This disables password authentication for root, foiling
 password dictionary attacks on the root user.  Some sites may wish to use
 the stronger "PermitRootLogin forced-commands-only" or "PermitRootLogin no",
 but note that "PermitRootLogin no" will break setups that SSH to root with a

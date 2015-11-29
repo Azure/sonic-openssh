@@ -1,4 +1,4 @@
-From 5ddd42354edfbe0d5cc607d007f8c655ec351e2f Mon Sep 17 00:00:00 2001
+From f7d2bb35f07cfcab63fc8cf3cd9bef646065482c Mon Sep 17 00:00:00 2001
 From: Peter Samuelson <peter@p12n.org>
 Date: Sun, 9 Feb 2014 16:09:55 +0000
 Subject: Reduce severity of "Killed by signal %d"

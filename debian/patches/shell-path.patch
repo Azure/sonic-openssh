@@ -1,4 +1,4 @@
-From e6ac786efa1922c3a4846023b85b4425c3b27624 Mon Sep 17 00:00:00 2001
+From e4ba682033c1e53b52cf4b03924b69f54945f1b5 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:00 +0000
 Subject: Look for $SHELL on the path for ProxyCommand/LocalCommand
@@ -16,7 +16,7 @@ Patch-Name: shell-path.patch
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index f41960c..8adc943 100644
+index 17fbe39..cd467fd 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -231,7 +231,7 @@ ssh_proxy_connect(const char *host, u_short port, const char *proxy_command)

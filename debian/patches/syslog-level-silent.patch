@@ -1,4 +1,4 @@
-From 19ab567e88d730a6862aab3fb33e399a9c3f67b2 Mon Sep 17 00:00:00 2001
+From 063fd3991309c88df5ea2625d663c3958e79b841 Mon Sep 17 00:00:00 2001
 From: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility

@@ -1,4 +1,4 @@
-From d0e69ff6f823231b121af1fe8bbe9442bfed4fe8 Mon Sep 17 00:00:00 2001
+From 68538f6919550b36ae9d812a1c2c52dbe9354608 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -52,7 +52,7 @@ index ee9e827..2ff2cff 100644
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
 diff --git a/auth.c b/auth.c
-index fc32f6c..8255d22 100644
+index 214c2c7..25be632 100644
 --- a/auth.c
 +++ b/auth.c
 @@ -424,8 +424,7 @@ check_key_in_hostfiles(struct passwd *pw, Key *key, const char *host,
@@ -252,7 +252,7 @@ index 2ea0a20..ff80022 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index f517159..b07e866 100644
+index 4e34115..37f3ab8 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -1760,6 +1760,8 @@ The format of this file is described above.

@@ -1,4 +1,4 @@
-From 233e78235070e871b658c8f289e600bd52a99711 Mon Sep 17 00:00:00 2001
+From 09c4d9b7d41ab3c9973f07e0109e931f57c59c43 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -2540,7 +2540,7 @@ index 03a228f..228e5ab 100644
  #   CheckHostIP yes
  #   AddressFamily any
 diff --git a/ssh_config.5 b/ssh_config.5
-index 5b0975f..b2dc49b 100644
+index a47f3ca..cac8cda 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -749,11 +749,45 @@ Specifies whether user authentication based on GSSAPI is allowed.
@@ -2793,7 +2793,7 @@ index 7751031..e2ea826 100644
  
  int
 diff --git a/sshd.c b/sshd.c
-index c7dd8cb..32adb1f 100644
+index 65ef7e8..839c2e0 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -126,6 +126,10 @@
@@ -2959,7 +2959,7 @@ index 4d77f05..64786c9 100644
  # Set this to 'yes' to enable PAM authentication, account processing,
  # and session processing. If this is enabled, PAM authentication will
 diff --git a/sshd_config.5 b/sshd_config.5
-index 58e277f..712f620 100644
+index b18d340..5491c89 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -621,6 +621,12 @@ Specifies whether user authentication based on GSSAPI is allowed.
@@ -2988,7 +2988,7 @@ index 58e277f..712f620 100644
  Specifies the key types that will be accepted for hostbased authentication
  as a comma-separated pattern list.
 diff --git a/sshkey.c b/sshkey.c
-index dbb16e2..14b6dc3 100644
+index 32dd8f2..5368e7c 100644
 --- a/sshkey.c
 +++ b/sshkey.c
 @@ -112,6 +112,7 @@ static const struct keytype keytypes[] = {

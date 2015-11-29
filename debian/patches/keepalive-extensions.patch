@@ -1,4 +1,4 @@
-From 25698ed1091d932244f94e7c802dce05c458749a Mon Sep 17 00:00:00 2001
+From 5664b20b9d8ee691d664333b83ebb5e7560933a4 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -72,7 +72,7 @@ index 522ad37..46c343f 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 82dcf0c..f517159 100644
+index 673d0b7..4e34115 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -233,8 +233,12 @@ Valid arguments are
@@ -120,7 +120,7 @@ index 82dcf0c..f517159 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 712f620..154e87e 100644
+index 5491c89..c8ee35d 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -1510,6 +1510,9 @@ This avoids infinitely hanging sessions.

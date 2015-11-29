@@ -1,4 +1,4 @@
-From 4e80e6a84e57783718ca225021a597713c44c2a2 Mon Sep 17 00:00:00 2001
+From 40fc1212b3c06063cf3926aa8e8209e1fa05436f Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -19,7 +19,7 @@ Patch-Name: package-versioning.patch
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 4aff104..2999061 100644
+index bbde8af..0ec1e54 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -524,10 +524,10 @@ send_client_banner(int connection_out, int minor1)
@@ -36,7 +36,7 @@ index 4aff104..2999061 100644
  	if (roaming_atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
 diff --git a/sshd.c b/sshd.c
-index f60c9e0..e3ac37b 100644
+index 0537bc9..0d4fb7f 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -443,7 +443,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
@@ -49,11 +49,11 @@ index f60c9e0..e3ac37b 100644
  	    options.version_addendum, newline);
  
 diff --git a/version.h b/version.h
-index 7a5dbc8..f665356 100644
+index d917ca1..5c22d90 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_7.0"
+ #define SSH_VERSION	"OpenSSH_7.1"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE

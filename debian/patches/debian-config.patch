@@ -1,4 +1,4 @@
-From 6d0faf6dc76ac8cc73d6f8e478db7c97f7013a2d Mon Sep 17 00:00:00 2001
+From 733c4de05612fe398ac3dc7d31d318d7012fda05 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -107,7 +107,7 @@ index 228e5ab..c9386aa 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 5bc04b0..aaa435a 100644
+index 680ca17..981197d 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
@@ -144,7 +144,7 @@ index 5bc04b0..aaa435a 100644
  See the X11 SECURITY extension specification for full details on
  the restrictions imposed on untrusted clients.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 7e40a27..92c23bc 100644
+index 0828592..0be7250 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes

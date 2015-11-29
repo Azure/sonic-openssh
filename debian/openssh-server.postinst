@@ -314,7 +314,7 @@ if [ "$action" = configure ]; then
 	   db_get openssh-server/permit-root-login && [ "$RET" = true ]; then
 	    set_config_option PermitRootLogin prohibit-password
 	fi
-	if dpkg --compare-versions "$2" lt-nl 1:7.0p1-1 && \
+	if dpkg --compare-versions "$2" lt-nl 1:7.1p1-1 && \
 	   [ "$(get_config_option PermitRootLogin)" = without-password ]; then
 	    set_config_option PermitRootLogin prohibit-password
 	fi
