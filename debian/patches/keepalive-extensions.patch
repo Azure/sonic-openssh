@@ -1,4 +1,4 @@
-From 5664b20b9d8ee691d664333b83ebb5e7560933a4 Mon Sep 17 00:00:00 2001
+From 43c55250c94601ae868e2caca8f008c1b0da1247 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -72,7 +72,7 @@ index 522ad37..46c343f 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 673d0b7..4e34115 100644
+index cac8cda..78e918a 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -233,8 +233,12 @@ Valid arguments are
@@ -89,7 +89,7 @@ index 673d0b7..4e34115 100644
  The argument must be
  .Dq yes
  or
-@@ -1479,8 +1483,15 @@ from the server,
+@@ -1476,8 +1480,15 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -106,7 +106,7 @@ index 673d0b7..4e34115 100644
  .It Cm StreamLocalBindMask
  Sets the octal file creation mode mask
  .Pq umask
-@@ -1546,6 +1557,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -1543,6 +1554,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.

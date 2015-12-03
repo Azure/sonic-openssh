@@ -1,4 +1,4 @@
-From 68538f6919550b36ae9d812a1c2c52dbe9354608 Mon Sep 17 00:00:00 2001
+From aae427a0c7d5702bf294191533ab1f33437a8a56 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -252,10 +252,10 @@ index 2ea0a20..ff80022 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 4e34115..37f3ab8 100644
+index 78e918a..1e9c058 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1760,6 +1760,8 @@ The format of this file is described above.
+@@ -1757,6 +1757,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

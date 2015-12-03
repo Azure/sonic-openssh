@@ -1,4 +1,4 @@
-From 733c4de05612fe398ac3dc7d31d318d7012fda05 Mon Sep 17 00:00:00 2001
+From c975d37df187e00832d6b6070731b8a8c16a6f56 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -107,7 +107,7 @@ index 228e5ab..c9386aa 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 680ca17..981197d 100644
+index d4928b8..81b9b74 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
