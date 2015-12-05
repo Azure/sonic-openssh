@@ -1,3 +1,30 @@
+openssh (1:7.1p1-2) UNRELEASED; urgency=medium
+
+  OpenSSH 7.0 disables several pieces of weak, legacy, and/or unsafe
+  cryptography.
+
+   * Support for the legacy SSH version 1 protocol is disabled by default at
+     compile time.  Note that this also means that the Cipher keyword in
+     ssh_config(5) is effectively no longer usable; use Ciphers instead for
+     protocol 2.
+   * Support for the 1024-bit diffie-hellman-group1-sha1 key exchange is
+     disabled by default at run-time.  It may be re-enabled using the
+     instructions at http://www.openssh.com/legacy.html
+   * Support for ssh-dss, ssh-dss-cert-* host and user keys is disabled by
+     default at run-time.  These may be re-enabled using the instructions at
+     http://www.openssh.com/legacy.html
+   * Support for the legacy v00 cert format has been removed.
+
+  Future releases will retire more legacy cryptography, including:
+
+   * Refusing all RSA keys smaller than 1024 bits (the current minimum is
+     768 bits).
+   * Several ciphers will be disabled by default: blowfish-cbc, cast128-cbc,
+     all arcfour variants, and the rijndael-cbc aliases for AES.
+   * MD5-based HMAC algorithms will be disabled by default.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 03 Dec 2015 17:59:08 +0000
+
 openssh (1:6.7p1-5) unstable; urgency=medium
 
   openssh-server 1:6.7p1-4 changed the default setting of AcceptEnv to list
