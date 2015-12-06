@@ -6,7 +6,11 @@ openssh (1:7.1p1-2) UNRELEASED; urgency=medium
    * Support for the legacy SSH version 1 protocol is disabled by default at
      compile time.  Note that this also means that the Cipher keyword in
      ssh_config(5) is effectively no longer usable; use Ciphers instead for
-     protocol 2.
+     protocol 2.  The openssh-client-ssh1 package includes "ssh1", "scp1",
+     and "ssh-keygen1" binaries which you can use if you have no alternative
+     way to connect to an outdated SSH1-only server; please contact the
+     server administrator or system vendor in such cases and ask them to
+     upgrade.
    * Support for the 1024-bit diffie-hellman-group1-sha1 key exchange is
      disabled by default at run-time.  It may be re-enabled using the
      instructions at http://www.openssh.com/legacy.html
