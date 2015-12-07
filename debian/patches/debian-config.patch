@@ -1,4 +1,4 @@
-From c975d37df187e00832d6b6070731b8a8c16a6f56 Mon Sep 17 00:00:00 2001
+From 9351b179c72f18dc1b1d5bb84b2a7dab5e0af3fc Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -19,7 +19,7 @@ debian/openssh-server.postinst.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2015-11-29
+Last-Update: 2015-12-07
 
 Patch-Name: debian-config.patch
 ---
@@ -27,8 +27,9 @@ Patch-Name: debian-config.patch
  ssh.1         | 21 +++++++++++++++++++++
  ssh_config    |  7 ++++++-
  ssh_config.5  | 19 ++++++++++++++++++-
+ sshd_config   |  2 +-
  sshd_config.5 | 25 +++++++++++++++++++++++++
- 5 files changed, 71 insertions(+), 3 deletions(-)
+ 6 files changed, 72 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index c0ba5a7..e4e1cba 100644
@@ -143,6 +144,19 @@ index d4928b8..81b9b74 100644
  .Pp
  See the X11 SECURITY extension specification for full details on
  the restrictions imposed on untrusted clients.
+diff --git a/sshd_config b/sshd_config
+index 64786c9..d8338db 100644
+--- a/sshd_config
++++ b/sshd_config
+@@ -125,7 +125,7 @@ UsePrivilegeSeparation sandbox		# Default for new installations.
+ #Banner none
+ 
+ # override default of no subsystems
+-Subsystem	sftp	/usr/libexec/sftp-server
++Subsystem	sftp	/usr/lib/openssh/sftp-server
+ 
+ # Example of overriding settings on a per-user basis
+ #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
 index 0828592..0be7250 100644
 --- a/sshd_config.5
