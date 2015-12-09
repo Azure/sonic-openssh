@@ -43,6 +43,7 @@ Description: secure shell (SSH) client, for secure access to remote machines
  obsolete for most purposes.
 
 Package: openssh-client-ssh1
+Priority: extra
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, openssh-client (= ${binary:Version})
 Multi-Arch: foreign
