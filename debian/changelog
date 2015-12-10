@@ -1,10 +1,10 @@
-openssh (1:7.1p1-3) UNRELEASED; urgency=medium
+openssh (1:7.1p1-3) unstable; urgency=medium
 
   * Drop priority of openssh-client-ssh1 to extra (closes: #807518).
   * Redirect regression test input from /dev/zero, since otherwise conch
     will immediately send EOF.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 09 Dec 2015 23:47:13 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 10 Dec 2015 15:12:10 +0000
 
 openssh (1:7.1p1-2) unstable; urgency=medium
 
