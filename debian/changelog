@@ -1,9 +1,9 @@
-openssh (1:7.1p1-4) UNRELEASED; urgency=medium
+openssh (1:7.1p1-4) unstable; urgency=medium
 
   * Backport upstream patch to unbreak connections with peers that set
     first_kex_follows (LP: #1526357).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 15 Dec 2015 15:27:17 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 15 Dec 2015 15:40:18 +0000
 
 openssh (1:7.1p1-3) unstable; urgency=medium
 
