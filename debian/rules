@@ -92,6 +92,7 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 confflags += --with-audit=linux
+confflags += --with-systemd
 endif
 
 # The deb build wants xauth; the udeb build doesn't.

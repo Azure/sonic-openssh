@@ -1,3 +1,10 @@
+openssh (1:7.1p1-5) UNRELEASED; urgency=medium
+
+  [ Michael Biebl ]
+  * Add systemd readiness notification support (closes: #778913).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 21 Dec 2015 16:10:53 +0000
+
 openssh (1:7.1p1-4) unstable; urgency=medium
 
   * Backport upstream patch to unbreak connections with peers that set

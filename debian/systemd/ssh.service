@@ -9,6 +9,8 @@ ExecStart=/usr/sbin/sshd -D $SSHD_OPTS
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
+RestartPreventExitStatus=255
+Type=notify
 
 [Install]
 WantedBy=multi-user.target
