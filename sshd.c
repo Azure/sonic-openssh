@@ -85,6 +85,10 @@
 #include <prot.h>
 #endif
 
+#ifdef HAVE_SYSTEMD
+#include <systemd/sd-daemon.h>
+#endif
+
 #include "xmalloc.h"
 #include "ssh.h"
 #include "ssh1.h"
@@ -2010,6 +2014,11 @@ main(int ac, char **av)
 
 	/* ignore SIGPIPE */
 	signal(SIGPIPE, SIG_IGN);
+
+#ifdef HAVE_SYSTEMD
+	/* Signal systemd that we are ready to accept connections */
+	sd_notify(0, "READY=1");
+#endif
 
 	/* Get a connection, either from inetd or a listening TCP socket */
 	if (inetd_flag) {
