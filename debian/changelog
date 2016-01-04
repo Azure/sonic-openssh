@@ -1,4 +1,4 @@
-openssh (1:7.1p1-6) UNRELEASED; urgency=medium
+openssh (1:7.1p1-6) unstable; urgency=medium
 
   [ Colin Watson ]
   * Remove explicit "XS-Testsuite: autopkgtest" from debian/control;
@@ -12,7 +12,7 @@ openssh (1:7.1p1-6) UNRELEASED; urgency=medium
   [ Michael Biebl ]
   * Don't call sd_notify when sshd is re-execed (closes: #809035).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2016 13:27:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2016 15:09:10 +0000
 
 openssh (1:7.1p1-5) unstable; urgency=medium
 
