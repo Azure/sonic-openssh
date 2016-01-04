@@ -1,4 +1,4 @@
-From 628e08e8a589dff2178a6725d32c5699f11b2405 Mon Sep 17 00:00:00 2001
+From c60b1066b877429b723b351f44efb9e84bc64252 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability

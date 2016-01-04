@@ -6,6 +6,8 @@ openssh (1:7.1p1-6) UNRELEASED; urgency=medium
     debian/tests/control.
   * Allow authenticating as root using gssapi-keyex even with
     "PermitRootLogin prohibit-password" (closes: #809695).
+  * Shuffle PROPOSAL_KEX_ALGS mangling for GSSAPI key exchange a little
+    later in ssh_kex2 so that it's actually effective (closes: #809696).
 
   [ Michael Biebl ]
   * Don't call sd_notify when sshd is re-execed (closes: #809035).

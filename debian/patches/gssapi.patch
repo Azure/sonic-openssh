@@ -1,4 +1,4 @@
-From d6cfd64ea0a567d88152270a94be6bb2a78daeb9 Mon Sep 17 00:00:00 2001
+From 48424483cbf2232ba849038e02675b2db1ea3a88 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -48,13 +48,13 @@ Patch-Name: gssapi.patch
  ssh-gss.h        |  41 ++++++-
  ssh_config       |   2 +
  ssh_config.5     |  36 +++++-
- sshconnect2.c    | 124 +++++++++++++++++++-
+ sshconnect2.c    | 120 +++++++++++++++++++-
  sshd.c           | 110 ++++++++++++++++++
  sshd_config      |   2 +
  sshd_config.5    |  11 ++
  sshkey.c         |   3 +-
  sshkey.h         |   1 +
- 33 files changed, 1959 insertions(+), 47 deletions(-)
+ 33 files changed, 1955 insertions(+), 47 deletions(-)
  create mode 100644 ChangeLog.gssapi
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
@@ -2606,10 +2606,10 @@ index a47f3ca..cac8cda 100644
  Indicates that
  .Xr ssh 1
 diff --git a/sshconnect2.c b/sshconnect2.c
-index 7751031..e2ea826 100644
+index 7751031..32e9b0d 100644
 --- a/sshconnect2.c
 +++ b/sshconnect2.c
-@@ -160,9 +160,34 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
+@@ -160,6 +160,11 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
  	struct kex *kex;
  	int r;
  
@@ -2621,9 +2621,13 @@ index 7751031..e2ea826 100644
  	xxx_host = host;
  	xxx_hostaddr = hostaddr;
  
+@@ -193,6 +198,33 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
+ 		    order_hostkeyalgs(host, hostaddr, port));
+ 	}
+ 
 +#ifdef GSSAPI
 +	if (options.gss_keyex) {
-+		/* Add the GSSAPI mechanisms currently supported on this 
++		/* Add the GSSAPI mechanisms currently supported on this
 +		 * client to the key exchange algorithm proposal */
 +		orig = myproposal[PROPOSAL_KEX_ALGS];
 +
@@ -2637,32 +2641,21 @@ index 7751031..e2ea826 100644
 +			debug("Offering GSSAPI proposal: %s", gss);
 +			xasprintf(&myproposal[PROPOSAL_KEX_ALGS],
 +			    "%s,%s", gss, orig);
-+		}
-+	}
-+#endif
 +
- 	myproposal[PROPOSAL_KEX_ALGS] = compat_kex_proposal(
- 	    options.kex_algorithms);
- 	myproposal[PROPOSAL_ENC_ALGS_CTOS] =
-@@ -193,6 +218,17 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
- 		    order_hostkeyalgs(host, hostaddr, port));
- 	}
- 
-+#ifdef GSSAPI
-+	/* If we've got GSSAPI algorithms, then we also support the
-+	 * 'null' hostkey, as a last resort */
-+	if (options.gss_keyex && gss) {
-+		orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
-+		xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS], 
-+		    "%s,null", orig);
-+		free(gss);
++			/* If we've got GSSAPI algorithms, then we also
++			 * support the 'null' hostkey, as a last resort */
++			orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
++			xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS],
++			    "%s,null", orig);
++			free(gss);
++		}
 +	}
 +#endif
 +
  	if (options.rekey_limit || options.rekey_interval)
  		packet_set_rekey_limits((u_int32_t)options.rekey_limit,
  		    (time_t)options.rekey_interval);
-@@ -211,10 +247,30 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
+@@ -211,10 +243,30 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
  # endif
  #endif
  	kex->kex[KEX_C25519_SHA256] = kexc25519_client;
@@ -2693,7 +2686,7 @@ index 7751031..e2ea826 100644
  	dispatch_run(DISPATCH_BLOCK, &kex->done, active_state);
  
  	if (options.use_roaming && !kex->roaming) {
-@@ -306,6 +362,7 @@ int	input_gssapi_token(int type, u_int32_t, void *);
+@@ -306,6 +358,7 @@ int	input_gssapi_token(int type, u_int32_t, void *);
  int	input_gssapi_hash(int type, u_int32_t, void *);
  int	input_gssapi_error(int, u_int32_t, void *);
  int	input_gssapi_errtok(int, u_int32_t, void *);
@@ -2701,7 +2694,7 @@ index 7751031..e2ea826 100644
  #endif
  
  void	userauth(Authctxt *, char *);
-@@ -321,6 +378,11 @@ static char *authmethods_get(void);
+@@ -321,6 +374,11 @@ static char *authmethods_get(void);
  
  Authmethod authmethods[] = {
  #ifdef GSSAPI
@@ -2713,7 +2706,7 @@ index 7751031..e2ea826 100644
  	{"gssapi-with-mic",
  		userauth_gssapi,
  		NULL,
-@@ -627,19 +689,31 @@ userauth_gssapi(Authctxt *authctxt)
+@@ -627,19 +685,31 @@ userauth_gssapi(Authctxt *authctxt)
  	static u_int mech = 0;
  	OM_uint32 min;
  	int ok = 0;
@@ -2747,7 +2740,7 @@ index 7751031..e2ea826 100644
  			ok = 1; /* Mechanism works */
  		} else {
  			mech++;
-@@ -736,8 +810,8 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
+@@ -736,8 +806,8 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
  {
  	Authctxt *authctxt = ctxt;
  	Gssctxt *gssctxt;
@@ -2758,7 +2751,7 @@ index 7751031..e2ea826 100644
  
  	if (authctxt == NULL)
  		fatal("input_gssapi_response: no authentication context");
-@@ -850,6 +924,48 @@ input_gssapi_error(int type, u_int32_t plen, void *ctxt)
+@@ -850,6 +920,48 @@ input_gssapi_error(int type, u_int32_t plen, void *ctxt)
  	free(lang);
  	return 0;
  }

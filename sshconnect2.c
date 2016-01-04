@@ -168,26 +168,6 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	xxx_host = host;
 	xxx_hostaddr = hostaddr;
 
-#ifdef GSSAPI
-	if (options.gss_keyex) {
-		/* Add the GSSAPI mechanisms currently supported on this 
-		 * client to the key exchange algorithm proposal */
-		orig = myproposal[PROPOSAL_KEX_ALGS];
-
-		if (options.gss_trust_dns)
-			gss_host = (char *)get_canonical_hostname(1);
-		else
-			gss_host = host;
-
-		gss = ssh_gssapi_client_mechanisms(gss_host, options.gss_client_identity);
-		if (gss) {
-			debug("Offering GSSAPI proposal: %s", gss);
-			xasprintf(&myproposal[PROPOSAL_KEX_ALGS],
-			    "%s,%s", gss, orig);
-		}
-	}
-#endif
-
 	myproposal[PROPOSAL_KEX_ALGS] = compat_kex_proposal(
 	    options.kex_algorithms);
 	myproposal[PROPOSAL_ENC_ALGS_CTOS] =
@@ -219,13 +199,29 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	}
 
 #ifdef GSSAPI
-	/* If we've got GSSAPI algorithms, then we also support the
-	 * 'null' hostkey, as a last resort */
-	if (options.gss_keyex && gss) {
-		orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
-		xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS], 
-		    "%s,null", orig);
-		free(gss);
+	if (options.gss_keyex) {
+		/* Add the GSSAPI mechanisms currently supported on this
+		 * client to the key exchange algorithm proposal */
+		orig = myproposal[PROPOSAL_KEX_ALGS];
+
+		if (options.gss_trust_dns)
+			gss_host = (char *)get_canonical_hostname(1);
+		else
+			gss_host = host;
+
+		gss = ssh_gssapi_client_mechanisms(gss_host, options.gss_client_identity);
+		if (gss) {
+			debug("Offering GSSAPI proposal: %s", gss);
+			xasprintf(&myproposal[PROPOSAL_KEX_ALGS],
+			    "%s,%s", gss, orig);
+
+			/* If we've got GSSAPI algorithms, then we also
+			 * support the 'null' hostkey, as a last resort */
+			orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
+			xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS],
+			    "%s,null", orig);
+			free(gss);
+		}
 	}
 #endif
 

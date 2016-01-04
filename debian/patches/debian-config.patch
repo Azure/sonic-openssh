@@ -1,4 +1,4 @@
-From 382ac29bbd28f2344df323244d9ed6e90306046c Mon Sep 17 00:00:00 2001
+From 966fde291d530349c427da5c98e4f1869cb4e0bb Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
