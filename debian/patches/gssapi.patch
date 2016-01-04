@@ -1,4 +1,4 @@
-From 09c4d9b7d41ab3c9973f07e0109e931f57c59c43 Mon Sep 17 00:00:00 2001
+From d6cfd64ea0a567d88152270a94be6bb2a78daeb9 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -17,13 +17,14 @@ have it merged into the main openssh package rather than having separate
 security history.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2015-11-29
+Last-Updated: 2016-01-04
 
 Patch-Name: gssapi.patch
 ---
  ChangeLog.gssapi | 113 +++++++++++++++++++
  Makefile.in      |   5 +-
  auth-krb5.c      |  17 ++-
+ auth.c           |   3 +-
  auth2-gss.c      |  48 +++++++-
  auth2.c          |   2 +
  clientloop.c     |  13 +++
@@ -53,7 +54,7 @@ Patch-Name: gssapi.patch
  sshd_config.5    |  11 ++
  sshkey.c         |   3 +-
  sshkey.h         |   1 +
- 32 files changed, 1957 insertions(+), 46 deletions(-)
+ 33 files changed, 1959 insertions(+), 47 deletions(-)
  create mode 100644 ChangeLog.gssapi
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
@@ -251,6 +252,20 @@ index 0089b18..ec47869 100644
  
  	return (krb5_cc_resolve(ctx, ccname, ccache));
  }
+diff --git a/auth.c b/auth.c
+index 214c2c7..bd6a026 100644
+--- a/auth.c
++++ b/auth.c
+@@ -354,7 +354,8 @@ auth_root_allowed(const char *method)
+ 	case PERMIT_NO_PASSWD:
+ 		if (strcmp(method, "publickey") == 0 ||
+ 		    strcmp(method, "hostbased") == 0 ||
+-		    strcmp(method, "gssapi-with-mic") == 0)
++		    strcmp(method, "gssapi-with-mic") == 0 ||
++		    strcmp(method, "gssapi-keyex") == 0)
+ 			return 1;
+ 		break;
+ 	case PERMIT_FORCED_ONLY:
 diff --git a/auth2-gss.c b/auth2-gss.c
 index 1ca8357..3b5036d 100644
 --- a/auth2-gss.c

@@ -4,6 +4,8 @@ openssh (1:7.1p1-6) UNRELEASED; urgency=medium
   * Remove explicit "XS-Testsuite: autopkgtest" from debian/control;
     dpkg-source now figures that out automatically based on the existence of
     debian/tests/control.
+  * Allow authenticating as root using gssapi-keyex even with
+    "PermitRootLogin prohibit-password" (closes: #809695).
 
   [ Michael Biebl ]
   * Don't call sd_notify when sshd is re-execed (closes: #809035).
