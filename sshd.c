@@ -2015,11 +2015,6 @@ main(int ac, char **av)
 	/* ignore SIGPIPE */
 	signal(SIGPIPE, SIG_IGN);
 
-#ifdef HAVE_SYSTEMD
-	/* Signal systemd that we are ready to accept connections */
-	sd_notify(0, "READY=1");
-#endif
-
 	/* Get a connection, either from inetd or a listening TCP socket */
 	if (inetd_flag) {
 		server_accept_inetd(&sock_in, &sock_out);
@@ -2060,6 +2055,11 @@ main(int ac, char **av)
 			 */
 			unsetenv("SSH_SIGSTOP");
 		}
+
+#ifdef HAVE_SYSTEMD
+		/* Signal systemd that we are ready to accept connections */
+		sd_notify(0, "READY=1");
+#endif
 
 		/* Accept a connection and return in a forked child */
 		server_accept_loop(&sock_in, &sock_out,

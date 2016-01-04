@@ -1,8 +1,12 @@
 openssh (1:7.1p1-6) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Remove explicit "XS-Testsuite: autopkgtest" from debian/control;
     dpkg-source now figures that out automatically based on the existence of
     debian/tests/control.
+
+  [ Michael Biebl ]
+  * Don't call sd_notify when sshd is re-execed (closes: #809035).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2016 13:27:44 +0000
 
