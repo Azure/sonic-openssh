@@ -1,3 +1,11 @@
+openssh (1:7.1p1-6) UNRELEASED; urgency=medium
+
+  * Remove explicit "XS-Testsuite: autopkgtest" from debian/control;
+    dpkg-source now figures that out automatically based on the existence of
+    debian/tests/control.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2016 13:27:44 +0000
+
 openssh (1:7.1p1-5) unstable; urgency=medium
 
   [ Michael Biebl ]
