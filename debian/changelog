@@ -1,11 +1,11 @@
-openssh (1:6.7p1-5+deb8u1) UNRELEASED; urgency=high
+openssh (1:6.7p1-5+deb8u1) jessie-security; urgency=high
 
   * Non-maintainer upload by the Security Team.
   * Disable roaming in openssh client: roaming code is vulnerable to an
     information leak (CVE-2016-0777) and heap-based buffer overflow
     (CVE-2016-0778).
 
- -- Yves-Alexis Perez <corsac@debian.org>  Wed, 13 Jan 2016 21:59:34 +0100
+ -- Yves-Alexis Perez <corsac@debian.org>  Wed, 13 Jan 2016 22:08:52 +0100
 
 openssh (1:6.7p1-5) unstable; urgency=medium
 
