@@ -1,4 +1,4 @@
-From 8f53616f872acf853b52e94f5b0668c78bf0cb76 Mon Sep 17 00:00:00 2001
+From ea47a6eba9fce31a1b4cd909b7ba19541c9d9c9b Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,7 +26,7 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 522ad37..46c343f 100644
+index 831072f..83582e3 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -160,6 +160,7 @@ typedef enum {

@@ -1,3 +1,19 @@
+openssh (1:7.1p2-1) UNRELEASED; urgency=high
+
+  * New upstream release (http://www.openssh.com/txt/release-7.1p2):
+    - CVE-2016-0777, CVE-2016-0778: Disable experimental client-side support
+      for roaming, which could be tricked by a malicious server into leaking
+      client memory to the server, including private client user keys; this
+      information leak is restricted to connections to malicious or
+      compromised servers (closes: #810984).
+    - SECURITY: Fix an out of-bound read access in the packet handling code.
+      Reported by Ben Hawkes.
+    - Further use of explicit_bzero has been added in various buffer
+      handling code paths to guard against compilers aggressively doing
+      dead-store removal.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 14 Jan 2016 15:08:21 +0000
+
 openssh (1:7.1p1-6) unstable; urgency=medium
 
   [ Colin Watson ]

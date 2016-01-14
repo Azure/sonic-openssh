@@ -1,4 +1,4 @@
-From 966fde291d530349c427da5c98e4f1869cb4e0bb Mon Sep 17 00:00:00 2001
+From 003a875a474100d250b6643270ef3874da6591d8 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -32,7 +32,7 @@ Patch-Name: debian-config.patch
  6 files changed, 72 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index c0ba5a7..e4e1cba 100644
+index b9442fd..ee46ad6 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -1749,7 +1749,7 @@ fill_default_options(Options * options)

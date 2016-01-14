@@ -1,4 +1,4 @@
-From 3b79d6bcaf9405b878496c9107855ebe8906a60a Mon Sep 17 00:00:00 2001
+From 3e38e90de2e2ead094624f4f140568574c40cae6 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -36,7 +36,7 @@ index bbde8af..0ec1e54 100644
  	if (roaming_atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
 diff --git a/sshd.c b/sshd.c
-index 0537bc9..0d4fb7f 100644
+index 1b49b26..189d34a 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -443,7 +443,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
@@ -49,13 +49,13 @@ index 0537bc9..0d4fb7f 100644
  	    options.version_addendum, newline);
  
 diff --git a/version.h b/version.h
-index d917ca1..5c22d90 100644
+index 41e1ea9..2969570 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
  #define SSH_VERSION	"OpenSSH_7.1"
  
- #define SSH_PORTABLE	"p1"
+ #define SSH_PORTABLE	"p2"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
 +#define SSH_RELEASE_MINIMUM	SSH_VERSION SSH_PORTABLE
 +#ifdef SSH_EXTRAVERSION

@@ -1,4 +1,4 @@
-From 0aff7ca980bc54be68f7479a016d7779f99cf06e Mon Sep 17 00:00:00 2001
+From 9d88bc29443745ebf30004136ac18ced47292833 Mon Sep 17 00:00:00 2001
 From: Michael Biebl <biebl@debian.org>
 Date: Mon, 21 Dec 2015 16:08:47 +0000
 Subject: Add systemd readiness notification support
@@ -56,7 +56,7 @@ index 128889a..eec2b72 100644
  echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
  echo "                  BSD Auth support: $BSD_AUTH_MSG"
 diff --git a/sshd.c b/sshd.c
-index 7e72b9b..19ee92b 100644
+index 5ccf175..366ae92 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -85,6 +85,10 @@
@@ -70,7 +70,7 @@ index 7e72b9b..19ee92b 100644
  #include "xmalloc.h"
  #include "ssh.h"
  #include "ssh1.h"
-@@ -2052,6 +2056,11 @@ main(int ac, char **av)
+@@ -2058,6 +2062,11 @@ main(int ac, char **av)
  			unsetenv("SSH_SIGSTOP");
  		}
  

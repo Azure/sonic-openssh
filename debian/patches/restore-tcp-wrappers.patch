@@ -1,4 +1,4 @@
-From c538473bc1958b99bb26283752f287df5934045a Mon Sep 17 00:00:00 2001
+From f1fe58341ea22a6f07e5e1de79aa0385c0ee0c6a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -128,7 +128,7 @@ index 213b5fc..2105979 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index 839c2e0..0e30e6e 100644
+index d659a68..9275e0b 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -130,6 +130,13 @@
@@ -145,7 +145,7 @@ index 839c2e0..0e30e6e 100644
  #ifndef O_NOCTTY
  #define O_NOCTTY	0
  #endif
-@@ -2145,6 +2152,24 @@ main(int ac, char **av)
+@@ -2151,6 +2158,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif

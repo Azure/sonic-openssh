@@ -1,4 +1,4 @@
-From e35768a64e1ca5a6ad2a5df3ebbe6806ffb8afa2 Mon Sep 17 00:00:00 2001
+From 1cbbbb90ae1a4f88f8090e1fdecee007b8d360f8 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -80,7 +80,7 @@ index 778ba17..161fa37 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index 0d4fb7f..6024e0e 100644
+index 189d34a..8d17521 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -443,7 +443,8 @@ sshd_exchange_identification(int sock_in, int sock_out)

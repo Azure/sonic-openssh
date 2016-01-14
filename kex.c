@@ -291,8 +291,8 @@ kex_buf2prop(struct sshbuf *raw, int *first_kex_follows, char ***propp)
 		goto out;
 	if (first_kex_follows != NULL)
 		*first_kex_follows = v;
-	debug2("kex_parse_kexinit: first_kex_follows %d ", v);
-	debug2("kex_parse_kexinit: reserved %u ", i);
+	debug2("first_kex_follows %d ", v);
+	debug2("reserved %u ", i);
 	r = 0;
 	*propp = proposal;
  out:

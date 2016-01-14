@@ -1,4 +1,4 @@
-From 6b1e8291597ff151b913c470f4af4b04ddec5c7d Mon Sep 17 00:00:00 2001
+From 7f0a4ecb6694298414e6d84c0aa49c35b19cad1b Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:50 +0000
 Subject: Accept obsolete ssh-vulnkey configuration options
@@ -17,7 +17,7 @@ Patch-Name: ssh-vulnkey-compat.patch
  2 files changed, 2 insertions(+)
 
 diff --git a/readconf.c b/readconf.c
-index 43b7570..522ad37 100644
+index 56e0f44..831072f 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -181,6 +181,7 @@ static struct {

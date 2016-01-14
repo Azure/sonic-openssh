@@ -1,4 +1,4 @@
-From c60b1066b877429b723b351f44efb9e84bc64252 Mon Sep 17 00:00:00 2001
+From a1010980d6906a140307825466934a21c3d4d228 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -216,7 +216,7 @@ index f35ec39..9a23e6e 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index 46c343f..c0ba5a7 100644
+index 83582e3..b9442fd 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -39,6 +39,8 @@

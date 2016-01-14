@@ -1,4 +1,4 @@
-From 48424483cbf2232ba849038e02675b2db1ea3a88 Mon Sep 17 00:00:00 2001
+From 6a0a4b2f79889c9b0d5e2478a6ee5f51be38dcc9 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -1212,7 +1212,7 @@ index 53993d6..2f6baf7 100644
  
  #endif
 diff --git a/kex.c b/kex.c
-index 5100c66..39a6f98 100644
+index b777b7d..390bb69 100644
 --- a/kex.c
 +++ b/kex.c
 @@ -55,6 +55,10 @@
@@ -2222,7 +2222,7 @@ index de4a08f..9758290 100644
  
  #ifdef USE_PAM
 diff --git a/readconf.c b/readconf.c
-index 1d03bdf..43b7570 100644
+index cd01482..56e0f44 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -147,6 +147,8 @@ typedef enum {
@@ -2801,7 +2801,7 @@ index 7751031..32e9b0d 100644
  
  int
 diff --git a/sshd.c b/sshd.c
-index 65ef7e8..839c2e0 100644
+index 43d4650..d659a68 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -126,6 +126,10 @@
@@ -2815,7 +2815,7 @@ index 65ef7e8..839c2e0 100644
  #ifndef O_NOCTTY
  #define O_NOCTTY	0
  #endif
-@@ -1827,10 +1831,13 @@ main(int ac, char **av)
+@@ -1833,10 +1837,13 @@ main(int ac, char **av)
  		logit("Disabling protocol version 1. Could not load host key");
  		options.protocol &= ~SSH_PROTO_1;
  	}
@@ -2829,7 +2829,7 @@ index 65ef7e8..839c2e0 100644
  	if (!(options.protocol & (SSH_PROTO_1|SSH_PROTO_2))) {
  		logit("sshd: no hostkeys available -- exiting.");
  		exit(1);
-@@ -2145,6 +2152,60 @@ main(int ac, char **av)
+@@ -2151,6 +2158,60 @@ main(int ac, char **av)
  	    remote_ip, remote_port, laddr,  get_local_port());
  	free(laddr);
  
@@ -2890,7 +2890,7 @@ index 65ef7e8..839c2e0 100644
  	/*
  	 * We don't want to listen forever unless the other side
  	 * successfully authenticates itself.  So we set up an alarm which is
-@@ -2563,6 +2624,48 @@ do_ssh2_kex(void)
+@@ -2569,6 +2630,48 @@ do_ssh2_kex(void)
  	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = compat_pkalg_proposal(
  	    list_hostkey_types());
  
@@ -2939,7 +2939,7 @@ index 65ef7e8..839c2e0 100644
  	/* start key exchange */
  	if ((r = kex_setup(active_state, myproposal)) != 0)
  		fatal("kex_setup: %s", ssh_err(r));
-@@ -2577,6 +2680,13 @@ do_ssh2_kex(void)
+@@ -2583,6 +2686,13 @@ do_ssh2_kex(void)
  # endif
  #endif
  	kex->kex[KEX_C25519_SHA256] = kexc25519_server;

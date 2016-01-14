@@ -26,4 +26,3 @@ gnome-ssh-askpass2-icon.patch
 sigstop.patch
 systemd-readiness.patch
 debian-config.patch
-backport-fix-first-kex-follows.patch
