@@ -79,18 +79,11 @@ host_keys_required() {
 		echo "$hostkeys"
 	else
 		# No HostKey directives at all, so the server picks some
-		# defaults depending on the setting of Protocol.
-		protocol="$(get_config_option Protocol)"
-		[ "$protocol" ] || protocol=1,2
-		if echo "$protocol" | grep 1 >/dev/null; then
-			echo /etc/ssh/ssh_host_key
-		fi
-		if echo "$protocol" | grep 2 >/dev/null; then
-			echo /etc/ssh/ssh_host_rsa_key
-			echo /etc/ssh/ssh_host_dsa_key
-			echo /etc/ssh/ssh_host_ecdsa_key
-			echo /etc/ssh/ssh_host_ed25519_key
-		fi
+		# defaults.
+		echo /etc/ssh/ssh_host_rsa_key
+		echo /etc/ssh/ssh_host_dsa_key
+		echo /etc/ssh/ssh_host_ecdsa_key
+		echo /etc/ssh/ssh_host_ed25519_key
 	fi
 }
 
@@ -118,9 +111,6 @@ create_key() {
 
 create_keys() {
 	hostkeys="$(host_keys_required)"
-
-	create_key "Creating SSH1 key; this may take some time ..." \
-		"$hostkeys" /etc/ssh/ssh_host_key -t rsa1
 
 	create_key "Creating SSH2 RSA key; this may take some time ..." \
 		"$hostkeys" /etc/ssh/ssh_host_rsa_key -t rsa
