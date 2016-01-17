@@ -1,9 +1,9 @@
-openssh (1:7.1p2-2) UNRELEASED; urgency=medium
+openssh (1:7.1p2-2) unstable; urgency=medium
 
   * Remove protocol 1 host key generation from openssh-server.postinst
     (closes: #811265).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 17 Jan 2016 14:03:36 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 17 Jan 2016 14:10:19 +0000
 
 openssh (1:7.1p2-1) unstable; urgency=high
 
