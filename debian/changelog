@@ -1,4 +1,4 @@
-openssh (1:7.1p2-1) UNRELEASED; urgency=high
+openssh (1:7.1p2-1) unstable; urgency=high
 
   * New upstream release (http://www.openssh.com/txt/release-7.1p2):
     - CVE-2016-0777, CVE-2016-0778: Disable experimental client-side support
@@ -12,7 +12,7 @@ openssh (1:7.1p2-1) UNRELEASED; urgency=high
       handling code paths to guard against compilers aggressively doing
       dead-store removal.
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 14 Jan 2016 15:08:21 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 14 Jan 2016 15:28:03 +0000
 
 openssh (1:7.1p1-6) unstable; urgency=medium
 
