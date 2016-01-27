@@ -6,8 +6,8 @@ Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev (>= 1:1.2.3), libssl-dev (
 Standards-Version: 3.9.6
 Uploaders: Colin Watson <cjwatson@debian.org>, Matthew Vernon <matthew@debian.org>
 Homepage: http://www.openssh.org/
-Vcs-Git: git://anonscm.debian.org/pkg-ssh/openssh.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ssh/openssh.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-ssh/openssh.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ssh/openssh.git
 
 Package: openssh-client
 Architecture: any
