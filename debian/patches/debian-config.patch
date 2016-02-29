@@ -1,4 +1,4 @@
-From 003a875a474100d250b6643270ef3874da6591d8 Mon Sep 17 00:00:00 2001
+From 85e40e87a75fb80a0bf893ac05a417d6c353537d Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -32,10 +32,10 @@ Patch-Name: debian-config.patch
  6 files changed, 72 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index b9442fd..ee46ad6 100644
+index cc1a633..dc22360 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1749,7 +1749,7 @@ fill_default_options(Options * options)
+@@ -1797,7 +1797,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -45,10 +45,10 @@ index b9442fd..ee46ad6 100644
  		options->forward_x11_timeout = 1200;
  	if (options->exit_on_forward_failure == -1)
 diff --git a/ssh.1 b/ssh.1
-index 05b7f10..649d6c3 100644
+index 74d9655..7fb9d30 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -755,6 +755,16 @@ directive in
+@@ -760,6 +760,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -65,7 +65,7 @@ index 05b7f10..649d6c3 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -763,6 +773,17 @@ Enables trusted X11 forwarding.
+@@ -768,6 +778,17 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -84,7 +84,7 @@ index 05b7f10..649d6c3 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index 228e5ab..c9386aa 100644
+index 4e879cd..5190b06 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -99,7 +99,7 @@ index 228e5ab..c9386aa 100644
  #   RhostsRSAAuthentication no
  #   RSAAuthentication yes
  #   PasswordAuthentication yes
-@@ -48,3 +49,7 @@
+@@ -50,3 +51,7 @@
  #   VisualHostKey no
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
@@ -108,7 +108,7 @@ index 228e5ab..c9386aa 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index d4928b8..81b9b74 100644
+index 0f52d14..51765c9 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
@@ -134,7 +134,7 @@ index d4928b8..81b9b74 100644
  The configuration file has the following format:
  .Pp
  Empty lines and lines starting with
-@@ -721,7 +737,8 @@ token used for the session will be set to expire after 20 minutes.
+@@ -799,7 +815,8 @@ token used for the session will be set to expire after 20 minutes.
  Remote clients will be refused access after this time.
  .Pp
  The default is
@@ -145,10 +145,10 @@ index d4928b8..81b9b74 100644
  See the X11 SECURITY extension specification for full details on
  the restrictions imposed on untrusted clients.
 diff --git a/sshd_config b/sshd_config
-index 64786c9..d8338db 100644
+index f103298..d103ac5 100644
 --- a/sshd_config
 +++ b/sshd_config
-@@ -125,7 +125,7 @@ UsePrivilegeSeparation sandbox		# Default for new installations.
+@@ -125,7 +125,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
  #Banner none
  
  # override default of no subsystems
@@ -158,7 +158,7 @@ index 64786c9..d8338db 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 0828592..0be7250 100644
+index 4d255e5..2387b51 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes

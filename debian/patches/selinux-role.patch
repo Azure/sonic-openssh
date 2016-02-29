@@ -1,4 +1,4 @@
-From 701eb985309b1c9fce617949298659843fce723d Mon Sep 17 00:00:00 2001
+From a00cba810338ce920de432e7797a45794bf280ba Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -32,7 +32,7 @@ Patch-Name: selinux-role.patch
  16 files changed, 104 insertions(+), 31 deletions(-)
 
 diff --git a/auth.h b/auth.h
-index 8b27575..3c2222f 100644
+index 2160154..3b3a085 100644
 --- a/auth.h
 +++ b/auth.h
 @@ -62,6 +62,7 @@ struct Authctxt {
@@ -113,10 +113,10 @@ index 3f49bdc..6eb3cc7 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			packet_disconnect("no authentication methods enabled");
 diff --git a/monitor.c b/monitor.c
-index 2658aaa..c063ad1 100644
+index 6c82023..5be3fbf 100644
 --- a/monitor.c
 +++ b/monitor.c
-@@ -127,6 +127,7 @@ int mm_answer_sign(int, Buffer *);
+@@ -126,6 +126,7 @@ int mm_answer_sign(int, Buffer *);
  int mm_answer_pwnamallow(int, Buffer *);
  int mm_answer_auth2_read_banner(int, Buffer *);
  int mm_answer_authserv(int, Buffer *);
@@ -124,7 +124,7 @@ index 2658aaa..c063ad1 100644
  int mm_answer_authpassword(int, Buffer *);
  int mm_answer_bsdauthquery(int, Buffer *);
  int mm_answer_bsdauthrespond(int, Buffer *);
-@@ -208,6 +209,7 @@ struct mon_table mon_dispatch_proto20[] = {
+@@ -207,6 +208,7 @@ struct mon_table mon_dispatch_proto20[] = {
      {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
      {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
      {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
@@ -132,7 +132,7 @@ index 2658aaa..c063ad1 100644
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -879,6 +881,7 @@ mm_answer_pwnamallow(int sock, Buffer *m)
+@@ -875,6 +877,7 @@ mm_answer_pwnamallow(int sock, Buffer *m)
  	else {
  		/* Allow service/style information on the auth context */
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -140,7 +140,7 @@ index 2658aaa..c063ad1 100644
  		monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  	}
  #ifdef USE_PAM
-@@ -909,14 +912,37 @@ mm_answer_authserv(int sock, Buffer *m)
+@@ -905,14 +908,37 @@ mm_answer_authserv(int sock, Buffer *m)
  
  	authctxt->service = buffer_get_string(m, NULL);
  	authctxt->style = buffer_get_string(m, NULL);
@@ -180,7 +180,7 @@ index 2658aaa..c063ad1 100644
  	return (0);
  }
  
-@@ -1544,7 +1570,7 @@ mm_answer_pty(int sock, Buffer *m)
+@@ -1541,7 +1567,7 @@ mm_answer_pty(int sock, Buffer *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -203,7 +203,7 @@ index bc50ade..2d82b8b 100644
  
  struct mm_master;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 81ceddb..6799911 100644
+index 74fbd2e..eaf0a12 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -327,10 +327,10 @@ mm_auth2_read_banner(void)
@@ -251,13 +251,13 @@ index 81ceddb..6799911 100644
  int
  mm_auth_password(Authctxt *authctxt, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 9758290..57e740f 100644
+index 403f8d0..d9de551 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
 @@ -41,7 +41,8 @@ void mm_log_handler(LogLevel, const char *, void *);
  int mm_is_monitor(void);
  DH *mm_choose_dh(int, int, int);
- int mm_key_sign(Key *, u_char **, u_int *, const u_char *, u_int);
+ int mm_key_sign(Key *, u_char **, u_int *, const u_char *, u_int, const char *);
 -void mm_inform_authserv(char *, char *);
 +void mm_inform_authserv(char *, char *, char *);
 +void mm_inform_authrole(char *);
@@ -383,7 +383,7 @@ index ee313da..f35ec39 100644
  }
  
 diff --git a/platform.h b/platform.h
-index 1c7a45d..436ae7c 100644
+index e687c99..823901b 100644
 --- a/platform.h
 +++ b/platform.h
 @@ -27,7 +27,7 @@ void platform_post_fork_parent(pid_t child_pid);
@@ -396,10 +396,10 @@ index 1c7a45d..436ae7c 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index 5a64715..afac4a5 100644
+index 7a02500..99ec6f3 100644
 --- a/session.c
 +++ b/session.c
-@@ -1487,7 +1487,7 @@ safely_chroot(const char *path, uid_t uid)
+@@ -1489,7 +1489,7 @@ safely_chroot(const char *path, uid_t uid)
  
  /* Set login name, uid, gid, and groups. */
  void
@@ -407,17 +407,17 @@ index 5a64715..afac4a5 100644
 +do_setusercontext(struct passwd *pw, const char *role)
  {
  	char *chroot_path, *tmp;
- #ifdef USE_LIBIAF
-@@ -1518,7 +1518,7 @@ do_setusercontext(struct passwd *pw)
+ 
+@@ -1517,7 +1517,7 @@ do_setusercontext(struct passwd *pw)
  		endgrent();
  #endif
  
 -		platform_setusercontext_post_groups(pw);
 +		platform_setusercontext_post_groups(pw, role);
  
- 		if (options.chroot_directory != NULL &&
+ 		if (!in_chroot && options.chroot_directory != NULL &&
  		    strcasecmp(options.chroot_directory, "none") != 0) {
-@@ -1677,7 +1677,7 @@ do_child(Session *s, const char *command)
+@@ -1674,7 +1674,7 @@ do_child(Session *s, const char *command)
  
  	/* Force a password change */
  	if (s->authctxt->force_pwchange) {
@@ -426,7 +426,7 @@ index 5a64715..afac4a5 100644
  		child_close_fds();
  		do_pwchange(s);
  		exit(1);
-@@ -1704,7 +1704,7 @@ do_child(Session *s, const char *command)
+@@ -1701,7 +1701,7 @@ do_child(Session *s, const char *command)
  		/* When PAM is enabled we rely on it to do the nologin check */
  		if (!options.use_pam)
  			do_nologin(pw);
@@ -435,7 +435,7 @@ index 5a64715..afac4a5 100644
  		/*
  		 * PAM session modules in do_setusercontext may have
  		 * generated messages, so if this in an interactive
-@@ -2115,7 +2115,7 @@ session_pty_req(Session *s)
+@@ -2112,7 +2112,7 @@ session_pty_req(Session *s)
  	tty_parse_modes(s->ttyfd, &n_bytes);
  
  	if (!use_privsep)
@@ -458,10 +458,10 @@ index 6a2f35e..ef6593c 100644
  		       const char *value);
  
 diff --git a/sshd.c b/sshd.c
-index 9275e0b..1b49b26 100644
+index d1dd711..bb093cc 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -786,7 +786,7 @@ privsep_postauth(Authctxt *authctxt)
+@@ -781,7 +781,7 @@ privsep_postauth(Authctxt *authctxt)
  	explicit_bzero(rnd, sizeof(rnd));
  
  	/* Drop privileges */

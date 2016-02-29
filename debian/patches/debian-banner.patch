@@ -1,4 +1,4 @@
-From 1cbbbb90ae1a4f88f8090e1fdecee007b8d360f8 Mon Sep 17 00:00:00 2001
+From 3c79e49a4fbd8e4c84f6af6f1173563bda8b273b Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -19,7 +19,7 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index ed3a88d..a778f44 100644
+index fad7c92..8ca9695 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -171,6 +171,7 @@ initialize_server_options(ServerOptions *options)
@@ -30,16 +30,16 @@ index ed3a88d..a778f44 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -347,6 +348,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -359,6 +360,8 @@ fill_default_server_options(ServerOptions *options)
  		options->fwd_opts.streamlocal_bind_unlink = 0;
  	if (options->fingerprint_hash == -1)
  		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
- 	if (kex_assemble_names(KEX_SERVER_ENCRYPT, &options->ciphers) != 0 ||
- 	    kex_assemble_names(KEX_SERVER_MAC, &options->macs) != 0 ||
-@@ -430,6 +433,7 @@ typedef enum {
+ 	assemble_algorithms(options);
+ 
+@@ -437,6 +440,7 @@ typedef enum {
  	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash,
@@ -47,7 +47,7 @@ index ed3a88d..a778f44 100644
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -577,6 +581,7 @@ static struct {
+@@ -588,6 +592,7 @@ static struct {
  	{ "streamlocalbindunlink", sStreamLocalBindUnlink, SSHCFG_ALL },
  	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
  	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
@@ -55,7 +55,7 @@ index ed3a88d..a778f44 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1867,6 +1872,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -1874,6 +1879,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			options->fingerprint_hash = value;
  		break;
  
@@ -80,10 +80,10 @@ index 778ba17..161fa37 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index 189d34a..8d17521 100644
+index c762190..57ae4ad 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -443,7 +443,8 @@ sshd_exchange_identification(int sock_in, int sock_out)
+@@ -442,7 +442,8 @@ sshd_exchange_identification(int sock_in, int sock_out)
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -94,10 +94,10 @@ index 189d34a..8d17521 100644
  	    options.version_addendum, newline);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index c8ee35d..b149bd3 100644
+index bc79a66..b565640 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -533,6 +533,11 @@ or
+@@ -534,6 +534,11 @@ or
  .Dq no .
  The default is
  .Dq delayed .

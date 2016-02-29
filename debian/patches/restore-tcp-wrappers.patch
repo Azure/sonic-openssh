@@ -1,4 +1,4 @@
-From f1fe58341ea22a6f07e5e1de79aa0385c0ee0c6a Mon Sep 17 00:00:00 2001
+From 9496f70a8203592158275489519996476b2356af Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 7a25603..128889a 100644
+index 5f1ff74..5d720f7 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1448,6 +1448,62 @@ AC_ARG_WITH([skey],
+@@ -1481,6 +1481,62 @@ AC_ARG_WITH([skey],
  	]
  )
  
@@ -94,7 +94,7 @@ index 7a25603..128889a 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -4953,6 +5009,7 @@ echo "                 KerberosV support: $KRB5_MSG"
+@@ -5003,6 +5059,7 @@ echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
  echo "                 Smartcard support: $SCARD_MSG"
  echo "                     S/KEY support: $SKEY_MSG"
@@ -103,10 +103,10 @@ index 7a25603..128889a 100644
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
 diff --git a/sshd.8 b/sshd.8
-index 213b5fc..2105979 100644
+index 6c521f2..589841f 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -850,6 +850,12 @@ the user's home directory becomes accessible.
+@@ -880,6 +880,12 @@ the user's home directory becomes accessible.
  This file should be writable only by the user, and need not be
  readable by anyone else.
  .Pp
@@ -119,7 +119,7 @@ index 213b5fc..2105979 100644
  .It Pa /etc/hosts.equiv
  This file is for host-based authentication (see
  .Xr ssh 1 ) .
-@@ -953,6 +959,7 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -986,6 +992,7 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
@@ -128,10 +128,10 @@ index 213b5fc..2105979 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index d659a68..9275e0b 100644
+index 5cd9129..d1dd711 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -130,6 +130,13 @@
+@@ -129,6 +129,13 @@
  #include <Security/AuthSession.h>
  #endif
  

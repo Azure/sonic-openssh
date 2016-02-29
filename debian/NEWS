@@ -1,3 +1,16 @@
+openssh (1:7.2p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 7.2 disables a number of legacy cryptographic algorithms by
+  default in ssh:
+
+   * Several ciphers blowfish-cbc, cast128-cbc, all arcfour variants and the
+     rijndael-cbc aliases for AES.
+   * MD5-based and truncated HMAC algorithms.
+
+  These algorithms are already disabled by default in sshd.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 29 Feb 2016 12:37:44 +0000
+
 openssh (1:7.1p1-2) unstable; urgency=medium
 
   OpenSSH 7.0 disables several pieces of weak, legacy, and/or unsafe

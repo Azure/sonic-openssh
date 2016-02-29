@@ -1,4 +1,4 @@
-From ea47a6eba9fce31a1b4cd909b7ba19541c9d9c9b Mon Sep 17 00:00:00 2001
+From a9c7a3f8b035fe820fd32283460b1a28e696d2fe Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -26,10 +26,10 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 831072f..83582e3 100644
+index 559e4c7..fde6b41 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -160,6 +160,7 @@ typedef enum {
+@@ -161,6 +161,7 @@ typedef enum {
  	oStreamLocalBindMask, oStreamLocalBindUnlink, oRevokedHostKeys,
  	oFingerprintHash, oUpdateHostkeys, oHostbasedKeyTypes,
  	oPubkeyAcceptedKeyTypes,
@@ -37,7 +37,7 @@ index 831072f..83582e3 100644
  	oIgnoredUnknownOption, oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -290,6 +291,8 @@ static struct {
+@@ -293,6 +294,8 @@ static struct {
  	{ "hostbasedkeytypes", oHostbasedKeyTypes },
  	{ "pubkeyacceptedkeytypes", oPubkeyAcceptedKeyTypes },
  	{ "ignoreunknown", oIgnoreUnknown },
@@ -46,7 +46,7 @@ index 831072f..83582e3 100644
  
  	{ NULL, oBadOption }
  };
-@@ -1304,6 +1307,8 @@ parse_keytypes:
+@@ -1350,6 +1353,8 @@ parse_keytypes:
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -55,7 +55,7 @@ index 831072f..83582e3 100644
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -1856,8 +1861,13 @@ fill_default_options(Options * options)
+@@ -1906,8 +1911,13 @@ fill_default_options(Options * options)
  		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -72,10 +72,10 @@ index 831072f..83582e3 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index cac8cda..78e918a 100644
+index 9060d5b..bbf638b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -233,8 +233,12 @@ Valid arguments are
+@@ -268,8 +268,12 @@ The default is
  If set to
  .Dq yes ,
  passphrase/password querying will be disabled.
@@ -89,7 +89,7 @@ index cac8cda..78e918a 100644
  The argument must be
  .Dq yes
  or
-@@ -1476,8 +1480,15 @@ from the server,
+@@ -1551,7 +1555,14 @@ from the server,
  will send a message through the encrypted
  channel to request a response from the server.
  The default
@@ -98,7 +98,6 @@ index cac8cda..78e918a 100644
 +or 300 if the
 +.Cm BatchMode
 +option is set.
- This option applies to protocol version 2 only.
 +.Cm ProtocolKeepAlives
 +and
 +.Cm SetupTimeOut
@@ -106,7 +105,7 @@ index cac8cda..78e918a 100644
  .It Cm StreamLocalBindMask
  Sets the octal file creation mode mask
  .Pq umask
-@@ -1543,6 +1554,12 @@ Specifies whether the system should send TCP keepalive messages to the
+@@ -1617,6 +1628,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -120,10 +119,10 @@ index cac8cda..78e918a 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 5491c89..c8ee35d 100644
+index c6d6858..bc79a66 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1510,6 +1510,9 @@ This avoids infinitely hanging sessions.
+@@ -1518,6 +1518,9 @@ This avoids infinitely hanging sessions.
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Dq no .

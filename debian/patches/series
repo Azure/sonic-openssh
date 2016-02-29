@@ -15,7 +15,6 @@ mention-ssh-keygen-on-keychange.patch
 package-versioning.patch
 debian-banner.patch
 authorized-keys-man-symlink.patch
-lintian-symlink-pickiness.patch
 openbsd-docs.patch
 ssh-argv0.patch
 doc-hash-tab-completion.patch

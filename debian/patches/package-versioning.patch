@@ -1,4 +1,4 @@
-From 3e38e90de2e2ead094624f4f140568574c40cae6 Mon Sep 17 00:00:00 2001
+From f7587633dc374db82455fe7a3fa921de5c4a897b Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -19,10 +19,10 @@ Patch-Name: package-versioning.patch
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index bbde8af..0ec1e54 100644
+index fd67727..07dfc9d 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -524,10 +524,10 @@ send_client_banner(int connection_out, int minor1)
+@@ -527,10 +527,10 @@ send_client_banner(int connection_out, int minor1)
  	/* Send our own protocol version identification. */
  	if (compat20) {
  		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
@@ -33,13 +33,13 @@ index bbde8af..0ec1e54 100644
 -		    PROTOCOL_MAJOR_1, minor1, SSH_VERSION);
 +		    PROTOCOL_MAJOR_1, minor1, SSH_RELEASE);
  	}
- 	if (roaming_atomicio(vwrite, connection_out, client_version_string,
+ 	if (atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
 diff --git a/sshd.c b/sshd.c
-index 1b49b26..189d34a 100644
+index bb093cc..c762190 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -443,7 +443,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
+@@ -442,7 +442,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -49,13 +49,13 @@ index 1b49b26..189d34a 100644
  	    options.version_addendum, newline);
  
 diff --git a/version.h b/version.h
-index 41e1ea9..2969570 100644
+index 4189982..236dd87 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_7.1"
+ #define SSH_VERSION	"OpenSSH_7.2"
  
- #define SSH_PORTABLE	"p2"
+ #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE
 +#define SSH_RELEASE_MINIMUM	SSH_VERSION SSH_PORTABLE
 +#ifdef SSH_EXTRAVERSION

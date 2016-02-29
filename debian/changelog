@@ -1,6 +1,56 @@
-openssh (1:7.1p2-3) UNRELEASED; urgency=medium
+openssh (1:7.2p1-1) UNRELEASED; urgency=medium
 
+  * New upstream release (http://www.openssh.com/txt/release-7.2):
+    - This release disables a number of legacy cryptographic algorithms by
+      default in ssh:
+      + Several ciphers blowfish-cbc, cast128-cbc, all arcfour variants and
+        the rijndael-cbc aliases for AES.
+      + MD5-based and truncated HMAC algorithms.
+      These algorithms are already disabled by default in sshd.
+    - ssh(1), sshd(8): Remove unfinished and unused roaming code (was
+      already forcibly disabled in OpenSSH 7.1p2).
+    - ssh(1): Eliminate fallback from untrusted X11 forwarding to trusted
+      forwarding when the X server disables the SECURITY extension.
+    - ssh(1), sshd(8): Increase the minimum modulus size supported for
+      diffie-hellman-group-exchange to 2048 bits.
+    - sshd(8): Pre-auth sandboxing is now enabled by default (previous
+      releases enabled it for new installations via sshd_config).
+    - all: Add support for RSA signatures using SHA-256/512 hash algorithms
+      based on draft-rsa-dsa-sha2-256-03.txt and draft-ssh-ext-info-04.txt.
+    - ssh(1): Add an AddKeysToAgent client option which can be set to 'yes',
+      'no', 'ask', or 'confirm', and defaults to 'no'.  When enabled, a
+      private key that is used during authentication will be added to
+      ssh-agent if it is running (with confirmation enabled if set to
+      'confirm').
+    - sshd(8): Add a new authorized_keys option "restrict" that includes all
+      current and future key restrictions (no-*-forwarding, etc.).  Also add
+      permissive versions of the existing restrictions, e.g.  "no-pty" ->
+      "pty".  This simplifies the task of setting up restricted keys and
+      ensures they are maximally-restricted, regardless of any permissions
+      we might implement in the future.
+    - ssh(1): Add ssh_config CertificateFile option to explicitly list
+      certificates.
+    - ssh-keygen(1): Allow ssh-keygen to change the key comment for all
+      supported formats (closes: #811125).
+    - ssh-keygen(1): Allow fingerprinting from standard input, e.g.
+      "ssh-keygen -lf -" (closes: #509058).
+    - ssh-keygen(1): Allow fingerprinting multiple public keys in a file,
+      e.g. "ssh-keygen -lf ~/.ssh/authorized_keys".
+    - sshd(8): Support "none" as an argument for sshd_config Foreground and
+      ChrootDirectory.  Useful inside Match blocks to override a global
+      default.
+    - ssh-keygen(1): Support multiple certificates (one per line) and
+      reading from standard input (using "-f -") for "ssh-keygen -L"
+    - ssh-keyscan(1): Add "ssh-keyscan -c ..." flag to allow fetching
+      certificates instead of plain keys.
+    - ssh(1): Better handle anchored FQDNs (e.g. 'cvs.openbsd.org.') in
+      hostname canonicalisation - treat them as already canonical and remove
+      the trailing '.' before matching ssh_config.
+    - sftp(1): Existing destination directories should not terminate
+      recursive uploads (regression in OpenSSH 6.8; LP: #1553378).
   * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
+  * Restore slogin symlinks for compatibility, although they were removed
+    upstream.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 27 Jan 2016 13:04:38 +0000
 

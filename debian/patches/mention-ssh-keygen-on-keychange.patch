@@ -1,4 +1,4 @@
-From 89f2729da6734f2d5e3a31d2a75e817750f6cd95 Mon Sep 17 00:00:00 2001
+From cbec84cf05e5dbd6d8a739a7d01e1d242a006d20 Mon Sep 17 00:00:00 2001
 From: Scott Moser <smoser@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:03 +0000
 Subject: Mention ssh-keygen in ssh fingerprint changed warning
@@ -13,10 +13,10 @@ Patch-Name: mention-ssh-keygen-on-keychange.patch
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index cd467fd..bbde8af 100644
+index 8b8e760..fd67727 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1078,9 +1078,13 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
+@@ -1081,9 +1081,13 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
  			error("%s. This could either mean that", key_msg);
  			error("DNS SPOOFING is happening or the IP address for the host");
  			error("and its host key have changed at the same time.");
@@ -31,7 +31,7 @@ index cd467fd..bbde8af 100644
  		}
  		/* The host key has changed. */
  		warn_changed_key(host_key);
-@@ -1088,6 +1092,8 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
+@@ -1091,6 +1095,8 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
  		    user_hostfiles[0]);
  		error("Offending %s key in %s:%lu", key_type(host_found->key),
  		    host_found->file, host_found->line);

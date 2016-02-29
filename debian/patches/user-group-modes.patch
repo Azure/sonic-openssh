@@ -1,4 +1,4 @@
-From a1010980d6906a140307825466934a21c3d4d228 Mon Sep 17 00:00:00 2001
+From 6f05f80017871238b4e50fc4e09d57d722416743 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -86,10 +86,10 @@ index bd6a026..782b7f8 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.c b/misc.c
-index ddd2b2d..1c063ea 100644
+index de7e1fa..5704fa6 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -50,8 +50,9 @@
+@@ -51,8 +51,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -100,7 +100,7 @@ index ddd2b2d..1c063ea 100644
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -60,6 +61,7 @@
+@@ -61,6 +62,7 @@
  #include "misc.h"
  #include "log.h"
  #include "ssh.h"
@@ -108,7 +108,7 @@ index ddd2b2d..1c063ea 100644
  
  /* remove newline at end of string */
  char *
-@@ -644,6 +646,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
+@@ -647,6 +649,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
  	return -1;
  }
  
@@ -216,7 +216,7 @@ index f35ec39..9a23e6e 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index 83582e3..b9442fd 100644
+index fde6b41..cc1a633 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -39,6 +39,8 @@
@@ -228,7 +228,7 @@ index 83582e3..b9442fd 100644
  #ifdef HAVE_UTIL_H
  #include <util.h>
  #endif
-@@ -1579,8 +1581,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
+@@ -1626,8 +1628,7 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -239,10 +239,10 @@ index 83582e3..b9442fd 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 2ea0a20..ff80022 100644
+index cc53343..feb0e89 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1458,6 +1458,8 @@ The file format and configuration options are described in
+@@ -1459,6 +1459,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -252,10 +252,10 @@ index 2ea0a20..ff80022 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 78e918a..1e9c058 100644
+index bbf638b..ab8f271 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1757,6 +1757,8 @@ The format of this file is described above.
+@@ -1830,6 +1830,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.
