@@ -1,4 +1,4 @@
-From 374db1757fc18bd6647539b80977e6907a2cecd4 Mon Sep 17 00:00:00 2001
+From 6dfd41bb6858c6446c1da47449e2108fbabf220e Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
