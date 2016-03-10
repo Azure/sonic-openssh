@@ -1,11 +1,11 @@
-openssh (1:7.2p2-1) UNRELEASED; urgency=high
+openssh (1:7.2p2-1) unstable; urgency=high
 
   * New upstream release (http://www.openssh.com/txt/release-7.2p2):
     - SECURITY: sshd(8): Sanitise X11 authentication credentials to avoid
       xauth command injection when X11Forwarding is enabled
       (http://www.openssh.com/txt/x11fwd.adv).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 10 Mar 2016 13:01:22 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 10 Mar 2016 13:04:29 +0000
 
 openssh (1:7.2p1-1) unstable; urgency=medium
 
