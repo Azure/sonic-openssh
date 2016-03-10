@@ -1,4 +1,4 @@
-openssh (1:7.2p1-1) UNRELEASED; urgency=medium
+openssh (1:7.2p1-1) unstable; urgency=medium
 
   * New upstream release (http://www.openssh.com/txt/release-7.2):
     - This release disables a number of legacy cryptographic algorithms by
@@ -52,7 +52,7 @@ openssh (1:7.2p1-1) UNRELEASED; urgency=medium
   * Restore slogin symlinks for compatibility, although they were removed
     upstream.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 27 Jan 2016 13:04:38 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 08 Mar 2016 11:47:20 +0000
 
 openssh (1:7.1p2-2) unstable; urgency=medium
 

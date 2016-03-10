@@ -1,4 +1,4 @@
-openssh (1:7.2p1-1) UNRELEASED; urgency=medium
+openssh (1:7.2p1-1) unstable; urgency=medium
 
   OpenSSH 7.2 disables a number of legacy cryptographic algorithms by
   default in ssh:
@@ -9,7 +9,7 @@ openssh (1:7.2p1-1) UNRELEASED; urgency=medium
 
   These algorithms are already disabled by default in sshd.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 29 Feb 2016 12:37:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 08 Mar 2016 11:47:20 +0000
 
 openssh (1:7.1p1-2) unstable; urgency=medium
 
