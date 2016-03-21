@@ -1,4 +1,4 @@
-From 6dfd41bb6858c6446c1da47449e2108fbabf220e Mon Sep 17 00:00:00 2001
+From 8c27af53099b50387dda97c0aae36194197186f6 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -17,7 +17,7 @@ have it merged into the main openssh package rather than having separate
 security history.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2016-01-04
+Last-Updated: 2016-03-21
 
 Patch-Name: gssapi.patch
 ---
@@ -36,7 +36,7 @@ Patch-Name: gssapi.patch
  kex.c            |  16 +++
  kex.h            |  14 +++
  kexgssc.c        | 336 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- kexgsss.c        | 295 ++++++++++++++++++++++++++++++++++++++++++++++++
+ kexgsss.c        | 294 ++++++++++++++++++++++++++++++++++++++++++++++++
  monitor.c        | 108 +++++++++++++++++-
  monitor.h        |   3 +
  monitor_wrap.c   |  47 +++++++-
@@ -54,7 +54,7 @@ Patch-Name: gssapi.patch
  sshd_config.5    |  10 ++
  sshkey.c         |   3 +-
  sshkey.h         |   1 +
- 33 files changed, 1951 insertions(+), 46 deletions(-)
+ 33 files changed, 1950 insertions(+), 46 deletions(-)
  create mode 100644 ChangeLog.gssapi
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
@@ -1637,10 +1637,10 @@ index 0000000..a49bac2
 +#endif /* GSSAPI */
 diff --git a/kexgsss.c b/kexgsss.c
 new file mode 100644
-index 0000000..0847469
+index 0000000..dd8ba1d
 --- /dev/null
 +++ b/kexgsss.c
-@@ -0,0 +1,295 @@
+@@ -0,0 +1,294 @@
 +/*
 + * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
 + *
@@ -1753,13 +1753,12 @@ index 0000000..0847469
 +		min = packet_get_int();
 +		nbits = packet_get_int();
 +		max = packet_get_int();
-+		min = MAX(DH_GRP_MIN, min);
-+		max = MIN(DH_GRP_MAX, max);
 +		packet_check_eom();
 +		if (max < min || nbits < min || max < nbits)
 +			fatal("GSS_GEX, bad parameters: %d !< %d !< %d",
 +			    min, nbits, max);
-+		dh = PRIVSEP(choose_dh(min, nbits, max));
++		dh = PRIVSEP(choose_dh(MAX(DH_GRP_MIN, min),
++		    nbits, MIN(DH_GRP_MAX, max)));
 +		if (dh == NULL)
 +			packet_disconnect("Protocol error: no matching group found");
 +

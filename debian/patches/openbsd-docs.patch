@@ -1,4 +1,4 @@
-From a94344bdb2f8499dd6370f53f41d46bd5a6fc045 Mon Sep 17 00:00:00 2001
+From 9d764f08fd01fa5c62a7cbff66165bc5d5ffb637 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages

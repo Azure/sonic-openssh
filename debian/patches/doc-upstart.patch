@@ -1,4 +1,4 @@
-From d0f5716ccb267efa3178ee03c2fc5a45d024c465 Mon Sep 17 00:00:00 2001
+From ceec3c2a41d87211d478fa6332137aad39dcd18a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:12 +0000
 Subject: Refer to ssh's Upstart job as well as its init script

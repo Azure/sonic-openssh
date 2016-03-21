@@ -110,13 +110,12 @@ kexgss_server(struct ssh *ssh)
 		min = packet_get_int();
 		nbits = packet_get_int();
 		max = packet_get_int();
-		min = MAX(DH_GRP_MIN, min);
-		max = MIN(DH_GRP_MAX, max);
 		packet_check_eom();
 		if (max < min || nbits < min || max < nbits)
 			fatal("GSS_GEX, bad parameters: %d !< %d !< %d",
 			    min, nbits, max);
-		dh = PRIVSEP(choose_dh(min, nbits, max));
+		dh = PRIVSEP(choose_dh(MAX(DH_GRP_MIN, min),
+		    nbits, MIN(DH_GRP_MAX, max)));
 		if (dh == NULL)
 			packet_disconnect("Protocol error: no matching group found");
 

@@ -1,4 +1,4 @@
-From 4f28c3fcf778105bbbb3a2144d1d46bee93b48b7 Mon Sep 17 00:00:00 2001
+From 37a9102e7075f34d57b02d1eac631efa73f120fd Mon Sep 17 00:00:00 2001
 From: Tomas Pospisek <tpo_deb@sourcepole.ch>
 Date: Sun, 9 Feb 2014 16:10:07 +0000
 Subject: Install authorized_keys(5) as a symlink to sshd(8)
