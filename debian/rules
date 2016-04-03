@@ -245,6 +245,6 @@ override_dh_builddeb:
 	dh_builddeb -- -Zxz
 
 debian/faq.html:
-	wget -O - http://www.openssh.org/faq.html | \
-		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
+	wget -O - http://www.openssh.com/faq.html | \
+		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.com/\2,g' \
 		> debian/faq.html

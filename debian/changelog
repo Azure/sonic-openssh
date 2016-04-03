@@ -1,3 +1,9 @@
+openssh (1:7.2p2-3) UNRELEASED; urgency=medium
+
+  * Change all openssh.org references to openssh.com (closes: #819213).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 03 Apr 2016 18:09:59 +0100
+
 openssh (1:7.2p2-2) unstable; urgency=medium
 
   * Fix kexgss_server to cope with DH_GRP_MIN/DH_GRP_MAX being stricter on
@@ -950,7 +956,7 @@ openssh (1:6.0p1-1) unstable; urgency=low
   * Update OpenSSH FAQ to revision 1.113, fixing missing line break (closes:
     #669667).
   * New upstream release (closes: #671010,
-    http://www.openssh.org/txt/release-6.0).
+    http://www.openssh.com/txt/release-6.0).
     - Fix IPQoS not being set on non-mapped v4-in-v6 addressed connections
       (closes: #643312, #650512, #671075).
     - Add a new privilege separation sandbox implementation for Linux's new
@@ -1000,7 +1006,7 @@ openssh (1:5.9p1-2) unstable; urgency=low
 
 openssh (1:5.9p1-1) unstable; urgency=low
 
-  * New upstream release (http://www.openssh.org/txt/release-5.9).
+  * New upstream release (http://www.openssh.com/txt/release-5.9).
     - Introduce sandboxing of the pre-auth privsep child using an optional
       sshd_config(5) "UsePrivilegeSeparation=sandbox" mode that enables
       mandatory restrictions on the syscalls the privsep child can perform.
@@ -1083,7 +1089,7 @@ openssh (1:5.8p1-2) unstable; urgency=low
 
 openssh (1:5.8p1-1) experimental; urgency=low
 
-  * New upstream release (http://www.openssh.org/txt/release-5.8):
+  * New upstream release (http://www.openssh.com/txt/release-5.8):
     - Fix stack information leak in legacy certificate signing
       (http://www.openssh.com/txt/legacy-cert.adv).
 
@@ -1098,7 +1104,7 @@ openssh (1:5.7p1-2) experimental; urgency=low
 
 openssh (1:5.7p1-1) experimental; urgency=low
 
-  * New upstream release (http://www.openssh.org/txt/release-5.7):
+  * New upstream release (http://www.openssh.com/txt/release-5.7):
     - Implement Elliptic Curve Cryptography modes for key exchange (ECDH)
       and host/user keys (ECDSA) as specified by RFC5656.  ECDH and ECDSA
       offer better performance than plain DH and DSA at the same equivalent
@@ -1900,7 +1906,7 @@ openssh (1:4.7p1-3) unstable; urgency=low
 openssh (1:4.7p1-2) unstable; urgency=low
 
   * Adjust many relative links in faq.html to point to
-    http://www.openssh.org/ (thanks, Dan Jacobson; mentioned in #459807).
+    http://www.openssh.com/ (thanks, Dan Jacobson; mentioned in #459807).
   * Pass --with-mantype=doc to configure rather than build-depending on
     groff (closes: #460121).
   * Add armel to architecture list for libselinux1-dev build-dependency
@@ -2071,7 +2077,7 @@ openssh (1:4.6p1-1) unstable; urgency=low
 
   * New upstream release (closes: #395507, #397961, #420035). Important
     changes not previously backported to 4.3p2:
-    - 4.4/4.4p1 (http://www.openssh.org/txt/release-4.4):
+    - 4.4/4.4p1 (http://www.openssh.com/txt/release-4.4):
       + On portable OpenSSH, fix a GSSAPI authentication abort that could be
         used to determine the validity of usernames on some platforms.
       + Implemented conditional configuration in sshd_config(5) using the
@@ -2113,7 +2119,7 @@ openssh (1:4.6p1-1) unstable; urgency=low
       + ssh-add doesn't ask for a passphrase if key file permissions are too
         liberal (closes: #103677).
       + Likewise, ssh doesn't ask either (closes: #99675).
-    - 4.6/4.6p1 (http://www.openssh.org/txt/release-4.6):
+    - 4.6/4.6p1 (http://www.openssh.com/txt/release-4.6):
       + sshd now allows the enabling and disabling of authentication methods
         on a per user, group, host and network basis via the Match directive
         in sshd_config.
