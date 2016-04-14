@@ -1,3 +1,10 @@
+openssh (1:6.7p1-5+deb8u2) jessie-security; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * CVE-2015-8325: Ignore PAM environment vars when UseLogin=yes
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Thu, 14 Apr 2016 09:21:40 +0200
+
 openssh (1:6.7p1-5+deb8u1) jessie-security; urgency=high
 
   * Non-maintainer upload by the Security Team.

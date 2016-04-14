@@ -28,3 +28,4 @@ gnome-ssh-askpass2-icon.patch
 sigstop.patch
 debian-config.patch
 0030-disable-roaming-in-ssh-client.patch
+CVE-2015-8325.patch
