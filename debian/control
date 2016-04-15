@@ -167,7 +167,7 @@ Package-Type: udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, libnss-files-udeb
+Depends: ${shlibs:Depends}
 XB-Installer-Menu-Item: 99999
 Description: secure shell client for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
@@ -181,7 +181,7 @@ Package-Type: udeb
 Section: debian-installer
 Priority: optional
 Architecture: any
-Depends: ${shlibs:Depends}, libnss-files-udeb
+Depends: ${shlibs:Depends}
 Description: secure shell server for the Debian installer
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
