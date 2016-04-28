@@ -1,3 +1,12 @@
+openssh (1:7.2p2-4ubuntu1) UNRELEASED; urgency=medium
+
+  * Backport upstream patch to unbreak authentication using lone certificate
+    keys in ssh-agent: when attempting pubkey auth with a certificate, if no
+    separate private key is found among the keys then try with the
+    certificate key itself (thanks, Paul Querna; LP: #1575961).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 28 Apr 2016 01:46:20 +0100
+
 openssh (1:7.2p2-4) unstable; urgency=medium
 
   * Drop dependency on libnss-files-udeb (closes: #819686).
