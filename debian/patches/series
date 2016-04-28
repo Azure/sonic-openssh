@@ -26,3 +26,4 @@ sigstop.patch
 systemd-readiness.patch
 debian-config.patch
 CVE-2015-8325.patch
+unbreak-certificate-auth.patch
