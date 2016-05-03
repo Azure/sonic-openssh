@@ -126,6 +126,14 @@ Description: secure shell (SSH) sftp server module, for SFTP access from remote 
  This package provides the SFTP server module for the SSH server. It
  is needed if you want to access your SSH server with SFTP. The SFTP
  server module also works with other SSH daemons like dropbear.
+ .
+ OpenSSH's sftp and sftp-server implement revision 3 of the SSH filexfer
+ protocol described in:
+ .
+  http://www.openssh.com/txt/draft-ietf-secsh-filexfer-02.txt
+ .
+ Newer versions of the draft will not be supported, though some features
+ are individually implemented as extensions.
 
 Package: ssh
 Priority: extra

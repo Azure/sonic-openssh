@@ -2,6 +2,9 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
 
   * debian/watch: Switch to HTTP (thanks, Nicholas Luedtke; closes:
     #822997).
+  * Copy summary of supported SFTP protocol versions from upstream's
+    PROTOCOL file into the openssh-sftp-server package description (closes:
+    #766887).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 
