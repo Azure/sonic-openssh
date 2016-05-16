@@ -5,6 +5,8 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
   * Copy summary of supported SFTP protocol versions from upstream's
     PROTOCOL file into the openssh-sftp-server package description (closes:
     #766887).
+  * Set SSH_PROGRAM=/usr/bin/ssh1 when building openssh-client-ssh1 so that
+    scp1 works (reported by Olivier MATZ).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 

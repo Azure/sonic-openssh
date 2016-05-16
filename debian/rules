@@ -143,7 +143,7 @@ override_dh_auto_build-arch:
 	cd build-udeb && ./config.status
 
 	$(MAKE) -C build-deb $(PARALLEL) ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
-	$(MAKE) -C build-deb-ssh1 $(PARALLEL) ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp ssh-keygen
+	$(MAKE) -C build-deb-ssh1 $(PARALLEL) SSH_PROGRAM='/usr/bin/ssh1' ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp ssh-keygen
 	$(MAKE) -C build-udeb $(PARALLEL) ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
 
 	$(MAKE) -C contrib gnome-ssh-askpass2 CC='$(CC) $(CPPFLAGS) $(CFLAGS) -Wall -Wl,--as-needed $(LDFLAGS)' PKG_CONFIG=$(PKG_CONFIG)
