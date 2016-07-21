@@ -1,3 +1,11 @@
+openssh (1:6.7p1-5+deb8u3) jessie-security; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * CVE-2016-6210: User enumeration via covert timing channel
+    (closes: #831902).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 21 Jul 2016 15:51:59 +0000
+
 openssh (1:6.7p1-5+deb8u2) jessie-security; urgency=high
 
   * Non-maintainer upload by the Security Team.

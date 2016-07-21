@@ -29,3 +29,6 @@ sigstop.patch
 debian-config.patch
 0030-disable-roaming-in-ssh-client.patch
 CVE-2015-8325.patch
+CVE-2016-6210-1.patch
+CVE-2016-6210-2.patch
+CVE-2016-6210-3.patch
