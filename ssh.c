@@ -1392,7 +1392,7 @@ static void
 control_persist_detach(void)
 {
 	pid_t pid;
-	int devnull;
+	int devnull, keep_stderr;
 
 	debug("%s: backgrounding master process", __func__);
 
@@ -1423,8 +1423,10 @@ control_persist_detach(void)
 		error("%s: open(\"/dev/null\"): %s", __func__,
 		    strerror(errno));
 	} else {
+		keep_stderr = log_is_on_stderr() && debug_flag;
 		if (dup2(devnull, STDIN_FILENO) == -1 ||
-		    dup2(devnull, STDOUT_FILENO) == -1)
+		    dup2(devnull, STDOUT_FILENO) == -1 ||
+		    (!keep_stderr && dup2(devnull, STDERR_FILENO) == -1))
 			error("%s: dup2: %s", __func__, strerror(errno));
 		if (devnull > STDERR_FILENO)
 			close(devnull);

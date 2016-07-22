@@ -1,0 +1,59 @@
+From 751d1f6494fb3ffd75188de7390c28725a5b91a6 Mon Sep 17 00:00:00 2001
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Fri, 29 Apr 2016 08:07:53 +0000
+Subject: upstream commit
+
+close ControlPersist background process stderr when not
+ in debug mode or when logging to a file or syslog. bz#1988 ok dtucker
+
+Upstream-ID: 4fb726f0fdcb155ad419913cea10dc4afd409d24
+
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=d2d6bf864e52af8491a60dd507f85b74361f5da3
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1988
+Bug-Debian: https://bugs.debian.org/714526
+Last-Update: 2016-07-22
+
+Patch-Name: control-persist-close-stderr.patch
+---
+ log.c | 2 +-
+ ssh.c | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/log.c b/log.c
+index e68b84a..6c59641 100644
+--- a/log.c
++++ b/log.c
+@@ -343,7 +343,7 @@ log_change_level(LogLevel new_log_level)
+ int
+ log_is_on_stderr(void)
+ {
+-	return log_on_stderr;
++	return log_on_stderr && log_stderr_fd == STDERR_FILENO;
+ }
+ 
+ /* redirect what would usually get written to stderr to specified file */
+diff --git a/ssh.c b/ssh.c
+index 314dd52..af39e72 100644
+--- a/ssh.c
++++ b/ssh.c
+@@ -1392,7 +1392,7 @@ static void
+ control_persist_detach(void)
+ {
+ 	pid_t pid;
+-	int devnull;
++	int devnull, keep_stderr;
+ 
+ 	debug("%s: backgrounding master process", __func__);
+ 
+@@ -1423,8 +1423,10 @@ control_persist_detach(void)
+ 		error("%s: open(\"/dev/null\"): %s", __func__,
+ 		    strerror(errno));
+ 	} else {
++		keep_stderr = log_is_on_stderr() && debug_flag;
+ 		if (dup2(devnull, STDIN_FILENO) == -1 ||
+-		    dup2(devnull, STDOUT_FILENO) == -1)
++		    dup2(devnull, STDOUT_FILENO) == -1 ||
++		    (!keep_stderr && dup2(devnull, STDERR_FILENO) == -1))
+ 			error("%s: dup2: %s", __func__, strerror(errno));
+ 		if (devnull > STDERR_FILENO)
+ 			close(devnull);

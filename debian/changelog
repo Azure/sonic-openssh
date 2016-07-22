@@ -11,6 +11,9 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
     LP #1588457).
   * CVE-2016-6210: Mitigate user enumeration via covert timing channel
     (closes: #831902).
+  * Backport upstream patch to close ControlPersist background process
+    stderr when not in debug mode or when logging to a file or syslog
+    (closes: #714526).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 
