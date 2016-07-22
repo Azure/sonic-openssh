@@ -18,6 +18,8 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
     which serves to terminate SSH sessions cleanly if systemd doesn't do
     that itself, often because libpam-systemd is not installed (thanks,
     Vivek Das Mohapatra, Tom Hutter, and others; closes: #751636).
+  * Stop generating DSA host keys by default (thanks, Santiago Vila; closes:
+    #823827).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 
