@@ -1,4 +1,4 @@
-openssh (1:7.2p2-6) UNRELEASED; urgency=medium
+openssh (1:7.2p2-6) unstable; urgency=medium
 
   * debian/watch: Switch to HTTP (thanks, Nicholas Luedtke; closes:
     #822997).
@@ -21,7 +21,7 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
   * Stop generating DSA host keys by default (thanks, Santiago Vila; closes:
     #823827).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 22 Jul 2016 17:06:19 +0100
 
 openssh (1:7.2p2-5) unstable; urgency=medium
 
