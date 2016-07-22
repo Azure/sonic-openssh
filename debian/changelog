@@ -14,6 +14,10 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
   * Backport upstream patch to close ControlPersist background process
     stderr when not in debug mode or when logging to a file or syslog
     (closes: #714526).
+  * Add a session cleanup script and a systemd unit file to trigger it,
+    which serves to terminate SSH sessions cleanly if systemd doesn't do
+    that itself, often because libpam-systemd is not installed (thanks,
+    Vivek Das Mohapatra, Tom Hutter, and others; closes: #751636).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 

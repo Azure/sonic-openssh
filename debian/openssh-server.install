@@ -10,6 +10,8 @@ debian/openssh-server.ufw.profile => etc/ufw/applications.d/openssh-server
 debian/systemd/ssh.socket lib/systemd/system
 debian/systemd/ssh@.service lib/systemd/system
 debian/systemd/sshd.conf usr/lib/tmpfiles.d
+debian/systemd/ssh-session-cleanup usr/lib/openssh
+debian/systemd/ssh-session-cleanup.service lib/systemd/system
 
 # dh_apport would be neater, but at the time of writing it isn't in unstable
 # yet.
