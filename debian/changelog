@@ -9,6 +9,7 @@ openssh (1:7.2p2-6) UNRELEASED; urgency=medium
     scp1 works (reported by Olivier MATZ).
   * Retroactively add a NEWS.Debian entry for the UseDNS change in 6.9 (see
     LP #1588457).
+  * CVE-2016-6210: Mitigate user enumeration via covert timing channel.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 30 Apr 2016 11:29:20 +0100
 
