@@ -9,6 +9,8 @@ openssh (1:7.2p2-8) UNRELEASED; urgency=medium
   [ Martin Pitt ]
   * Add debian/agent-launch: Helper script for conditionally starting the SSH
     agent in the user session. Use it in ssh-agent.user-session.upstart.
+  * Add systemd user unit for graphical sessions that use systemd. Override
+    the corresponding upstart job in that case (closes: #832445).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2016 22:04:37 +0100
 
