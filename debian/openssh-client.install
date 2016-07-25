@@ -26,6 +26,8 @@ usr/share/man/man8/ssh-pkcs11-helper.8
 contrib/ssh-copy-id usr/bin
 debian/ssh-argv0 usr/bin
 
+debian/agent-launch usr/lib/openssh
+
 # dh_apport would be neater, but at the time of writing it isn't in unstable
 # yet.
 debian/openssh-client.apport => usr/share/apport/package-hooks/openssh-client.py
