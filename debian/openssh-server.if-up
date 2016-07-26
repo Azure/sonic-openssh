@@ -34,10 +34,9 @@ fi
 # the other hand, repeated restarts of ssh make systemd unhappy
 # (#756547/#757822), so use reload in that case.
 if [ -d /run/systemd/system ]; then
-	action=reload
+	systemctl reload --no-block ssh.service >/dev/null 2>&1 || true
 else
-	action=restart
+	invoke-rc.d ssh restart >/dev/null 2>&1 || true
 fi
-invoke-rc.d ssh $action >/dev/null 2>&1 || true
 
 exit 0
