@@ -1,4 +1,4 @@
-openssh (1:7.2p2-8) UNRELEASED; urgency=medium
+openssh (1:7.2p2-8) unstable; urgency=medium
 
   [ Colin Watson ]
   * Stop enabling ssh-session-cleanup.service by default; instead, ship it
@@ -15,7 +15,7 @@ openssh (1:7.2p2-8) UNRELEASED; urgency=medium
     openssh.service, to avoid deadlocking with restarting networking.
     (closes: #832557, LP: #1584393)
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2016 22:04:37 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jul 2016 02:51:32 +0100
 
 openssh (1:7.2p2-7) unstable; urgency=medium
 
