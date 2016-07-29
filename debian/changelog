@@ -1,3 +1,12 @@
+openssh (1:7.2p2-8) UNRELEASED; urgency=medium
+
+  * Stop enabling ssh-session-cleanup.service by default; instead, ship it
+    as an example and add a section to README.Debian.  libpam-systemd >= 230
+    and "UsePAM yes" should take care of the original problem for most
+    systemd users (thanks, Michael Biebl; closes: #832155).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 28 Jul 2016 22:04:37 +0100
+
 openssh (1:7.2p2-7) unstable; urgency=medium
 
   * Don't stop the ssh-session-cleanup service on upgrade (closes: #832155).

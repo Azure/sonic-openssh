@@ -232,6 +232,25 @@ it listen on a different address or port, then you will need to do this by
 copying /lib/systemd/system/ssh.socket to /etc/systemd/system/ssh.socket and
 modifying the ListenStream option.  See systemd.socket(5) for details.
 
+Terminating SSH sessions cleanly on shutdown/reboot with systemd
+----------------------------------------------------------------
+
+If you have libpam-systemd >= 230 installed (following openssh-server's
+Recommends) and "UsePAM yes" in sshd_config (the default configuration
+shipped by this package), then SSH sessions will be terminated cleanly when
+the server is shut down or rebooted.
+
+If either of these conditions does not hold, then you may find that SSH
+sessions hang silently when the server is shut down or rebooted.  If you do
+not want to use PAM or configure it properly for whatever reason, then you
+can instead copy
+/usr/share/doc/openssh-server/examples/ssh-session-cleanup.service to
+/etc/systemd/system/ and run "systemctl enable ssh-session-cleanup.service".
+
+Non-systemd users may find /usr/lib/openssh/ssh-session-cleanup helpful if
+they have a similar problem, although at present there is no system
+integration for this for anything other than systemd.
+
 -- 
 Matthew Vernon <matthew@debian.org>
 Colin Watson <cjwatson@debian.org>
