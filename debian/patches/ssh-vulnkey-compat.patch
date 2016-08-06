@@ -1,4 +1,4 @@
-From ceebe313c4b094557bda974d274a6e7b5b33e3f9 Mon Sep 17 00:00:00 2001
+From e35c0bb4c3997b8ef885c6afdcc600b403eb878b Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:50 +0000
 Subject: Accept obsolete ssh-vulnkey configuration options
@@ -17,10 +17,10 @@ Patch-Name: ssh-vulnkey-compat.patch
  2 files changed, 2 insertions(+)
 
 diff --git a/readconf.c b/readconf.c
-index d2a3d4b..559e4c7 100644
+index e019195..c0b7822 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -182,6 +182,7 @@ static struct {
+@@ -194,6 +194,7 @@ static struct {
  	{ "passwordauthentication", oPasswordAuthentication },
  	{ "kbdinteractiveauthentication", oKbdInteractiveAuthentication },
  	{ "kbdinteractivedevices", oKbdInteractiveDevices },
@@ -29,10 +29,10 @@ index d2a3d4b..559e4c7 100644
  	{ "pubkeyauthentication", oPubkeyAuthentication },
  	{ "dsaauthentication", oPubkeyAuthentication },		    /* alias */
 diff --git a/servconf.c b/servconf.c
-index b8af6dd..fad7c92 100644
+index 9b06281..bf9f8f7 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -533,6 +533,7 @@ static struct {
+@@ -541,6 +541,7 @@ static struct {
  	{ "x11uselocalhost", sX11UseLocalhost, SSHCFG_ALL },
  	{ "xauthlocation", sXAuthLocation, SSHCFG_GLOBAL },
  	{ "strictmodes", sStrictModes, SSHCFG_GLOBAL },

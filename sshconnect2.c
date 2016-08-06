@@ -1,4 +1,4 @@
-/* $OpenBSD: sshconnect2.c,v 1.240 2016/03/14 16:20:54 djm Exp $ */
+/* $OpenBSD: sshconnect2.c,v 1.247 2016/07/22 05:46:11 dtucker Exp $ */
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
  * Copyright (c) 2008 Damien Miller.  All rights reserved.
@@ -71,6 +71,7 @@
 #include "uidswap.h"
 #include "hostfile.h"
 #include "ssherr.h"
+#include "utf8.h"
 
 #ifdef GSSAPI
 #include "ssh-gss.h"
@@ -176,13 +177,9 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	    compat_cipher_proposal(options.ciphers);
 	myproposal[PROPOSAL_ENC_ALGS_STOC] =
 	    compat_cipher_proposal(options.ciphers);
-	if (options.compression) {
-		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib@openssh.com,zlib,none";
-	} else {
-		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com,zlib";
-	}
+	myproposal[PROPOSAL_COMP_ALGS_CTOS] =
+	    myproposal[PROPOSAL_COMP_ALGS_STOC] = options.compression ?
+	    "zlib@openssh.com,zlib,none" : "none,zlib@openssh.com,zlib";
 	myproposal[PROPOSAL_MAC_ALGS_CTOS] =
 	    myproposal[PROPOSAL_MAC_ALGS_STOC] = options.macs;
 	if (options.hostkeyalgorithms != NULL) {
@@ -206,12 +203,15 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 		 * client to the key exchange algorithm proposal */
 		orig = myproposal[PROPOSAL_KEX_ALGS];
 
-		if (options.gss_trust_dns)
-			gss_host = (char *)get_canonical_hostname(1);
+		if (options.gss_server_identity)
+			gss_host = xstrdup(options.gss_server_identity);
+		else if (options.gss_trust_dns)
+			gss_host = remote_hostname(active_state);
 		else
-			gss_host = host;
+			gss_host = xstrdup(host);
 
-		gss = ssh_gssapi_client_mechanisms(gss_host, options.gss_client_identity);
+		gss = ssh_gssapi_client_mechanisms(gss_host,
+		    options.gss_client_identity);
 		if (gss) {
 			debug("Offering GSSAPI proposal: %s", gss);
 			xasprintf(&myproposal[PROPOSAL_KEX_ALGS],
@@ -238,6 +238,9 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 #ifdef WITH_OPENSSL
 	kex->kex[KEX_DH_GRP1_SHA1] = kexdh_client;
 	kex->kex[KEX_DH_GRP14_SHA1] = kexdh_client;
+	kex->kex[KEX_DH_GRP14_SHA256] = kexdh_client;
+	kex->kex[KEX_DH_GRP16_SHA512] = kexdh_client;
+	kex->kex[KEX_DH_GRP18_SHA512] = kexdh_client;
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
 	kex->kex[KEX_DH_GEX_SHA256] = kexgex_client;
 # ifdef OPENSSL_HAS_ECC
@@ -261,11 +264,7 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 		kex->gss_deleg_creds = options.gss_deleg_creds;
 		kex->gss_trust_dns = options.gss_trust_dns;
 		kex->gss_client = options.gss_client_identity;
-		if (options.gss_server_identity) {
-			kex->gss_host = options.gss_server_identity;
-		} else {
-			kex->gss_host = gss_host;
-        }
+		kex->gss_host = gss_host;
 	}
 #endif
 
@@ -554,21 +553,15 @@ input_userauth_error(int type, u_int32_t seq, void *ctxt)
 int
 input_userauth_banner(int type, u_int32_t seq, void *ctxt)
 {
-	char *msg, *raw, *lang;
+	char *msg, *lang;
 	u_int len;
 
-	debug3("input_userauth_banner");
-	raw = packet_get_string(&len);
+	debug3("%s", __func__);
+	msg = packet_get_string(&len);
 	lang = packet_get_string(NULL);
-	if (len > 0 && options.log_level >= SYSLOG_LEVEL_INFO) {
-		if (len > 65536)
-			len = 65536;
-		msg = xmalloc(len * 4 + 1); /* max expansion from strnvis() */
-		strnvis(msg, raw, len * 4 + 1, VIS_SAFE|VIS_OCTAL|VIS_NOSLASH);
-		fprintf(stderr, "%s", msg);
-		free(msg);
-	}
-	free(raw);
+	if (len > 0 && options.log_level >= SYSLOG_LEVEL_INFO)
+		fmprintf(stderr, "%s", msg);
+	free(msg);
 	free(lang);
 	return 0;
 }
@@ -620,7 +613,7 @@ input_userauth_failure(int type, u_int32_t seq, void *ctxt)
 	packet_check_eom();
 
 	if (partial != 0) {
-		logit("Authenticated with partial success.");
+		verbose("Authenticated with partial success.");
 		/* reset state */
 		pubkey_cleanup(authctxt);
 		pubkey_prepare(authctxt);
@@ -714,14 +707,14 @@ userauth_gssapi(Authctxt *authctxt)
 	static u_int mech = 0;
 	OM_uint32 min;
 	int ok = 0;
-	const char *gss_host;
+	char *gss_host;
 
 	if (options.gss_server_identity)
-		gss_host = options.gss_server_identity;
+		gss_host = xstrdup(options.gss_server_identity);
 	else if (options.gss_trust_dns)
-		gss_host = get_canonical_hostname(1);
+		gss_host = remote_hostname(active_state);
 	else
-		gss_host = authctxt->host;
+		gss_host = xstrdup(authctxt->host);
 
 	/* Try one GSSAPI method at a time, rather than sending them all at
 	 * once. */
@@ -729,6 +722,7 @@ userauth_gssapi(Authctxt *authctxt)
 	if (gss_supported == NULL)
 		if (GSS_ERROR(gss_indicate_mechs(&min, &gss_supported))) {
 			gss_supported = NULL;
+			free(gss_host);
 			return 0;
 		}
 
@@ -744,6 +738,8 @@ userauth_gssapi(Authctxt *authctxt)
 			mech++;
 		}
 	}
+
+	free(gss_host);
 
 	if (!ok)
 		return 0;
@@ -1206,8 +1202,8 @@ sign_and_send_pubkey(Authctxt *authctxt, Identity *id)
 	/*
 	 * If the key is an certificate, try to find a matching private key
 	 * and use it to complete the signature.
-	 * If no such private key exists, return failure and continue with
-	 * other methods of authentication.
+	 * If no such private key exists, fall back to trying the certificate
+	 * key itself in case it has a private half already loaded.
 	 */
 	if (key_is_cert(id->key)) {
 		matched = 0;
@@ -1408,29 +1404,6 @@ pubkey_prepare(Authctxt *authctxt)
 		id->userprovided = options.identity_file_userprovided[i];
 		TAILQ_INSERT_TAIL(&files, id, next);
 	}
-	/* Prefer PKCS11 keys that are explicitly listed */
-	TAILQ_FOREACH_SAFE(id, &files, next, tmp) {
-		if (id->key == NULL || (id->key->flags & SSHKEY_FLAG_EXT) == 0)
-			continue;
-		found = 0;
-		TAILQ_FOREACH(id2, &files, next) {
-			if (id2->key == NULL ||
-			    (id2->key->flags & SSHKEY_FLAG_EXT) == 0)
-				continue;
-			if (sshkey_equal(id->key, id2->key)) {
-				TAILQ_REMOVE(&files, id, next);
-				TAILQ_INSERT_TAIL(preferred, id, next);
-				found = 1;
-				break;
-			}
-		}
-		/* If IdentitiesOnly set and key not found then don't use it */
-		if (!found && options.identities_only) {
-			TAILQ_REMOVE(&files, id, next);
-			explicit_bzero(id, sizeof(*id));
-			free(id);
-		}
-	}
 	/* list of certificates specified by user */
 	for (i = 0; i < options.num_certificate_files; i++) {
 		key = options.certificates[i];
@@ -1488,6 +1461,29 @@ pubkey_prepare(Authctxt *authctxt)
 			TAILQ_INSERT_TAIL(preferred, id, next);
 		}
 		authctxt->agent_fd = agent_fd;
+	}
+	/* Prefer PKCS11 keys that are explicitly listed */
+	TAILQ_FOREACH_SAFE(id, &files, next, tmp) {
+		if (id->key == NULL || (id->key->flags & SSHKEY_FLAG_EXT) == 0)
+			continue;
+		found = 0;
+		TAILQ_FOREACH(id2, &files, next) {
+			if (id2->key == NULL ||
+			    (id2->key->flags & SSHKEY_FLAG_EXT) == 0)
+				continue;
+			if (sshkey_equal(id->key, id2->key)) {
+				TAILQ_REMOVE(&files, id, next);
+				TAILQ_INSERT_TAIL(preferred, id, next);
+				found = 1;
+				break;
+			}
+		}
+		/* If IdentitiesOnly set and key not found then don't use it */
+		if (!found && options.identities_only) {
+			TAILQ_REMOVE(&files, id, next);
+			explicit_bzero(id, sizeof(*id));
+			free(id);
+		}
 	}
 	/* append remaining keys from the config file */
 	for (id = TAILQ_FIRST(&files); id; id = TAILQ_FIRST(&files)) {
@@ -2034,8 +2030,8 @@ authmethods_get(void)
 			buffer_append(&b, method->name, strlen(method->name));
 		}
 	}
-	buffer_append(&b, "\0", 1);
-	list = xstrdup(buffer_ptr(&b));
+	if ((list = sshbuf_dup_string(&b)) == NULL)
+		fatal("%s: sshbuf_dup_string failed", __func__);
 	buffer_free(&b);
 	return list;
 }

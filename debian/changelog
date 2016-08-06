@@ -1,3 +1,60 @@
+openssh (1:7.3p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (http://www.openssh.com/txt/release-7.3):
+    - SECURITY: sshd(8): Mitigate a potential denial-of-service attack
+      against the system's crypt(3) function via sshd(8).  An attacker could
+      send very long passwords that would cause excessive CPU use in
+      crypt(3).  sshd(8) now refuses to accept password authentication
+      requests of length greater than 1024 characters.
+    - SECURITY: ssh(1), sshd(8): Fix observable timing weakness in the CBC
+      padding oracle countermeasures.  Note that CBC ciphers are disabled by
+      default and only included for legacy compatibility.
+    - SECURITY: ssh(1), sshd(8): Improve operation ordering of MAC
+      verification for Encrypt-then-MAC (EtM) mode transport MAC algorithms
+      to verify the MAC before decrypting any ciphertext.  This removes the
+      possibility of timing differences leaking facts about the plaintext,
+      though no such leakage has been observed.
+    - ssh(1): Add a ProxyJump option and corresponding -J command-line flag
+      to allow simplified indirection through a one or more SSH bastions or
+      "jump hosts".
+    - ssh(1): Add an IdentityAgent option to allow specifying specific agent
+      sockets instead of accepting one from the environment.
+    - ssh(1): Allow ExitOnForwardFailure and ClearAllForwardings to be
+      optionally overridden when using ssh -W.
+    - ssh(1), sshd(8): Implement support for the IUTF8 terminal mode as per
+      draft-sgtatham-secsh-iutf8-00 (closes: #337041, LP: #394570).
+    - ssh(1), sshd(8): Add support for additional fixed Diffie-Hellman 2K,
+      4K and 8K groups from draft-ietf-curdle-ssh-kex-sha2-03.
+    - ssh-keygen(1), ssh(1), sshd(8): Support SHA256 and SHA512 RSA
+      signatures in certificates.
+    - ssh(1): Add an Include directive for ssh_config(5) files (closes:
+      #536031).
+    - ssh(1): Permit UTF-8 characters in pre-authentication banners sent
+      from the server.
+    - ssh(1), sshd(8): Reduce the syslog level of some relatively common
+      protocol events from LOG_CRIT.
+    - sshd(8): Refuse AuthenticationMethods="" in configurations and accept
+      AuthenticationMethods=any for the default behaviour of not requiring
+      multiple authentication.
+    - sshd(8): Remove obsolete and misleading "POSSIBLE BREAK-IN ATTEMPT!"
+      message when forward and reverse DNS don't match.
+    - ssh(1): Deduplicate LocalForward and RemoteForward entries to fix
+      failures when both ExitOnForwardFailure and hostname canonicalisation
+      are enabled.
+    - sshd(8): Remove fallback from moduli to obsolete "primes" file that
+      was deprecated in 2001 (LP: #1528251).
+    - sshd_config(5): Correct description of UseDNS: it affects ssh hostname
+      processing for authorized_keys, not known_hosts.
+    - sshd(8): Send ClientAliveInterval pings when a time-based RekeyLimit
+      is set; previously keepalive packets were not being sent.
+    - sshd(8): Whitelist more architectures to enable the seccomp-bpf
+      sandbox.
+    - scp(1): Respect the local user's LC_CTYPE locale (closes: #396295).
+    - Take character display widths into account for the progressmeter
+      (closes: #407088).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 06 Aug 2016 11:00:55 +0100
+
 openssh (1:7.2p2-8) unstable; urgency=medium
 
   [ Colin Watson ]

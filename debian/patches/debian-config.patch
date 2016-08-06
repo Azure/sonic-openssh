@@ -1,4 +1,4 @@
-From d888c9637031a93c13c168a35e99e9aa76c14a9a Mon Sep 17 00:00:00 2001
+From 4c914ccd85bbf391c4dc61b85e3c178fef465e3f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -32,10 +32,10 @@ Patch-Name: debian-config.patch
  6 files changed, 72 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index cc1a633..dc22360 100644
+index f6b4c8f..5cd51f3 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1797,7 +1797,7 @@ fill_default_options(Options * options)
+@@ -1928,7 +1928,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -43,12 +43,12 @@ index cc1a633..dc22360 100644
 +		options->forward_x11_trusted = 1;
  	if (options->forward_x11_timeout == -1)
  		options->forward_x11_timeout = 1200;
- 	if (options->exit_on_forward_failure == -1)
+ 	/*
 diff --git a/ssh.1 b/ssh.1
-index 74d9655..7fb9d30 100644
+index 22e56a7..6aa57c4 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -760,6 +760,16 @@ directive in
+@@ -785,6 +785,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -65,7 +65,7 @@ index 74d9655..7fb9d30 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -768,6 +778,17 @@ Enables trusted X11 forwarding.
+@@ -793,6 +803,17 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -108,7 +108,7 @@ index 4e879cd..5190b06 100644
 +    GSSAPIAuthentication yes
 +    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 0f52d14..51765c9 100644
+index 30c97a9..c967258 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
@@ -145,10 +145,10 @@ index 0f52d14..51765c9 100644
  See the X11 SECURITY extension specification for full details on
  the restrictions imposed on untrusted clients.
 diff --git a/sshd_config b/sshd_config
-index f103298..d103ac5 100644
+index 3fe3e01..ec8ff8f 100644
 --- a/sshd_config
 +++ b/sshd_config
-@@ -125,7 +125,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
+@@ -124,7 +124,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
  #Banner none
  
  # override default of no subsystems
@@ -158,7 +158,7 @@ index f103298..d103ac5 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 4d255e5..2387b51 100644
+index b2b349e..79f2d61 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes

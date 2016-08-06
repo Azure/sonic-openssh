@@ -1,4 +1,4 @@
-/* $OpenBSD: canohost.c,v 1.72 2015/03/01 15:44:40 millert Exp $ */
+/* $OpenBSD: canohost.c,v 1.73 2016/03/07 19:02:43 djm Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -35,52 +35,44 @@
 #include "canohost.h"
 #include "misc.h"
 
-static void check_ip_options(int, char *);
-static char *canonical_host_ip = NULL;
-static int cached_port = -1;
-
 /*
- * Return the canonical name of the host at the other end of the socket. The
- * caller should free the returned string.
+ * Returns the remote DNS hostname as a string. The returned string must not
+ * be freed. NB. this will usually trigger a DNS query the first time it is
+ * called.
+ * This function does additional checks on the hostname to mitigate some
+ * attacks on legacy rhosts-style authentication.
+ * XXX is RhostsRSAAuthentication vulnerable to these?
+ * XXX Can we remove these checks? (or if not, remove RhostsRSAAuthentication?)
  */
 
-static char *
-get_remote_hostname(int sock, int use_dns)
+char *
+remote_hostname(struct ssh *ssh)
 {
 	struct sockaddr_storage from;
 	socklen_t fromlen;
 	struct addrinfo hints, *ai, *aitop;
-	char name[NI_MAXHOST], ntop[NI_MAXHOST], ntop2[NI_MAXHOST];
+	char name[NI_MAXHOST], ntop2[NI_MAXHOST];
+	const char *ntop = ssh_remote_ipaddr(ssh);
 
 	/* Get IP address of client. */
 	fromlen = sizeof(from);
 	memset(&from, 0, sizeof(from));
-	if (getpeername(sock, (struct sockaddr *)&from, &fromlen) < 0) {
+	if (getpeername(ssh_packet_get_connection_in(ssh),
+	    (struct sockaddr *)&from, &fromlen) < 0) {
 		debug("getpeername failed: %.100s", strerror(errno));
-		cleanup_exit(255);
+		return strdup(ntop);
 	}
 
-	if (from.ss_family == AF_INET)
-		check_ip_options(sock, ntop);
-
 	ipv64_normalise_mapped(&from, &fromlen);
-
 	if (from.ss_family == AF_INET6)
 		fromlen = sizeof(struct sockaddr_in6);
-
-	if (getnameinfo((struct sockaddr *)&from, fromlen, ntop, sizeof(ntop),
-	    NULL, 0, NI_NUMERICHOST) != 0)
-		fatal("get_remote_hostname: getnameinfo NI_NUMERICHOST failed");
-
-	if (!use_dns)
-		return xstrdup(ntop);
 
 	debug3("Trying to reverse map address %.100s.", ntop);
 	/* Map the IP address to a host name. */
 	if (getnameinfo((struct sockaddr *)&from, fromlen, name, sizeof(name),
 	    NULL, 0, NI_NAMEREQD) != 0) {
 		/* Host name not found.  Use ip address. */
-		return xstrdup(ntop);
+		return strdup(ntop);
 	}
 
 	/*
@@ -95,10 +87,10 @@ get_remote_hostname(int sock, int use_dns)
 		logit("Nasty PTR record \"%s\" is set up for %s, ignoring",
 		    name, ntop);
 		freeaddrinfo(ai);
-		return xstrdup(ntop);
+		return strdup(ntop);
 	}
 
-	/* Names are stores in lowercase. */
+	/* Names are stored in lowercase. */
 	lowercase(name);
 
 	/*
@@ -115,8 +107,8 @@ get_remote_hostname(int sock, int use_dns)
 	hints.ai_socktype = SOCK_STREAM;
 	if (getaddrinfo(name, NULL, &hints, &aitop) != 0) {
 		logit("reverse mapping checking getaddrinfo for %.700s "
-		    "[%s] failed - POSSIBLE BREAK-IN ATTEMPT!", name, ntop);
-		return xstrdup(ntop);
+		    "[%s] failed.", name, ntop);
+		return strdup(ntop);
 	}
 	/* Look for the address from the list of addresses. */
 	for (ai = aitop; ai; ai = ai->ai_next) {
@@ -127,53 +119,13 @@ get_remote_hostname(int sock, int use_dns)
 	}
 	freeaddrinfo(aitop);
 	/* If we reached the end of the list, the address was not there. */
-	if (!ai) {
+	if (ai == NULL) {
 		/* Address not found for the host name. */
 		logit("Address %.100s maps to %.600s, but this does not "
-		    "map back to the address - POSSIBLE BREAK-IN ATTEMPT!",
-		    ntop, name);
-		return xstrdup(ntop);
+		    "map back to the address.", ntop, name);
+		return strdup(ntop);
 	}
-	return xstrdup(name);
-}
-
-/*
- * If IP options are supported, make sure there are none (log and
- * disconnect them if any are found).  Basically we are worried about
- * source routing; it can be used to pretend you are somebody
- * (ip-address) you are not. That itself may be "almost acceptable"
- * under certain circumstances, but rhosts autentication is useless
- * if source routing is accepted. Notice also that if we just dropped
- * source routing here, the other side could use IP spoofing to do
- * rest of the interaction and could still bypass security.  So we
- * exit here if we detect any IP options.
- */
-/* IPv4 only */
-static void
-check_ip_options(int sock, char *ipaddr)
-{
-#ifdef IP_OPTIONS
-	u_char options[200];
-	char text[sizeof(options) * 3 + 1];
-	socklen_t option_size, i;
-	int ipproto;
-	struct protoent *ip;
-
-	if ((ip = getprotobyname("ip")) != NULL)
-		ipproto = ip->p_proto;
-	else
-		ipproto = IPPROTO_IP;
-	option_size = sizeof(options);
-	if (getsockopt(sock, ipproto, IP_OPTIONS, options,
-	    &option_size) >= 0 && option_size != 0) {
-		text[0] = '\0';
-		for (i = 0; i < option_size; i++)
-			snprintf(text + i*3, sizeof(text) - i*3,
-			    " %2.2x", options[i]);
-		fatal("Connection from %.100s with IP options:%.800s",
-		    ipaddr, text);
-	}
-#endif /* IP_OPTIONS */
+	return strdup(name);
 }
 
 void
@@ -202,38 +154,6 @@ ipv64_normalise_mapped(struct sockaddr_storage *addr, socklen_t *len)
 }
 
 /*
- * Return the canonical name of the host in the other side of the current
- * connection.  The host name is cached, so it is efficient to call this
- * several times.
- */
-
-const char *
-get_canonical_hostname(int use_dns)
-{
-	char *host;
-	static char *canonical_host_name = NULL;
-	static char *remote_ip = NULL;
-
-	/* Check if we have previously retrieved name with same option. */
-	if (use_dns && canonical_host_name != NULL)
-		return canonical_host_name;
-	if (!use_dns && remote_ip != NULL)
-		return remote_ip;
-
-	/* Get the real hostname if socket; otherwise return UNKNOWN. */
-	if (packet_connection_is_on_socket())
-		host = get_remote_hostname(packet_get_connection_in(), use_dns);
-	else
-		host = "UNKNOWN";
-
-	if (use_dns)
-		canonical_host_name = host;
-	else
-		remote_ip = host;
-	return host;
-}
-
-/*
  * Returns the local/remote IP-address/hostname of socket as a string.
  * The returned string must be freed.
  */
@@ -250,12 +170,10 @@ get_socket_address(int sock, int remote, int flags)
 	memset(&addr, 0, sizeof(addr));
 
 	if (remote) {
-		if (getpeername(sock, (struct sockaddr *)&addr, &addrlen)
-		    < 0)
+		if (getpeername(sock, (struct sockaddr *)&addr, &addrlen) != 0)
 			return NULL;
 	} else {
-		if (getsockname(sock, (struct sockaddr *)&addr, &addrlen)
-		    < 0)
+		if (getsockname(sock, (struct sockaddr *)&addr, &addrlen) != 0)
 			return NULL;
 	}
 
@@ -271,7 +189,7 @@ get_socket_address(int sock, int remote, int flags)
 		/* Get the address in ascii. */
 		if ((r = getnameinfo((struct sockaddr *)&addr, addrlen, ntop,
 		    sizeof(ntop), NULL, 0, flags)) != 0) {
-			error("get_socket_address: getnameinfo %d failed: %s",
+			error("%s: getnameinfo %d failed: %s", __func__,
 			    flags, ssh_gai_strerror(r));
 			return NULL;
 		}
@@ -316,7 +234,8 @@ get_local_name(int fd)
 
 	/* Handle the case where we were passed a pipe */
 	if (gethostname(myname, sizeof(myname)) == -1) {
-		verbose("get_local_name: gethostname: %s", strerror(errno));
+		verbose("%s: gethostname: %s", __func__, strerror(errno));
+		host = xstrdup("UNKNOWN");
 	} else {
 		host = xstrdup(myname);
 	}
@@ -324,51 +243,9 @@ get_local_name(int fd)
 	return host;
 }
 
-void
-clear_cached_addr(void)
-{
-	free(canonical_host_ip);
-	canonical_host_ip = NULL;
-	cached_port = -1;
-}
-
-/*
- * Returns the IP-address of the remote host as a string.  The returned
- * string must not be freed.
- */
-
-const char *
-get_remote_ipaddr(void)
-{
-	/* Check whether we have cached the ipaddr. */
-	if (canonical_host_ip == NULL) {
-		if (packet_connection_is_on_socket()) {
-			canonical_host_ip =
-			    get_peer_ipaddr(packet_get_connection_in());
-			if (canonical_host_ip == NULL)
-				cleanup_exit(255);
-		} else {
-			/* If not on socket, return UNKNOWN. */
-			canonical_host_ip = xstrdup("UNKNOWN");
-		}
-	}
-	return canonical_host_ip;
-}
-
-const char *
-get_remote_name_or_ip(u_int utmp_len, int use_dns)
-{
-	static const char *remote = "";
-	if (utmp_len > 0)
-		remote = get_canonical_hostname(use_dns);
-	if (utmp_len == 0 || strlen(remote) > utmp_len)
-		remote = get_remote_ipaddr();
-	return remote;
-}
-
 /* Returns the local/remote port for the socket. */
 
-int
+static int
 get_sock_port(int sock, int local)
 {
 	struct sockaddr_storage from;
@@ -402,25 +279,9 @@ get_sock_port(int sock, int local)
 	/* Return port number. */
 	if ((r = getnameinfo((struct sockaddr *)&from, fromlen, NULL, 0,
 	    strport, sizeof(strport), NI_NUMERICSERV)) != 0)
-		fatal("get_sock_port: getnameinfo NI_NUMERICSERV failed: %s",
+		fatal("%s: getnameinfo NI_NUMERICSERV failed: %s", __func__,
 		    ssh_gai_strerror(r));
 	return atoi(strport);
-}
-
-/* Returns remote/local port number for the current connection. */
-
-static int
-get_port(int local)
-{
-	/*
-	 * If the connection is not a socket, return 65535.  This is
-	 * intentionally chosen to be an unprivileged port number.
-	 */
-	if (!packet_connection_is_on_socket())
-		return 65535;
-
-	/* Get socket and return the port number. */
-	return get_sock_port(packet_get_connection_in(), local);
 }
 
 int
@@ -430,17 +291,7 @@ get_peer_port(int sock)
 }
 
 int
-get_remote_port(void)
+get_local_port(int sock)
 {
-	/* Cache to avoid getpeername() on a dead connection */
-	if (cached_port == -1)
-		cached_port = get_port(0);
-
-	return cached_port;
-}
-
-int
-get_local_port(void)
-{
-	return get_port(1);
+	return get_sock_port(sock, 1);
 }

@@ -1,4 +1,4 @@
-From 1b9f8f458824d7e46f9f749c77f26016f2ea9967 Mon Sep 17 00:00:00 2001
+From 277ad2acedde81dce324e711da116d100b47f445 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -19,7 +19,7 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index fad7c92..8ca9695 100644
+index bf9f8f7..a98b309 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -171,6 +171,7 @@ initialize_server_options(ServerOptions *options)
@@ -39,7 +39,7 @@ index fad7c92..8ca9695 100644
  
  	assemble_algorithms(options);
  
-@@ -437,6 +440,7 @@ typedef enum {
+@@ -445,6 +448,7 @@ typedef enum {
  	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash,
@@ -47,7 +47,7 @@ index fad7c92..8ca9695 100644
  	sDeprecated, sUnsupported
  } ServerOpCodes;
  
-@@ -588,6 +592,7 @@ static struct {
+@@ -596,6 +600,7 @@ static struct {
  	{ "streamlocalbindunlink", sStreamLocalBindUnlink, SSHCFG_ALL },
  	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
  	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
@@ -55,7 +55,7 @@ index fad7c92..8ca9695 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1874,6 +1879,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -1903,6 +1908,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			options->fingerprint_hash = value;
  		break;
  
@@ -80,10 +80,10 @@ index 778ba17..161fa37 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index c762190..57ae4ad 100644
+index e873557..71fad9e 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -442,7 +442,8 @@ sshd_exchange_identification(int sock_in, int sock_out)
+@@ -443,7 +443,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
  	}
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
@@ -94,10 +94,10 @@ index c762190..57ae4ad 100644
  	    options.version_addendum, newline);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index bc79a66..b565640 100644
+index e05cdbe..ac9b1f0 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -534,6 +534,11 @@ or
+@@ -541,6 +541,11 @@ or
  .Dq no .
  The default is
  .Dq delayed .

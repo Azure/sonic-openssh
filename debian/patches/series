@@ -25,9 +25,3 @@ gnome-ssh-askpass2-icon.patch
 sigstop.patch
 systemd-readiness.patch
 debian-config.patch
-CVE-2015-8325.patch
-unbreak-certificate-auth.patch
-CVE-2016-6210-1.patch
-CVE-2016-6210-2.patch
-CVE-2016-6210-3.patch
-control-persist-close-stderr.patch

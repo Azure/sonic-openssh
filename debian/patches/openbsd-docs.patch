@@ -1,4 +1,4 @@
-From 9d764f08fd01fa5c62a7cbff66165bc5d5ffb637 Mon Sep 17 00:00:00 2001
+From ab7ae820a882c8a51b06ec0b3522813b4e90eeff Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -44,7 +44,7 @@ index ef0de08..149846c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 37a4fc2..24bed5f 100644
+index ce2213c..01711df 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -178,9 +178,7 @@ key in
@@ -69,7 +69,7 @@ index 37a4fc2..24bed5f 100644
  .It Fl a Ar rounds
  When saving a new-format private key (i.e. an ed25519 key or any SSH protocol
  2 key when the
-@@ -642,7 +638,7 @@ option.
+@@ -644,7 +640,7 @@ option.
  Valid generator values are 2, 3, and 5.
  .Pp
  Screened DH groups may be installed in
@@ -78,7 +78,7 @@ index 37a4fc2..24bed5f 100644
  It is important that this file contains moduli of a range of bit lengths and
  that both ends of a connection share common moduli.
  .Sh CERTIFICATES
-@@ -841,7 +837,7 @@ on all machines
+@@ -843,7 +839,7 @@ on all machines
  where the user wishes to log in using public key authentication.
  There is no need to keep the contents of this file secret.
  .Pp
@@ -88,10 +88,10 @@ index 37a4fc2..24bed5f 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index feb0e89..41e0aab 100644
+index feef81a..b1f128c 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -852,6 +852,10 @@ implements public key authentication protocol automatically,
+@@ -877,6 +877,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8
@@ -133,10 +133,10 @@ index 589841f..58eefe9 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index b565640..4d255e5 100644
+index ac9b1f0..b2b349e 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -375,8 +375,7 @@ then no banner is displayed.
+@@ -382,8 +382,7 @@ then no banner is displayed.
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

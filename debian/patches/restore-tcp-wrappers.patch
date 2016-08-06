@@ -1,4 +1,4 @@
-From 0031968609564a15294c39d2519201741664905d Mon Sep 17 00:00:00 2001
+From c027de5eb3e6cb1718990841c2a9cbc89fd53151 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 5f1ff74..5d720f7 100644
+index 894ec3b..f822fb3 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1481,6 +1481,62 @@ AC_ARG_WITH([skey],
+@@ -1510,6 +1510,62 @@ AC_ARG_WITH([skey],
  	]
  )
  
@@ -94,7 +94,7 @@ index 5f1ff74..5d720f7 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -5003,6 +5059,7 @@ echo "                 KerberosV support: $KRB5_MSG"
+@@ -5059,6 +5115,7 @@ echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
  echo "                 Smartcard support: $SCARD_MSG"
  echo "                     S/KEY support: $SKEY_MSG"
@@ -128,7 +128,7 @@ index 6c521f2..589841f 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index 5cd9129..d1dd711 100644
+index ebb88c7..982e545 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -129,6 +129,13 @@
@@ -145,7 +145,7 @@ index 5cd9129..d1dd711 100644
  #ifndef O_NOCTTY
  #define O_NOCTTY	0
  #endif
-@@ -2151,6 +2158,24 @@ main(int ac, char **av)
+@@ -2207,6 +2214,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif

@@ -218,6 +218,7 @@ kexgss_server(struct ssh *ssh)
 	case KEX_GSS_GRP1_SHA1:
 	case KEX_GSS_GRP14_SHA1:
 		kex_dh_hash(
+		    ssh->kex->hash_alg,
 		    ssh->kex->client_version_string, ssh->kex->server_version_string,
 		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
 		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),

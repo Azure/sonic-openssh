@@ -68,9 +68,9 @@
 
 /* OpenGroup RFC86.0 and XSSO specify no "const" on arguments */
 #ifdef PAM_SUN_CODEBASE
-# define sshpam_const		/* Solaris, HP-UX, AIX */
+# define sshpam_const		/* Solaris, HP-UX, SunOS */
 #else
-# define sshpam_const	const	/* LinuxPAM, OpenPAM */
+# define sshpam_const	const	/* LinuxPAM, OpenPAM, AIX */
 #endif
 
 /* Ambiguity in spec: is it an array of pointers or a pointer to an array? */
@@ -154,9 +154,12 @@ sshpam_sigchld_handler(int sig)
 	    <= 0) {
 		/* PAM thread has not exitted, privsep slave must have */
 		kill(cleanup_ctxt->pam_thread, SIGTERM);
-		if (waitpid(cleanup_ctxt->pam_thread, &sshpam_thread_status, 0)
-		    <= 0)
-			return; /* could not wait */
+		while (waitpid(cleanup_ctxt->pam_thread,
+		    &sshpam_thread_status, 0) == -1) {
+			if (errno == EINTR)
+				continue;
+			return;
+		}
 	}
 	if (WIFSIGNALED(sshpam_thread_status) &&
 	    WTERMSIG(sshpam_thread_status) == SIGTERM)
@@ -217,7 +220,11 @@ pthread_join(sp_pthread_t thread, void **value)
 	if (sshpam_thread_status != -1)
 		return (sshpam_thread_status);
 	signal(SIGCHLD, sshpam_oldsig);
-	waitpid(thread, &status, 0);
+	while (waitpid(thread, &status, 0) == -1) {
+		if (errno == EINTR)
+			continue;
+		fatal("%s: waitpid: %s", __func__, strerror(errno));
+	}
 	return (status);
 }
 #endif
@@ -229,6 +236,7 @@ static int sshpam_authenticated = 0;
 static int sshpam_session_open = 0;
 static int sshpam_cred_established = 0;
 static int sshpam_account_status = -1;
+static int sshpam_maxtries_reached = 0;
 static char **sshpam_env = NULL;
 static Authctxt *sshpam_authctxt = NULL;
 static const char *sshpam_password = NULL;
@@ -364,17 +372,6 @@ sshpam_thread_conv(int n, sshpam_const struct pam_message **msg,
 	for (i = 0; i < n; ++i) {
 		switch (PAM_MSG_MEMBER(msg, i, msg_style)) {
 		case PAM_PROMPT_ECHO_OFF:
-			buffer_put_cstring(&buffer,
-			    PAM_MSG_MEMBER(msg, i, msg));
-			if (ssh_msg_send(ctxt->pam_csock,
-			    PAM_MSG_MEMBER(msg, i, msg_style), &buffer) == -1)
-				goto fail;
-			if (ssh_msg_recv(ctxt->pam_csock, &buffer) == -1)
-				goto fail;
-			if (buffer_get_char(&buffer) != PAM_AUTHTOK)
-				goto fail;
-			reply[i].resp = buffer_get_string(&buffer, NULL);
-			break;
 		case PAM_PROMPT_ECHO_ON:
 			buffer_put_cstring(&buffer,
 			    PAM_MSG_MEMBER(msg, i, msg));
@@ -388,12 +385,6 @@ sshpam_thread_conv(int n, sshpam_const struct pam_message **msg,
 			reply[i].resp = buffer_get_string(&buffer, NULL);
 			break;
 		case PAM_ERROR_MSG:
-			buffer_put_cstring(&buffer,
-			    PAM_MSG_MEMBER(msg, i, msg));
-			if (ssh_msg_send(ctxt->pam_csock,
-			    PAM_MSG_MEMBER(msg, i, msg_style), &buffer) == -1)
-				goto fail;
-			break;
 		case PAM_TEXT_INFO:
 			buffer_put_cstring(&buffer,
 			    PAM_MSG_MEMBER(msg, i, msg));
@@ -467,6 +458,8 @@ sshpam_thread(void *ctxtp)
 	if (sshpam_err != PAM_SUCCESS)
 		goto auth_fail;
 	sshpam_err = pam_authenticate(sshpam_handle, flags);
+	if (sshpam_err == PAM_MAXTRIES)
+		sshpam_set_maxtries_reached(1);
 	if (sshpam_err != PAM_SUCCESS)
 		goto auth_fail;
 
@@ -518,6 +511,8 @@ sshpam_thread(void *ctxtp)
 	/* XXX - can't do much about an error here */
 	if (sshpam_err == PAM_ACCT_EXPIRED)
 		ssh_msg_send(ctxt->pam_csock, PAM_ACCT_EXPIRED, &buffer);
+	else if (sshpam_maxtries_reached)
+		ssh_msg_send(ctxt->pam_csock, PAM_MAXTRIES, &buffer);
 	else
 		ssh_msg_send(ctxt->pam_csock, PAM_AUTH_ERR, &buffer);
 	buffer_free(&buffer);
@@ -623,6 +618,7 @@ sshpam_init(Authctxt *authctxt)
 	extern char *__progname;
 	const char *pam_rhost, *pam_user, *user = authctxt->user;
 	const char **ptr_pam_user = &pam_user;
+	struct ssh *ssh = active_state; /* XXX */
 
 	if (sshpam_handle != NULL) {
 		/* We already have a PAM context; check if the user matches */
@@ -643,7 +639,7 @@ sshpam_init(Authctxt *authctxt)
 		sshpam_handle = NULL;
 		return (-1);
 	}
-	pam_rhost = get_remote_name_or_ip(utmp_len, options.use_dns);
+	pam_rhost = auth_get_canonical_hostname(ssh, options.use_dns);
 	debug("PAM: setting PAM_RHOST to \"%s\"", pam_rhost);
 	sshpam_err = pam_set_item(sshpam_handle, PAM_RHOST, pam_rhost);
 	if (sshpam_err != PAM_SUCCESS) {
@@ -714,6 +710,7 @@ static int
 sshpam_query(void *ctx, char **name, char **info,
     u_int *num, char ***prompts, u_int **echo_on)
 {
+	struct ssh *ssh = active_state; /* XXX */
 	Buffer buffer;
 	struct pam_ctxt *ctxt = ctx;
 	size_t plen;
@@ -756,7 +753,11 @@ sshpam_query(void *ctx, char **name, char **info,
 			free(msg);
 			break;
 		case PAM_ACCT_EXPIRED:
-			sshpam_account_status = 0;
+		case PAM_MAXTRIES:
+			if (type == PAM_ACCT_EXPIRED)
+				sshpam_account_status = 0;
+			if (type == PAM_MAXTRIES)
+				sshpam_set_maxtries_reached(1);
 			/* FALLTHROUGH */
 		case PAM_AUTH_ERR:
 			debug3("PAM: %s", pam_strerror(sshpam_handle, type));
@@ -796,7 +797,7 @@ sshpam_query(void *ctx, char **name, char **info,
 			error("PAM: %s for %s%.100s from %.100s", msg,
 			    sshpam_authctxt->valid ? "" : "illegal user ",
 			    sshpam_authctxt->user,
-			    get_remote_name_or_ip(utmp_len, options.use_dns));
+			    auth_get_canonical_hostname(ssh, options.use_dns));
 			/* FALLTHROUGH */
 		default:
 			*num = 0;
@@ -1233,6 +1234,8 @@ sshpam_auth_passwd(Authctxt *authctxt, const char *password)
 	sshpam_err = pam_authenticate(sshpam_handle, flags);
 	sshpam_password = NULL;
 	free(fake);
+	if (sshpam_err == PAM_MAXTRIES)
+		sshpam_set_maxtries_reached(1);
 	if (sshpam_err == PAM_SUCCESS && authctxt->valid) {
 		debug("PAM: password authentication accepted for %.100s",
 		    authctxt->user);
@@ -1243,5 +1246,22 @@ sshpam_auth_passwd(Authctxt *authctxt, const char *password)
 		    pam_strerror(sshpam_handle, sshpam_err));
 		return 0;
 	}
+}
+
+int
+sshpam_get_maxtries_reached(void)
+{
+	return sshpam_maxtries_reached;
+}
+
+void
+sshpam_set_maxtries_reached(int reached)
+{
+	if (reached == 0 || sshpam_maxtries_reached)
+		return;
+	sshpam_maxtries_reached = 1;
+	options.password_authentication = 0;
+	options.kbd_interactive_authentication = 0;
+	options.challenge_response_authentication = 0;
 }
 #endif /* USE_PAM */

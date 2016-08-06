@@ -1,4 +1,4 @@
-From 1dd7836b386be1816bc565aafb9875769430a02d Mon Sep 17 00:00:00 2001
+From b4b79ae5a16f73426b54c6394a29b2b49da4dc16 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:02 +0000
 Subject: Quieten logs when multiple from= restrictions are used
@@ -16,10 +16,10 @@ Patch-Name: auth-log-verbosity.patch
  4 files changed, 32 insertions(+), 9 deletions(-)
 
 diff --git a/auth-options.c b/auth-options.c
-index edbaf80..bda39df 100644
+index b399b91..a9d9a81 100644
 --- a/auth-options.c
 +++ b/auth-options.c
-@@ -58,9 +58,20 @@ int forced_tun_device = -1;
+@@ -59,9 +59,20 @@ int forced_tun_device = -1;
  /* "principals=" option. */
  char *authorized_principals = NULL;
  
@@ -40,7 +40,7 @@ index edbaf80..bda39df 100644
  auth_clear_options(void)
  {
  	no_agent_forwarding_flag = 0;
-@@ -314,10 +325,13 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
+@@ -316,10 +327,13 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
  				/* FALLTHROUGH */
  			case 0:
  				free(patterns);
@@ -58,7 +58,7 @@ index edbaf80..bda39df 100644
  				auth_debug_add("Your host '%.200s' is not "
  				    "permitted to use this key for login.",
  				    remote_host);
-@@ -540,11 +554,14 @@ parse_option_list(struct sshbuf *oblob, struct passwd *pw,
+@@ -543,11 +557,14 @@ parse_option_list(struct sshbuf *oblob, struct passwd *pw,
  					break;
  				case 0:
  					/* no match */
