@@ -1,0 +1,34 @@
+From b139635512b1af75e82252c0c71ac66e08b78774 Mon Sep 17 00:00:00 2001
+From: "markus@openbsd.org" <markus@openbsd.org>
+Date: Mon, 10 Oct 2016 19:28:48 +0000
+Subject: upstream commit
+
+Unregister the KEXINIT handler after message has been
+received. Otherwise an unauthenticated peer can repeat the KEXINIT and cause
+allocation of up to 128MB -- until the connection is closed. Reported by
+shilei-c at 360.cn
+
+Upstream-ID: 43649ae12a27ef94290db16d1a98294588b75c05
+
+Origin: https://anongit.mindrot.org/openssh.git/commit/?id=ec165c392ca54317dbe3064a8c200de6531e89ad
+Bug-Debian: https://bugs.debian.org/841884
+Bug-Fedora: https://bugzilla.redhat.com/show_bug.cgi?id=1384860
+Last-Update: 2016-10-24
+
+Patch-Name: unregister-kexinit.patch
+---
+ kex.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kex.c b/kex.c
+index c17d652..7ab72ba 100644
+--- a/kex.c
++++ b/kex.c
+@@ -488,6 +488,7 @@ kex_input_kexinit(int type, u_int32_t seq, void *ctxt)
+ 	if (kex == NULL)
+ 		return SSH_ERR_INVALID_ARGUMENT;
+ 
++	ssh_dispatch_set(ssh, SSH2_MSG_KEXINIT, NULL);
+ 	ptr = sshpkt_ptr(ssh, &dlen);
+ 	if ((r = sshbuf_put(kex->peer, ptr, dlen)) != 0)
+ 		return r;

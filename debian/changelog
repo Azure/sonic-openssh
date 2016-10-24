@@ -1,6 +1,8 @@
-openssh (1:7.3p1-2) UNRELEASED; urgency=medium
+openssh (1:7.3p1-2) UNRELEASED; urgency=high
 
   * Rewrite debian/copyright using copyright-format 1.0.
+  * CVE-2016-8858: Unregister the KEXINIT handler after message has been
+    received (closes: #841884).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 14 Aug 2016 12:15:53 +0100
 
