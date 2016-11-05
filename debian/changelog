@@ -1,6 +1,7 @@
 openssh (1:7.3p1-3) UNRELEASED; urgency=medium
 
   * Avoid building with OpenSSL 1.1 for now (see #828475).
+  * Add a missing License line to debian/copyright.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 05 Nov 2016 14:22:42 +0000
 

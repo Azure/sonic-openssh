@@ -207,6 +207,7 @@ License: Beer-ware
 
 Files: openbsd-compat/bsd-snprintf.c
 Copyright: 1995 Patrick Powell
+License: Powell-BSD-style
  This code is based on code written by Patrick Powell
  (papowell@astart.com) It may be used for any purpose as long as this
  notice remains intact on all source code distributions
