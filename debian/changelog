@@ -1,10 +1,10 @@
-openssh (1:7.3p1-3) UNRELEASED; urgency=medium
+openssh (1:7.3p1-3) unstable; urgency=medium
 
   * Avoid building with OpenSSL 1.1 for now (see #828475).
   * Add a missing License line to debian/copyright.
   * Policy version 3.9.8: no changes required.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 05 Nov 2016 14:22:42 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 05 Nov 2016 15:37:15 +0000
 
 openssh (1:7.3p1-2) unstable; urgency=high
 
