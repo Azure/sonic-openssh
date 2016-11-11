@@ -1,10 +1,6 @@
 /*.out
 /Makefile
 /autom4te.cache
-/build-deb
-/build-deb-stamp
-/build-udeb
-/build-udeb-stamp
 /buildit.sh
 /buildpkg.sh
 /config.cache
@@ -33,6 +29,9 @@ contrib/gnome-ssh-askpass2
 openbsd-compat/Makefile
 debian/*.debhelper*
 debian/*substvars
+debian/build-deb
+debian/build-deb-ssh1
+debian/build-udeb
 debian/files
 debian/keygen-test/key1
 debian/keygen-test/key1.pub

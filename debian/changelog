@@ -2,6 +2,7 @@ openssh (1:7.3p1-4) UNRELEASED; urgency=medium
 
   * Adjust Build-Depends further to avoid considering libssl-dev >= 1.1.0~
     as sufficient.
+  * Move build directories under debian/.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 11 Nov 2016 02:50:39 +0000
 
