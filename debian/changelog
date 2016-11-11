@@ -3,6 +3,9 @@ openssh (1:7.3p1-4) UNRELEASED; urgency=medium
   * Adjust Build-Depends further to avoid considering libssl-dev >= 1.1.0~
     as sufficient.
   * Move build directories under debian/.
+  * Remove the non-upstream .gitignore file and add the relevant entries to
+    debian/.gitignore, in order to make the source tree more
+    dgit-compatible.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 11 Nov 2016 02:50:39 +0000
 
