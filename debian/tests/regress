@@ -18,14 +18,7 @@ make
 # versions, so we must bypass the latter in order to work correctly under
 # autopkgtest.
 make regress-prep
-make regress/modpipe \
-     regress/setuid-allowed \
-     regress/netcat \
-     regress/unittests/sshbuf/test_sshbuf \
-     regress/unittests/sshkey/test_sshkey \
-     regress/unittests/bitmap/test_bitmap \
-     regress/unittests/hostkeys/test_hostkeys \
-     regress/unittests/kex/test_kex
+make regress-binaries
 
 SRCDIR="$(pwd)"
 BUILDDIR="$SRCDIR"
