@@ -26,3 +26,4 @@ sigstop.patch
 systemd-readiness.patch
 debian-config.patch
 unregister-kexinit.patch
+fix-putty-interop-tests.patch

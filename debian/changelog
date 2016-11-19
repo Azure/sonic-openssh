@@ -8,6 +8,7 @@ openssh (1:7.3p1-4) UNRELEASED; urgency=medium
     dgit-compatible.
   * Build all upstream regression test binaries using the new
     "regress-binaries" target.
+  * Fix and enable PuTTY interoperability tests under autopkgtest.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 11 Nov 2016 02:50:39 +0000
 

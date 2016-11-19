@@ -17,7 +17,7 @@ for p in 2; do
 		    ${OBJ}/.putty/sessions/compression_$c
 		echo "Compression=$c" >> ${OBJ}/.putty/sessions/kex_$k
 		env HOME=$PWD ${PLINK} -load compression_$c -batch \
-		    -i putty.rsa$p 127.0.0.1 cat ${DATA} > ${COPY}
+		    -i putty.rsa$p cat ${DATA} > ${COPY}
 		if [ $? -ne 0 ]; then
 			fail "ssh cat $DATA failed"
 		fi
@@ -28,7 +28,7 @@ for p in 2; do
 			rm -f ${COPY}
 			dd if=$DATA obs=${s} 2> /dev/null | \
 				env HOME=$PWD ${PLINK} -load compression_$c \
-				    -batch -i putty.rsa$p 127.0.0.1 \
+				    -batch -i putty.rsa$p \
 				    "cat > ${COPY}"
 			if [ $? -ne 0 ]; then
 				fail "ssh cat $DATA failed"
