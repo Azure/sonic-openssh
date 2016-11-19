@@ -513,7 +513,11 @@ if test "$REGRESS_INTEROP_PUTTY" = "yes" ; then
 
 	# Add a PuTTY key to authorized_keys
 	rm -f ${OBJ}/putty.rsa2
-	puttygen -t rsa -o ${OBJ}/putty.rsa2 < /dev/null > /dev/null
+	if ! puttygen -t rsa -o ${OBJ}/putty.rsa2 \
+	    --new-passphrase /dev/null < /dev/null > /dev/null; then
+		echo "Your installed version of PuTTY is too old to support --new-passphrase; trying without (may require manual interaction) ..." >&2
+		puttygen -t rsa -o ${OBJ}/putty.rsa2 < /dev/null > /dev/null
+	fi
 	puttygen -O public-openssh ${OBJ}/putty.rsa2 \
 	    >> $OBJ/authorized_keys_$USER
 
@@ -526,10 +530,12 @@ if test "$REGRESS_INTEROP_PUTTY" = "yes" ; then
 	# Setup proxied session
 	mkdir -p ${OBJ}/.putty/sessions
 	rm -f ${OBJ}/.putty/sessions/localhost_proxy
-	echo "Hostname=127.0.0.1" >> ${OBJ}/.putty/sessions/localhost_proxy
+	echo "Protocol=ssh" >> ${OBJ}/.putty/sessions/localhost_proxy
+	echo "HostName=127.0.0.1" >> ${OBJ}/.putty/sessions/localhost_proxy
 	echo "PortNumber=$PORT" >> ${OBJ}/.putty/sessions/localhost_proxy
 	echo "ProxyMethod=5" >> ${OBJ}/.putty/sessions/localhost_proxy
 	echo "ProxyTelnetCommand=sh ${SRC}/sshd-log-wrapper.sh ${TEST_SSHD_LOGFILE} ${SSHD} -i -f $OBJ/sshd_proxy" >> ${OBJ}/.putty/sessions/localhost_proxy
+	echo "ProxyLocalhost=1" >> ${OBJ}/.putty/sessions/localhost_proxy
 
 	REGRESS_INTEROP_PUTTY=yes
 fi
