@@ -1,4 +1,4 @@
-openssh (1:7.3p1-4) UNRELEASED; urgency=medium
+openssh (1:7.3p1-4) unstable; urgency=medium
 
   * Adjust Build-Depends further to avoid considering libssl-dev >= 1.1.0~
     as sufficient.
@@ -10,7 +10,7 @@ openssh (1:7.3p1-4) UNRELEASED; urgency=medium
     "regress-binaries" target.
   * Fix and enable PuTTY interoperability tests under autopkgtest.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 11 Nov 2016 02:50:39 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 02 Dec 2016 20:49:30 +0000
 
 openssh (1:7.3p1-3) unstable; urgency=medium
 
