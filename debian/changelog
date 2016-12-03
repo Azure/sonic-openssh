@@ -1,3 +1,10 @@
+openssh (1:7.3p1-5) UNRELEASED; urgency=medium
+
+  * debian/tests/control: Add dependency on openssl, required by the PuTTY
+    interoperability tests.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 03 Dec 2016 03:42:22 +0000
+
 openssh (1:7.3p1-4) unstable; urgency=medium
 
   * Adjust Build-Depends further to avoid considering libssl-dev >= 1.1.0~
