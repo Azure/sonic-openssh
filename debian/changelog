@@ -1,6 +1,6 @@
 openssh (1:7.3p1-6) UNRELEASED; urgency=medium
 
-  * Apply "wrap-and-sort -atf debian/control".
+  * Apply "wrap-and-sort -at -f debian/control -f debian/tests/control".
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
 
