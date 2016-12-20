@@ -1,4 +1,4 @@
-From 277ad2acedde81dce324e711da116d100b47f445 Mon Sep 17 00:00:00 2001
+From 02a077d3c8f8491d277b2291d5ae538379c7ed44 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -19,43 +19,43 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index bf9f8f7..a98b309 100644
+index 49d3bdc8..1cee3d6c 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -171,6 +171,7 @@ initialize_server_options(ServerOptions *options)
- 	options->ip_qos_bulk = -1;
+@@ -166,6 +166,7 @@ initialize_server_options(ServerOptions *options)
  	options->version_addendum = NULL;
  	options->fingerprint_hash = -1;
+ 	options->disable_forwarding = -1;
 +	options->debian_banner = -1;
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -359,6 +360,8 @@ fill_default_server_options(ServerOptions *options)
- 		options->fwd_opts.streamlocal_bind_unlink = 0;
- 	if (options->fingerprint_hash == -1)
+@@ -339,6 +340,8 @@ fill_default_server_options(ServerOptions *options)
  		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
+ 	if (options->disable_forwarding == -1)
+ 		options->disable_forwarding = 0;
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
  	assemble_algorithms(options);
  
-@@ -445,6 +448,7 @@ typedef enum {
+@@ -425,6 +428,7 @@ typedef enum {
  	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
- 	sAllowStreamLocalForwarding, sFingerprintHash,
+ 	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
 +	sDebianBanner,
- 	sDeprecated, sUnsupported
+ 	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -596,6 +600,7 @@ static struct {
- 	{ "streamlocalbindunlink", sStreamLocalBindUnlink, SSHCFG_ALL },
+@@ -577,6 +581,7 @@ static struct {
  	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
  	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
+ 	{ "disableforwarding", sDisableForwarding, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1903,6 +1908,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -1860,6 +1865,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			options->fingerprint_hash = value;
  		break;
  
@@ -64,13 +64,13 @@ index bf9f8f7..a98b309 100644
 +		goto parse_int;
 +
  	case sDeprecated:
- 		logit("%s line %d: Deprecated option %s",
- 		    filename, linenum, arg);
+ 	case sIgnore:
+ 	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 778ba17..161fa37 100644
+index 90dfa4c2..913a21b3 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -197,6 +197,8 @@ typedef struct {
+@@ -191,6 +191,8 @@ typedef struct {
  	char   *auth_methods[MAX_AUTH_METHODS];
  
  	int	fingerprint_hash;
@@ -80,32 +80,32 @@ index 778ba17..161fa37 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index e873557..71fad9e 100644
+index 39e4699c..747beec8 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -443,7 +443,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
- 	}
+@@ -378,7 +378,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
+ 	char remote_version[256];	/* Must be at least as big as buf. */
  
  	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
--	    major, minor, SSH_RELEASE,
-+	    major, minor,
+-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
++	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
 +	    options.debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
  	    *options.version_addendum == '\0' ? "" : " ",
  	    options.version_addendum, newline);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index e05cdbe..ac9b1f0 100644
+index 283ba889..4ea0a9c3 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -541,6 +541,11 @@ or
- .Dq no .
+@@ -526,6 +526,11 @@ or
+ .Cm no .
  The default is
- .Dq delayed .
+ .Cm yes .
 +.It Cm DebianBanner
 +Specifies whether the distribution-specified extra version suffix is
 +included during initial protocol handshake.
 +The default is
-+.Dq yes .
++.Cm yes .
  .It Cm DenyGroups
  This keyword can be followed by a list of group name patterns, separated
  by spaces.

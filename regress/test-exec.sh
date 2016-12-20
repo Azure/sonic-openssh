@@ -1,4 +1,4 @@
-#	$OpenBSD: test-exec.sh,v 1.53 2016/04/15 02:57:10 djm Exp $
+#	$OpenBSD: test-exec.sh,v 1.58 2016/12/16 01:06:27 dtucker Exp $
 #	Placed in the Public Domain.
 
 #SUDO=sudo
@@ -130,7 +130,8 @@ if [ "x$TEST_SSH_CONCH" != "x" ]; then
 	esac
 fi
 
-SSH_PROTOCOLS=`$SSH -Q protocol-version`
+SSH_PROTOCOLS=2
+#SSH_PROTOCOLS=`$SSH -Q protocol-version`
 if [ "x$TEST_SSH_PROTOCOLS" != "x" ]; then
 	SSH_PROTOCOLS="${TEST_SSH_PROTOCOLS}"
 fi
@@ -292,16 +293,8 @@ md5 () {
 }
 # End of portable specific functions
 
-# helper
-cleanup ()
+stop_sshd ()
 {
-	if [ "x$SSH_PID" != "x" ]; then
-		if [ $SSH_PID -lt 2 ]; then
-			echo bad pid for ssh: $SSH_PID
-		else
-			kill $SSH_PID
-		fi
-	fi
 	if [ -f $PIDFILE ]; then
 		pid=`$SUDO cat $PIDFILE`
 		if [ "X$pid" = "X" ]; then
@@ -322,6 +315,19 @@ cleanup ()
 			fi
 		fi
 	fi
+}
+
+# helper
+cleanup ()
+{
+	if [ "x$SSH_PID" != "x" ]; then
+		if [ $SSH_PID -lt 2 ]; then
+			echo bad pid for ssh: $SSH_PID
+		else
+			kill $SSH_PID
+		fi
+	fi
+	stop_sshd
 }
 
 start_debug_log ()
@@ -400,7 +406,6 @@ fi
 cat << EOF > $OBJ/sshd_config
 	StrictModes		no
 	Port			$PORT
-	Protocol		$PROTO
 	AddressFamily		inet
 	ListenAddress		127.0.0.1
 	#ListenAddress		::1
@@ -433,7 +438,6 @@ echo 'StrictModes no' >> $OBJ/sshd_proxy
 # create client config
 cat << EOF > $OBJ/ssh_config
 Host *
-	Protocol		$PROTO
 	Hostname		127.0.0.1
 	HostKeyAlias		localhost-with-alias
 	Port			$PORT

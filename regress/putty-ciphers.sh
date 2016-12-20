@@ -1,4 +1,4 @@
-#	$OpenBSD: putty-ciphers.sh,v 1.4 2013/05/17 04:29:14 dtucker Exp $
+#	$OpenBSD: putty-ciphers.sh,v 1.5 2016/11/25 03:02:01 dtucker Exp $
 #	Placed in the Public Domain.
 
 tid="putty ciphers"

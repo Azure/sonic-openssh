@@ -1,4 +1,4 @@
-From 8eeec10866f78acd021824225e9d62e4a18fc2c3 Mon Sep 17 00:00:00 2001
+From 7083ae25ccce8bbdad40e7c7500f69f2c0cbce34 Mon Sep 17 00:00:00 2001
 From: Peter Samuelson <peter@p12n.org>
 Date: Sun, 9 Feb 2014 16:09:55 +0000
 Subject: Reduce severity of "Killed by signal %d"
@@ -22,10 +22,10 @@ Patch-Name: quieter-signals.patch
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/clientloop.c b/clientloop.c
-index 421241f..e5cc3f8 100644
+index 99c68b69..5876cc9a 100644
 --- a/clientloop.c
 +++ b/clientloop.c
-@@ -1757,8 +1757,10 @@ client_loop(int have_pty, int escape_char_arg, int ssh2_chan_id)
+@@ -1755,8 +1755,10 @@ client_loop(int have_pty, int escape_char_arg, int ssh2_chan_id)
  		exit_status = 0;
  	}
  

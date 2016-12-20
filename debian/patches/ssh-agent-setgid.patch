@@ -1,4 +1,4 @@
-From 172bb48ec4cb3b65d26d4f3bd8bc0e82ddaf6ca1 Mon Sep 17 00:00:00 2001
+From 42a3ec898a2dc3a752d675f48585109ab8a592f2 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:13 +0000
 Subject: Document consequences of ssh-agent being setgid in ssh-agent(1)
@@ -13,10 +13,10 @@ Patch-Name: ssh-agent-setgid.patch
  1 file changed, 15 insertions(+)
 
 diff --git a/ssh-agent.1 b/ssh-agent.1
-index c4b50bb..2fe2201 100644
+index 83b2b41c..7230704a 100644
 --- a/ssh-agent.1
 +++ b/ssh-agent.1
-@@ -193,6 +193,21 @@ environment variable holds the agent's process ID.
+@@ -206,6 +206,21 @@ environment variable holds the agent's process ID.
  .Pp
  The agent exits automatically when the command given on the command
  line terminates.
@@ -37,4 +37,4 @@ index c4b50bb..2fe2201 100644
 +so in the program executed by ssh-agent.
  .Sh FILES
  .Bl -tag -width Ds
- .It Pa $TMPDIR/ssh-XXXXXXXXXX/agent.\*(Ltppid\*(Gt
+ .It Pa $TMPDIR/ssh-XXXXXXXXXX/agent.<ppid>

@@ -1,4 +1,4 @@
-From e7d4050d9077603c20a93bdfd6b99cd419d69f1c Mon Sep 17 00:00:00 2001
+From 27710ce6deb6e9a820235ac44dd82333ab330047 Mon Sep 17 00:00:00 2001
 From: Kurt Roeckx <kurt@roeckx.be>
 Date: Sun, 9 Feb 2014 16:10:14 +0000
 Subject: Don't check the status field of the OpenSSL version
@@ -23,10 +23,10 @@ Patch-Name: no-openssl-version-status.patch
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/openbsd-compat/openssl-compat.c b/openbsd-compat/openssl-compat.c
-index 63a660c..3f62403 100644
+index 259fccbe..aaa953f2 100644
 --- a/openbsd-compat/openssl-compat.c
 +++ b/openbsd-compat/openssl-compat.c
-@@ -36,7 +36,7 @@
+@@ -34,7 +34,7 @@
  /*
   * OpenSSL version numbers: MNNFFPPS: major minor fix patch status
   * We match major, minor, fix and status (not patch) for <1.0.0.
@@ -35,9 +35,9 @@ index 63a660c..3f62403 100644
   * allow 1.0.1 to work with 1.0.0). Going backwards is only allowed
   * within a patch series.
   */
-@@ -57,10 +57,10 @@ ssh_compatible_openssl(long headerver, long libver)
+@@ -55,10 +55,10 @@ ssh_compatible_openssl(long headerver, long libver)
  	}
- 	
+ 
  	/*
 -	 * For versions >= 1.0.0, major,minor,status must match and library
 +	 * For versions >= 1.0.0, major,minor must match and library
@@ -49,7 +49,7 @@ index 63a660c..3f62403 100644
  	lfix = (libver & 0x000ff000) >> 12;
  	if ( (headerver & mask) == (libver & mask) && lfix >= hfix)
 diff --git a/openbsd-compat/regress/opensslvertest.c b/openbsd-compat/regress/opensslvertest.c
-index 5d019b5..5847487 100644
+index 5d019b59..58474873 100644
 --- a/openbsd-compat/regress/opensslvertest.c
 +++ b/openbsd-compat/regress/opensslvertest.c
 @@ -35,6 +35,7 @@ struct version_test {

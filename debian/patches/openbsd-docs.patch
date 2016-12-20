@@ -1,4 +1,4 @@
-From ab7ae820a882c8a51b06ec0b3522813b4e90eeff Mon Sep 17 00:00:00 2001
+From 57a5ec3553730b373c96e8457815c42733304427 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -22,7 +22,7 @@ Patch-Name: openbsd-docs.patch
  5 files changed, 13 insertions(+), 15 deletions(-)
 
 diff --git a/moduli.5 b/moduli.5
-index ef0de08..149846c 100644
+index ef0de085..149846c8 100644
 --- a/moduli.5
 +++ b/moduli.5
 @@ -21,7 +21,7 @@
@@ -44,7 +44,7 @@ index ef0de08..149846c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index ce2213c..01711df 100644
+index ce2213c7..01711dff 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -178,9 +178,7 @@ key in
@@ -88,7 +88,7 @@ index ce2213c..01711df 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index feef81a..b1f128c 100644
+index feef81a5..b1f128c2 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -877,6 +877,10 @@ implements public key authentication protocol automatically,
@@ -103,10 +103,10 @@ index feef81a..b1f128c 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index 589841f..58eefe9 100644
+index c6784602..e6915141 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -67,7 +67,7 @@ over an insecure network.
+@@ -65,7 +65,7 @@ over an insecure network.
  .Nm
  listens for connections from clients.
  It is normally started at boot from
@@ -115,7 +115,7 @@ index 589841f..58eefe9 100644
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -891,7 +891,7 @@ This file is for host-based authentication (see
+@@ -836,7 +836,7 @@ This file is for host-based authentication (see
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
@@ -124,7 +124,7 @@ index 589841f..58eefe9 100644
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange"
  key exchange method.
  The file format is described in
-@@ -993,7 +993,6 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -936,7 +936,6 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
@@ -133,10 +133,10 @@ index 589841f..58eefe9 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index ac9b1f0..b2b349e 100644
+index 4ea0a9c3..e45a8937 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -382,8 +382,7 @@ then no banner is displayed.
+@@ -372,8 +372,7 @@ then no banner is displayed.
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via
@@ -144,5 +144,5 @@ index ac9b1f0..b2b349e 100644
 -.Xr login.conf 5 )
 +PAM).
  The default is
- .Dq yes .
+ .Cm yes .
  .It Cm ChrootDirectory

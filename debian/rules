@@ -153,12 +153,7 @@ override_dh_auto_build-indep:
 override_dh_auto_test-arch:
 ifeq ($(RUN_TESTS),yes)
 	$(MAKE) -C debian/build-deb regress-prep
-	$(MAKE) -C debian/build-deb $(PARALLEL) \
-		regress/unittests/sshbuf/test_sshbuf \
-		regress/unittests/sshkey/test_sshkey \
-		regress/unittests/bitmap/test_bitmap \
-		regress/unittests/hostkeys/test_hostkeys \
-		regress/unittests/kex/test_kex
+	$(MAKE) -C debian/build-deb $(PARALLEL) regress-binaries
 	$(MAKE) -C debian/build-deb/regress \
 		.OBJDIR="$(CURDIR)/debian/build-deb/regress" \
 		.CURDIR="$(CURDIR)/regress" \

@@ -1,4 +1,4 @@
-From e4ba4e1616d372522de9e18f0973ed49a5521b95 Mon Sep 17 00:00:00 2001
+From d52a0f1744dde27a36c3ee8314fbbab8c1a2216f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:12 +0000
 Subject: Refer to ssh's Upstart job as well as its init script
@@ -12,10 +12,10 @@ Patch-Name: doc-upstart.patch
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/sshd.8 b/sshd.8
-index 58eefe9..4e75567 100644
+index e6915141..38a72540 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -67,7 +67,10 @@ over an insecure network.
+@@ -65,7 +65,10 @@ over an insecure network.
  .Nm
  listens for connections from clients.
  It is normally started at boot from
