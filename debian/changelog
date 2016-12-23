@@ -115,6 +115,8 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
     - sshd(8): Improve PRNG reseeding across privilege separation and force
       libcrypto to obtain a high-quality seed before chroot or sandboxing.
   * Apply "wrap-and-sort -at -f debian/control -f debian/tests/control".
+  * Remove entries related to protocol 1 from the default sshd_config
+    generated on new installations.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
 
