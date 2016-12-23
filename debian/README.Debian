@@ -115,19 +115,6 @@ use the ssh-argv0 script.
 OTHER ISSUES
 ============
 
-/usr/bin/ssh not SUID
----------------------
-
-Due to Debian bug #164325, RhostsRSAAuthentication can only be used if ssh
-is SUID.  Until this is fixed, if that is a problem, use:
-
-   dpkg-statoverride
-
-or if that's also missing, use this:
-
-   chown root.root /usr/bin/ssh
-   chmod 04755 /usr/bin/ssh
-
 Authorization Forwarding
 ------------------------
 
@@ -176,9 +163,8 @@ Kerberos support
 ----------------
 
 ssh is now compiled with Kerberos support. Unfortunately, privilege
-separation is incompatible with Kerberos support for SSH protocol 1 and
-parts of the support for protocol 2; you may need to run kinit after logging
-in.
+separation is incompatible with parts of Kerberos support for protocol 2;
+you may need to run kinit after logging in.
 
 Interoperability between scp and the ssh.com SSH server
 -------------------------------------------------------

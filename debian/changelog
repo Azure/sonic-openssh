@@ -117,6 +117,7 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
   * Apply "wrap-and-sort -at -f debian/control -f debian/tests/control".
   * Remove entries related to protocol 1 from the default sshd_config
     generated on new installations.
+  * Remove some advice related to protocol 1 from README.Debian.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
 
