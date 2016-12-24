@@ -1,4 +1,4 @@
-From 2103d3e5566c54e08a59be750579a249e46747d7 Mon Sep 17 00:00:00 2001
+From af54c22db774b37a15df5e599d08a83d4bbe5079 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -14,12 +14,20 @@ worms.
 ssh: Enable GSSAPIAuthentication and disable GSSAPIDelegateCredentials by
 default.
 
-Document all of this, along with several sshd defaults set in
-debian/openssh-server.postinst.
+sshd: Enable PAM, disable ChallengeResponseAuthentication, and disable
+PrintMotd.
+
+sshd: Enable X11Forwarding.
+
+sshd: Set 'AcceptEnv LANG LC_*' by default.
+
+sshd: Change sftp subsystem path to /usr/lib/openssh/sftp-server.
+
+Document all of this.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2015-12-07
+Last-Update: 2016-12-24
 
 Patch-Name: debian-config.patch
 ---
@@ -27,9 +35,9 @@ Patch-Name: debian-config.patch
  ssh.1         | 21 +++++++++++++++++++++
  ssh_config    |  7 ++++++-
  ssh_config.5  | 19 ++++++++++++++++++-
- sshd_config   |  2 +-
- sshd_config.5 | 25 +++++++++++++++++++++++++
- 6 files changed, 72 insertions(+), 4 deletions(-)
+ sshd_config   | 16 ++++++++++------
+ sshd_config.5 | 22 ++++++++++++++++++++++
+ 6 files changed, 78 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index c02cdf63..d1091cbd 100644
@@ -149,12 +157,48 @@ index 40617be4..8dce757e 100644
  from stealing or tampering with data belonging to trusted X11
  clients.
 diff --git a/sshd_config b/sshd_config
-index 00e5a728..c0b84f8e 100644
+index 00e5a728..13cbe2c6 100644
 --- a/sshd_config
 +++ b/sshd_config
-@@ -111,7 +111,7 @@ AuthorizedKeysFile	.ssh/authorized_keys
+@@ -58,8 +58,9 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ #PasswordAuthentication yes
+ #PermitEmptyPasswords no
+ 
+-# Change to no to disable s/key passwords
+-#ChallengeResponseAuthentication yes
++# Change to yes to enable challenge-response passwords (beware issues with
++# some PAM modules and threads)
++ChallengeResponseAuthentication no
+ 
+ # Kerberos options
+ #KerberosAuthentication no
+@@ -82,16 +83,16 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ # If you just want the PAM account and session checks to run without
+ # PAM authentication, then enable this but set PasswordAuthentication
+ # and ChallengeResponseAuthentication to 'no'.
+-#UsePAM no
++UsePAM yes
+ 
+ #AllowAgentForwarding yes
+ #AllowTcpForwarding yes
+ #GatewayPorts no
+-#X11Forwarding no
++X11Forwarding yes
+ #X11DisplayOffset 10
+ #X11UseLocalhost yes
+ #PermitTTY yes
+-#PrintMotd yes
++PrintMotd no
+ #PrintLastLog yes
+ #TCPKeepAlive yes
+ #UseLogin no
+@@ -110,8 +111,11 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ # no default banner path
  #Banner none
  
++# Allow client to pass locale environment variables
++AcceptEnv LANG LC_*
++
  # override default of no subsystems
 -Subsystem	sftp	/usr/libexec/sftp-server
 +Subsystem	sftp	/usr/lib/openssh/sftp-server
@@ -162,10 +206,10 @@ index 00e5a728..c0b84f8e 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index e45a8937..d6911a98 100644
+index e45a8937..703a9cdd 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -57,6 +57,31 @@ Arguments may optionally be enclosed in double quotes
+@@ -57,6 +57,28 @@ Arguments may optionally be enclosed in double quotes
  .Pq \&"
  in order to represent arguments containing spaces.
  .Pp
@@ -174,10 +218,7 @@ index e45a8937..d6911a98 100644
 +package sets several options as standard in
 +.Pa /etc/ssh/sshd_config
 +which are not the default in
-+.Xr sshd 8 .
-+The exact list depends on whether the package was installed fresh or
-+upgraded from various possible previous versions, but includes at least the
-+following:
++.Xr sshd 8 :
 +.Pp
 +.Bl -bullet -offset indent -compact
 +.It

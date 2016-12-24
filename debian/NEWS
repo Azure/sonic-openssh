@@ -27,6 +27,12 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
    * sshd(8): Remove the UseLogin configuration directive and support for
      having /bin/login manage login sessions.
 
+  The unprivileged sshd process that deals with pre-authentication network
+  traffic is now subject to additional sandboxing restrictions by default:
+  that is, the default sshd_config now sets UsePrivilegeSeparation to
+  "sandbox" rather than "yes".  This has been the case upstream for a while,
+  but until now the Debian configuration diverged unnecessarily.
+
  -- Colin Watson <cjwatson@debian.org>  Tue, 20 Dec 2016 22:21:15 +0000
 
 openssh (1:7.2p1-1) unstable; urgency=medium

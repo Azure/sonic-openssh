@@ -118,6 +118,20 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
   * Remove entries related to protocol 1 from the default sshd_config
     generated on new installations.
   * Remove some advice related to protocol 1 from README.Debian.
+  * Start handling /etc/ssh/sshd_config using ucf.  The immediate motivation
+    for this is to deal with deprecations of options related to protocol 1,
+    but something like this has been needed for a long time (closes:
+    #419574, #848089):
+    - sshd_config is now a slightly-patched version of upstream's, and only
+      contains non-default settings (closes: #147201).
+    - I've included as many historical md5sums of default versions of
+      sshd_config as I could reconstruct from version control, but I'm sure
+      I've missed some.
+    - Explicitly synchronise the debconf database with the current
+      configuration file state in openssh-server.config, to ensure that the
+      PermitRootLogin setting is properly preserved.
+    - UsePrivilegeSeparation now defaults to the stronger "sandbox" rather
+      than "yes", per upstream.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
 

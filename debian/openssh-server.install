@@ -5,6 +5,9 @@ usr/share/man/man5/authorized_keys.5
 usr/share/man/man5/sshd_config.5
 usr/share/man/man8/sshd.8
 
+sshd_config => usr/share/openssh/sshd_config
+debian/openssh-server.ucf-md5sum => usr/share/openssh/sshd_config.md5sum
+
 debian/openssh-server.if-up => etc/network/if-up.d/openssh-server
 debian/openssh-server.ufw.profile => etc/ufw/applications.d/openssh-server
 debian/systemd/ssh.socket lib/systemd/system
