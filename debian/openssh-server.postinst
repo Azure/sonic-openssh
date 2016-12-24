@@ -157,6 +157,17 @@ create_sshdconfig() {
 		update_server_key_bits
 	    fi
 
+	    if dpkg --compare-versions "$2" lt-nl 1:6.6p1-1 && \
+	       [ "$(get_config_option PermitRootLogin)" = yes ] &&
+	       db_get openssh-server/permit-root-login && [ "$RET" = true ]; then
+		set_config_option PermitRootLogin prohibit-password
+	    fi
+
+	    if dpkg --compare-versions "$2" lt-nl 1:7.1p1-1 && \
+	       [ "$(get_config_option PermitRootLogin)" = without-password ]; then
+		set_config_option PermitRootLogin prohibit-password
+	    fi
+
 	    return 0
 	fi
 
@@ -289,15 +300,6 @@ if [ "$action" = configure ]; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under systemd.
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd || true
-	fi
-	if dpkg --compare-versions "$2" lt-nl 1:6.6p1-1 && \
-	   [ "$(get_config_option PermitRootLogin)" = yes ] &&
-	   db_get openssh-server/permit-root-login && [ "$RET" = true ]; then
-	    set_config_option PermitRootLogin prohibit-password
-	fi
-	if dpkg --compare-versions "$2" lt-nl 1:7.1p1-1 && \
-	   [ "$(get_config_option PermitRootLogin)" = without-password ]; then
-	    set_config_option PermitRootLogin prohibit-password
 	fi
 fi
 
