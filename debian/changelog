@@ -135,6 +135,7 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
   * Remove redundant "GSSAPIDelegateCredentials no" from ssh_config (already
     the upstream default), and document that setting ServerAliveInterval to
     300 by default if BatchMode is set is Debian-specific (closes: #765630).
+  * Build gnome-ssh-askpass with GTK+ 3 (LP: #801187).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
 
