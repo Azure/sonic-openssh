@@ -268,7 +268,7 @@ If set to
 passphrase/password querying will be disabled.
 In addition, the
 .Cm ServerAliveInterval
-option will be set to 300 seconds by default.
+option will be set to 300 seconds by default (Debian-specific).
 This option is useful in scripts and other batch jobs where no user
 is present to supply the password,
 and where it is desirable to detect a broken network swiftly.
@@ -1512,7 +1512,7 @@ The default
 is 0, indicating that these messages will not be sent to the server,
 or 300 if the
 .Cm BatchMode
-option is set.
+option is set (Debian-specific).
 .Cm ProtocolKeepAlives
 and
 .Cm SetupTimeOut

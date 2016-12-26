@@ -1,4 +1,4 @@
-From 8f60ff6d23d4a1f8c347cf4b95267e00116f74fa Mon Sep 17 00:00:00 2001
+From 0bdc6351d8a32c33e65542617c71da8ddcdeb331 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -16,7 +16,7 @@ keepalives.
 Author: Ian Jackson <ian@chiark.greenend.org.uk>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2015-11-29
+Last-Update: 2016-12-26
 
 Patch-Name: keepalive-extensions.patch
 ---
@@ -72,7 +72,7 @@ index c1c3aae0..3efba242 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index a7703fc7..32fd100d 100644
+index a7703fc7..a0457314 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -250,8 +250,12 @@ Valid arguments are
@@ -81,7 +81,7 @@ index a7703fc7..32fd100d 100644
  passphrase/password querying will be disabled.
 +In addition, the
 +.Cm ServerAliveInterval
-+option will be set to 300 seconds by default.
++option will be set to 300 seconds by default (Debian-specific).
  This option is useful in scripts and other batch jobs where no user
 -is present to supply the password.
 +is present to supply the password,
@@ -97,7 +97,7 @@ index a7703fc7..32fd100d 100644
 +is 0, indicating that these messages will not be sent to the server,
 +or 300 if the
 +.Cm BatchMode
-+option is set.
++option is set (Debian-specific).
 +.Cm ProtocolKeepAlives
 +and
 +.Cm SetupTimeOut

@@ -1,4 +1,4 @@
-From af54c22db774b37a15df5e599d08a83d4bbe5079 Mon Sep 17 00:00:00 2001
+From 41265d4fa6f5946719155a08a19717a4ca229454 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -11,8 +11,7 @@ ssh: Set 'SendEnv LANG LC_*' by default (http://bugs.debian.org/264024).
 ssh: Enable HashKnownHosts by default to try to limit the spread of ssh
 worms.
 
-ssh: Enable GSSAPIAuthentication and disable GSSAPIDelegateCredentials by
-default.
+ssh: Enable GSSAPIAuthentication by default.
 
 sshd: Enable PAM, disable ChallengeResponseAuthentication, and disable
 PrintMotd.
@@ -27,17 +26,17 @@ Document all of this.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2016-12-24
+Last-Update: 2016-12-26
 
 Patch-Name: debian-config.patch
 ---
  readconf.c    |  2 +-
  ssh.1         | 21 +++++++++++++++++++++
- ssh_config    |  7 ++++++-
+ ssh_config    |  6 +++++-
  ssh_config.5  | 19 ++++++++++++++++++-
  sshd_config   | 16 ++++++++++------
  sshd_config.5 | 22 ++++++++++++++++++++++
- 6 files changed, 78 insertions(+), 9 deletions(-)
+ 6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index c02cdf63..d1091cbd 100644
@@ -92,7 +91,7 @@ index 22e56a7b..6aa57c46 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index 4e879cd2..5190b06b 100644
+index 4e879cd2..093c8366 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -107,16 +106,15 @@ index 4e879cd2..5190b06b 100644
  #   RhostsRSAAuthentication no
  #   RSAAuthentication yes
  #   PasswordAuthentication yes
-@@ -50,3 +51,7 @@
+@@ -50,3 +51,6 @@
  #   VisualHostKey no
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
 +    SendEnv LANG LC_*
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
-+    GSSAPIDelegateCredentials no
 diff --git a/ssh_config.5 b/ssh_config.5
-index 40617be4..8dce757e 100644
+index 8698c28e..26f983a3 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more

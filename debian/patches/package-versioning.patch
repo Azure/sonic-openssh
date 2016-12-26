@@ -1,4 +1,4 @@
-From cdce59c8c54d6d19ca0aa86cb4a62f6df94c7245 Mon Sep 17 00:00:00 2001
+From bfc81c7380b71bd5c0e841e8bd16bfc726a43603 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
