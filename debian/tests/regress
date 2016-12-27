@@ -1,10 +1,33 @@
 #! /bin/sh
 set -e
 
+if [ "$(id -un)" != openssh-tests ]; then
+	TMP="$ADTTMP/user"
+
+	cleanup () {
+		rm -rf "$TMP"
+		rm -f /etc/sudoers.d/openssh-tests
+		if id openssh-tests >/dev/null 2>&1; then
+			deluser --remove-home openssh-tests
+		fi
+	}
+	trap cleanup EXIT
+
+	adduser --disabled-password --gecos 'OpenSSH tests' openssh-tests
+	cat >/etc/sudoers.d/openssh-tests <<EOF
+openssh-tests ALL = (ALL:ALL) NOPASSWD: ALL
+EOF
+	chmod 440 /etc/sudoers.d/openssh-tests
+	mkdir -p "$TMP"
+	chown openssh-tests:openssh-tests "$TMP"
+	sudo -u openssh-tests env TMP="$TMP" "$0" "$@"
+	exit "$?"
+fi
+
 # Don't use "make tests"; we want to test the installed version.
 
-cp -a . "$ADTTMP/tree"
-cd "$ADTTMP/tree"
+cp -a . "$TMP/tree"
+cd "$TMP/tree"
 
 # We aren't actually going to use most of this build, but we need a basic
 # build tree in place in order to be able to build the regression tests.
