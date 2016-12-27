@@ -1,4 +1,4 @@
-openssh (1:7.4p1-1) UNRELEASED; urgency=medium
+openssh (1:7.4p1-1) unstable; urgency=medium
 
   * New upstream release (http://www.openssh.com/txt/release-7.4):
     - ssh(1): Remove 3des-cbc from the client's default proposal.  64-bit
@@ -139,7 +139,7 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
   * When running regression tests under autopkgtest, use a non-root user
     with passwordless sudo.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 05 Dec 2016 19:31:33 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 27 Dec 2016 18:01:46 +0000
 
 openssh (1:7.3p1-5) unstable; urgency=medium
 

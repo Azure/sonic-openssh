@@ -1,4 +1,4 @@
-openssh (1:7.4p1-1) UNRELEASED; urgency=medium
+openssh (1:7.4p1-1) unstable; urgency=medium
 
   OpenSSH 7.4 includes a number of changes that may affect existing
   configurations:
@@ -33,7 +33,7 @@ openssh (1:7.4p1-1) UNRELEASED; urgency=medium
   "sandbox" rather than "yes".  This has been the case upstream for a while,
   but until now the Debian configuration diverged unnecessarily.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 20 Dec 2016 22:21:15 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 27 Dec 2016 18:01:46 +0000
 
 openssh (1:7.2p1-1) unstable; urgency=medium
 
