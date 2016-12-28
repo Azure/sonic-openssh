@@ -29,6 +29,9 @@ fi
 cp -a . "$TMP/tree"
 cd "$TMP/tree"
 
+# Attempt to hack around test failure in some environments.
+sed -i 's/^base=33/base=34/' regress/forwarding.sh
+
 # We aren't actually going to use most of this build, but we need a basic
 # build tree in place in order to be able to build the regression tests.
 autoreconf -f -i
