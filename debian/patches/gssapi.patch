@@ -1,4 +1,4 @@
-From 9f717de15a8e113f7c6a3db52d75ce0172885f95 Mon Sep 17 00:00:00 2001
+From 40ab38b3f501f3e21662f0294eef06789605c5f8 Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -17,7 +17,7 @@ have it merged into the main openssh package rather than having separate
 security history.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1242
-Last-Updated: 2016-08-07
+Last-Updated: 2016-12-28
 
 Patch-Name: gssapi.patch
 ---
@@ -34,7 +34,7 @@ Patch-Name: gssapi.patch
  configure.ac     |  24 ++++
  gss-genr.c       | 275 +++++++++++++++++++++++++++++++++++++++++++-
  gss-serv-krb5.c  |  85 ++++++++++++--
- gss-serv.c       | 185 +++++++++++++++++++++++++++---
+ gss-serv.c       | 184 +++++++++++++++++++++++++++---
  kex.c            |  19 ++++
  kex.h            |  14 +++
  kexgssc.c        | 338 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -51,12 +51,12 @@ Patch-Name: gssapi.patch
  ssh_config       |   2 +
  ssh_config.5     |  32 ++++++
  sshconnect2.c    | 122 +++++++++++++++++++-
- sshd.c           | 110 ++++++++++++++++++
+ sshd.c           | 112 +++++++++++++++++-
  sshd_config      |   2 +
  sshd_config.5    |  10 ++
  sshkey.c         |   3 +-
  sshkey.h         |   1 +
- 35 files changed, 2053 insertions(+), 147 deletions(-)
+ 35 files changed, 2053 insertions(+), 148 deletions(-)
  create mode 100644 ChangeLog.gssapi
  create mode 100644 kexgssc.c
  create mode 100644 kexgsss.c
@@ -1162,7 +1162,7 @@ index 795992d9..fd8b3718 100644
  
  #endif /* KRB5 */
 diff --git a/gss-serv.c b/gss-serv.c
-index 53993d67..2f6baf70 100644
+index 53993d67..2e27cbf9 100644
 --- a/gss-serv.c
 +++ b/gss-serv.c
 @@ -1,7 +1,7 @@
@@ -1199,17 +1199,16 @@ index 53993d67..2f6baf70 100644
  
  #ifdef KRB5
  extern ssh_gssapi_mech gssapi_kerberos_mech;
-@@ -142,6 +147,29 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
+@@ -142,6 +147,28 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
  }
  
  /* Unprivileged */
 +char *
 +ssh_gssapi_server_mechanisms(void) {
-+	gss_OID_set	supported;
-+
-+	ssh_gssapi_supported_oids(&supported);
-+	return (ssh_gssapi_kex_mechs(supported, &ssh_gssapi_server_check_mech,
-+	    NULL, NULL));
++	if (supported_oids == NULL)
++		ssh_gssapi_prepare_supported_oids();
++	return (ssh_gssapi_kex_mechs(supported_oids,
++	    &ssh_gssapi_server_check_mech, NULL, NULL));
 +}
 +
 +/* Unprivileged */
@@ -1229,7 +1228,7 @@ index 53993d67..2f6baf70 100644
  void
  ssh_gssapi_supported_oids(gss_OID_set *oidset)
  {
-@@ -151,7 +179,9 @@ ssh_gssapi_supported_oids(gss_OID_set *oidset)
+@@ -151,7 +178,9 @@ ssh_gssapi_supported_oids(gss_OID_set *oidset)
  	gss_OID_set supported;
  
  	gss_create_empty_oid_set(&min_status, oidset);
@@ -1240,7 +1239,7 @@ index 53993d67..2f6baf70 100644
  
  	while (supported_mechs[i]->name != NULL) {
  		if (GSS_ERROR(gss_test_oid_set_member(&min_status,
-@@ -277,8 +307,48 @@ OM_uint32
+@@ -277,8 +306,48 @@ OM_uint32
  ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
  {
  	int i = 0;
@@ -1290,7 +1289,7 @@ index 53993d67..2f6baf70 100644
  
  	client->mech = NULL;
  
-@@ -293,6 +363,13 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
+@@ -293,6 +362,13 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
  	if (client->mech == NULL)
  		return GSS_S_FAILURE;
  
@@ -1304,7 +1303,7 @@ index 53993d67..2f6baf70 100644
  	if ((ctx->major = gss_display_name(&ctx->minor, ctx->client,
  	    &client->displayname, NULL))) {
  		ssh_gssapi_error(ctx);
-@@ -310,6 +387,8 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
+@@ -310,6 +386,8 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
  		return (ctx->major);
  	}
  
@@ -1313,7 +1312,7 @@ index 53993d67..2f6baf70 100644
  	/* We can't copy this structure, so we just move the pointer to it */
  	client->creds = ctx->client_creds;
  	ctx->client_creds = GSS_C_NO_CREDENTIAL;
-@@ -357,7 +436,7 @@ ssh_gssapi_do_child(char ***envp, u_int *envsizep)
+@@ -357,7 +435,7 @@ ssh_gssapi_do_child(char ***envp, u_int *envsizep)
  
  /* Privileged */
  int
@@ -1322,7 +1321,7 @@ index 53993d67..2f6baf70 100644
  {
  	OM_uint32 lmin;
  
-@@ -367,9 +446,11 @@ ssh_gssapi_userok(char *user)
+@@ -367,9 +445,11 @@ ssh_gssapi_userok(char *user)
  		return 0;
  	}
  	if (gssapi_client.mech && gssapi_client.mech->userok)
@@ -1336,7 +1335,7 @@ index 53993d67..2f6baf70 100644
  			/* Destroy delegated credentials if userok fails */
  			gss_release_buffer(&lmin, &gssapi_client.displayname);
  			gss_release_buffer(&lmin, &gssapi_client.exportedname);
-@@ -383,14 +464,90 @@ ssh_gssapi_userok(char *user)
+@@ -383,14 +463,90 @@ ssh_gssapi_userok(char *user)
  	return (0);
  }
  
@@ -3047,7 +3046,7 @@ index 103a2b36..d534e619 100644
  
  int
 diff --git a/sshd.c b/sshd.c
-index 1dc4d182..ec2cf976 100644
+index 1dc4d182..0970f297 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -123,6 +123,10 @@
@@ -3061,6 +3060,15 @@ index 1dc4d182..ec2cf976 100644
  /* Re-exec fds */
  #define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
  #define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2)
+@@ -531,7 +535,7 @@ privsep_preauth_child(void)
+ 
+ #ifdef GSSAPI
+ 	/* Cache supported mechanism OIDs for later use */
+-	if (options.gss_authentication)
++	if (options.gss_authentication || options.gss_keyex)
+ 		ssh_gssapi_prepare_supported_oids();
+ #endif
+ 
 @@ -1705,10 +1709,13 @@ main(int ac, char **av)
  		    key ? "private" : "agent", i, sshkey_ssh_name(pubkey), fp);
  		free(fp);

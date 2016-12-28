@@ -547,7 +547,7 @@ privsep_preauth_child(void)
 
 #ifdef GSSAPI
 	/* Cache supported mechanism OIDs for later use */
-	if (options.gss_authentication)
+	if (options.gss_authentication || options.gss_keyex)
 		ssh_gssapi_prepare_supported_oids();
 #endif
 

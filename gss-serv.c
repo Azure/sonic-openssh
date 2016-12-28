@@ -149,11 +149,10 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
 /* Unprivileged */
 char *
 ssh_gssapi_server_mechanisms(void) {
-	gss_OID_set	supported;
-
-	ssh_gssapi_supported_oids(&supported);
-	return (ssh_gssapi_kex_mechs(supported, &ssh_gssapi_server_check_mech,
-	    NULL, NULL));
+	if (supported_oids == NULL)
+		ssh_gssapi_prepare_supported_oids();
+	return (ssh_gssapi_kex_mechs(supported_oids,
+	    &ssh_gssapi_server_check_mech, NULL, NULL));
 }
 
 /* Unprivileged */

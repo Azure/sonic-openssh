@@ -1,4 +1,4 @@
-From bfc81c7380b71bd5c0e841e8bd16bfc726a43603 Mon Sep 17 00:00:00 2001
+From 9d2f9a1fb49b3d3c73a654e1b4aae6e26ad23075 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -36,7 +36,7 @@ index 1cc556e8..c64c51bb 100644
  	if (atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
 diff --git a/sshd.c b/sshd.c
-index 5a3f796d..39e4699c 100644
+index 9aab36c3..49f3a2e5 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -378,7 +378,7 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)

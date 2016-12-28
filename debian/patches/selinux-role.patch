@@ -1,4 +1,4 @@
-From 5e4ebd6472d995738a2c67d618c4bd1ee2c00968 Mon Sep 17 00:00:00 2001
+From ef3ee35a1061c563f2c32ab13f77324b6372e8be Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -426,7 +426,7 @@ index 98e1dafe..0a31dce4 100644
  		       const char *value);
  
 diff --git a/sshd.c b/sshd.c
-index 4f791b92..5a3f796d 100644
+index 72d85de1..9aab36c3 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -678,7 +678,7 @@ privsep_postauth(Authctxt *authctxt)

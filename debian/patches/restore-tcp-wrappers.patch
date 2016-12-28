@@ -1,4 +1,4 @@
-From 6a15c9b672c5833f21ed7e0cea3a25dd8de966c4 Mon Sep 17 00:00:00 2001
+From 10d7583287f2d589da0786819e62a0be5ec9847f Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -128,7 +128,7 @@ index 41fc5051..c6784602 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index ec2cf976..4f791b92 100644
+index 0970f297..72d85de1 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -127,6 +127,13 @@
