@@ -5,6 +5,8 @@ openssh (1:7.4p1-3) UNRELEASED; urgency=medium
   * Run regression tests using 'sh -x' to try to get more information about
     failures.
   * Dump some useful log files if regression tests fail.
+  * Tweak regression test setup to cope with the case where some of the
+    source directory is unreadable by the openssh-tests user.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 31 Dec 2016 01:22:48 +0000
 
