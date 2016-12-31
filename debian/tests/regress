@@ -45,6 +45,7 @@ make regress-binaries
 
 SRCDIR="$(pwd)"
 BUILDDIR="$SRCDIR"
+ret=0
 make -C regress \
 	.OBJDIR="$BUILDDIR/regress" \
 	.CURDIR="$SRCDIR/regress" \
@@ -58,4 +59,12 @@ make -C regress \
 	TEST_SSH_CONCH=conch \
 	TEST_SSH_IPV6=yes \
 	TEST_SSH_ECC=yes \
-	tests interop-tests </dev/zero
+	tests interop-tests </dev/zero || ret="$?"
+if [ "$ret" -ne 0 ]; then
+	for log in failed-regress.log failed-ssh.log failed-sshd.log; do
+		if [ -e "$BUILDDIR/regress/$log" ]; then
+			tail -v -n+0 "$BUILDDIR/regress/$log"
+		fi
+	done
+fi
+exit "$ret"
