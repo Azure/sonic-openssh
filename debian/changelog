@@ -1,3 +1,10 @@
+openssh (1:7.4p1-3) UNRELEASED; urgency=medium
+
+  * Revert attempted hack around regress/forwarding.sh test failure, since
+    it doesn't seem to help.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 31 Dec 2016 01:22:48 +0000
+
 openssh (1:7.4p1-2) unstable; urgency=medium
 
   * Attempt to hack around regress/forwarding.sh test failure in some
