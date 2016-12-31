@@ -1,4 +1,4 @@
-openssh (1:7.4p1-3) UNRELEASED; urgency=medium
+openssh (1:7.4p1-3) unstable; urgency=medium
 
   * Revert attempted hack around regress/forwarding.sh test failure, since
     it doesn't seem to help.
@@ -8,7 +8,7 @@ openssh (1:7.4p1-3) UNRELEASED; urgency=medium
   * Tweak regression test setup to cope with the case where some of the
     source directory is unreadable by the openssh-tests user.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 31 Dec 2016 01:22:48 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 31 Dec 2016 02:48:17 +0000
 
 openssh (1:7.4p1-2) unstable; urgency=medium
 
