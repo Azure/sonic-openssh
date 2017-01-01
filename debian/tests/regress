@@ -46,7 +46,7 @@ make regress-binaries
 SRCDIR="$(pwd)"
 BUILDDIR="$SRCDIR"
 ret=0
-make -C regress \
+annotate-output +%H:%M:%S.%N make -C regress \
 	.OBJDIR="$BUILDDIR/regress" \
 	.CURDIR="$SRCDIR/regress" \
 	BUILDDIR="$BUILDDIR" \

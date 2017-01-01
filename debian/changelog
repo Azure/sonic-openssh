@@ -1,3 +1,10 @@
+openssh (1:7.4p1-4) UNRELEASED; urgency=medium
+
+  * Run regression tests inside annotate-output to try to diagnose timeout
+    issues.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 01 Jan 2017 14:32:26 +0000
+
 openssh (1:7.4p1-3) unstable; urgency=medium
 
   * Revert attempted hack around regress/forwarding.sh test failure, since
