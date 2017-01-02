@@ -1,4 +1,4 @@
-openssh (1:7.4p1-4) UNRELEASED; urgency=medium
+openssh (1:7.4p1-4) unstable; urgency=medium
 
   * Run regression tests inside annotate-output to try to diagnose timeout
     issues.
@@ -7,7 +7,7 @@ openssh (1:7.4p1-4) UNRELEASED; urgency=medium
     of a packet length.
   * Fix race conditions in forwarding tests.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 01 Jan 2017 14:32:26 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 02 Jan 2017 19:37:23 +0000
 
 openssh (1:7.4p1-3) unstable; urgency=medium
 
