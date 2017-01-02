@@ -5,6 +5,7 @@ openssh (1:7.4p1-4) UNRELEASED; urgency=medium
   * Make integrity tests more robust against timeouts in the case where the
     first test in a series for a given MAC happens to modify the low bytes
     of a packet length.
+  * Fix race conditions in forwarding tests.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 01 Jan 2017 14:32:26 +0000
 
