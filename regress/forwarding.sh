@@ -10,7 +10,8 @@ start_sshd
 base=33
 last=$PORT
 fwd=""
-CTL=$OBJ/ctl-sock
+make_tmpdir
+CTL=$TMP/ctl-sock
 
 for j in 0 1 2; do
 	for i in 0 1 2; do
