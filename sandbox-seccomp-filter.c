@@ -137,6 +137,15 @@ static const struct sock_filter preauth_insns[] = {
 #endif
 #ifdef __NR_clock_gettime
 	SC_ALLOW(clock_gettime),
+# if defined(__x86_64__) && defined(__ILP32__)
+	/* On Linux x32, the clock_gettime VDSO currently falls back to the
+	 * x86-64 syscall (see https://bugs.debian.org/849923), so allow
+	 * that too.
+	 */
+	BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K,
+	    __NR_clock_gettime & ~__X32_SYSCALL_BIT, 0, 1),
+	BPF_STMT(BPF_RET+BPF_K, SECCOMP_RET_ALLOW),
+# endif
 #endif
 #ifdef __NR_close
 	SC_ALLOW(close),
