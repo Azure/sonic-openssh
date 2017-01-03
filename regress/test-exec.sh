@@ -317,6 +317,14 @@ stop_sshd ()
 	fi
 }
 
+TMP=
+
+make_tmpdir ()
+{
+	TMP="$($OBJ/mkdtemp openssh-regress-XXXXXXXXXXXX)" || \
+	    fatal "failed to create temporary directory"
+}
+
 # helper
 cleanup ()
 {
@@ -326,6 +334,9 @@ cleanup ()
 		else
 			kill $SSH_PID
 		fi
+	fi
+	if [ "x$TMP" != "x" ]; then
+		rm -rf "$TMP"
 	fi
 	stop_sshd
 }
