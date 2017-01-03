@@ -1,9 +1,9 @@
-openssh (1:7.4p1-5) UNRELEASED; urgency=medium
+openssh (1:7.4p1-5) unstable; urgency=medium
 
   * Create mux socket for regression tests in a temporary directory.
   * Work around clock_gettime kernel bug on Linux x32 (closes: #849923).
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2017 12:23:34 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2017 14:43:28 +0000
 
 openssh (1:7.4p1-4) unstable; urgency=medium
 
