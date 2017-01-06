@@ -72,6 +72,15 @@ create_keys() {
 }
 
 
+new_config=
+
+cleanup() {
+	if [ "$new_config" ]; then
+		rm -f "$new_config"
+	fi
+}
+
+
 create_sshdconfig() {
 	# XXX cjwatson 2016-12-24: This debconf template is very confusingly
 	# named; its description is "Disable SSH password authentication for
@@ -80,6 +89,7 @@ create_sshdconfig() {
 	db_get openssh-server/permit-root-login
 	permit_root_login="$RET"
 
+	trap cleanup EXIT
 	new_config="$(tempfile)"
 	cp -a /usr/share/openssh/sshd_config "$new_config"
 	if [ "$permit_root_login" != true ]; then
