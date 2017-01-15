@@ -107,7 +107,6 @@ confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superu
 export DEB_BUILD_MAINT_OPTIONS := hardening=+all
 include /usr/share/dpkg/buildflags.mk
 cflags := $(CPPFLAGS) $(CFLAGS)
-cflags += -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
 cflags_udeb += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"

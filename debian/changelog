@@ -1,6 +1,8 @@
 openssh (1:7.4p1-6) UNRELEASED; urgency=medium
 
   * Remove temporary file on exit from postinst (closes: #850275).
+  * Remove LOGIN_PROGRAM and LOGIN_NO_ENDOPT definitions, since UseLogin is
+    gone.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 06 Jan 2017 08:40:14 +0000
 
