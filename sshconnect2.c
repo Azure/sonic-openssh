@@ -222,7 +222,6 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 			orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
 			xasprintf(&myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS],
 			    "%s,null", orig);
-			free(gss);
 		}
 	}
 #endif
@@ -273,6 +272,16 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	/* remove ext-info from the KEX proposals for rekeying */
 	myproposal[PROPOSAL_KEX_ALGS] =
 	    compat_kex_proposal(options.kex_algorithms);
+#ifdef GSSAPI
+	/* repair myproposal after it was crumpled by the */
+	/* ext-info removal above */
+	if (gss) {
+		orig = myproposal[PROPOSAL_KEX_ALGS];
+		xasprintf(&myproposal[PROPOSAL_KEX_ALGS],
+		    "%s,%s", gss, orig);
+		free(gss);
+	}
+#endif
 	if ((r = kex_prop2buf(kex->my, myproposal)) != 0)
 		fatal("kex_prop2buf: %s", ssh_err(r));
 

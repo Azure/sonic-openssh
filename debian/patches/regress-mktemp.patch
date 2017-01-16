@@ -1,4 +1,4 @@
-From cc50ca70e3b438577c33a85147e2a68666deaad9 Mon Sep 17 00:00:00 2001
+From 6ca09916439a58f0789deb79960ee5defc05a946 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 3 Jan 2017 12:09:42 +0000
 Subject: Create mux socket for regress in temp directory

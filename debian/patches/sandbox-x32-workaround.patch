@@ -1,4 +1,4 @@
-From e346421ca6852fbf9f95cf0e764ecc345e5ce21d Mon Sep 17 00:00:00 2001
+From 8c1a0893f0e55a793071af9734d2fa2eb1f3a2a6 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 3 Jan 2017 14:01:56 +0000
 Subject: Work around clock_gettime kernel bug on Linux x32

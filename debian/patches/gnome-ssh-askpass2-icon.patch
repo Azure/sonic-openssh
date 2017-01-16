@@ -1,4 +1,4 @@
-From c5aacd35abd57633871aa81af2e089deb5f72aab Mon Sep 17 00:00:00 2001
+From 0327e9b3a5f6d1e945f1f028e742e14cf5823962 Mon Sep 17 00:00:00 2001
 From: Vincent Untz <vuntz@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:16 +0000
 Subject: Give the ssh-askpass-gnome window a default icon

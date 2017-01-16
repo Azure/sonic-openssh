@@ -1,4 +1,4 @@
-From 46602f789c947e6af524d0b4c9774faf3dd073d0 Mon Sep 17 00:00:00 2001
+From b2b04daa38b264f346acd81e08d224dbf33bac5b Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:02 +0000
 Subject: Quieten logs when multiple from= restrictions are used

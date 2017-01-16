@@ -1,4 +1,4 @@
-From ada7edd8b4ec246a0c1c283c5e5956f09d503fbd Mon Sep 17 00:00:00 2001
+From 7ce93c802065cd926e7cbfd10e629f3a2d352301 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 1 Jan 2017 15:21:10 +0000
 Subject: Make integrity tests more robust against timeouts
