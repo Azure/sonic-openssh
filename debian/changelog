@@ -5,6 +5,7 @@ openssh (1:7.4p1-6) UNRELEASED; urgency=medium
     gone.
   * Document sshd_config changes that may be needed following the removal of
     protocol 1 support from sshd (closes: #851573).
+  * Remove ssh_host_dsa_key from HostKey default (closes: #850614).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 06 Jan 2017 08:40:14 +0000
 
