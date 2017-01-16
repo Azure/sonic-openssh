@@ -167,11 +167,10 @@ This option must be given if
 is not run as root (as the normal
 host key files are normally not readable by anyone but root).
 The default is
-.Pa /etc/ssh/ssh_host_dsa_key ,
-.Pa /etc/ssh/ssh_host_ecdsa_key ,
-.Pa /etc/ssh/ssh_host_ed25519_key
+.Pa /etc/ssh/ssh_host_rsa_key ,
+.Pa /etc/ssh/ssh_host_ecdsa_key
 and
-.Pa /etc/ssh/ssh_host_rsa_key .
+.Pa /etc/ssh/ssh_host_ed25519_key .
 It is possible to have multiple host key files for
 the different host key algorithms.
 .It Fl i
