@@ -237,6 +237,21 @@ Non-systemd users may find /usr/lib/openssh/ssh-session-cleanup helpful if
 they have a similar problem, although at present there is no system
 integration for this for anything other than systemd.
 
+SSH protocol 1 server support removed
+-------------------------------------
+
+sshd(8) no longer supports the old SSH protocol 1, so all the configuration
+options related to it are now deprecated and should be removed from
+/etc/ssh/sshd_config.  These are:
+
+  KeyRegenerationInterval
+  RSAAuthentication
+  RhostsRSAAuthentication
+  ServerKeyBits
+
+The Protocol option is also no longer needed, although it is silently
+ignored rather than deprecated.
+
 -- 
 Matthew Vernon <matthew@debian.org>
 Colin Watson <cjwatson@debian.org>
