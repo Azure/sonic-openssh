@@ -29,3 +29,4 @@ regress-forwarding-race.patch
 regress-mktemp.patch
 sandbox-x32-workaround.patch
 no-dsa-host-key-by-default.patch
+restore-authorized_keys2.patch

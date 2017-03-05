@@ -1,3 +1,15 @@
+openssh (1:7.4p1-7) UNRELEASED; urgency=medium
+
+  This version restores the default for AuthorizedKeysFile to search both
+  ~/.ssh/authorized_keys and ~/.ssh/authorized_keys2, as was the case in
+  Debian configurations before 1:7.4p1-1.  Upstream intends to phase out
+  searching ~/.ssh/authorized_keys2 by default, so you should ensure that
+  you are only using ~/.ssh/authorized_keys, at least for critical
+  administrative access; do not assume that the current default will remain
+  in place forever.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 29 Jan 2017 11:39:05 +0000
+
 openssh (1:7.4p1-1) unstable; urgency=medium
 
   OpenSSH 7.4 includes a number of changes that may affect existing
