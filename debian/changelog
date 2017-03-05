@@ -1,4 +1,4 @@
-openssh (1:7.4p1-7) UNRELEASED; urgency=medium
+openssh (1:7.4p1-7) unstable; urgency=medium
 
   * Don't set "PermitRootLogin yes" on fresh installations (regression
     introduced in 1:7.4p1-1; closes: #852781).
@@ -8,7 +8,7 @@ openssh (1:7.4p1-7) UNRELEASED; urgency=medium
     sshd_config changes, so it makes sense to extend the grace period
     (closes: #852320).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 29 Jan 2017 11:39:05 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 05 Mar 2017 02:12:42 +0000
 
 openssh (1:7.4p1-6) unstable; urgency=medium
 
