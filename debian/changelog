@@ -1,3 +1,10 @@
+openssh (1:7.4p1-8) UNRELEASED; urgency=medium
+
+  * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
+    already-hashed entries (closes: #851734, LP: #1668093).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 09 Mar 2017 11:25:55 +0000
+
 openssh (1:7.4p1-7) unstable; urgency=medium
 
   * Don't set "PermitRootLogin yes" on fresh installations (regression
