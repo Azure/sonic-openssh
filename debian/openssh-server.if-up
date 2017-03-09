@@ -25,8 +25,8 @@ if [ ! -e /usr/sbin/sshd ]; then
 	exit 0
 fi
 
-if [ ! -f /var/run/sshd.pid ] || \
-   [ "$(ps -p "$(cat /var/run/sshd.pid)" -o comm=)" != sshd ]; then
+if [ ! -f /run/sshd.pid ] || \
+   [ "$(ps -p "$(cat /run/sshd.pid)" -o comm=)" != sshd ]; then
 	exit 0
 fi
 

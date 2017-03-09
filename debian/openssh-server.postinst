@@ -111,7 +111,7 @@ fix_statoverride() {
 
 setup_sshd_user() {
 	if ! getent passwd sshd >/dev/null; then
-		adduser --quiet --system --no-create-home --home /var/run/sshd --shell /usr/sbin/nologin sshd
+		adduser --quiet --system --no-create-home --home /run/sshd --shell /usr/sbin/nologin sshd
 	fi
 }
 
@@ -125,14 +125,14 @@ if [ "$action" = configure ]; then
 	    rm -f /etc/ssh/primes
 	fi
 	if dpkg --compare-versions "$2" lt-nl 1:5.5p1-6; then
-	    rm -f /var/run/sshd/.placeholder
+	    rm -f /run/sshd/.placeholder
 	fi
 	if dpkg --compare-versions "$2" lt-nl 1:6.2p2-3 && \
 	   which initctl >/dev/null && initctl version 2>/dev/null | grep -q upstart && \
 	   ! status ssh 2>/dev/null | grep -q ' start/'; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under Upstart.
-	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid || true
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid || true
 	fi
 	if dpkg --compare-versions "$2" lt-nl 1:6.5p1-2 && \
 	   deb-systemd-helper debian-installed ssh.socket && \
@@ -146,7 +146,7 @@ if [ "$action" = configure ]; then
 	   [ -d /run/systemd/system ]; then
 	    # We must stop the sysvinit-controlled sshd before we can
 	    # restart it under systemd.
-	    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd || true
+	    start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd || true
 	fi
 fi
 

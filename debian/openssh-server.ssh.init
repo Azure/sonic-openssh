@@ -66,9 +66,9 @@ check_dev_null() {
 
 check_privsep_dir() {
     # Create the PrivSep empty dir if necessary
-    if [ ! -d /var/run/sshd ]; then
-	mkdir /var/run/sshd
-	chmod 0755 /var/run/sshd
+    if [ ! -d /run/sshd ]; then
+	mkdir /run/sshd
+	chmod 0755 /run/sshd
     fi
 }
 
@@ -87,7 +87,7 @@ case "$1" in
 	check_for_no_start
 	check_dev_null
 	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd" || true
-	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
+	if start-stop-daemon --start --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -96,7 +96,7 @@ case "$1" in
   stop)
 	check_for_upstart 0
 	log_daemon_msg "Stopping OpenBSD Secure Shell server" "sshd" || true
-	if start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/sshd.pid; then
+	if start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -108,7 +108,7 @@ case "$1" in
 	check_for_no_start
 	check_config
 	log_daemon_msg "Reloading OpenBSD Secure Shell server's configuration" "sshd" || true
-	if start-stop-daemon --stop --signal 1 --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd; then
+	if start-stop-daemon --stop --signal 1 --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -120,10 +120,10 @@ case "$1" in
 	check_privsep_dir
 	check_config
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd" || true
-	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/sshd.pid
+	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /run/sshd.pid
 	check_for_no_start log_end_msg
 	check_dev_null log_end_msg
-	if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
+	if start-stop-daemon --start --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 	    log_end_msg 0 || true
 	else
 	    log_end_msg 1 || true
@@ -136,13 +136,13 @@ case "$1" in
 	check_config
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd" || true
 	RET=0
-	start-stop-daemon --stop --quiet --retry 30 --pidfile /var/run/sshd.pid || RET="$?"
+	start-stop-daemon --stop --quiet --retry 30 --pidfile /run/sshd.pid || RET="$?"
 	case $RET in
 	    0)
 		# old daemon stopped
 		check_for_no_start log_end_msg
 		check_dev_null log_end_msg
-		if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
+		if start-stop-daemon --start --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
 		    log_end_msg 0 || true
 		else
 		    log_end_msg 1 || true
@@ -163,7 +163,7 @@ case "$1" in
 
   status)
 	check_for_upstart 1
-	status_of_proc -p /var/run/sshd.pid /usr/sbin/sshd sshd && exit 0 || exit $?
+	status_of_proc -p /run/sshd.pid /usr/sbin/sshd sshd && exit 0 || exit $?
 	;;
 
   *)
