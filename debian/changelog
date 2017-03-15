@@ -1,11 +1,11 @@
-openssh (1:7.4p1-8) UNRELEASED; urgency=medium
+openssh (1:7.4p1-8) unstable; urgency=medium
 
   * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
     already-hashed entries (closes: #851734, LP: #1668093).
   * Fix ssh-keyscan to correctly hash hosts with a port number (closes:
     #857736, LP: #1670745).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 09 Mar 2017 11:25:55 +0000
+ -- Colin Watson <cjwatson@debian.org>  Tue, 14 Mar 2017 13:49:14 +0000
 
 openssh (1:7.4p1-7) unstable; urgency=medium
 
