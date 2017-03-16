@@ -1,3 +1,10 @@
+openssh (1:7.4p1-9) UNRELEASED; urgency=medium
+
+  * Fix null pointer dereference in ssh-keygen; this fixes an autopkgtest
+    regression introduced in 1:7.4p1-8.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 16 Mar 2017 13:42:24 +0000
+
 openssh (1:7.4p1-8) unstable; urgency=medium
 
   * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
