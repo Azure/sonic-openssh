@@ -33,3 +33,4 @@ restore-authorized_keys2.patch
 ssh-keygen-hash-corruption.patch
 ssh-keyscan-hash-port.patch
 ssh-keygen-null-deref.patch
+unbreak-unix-forwarding-for-root.patch

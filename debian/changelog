@@ -2,6 +2,7 @@ openssh (1:7.4p1-10) UNRELEASED; urgency=medium
 
   * Move privilege separation directory and PID file from /var/run/ to /run/
     (closes: #760422, #856825).
+  * Unbreak Unix domain socket forwarding for root (closes: #858252).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 29 Mar 2017 23:44:13 +0100
 
