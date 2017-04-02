@@ -27,3 +27,4 @@ debian-config.patch
 regress-integrity-robust.patch
 no-dsa-host-key-by-default.patch
 restore-authorized_keys2.patch
+s390-missing-header.patch
