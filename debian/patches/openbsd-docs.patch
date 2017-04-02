@@ -1,4 +1,4 @@
-From 4badfe75ad62ee50394afa9aaac62b3465fd384e Mon Sep 17 00:00:00 2001
+From 22fa108c15a43eb80d5fa7114208ab813019954e Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -103,7 +103,7 @@ index feef81a5..b1f128c2 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index c6784602..e6915141 100644
+index 989dd4bf..6355178f 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -65,7 +65,7 @@ over an insecure network.
@@ -133,7 +133,7 @@ index c6784602..e6915141 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 4ea0a9c3..e45a8937 100644
+index 5f316481..603c2ba7 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -372,8 +372,7 @@ then no banner is displayed.

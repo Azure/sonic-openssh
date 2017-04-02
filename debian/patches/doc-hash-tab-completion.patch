@@ -1,4 +1,4 @@
-From 87e480b4f405f3249d7f8a912849eb6263456353 Mon Sep 17 00:00:00 2001
+From 0d5ad9fa8d9270ddaaed964edac35b99e7eed067 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:11 +0000
 Subject: Document that HashKnownHosts may break tab-completion
@@ -13,10 +13,10 @@ Patch-Name: doc-hash-tab-completion.patch
  1 file changed, 3 insertions(+)
 
 diff --git a/ssh_config.5 b/ssh_config.5
-index 0483a1ee..8698c28e 100644
+index a04e5757..093ea8a7 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -805,6 +805,9 @@ Note that existing names and addresses in known hosts files
+@@ -809,6 +809,9 @@ Note that existing names and addresses in known hosts files
  will not be converted automatically,
  but may be manually hashed using
  .Xr ssh-keygen 1 .

@@ -1,4 +1,4 @@
-/* $OpenBSD: ssh-keyscan.c,v 1.106 2016/05/02 10:26:04 djm Exp $ */
+/* $OpenBSD: ssh-keyscan.c,v 1.109 2017/03/10 04:26:06 djm Exp $ */
 /*
  * Copyright 1995, 1996 by David Mazieres <dm@lcs.mit.edu>.
  *
@@ -327,6 +327,7 @@ keyprint_one(const char *host, struct sshkey *key)
 	const char *known_host, *hashed;
 
 	hostport = put_host_port(host, ssh_port);
+	lowercase(hostport);
 	if (hash_hosts && (hashed = host_hash(host, NULL, 0)) == NULL)
 		fatal("host_hash failed");
 	known_host = hash_hosts ? hashed : hostport;
@@ -753,10 +754,13 @@ main(int argc, char **argv)
 			tname = strtok(optarg, ",");
 			while (tname) {
 				int type = sshkey_type_from_name(tname);
+
 				switch (type) {
+#ifdef WITH_SSH1
 				case KEY_RSA1:
 					get_keytypes |= KT_RSA1;
 					break;
+#endif
 				case KEY_DSA:
 					get_keytypes |= KT_DSA;
 					break;
@@ -770,7 +774,8 @@ main(int argc, char **argv)
 					get_keytypes |= KT_ED25519;
 					break;
 				case KEY_UNSPEC:
-					fatal("unknown key type %s", tname);
+				default:
+					fatal("Unknown key type \"%s\"", tname);
 				}
 				tname = strtok(NULL, ",");
 			}

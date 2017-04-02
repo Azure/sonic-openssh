@@ -1,3 +1,84 @@
+openssh (1:7.5p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (https://www.openssh.com/txt/release-7.5):
+    - SECURITY: ssh(1), sshd(8): Fix weakness in CBC padding oracle
+      countermeasures that allowed a variant of the attack fixed in OpenSSH
+      7.3 to proceed.  Note that the OpenSSH client disables CBC ciphers by
+      default, sshd offers them as lowest-preference options and will remove
+      them by default entirely in the next release.
+    - This release deprecates the sshd_config UsePrivilegeSeparation option,
+      thereby making privilege separation mandatory (closes: #407754).
+    - The format of several log messages emitted by the packet code has
+      changed to include additional information about the user and their
+      authentication state.  Software that monitors ssh/sshd logs may need
+      to account for these changes.
+    - ssh(1), sshd(8): Support "=-" syntax to easily remove methods from
+      algorithm lists, e.g. Ciphers=-*cbc.
+    - sshd(1): Fix NULL dereference crash when key exchange start messages
+      are sent out of sequence.
+    - ssh(1), sshd(8): Allow form-feed characters to appear in configuration
+      files.
+    - sshd(8): Fix regression in OpenSSH 7.4 support for the server-sig-algs
+      extension, where SHA2 RSA signature methods were not being correctly
+      advertised.
+    - ssh(1), ssh-keygen(1): Fix a number of case-sensitivity bugs in
+      known_hosts processing.
+    - ssh(1): Allow ssh to use certificates accompanied by a private key
+      file but no corresponding plain *.pub public key.
+    - ssh(1): When updating hostkeys using the UpdateHostKeys option, accept
+      RSA keys if HostkeyAlgorithms contains any RSA keytype.  Previously,
+      ssh could ignore RSA keys when only the ssh-rsa-sha2-* methods were
+      enabled in HostkeyAlgorithms and not the old ssh-rsa method.
+    - ssh(1): Detect and report excessively long configuration file lines.
+    - Merge a number of fixes found by Coverity and reported via Redhat and
+      FreeBSD.  Includes fixes for some memory and file descriptor leaks in
+      error paths.
+    - ssh(1), sshd(8): When logging long messages to stderr, don't truncate
+      "\r\n" if the length of the message exceeds the buffer.
+    - ssh(1): Fully quote [host]:port in generated ProxyJump/-J command-
+      line; avoid confusion over IPv6 addresses and shells that treat square
+      bracket characters specially.
+    - Fix various fallout and sharp edges caused by removing SSH protocol 1
+      support from the server, including the server banner string being
+      incorrectly terminated with only \n (instead of \r\n), confusing error
+      messages from ssh-keyscan, and a segfault in sshd if protocol v.1 was
+      enabled for the client and sshd_config contained references to legacy
+      keys.
+    - ssh(1), sshd(8): Free fd_set on connection timeout.
+    - sftp(1): Fix division by zero crash in "df" output when server returns
+      zero total filesystem blocks/inodes.
+    - ssh(1), ssh-add(1), ssh-keygen(1), sshd(8): Translate OpenSSL errors
+      encountered during key loading to more meaningful error codes.
+    - ssh-keygen(1): Sanitise escape sequences in key comments sent to
+      printf but preserve valid UTF-8 when the locale supports it.
+    - ssh(1), sshd(8): Return reason for port forwarding failures where
+      feasible rather than always "administratively prohibited".
+    - sshd(8): Fix deadlock when AuthorizedKeysCommand or
+      AuthorizedPrincipalsCommand produces a lot of output and a key is
+      matched early.
+    - ssh(1): Fix typo in ~C error message for bad port forward
+      cancellation.
+    - ssh(1): Show a useful error message when included config files can't
+      be opened.
+    - sshd_config(5): Repair accidentally-deleted mention of %k token in
+      AuthorizedKeysCommand.
+    - sshd(8): Remove vestiges of previously removed LOGIN_PROGRAM.
+    - ssh-agent(1): Relax PKCS#11 whitelist to include libexec and common
+      32-bit compatibility library directories.
+    - sftp-client(1): Fix non-exploitable integer overflow in SSH2_FXP_NAME
+      response handling.
+    - ssh-agent(1): Fix regression in 7.4 of deleting PKCS#11-hosted keys.
+      It was not possible to delete them except by specifying their full
+      physical path.
+    - sshd(8): Avoid sandbox errors for Linux S390 systems using an ICA
+      crypto coprocessor.
+    - sshd(8): Fix non-exploitable weakness in seccomp-bpf sandbox arg
+      inspection.
+    - ssh-keygen(1), ssh(1), sftp(1): Fix output truncation for various that
+      contain non-printable characters where the codeset in use is ASCII.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 02 Apr 2017 01:31:21 +0100
+
 openssh (1:7.4p1-10) unstable; urgency=medium
 
   * Move privilege separation directory and PID file from /var/run/ to /run/

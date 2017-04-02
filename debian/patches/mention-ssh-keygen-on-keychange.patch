@@ -1,4 +1,4 @@
-From 360c4ebd14706887879f1c6d542cd092afffb07b Mon Sep 17 00:00:00 2001
+From 315c5a460b33d076edc27a41b0e790ea73cc3b9d Mon Sep 17 00:00:00 2001
 From: Scott Moser <smoser@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:10:03 +0000
 Subject: Mention ssh-keygen in ssh fingerprint changed warning
@@ -13,7 +13,7 @@ Patch-Name: mention-ssh-keygen-on-keychange.patch
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 698a0711..1cc556e8 100644
+index 7f169a8f..66c495f4 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -1080,9 +1080,13 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,

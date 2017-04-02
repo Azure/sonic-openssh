@@ -1,4 +1,4 @@
-From c20ad02ad58a523c6f4974e1ca124e71b7b801b1 Mon Sep 17 00:00:00 2001
+From 0b9c0482cbff9ce16384e4247d955676d4d77df3 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -86,7 +86,7 @@ index c6390687..90390724 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.c b/misc.c
-index 65c9222a..bf9153a6 100644
+index cfd32729..6e972f56 100644
 --- a/misc.c
 +++ b/misc.c
 @@ -51,8 +51,9 @@
@@ -108,7 +108,7 @@ index 65c9222a..bf9153a6 100644
  
  /* remove newline at end of string */
  char *
-@@ -708,6 +710,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
+@@ -713,6 +715,71 @@ read_keyfile_line(FILE *f, const char *filename, char *buf, size_t bufsz,
  	return -1;
  }
  
@@ -218,10 +218,10 @@ index cd7bf566..380ee3a4 100644
 -	return 0;
 -}
 diff --git a/readconf.c b/readconf.c
-index 3efba242..c02cdf63 100644
+index 0b1370a8..70fac682 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1752,8 +1752,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -1773,8 +1773,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -245,10 +245,10 @@ index 4011c65a..feef81a5 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index a0457314..0483a1ee 100644
+index e4eaa5ae..a04e5757 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1803,6 +1803,8 @@ The format of this file is described above.
+@@ -1827,6 +1827,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

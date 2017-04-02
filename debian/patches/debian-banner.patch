@@ -1,4 +1,4 @@
-From 2a1aeb898e4214f98acc210c992d33334e6710dd Mon Sep 17 00:00:00 2001
+From ddf05e4adc7feda2421bdf641bab79b76c1a918e Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -19,7 +19,7 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index 49d3bdc8..1cee3d6c 100644
+index ca73f7c5..a391cf4b 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -166,6 +166,7 @@ initialize_server_options(ServerOptions *options)
@@ -55,7 +55,7 @@ index 49d3bdc8..1cee3d6c 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1860,6 +1865,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -1866,6 +1871,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			options->fingerprint_hash = value;
  		break;
  
@@ -80,24 +80,24 @@ index 90dfa4c2..913a21b3 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index 49f3a2e5..eebf1984 100644
+index 602f4740..f2f54b51 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -378,7 +378,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
  	char remote_version[256];	/* Must be at least as big as buf. */
  
- 	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s%s",
+ 	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s\r\n",
 -	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
 +	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
 +	    options.debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
  	    *options.version_addendum == '\0' ? "" : " ",
- 	    options.version_addendum, newline);
+ 	    options.version_addendum);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 283ba889..4ea0a9c3 100644
+index 41ec6688..5f316481 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -526,6 +526,11 @@ or
+@@ -530,6 +530,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

@@ -1,4 +1,4 @@
-From 7ce93c802065cd926e7cbfd10e629f3a2d352301 Mon Sep 17 00:00:00 2001
+From c210daa1ae77904f57478315e75af3f82a5d69f2 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 1 Jan 2017 15:21:10 +0000
 Subject: Make integrity tests more robust against timeouts
@@ -12,31 +12,14 @@ Patch-Name: regress-integrity-robust.patch
 
 Last-Update: 2017-01-01
 ---
- regress/integrity.sh | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ regress/integrity.sh | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/regress/integrity.sh b/regress/integrity.sh
-index 39d310de..fd7d58bc 100644
+index 1df2924f..ed378337 100644
 --- a/regress/integrity.sh
 +++ b/regress/integrity.sh
-@@ -5,8 +5,6 @@ tid="integrity"
- cp $OBJ/sshd_proxy $OBJ/sshd_proxy_bak
- 
- # start at byte 2900 (i.e. after kex) and corrupt at different offsets
--# XXX the test hangs if we modify the low bytes of the packet length
--# XXX and ssh tries to read...
- tries=10
- startoffset=2900
- macs=`${SSH} -Q mac`
-@@ -27,6 +25,7 @@ for m in $macs; do
- 	elen=0
- 	epad=0
- 	emac=0
-+	etmo=0
- 	ecnt=0
- 	skip=0
- 	for off in `jot $tries $startoffset`; do
-@@ -61,14 +60,16 @@ for m in $macs; do
+@@ -60,14 +60,16 @@ for m in $macs; do
  		Corrupted?MAC* | *message?authentication?code?incorrect*)
  				emac=`expr $emac + 1`; skip=0;;
  		padding*)	epad=`expr $epad + 1`; skip=0;;

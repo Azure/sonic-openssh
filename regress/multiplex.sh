@@ -1,8 +1,7 @@
 #	$OpenBSD: multiplex.sh,v 1.27 2014/12/22 06:14:29 djm Exp $
 #	Placed in the Public Domain.
 
-make_tmpdir
-CTL=$TMP/ctl-sock
+CTL=/tmp/openssh.regress.ctl-sock.$$
 
 tid="connection multiplexing"
 

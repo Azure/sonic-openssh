@@ -25,12 +25,5 @@ sigstop.patch
 systemd-readiness.patch
 debian-config.patch
 regress-integrity-robust.patch
-regress-forwarding-race.patch
-regress-mktemp.patch
-sandbox-x32-workaround.patch
 no-dsa-host-key-by-default.patch
 restore-authorized_keys2.patch
-ssh-keygen-hash-corruption.patch
-ssh-keyscan-hash-port.patch
-ssh-keygen-null-deref.patch
-unbreak-unix-forwarding-for-root.patch

@@ -1,4 +1,4 @@
-From 0ae30d0171b789953318670ac8679127ddfb3cd1 Mon Sep 17 00:00:00 2001
+From 583919799c3946c5fa89f8907349c1443639b6bd Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:13 +0000
 Subject: Document consequences of ssh-agent being setgid in ssh-agent(1)
