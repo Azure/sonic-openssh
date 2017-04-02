@@ -1,9 +1,9 @@
-openssh (1:7.5p1-2) UNRELEASED; urgency=medium
+openssh (1:7.5p1-2) experimental; urgency=medium
 
   * Add missing header on Linux/s390.
   * Fix syntax error on Linux/X32.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 02 Apr 2017 13:15:56 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 02 Apr 2017 13:20:11 +0100
 
 openssh (1:7.5p1-1) experimental; urgency=medium
 
