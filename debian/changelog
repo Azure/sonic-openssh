@@ -1,3 +1,10 @@
+openssh (1:7.5p1-3) UNRELEASED; urgency=medium
+
+  * Fix debian/adjust-openssl-dependencies to account for preferring
+    libssl1.0-dev.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 08 Apr 2017 15:39:13 +0100
+
 openssh (1:7.5p1-2) experimental; urgency=medium
 
   * Add missing header on Linux/s390.
