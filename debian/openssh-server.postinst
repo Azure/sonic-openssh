@@ -96,6 +96,7 @@ create_sshdconfig() {
 		sed -i 's/^#*PermitRootLogin .*/PermitRootLogin yes/' \
 			"$new_config"
 	fi
+	mkdir -p /etc/ssh
 	ucf --three-way --debconf-ok \
 		--sum-file /usr/share/openssh/sshd_config.md5sum \
 		"$new_config" /etc/ssh/sshd_config
