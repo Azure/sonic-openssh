@@ -1,4 +1,4 @@
-openssh (1:7.5p1-3) UNRELEASED; urgency=medium
+openssh (1:7.5p1-3) experimental; urgency=medium
 
   * Fix debian/adjust-openssl-dependencies to account for preferring
     libssl1.0-dev.
@@ -8,7 +8,7 @@ openssh (1:7.5p1-3) UNRELEASED; urgency=medium
   * Ensure that /etc/ssh exists before trying to create /etc/ssh/sshd_config
     (LP: #1685022).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 08 Apr 2017 15:39:13 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 02 May 2017 13:51:27 +0100
 
 openssh (1:7.5p1-2) experimental; urgency=medium
 
