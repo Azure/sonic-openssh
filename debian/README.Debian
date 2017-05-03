@@ -4,17 +4,6 @@ OpenSSH for Debian
 UPGRADE ISSUES
 ==============
 
-Privilege Separation
---------------------
-
-As of 3.3, openssh has employed privilege separation to reduce the
-quantity of code that runs as root, thereby reducing the impact of
-some security holes in sshd. This now also works properly with PAM.
-
-Privilege separation is turned on by default, so, if you decide you
-want it turned off, you need to add "UsePrivilegeSeparation no" to
-/etc/ssh/sshd_config.
-
 PermitRootLogin
 ---------------
 

@@ -1,3 +1,10 @@
+openssh (1:7.5p1-4) UNRELEASED; urgency=medium
+
+  * Drop README.Debian section on privilege separation, as it's no longer
+    optional.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 03 May 2017 12:23:16 +0100
+
 openssh (1:7.5p1-3) experimental; urgency=medium
 
   * Fix debian/adjust-openssl-dependencies to account for preferring
