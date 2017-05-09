@@ -166,6 +166,9 @@ static const struct sock_filter preauth_insns[] = {
 #ifdef __NR_exit_group
 	SC_ALLOW(__NR_exit_group),
 #endif
+#if defined(__NR_flock) && defined(__s390__)
+	SC_ALLOW(__NR_flock),
+#endif
 #ifdef __NR_getpgid
 	SC_ALLOW(__NR_getpgid),
 #endif
@@ -177,6 +180,9 @@ static const struct sock_filter preauth_insns[] = {
 #endif
 #ifdef __NR_gettimeofday
 	SC_ALLOW(__NR_gettimeofday),
+#endif
+#if defined(__NR_ipc) && defined(__s390__)
+	SC_ALLOW(__NR_ipc),
 #endif
 #ifdef __NR_madvise
 	SC_ALLOW(__NR_madvise),
