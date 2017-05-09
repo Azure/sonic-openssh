@@ -2,6 +2,8 @@ openssh (1:7.5p1-4) UNRELEASED; urgency=medium
 
   * Drop README.Debian section on privilege separation, as it's no longer
     optional.
+  * Only call "initctl set-env" from agent-launch if $UPSTART_SESSION is set
+    (LP: #1689299).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 03 May 2017 12:23:16 +0100
 
