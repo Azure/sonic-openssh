@@ -6,6 +6,9 @@ openssh (1:7.5p1-4) UNRELEASED; urgency=medium
     (LP: #1689299).
   * Fix incoming compression statistics (thanks, Russell Coker; closes:
     #797964).
+  * Relicense debian/* under a two-clause BSD licence for bidirectional
+    compatibility with upstream, with permission from Matthew Vernon and
+    others.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 03 May 2017 12:23:16 +0100
 
