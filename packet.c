@@ -606,7 +606,7 @@ ssh_packet_close(struct ssh *ssh)
 				deflateEnd(stream);
 		}
 		if (state->compression_in_started) {
-			z_streamp stream = &state->compression_out_stream;
+			z_streamp stream = &state->compression_in_stream;
 			debug("compress incoming: "
 			    "raw data %llu, compressed %llu, factor %.2f",
 			    (unsigned long long)stream->total_out,
