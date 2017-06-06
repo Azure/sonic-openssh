@@ -29,3 +29,4 @@ no-dsa-host-key-by-default.patch
 restore-authorized_keys2.patch
 s390-missing-header.patch
 x32-syntax-error.patch
+fix-incoming-compression-statistics.patch
