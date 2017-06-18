@@ -1,3 +1,9 @@
+openssh (1:7.5p1-5) UNRELEASED; urgency=medium
+
+  * Upload to unstable.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 18 Jun 2017 12:07:19 +0100
+
 openssh (1:7.5p1-4) experimental; urgency=medium
 
   * Drop README.Debian section on privilege separation, as it's no longer
