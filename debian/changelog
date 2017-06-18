@@ -1,6 +1,7 @@
 openssh (1:7.5p1-5) UNRELEASED; urgency=medium
 
   * Upload to unstable.
+  * Fix syntax error in debian/copyright.
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 18 Jun 2017 12:07:19 +0100
 
