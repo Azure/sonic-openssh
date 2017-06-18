@@ -1,3 +1,10 @@
+openssh (1:7.4p1-10+deb9u1) UNRELEASED; urgency=medium
+
+  * Fix incoming compression statistics (thanks, Russell Coker; closes:
+    #797964).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 06 Jun 2017 15:02:33 +0100
+
 openssh (1:7.4p1-10) unstable; urgency=medium
 
   * Move privilege separation directory and PID file from /var/run/ to /run/

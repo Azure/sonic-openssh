@@ -34,3 +34,4 @@ ssh-keygen-hash-corruption.patch
 ssh-keyscan-hash-port.patch
 ssh-keygen-null-deref.patch
 unbreak-unix-forwarding-for-root.patch
+fix-incoming-compression-statistics.patch
