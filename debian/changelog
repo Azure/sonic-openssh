@@ -1,3 +1,10 @@
+openssh (1:6.7p1-5+deb8u4) UNRELEASED; urgency=medium
+
+  * Test configuration before starting or reloading sshd under systemd
+    (closes: #865770).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 Nov 2017 10:44:36 +0000
+
 openssh (1:6.7p1-5+deb8u3) jessie-security; urgency=high
 
   * Non-maintainer upload by the Security Team.
