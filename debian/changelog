@@ -2,6 +2,8 @@ openssh (1:7.5p1-6) UNRELEASED; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd
     (closes: #865770).
+  * Create /run/sshd under systemd using RuntimeDirectory rather than
+    tmpfiles.d (thanks, Dmitry Smirnov; closes: #864190).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 Jun 2017 10:09:28 +0100
 
