@@ -511,13 +511,13 @@ int
 main(int ac, char **av)
 {
 	struct ssh *ssh = NULL;
-	int i, r, opt, exit_status, use_syslog, direct, config_test = 0;
+	int i, r, opt, exit_status, use_syslog, direct, timeout_ms;
+	int config_test = 0, opt_terminated = 0;
 	char *p, *cp, *line, *argv0, buf[PATH_MAX], *host_arg, *logfile;
 	char thishost[NI_MAXHOST], shorthost[NI_MAXHOST], portstr[NI_MAXSERV];
 	char cname[NI_MAXHOST], uidstr[32], *conn_hash_hex;
 	struct stat st;
 	struct passwd *pw;
-	int timeout_ms;
 	extern int optind, optreset;
 	extern char *optarg;
 	struct Forward fwd;
@@ -936,6 +936,9 @@ main(int ac, char **av)
 		}
 	}
 
+	if (optind > 1 && strcmp(av[optind - 1], "--") == 0)
+		opt_terminated = 1;
+
 	ac -= optind;
 	av += optind;
 
@@ -950,7 +953,7 @@ main(int ac, char **av)
 			host = xstrdup(++cp);
 		} else
 			host = xstrdup(*av);
-		if (ac > 1) {
+		if (ac > 1 && !opt_terminated) {
 			optind = optreset = 1;
 			goto again;
 		}
