@@ -32,10 +32,5 @@ debian/agent-launch usr/lib/openssh
 # yet.
 debian/openssh-client.apport => usr/share/apport/package-hooks/openssh-client.py
 
-# Upstart user job (only used under user sessions).
-debian/ssh-agent.user-session.upstart => usr/share/upstart/sessions/ssh-agent.conf
-
 # systemd user unit (only used under sessions)
 debian/systemd/ssh-agent.service usr/lib/systemd/user
-# disable above upstart job when running the systemd user unit
-debian/systemd/ssh-agent.override usr/share/upstart/systemd-session/upstart

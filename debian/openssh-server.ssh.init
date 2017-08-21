@@ -33,12 +33,6 @@ run_by_init() {
     ([ "$previous" ] && [ "$runlevel" ]) || [ "$runlevel" = S ]
 }
 
-check_for_upstart() {
-    if init_is_upstart; then
-	exit $1
-    fi
-}
-
 check_for_no_start() {
     # forget it if we're trying to start, and /etc/ssh/sshd_not_to_be_run exists
     if [ -e /etc/ssh/sshd_not_to_be_run ]; then 
@@ -82,7 +76,6 @@ export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
 case "$1" in
   start)
-	check_for_upstart 1
 	check_privsep_dir
 	check_for_no_start
 	check_dev_null
@@ -94,7 +87,6 @@ case "$1" in
 	fi
 	;;
   stop)
-	check_for_upstart 0
 	log_daemon_msg "Stopping OpenBSD Secure Shell server" "sshd" || true
 	if start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid; then
 	    log_end_msg 0 || true
@@ -104,7 +96,6 @@ case "$1" in
 	;;
 
   reload|force-reload)
-	check_for_upstart 1
 	check_for_no_start
 	check_config
 	log_daemon_msg "Reloading OpenBSD Secure Shell server's configuration" "sshd" || true
@@ -116,7 +107,6 @@ case "$1" in
 	;;
 
   restart)
-	check_for_upstart 1
 	check_privsep_dir
 	check_config
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd" || true
@@ -131,7 +121,6 @@ case "$1" in
 	;;
 
   try-restart)
-	check_for_upstart 1
 	check_privsep_dir
 	check_config
 	log_daemon_msg "Restarting OpenBSD Secure Shell server" "sshd" || true
@@ -162,7 +151,6 @@ case "$1" in
 	;;
 
   status)
-	check_for_upstart 1
 	status_of_proc -p /run/sshd.pid /usr/sbin/sshd sshd && exit 0 || exit $?
 	;;
 

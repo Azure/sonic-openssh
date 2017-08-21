@@ -128,13 +128,6 @@ if [ "$action" = configure ]; then
 	if dpkg --compare-versions "$2" lt-nl 1:5.5p1-6; then
 	    rm -f /run/sshd/.placeholder
 	fi
-	if dpkg --compare-versions "$2" lt-nl 1:6.2p2-3 && \
-	   which initctl >/dev/null && initctl version 2>/dev/null | grep -q upstart && \
-	   ! status ssh 2>/dev/null | grep -q ' start/'; then
-	    # We must stop the sysvinit-controlled sshd before we can
-	    # restart it under Upstart.
-	    start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid || true
-	fi
 	if dpkg --compare-versions "$2" lt-nl 1:6.5p1-2 && \
 	   deb-systemd-helper debian-installed ssh.socket && \
 	   deb-systemd-helper --quiet was-enabled ssh.service && \
