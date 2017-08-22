@@ -1,4 +1,4 @@
-From 12b741fba8a8430c32b8b48e5427504e97d48625 Mon Sep 17 00:00:00 2001
+From 5fc5168dde0c840bf743058d235193fc27e61cab Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 16 Jan 2017 13:53:04 +0000
 Subject: Remove ssh_host_dsa_key from HostKey default

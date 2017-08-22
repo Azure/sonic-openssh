@@ -1084,7 +1084,7 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
 				error("Offending key for IP in %s:%lu",
 				    ip_found->file, ip_found->line);
 				error("  remove with:");
-				error("  ssh-keygen -f \"%s\" -R %s",
+				error("  ssh-keygen -f \"%s\" -R \"%s\"",
 				    ip_found->file, ip);
 			}
 		}
@@ -1095,7 +1095,8 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
 		error("Offending %s key in %s:%lu", key_type(host_found->key),
 		    host_found->file, host_found->line);
 		error("  remove with:");
-		error("  ssh-keygen -f \"%s\" -R %s", host_found->file, host);
+		error("  ssh-keygen -f \"%s\" -R \"%s\"",
+		    host_found->file, host);
 
 		/*
 		 * If strict host key checking is in use, the user will have

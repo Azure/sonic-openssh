@@ -9,6 +9,9 @@ openssh (1:7.5p1-6) UNRELEASED; urgency=medium
   [ Dimitri John Ledkov ]
   * Drop upstart system and user jobs (closes: #872851).
 
+  [ Chris Lamb ]
+  * Quote IP address in suggested "ssh-keygen -f" calls (closes: #872643).
+
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 Jun 2017 10:09:28 +0100
 
 openssh (1:7.5p1-5) unstable; urgency=medium

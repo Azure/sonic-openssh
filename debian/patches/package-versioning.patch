@@ -1,4 +1,4 @@
-From 8f127a3c84d2eae8d1fb5529887c880c22c5cf75 Mon Sep 17 00:00:00 2001
+From 24262015f741a40c9374b15d24c23b8e98b7b7ae Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -19,7 +19,7 @@ Patch-Name: package-versioning.patch
  3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 66c495f4..120f0945 100644
+index 881b0886..d9ed5910 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -526,10 +526,10 @@ send_client_banner(int connection_out, int minor1)

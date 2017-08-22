@@ -1,4 +1,4 @@
-From 59b1519ddb11cc2393037e97ae806656c6276020 Mon Sep 17 00:00:00 2001
+From 4a6a0dd530022333dccf0e54a4c2827662b14109 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Tue, 21 Mar 2017 08:47:55 +1100
 Subject: Fix syntax error on Linux/X32

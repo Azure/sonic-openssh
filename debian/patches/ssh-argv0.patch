@@ -1,4 +1,4 @@
-From dce48f6795b6f0b1d4c2e069f26a21419ba4d575 Mon Sep 17 00:00:00 2001
+From 5be45fb4b0459bbff7b4b5a67c2f754c601155df Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:10 +0000
 Subject: ssh(1): Refer to ssh-argv0(1)
