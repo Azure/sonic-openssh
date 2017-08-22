@@ -1,4 +1,4 @@
-From 326d5114682d8ddbb64dead273d7738aea10e30a Mon Sep 17 00:00:00 2001
+From 8f69d359e39fef44d60c12ac105ed5f398ad2599 Mon Sep 17 00:00:00 2001
 From: Damien Miller <djm@mindrot.org>
 Date: Wed, 22 Mar 2017 12:43:02 +1100
 Subject: Missing header on Linux/s390

@@ -1,4 +1,4 @@
-From 6111c39a4ae8f1c62a9312a5f8d8b23adb5f727a Mon Sep 17 00:00:00 2001
+From f62d1568c95ad1ad193b95d61e6e93baf8b935a0 Mon Sep 17 00:00:00 2001
 From: Russell Coker <russell@coker.com.au>
 Date: Tue, 6 Jun 2017 15:00:20 +0100
 Subject: Fix incoming compression statistics

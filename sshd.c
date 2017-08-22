@@ -1896,16 +1896,6 @@ main(int ac, char **av)
 			}
 		}
 
-		if (getenv("SSH_SIGSTOP")) {
-			/* Tell service supervisor that we are ready. */
-			kill(getpid(), SIGSTOP);
-			/* The service supervisor only ever expects a single
-			 * STOP signal, so do not ever signal it again, even
-			 * in the case of a re-exec or future children.
-			 */
-			unsetenv("SSH_SIGSTOP");
-		}
-
 #ifdef HAVE_SYSTEMD
 		/* Signal systemd that we are ready to accept connections */
 		sd_notify(0, "READY=1");
