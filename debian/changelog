@@ -7,7 +7,7 @@ openssh (1:7.5p1-6) UNRELEASED; urgency=medium
     tmpfiles.d (thanks, Dmitry Smirnov; closes: #864190).
 
   [ Dimitri John Ledkov ]
-  * Drop upstart system and user jobs.
+  * Drop upstart system and user jobs (closes: #872851).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 Jun 2017 10:09:28 +0100
 
