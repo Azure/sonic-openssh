@@ -1,3 +1,9 @@
+openssh (1:7.5p1-7) UNRELEASED; urgency=medium
+
+  * Fix spelling of RuntimeDirectoryMode (closes: #872976).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 23 Aug 2017 12:09:34 +0100
+
 openssh (1:7.5p1-6) unstable; urgency=medium
 
   [ Colin Watson ]

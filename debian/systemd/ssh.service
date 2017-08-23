@@ -14,7 +14,7 @@ Restart=on-failure
 RestartPreventExitStatus=255
 Type=notify
 RuntimeDirectory=sshd
-RuntimeDirectoryModes=0755
+RuntimeDirectoryMode=0755
 
 [Install]
 WantedBy=multi-user.target
