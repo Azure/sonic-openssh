@@ -1,6 +1,8 @@
 openssh (1:7.5p1-7) UNRELEASED; urgency=medium
 
   * Fix spelling of RuntimeDirectoryMode (closes: #872976).
+  * Add RuntimeDirectory and RuntimeDirectoryMode to ssh@.service as well as
+    ssh.service (closes: #872978).
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 23 Aug 2017 12:09:34 +0100
 
