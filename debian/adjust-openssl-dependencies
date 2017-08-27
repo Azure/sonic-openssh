@@ -3,7 +3,6 @@
 # Must be run after dpkg-shlibdeps.
 
 client=debian/openssh-client.substvars
-client_ssh1=debian/openssh-client-ssh1.substvars
 server=debian/openssh-server.substvars
 
 libssl_version="$(dpkg-query -W libssl1.0-dev 2>/dev/null | cut -f2)"
@@ -20,7 +19,6 @@ libssl_package="$(sed -n 's/.*[= ]\(libssl[0-9][a-z0-9+.-]*\).*/\1/p' "$client")
 if [ "$libssl_package" ]; then
 	new_dep="$libssl_package (>= $libssl_version)"
 	sed -i "/^shlibs:Depends=/s/\$/, $new_dep/" "$client"
-	sed -i "/^shlibs:Depends=/s/\$/, $new_dep/" "$client_ssh1"
 	sed -i "/^shlibs:Depends=/s/\$/, $new_dep/" "$server"
 fi
 

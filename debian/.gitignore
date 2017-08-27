@@ -1,7 +1,6 @@
 /*.debhelper*
 /*substvars
 /build-deb
-/build-deb-ssh1
 /build-udeb
 /files
 /keygen-test/key1

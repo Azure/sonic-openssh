@@ -1,3 +1,9 @@
+openssh (1:7.5p1-8) UNRELEASED; urgency=medium
+
+  * Drop openssh-client-ssh1, now built by a separate source package.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 27 Aug 2017 23:24:58 +0100
+
 openssh (1:7.5p1-7) unstable; urgency=medium
 
   * Fix spelling of RuntimeDirectoryMode (closes: #872976).
