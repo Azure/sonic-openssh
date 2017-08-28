@@ -5,6 +5,12 @@ if [ "$(id -un)" != openssh-tests ]; then
 	TMP="$ADTTMP/user"
 
 	cleanup () {
+		if [ -e "$TMP/haveged.pid" ]; then
+			start-stop-daemon --stop --quiet \
+				--retry=TERM/30/KILL/5 \
+				--pidfile "$TMP/haveged.pid" \
+				--name haveged
+		fi
 		rm -rf "$TMP"
 		rm -f /etc/sudoers.d/openssh-tests
 		if id openssh-tests >/dev/null 2>&1; then
@@ -21,6 +27,17 @@ EOF
 	mkdir -p "$TMP"
 	cp -a . "$TMP/tree"
 	chown -R openssh-tests:openssh-tests "$TMP"
+
+	# If we're running in a container, haveged may not have started
+	# automatically.  Do this by hand rather than via systemctl or
+	# similar, since autopkgtests shouldn't depend on a particular init
+	# system.
+	if ! pidof haveged >/dev/null; then
+		start-stop-daemon --start --quiet \
+			--pidfile "$TMP/haveged.pid" \
+			--exec /usr/sbin/haveged -- -w 1024
+	fi
+
 	sudo -u openssh-tests env TMP="$TMP" "$0" "$@"
 	exit "$?"
 fi

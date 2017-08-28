@@ -1,6 +1,8 @@
 openssh (1:7.5p1-8) UNRELEASED; urgency=medium
 
   * Drop openssh-client-ssh1, now built by a separate source package.
+  * Run haveged during autopkgtests to ensure that they have enough entropy
+    for key generation (LP: #1712921).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 27 Aug 2017 23:24:58 +0100
 
