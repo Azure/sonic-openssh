@@ -1,4 +1,4 @@
-openssh (1:7.5p1-8) UNRELEASED; urgency=medium
+openssh (1:7.5p1-8) unstable; urgency=medium
 
   * Drop openssh-client-ssh1, now built by a separate source package.
   * Run haveged during autopkgtests to ensure that they have enough entropy
@@ -6,7 +6,7 @@ openssh (1:7.5p1-8) UNRELEASED; urgency=medium
   * Apply patches from https://bugzilla.mindrot.org/show_bug.cgi?id=2752 to
     allow some extra syscalls for crypto cards on s390x (LP: #1686618).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 27 Aug 2017 23:24:58 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 28 Aug 2017 12:16:35 +0100
 
 openssh (1:7.5p1-7) unstable; urgency=medium
 
