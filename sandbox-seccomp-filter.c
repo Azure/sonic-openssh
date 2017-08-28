@@ -166,17 +166,35 @@ static const struct sock_filter preauth_insns[] = {
 #ifdef __NR_exit_group
 	SC_ALLOW(__NR_exit_group),
 #endif
+#if defined(__NR_flock) && defined(__s390__)
+	SC_ALLOW(__NR_flock),
+#endif
 #ifdef __NR_getpgid
 	SC_ALLOW(__NR_getpgid),
 #endif
 #ifdef __NR_getpid
 	SC_ALLOW(__NR_getpid),
 #endif
+#ifdef __NR_getuid
+	SC_ALLOW(__NR_getuid),
+#endif
+#ifdef __NR_getuid32
+	SC_ALLOW(__NR_getuid32),
+#endif
+#ifdef __NR_geteuid
+	SC_ALLOW(__NR_geteuid),
+#endif
+#ifdef __NR_geteuid32
+	SC_ALLOW(__NR_geteuid32),
+#endif
 #ifdef __NR_getrandom
 	SC_ALLOW(__NR_getrandom),
 #endif
 #ifdef __NR_gettimeofday
 	SC_ALLOW(__NR_gettimeofday),
+#endif
+#if defined(__NR_ipc) && defined(__s390__)
+	SC_ALLOW(__NR_ipc),
 #endif
 #ifdef __NR_madvise
 	SC_ALLOW(__NR_madvise),
@@ -231,6 +249,8 @@ static const struct sock_filter preauth_insns[] = {
 	SC_ALLOW_ARG(__NR_ioctl, 1, Z90STAT_STATUS_MASK),
 	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSAMODEXPO),
 	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSACRT),
+	/* Allow ioctls for EP11 crypto card on s390 */
+	SC_ALLOW_ARG(__NR_ioctl, 1, ZSENDEP11CPRB),
 #endif
 #if defined(__x86_64__) && defined(__ILP32__) && defined(__X32_SYSCALL_BIT)
 	/*

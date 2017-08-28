@@ -28,3 +28,6 @@ restore-authorized_keys2.patch
 s390-missing-header.patch
 x32-syntax-error.patch
 fix-incoming-compression-statistics.patch
+seccomp-s390-flock-ipc.patch
+seccomp-getuid-geteuid.patch
+seccomp-s390-ioctl-ep11-crypto.patch
