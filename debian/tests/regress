@@ -35,7 +35,7 @@ EOF
 	if ! pidof haveged >/dev/null; then
 		start-stop-daemon --start --quiet \
 			--pidfile "$TMP/haveged.pid" \
-			--exec /usr/sbin/haveged -- -w 1024
+			--exec /usr/sbin/haveged
 	fi
 
 	sudo -u openssh-tests env TMP="$TMP" "$0" "$@"

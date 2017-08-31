@@ -1,6 +1,8 @@
 openssh (1:7.5p1-9) UNRELEASED; urgency=medium
 
   * Run debian/tests/regress with "set -x".
+  * Run haveged without "-w 1024", as setting the low water mark doesn't
+    seem possible in all autopkgtest virtualisation environments.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 30 Aug 2017 11:32:49 +0100
 
