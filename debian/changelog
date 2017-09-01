@@ -1,3 +1,9 @@
+openssh (1:7.5p1-10) UNRELEASED; urgency=medium
+
+  * Tell haveged to create the pid file we expect.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 01 Sep 2017 02:41:04 +0100
+
 openssh (1:7.5p1-9) unstable; urgency=medium
 
   * Run debian/tests/regress with "set -x".
