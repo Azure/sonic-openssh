@@ -1,6 +1,9 @@
 openssh (1:7.5p1-10) UNRELEASED; urgency=medium
 
   * Tell haveged to create the pid file we expect.
+  * Give up and use systemctl to start haveged if running under systemd;
+    this shouldn't be necessary, but I can't seem to get things working in
+    the Ubuntu autopkgtest environment otherwise.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 01 Sep 2017 02:41:04 +0100
 
