@@ -1,3 +1,106 @@
+openssh (1:7.6p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (https://www.openssh.com/txt/release-7.6):
+    - SECURITY: sftp-server(8): In read-only mode, sftp-server was
+      incorrectly permitting creation of zero-length files. Reported by
+      Michal Zalewski.
+    - ssh(1): Delete SSH protocol version 1 support, associated
+      configuration options and documentation (LP: #1584321).
+    - ssh(1)/sshd(8): Remove support for the hmac-ripemd160 MAC.
+    - ssh(1)/sshd(8): Remove support for the arcfour, blowfish and CAST
+      ciphers.
+    - Refuse RSA keys <1024 bits in length and improve reporting for keys
+      that do not meet this requirement.
+    - ssh(1): Do not offer CBC ciphers by default.
+    - ssh(1): Add RemoteCommand option to specify a command in the ssh
+      config file instead of giving it on the client's command line.  This
+      allows the configuration file to specify the command that will be
+      executed on the remote host.
+    - sshd(8): Add ExposeAuthInfo option that enables writing details of the
+      authentication methods used (including public keys where applicable)
+      to a file that is exposed via a $SSH_USER_AUTH environment variable in
+      the subsequent session.
+    - ssh(1): Add support for reverse dynamic forwarding.  In this mode, ssh
+      will act as a SOCKS4/5 proxy and forward connections to destinations
+      requested by the remote SOCKS client.  This mode is requested using
+      extended syntax for the -R and RemoteForward options and, because it
+      is implemented solely at the client, does not require the server be
+      updated to be supported.
+    - sshd(8): Allow LogLevel directive in sshd_config Match blocks.
+    - ssh-keygen(1): Allow inclusion of arbitrary string or flag certificate
+      extensions and critical options.
+    - ssh-keygen(1): Allow ssh-keygen to use a key held in ssh-agent as a CA
+      when signing certificates.
+    - ssh(1)/sshd(8): Allow IPQoS=none in ssh/sshd to not set an explicit
+      ToS/DSCP value and just use the operating system default.
+    - ssh-add(1): Add -q option to make ssh-add quiet on success.
+    - ssh(1): Expand the StrictHostKeyChecking option with two new settings.
+      The first "accept-new" will automatically accept hitherto-unseen keys
+      but will refuse connections for changed or invalid hostkeys.  This is
+      a safer subset of the current behaviour of StrictHostKeyChecking=no.
+      The second setting "off", is a synonym for the current behaviour of
+      StrictHostKeyChecking=no: accept new host keys, and continue
+      connection for hosts with incorrect hostkeys.  A future release will
+      change the meaning of StrictHostKeyChecking=no to the behaviour of
+      "accept-new".
+    - ssh(1): Add SyslogFacility option to ssh(1) matching the equivalent
+      option in sshd(8).
+    - ssh(1): Use HostKeyAlias if specified instead of hostname for matching
+      host certificate principal names.
+    - sftp(1): Implement sorting for globbed ls.
+    - ssh(1): Add a user@host prefix to client's "Permission denied"
+      messages, useful in particular when using "stacked" connections (e.g.
+      ssh -J) where it's not clear which host is denying.
+    - ssh(1): Accept unknown EXT_INFO extension values that contain \0
+      characters.  These are legal, but would previously cause fatal
+      connection errors if received.
+    - sftp(1): Print '?' instead of incorrect link count (that the protocol
+      doesn't provide) for remote listings.
+    - ssh(1): Return failure rather than fatal() for more cases during
+      session multiplexing negotiations.  Causes the session to fall back to
+      a non-mux connection if they occur.
+    - ssh(1): Mention that the server may send debug messages to explain
+      public key authentication problems under some circumstances.
+    - Translate OpenSSL error codes to better report incorrect passphrase
+      errors when loading private keys.
+    - sshd(8): Adjust compatibility patterns for WinSCP to correctly
+      identify versions that implement only the legacy DH group exchange
+      scheme (closes: #877800).
+    - ssh(1): Print the "Killed by signal 1" message only at LogLevel
+      verbose so that it is not shown at the default level; prevents it from
+      appearing during ssh -J and equivalent ProxyCommand configs.
+    - ssh-keygen(1): When generating all hostkeys (ssh-keygen -A), clobber
+      existing keys if they exist but are zero length.  Zero-length keys
+      could previously be made if ssh-keygen failed or was interrupted part
+      way through generating them.
+    - ssh-keyscan(1): Avoid double-close() on file descriptors.
+    - sshd(8): Avoid reliance on shared use of pointers shared between
+      monitor and child sshd processes.
+    - sshd_config(8): Document available AuthenticationMethods.
+    - ssh(1): Avoid truncation in some login prompts.
+    - ssh(1): Make "--" before the hostname terminate argument processing
+      after the hostname too (closes: #873201).
+    - ssh-keygen(1): Switch from aes256-cbc to aes256-ctr for encrypting
+      new-style private keys.
+    - ssh(1): Warn and do not attempt to use keys when the public and
+      private halves do not match.
+    - sftp(1): Don't print verbose error message when ssh disconnects from
+      under sftp.
+    - sshd(8): Fix keepalive scheduling problem: prevent activity on a
+      forwarded port from preventing the keepalive from being sent.
+    - sshd(8): When started without root privileges, don't require the
+      privilege separation user or path to exist.
+    - ssh(1)/sshd(8): Correctness fix for channels implementation: accept
+      channel IDs greater than 0x7FFFFFFF.
+    - sshd(8): Expose list of completed authentication methods to PAM via
+      the SSH_AUTH_INFO_0 PAM environment variable.
+    - ssh(1)/sshd(8): Fix several problems in the tun/tap forwarding code,
+      mostly to do with host/network byte order confusion.
+    - sshd(8): Avoid Linux seccomp violations on ppc64le over the socketcall
+      syscall.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
+
 openssh (1:7.5p1-10) unstable; urgency=medium
 
   * Tell haveged to create the pid file we expect.

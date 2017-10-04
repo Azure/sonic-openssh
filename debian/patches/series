@@ -4,7 +4,6 @@ selinux-role.patch
 ssh-vulnkey-compat.patch
 keepalive-extensions.patch
 syslog-level-silent.patch
-quieter-signals.patch
 user-group-modes.patch
 scp-quoting.patch
 shell-path.patch
@@ -22,12 +21,8 @@ no-openssl-version-status.patch
 gnome-ssh-askpass2-icon.patch
 systemd-readiness.patch
 debian-config.patch
-regress-integrity-robust.patch
 no-dsa-host-key-by-default.patch
 restore-authorized_keys2.patch
-s390-missing-header.patch
-x32-syntax-error.patch
-fix-incoming-compression-statistics.patch
 seccomp-s390-flock-ipc.patch
 seccomp-getuid-geteuid.patch
 seccomp-s390-ioctl-ep11-crypto.patch

@@ -1,3 +1,19 @@
+openssh (1:7.6p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 7.6 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1): Delete SSH protocol version 1 support, associated configuration
+     options and documentation.
+   * ssh(1)/sshd(8): Remove support for the hmac-ripemd160 MAC.
+   * ssh(1)/sshd(8): Remove support for the arcfour, blowfish and CAST
+     ciphers.
+   * Refuse RSA keys <1024 bits in length and improve reporting for keys
+     that do not meet this requirement.
+   * ssh(1): Do not offer CBC ciphers by default.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
+
 openssh (1:7.5p1-1) experimental; urgency=medium
 
   OpenSSH 7.5 includes a number of changes that may affect existing

@@ -1,4 +1,4 @@
-From 24262015f741a40c9374b15d24c23b8e98b7b7ae Mon Sep 17 00:00:00 2001
+From 326b09bce8058629980cc92f289fd7912269eb98 Mon Sep 17 00:00:00 2001
 From: Matthew Vernon <matthew@debian.org>
 Date: Sun, 9 Feb 2014 16:10:05 +0000
 Subject: Include the Debian version in our identification
@@ -9,34 +9,30 @@ generally just try attacks rather than bothering to scan for
 vulnerable-looking version strings.  (However, see debian-banner.patch.)
 
 Forwarded: not-needed
-Last-Update: 2013-09-14
+Last-Update: 2017-10-04
 
 Patch-Name: package-versioning.patch
 ---
- sshconnect.c | 4 ++--
+ sshconnect.c | 2 +-
  sshd.c       | 2 +-
  version.h    | 7 ++++++-
- 3 files changed, 9 insertions(+), 4 deletions(-)
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 881b0886..d9ed5910 100644
+index 7ce2716c..3280b310 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -526,10 +526,10 @@ send_client_banner(int connection_out, int minor1)
+@@ -517,7 +517,7 @@ send_client_banner(int connection_out, int minor1)
+ {
  	/* Send our own protocol version identification. */
- 	if (compat20) {
- 		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
--		    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_VERSION);
-+		    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE);
- 	} else {
- 		xasprintf(&client_version_string, "SSH-%d.%d-%.100s\n",
--		    PROTOCOL_MAJOR_1, minor1, SSH_VERSION);
-+		    PROTOCOL_MAJOR_1, minor1, SSH_RELEASE);
- 	}
+ 	xasprintf(&client_version_string, "SSH-%d.%d-%.100s\r\n",
+-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_VERSION);
++	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE);
  	if (atomicio(vwrite, connection_out, client_version_string,
  	    strlen(client_version_string)) != strlen(client_version_string))
+ 		fatal("write: %.100s", strerror(errno));
 diff --git a/sshd.c b/sshd.c
-index 9221632e..602f4740 100644
+index af1ec337..eccf81bb 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -378,7 +378,7 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
@@ -49,11 +45,11 @@ index 9221632e..602f4740 100644
  	    options.version_addendum);
  
 diff --git a/version.h b/version.h
-index c86e2097..f4d8b13a 100644
+index e093f623..b7c5ad2a 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@
- #define SSH_VERSION	"OpenSSH_7.5"
+ #define SSH_VERSION	"OpenSSH_7.6"
  
  #define SSH_PORTABLE	"p1"
 -#define SSH_RELEASE	SSH_VERSION SSH_PORTABLE

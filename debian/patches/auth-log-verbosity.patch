@@ -1,11 +1,11 @@
-From e08f96cf1105a3ee9a23de7102d593443e031e0c Mon Sep 17 00:00:00 2001
+From 50e9edb57b6808cbbf63fe3433febb103baac1e8 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:02 +0000
 Subject: Quieten logs when multiple from= restrictions are used
 
 Bug-Debian: http://bugs.debian.org/630606
 Forwarded: no
-Last-Update: 2013-09-14
+Last-Update: 2017-10-04
 
 Patch-Name: auth-log-verbosity.patch
 ---
@@ -15,10 +15,10 @@ Patch-Name: auth-log-verbosity.patch
  3 files changed, 30 insertions(+), 9 deletions(-)
 
 diff --git a/auth-options.c b/auth-options.c
-index 57b49f7f..7eb87b35 100644
+index bed00eef..ccdd0b20 100644
 --- a/auth-options.c
 +++ b/auth-options.c
-@@ -59,8 +59,19 @@ int forced_tun_device = -1;
+@@ -59,10 +59,21 @@ int forced_tun_device = -1;
  /* "principals=" option. */
  char *authorized_principals = NULL;
  
@@ -27,6 +27,8 @@ index 57b49f7f..7eb87b35 100644
 +int logged_cert_hostip = 0;
 +
  extern ServerOptions options;
+ 
+ /* XXX refactor to be stateless */
  
 +void
 +auth_start_parse_options(void)
@@ -38,7 +40,7 @@ index 57b49f7f..7eb87b35 100644
  void
  auth_clear_options(void)
  {
-@@ -316,10 +327,13 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
+@@ -322,10 +333,13 @@ auth_parse_options(struct passwd *pw, char *opts, const char *file,
  				/* FALLTHROUGH */
  			case 0:
  				free(patterns);
@@ -56,7 +58,7 @@ index 57b49f7f..7eb87b35 100644
  				auth_debug_add("Your host '%.200s' is not "
  				    "permitted to use this key for login.",
  				    remote_host);
-@@ -543,11 +557,14 @@ parse_option_list(struct sshbuf *oblob, struct passwd *pw,
+@@ -549,11 +563,14 @@ parse_option_list(struct sshbuf *oblob, struct passwd *pw,
  					break;
  				case 0:
  					/* no match */
@@ -77,7 +79,7 @@ index 57b49f7f..7eb87b35 100644
  					    "is not permitted to use this "
  					    "certificate for login.",
 diff --git a/auth-options.h b/auth-options.h
-index 52cbb42a..82355276 100644
+index 547f0163..4de0f14d 100644
 --- a/auth-options.h
 +++ b/auth-options.h
 @@ -33,6 +33,7 @@ extern int forced_tun_device;
@@ -85,14 +87,14 @@ index 52cbb42a..82355276 100644
  extern char *authorized_principals;
  
 +void	auth_start_parse_options(void);
- int	auth_parse_options(struct passwd *, char *, char *, u_long);
+ int	auth_parse_options(struct passwd *, char *, const char *, u_long);
  void	auth_clear_options(void);
  int	auth_cert_options(struct sshkey *, struct passwd *, const char **);
 diff --git a/auth2-pubkey.c b/auth2-pubkey.c
-index 3e5706f4..6dc5076e 100644
+index 169839b0..43f880b6 100644
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
-@@ -566,6 +566,7 @@ process_principals(FILE *f, char *file, struct passwd *pw,
+@@ -269,6 +269,7 @@ process_principals(FILE *f, const char *file, struct passwd *pw,
  	u_long linenum = 0;
  	u_int i, found_principal = 0;
  
@@ -100,16 +102,16 @@ index 3e5706f4..6dc5076e 100644
  	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
  		/* Always consume entire input */
  		if (found_principal)
-@@ -771,6 +772,7 @@ check_authkeys_file(FILE *f, char *file, Key* key, struct passwd *pw)
- 	found_key = 0;
+@@ -471,6 +472,7 @@ check_authkeys_file(FILE *f, char *file, struct sshkey *key, struct passwd *pw)
+ 	u_long linenum = 0;
+ 	struct sshkey *found = NULL;
  
- 	found = NULL;
 +	auth_start_parse_options();
  	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
  		char *cp, *key_options = NULL, *fp = NULL;
  		const char *reason = NULL;
-@@ -921,6 +923,7 @@ user_cert_trusted_ca(struct passwd *pw, Key *key)
- 	if (key_cert_check_authority(key, 0, 1,
+@@ -624,6 +626,7 @@ user_cert_trusted_ca(struct passwd *pw, struct sshkey *key)
+ 	if (sshkey_cert_check_authority(key, 0, 1,
  	    use_authorized_principals ? NULL : pw->pw_name, &reason) != 0)
  		goto fail_reason;
 +	auth_start_parse_options();

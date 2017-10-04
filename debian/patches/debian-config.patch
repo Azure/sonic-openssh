@@ -1,4 +1,4 @@
-From cf60afd3438c444e20b114fbd799168002c74aae Mon Sep 17 00:00:00 2001
+From 4847e512c0b94c615b838904a5f139a761bee284 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -26,7 +26,7 @@ Document all of this.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2016-12-26
+Last-Update: 2017-10-04
 
 Patch-Name: debian-config.patch
 ---
@@ -39,10 +39,10 @@ Patch-Name: debian-config.patch
  6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 70fac682..4d92d174 100644
+index be3d5873..41f36aa8 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1950,7 +1950,7 @@ fill_default_options(Options * options)
+@@ -1940,7 +1940,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -52,10 +52,10 @@ index 70fac682..4d92d174 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index 22e56a7b..6aa57c46 100644
+index 711fe608..f1b01c56 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -785,6 +785,16 @@ directive in
+@@ -764,6 +764,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -72,7 +72,7 @@ index 22e56a7b..6aa57c46 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -793,6 +803,17 @@ Enables trusted X11 forwarding.
+@@ -772,6 +782,17 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -91,7 +91,7 @@ index 22e56a7b..6aa57c46 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index 4e879cd2..093c8366 100644
+index bcb9f153..1b676fb2 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -103,10 +103,10 @@ index 4e879cd2..093c8366 100644
  #   ForwardAgent no
  #   ForwardX11 no
 +#   ForwardX11Trusted yes
- #   RhostsRSAAuthentication no
- #   RSAAuthentication yes
  #   PasswordAuthentication yes
-@@ -50,3 +51,6 @@
+ #   HostbasedAuthentication no
+ #   GSSAPIAuthentication no
+@@ -46,3 +47,6 @@
  #   VisualHostKey no
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
@@ -114,10 +114,10 @@ index 4e879cd2..093c8366 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index 093ea8a7..fc13fa51 100644
+index 1edfe761..2da7029a 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -74,6 +74,22 @@ Since the first obtained value for each parameter is used, more
+@@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
  host-specific declarations should be given near the beginning of the
  file, and general defaults at the end.
  .Pp
@@ -140,7 +140,7 @@ index 093ea8a7..fc13fa51 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -715,11 +731,12 @@ elapsed.
+@@ -683,11 +699,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,
@@ -204,10 +204,10 @@ index c01dd656..f68edf36 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 603c2ba7..cc5d9fb0 100644
+index 79676a95..16be4f62 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -57,6 +57,28 @@ Arguments may optionally be enclosed in double quotes
+@@ -55,6 +55,28 @@ Arguments may optionally be enclosed in double quotes
  .Pq \&"
  in order to represent arguments containing spaces.
  .Pp

@@ -1,4 +1,4 @@
-From b2195f2116754f99fff8ceae026931be3aa3cd3b Mon Sep 17 00:00:00 2001
+From 8165600205696cca8a080a5cb6746070512174e9 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 13:31:05 -0300
 Subject: Allow getuid and geteuid calls
@@ -20,7 +20,7 @@ Patch-Name: seccomp-getuid-geteuid.patch
  1 file changed, 12 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index 997b66ff..4cbaaa2e 100644
+index 6e7de311..e86aa2c9 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
 @@ -175,6 +175,18 @@ static const struct sock_filter preauth_insns[] = {

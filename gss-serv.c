@@ -1,4 +1,4 @@
-/* $OpenBSD: gss-serv.c,v 1.29 2015/05/22 03:50:02 djm Exp $ */
+/* $OpenBSD: gss-serv.c,v 1.30 2017/06/24 06:34:38 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
@@ -547,6 +547,15 @@ ssh_gssapi_update_creds(ssh_gssapi_ccache *store) {
 	restore_uid();
 
 	return ok;
+}
+
+/* Privileged */
+const char *ssh_gssapi_displayname(void)
+{
+	if (gssapi_client.displayname.length == 0 ||
+	    gssapi_client.displayname.value == NULL)
+		return NULL;
+	return (char *)gssapi_client.displayname.value;
 }
 
 #endif

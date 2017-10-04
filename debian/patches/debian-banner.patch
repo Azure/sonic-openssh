@@ -1,4 +1,4 @@
-From 0eb0f49c5c32940fd192ef98e0d13bf5407da27b Mon Sep 17 00:00:00 2001
+From ae96c03ce51af2c529bfa2f2de57f4fa938ea552 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2015-11-29
+Last-Update: 2017-10-04
 
 Patch-Name: debian-banner.patch
 ---
@@ -19,45 +19,45 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index ca73f7c5..a391cf4b 100644
+index 9889fb0a..b0146405 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -166,6 +166,7 @@ initialize_server_options(ServerOptions *options)
- 	options->version_addendum = NULL;
+@@ -167,6 +167,7 @@ initialize_server_options(ServerOptions *options)
  	options->fingerprint_hash = -1;
  	options->disable_forwarding = -1;
+ 	options->expose_userauth_info = -1;
 +	options->debian_banner = -1;
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -339,6 +340,8 @@ fill_default_server_options(ServerOptions *options)
- 		options->fingerprint_hash = SSH_FP_HASH_DEFAULT;
- 	if (options->disable_forwarding == -1)
+@@ -342,6 +343,8 @@ fill_default_server_options(ServerOptions *options)
  		options->disable_forwarding = 0;
+ 	if (options->expose_userauth_info == -1)
+ 		options->expose_userauth_info = 0;
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
  	assemble_algorithms(options);
  
-@@ -425,6 +428,7 @@ typedef enum {
- 	sAuthenticationMethods, sHostKeyAgent, sPermitUserRC,
+@@ -429,6 +432,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
+ 	sExposeAuthInfo,
 +	sDebianBanner,
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -577,6 +581,7 @@ static struct {
- 	{ "allowstreamlocalforwarding", sAllowStreamLocalForwarding, SSHCFG_ALL },
+@@ -582,6 +586,7 @@ static struct {
  	{ "fingerprinthash", sFingerprintHash, SSHCFG_GLOBAL },
  	{ "disableforwarding", sDisableForwarding, SSHCFG_ALL },
+ 	{ "exposeauthinfo", sExposeAuthInfo, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -1866,6 +1871,10 @@ process_server_config_line(ServerOptions *options, char *line,
- 			options->fingerprint_hash = value;
- 		break;
+@@ -1907,6 +1912,10 @@ process_server_config_line(ServerOptions *options, char *line,
+ 		intptr = &options->expose_userauth_info;
+ 		goto parse_flag;
  
 +	case sDebianBanner:
 +		intptr = &options->debian_banner;
@@ -67,20 +67,20 @@ index ca73f7c5..a391cf4b 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 90dfa4c2..913a21b3 100644
+index 641e93c8..410c4275 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -191,6 +191,8 @@ typedef struct {
- 	char   *auth_methods[MAX_AUTH_METHODS];
+@@ -200,6 +200,8 @@ typedef struct {
  
  	int	fingerprint_hash;
+ 	int	expose_userauth_info;
 +
 +	int	debian_banner;
  }       ServerOptions;
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index 602f4740..f2f54b51 100644
+index eccf81bb..a5a1193d 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -378,7 +378,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
@@ -94,7 +94,7 @@ index 602f4740..f2f54b51 100644
  	    options.version_addendum);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 41ec6688..5f316481 100644
+index 7db25552..41e8c939 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -530,6 +530,11 @@ or

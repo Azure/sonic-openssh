@@ -1,4 +1,4 @@
-From 5fc5168dde0c840bf743058d235193fc27e61cab Mon Sep 17 00:00:00 2001
+From 922f3a7599d03234b6bb2ffb22a33624e7cf1953 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 16 Jan 2017 13:53:04 +0000
 Subject: Remove ssh_host_dsa_key from HostKey default
@@ -19,10 +19,10 @@ Patch-Name: no-dsa-host-key-by-default.patch
  4 files changed, 6 insertions(+), 11 deletions(-)
 
 diff --git a/servconf.c b/servconf.c
-index a391cf4b..1a7a5f18 100644
+index b0146405..5e996cf8 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -204,8 +204,6 @@ fill_default_server_options(ServerOptions *options)
+@@ -205,8 +205,6 @@ fill_default_server_options(ServerOptions *options)
  		/* fill default hostkeys for protocols */
  		options->host_key_files[options->num_host_key_files++] =
  		    _PATH_HOST_RSA_KEY_FILE;
@@ -32,7 +32,7 @@ index a391cf4b..1a7a5f18 100644
  		options->host_key_files[options->num_host_key_files++] =
  		    _PATH_HOST_ECDSA_KEY_FILE;
 diff --git a/sshd.8 b/sshd.8
-index 6355178f..f038fb82 100644
+index 02c5e1df..8c230657 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -164,11 +164,10 @@ This option must be given if
@@ -63,10 +63,10 @@ index f68edf36..92822959 100644
  #HostKey /etc/ssh/ssh_host_ed25519_key
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index cc5d9fb0..0747cc8b 100644
+index 16be4f62..ef520680 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -741,11 +741,10 @@ is not to load any certificates.
+@@ -749,11 +749,10 @@ is not to load any certificates.
  Specifies a file containing a private host key
  used by SSH.
  The defaults are

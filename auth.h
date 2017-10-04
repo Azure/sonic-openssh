@@ -1,4 +1,4 @@
-/* $OpenBSD: auth.h,v 1.89 2016/08/13 17:47:41 markus Exp $ */
+/* $OpenBSD: auth.h,v 1.93 2017/08/18 05:36:45 djm Exp $ */
 
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
@@ -44,6 +44,7 @@
 
 struct ssh;
 struct sshkey;
+struct sshbuf;
 
 typedef struct Authctxt Authctxt;
 typedef struct Authmethod Authmethod;
@@ -63,13 +64,17 @@ struct Authctxt {
 	struct passwd	*pw;		/* set if 'valid' */
 	char		*style;
 	char		*role;
+
+	/* Method lists for multiple authentication */
+	char		**auth_methods;	/* modified from server config */
+	u_int		 num_auth_methods;
+
+	/* Authentication method-specific data */
+	void		*methoddata;
 	void		*kbdintctxt;
-	char		*info;		/* Extra info for next auth_log */
 #ifdef BSD_AUTH
 	auth_session_t	*as;
 #endif
-	char		**auth_methods;	/* modified from server config */
-	u_int		 num_auth_methods;
 #ifdef KRB5
 	krb5_context	 krb5_ctx;
 	krb5_ccache	 krb5_fwd_ccache;
@@ -77,12 +82,20 @@ struct Authctxt {
 	char		*krb5_ticket_file;
 	char		*krb5_ccname;
 #endif
-	Buffer		*loginmsg;
-	void		*methoddata;
+	struct sshbuf	*loginmsg;
 
-	struct sshkey	**prev_userkeys;
-	u_int		 nprev_userkeys;
+	/* Authentication keys already used; these will be refused henceforth */
+	struct sshkey	**prev_keys;
+	u_int		 nprev_keys;
+
+	/* Last used key and ancilliary information from active auth method */
+	struct sshkey	*auth_method_key;
+	char		*auth_method_info;
+
+	/* Information exposed to session */
+	struct sshbuf	*session_info;	/* Auth info for environment */
 };
+
 /*
  * Every authentication method has to handle authentication requests for
  * non-existing users, or for users that are not allowed to login. In this
@@ -92,7 +105,7 @@ struct Authctxt {
 
 struct Authmethod {
 	char	*name;
-	int	(*userauth)(Authctxt *authctxt);
+	int	(*userauth)(struct ssh *);
 	int	*enabled;
 };
 
@@ -118,16 +131,21 @@ auth_rhosts2(struct passwd *, const char *, const char *, const char *);
 
 int      auth_password(Authctxt *, const char *);
 
-int	 hostbased_key_allowed(struct passwd *, const char *, char *, Key *);
-int	 user_key_allowed(struct passwd *, Key *, int);
-void	 pubkey_auth_info(Authctxt *, const Key *, const char *, ...)
-	    __attribute__((__format__ (printf, 3, 4)));
-void	 auth2_record_userkey(Authctxt *, struct sshkey *);
-int	 auth2_userkey_already_used(Authctxt *, struct sshkey *);
+int	 hostbased_key_allowed(struct passwd *, const char *, char *,
+	    struct sshkey *);
+int	 user_key_allowed(struct passwd *, struct sshkey *, int);
+int	 auth2_key_already_used(Authctxt *, const struct sshkey *);
 
-struct stat;
-int	 auth_secure_path(const char *, struct stat *, const char *, uid_t,
-    char *, size_t);
+/*
+ * Handling auth method-specific information for logging and prevention
+ * of key reuse during multiple authentication.
+ */
+void	 auth2_authctxt_reset_info(Authctxt *);
+void	 auth2_record_key(Authctxt *, int, const struct sshkey *);
+void	 auth2_record_info(Authctxt *authctxt, const char *, ...)
+	    __attribute__((__format__ (printf, 2, 3)))
+	    __attribute__((__nonnull__ (2)));
+void	 auth2_update_session_info(Authctxt *, const char *, const char *);
 
 #ifdef KRB5
 int	auth_krb5(Authctxt *authctxt, krb5_data *auth, char **client, krb5_data *);
@@ -150,12 +168,9 @@ void disable_forwarding(void);
 
 void	do_authentication2(Authctxt *);
 
-void	auth_info(Authctxt *authctxt, const char *, ...)
-	    __attribute__((__format__ (printf, 2, 3)))
-	    __attribute__((__nonnull__ (2)));
 void	auth_log(Authctxt *, int, int, const char *, const char *);
 void	auth_maxtries_exceeded(Authctxt *) __attribute__((noreturn));
-void	userauth_finish(Authctxt *, int, const char *, const char *);
+void	userauth_finish(struct ssh *, int, const char *, const char *);
 int	auth_root_allowed(const char *);
 
 void	userauth_send_banner(const char *);
@@ -168,8 +183,8 @@ int	 auth2_method_allowed(Authctxt *, const char *, const char *);
 
 void	privsep_challenge_enable(void);
 
-int	auth2_challenge(Authctxt *, char *);
-void	auth2_challenge_stop(Authctxt *);
+int	auth2_challenge(struct ssh *, char *);
+void	auth2_challenge_stop(struct ssh *);
 int	bsdauth_query(void *, char **, char **, u_int *, char ***, u_int **);
 int	bsdauth_respond(void *, u_int, char **);
 int	skey_query(void *, char **, char **, u_int *, char ***, u_int **);
@@ -183,22 +198,22 @@ char	*authorized_principals_file(struct passwd *);
 
 FILE	*auth_openkeyfile(const char *, struct passwd *, int);
 FILE	*auth_openprincipals(const char *, struct passwd *, int);
-int	 auth_key_is_revoked(Key *);
+int	 auth_key_is_revoked(struct sshkey *);
 
 const char	*auth_get_canonical_hostname(struct ssh *, int);
 
 HostStatus
-check_key_in_hostfiles(struct passwd *, Key *, const char *,
+check_key_in_hostfiles(struct passwd *, struct sshkey *, const char *,
     const char *, const char *);
 
 /* hostkey handling */
-Key	*get_hostkey_by_index(int);
-Key	*get_hostkey_public_by_index(int, struct ssh *);
-Key	*get_hostkey_public_by_type(int, int, struct ssh *);
-Key	*get_hostkey_private_by_type(int, int, struct ssh *);
-int	 get_hostkey_index(Key *, int, struct ssh *);
-int	 sshd_hostkey_sign(Key *, Key *, u_char **, size_t *,
-	     const u_char *, size_t, const char *, u_int);
+struct sshkey	*get_hostkey_by_index(int);
+struct sshkey	*get_hostkey_public_by_index(int, struct ssh *);
+struct sshkey	*get_hostkey_public_by_type(int, int, struct ssh *);
+struct sshkey	*get_hostkey_private_by_type(int, int, struct ssh *);
+int	 get_hostkey_index(struct sshkey *, int, struct ssh *);
+int	 sshd_hostkey_sign(struct sshkey *, struct sshkey *, u_char **,
+	     size_t *, const u_char *, size_t, const char *, u_int);
 
 /* debug messages during authentication */
 void	 auth_debug_add(const char *fmt,...) __attribute__((format(printf, 1, 2)));

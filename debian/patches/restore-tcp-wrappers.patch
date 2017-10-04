@@ -1,4 +1,4 @@
-From 9d91ede3c03c99b6584038aa07d095d7c277ad3a Mon Sep 17 00:00:00 2001
+From cdd9076a145a95c21538eedb3f728a897480c5de Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index ead34acf..a92425db 100644
+index 84bfad8c..3b30736b 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1494,6 +1494,62 @@ AC_ARG_WITH([skey],
+@@ -1503,6 +1503,62 @@ AC_ARG_WITH([skey],
  	]
  )
  
@@ -94,7 +94,7 @@ index ead34acf..a92425db 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -5117,6 +5173,7 @@ echo "                 KerberosV support: $KRB5_MSG"
+@@ -5133,6 +5189,7 @@ echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
  echo "                 Smartcard support: $SCARD_MSG"
  echo "                     S/KEY support: $SKEY_MSG"
@@ -103,10 +103,10 @@ index ead34acf..a92425db 100644
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "                   libldns support: $LDNS_MSG"
 diff --git a/sshd.8 b/sshd.8
-index 7725a692..989dd4bf 100644
+index a4201146..2ed523a2 100644
 --- a/sshd.8
 +++ b/sshd.8
-@@ -825,6 +825,12 @@ the user's home directory becomes accessible.
+@@ -839,6 +839,12 @@ the user's home directory becomes accessible.
  This file should be writable only by the user, and need not be
  readable by anyone else.
  .Pp
@@ -119,7 +119,7 @@ index 7725a692..989dd4bf 100644
  .It Pa /etc/hosts.equiv
  This file is for host-based authentication (see
  .Xr ssh 1 ) .
-@@ -929,6 +935,7 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -943,6 +949,7 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keygen 1 ,
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
@@ -128,10 +128,10 @@ index 7725a692..989dd4bf 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index 20a7a5f3..38cf9b49 100644
+index 45e50fac..a66e9ca6 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -127,6 +127,13 @@
+@@ -126,6 +126,13 @@
  #include <Security/AuthSession.h>
  #endif
  
@@ -145,7 +145,7 @@ index 20a7a5f3..38cf9b49 100644
  /* Re-exec fds */
  #define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
  #define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2)
-@@ -1992,6 +1999,24 @@ main(int ac, char **av)
+@@ -1987,6 +1994,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif
