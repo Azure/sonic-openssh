@@ -266,10 +266,11 @@ index 6ee6116d..c6390687 100644
  			return 1;
  		break;
  	case PERMIT_FORCED_ONLY:
-@@ -795,99 +796,6 @@ fakepw(void)
+@@ -794,99 +795,6 @@ fakepw(void)
+ 	return (&fake);
  }
  
- /*
+-/*
 - * Returns the remote DNS hostname as a string. The returned string must not
 - * be freed. NB. this will usually trigger a DNS query the first time it is
 - * called.
@@ -362,10 +363,9 @@ index 6ee6116d..c6390687 100644
 -	return strdup(name);
 -}
 -
--/*
+ /*
   * Return the canonical name of the host in the other side of the current
   * connection.  The host name is cached, so it is efficient to call this
-  * several times.
 diff --git a/auth2-gss.c b/auth2-gss.c
 index 1ca83577..3b5036df 100644
 --- a/auth2-gss.c
@@ -875,10 +875,11 @@ index 62559ed9..0b3ae073 100644
  	    GSS_C_MUTUAL_FLAG | GSS_C_INTEG_FLAG | deleg_flag,
  	    0, NULL, recv_tok, NULL, send_tok, flags, NULL);
  
-@@ -228,8 +383,42 @@ ssh_gssapi_import_name(Gssctxt *ctx, const char *host)
+@@ -227,9 +382,43 @@ ssh_gssapi_import_name(Gssctxt *ctx, const char *host)
+ 	return (ctx->major);
  }
  
- OM_uint32
++OM_uint32
 +ssh_gssapi_client_identity(Gssctxt *ctx, const char *name)
 +{
 +	gss_buffer_desc gssbuf;
@@ -909,7 +910,7 @@ index 62559ed9..0b3ae073 100644
 +	return(ctx->major);
 +}
 +
-+OM_uint32
+ OM_uint32
  ssh_gssapi_sign(Gssctxt *ctx, gss_buffer_t buffer, gss_buffer_t hash)
  {
 +	if (ctx == NULL) 
@@ -1199,10 +1200,11 @@ index 53993d67..2e27cbf9 100644
  
  #ifdef KRB5
  extern ssh_gssapi_mech gssapi_kerberos_mech;
-@@ -142,6 +147,28 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
+@@ -141,6 +146,28 @@ ssh_gssapi_server_ctx(Gssctxt **ctx, gss_OID oid)
+ 	return (ssh_gssapi_acquire_cred(*ctx));
  }
  
- /* Unprivileged */
++/* Unprivileged */
 +char *
 +ssh_gssapi_server_mechanisms(void) {
 +	if (supported_oids == NULL)
@@ -1224,10 +1226,9 @@ index 53993d67..2e27cbf9 100644
 +	return (res);
 +}
 +
-+/* Unprivileged */
+ /* Unprivileged */
  void
  ssh_gssapi_supported_oids(gss_OID_set *oidset)
- {
 @@ -151,7 +178,9 @@ ssh_gssapi_supported_oids(gss_OID_set *oidset)
  	gss_OID_set supported;
  

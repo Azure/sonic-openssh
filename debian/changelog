@@ -2,6 +2,9 @@ openssh (1:7.4p1-10+deb9u2) UNRELEASED; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd
     (closes: #865770).
+  * Adjust compatibility patterns for WinSCP to correctly identify versions
+    that implement only the legacy DH group exchange scheme (closes:
+    #877800).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 Jun 2017 10:19:40 +0100
 

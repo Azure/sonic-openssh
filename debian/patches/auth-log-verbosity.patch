@@ -18,7 +18,7 @@ diff --git a/auth-options.c b/auth-options.c
 index 57b49f7f..7eb87b35 100644
 --- a/auth-options.c
 +++ b/auth-options.c
-@@ -59,9 +59,20 @@ int forced_tun_device = -1;
+@@ -59,8 +59,19 @@ int forced_tun_device = -1;
  /* "principals=" option. */
  char *authorized_principals = NULL;
  
@@ -28,17 +28,16 @@ index 57b49f7f..7eb87b35 100644
 +
  extern ServerOptions options;
  
- void
++void
 +auth_start_parse_options(void)
 +{
 +	logged_from_hostip = 0;
 +	logged_cert_hostip = 0;
 +}
 +
-+void
+ void
  auth_clear_options(void)
  {
- 	no_agent_forwarding_flag = 0;
 @@ -316,10 +327,13 @@ auth_parse_options(struct passwd *pw, char *opts, char *file, u_long linenum)
  				/* FALLTHROUGH */
  			case 0:

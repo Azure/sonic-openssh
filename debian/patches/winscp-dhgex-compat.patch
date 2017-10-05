@@ -1,0 +1,40 @@
+From 2e0fa28e7b3a0fb1fdd28ecc636ba608e7ae9ebe Mon Sep 17 00:00:00 2001
+From: "dtucker@openbsd.org" <dtucker@openbsd.org>
+Date: Tue, 25 Jul 2017 09:22:25 +0000
+Subject: Fix DH group exchange compat with current WinSCP
+
+Make WinSCP patterns for SSH_OLD_DHGEX more specific to
+exclude WinSCP 5.10.x and up.  bz#2748, from martin at winscp.net, ok djm@
+
+Upstream-ID: 6fd7c32e99af3952db007aa180e73142ddbc741a
+
+Origin: https://anongit.mindrot.org/openssh.git/commit/?id=2985d4062ebf4204bbd373456a810d558698f9f5
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=2748
+Bug-Debian: https://bugs.debian.org/877800
+Last-Update: 2017-10-06
+
+Patch-Name: winscp-dhgex-compat.patch
+---
+ compat.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/compat.c b/compat.c
+index 69a104fb..58b63f7b 100644
+--- a/compat.c
++++ b/compat.c
+@@ -192,9 +192,12 @@ compat_datafellows(const char *version)
+ 		  "TTSSH/2.72*",	SSH_BUG_HOSTKEYS },
+ 		{ "WinSCP_release_4*,"
+ 		  "WinSCP_release_5.0*,"
+-		  "WinSCP_release_5.1*,"
+-		  "WinSCP_release_5.5*,"
+-		  "WinSCP_release_5.6*,"
++		  "WinSCP_release_5.1,"
++		  "WinSCP_release_5.1.*,"
++		  "WinSCP_release_5.5,"
++		  "WinSCP_release_5.5.*,"
++		  "WinSCP_release_5.6,"
++		  "WinSCP_release_5.6.*,"
+ 		  "WinSCP_release_5.7,"
+ 		  "WinSCP_release_5.7.1,"
+ 		  "WinSCP_release_5.7.2,"
