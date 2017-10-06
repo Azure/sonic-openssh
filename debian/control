@@ -17,7 +17,7 @@ Build-Depends: autotools-dev,
                libsystemd-dev [linux-any],
                libwrap0-dev | libwrap-dev,
                zlib1g-dev (>= 1:1.2.3),
-Standards-Version: 3.9.8
+Standards-Version: 4.1.0
 Uploaders: Colin Watson <cjwatson@debian.org>,
            Matthew Vernon <matthew@debian.org>,
 Homepage: http://www.openssh.com/

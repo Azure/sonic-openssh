@@ -104,6 +104,7 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
   * Use HTTPS form of copyright-format URL.
   * Adjust "Running sshd from inittab" instructions in README.Debian to
     recommend using service(8) rather than calling the init script directly.
+  * Policy version 4.1.0.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
 
