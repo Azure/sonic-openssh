@@ -102,6 +102,8 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
   * Change priorities of ssh and ssh-krb5 binary packages to optional, since
     "Priority: extra" is now deprecated.
   * Use HTTPS form of copyright-format URL.
+  * Adjust "Running sshd from inittab" instructions in README.Debian to
+    recommend using service(8) rather than calling the init script directly.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
 

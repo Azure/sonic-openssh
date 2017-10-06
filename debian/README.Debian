@@ -172,8 +172,8 @@ Running sshd from inittab
 -------------------------
 
 Some people find it useful to run the sshd server from inittab, to make sure
-that it always stays running. To do this, stop sshd ('/etc/init.d/ssh
-stop'), add the following line to /etc/inittab, and run 'telinit q':
+that it always stays running. To do this, stop sshd ('service ssh stop'),
+add the following line to /etc/inittab, and run 'telinit q':
 
   ss:2345:respawn:/usr/sbin/sshd -D
 
