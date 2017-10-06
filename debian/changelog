@@ -1,4 +1,4 @@
-openssh (1:7.6p1-1) UNRELEASED; urgency=medium
+openssh (1:7.6p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-7.6):
     - SECURITY: sftp-server(8): In read-only mode, sftp-server was
@@ -109,7 +109,7 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
     README.Debian to recommend using a drop-in file rather than copying and
     modifying the ssh.socket unit file.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 06 Oct 2017 12:36:48 +0100
 
 openssh (1:7.5p1-10) unstable; urgency=medium
 

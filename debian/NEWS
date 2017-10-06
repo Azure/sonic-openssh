@@ -1,4 +1,4 @@
-openssh (1:7.6p1-1) UNRELEASED; urgency=medium
+openssh (1:7.6p1-1) unstable; urgency=medium
 
   OpenSSH 7.6 includes a number of changes that may affect existing
   configurations:
@@ -12,7 +12,7 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
      that do not meet this requirement.
    * ssh(1): Do not offer CBC ciphers by default.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 06 Oct 2017 12:36:48 +0100
 
 openssh (1:7.5p1-1) experimental; urgency=medium
 
