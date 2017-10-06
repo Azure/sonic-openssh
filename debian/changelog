@@ -105,6 +105,9 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
   * Adjust "Running sshd from inittab" instructions in README.Debian to
     recommend using service(8) rather than calling the init script directly.
   * Policy version 4.1.0.
+  * Adjust "Per-connection sshd instances with systemd" instructions in
+    README.Debian to recommend using a drop-in file rather than copying and
+    modifying the ssh.socket unit file.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
 

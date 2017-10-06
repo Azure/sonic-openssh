@@ -203,9 +203,17 @@ authenticated and unauthenticated connections; see
 https://bugzilla.redhat.com/show_bug.cgi?id=963268 for more discussion.
 
 The provided ssh.socket unit file sets ListenStream=22.  If you need to have
-it listen on a different address or port, then you will need to do this by
-copying /lib/systemd/system/ssh.socket to /etc/systemd/system/ssh.socket and
-modifying the ListenStream option.  See systemd.socket(5) for details.
+it listen on a different address or port, then you will need to do this as
+follows (modifying ListenStream to match your requirements):
+
+  mkdir -p /etc/systemd/system/ssh.socket.d
+  cat >/etc/systemd/system/ssh.socket.d/listen.conf <<EOF
+  [Socket]
+  ListenStream=2222
+  EOF
+  systemctl daemon-reload
+
+See systemd.socket(5) for details.
 
 Terminating SSH sessions cleanly on shutdown/reboot with systemd
 ----------------------------------------------------------------
