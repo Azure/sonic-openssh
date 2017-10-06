@@ -36,3 +36,4 @@ ssh-keygen-null-deref.patch
 unbreak-unix-forwarding-for-root.patch
 fix-incoming-compression-statistics.patch
 winscp-dhgex-compat.patch
+dash-dash-before-hostname.patch
