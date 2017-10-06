@@ -153,7 +153,7 @@ Description: secure shell (SSH) sftp server module, for SFTP access from remote 
  are individually implemented as extensions.
 
 Package: ssh
-Priority: extra
+Priority: optional
 Architecture: all
 Pre-Depends: dpkg (>= 1.17.5),
 Depends: openssh-client (>= ${binary:Version}),
@@ -166,7 +166,7 @@ Description: secure shell client and server (metapackage)
 
 Package: ssh-krb5
 Section: oldlibs
-Priority: extra
+Priority: optional
 Architecture: all
 Depends: openssh-client (>= ${binary:Version}),
          openssh-server (>= ${binary:Version}),
