@@ -101,6 +101,7 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
   * Build-depend on debhelper (>= 9.20160709~) rather than dh-systemd.
   * Change priorities of ssh and ssh-krb5 binary packages to optional, since
     "Priority: extra" is now deprecated.
+  * Use HTTPS form of copyright-format URL.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
 
