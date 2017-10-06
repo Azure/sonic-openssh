@@ -98,6 +98,7 @@ openssh (1:7.6p1-1) UNRELEASED; urgency=medium
       mostly to do with host/network byte order confusion.
     - sshd(8): Avoid Linux seccomp violations on ppc64le over the socketcall
       syscall.
+  * Build-depend on debhelper (>= 9.20160709~) rather than dh-systemd.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 04 Oct 2017 12:34:34 +0100
 
