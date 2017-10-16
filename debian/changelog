@@ -1,3 +1,12 @@
+openssh (1:7.6p1-3) UNRELEASED; urgency=medium
+
+  * Remove the decade-old ssh-krb5 transitional package; upgrades of
+    openssh-server will preserve existing configuration, and new
+    installations should just enable GSSAPIAuthentication and
+    GSSAPIKeyExchange in sshd_config (closes: #878626).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 16 Oct 2017 10:30:50 +0100
+
 openssh (1:7.6p1-2) unstable; urgency=medium
 
   * Apply upstream patch to fix PermitOpen argument handling.
