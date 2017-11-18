@@ -1,4 +1,4 @@
-openssh (1:7.4p1-10+deb9u2) UNRELEASED; urgency=medium
+openssh (1:7.4p1-10+deb9u2) stretch; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd
     (closes: #865770).
@@ -8,7 +8,7 @@ openssh (1:7.4p1-10+deb9u2) UNRELEASED; urgency=medium
   * Make "--" before the hostname terminate argument processing after the
     hostname too (closes: #873201).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 26 Jun 2017 10:19:40 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 Nov 2017 09:37:22 +0000
 
 openssh (1:7.4p1-10+deb9u1) stretch; urgency=medium
 
