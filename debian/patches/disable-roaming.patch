@@ -1,4 +1,4 @@
-From d6139ee6bbf3bda83ebefc73d8079d0897488d1d Mon Sep 17 00:00:00 2001
+From beb5d60922b914b095b75b1ce30196062e574d87 Mon Sep 17 00:00:00 2001
 From: Yves-Alexis Perez <corsac@debian.org>
 Date: Tue, 12 Jan 2016 17:14:33 -0800
 Subject: disable roaming in ssh client
@@ -7,6 +7,8 @@ SSH roaming implementation in openssh client is vulnerable to an
 information leak (CVE-2016-0777) and heap-based buffer overflow
 (CVE-2016-0778). The information leak is somehow attacker-controller,
 and it is for example possible to extract the ssh client private keys.
+
+Patch-Name: disable-roaming.patch
 ---
  readconf.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
