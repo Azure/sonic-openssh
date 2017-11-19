@@ -1,11 +1,11 @@
-openssh (1:6.7p1-5+deb8u4) UNRELEASED; urgency=medium
+openssh (1:6.7p1-5+deb8u4) jessie; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd
     (closes: #865770).
   * Make "--" before the hostname terminate argument processing after the
     hostname too (closes: #873201).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 18 Nov 2017 10:44:36 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 18 Nov 2017 10:56:29 +0000
 
 openssh (1:6.7p1-5+deb8u3) jessie-security; urgency=high
 
