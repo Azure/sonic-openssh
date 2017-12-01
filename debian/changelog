@@ -1,9 +1,13 @@
 openssh (1:7.6p1-3) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Remove the decade-old ssh-krb5 transitional package; upgrades of
     openssh-server will preserve existing configuration, and new
     installations should just enable GSSAPIAuthentication and
     GSSAPIKeyExchange in sshd_config (closes: #878626).
+
+  [ Anders Kaseorg ]
+  * debian/systemd/ssh-agent.service: Add missing dbus dependency.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 16 Oct 2017 10:30:50 +0100
 
