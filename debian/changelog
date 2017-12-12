@@ -9,6 +9,11 @@ openssh (1:7.6p1-3) UNRELEASED; urgency=medium
   [ Anders Kaseorg ]
   * debian/systemd/ssh-agent.service: Add missing dbus dependency.
 
+  [ Jason Duerstock ]
+  * Add a "pkg.openssh.nognome" build profile, which disables building the
+    ssh-askpass-gnome binary package and avoids the build-dependency on
+    libgtk-3-dev (closes: #883819).
+
  -- Colin Watson <cjwatson@debian.org>  Mon, 16 Oct 2017 10:30:50 +0100
 
 openssh (1:7.6p1-2) unstable; urgency=medium
