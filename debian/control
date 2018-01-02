@@ -182,6 +182,7 @@ Description: interactive X program to prompt users for a passphrase for ssh-add
  provided to add to your choice and/or confusion.
 
 Package: openssh-client-udeb
+Build-Profiles: <!noudeb>
 Package-Type: udeb
 Section: debian-installer
 Priority: optional
@@ -196,6 +197,7 @@ Description: secure shell client for the Debian installer
  This package provides the ssh client for use in debian-installer.
 
 Package: openssh-server-udeb
+Build-Profiles: <!noudeb>
 Package-Type: udeb
 Section: debian-installer
 Priority: optional
