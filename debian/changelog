@@ -6,6 +6,7 @@ openssh (1:7.6p1-3) UNRELEASED; urgency=medium
     installations should just enable GSSAPIAuthentication and
     GSSAPIKeyExchange in sshd_config (closes: #878626).
   * Support the "noudeb" build profile.
+  * Fix putty-transfer regression test.
 
   [ Anders Kaseorg ]
   * debian/systemd/ssh-agent.service: Add missing dbus dependency.
