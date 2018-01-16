@@ -1,4 +1,4 @@
-openssh (1:7.6p1-3) UNRELEASED; urgency=medium
+openssh (1:7.6p1-3) unstable; urgency=medium
 
   [ Colin Watson ]
   * Remove the decade-old ssh-krb5 transitional package; upgrades of
@@ -16,7 +16,7 @@ openssh (1:7.6p1-3) UNRELEASED; urgency=medium
     ssh-askpass-gnome binary package and avoids the build-dependency on
     libgtk-3-dev (closes: #883819).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 16 Oct 2017 10:30:50 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 16 Jan 2018 17:41:08 +0000
 
 openssh (1:7.6p1-2) unstable; urgency=medium
 
