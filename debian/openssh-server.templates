@@ -13,3 +13,11 @@ _Description: Disable SSH password authentication for root?
  attacks). However, it may break systems that are set up with the
  expectation of being able to SSH as root using password authentication. You
  should only make this change if you do not need to do that.
+
+Template: openssh-server/password-authentication
+Type: boolean
+Default: true
+Description: Allow password authentication?
+ By default, the SSH server will allow authenticating using a password.
+ You may want to change this if all users on this system authenticate using
+ a stronger authentication method, such as public keys.

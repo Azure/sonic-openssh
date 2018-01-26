@@ -88,12 +88,18 @@ create_sshdconfig() {
 	# false -> yes.
 	db_get openssh-server/permit-root-login
 	permit_root_login="$RET"
+	db_get openssh-server/password-authentication
+	password_authentication="$RET"
 
 	trap cleanup EXIT
 	new_config="$(tempfile)"
 	cp -a /usr/share/openssh/sshd_config "$new_config"
 	if [ "$permit_root_login" != true ]; then
 		sed -i 's/^#*PermitRootLogin .*/PermitRootLogin yes/' \
+			"$new_config"
+	fi
+	if [ "$password_authentication" != true ]; then
+		sed -i 's/^#PasswordAuthentication .*/PasswordAuthentication no/' \
 			"$new_config"
 	fi
 	mkdir -p /etc/ssh

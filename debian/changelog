@@ -1,6 +1,9 @@
 openssh (1:7.6p1-4) UNRELEASED; urgency=medium
 
   * Move VCS to salsa.debian.org.
+  * Add a preseeding-only openssh-server/password-authentication debconf
+    template that can be used to disable password authentication (closes:
+    #878945).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 22 Jan 2018 01:24:57 +0000
 
