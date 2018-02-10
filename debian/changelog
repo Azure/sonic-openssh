@@ -1,11 +1,11 @@
-openssh (1:7.6p1-4) UNRELEASED; urgency=medium
+openssh (1:7.6p1-4) unstable; urgency=medium
 
   * Move VCS to salsa.debian.org.
   * Add a preseeding-only openssh-server/password-authentication debconf
     template that can be used to disable password authentication (closes:
     #878945).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 22 Jan 2018 01:24:57 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 10 Feb 2018 02:31:46 +0000
 
 openssh (1:7.6p1-3) unstable; urgency=medium
 
