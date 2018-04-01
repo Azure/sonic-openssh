@@ -1,10 +1,10 @@
-openssh (1:7.6p1-5) UNRELEASED; urgency=medium
+openssh (1:7.6p1-5) unstable; urgency=medium
 
   * Explicitly build-depend on pkg-config, rather than implicitly
     build-depending on it via libgtk-3-dev (thanks, Aurelien Jarno; closes:
     #894558).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 01 Apr 2018 21:35:12 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 01 Apr 2018 21:37:19 +0100
 
 openssh (1:7.6p1-4) unstable; urgency=medium
 
