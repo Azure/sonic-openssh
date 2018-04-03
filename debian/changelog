@@ -1,4 +1,4 @@
-openssh (1:7.7p1-1) UNRELEASED; urgency=medium
+openssh (1:7.7p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-7.7):
     - ssh(1)/sshd(8): Drop compatibility support for some very old SSH
@@ -85,7 +85,7 @@ openssh (1:7.7p1-1) UNRELEASED; urgency=medium
       "branch target injection" style (variant 2) of the Spectre
       branch-prediction vulnerability.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 03 Apr 2018 08:33:10 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Apr 2018 12:40:24 +0100
 
 openssh (1:7.6p1-5) unstable; urgency=medium
 
