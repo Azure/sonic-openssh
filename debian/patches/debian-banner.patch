@@ -1,4 +1,4 @@
-From 39e593d349cde42b6b5aac669a42eb1749ef70af Mon Sep 17 00:00:00 2001
+From 9ec4db016a0510c449f9cefeb3299c2e755698c7 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2017-10-04
+Last-Update: 2018-04-03
 
 Patch-Name: debian-banner.patch
 ---
@@ -19,7 +19,7 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index 3fff3d53..5be47aec 100644
+index 3fff3d53..0a8f6fd6 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -177,6 +177,7 @@ initialize_server_options(ServerOptions *options)
@@ -61,7 +61,7 @@ index 3fff3d53..5be47aec 100644
  
 +	case sDebianBanner:
 +		intptr = &options->debian_banner;
-+		goto parse_int;
++		goto parse_flag;
 +
  	case sDeprecated:
  	case sIgnore:

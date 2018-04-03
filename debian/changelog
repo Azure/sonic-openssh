@@ -1,3 +1,9 @@
+openssh (1:7.7p1-2) UNRELEASED; urgency=medium
+
+  * Fix parsing of DebianBanner option (closes: #894730).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Apr 2018 18:41:26 +0100
+
 openssh (1:7.7p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-7.7):

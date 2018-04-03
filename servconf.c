@@ -2063,7 +2063,7 @@ process_server_config_line(ServerOptions *options, char *line,
 
 	case sDebianBanner:
 		intptr = &options->debian_banner;
-		goto parse_int;
+		goto parse_flag;
 
 	case sDeprecated:
 	case sIgnore:
