@@ -1,4 +1,4 @@
-From 8165600205696cca8a080a5cb6746070512174e9 Mon Sep 17 00:00:00 2001
+From 979c7c92111e0682d02888be50a3322c7de6520a Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 13:31:05 -0300
 Subject: Allow getuid and geteuid calls

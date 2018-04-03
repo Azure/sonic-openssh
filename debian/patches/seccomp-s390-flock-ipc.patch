@@ -1,4 +1,4 @@
-From a5a99443e190a90eb511215aa7c1fa940f79b901 Mon Sep 17 00:00:00 2001
+From a8dba2230bc3de444c48e48d1bfd57aca1db82b1 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 10:53:04 -0300
 Subject: Allow flock and ipc syscall for s390 architecture

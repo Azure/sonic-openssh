@@ -1,3 +1,92 @@
+openssh (1:7.7p1-1) UNRELEASED; urgency=medium
+
+  * New upstream release (https://www.openssh.com/txt/release-7.7):
+    - ssh(1)/sshd(8): Drop compatibility support for some very old SSH
+      implementations, including ssh.com <=2.* and OpenSSH <= 3.*.  These
+      versions were all released in or before 2001 and predate the final SSH
+      RFCs.  The support in question isn't necessary for RFC-compliant SSH
+      implementations.
+    - Add experimental support for PQC XMSS keys (Extended Hash-Based
+      Signatures).
+    - sshd(8): Add an "rdomain" criterion for the sshd_config Match keyword
+      to allow conditional configuration that depends on which routing
+      domain a connection was received on.
+    - sshd_config(5): Add an optional rdomain qualifier to the ListenAddress
+      directive to allow listening on different routing domains.
+    - sshd(8): Add "expiry-time" option for authorized_keys files to allow
+      for expiring keys.
+    - ssh(1): Add a BindInterface option to allow binding the outgoing
+      connection to an interface's address (basically a more usable
+      BindAddress; closes: #289592).
+    - ssh(1): Expose device allocated for tun/tap forwarding via a new %T
+      expansion for LocalCommand.  This allows LocalCommand to be used to
+      prepare the interface.
+    - sshd(8): Expose the device allocated for tun/tap forwarding via a new
+      SSH_TUNNEL environment variable.  This allows automatic setup of the
+      interface and surrounding network configuration automatically on the
+      server.
+    - ssh(1)/scp(1)/sftp(1): Add URI support to ssh, sftp and scp, e.g.
+      ssh://user@host or sftp://user@host/path.  Additional connection
+      parameters described in draft-ietf-secsh-scp-sftp-ssh-uri-04 are not
+      implemented since the ssh fingerprint format in the draft uses the
+      deprecated MD5 hash with no way to specify any other algorithm.
+    - ssh-keygen(1): Allow certificate validity intervals that specify only
+      a start or stop time (instead of both or neither).
+    - sftp(1): Allow "cd" and "lcd" commands with no explicit path argument.
+      lcd will change to the local user's home directory as usual.  cd will
+      change to the starting directory for session (because the protocol
+      offers no way to obtain the remote user's home directory).
+    - sshd(8): When doing a config test with sshd -T, only require the
+      attributes that are actually used in Match criteria rather than (an
+      incomplete list of) all criteria.
+    - ssh(1)/sshd(8): More strictly check signature types during key
+      exchange against what was negotiated.  Prevents downgrade of RSA
+      signatures made with SHA-256/512 to SHA-1.
+    - sshd(8): Fix support for client that advertise a protocol version of
+      "1.99" (indicating that they are prepared to accept both SSHv1 and
+      SSHv2).  This was broken in OpenSSH 7.6 during the removal of SSHv1
+      support.
+    - ssh(1): Warn when the agent returns a ssh-rsa (SHA1) signature when a
+      rsa-sha2-256/512 signature was requested.  This condition is possible
+      when an old or non-OpenSSH agent is in use.
+    - ssh-agent(1): Fix regression introduced in 7.6 that caused ssh-agent
+      to fatally exit if presented an invalid signature request message.
+    - sshd_config(5): Accept yes/no flag options case-insensitively, as has
+      been the case in ssh_config(5) for a long time (LP: #1656557).
+    - ssh(1): Improve error reporting for failures during connection.  Under
+      some circumstances misleading errors were being shown.
+    - ssh-keyscan(1): Add -D option to allow printing of results directly in
+      SSHFP format.
+    - ssh(1): Compatibility fix for some servers that erroneously drop the
+      connection when the IUTF8 (RFC8160) option is sent.
+    - scp(1): Disable RemoteCommand and RequestTTY in the ssh session
+      started by scp (sftp was already doing this).
+    - ssh-keygen(1): Refuse to create a certificate with an unusable number
+      of principals.
+    - ssh-keygen(1): Fatally exit if ssh-keygen is unable to write all the
+      public key during key generation.  Previously it would silently ignore
+      errors writing the comment and terminating newline.
+    - ssh(1): Do not modify hostname arguments that are addresses by
+      automatically forcing them to lower-case.  Instead canonicalise them
+      jo resolve ambiguities (e.g. ::0001 => ::1) before they are matched
+      against known_hosts.
+    - ssh(1): Don't accept junk after "yes" or "no" responses to hostkey
+      prompts.
+    - sftp(1): Have sftp print a warning about shell cleanliness when
+      decoding the first packet fails, which is usually caused by shells
+      polluting stdout of non-interactive startups.
+    - ssh(1)/sshd(8): Switch timers in packet code from using wall-clock
+      time to monotonic time, allowing the packet layer to better function
+      over a clock step and avoiding possible integer overflows during
+      steps.
+    - sshd(8): Correctly detect MIPS ABI in use at configure time.  Fixes
+      sandbox violations on some environments.
+    - Build and link with "retpoline" flags when available to mitigate the
+      "branch target injection" style (variant 2) of the Spectre
+      branch-prediction vulnerability.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Apr 2018 08:33:10 +0100
+
 openssh (1:7.6p1-5) unstable; urgency=medium
 
   * Explicitly build-depend on pkg-config, rather than implicitly

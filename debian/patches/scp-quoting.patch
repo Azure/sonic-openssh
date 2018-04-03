@@ -1,4 +1,4 @@
-From ef7aa8189491e0b43f14f7f15fb5e66903f7e185 Mon Sep 17 00:00:00 2001
+From e800454207f4d7a0c402f129029b8282209cdf74 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Nicolas=20Valc=C3=A1rcel?= <nvalcarcel@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:59 +0000
 Subject: Adjust scp quoting in verbose mode
@@ -17,10 +17,10 @@ Patch-Name: scp-quoting.patch
  1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/scp.c b/scp.c
-index a533eb09..12e3199d 100644
+index 31e6709f..2bbf6938 100644
 --- a/scp.c
 +++ b/scp.c
-@@ -194,8 +194,16 @@ do_local_cmd(arglist *a)
+@@ -198,8 +198,16 @@ do_local_cmd(arglist *a)
  
  	if (verbose_mode) {
  		fprintf(stderr, "Executing:");

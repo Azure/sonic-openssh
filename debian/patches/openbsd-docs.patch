@@ -1,4 +1,4 @@
-From 7e53354725eeb002e6126a73fd5f294ed9f9b03e Mon Sep 17 00:00:00 2001
+From aac4f0438e6fb33bbcda11e50483aa38f657d5f1 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -44,7 +44,7 @@ index ef0de085..149846c8 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 5f1ec09b..dfbc65dd 100644
+index 3525d7d1..39767e62 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -176,9 +176,7 @@ key in
@@ -69,7 +69,7 @@ index 5f1ec09b..dfbc65dd 100644
  .It Fl a Ar rounds
  When saving a new-format private key (i.e. an ed25519 key or when the
  .Fl o
-@@ -676,7 +672,7 @@ option.
+@@ -685,7 +681,7 @@ option.
  Valid generator values are 2, 3, and 5.
  .Pp
  Screened DH groups may be installed in
@@ -78,7 +78,7 @@ index 5f1ec09b..dfbc65dd 100644
  It is important that this file contains moduli of a range of bit lengths and
  that both ends of a connection share common moduli.
  .Sh CERTIFICATES
-@@ -863,7 +859,7 @@ on all machines
+@@ -872,7 +868,7 @@ on all machines
  where the user wishes to log in using public key authentication.
  There is no need to keep the contents of this file secret.
  .Pp
@@ -88,10 +88,10 @@ index 5f1ec09b..dfbc65dd 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 3cc94688..2a2aab30 100644
+index 0ef7c170..54e21d88 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -842,6 +842,10 @@ implements public key authentication protocol automatically,
+@@ -846,6 +846,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8
@@ -103,7 +103,7 @@ index 3cc94688..2a2aab30 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index 2ed523a2..02c5e1df 100644
+index c8299d5e..378aeb9f 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -65,7 +65,7 @@ over an insecure network.
@@ -115,7 +115,7 @@ index 2ed523a2..02c5e1df 100644
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -850,7 +850,7 @@ This file is for host-based authentication (see
+@@ -856,7 +856,7 @@ This file is for host-based authentication (see
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
@@ -124,7 +124,7 @@ index 2ed523a2..02c5e1df 100644
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange"
  key exchange method.
  The file format is described in
-@@ -950,7 +950,6 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -954,7 +954,6 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
@@ -133,10 +133,10 @@ index 2ed523a2..02c5e1df 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 41e8c939..79676a95 100644
+index 45044a70..44b91846 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -382,8 +382,7 @@ then no banner is displayed.
+@@ -383,8 +383,7 @@ then no banner is displayed.
  By default, no banner is displayed.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

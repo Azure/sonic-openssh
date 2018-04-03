@@ -8,7 +8,6 @@ user-group-modes.patch
 scp-quoting.patch
 shell-path.patch
 dnssec-sshfp.patch
-auth-log-verbosity.patch
 mention-ssh-keygen-on-keychange.patch
 package-versioning.patch
 debian-banner.patch
@@ -21,10 +20,7 @@ no-openssl-version-status.patch
 gnome-ssh-askpass2-icon.patch
 systemd-readiness.patch
 debian-config.patch
-no-dsa-host-key-by-default.patch
 restore-authorized_keys2.patch
 seccomp-s390-flock-ipc.patch
 seccomp-getuid-geteuid.patch
 seccomp-s390-ioctl-ep11-crypto.patch
-permitopen-argument-handling.patch
-fix-regress-putty-transfer.patch
