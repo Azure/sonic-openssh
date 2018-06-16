@@ -6,3 +6,6 @@ ed6ae9c1a014a08ff5db3d768f01f2e427eeb476
 openssh_7.7p1.orig.tar.gz
 446fe9ed171f289f0d62197dffdbfdaaf21c49f2
 1536900
+debianTag="debian/%e%%%V"
+patchedTag="patched/%e%%%V"
+upstreamTag="upstream/%U"
