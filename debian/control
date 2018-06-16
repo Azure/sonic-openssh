@@ -22,7 +22,7 @@ Standards-Version: 4.1.0
 Uploaders: Colin Watson <cjwatson@debian.org>,
            Matthew Vernon <matthew@debian.org>,
 Homepage: http://www.openssh.com/
-Vcs-Git: https://salsa.debian.org/ssh-team/openssh
+Vcs-Git: https://salsa.debian.org/ssh-team/openssh.git
 Vcs-Browser: https://salsa.debian.org/ssh-team/openssh
 
 Package: openssh-client
