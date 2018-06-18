@@ -1,5 +1,6 @@
 [Unit]
 Description=OpenSSH Agent
+Documentation=man:ssh-agent(1)
 Before=graphical-session-pre.target
 ConditionPathExists=/etc/X11/Xsession.options
 Wants=dbus.socket
