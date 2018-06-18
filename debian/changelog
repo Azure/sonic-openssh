@@ -2,6 +2,7 @@ openssh (1:7.7p1-3) UNRELEASED; urgency=medium
 
   [ Colin Watson ]
   * Adjust git-dpm tagging configuration.
+  * Remove no-longer-used Lintian overrides from openssh-server and ssh.
 
   [ Juri Grabowski ]
   * Add rescue.target with ssh support.
