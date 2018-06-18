@@ -2456,7 +2456,7 @@ openssh (1:5.1p1-1) unstable; urgency=low
         its effective configuration to stdout and exit. Extended test mode
         also supports the specification of connection parameters (username,
         source address and hostname) to test the application of
-        sshd_config(5) Match rules. 
+        sshd_config(5) Match rules.
       + ssh(1) now prints the number of bytes transferred and the overall
         connection throughput for SSH protocol 2 sessions when in verbose
         mode (previously these statistics were displayed for protocol 1
@@ -3116,7 +3116,7 @@ openssh (1:4.3p2-6) unstable; urgency=low
 openssh (1:4.3p2-5.1) unstable; urgency=low
 
   * NMU to update SELinux patch, bringing it in line with current selinux
-    releases.  The patch for this NMU is simply the Bug#394795 patch, 
+    releases.  The patch for this NMU is simply the Bug#394795 patch,
     and no other changes.                       (closes: #394795)
 
  -- Manoj Srivastava <srivasta@debian.org>  Mon,  23 Oct 2006 14:11:24 -0500
@@ -4193,8 +4193,8 @@ openssh (1:3.4p1-1) testing; urgency=high
   * save old sshd_configs to sshd_config.dpkg-old when auto-generating a
     new one
   * tell/ask the user about PriviledgeSeparation
-  * /etc/init.d/ssh run will now create the chroot empty dir if necessary 
-  * Remove our previous statoverride on /usr/bin/ssh (only for people 
+  * /etc/init.d/ssh run will now create the chroot empty dir if necessary
+  * Remove our previous statoverride on /usr/bin/ssh (only for people
     upgrading from a version where we'd put one in ourselves!)
   * Stop slandering Russia, since someone asked so nicely (Closes: #148951)
   * Reduce the sleep time in /etc/init.d/ssh during a restart
@@ -4250,7 +4250,7 @@ openssh (1:3.0.2p1-9) unstable; urgency=high
 
   * Thanks to those who NMUd
   * The only change in this version is to debian/control - I've removed
-    the bit that says you can't export it from the US - it would look 
+    the bit that says you can't export it from the US - it would look
     pretty daft to say this about a package in main! Also, it's now OK
     to use crypto in France, so I've edited that comment slightly
   * Correct a path in README.Debian too (Closes: #138634)
@@ -4287,8 +4287,8 @@ openssh (1:3.0.2p1-8.1) unstable; urgency=low
 openssh (1:3.0.2p1-8) unstable; urgency=critical
 
   * Security fix - patch from upstream (Closes: #137209, #137210)
-  * Undo the changes in the unreleased -7, since they appear to break 
-    things here. Accordingly, the code change is minimal, and I'm 
+  * Undo the changes in the unreleased -7, since they appear to break
+    things here. Accordingly, the code change is minimal, and I'm
     happy to get it into testing ASAP
 
  -- Matthew Vernon <matthew@debian.org>  Thu,  7 Mar 2002 14:25:23 +0000
@@ -4314,7 +4314,7 @@ openssh (1:3.0.2p1-5) unstable; urgency=medium
 
 openssh (1:3.0.2p1-4) unstable; urgency=medium
 
-  * If we're asked to not run sshd, stop any running sshd's first 
+  * If we're asked to not run sshd, stop any running sshd's first
     (Closes: #129327)
 
  -- Matthew Vernon <matthew@debian.org>  Wed, 16 Jan 2002 21:24:16 +0000
@@ -4329,7 +4329,7 @@ openssh (1:3.0.2p1-3) unstable; urgency=high
 
 openssh (1:3.0.2p1-2) unstable; urgency=high
 
-  * Fix postinst to not automatically overwrite sshd_config (!) 
+  * Fix postinst to not automatically overwrite sshd_config (!)
     (Closes: #127842, #127867)
   * Add section in README.Debian about the PermitRootLogin setting
 
@@ -4342,7 +4342,7 @@ openssh (1:3.0.2p1-1) unstable; urgency=high
   * Capitalise IETF (Closes: #125379)
   * Refer to the correct sftp-server location (Closes: #126854, #126224)
   * Do what we're asked re SetUID ssh (Closes: #124065, #124154, #123247)
-  * Ask people upgrading from potato if they want a new conffile 
+  * Ask people upgrading from potato if they want a new conffile
     (Closes: #125642)
   * Fix a typo in postinst (Closes: #122192, #122410, #123440)
   * Frob the default config a little (Closes: #122284, #125827, #125696,
@@ -4410,7 +4410,7 @@ openssh (1:2.9p2-5) unstable; urgency=high
   * patch from Peter Benie to DTRT wrt X forwarding if the server refuses
     us access (Closes: #48297)
   * patch from upstream CVS to fix port forwarding (Closes: #107132)
-  * patch from Jonathan Amery to document ssh-keygen behaviour 
+  * patch from Jonathan Amery to document ssh-keygen behaviour
     (Closes:#106643, #107512)
   * patch to postinst from Jonathan Amery (Closes: #106411)
   * patch to manpage from Jonathan Amery (Closes: #107364)
@@ -4419,7 +4419,7 @@ openssh (1:2.9p2-5) unstable; urgency=high
   * patch from Ian Jackson to cause us to destroy a file when we scp it
     onto itself, rather than dumping bits of our memory into it, which was
     a security hole (see #51955)
-  * patch from Jonathan Amery to document lack of Kerberos support 
+  * patch from Jonathan Amery to document lack of Kerberos support
     (Closes: #103726)
   * patch from Matthew Vernon to make the 'waiting for connections to
     terminate' message more helpful (Closes: #50308)
@@ -4480,9 +4480,9 @@ openssh (1:2.5.2p2-2.2) unstable; urgency=low
  -- Matthew Vernon <matthew@debian.org>  Thu, 28 Jun 2001 23:15:42 +0100
 
 openssh (1:2.5.2p2-2.1) unstable; urgency=low
- 
+
   * NMU
-  * Remove duplicate Build-Depends for libssl096-dev and change it to 
+  * Remove duplicate Build-Depends for libssl096-dev and change it to
     depend on libssl-dev instaed.  Also adding in virtual | real package
     style build-deps.  (Closes: #93793, #75228)
   * Removing add-log entry (Closes: #79266)
@@ -4500,7 +4500,7 @@ openssh (1:2.5.2p2-2.1) unstable; urgency=low
   * postinst bugs fixed (Closes: #88057, #88066, #88196, #88405, #88612)
     (Closes: #88774, #88196, #89556, #90123, #90228, #90833, #87814, #85465)
   * Adding in debconf dependency
- 
+
  -- Ivan E. Moore II <rkrusty@debian.org>  Mon, 16 Apr 2001 14:11:04 +0100
 
 openssh (1:2.5.2p2-2) unstable; urgency=high
@@ -4526,7 +4526,7 @@ openssh (1:2.5.1p2-2) unstable; urgency=low
   * fix broken dpkg-statoverride test in postinst
     (closes: #89612, #90474, #90460, #89605)
   * NMU bug fixed but not closed in last upload  (closes: #88206)
-  
+
  -- Philip Hands <phil@hands.com>  Fri, 23 Mar 2001 16:11:33 +0000
 
 openssh (1:2.5.1p2-1) unstable; urgency=high
@@ -4556,7 +4556,7 @@ openssh (1:2.5.1p1-1.7) unstable; urgency=high
 
 openssh (1:2.5.1p1-1.6) unstable; urgency=high
 
-  * Fixes postinst to handle overrides that are already there. Damn, I 
+  * Fixes postinst to handle overrides that are already there. Damn, I
     should have noticed the bug earlier.
 
  -- Christian Kurz <shorty@debian.org>  Wed, 28 Feb 2001 22:35:00 +0100
@@ -4584,7 +4584,7 @@ openssh (1:2.5.1p1-1.3) unstable; urgency=low
 openssh (1:2.5.1p1-1.2) unstable; urgency=low
 
   * Added Conflict with sftp, since we now provide our own sftp-client.
-  * Added a fix for our broken dpkg-statoverride call in the 
+  * Added a fix for our broken dpkg-statoverride call in the
     2.3.0p1-13.
   * Fixed some config pathes in the comments of sshd_config.
   * Removed ssh-key-exchange-vulnerability-patch since it's not needed
@@ -4628,7 +4628,7 @@ openssh (1:2.3.0p1-1.13) unstable; urgency=low
 openssh (1:2.3.0p1-1.12) unstable; urgency=high
 
   * Added suggest for xbase-clients to control-file. (Closes #85227)
-  * Applied patch from Markus Friedl to fix a vulnerability in 
+  * Applied patch from Markus Friedl to fix a vulnerability in
     the rsa keyexchange.
   * Fixed position of horizontal line. (Closes: #83613)
   * Fixed hopefully the grep problem in the config-file. (Closes: #78802)
@@ -4717,28 +4717,28 @@ openssh (1:2.3.0p1-1.1) unstable; urgency=medium
   * Update Build-Depends to point to new libssl096.
   * This upstream release doesn't leak any information depending
     on the setting of PermitRootLogin (Closes: #59933)
-  * New upstream release contains fix against forcing a client to 
+  * New upstream release contains fix against forcing a client to
     do X/agent forwarding (Closes: #76788)
-  * Changed template to contain correct path to the documentation 
+  * Changed template to contain correct path to the documentation
     (Closes: #67245)
-  * Added --with-4in6 switch as compile option into debian/rules.	
-  * Added --with-ipv4-default as compile option into debian/rules. 
+  * Added --with-4in6 switch as compile option into debian/rules.
+  * Added --with-ipv4-default as compile option into debian/rules.
     (Closes: #75037)
-  * Changed default path to also contain /usr/local/bin and 
+  * Changed default path to also contain /usr/local/bin and
     /usr/X11R6/bin (Closes: #62472,#54567,#62810)
   * Changed path to sftp-server in sshd_config to match the
     our package (Closes: #68347)
-  * Replaced OpenBSDh with OpenBSD in the init-script.	
+  * Replaced OpenBSDh with OpenBSD in the init-script.
   * Changed location to original source in copyright.head
   * Changed behaviour of init-script when invoked with the option
     restart (Closes: #68706,#72560)
-  * Added a note about -L option of scp to README.Debian	
+  * Added a note about -L option of scp to README.Debian
   * ssh won't print now the motd if invoked with -t option
     (Closes: #59933)
-  * RFC.nroff.gz get's now converted into RFC.gz. (Closes: #63867)	
-  * Added a note about tcp-wrapper support to README.Debian 
+  * RFC.nroff.gz get's now converted into RFC.gz. (Closes: #63867)
+  * Added a note about tcp-wrapper support to README.Debian
     (Closes: #72807,#22190)
-  * Removed two unneeded options from building process.	
+  * Removed two unneeded options from building process.
   * Added sshd.pam into debian dir and install it.
   * Commented out unnecessary call to dh_installinfo.
   * Added a line to sshd.pam so that limits will be paid attention
@@ -4751,10 +4751,10 @@ openssh (1:2.3.0p1-1.1) unstable; urgency=medium
     (Closes: #51747)
   * scp should now have no more problems with shell-init-files that
     produces ouput (Closes: #56280,#59873)
-  * ssh now prints the motd correctly (Closes: #66926)	
+  * ssh now prints the motd correctly (Closes: #66926)
   * ssh upgrade should disable ssh daemon only if users has choosen
     to do so (Closes: #67478)
-  * ssh can now be installed suid (Closes: #70879)	
+  * ssh can now be installed suid (Closes: #70879)
   * Modified debian/rules to support hurd.
 
  -- Christian Kurz <shorty@debian.org>  Wed, 27 Dec 2000 20:06:57 +0100
@@ -4811,7 +4811,7 @@ openssh (1:1.2.3-9) frozen unstable; urgency=low
     (closes: #64424, #66437, #66859)  *RC*
   * typos in config (closes: #66779, #66780)
   * sshd_not_to_be_run could be assumed to be true, in error, if the config
-    script died in an unusual way --- I've reversed this (closes: #66335)  
+    script died in an unusual way --- I've reversed this (closes: #66335)
   * Apply Zack Weinberg <zack@wolery.cumb.org>'s patch to ssh-askpass-ptk
     (closes: #65981)
   * change default for PermitRootLogin to "no" (closes: #66406)
@@ -4874,7 +4874,7 @@ openssh (1:1.2.3-4) frozen unstable; urgency=low
 openssh (1:1.2.3-3) frozen unstable; urgency=low
 
   * redirect sshd's file descriptors to /dev/null in init to
-    prevent debconf from locking up during installation 
+    prevent debconf from locking up during installation
     ** grave bug just submited by me **
 
  -- Philip Hands <phil@hands.com>  Thu, 20 Apr 2000 17:10:59 +0100
@@ -4922,7 +4922,7 @@ openssh (1:1.2.2-1.3) unstable; urgency=low
   * Moved setting upgrade_to_openssh isdefault flag to the place
     where preinst would abort. This means no double question to most
     users, people who currently suffer from "can't upgrade" may need
-    to run apt-get install ssh twice. Did not do the same for 
+    to run apt-get install ssh twice. Did not do the same for
     use_old_init_script, as the situation is a bit different, and
     less common (closes: #54010, #56224)
   * Check for existance of ssh-keygen before attempting to use it in
@@ -4959,7 +4959,7 @@ openssh (1:1.2.2-1.1) frozen unstable; urgency=low
   * Non-maintainer upload.
   * Integrated scp pipe buffer patch from Ben Collins
     <benc@debian.org>, should now work even if reading
-    a pipe gives less than fstat st_blksize bytes. 
+    a pipe gives less than fstat st_blksize bytes.
     Should now work on Alpha and Sparc Linux (closes: #53697, #52071)
   * Made ssh depend on libssl09 (>= 0.9.4-3) (closes: #51393)
   * Integrated patch from Ben Collins <benc@debian.org>
@@ -4979,7 +4979,7 @@ openssh (1:1.2.2-1) frozen unstable; urgency=medium
   * patch SSHD_PAM_SERVICE back into auth-pam.c, again :-/
     (closes: #49902, #55872, #56959)
   * uncoment the * line in ssh_config (closes: #56444)
-  
+
   * #54894 & #49902 are release critical, so this should go in frozen
 
  -- Philip Hands <phil@hands.com>  Wed,  9 Feb 2000 04:52:04 +0000
@@ -5085,7 +5085,7 @@ openssh (1:1.2pre7-2) unstable; urgency=low
 
   * use pam patch from Ben Collins <bcollins@debian.org>
   * add slogin symlink to Makefile.in
-  * change /usr/bin/login to LOGIN_PROGRAM define of /bin/login 
+  * change /usr/bin/login to LOGIN_PROGRAM define of /bin/login
   * sort out debconf usage
   * patch from Tommi Virtanen <tv@debian.org>'s makes ssh-add use ssh-askpass
 
