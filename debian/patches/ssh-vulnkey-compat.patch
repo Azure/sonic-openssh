@@ -17,7 +17,7 @@ Patch-Name: ssh-vulnkey-compat.patch
  2 files changed, 2 insertions(+)
 
 diff --git a/readconf.c b/readconf.c
-index c8e79299..1f1be778 100644
+index c8e792991..1f1be7789 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -189,6 +189,7 @@ static struct {
@@ -29,7 +29,7 @@ index c8e79299..1f1be778 100644
  	{ "useroaming", oDeprecated },
  	{ "usersh", oDeprecated },
 diff --git a/servconf.c b/servconf.c
-index cbbea05b..3fff3d53 100644
+index cbbea05bf..3fff3d531 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -576,6 +576,7 @@ static struct {

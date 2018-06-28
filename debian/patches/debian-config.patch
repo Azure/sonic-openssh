@@ -39,7 +39,7 @@ Patch-Name: debian-config.patch
  6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 50349e23..efcf2d62 100644
+index 50349e238..efcf2d628 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -1916,7 +1916,7 @@ fill_default_options(Options * options)
@@ -52,7 +52,7 @@ index 50349e23..efcf2d62 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index f8fc26d2..8a03db95 100644
+index f8fc26d2a..8a03db952 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -768,6 +768,16 @@ directive in
@@ -91,7 +91,7 @@ index f8fc26d2..8a03db95 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index bcb9f153..1b676fb2 100644
+index bcb9f153d..1b676fb2c 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -114,7 +114,7 @@ index bcb9f153..1b676fb2 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index ca052884..ed6e5d02 100644
+index ca0528842..ed6e5d026 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
@@ -155,7 +155,7 @@ index ca052884..ed6e5d02 100644
  from stealing or tampering with data belonging to trusted X11
  clients.
 diff --git a/sshd_config b/sshd_config
-index 86263d71..de9cc9fe 100644
+index 86263d713..de9cc9fe2 100644
 --- a/sshd_config
 +++ b/sshd_config
 @@ -57,8 +57,9 @@ AuthorizedKeysFile	.ssh/authorized_keys
@@ -204,7 +204,7 @@ index 86263d71..de9cc9fe 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 44b91846..4c7ee425 100644
+index 44b918463..4c7ee4254 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,28 @@ Arguments may optionally be enclosed in double quotes

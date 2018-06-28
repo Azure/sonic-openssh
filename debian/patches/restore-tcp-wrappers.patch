@@ -22,13 +22,13 @@ Last-Update: 2014-10-07
 
 Patch-Name: restore-tcp-wrappers.patch
 ---
- configure.ac | 57 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ configure.ac | 57 ++++++++++++++++++++++++++++++++++++++++++++++++++++
  sshd.8       |  7 +++++++
- sshd.c       | 25 +++++++++++++++++++++++++
+ sshd.c       | 25 +++++++++++++++++++++++
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index 1cd5eab6..3e23e60d 100644
+index 1cd5eab6c..3e23e60d6 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1566,6 +1566,62 @@ AC_ARG_WITH([skey],
@@ -103,7 +103,7 @@ index 1cd5eab6..3e23e60d 100644
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "                   libldns support: $LDNS_MSG"
 diff --git a/sshd.8 b/sshd.8
-index 968ba66b..c8299d5e 100644
+index 968ba66bb..c8299d5e5 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -845,6 +845,12 @@ the user's home directory becomes accessible.
@@ -128,7 +128,7 @@ index 968ba66b..c8299d5e 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index e88185ef..4ed0364f 100644
+index e88185efa..4ed0364f2 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -127,6 +127,13 @@

@@ -12,7 +12,7 @@ Patch-Name: gnome-ssh-askpass2-icon.patch
  1 file changed, 2 insertions(+)
 
 diff --git a/contrib/gnome-ssh-askpass2.c b/contrib/gnome-ssh-askpass2.c
-index 535a6927..e37a1338 100644
+index 535a69274..e37a13382 100644
 --- a/contrib/gnome-ssh-askpass2.c
 +++ b/contrib/gnome-ssh-askpass2.c
 @@ -211,6 +211,8 @@ main(int argc, char **argv)

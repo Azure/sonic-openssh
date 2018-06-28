@@ -20,7 +20,7 @@ Patch-Name: seccomp-getuid-geteuid.patch
  1 file changed, 12 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index 6e7de311..e86aa2c9 100644
+index 6e7de3114..e86aa2c91 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
 @@ -175,6 +175,18 @@ static const struct sock_filter preauth_insns[] = {
