@@ -19,7 +19,7 @@ Patch-Name: package-versioning.patch
  3 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 58f9eac8..15d8b807 100644
+index 58f9eac8a..15d8b807e 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -638,7 +638,7 @@ send_client_banner(int connection_out, int minor1)
@@ -32,7 +32,7 @@ index 58f9eac8..15d8b807 100644
  	    strlen(client_version_string)) != strlen(client_version_string))
  		fatal("write: %.100s", strerror(errno));
 diff --git a/sshd.c b/sshd.c
-index 6d911c19..9a7f5495 100644
+index 6d911c19a..9a7f5495c 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -384,7 +384,7 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
@@ -45,7 +45,7 @@ index 6d911c19..9a7f5495 100644
  	    options.version_addendum);
  
 diff --git a/version.h b/version.h
-index ea52b26f..a3fa6e0b 100644
+index ea52b26f5..a3fa6e0b9 100644
 --- a/version.h
 +++ b/version.h
 @@ -3,4 +3,9 @@

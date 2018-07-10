@@ -22,7 +22,7 @@ Patch-Name: seccomp-s390-flock-ipc.patch
  1 file changed, 6 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index ca75cc71..6e7de311 100644
+index ca75cc719..6e7de3114 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
 @@ -166,6 +166,9 @@ static const struct sock_filter preauth_insns[] = {

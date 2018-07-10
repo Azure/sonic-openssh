@@ -13,7 +13,7 @@ Patch-Name: doc-hash-tab-completion.patch
  1 file changed, 3 insertions(+)
 
 diff --git a/ssh_config.5 b/ssh_config.5
-index 84dcd52c..ca052884 100644
+index 84dcd52cc..ca0528842 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -784,6 +784,9 @@ Note that existing names and addresses in known hosts files

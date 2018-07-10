@@ -19,7 +19,7 @@ Patch-Name: seccomp-s390-ioctl-ep11-crypto.patch
  1 file changed, 2 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index e86aa2c9..98062f15 100644
+index e86aa2c91..98062f152 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
 @@ -250,6 +250,8 @@ static const struct sock_filter preauth_insns[] = {

@@ -17,7 +17,7 @@ Patch-Name: scp-quoting.patch
  1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/scp.c b/scp.c
-index 31e6709f..2bbf6938 100644
+index 31e6709fb..2bbf6938e 100644
 --- a/scp.c
 +++ b/scp.c
 @@ -198,8 +198,16 @@ do_local_cmd(arglist *a)

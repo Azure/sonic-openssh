@@ -14,7 +14,7 @@ Patch-Name: mention-ssh-keygen-on-keychange.patch
  1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 8ab01c0e..58f9eac8 100644
+index 8ab01c0ef..58f9eac8a 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -1141,9 +1141,13 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,

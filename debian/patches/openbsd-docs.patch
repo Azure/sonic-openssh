@@ -22,7 +22,7 @@ Patch-Name: openbsd-docs.patch
  5 files changed, 13 insertions(+), 15 deletions(-)
 
 diff --git a/moduli.5 b/moduli.5
-index ef0de085..149846c8 100644
+index ef0de0850..149846c8c 100644
 --- a/moduli.5
 +++ b/moduli.5
 @@ -21,7 +21,7 @@
@@ -44,7 +44,7 @@ index ef0de085..149846c8 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 3525d7d1..39767e62 100644
+index 3525d7d17..39767e621 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
 @@ -176,9 +176,7 @@ key in
@@ -88,7 +88,7 @@ index 3525d7d1..39767e62 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 0ef7c170..54e21d88 100644
+index 0ef7c1709..54e21d88a 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -846,6 +846,10 @@ implements public key authentication protocol automatically,
@@ -103,7 +103,7 @@ index 0ef7c170..54e21d88 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index c8299d5e..378aeb9f 100644
+index c8299d5e5..378aeb9f5 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -65,7 +65,7 @@ over an insecure network.
@@ -133,7 +133,7 @@ index c8299d5e..378aeb9f 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 45044a70..44b91846 100644
+index 45044a70f..44b918463 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -383,8 +383,7 @@ then no banner is displayed.

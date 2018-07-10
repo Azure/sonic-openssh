@@ -16,7 +16,7 @@ Patch-Name: shell-path.patch
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sshconnect.c b/sshconnect.c
-index 3805d35d..8ab01c0e 100644
+index 3805d35d9..8ab01c0ef 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
 @@ -239,7 +239,7 @@ ssh_proxy_connect(struct ssh *ssh, const char *host, u_short port,

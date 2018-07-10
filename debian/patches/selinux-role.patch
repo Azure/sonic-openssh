@@ -31,7 +31,7 @@ Patch-Name: selinux-role.patch
  15 files changed, 97 insertions(+), 30 deletions(-)
 
 diff --git a/auth.h b/auth.h
-index 23ce67ca..15ba7073 100644
+index 23ce67caf..15ba7073e 100644
 --- a/auth.h
 +++ b/auth.h
 @@ -65,6 +65,7 @@ struct Authctxt {
@@ -43,7 +43,7 @@ index 23ce67ca..15ba7073 100644
  	/* Method lists for multiple authentication */
  	char		**auth_methods;	/* modified from server config */
 diff --git a/auth2.c b/auth2.c
-index c34f58c4..be5e9f15 100644
+index c34f58c45..be5e9f15f 100644
 --- a/auth2.c
 +++ b/auth2.c
 @@ -218,7 +218,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
@@ -81,7 +81,7 @@ index c34f58c4..be5e9f15 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			packet_disconnect("no authentication methods enabled");
 diff --git a/monitor.c b/monitor.c
-index 868fb0d2..ed37458f 100644
+index 868fb0d2d..ed37458fb 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -128,6 +128,7 @@ int mm_answer_sign(int, Buffer *);
@@ -158,7 +158,7 @@ index 868fb0d2..ed37458f 100644
  	buffer_put_int(m, 1);
  	buffer_put_cstring(m, s->tty);
 diff --git a/monitor.h b/monitor.h
-index ec41404c..4c7955d7 100644
+index ec41404c7..4c7955d7a 100644
 --- a/monitor.h
 +++ b/monitor.h
 @@ -68,6 +68,8 @@ enum monitor_reqtype {
@@ -171,7 +171,7 @@ index ec41404c..4c7955d7 100644
  
  struct monitor {
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index e749efc1..7b2d06c6 100644
+index e749efc18..7b2d06c65 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -331,10 +331,10 @@ mm_auth2_read_banner(void)
@@ -219,7 +219,7 @@ index e749efc1..7b2d06c6 100644
  int
  mm_auth_password(struct ssh *ssh, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 0970d1f8..492de5c8 100644
+index 0970d1f87..492de5c85 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
 @@ -43,7 +43,8 @@ int mm_is_monitor(void);
@@ -233,7 +233,7 @@ index 0970d1f8..492de5c8 100644
  char *mm_auth2_read_banner(void);
  int mm_auth_password(struct ssh *, char *);
 diff --git a/openbsd-compat/port-linux.c b/openbsd-compat/port-linux.c
-index 8c5325cc..8a3e5c68 100644
+index 8c5325cc3..8a3e5c68d 100644
 --- a/openbsd-compat/port-linux.c
 +++ b/openbsd-compat/port-linux.c
 @@ -27,6 +27,12 @@
@@ -314,7 +314,7 @@ index 8c5325cc..8a3e5c68 100644
  	/* XXX: should these calls fatal() upon failure in enforcing mode? */
  
 diff --git a/openbsd-compat/port-linux.h b/openbsd-compat/port-linux.h
-index 3c22a854..c8812942 100644
+index 3c22a854d..c88129428 100644
 --- a/openbsd-compat/port-linux.h
 +++ b/openbsd-compat/port-linux.h
 @@ -19,8 +19,8 @@
@@ -329,7 +329,7 @@ index 3c22a854..c8812942 100644
  void ssh_selinux_setfscreatecon(const char *);
  #endif
 diff --git a/platform.c b/platform.c
-index 18c7751d..380ee3a4 100644
+index 18c7751de..380ee3a41 100644
 --- a/platform.c
 +++ b/platform.c
 @@ -143,7 +143,7 @@ platform_setusercontext(struct passwd *pw)
@@ -351,7 +351,7 @@ index 18c7751d..380ee3a4 100644
  }
  
 diff --git a/platform.h b/platform.h
-index ea4f9c58..60d72ffe 100644
+index ea4f9c584..60d72ffe7 100644
 --- a/platform.h
 +++ b/platform.h
 @@ -25,7 +25,7 @@ void platform_post_fork_parent(pid_t child_pid);
@@ -364,7 +364,7 @@ index ea4f9c58..60d72ffe 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index 58826db1..ff301c98 100644
+index 58826db16..ff301c983 100644
 --- a/session.c
 +++ b/session.c
 @@ -1322,7 +1322,7 @@ safely_chroot(const char *path, uid_t uid)
@@ -413,7 +413,7 @@ index 58826db1..ff301c98 100644
  	/* Set window size from the packet. */
  	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
 diff --git a/session.h b/session.h
-index 54dd1f0c..8535ebce 100644
+index 54dd1f0ca..8535ebcef 100644
 --- a/session.h
 +++ b/session.h
 @@ -76,7 +76,7 @@ void	 session_pty_cleanup2(Session *);
@@ -426,7 +426,7 @@ index 54dd1f0c..8535ebce 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 4ed0364f..6d911c19 100644
+index 4ed0364f2..6d911c19a 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -679,7 +679,7 @@ privsep_postauth(Authctxt *authctxt)
@@ -439,7 +439,7 @@ index 4ed0364f..6d911c19 100644
   skip:
  	/* It is safe now to apply the key state */
 diff --git a/sshpty.c b/sshpty.c
-index 4da84d05..676ade50 100644
+index 4da84d05f..676ade50e 100644
 --- a/sshpty.c
 +++ b/sshpty.c
 @@ -162,7 +162,7 @@ pty_change_window_size(int ptyfd, u_int row, u_int col,
@@ -461,7 +461,7 @@ index 4da84d05..676ade50 100644
  
  	if (st.st_uid != pw->pw_uid || st.st_gid != gid) {
 diff --git a/sshpty.h b/sshpty.h
-index 9ec7e9a1..de7e000a 100644
+index 9ec7e9a15..de7e000ae 100644
 --- a/sshpty.h
 +++ b/sshpty.h
 @@ -24,5 +24,5 @@ int	 pty_allocate(int *, int *, char *, size_t);

@@ -18,7 +18,7 @@ Patch-Name: ssh-argv0.patch
  1 file changed, 1 insertion(+)
 
 diff --git a/ssh.1 b/ssh.1
-index 54e21d88..f8fc26d2 100644
+index 54e21d88a..f8fc26d2a 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -1571,6 +1571,7 @@ if an error occurred.
