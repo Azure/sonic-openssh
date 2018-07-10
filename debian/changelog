@@ -1,4 +1,4 @@
-openssh (1:7.7p1-3) UNRELEASED; urgency=medium
+openssh (1:7.7p1-3) unstable; urgency=medium
 
   [ Colin Watson ]
   * Adjust git-dpm tagging configuration.
@@ -13,7 +13,7 @@ openssh (1:7.7p1-3) UNRELEASED; urgency=medium
   * Fix unintentional restriction of authorized keys environment options
     to be alphanumeric (closes: #903474, LP: #1771011).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 16 Jun 2018 12:42:36 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 10 Jul 2018 16:07:16 +0100
 
 openssh (1:7.7p1-2) unstable; urgency=medium
 
