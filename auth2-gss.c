@@ -104,9 +104,6 @@ userauth_gssapi(struct ssh *ssh)
 	u_int len;
 	u_char *doid = NULL;
 
-	if (!authctxt->valid || authctxt->user == NULL)
-		return (0);
-
 	mechs = packet_get_int();
 	if (mechs == 0) {
 		debug("Mechanism negotiation is not supported");
@@ -134,6 +131,12 @@ userauth_gssapi(struct ssh *ssh)
 	if (!present) {
 		free(doid);
 		authctxt->server_caused_failure = 1;
+		return (0);
+	}
+
+	if (!authctxt->valid || authctxt->user == NULL) {
+		debug2("%s: disabled because of invalid user", __func__);
+		free(doid);
 		return (0);
 	}
 
