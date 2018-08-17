@@ -25,3 +25,4 @@ seccomp-s390-flock-ipc.patch
 seccomp-getuid-geteuid.patch
 seccomp-s390-ioctl-ep11-crypto.patch
 upstream-relax-checking-of-authorized_keys-environme.patch
+upstream-delay-bailout-for-invalid-authenticating-user.patch
