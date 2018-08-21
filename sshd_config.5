@@ -57,31 +57,6 @@ Arguments may optionally be enclosed in double quotes
 .Pq \&"
 in order to represent arguments containing spaces.
 .Pp
-Note that the Debian
-.Ic openssh-server
-package sets several options as standard in
-.Pa /etc/ssh/sshd_config
-which are not the default in
-.Xr sshd 8 .
-The exact list depends on whether the package was installed fresh or
-upgraded from various possible previous versions, but includes at least the
-following:
-.Pp
-.Bl -bullet -offset indent -compact
-.It
-.Cm ChallengeResponseAuthentication No no
-.It
-.Cm X11Forwarding No yes
-.It
-.Cm PrintMotd No no
-.It
-.Cm AcceptEnv No LANG LC_*
-.It
-.Cm Subsystem No sftp /usr/lib/openssh/sftp-server
-.It
-.Cm UsePAM No yes
-.El
-.Pp
 The possible
 keywords and their meanings are as follows (note that
 keywords are case-insensitive and arguments are case-sensitive):
@@ -328,7 +303,8 @@ This option is only available for protocol version 2.
 By default, no banner is displayed.
 .It Cm ChallengeResponseAuthentication
 Specifies whether challenge-response authentication is allowed (e.g. via
-PAM).
+PAM or through authentication styles supported in
+.Xr login.conf 5 )
 The default is
 .Dq yes .
 .It Cm ChrootDirectory
@@ -471,11 +447,6 @@ or
 .Dq no .
 The default is
 .Dq delayed .
-.It Cm DebianBanner
-Specifies whether the distribution-specified extra version suffix is
-included during initial protocol handshake.
-The default is
-.Dq yes .
 .It Cm DenyGroups
 This keyword can be followed by a list of group name patterns, separated
 by spaces.
@@ -556,40 +527,12 @@ Specifies whether user authentication based on GSSAPI is allowed.
 The default is
 .Dq no .
 Note that this option applies to protocol version 2 only.
-.It Cm GSSAPIKeyExchange
-Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange
-doesn't rely on ssh keys to verify host identity.
-The default is
-.Dq no .
-Note that this option applies to protocol version 2 only.
 .It Cm GSSAPICleanupCredentials
 Specifies whether to automatically destroy the user's credentials cache
 on logout.
 The default is
 .Dq yes .
 Note that this option applies to protocol version 2 only.
-.It Cm GSSAPIStrictAcceptorCheck
-Determines whether to be strict about the identity of the GSSAPI acceptor 
-a client authenticates against. If
-.Dq yes
-then the client must authenticate against the
-.Pa host
-service on the current hostname. If 
-.Dq no
-then the client may authenticate against any service key stored in the 
-machine's default store. This facility is provided to assist with operation 
-on multi homed machines. 
-The default is
-.Dq yes .
-Note that this option applies only to protocol version 2 GSSAPI connections,
-and setting it to 
-.Dq no
-may only work with recent Kerberos GSSAPI libraries.
-.It Cm GSSAPIStoreCredentialsOnRekey
-Controls whether the user's GSSAPI credentials should be updated following a 
-successful connection rekeying. This option can be used to accepted renewed 
-or updated credentials from a compatible client. The default is
-.Dq no .
 .It Cm HostbasedAuthentication
 Specifies whether rhosts or /etc/hosts.equiv authentication together
 with successful public key client host authentication is allowed
@@ -1336,9 +1279,6 @@ This avoids infinitely hanging sessions.
 .Pp
 To disable TCP keepalive messages, the value should be set to
 .Dq no .
-.Pp
-This option was formerly called
-.Cm KeepAlive .
 .It Cm TrustedUserCAKeys
 Specifies a file containing public keys of certificate authorities that are
 trusted to sign user certificates for authentication.

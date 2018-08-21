@@ -584,30 +584,6 @@ main() { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
 	    [Use tunnel device compatibility to OpenBSD])
 	AC_DEFINE([SSH_TUN_PREPEND_AF], [1],
 	    [Prepend the address family to IP tunnel traffic])
-	AC_MSG_CHECKING([if we have the Security Authorization Session API])
-	AC_TRY_COMPILE([#include <Security/AuthSession.h>],
-		[SessionCreate(0, 0);],
-		[ac_cv_use_security_session_api="yes"
-		 AC_DEFINE([USE_SECURITY_SESSION_API], [1], 
-			[platform has the Security Authorization Session API])
-		 LIBS="$LIBS -framework Security"
-		 AC_MSG_RESULT([yes])],
-		[ac_cv_use_security_session_api="no"
-		 AC_MSG_RESULT([no])])
-	AC_MSG_CHECKING([if we have an in-memory credentials cache])
-	AC_TRY_COMPILE(
-		[#include <Kerberos/Kerberos.h>],
-		[cc_context_t c;
-		 (void) cc_initialize (&c, 0, NULL, NULL);],
-		[AC_DEFINE([USE_CCAPI], [1], 
-			[platform uses an in-memory credentials cache])
-		 LIBS="$LIBS -framework Security"
-		 AC_MSG_RESULT([yes])
-		 if test "x$ac_cv_use_security_session_api" = "xno"; then
-			AC_MSG_ERROR([*** Need a security framework to use the credentials cache API ***])
-		fi],
-		[AC_MSG_RESULT([no])]
-	)
 	m4_pattern_allow([AU_IPv])
 	AC_CHECK_DECL([AU_IPv4], [], 
 	    AC_DEFINE([AU_IPv4], [0], [System only supports IPv4 audit records])
@@ -1400,62 +1376,6 @@ AC_ARG_WITH([skey],
 			[
 				AC_MSG_RESULT([no])
 			])
-		fi
-	]
-)
-
-# Check whether user wants TCP wrappers support
-TCPW_MSG="no"
-AC_ARG_WITH([tcp-wrappers],
-	[  --with-tcp-wrappers[[=PATH]] Enable tcpwrappers support (optionally in PATH)],
-	[
-		if test "x$withval" != "xno" ; then
-			saved_LIBS="$LIBS"
-			saved_LDFLAGS="$LDFLAGS"
-			saved_CPPFLAGS="$CPPFLAGS"
-			if test -n "${withval}" && \
-			    test "x${withval}" != "xyes"; then
-				if test -d "${withval}/lib"; then
-					if test -n "${need_dash_r}"; then
-						LDFLAGS="-L${withval}/lib -R${withval}/lib ${LDFLAGS}"
-					else
-						LDFLAGS="-L${withval}/lib ${LDFLAGS}"
-					fi
-				else
-					if test -n "${need_dash_r}"; then
-						LDFLAGS="-L${withval} -R${withval} ${LDFLAGS}"
-					else
-						LDFLAGS="-L${withval} ${LDFLAGS}"
-					fi
-				fi
-				if test -d "${withval}/include"; then
-					CPPFLAGS="-I${withval}/include ${CPPFLAGS}"
-				else
-					CPPFLAGS="-I${withval} ${CPPFLAGS}"
-				fi
-			fi
-			LIBS="-lwrap $LIBS"
-			AC_MSG_CHECKING([for libwrap])
-			AC_LINK_IFELSE([AC_LANG_PROGRAM([[
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <tcpd.h>
-int deny_severity = 0, allow_severity = 0;
-				]], [[
-	hosts_access(0);
-				]])], [
-					AC_MSG_RESULT([yes])
-					AC_DEFINE([LIBWRAP], [1],
-						[Define if you want
-						TCP Wrappers support])
-					SSHDLIBS="$SSHDLIBS -lwrap"
-					TCPW_MSG="yes"
-				], [
-					AC_MSG_ERROR([*** libwrap missing])
-				
-			])
-			LIBS="$saved_LIBS"
 		fi
 	]
 )
@@ -4113,30 +4033,6 @@ AC_ARG_WITH([kerberos5],
 AC_SUBST([GSSLIBS])
 AC_SUBST([K5LIBS])
 
-# Check whether user wants ConsoleKit support
-CONSOLEKIT_MSG="no"
-LIBCK_CONNECTOR=""
-AC_ARG_WITH(consolekit,
-	[  --with-consolekit       Enable ConsoleKit support],
-	[ if test "x$withval" != "xno" ; then
-		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
-		if test "$PKGCONFIG" != "no"; then
-			AC_MSG_CHECKING([for ck-connector])
-			if $PKGCONFIG --exists ck-connector; then
-				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
-				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
-				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
-				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
-				AC_MSG_RESULT([yes])
-				AC_DEFINE(USE_CONSOLEKIT, 1, [Define if you want ConsoleKit support.])
-				CONSOLEKIT_MSG="yes"
-			else
-				AC_MSG_RESULT([no])
-			fi
-		fi
-	fi ]
-)
-
 # Looking for programs, paths and files
 
 PRIVSEP_PATH=/var/empty
@@ -4933,12 +4829,10 @@ echo "                 KerberosV support: $KRB5_MSG"
 echo "                   SELinux support: $SELINUX_MSG"
 echo "                 Smartcard support: $SCARD_MSG"
 echo "                     S/KEY support: $SKEY_MSG"
-echo "              TCP Wrappers support: $TCPW_MSG"
 echo "              MD5 password support: $MD5_MSG"
 echo "                   libedit support: $LIBEDIT_MSG"
 echo "  Solaris process contract support: $SPC_MSG"
 echo "           Solaris project support: $SP_MSG"
-echo "                ConsoleKit support: $CONSOLEKIT_MSG"
 echo "       IP address in \$DISPLAY hack: $DISPLAY_HACK_MSG"
 echo "           Translate v4 in v6 hack: $IPV4_IN6_HACK_MSG"
 echo "                  BSD Auth support: $BSD_AUTH_MSG"

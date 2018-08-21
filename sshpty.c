@@ -187,7 +187,7 @@ pty_change_window_size(int ptyfd, u_int row, u_int col,
 }
 
 void
-pty_setowner(struct passwd *pw, const char *tty, const char *role)
+pty_setowner(struct passwd *pw, const char *tty)
 {
 	struct group *grp;
 	gid_t gid;
@@ -214,7 +214,7 @@ pty_setowner(struct passwd *pw, const char *tty, const char *role)
 		    strerror(errno));
 
 #ifdef WITH_SELINUX
-	ssh_selinux_setup_pty(pw->pw_name, tty, role);
+	ssh_selinux_setup_pty(pw->pw_name, tty);
 #endif
 
 	if (st.st_uid != pw->pw_uid || st.st_gid != gid) {

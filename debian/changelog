@@ -1,3 +1,11 @@
+openssh (1:6.7p1-5+deb8u5) jessie-security; urgency=high
+
+  * CVE-2018-15473: Prevent a user enumeration vulnerability by delaying the
+    bailout for invalid authenticating users until after the packet containing
+    the request has been fully parsed. (closes: #906236)
+
+ -- Chris Lamb <lamby@debian.org>  Tue, 21 Aug 2018 18:04:27 +0100
+
 openssh (1:6.7p1-5+deb8u4) jessie; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd

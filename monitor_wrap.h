@@ -41,8 +41,7 @@ void mm_log_handler(LogLevel, const char *, void *);
 int mm_is_monitor(void);
 DH *mm_choose_dh(int, int, int);
 int mm_key_sign(Key *, u_char **, u_int *, u_char *, u_int);
-void mm_inform_authserv(char *, char *, char *);
-void mm_inform_authrole(char *);
+void mm_inform_authserv(char *, char *);
 struct passwd *mm_getpwnamallow(const char *);
 char *mm_auth2_read_banner(void);
 int mm_auth_password(struct Authctxt *, char *);
@@ -59,10 +58,8 @@ BIGNUM *mm_auth_rsa_generate_challenge(Key *);
 OM_uint32 mm_ssh_gssapi_server_ctx(Gssctxt **, gss_OID);
 OM_uint32 mm_ssh_gssapi_accept_ctx(Gssctxt *,
    gss_buffer_desc *, gss_buffer_desc *, OM_uint32 *);
-int mm_ssh_gssapi_userok(char *user, struct passwd *);
+int mm_ssh_gssapi_userok(char *user);
 OM_uint32 mm_ssh_gssapi_checkmic(Gssctxt *, gss_buffer_t, gss_buffer_t);
-OM_uint32 mm_ssh_gssapi_sign(Gssctxt *, gss_buffer_t, gss_buffer_t);
-int mm_ssh_gssapi_update_creds(ssh_gssapi_ccache *);
 #endif
 
 #ifdef USE_PAM
@@ -110,9 +107,5 @@ int mm_skey_respond(void *, u_int, char **);
 void *mm_zalloc(struct mm_master *, u_int, u_int);
 void mm_zfree(struct mm_master *, void *);
 void mm_init_compression(struct mm_master *);
-
-#ifdef USE_CONSOLEKIT
-char *mm_consolekit_register(struct Session *, const char *);
-#endif /* USE_CONSOLEKIT */
 
 #endif /* _MM_WRAP_H_ */

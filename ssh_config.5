@@ -71,22 +71,6 @@ Since the first obtained value for each parameter is used, more
 host-specific declarations should be given near the beginning of the
 file, and general defaults at the end.
 .Pp
-Note that the Debian
-.Ic openssh-client
-package sets several options as standard in
-.Pa /etc/ssh/ssh_config
-which are not the default in
-.Xr ssh 1 :
-.Pp
-.Bl -bullet -offset indent -compact
-.It
-.Cm SendEnv No LANG LC_*
-.It
-.Cm HashKnownHosts No yes
-.It
-.Cm GSSAPIAuthentication No yes
-.El
-.Pp
 The configuration file has the following format:
 .Pp
 Empty lines and lines starting with
@@ -221,12 +205,8 @@ Valid arguments are
 If set to
 .Dq yes ,
 passphrase/password querying will be disabled.
-In addition, the
-.Cm ServerAliveInterval
-option will be set to 300 seconds by default.
 This option is useful in scripts and other batch jobs where no user
-is present to supply the password,
-and where it is desirable to detect a broken network swiftly.
+is present to supply the password.
 The argument must be
 .Dq yes
 or
@@ -689,8 +669,7 @@ token used for the session will be set to expire after 20 minutes.
 Remote clients will be refused access after this time.
 .Pp
 The default is
-.Dq yes
-(Debian-specific).
+.Dq no .
 .Pp
 See the X11 SECURITY extension specification for full details on
 the restrictions imposed on untrusted clients.
@@ -722,43 +701,11 @@ Specifies whether user authentication based on GSSAPI is allowed.
 The default is
 .Dq no .
 Note that this option applies to protocol version 2 only.
-.It Cm GSSAPIKeyExchange
-Specifies whether key exchange based on GSSAPI may be used. When using
-GSSAPI key exchange the server need not have a host key.
-The default is
-.Dq no .
-Note that this option applies to protocol version 2 only.
-.It Cm GSSAPIClientIdentity
-If set, specifies the GSSAPI client identity that ssh should use when 
-connecting to the server. The default is unset, which means that the default 
-identity will be used.
-.It Cm GSSAPIServerIdentity
-If set, specifies the GSSAPI server identity that ssh should expect when 
-connecting to the server. The default is unset, which means that the
-expected GSSAPI server identity will be determined from the target
-hostname.
 .It Cm GSSAPIDelegateCredentials
 Forward (delegate) credentials to the server.
 The default is
 .Dq no .
-Note that this option applies to protocol version 2 connections using GSSAPI.
-.It Cm GSSAPIRenewalForcesRekey
-If set to 
-.Dq yes
-then renewal of the client's GSSAPI credentials will force the rekeying of the
-ssh connection. With a compatible server, this can delegate the renewed 
-credentials to a session on the server.
-The default is
-.Dq no .
-.It Cm GSSAPITrustDns
-Set to 
-.Dq yes to indicate that the DNS is trusted to securely canonicalize
-the name of the host being connected to. If 
-.Dq no, the hostname entered on the
-command line will be passed untouched to the GSSAPI library.
-The default is
-.Dq no .
-This option only applies to protocol version 2 connections using GSSAPI.
+Note that this option applies to protocol version 2 only.
 .It Cm HashKnownHosts
 Indicates that
 .Xr ssh 1
@@ -776,9 +723,6 @@ Note that existing names and addresses in known hosts files
 will not be converted automatically,
 but may be manually hashed using
 .Xr ssh-keygen 1 .
-Use of this option may break facilities such as tab-completion that rely
-on being able to read unhashed host names from
-.Pa ~/.ssh/known_hosts .
 .It Cm HostbasedAuthentication
 Specifies whether to try rhosts based authentication with public key
 authentication.
@@ -1349,10 +1293,7 @@ If, for example,
 .Cm ServerAliveCountMax
 is left at the default, if the server becomes unresponsive,
 ssh will disconnect after approximately 45 seconds.
-This option applies to protocol version 2 only; in protocol version
-1 there is no mechanism to request a response from the server to the
-server alive messages, so disconnection is the responsibility of the TCP
-stack.
+This option applies to protocol version 2 only.
 .It Cm ServerAliveInterval
 Sets a timeout interval in seconds after which if no data has been received
 from the server,
@@ -1360,15 +1301,8 @@ from the server,
 will send a message through the encrypted
 channel to request a response from the server.
 The default
-is 0, indicating that these messages will not be sent to the server,
-or 300 if the
-.Cm BatchMode
-option is set.
+is 0, indicating that these messages will not be sent to the server.
 This option applies to protocol version 2 only.
-.Cm ProtocolKeepAlives
-and
-.Cm SetupTimeOut
-are Debian-specific compatibility aliases for this option.
 .It Cm StreamLocalBindMask
 Sets the octal file creation mode mask
 .Pq umask
@@ -1434,12 +1368,6 @@ Specifies whether the system should send TCP keepalive messages to the
 other side.
 If they are sent, death of the connection or crash of one
 of the machines will be properly noticed.
-This option only uses TCP keepalives (as opposed to using ssh level
-keepalives), so takes a long time to notice when the connection dies.
-As such, you probably want
-the
-.Cm ServerAliveInterval
-option as well.
 However, this means that
 connections will die if the route is down temporarily, and some people
 find it annoying.
@@ -1607,8 +1535,6 @@ The format of this file is described above.
 This file is used by the SSH client.
 Because of the potential for abuse, this file must have strict permissions:
 read/write for the user, and not accessible by others.
-It may be group-writable provided that the group in question contains only
-the user.
 .It Pa /etc/ssh/ssh_config
 Systemwide configuration file.
 This file provides defaults for those

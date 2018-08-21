@@ -414,13 +414,13 @@ process_config_files(struct passwd *pw)
 int
 main(int ac, char **av)
 {
-	int i, r, opt, exit_status, use_syslog, timeout_ms;
-	int opt_terminated = 0;
+	int i, r, opt, exit_status, use_syslog;
 	char *p, *cp, *line, *argv0, buf[MAXPATHLEN], *host_arg, *logfile;
 	char thishost[NI_MAXHOST], shorthost[NI_MAXHOST], portstr[NI_MAXSERV];
 	char cname[NI_MAXHOST];
 	struct stat st;
 	struct passwd *pw;
+	int timeout_ms;
 	extern int optind, optreset;
 	extern char *optarg;
 	struct Forward fwd;
@@ -813,9 +813,6 @@ main(int ac, char **av)
 		}
 	}
 
-	if (optind > 1 && strcmp(av[optind - 1], "--") == 0)
-		opt_terminated = 1;
-
 	ac -= optind;
 	av += optind;
 
@@ -830,7 +827,7 @@ main(int ac, char **av)
 			host = xstrdup(++cp);
 		} else
 			host = xstrdup(*av);
-		if (ac > 1 && !opt_terminated) {
+		if (ac > 1) {
 			optind = optreset = 1;
 			goto again;
 		}
@@ -992,7 +989,7 @@ main(int ac, char **av)
 	/* Do not allocate a tty if stdin is not a tty. */
 	if ((!isatty(fileno(stdin)) || stdin_null_flag) &&
 	    options.request_tty != REQUEST_TTY_FORCE) {
-		if (tty_flag && options.log_level != SYSLOG_LEVEL_QUIET)
+		if (tty_flag)
 			logit("Pseudo-terminal will not be allocated because "
 			    "stdin is not a terminal.");
 		tty_flag = 0;
