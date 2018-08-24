@@ -1,4 +1,4 @@
-From 027619c6b05713e3f08a51e7232389383900e5d8 Mon Sep 17 00:00:00 2001
+From d47fa6fefb418c6d8f5a6d3dd49fd9dc7fce0c74 Mon Sep 17 00:00:00 2001
 From: Jonathan David Amery <jdamery@ysolde.ucam.org>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility
@@ -21,7 +21,7 @@ Patch-Name: syslog-level-silent.patch
  2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/log.c b/log.c
-index 99450dd12..1559091da 100644
+index d9c2d136c..1749af6d1 100644
 --- a/log.c
 +++ b/log.c
 @@ -93,6 +93,7 @@ static struct {
@@ -33,7 +33,7 @@ index 99450dd12..1559091da 100644
  	{ "FATAL",	SYSLOG_LEVEL_FATAL },
  	{ "ERROR",	SYSLOG_LEVEL_ERROR },
 diff --git a/ssh.c b/ssh.c
-index d3619fe29..e36debf6a 100644
+index ce628848c..6ee0f8c68 100644
 --- a/ssh.c
 +++ b/ssh.c
 @@ -1252,7 +1252,7 @@ main(int ac, char **av)

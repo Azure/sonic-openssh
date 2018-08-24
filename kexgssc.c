@@ -34,9 +34,9 @@
 #include <string.h>
 
 #include "xmalloc.h"
-#include "buffer.h"
+#include "sshbuf.h"
 #include "ssh2.h"
-#include "key.h"
+#include "sshkey.h"
 #include "cipher.h"
 #include "kex.h"
 #include "log.h"
@@ -273,8 +273,8 @@ kexgss_client(struct ssh *ssh) {
 		    ssh->kex->hash_alg,
 		    ssh->kex->client_version_string,
 		    ssh->kex->server_version_string,
-		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
-		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
+		    sshbuf_ptr(ssh->kex->my), sshbuf_len(ssh->kex->my),
+		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
 		    dh->pub_key,	/* e */
 		    dh_server_pub,	/* f */
@@ -287,8 +287,8 @@ kexgss_client(struct ssh *ssh) {
 		    ssh->kex->hash_alg,
 		    ssh->kex->client_version_string,
 		    ssh->kex->server_version_string,
-		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
-		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
+		    sshbuf_ptr(ssh->kex->my), sshbuf_len(ssh->kex->my),
+		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
  		    min, nbits, max,
 		    dh->p, dh->g,

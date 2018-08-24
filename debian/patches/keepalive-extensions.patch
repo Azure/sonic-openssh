@@ -1,4 +1,4 @@
-From a7045c36e6e072c8f9250fbe11cf2f9db9f51a08 Mon Sep 17 00:00:00 2001
+From 2c0a1fef2aaf16c5b97694139239797f0ea33d27 Mon Sep 17 00:00:00 2001
 From: Richard Kettlewell <rjk@greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:52 +0000
 Subject: Various keepalive extensions
@@ -16,7 +16,7 @@ keepalives.
 Author: Ian Jackson <ian@chiark.greenend.org.uk>
 Author: Matthew Vernon <matthew@debian.org>
 Author: Colin Watson <cjwatson@debian.org>
-Last-Update: 2017-10-04
+Last-Update: 2018-08-24
 
 Patch-Name: keepalive-extensions.patch
 ---
@@ -26,10 +26,10 @@ Patch-Name: keepalive-extensions.patch
  3 files changed, 34 insertions(+), 4 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 1f1be7789..7f2b5c172 100644
+index 6e26ba32d..3fd0fe7b7 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -174,6 +174,7 @@ typedef enum {
+@@ -175,6 +175,7 @@ typedef enum {
  	oStreamLocalBindMask, oStreamLocalBindUnlink, oRevokedHostKeys,
  	oFingerprintHash, oUpdateHostkeys, oHostbasedKeyTypes,
  	oPubkeyAcceptedKeyTypes, oProxyJump,
@@ -37,7 +37,7 @@ index 1f1be7789..7f2b5c172 100644
  	oIgnore, oIgnoredUnknownOption, oDeprecated, oUnsupported
  } OpCodes;
  
-@@ -319,6 +320,8 @@ static struct {
+@@ -321,6 +322,8 @@ static struct {
  	{ "pubkeyacceptedkeytypes", oPubkeyAcceptedKeyTypes },
  	{ "ignoreunknown", oIgnoreUnknown },
  	{ "proxyjump", oProxyJump },
@@ -46,7 +46,7 @@ index 1f1be7789..7f2b5c172 100644
  
  	{ NULL, oBadOption }
  };
-@@ -1378,6 +1381,8 @@ parse_keytypes:
+@@ -1401,6 +1404,8 @@ parse_keytypes:
  		goto parse_flag;
  
  	case oServerAliveInterval:
@@ -55,7 +55,7 @@ index 1f1be7789..7f2b5c172 100644
  		intptr = &options->server_alive_interval;
  		goto parse_time;
  
-@@ -2019,8 +2024,13 @@ fill_default_options(Options * options)
+@@ -2075,8 +2080,13 @@ fill_default_options(Options * options)
  		options->rekey_interval = 0;
  	if (options->verify_host_key_dns == -1)
  		options->verify_host_key_dns = 0;
@@ -72,7 +72,7 @@ index 1f1be7789..7f2b5c172 100644
  		options->server_alive_count_max = 3;
  	if (options->control_master == -1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 66826aa70..32c3632c7 100644
+index 5b99921b4..86ada128e 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -247,8 +247,12 @@ Valid arguments are
@@ -102,10 +102,10 @@ index 66826aa70..32c3632c7 100644
 +and
 +.Cm SetupTimeOut
 +are Debian-specific compatibility aliases for this option.
- .It Cm StreamLocalBindMask
- Sets the octal file creation mode mask
- .Pq umask
-@@ -1537,6 +1548,12 @@ Specifies whether the system should send TCP keepalive messages to the
+ .It Cm SetEnv
+ Directly specify one or more environment variables and their contents to
+ be sent to the server.
+@@ -1543,6 +1554,12 @@ Specifies whether the system should send TCP keepalive messages to the
  other side.
  If they are sent, death of the connection or crash of one
  of the machines will be properly noticed.
@@ -119,10 +119,10 @@ index 66826aa70..32c3632c7 100644
  connections will die if the route is down temporarily, and some people
  find it annoying.
 diff --git a/sshd_config.5 b/sshd_config.5
-index c4a3f3cb2..1a1c6dd09 100644
+index a0ac717c7..0fbbccbde 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -1495,6 +1495,9 @@ This avoids infinitely hanging sessions.
+@@ -1566,6 +1566,9 @@ This avoids infinitely hanging sessions.
  .Pp
  To disable TCP keepalive messages, the value should be set to
  .Cm no .

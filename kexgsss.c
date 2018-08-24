@@ -32,9 +32,9 @@
 #include <openssl/bn.h>
 
 #include "xmalloc.h"
-#include "buffer.h"
+#include "sshbuf.h"
 #include "ssh2.h"
-#include "key.h"
+#include "sshkey.h"
 #include "cipher.h"
 #include "kex.h"
 #include "log.h"
@@ -220,8 +220,8 @@ kexgss_server(struct ssh *ssh)
 		kex_dh_hash(
 		    ssh->kex->hash_alg,
 		    ssh->kex->client_version_string, ssh->kex->server_version_string,
-		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
-		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
+		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
+		    sshbuf_ptr(ssh->kex->my), sshbuf_len(ssh->kex->my),
 		    NULL, 0, /* Change this if we start sending host keys */
 		    dh_client_pub, dh->pub_key, shared_secret,
 		    hash, &hashlen
@@ -231,8 +231,8 @@ kexgss_server(struct ssh *ssh)
 		kexgex_hash(
 		    ssh->kex->hash_alg,
 		    ssh->kex->client_version_string, ssh->kex->server_version_string,
-		    buffer_ptr(ssh->kex->peer), buffer_len(ssh->kex->peer),
-		    buffer_ptr(ssh->kex->my), buffer_len(ssh->kex->my),
+		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
+		    sshbuf_ptr(ssh->kex->my), sshbuf_len(ssh->kex->my),
 		    NULL, 0,
 		    min, nbits, max,
 		    dh->p, dh->g,

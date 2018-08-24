@@ -1,4 +1,4 @@
-From e8e09061f8168f6f105f56fca10b6cd61b9f587a Mon Sep 17 00:00:00 2001
+From 157278376c0eb6e4de3d47e8573684095a230685 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -39,10 +39,10 @@ Patch-Name: debian-config.patch
  6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 50349e238..efcf2d628 100644
+index 3ed6dfb54..a3d42f2ae 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1916,7 +1916,7 @@ fill_default_options(Options * options)
+@@ -1974,7 +1974,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -52,10 +52,10 @@ index 50349e238..efcf2d628 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index f8fc26d2a..8a03db952 100644
+index 0a8e63f51..ba55aa665 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -768,6 +768,16 @@ directive in
+@@ -772,6 +772,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -72,7 +72,7 @@ index f8fc26d2a..8a03db952 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -776,6 +786,17 @@ Enables trusted X11 forwarding.
+@@ -780,6 +790,17 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -114,7 +114,7 @@ index bcb9f153d..1b676fb2c 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index ca0528842..ed6e5d026 100644
+index cb68f51a6..35c578c3b 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
@@ -140,7 +140,7 @@ index ca0528842..ed6e5d026 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -690,11 +706,12 @@ elapsed.
+@@ -681,11 +697,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,
@@ -155,7 +155,7 @@ index ca0528842..ed6e5d026 100644
  from stealing or tampering with data belonging to trusted X11
  clients.
 diff --git a/sshd_config b/sshd_config
-index 86263d713..de9cc9fe2 100644
+index 2c48105f8..ed8272f6d 100644
 --- a/sshd_config
 +++ b/sshd_config
 @@ -57,8 +57,9 @@ AuthorizedKeysFile	.ssh/authorized_keys
@@ -189,8 +189,8 @@ index 86263d713..de9cc9fe2 100644
 +PrintMotd no
  #PrintLastLog yes
  #TCPKeepAlive yes
- #UseLogin no
-@@ -108,8 +109,11 @@ AuthorizedKeysFile	.ssh/authorized_keys
+ #PermitUserEnvironment no
+@@ -107,8 +108,11 @@ AuthorizedKeysFile	.ssh/authorized_keys
  # no default banner path
  #Banner none
  
@@ -204,7 +204,7 @@ index 86263d713..de9cc9fe2 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 44b918463..4c7ee4254 100644
+index 9774831fe..15b82e84d 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,28 @@ Arguments may optionally be enclosed in double quotes

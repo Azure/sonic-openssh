@@ -1,4 +1,4 @@
-From 8435aa5e322a4899dcb9bc68d5f0551e93d3f5a5 Mon Sep 17 00:00:00 2001
+From 04910479f7869c27065950b7deb0d69d85230927 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 10:53:04 -0300
 Subject: Allow flock and ipc syscall for s390 architecture
@@ -14,7 +14,7 @@ Signed-off-by: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Origin: other, https://bugzilla.mindrot.org/show_bug.cgi?id=2752
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=2752
 Bug-Ubuntu: https://bugs.launchpad.net/bugs/1686618
-Last-Update: 2017-08-28
+Last-Update: 2018-08-24
 
 Patch-Name: seccomp-s390-flock-ipc.patch
 ---
@@ -22,7 +22,7 @@ Patch-Name: seccomp-s390-flock-ipc.patch
  1 file changed, 6 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index ca75cc719..6e7de3114 100644
+index 12c4ee130..bcea77997 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
 @@ -166,6 +166,9 @@ static const struct sock_filter preauth_insns[] = {
@@ -32,12 +32,12 @@ index ca75cc719..6e7de3114 100644
 +#if defined(__NR_flock) && defined(__s390__)
 +	SC_ALLOW(__NR_flock),
 +#endif
- #ifdef __NR_getpgid
- 	SC_ALLOW(__NR_getpgid),
+ #ifdef __NR_geteuid
+ 	SC_ALLOW(__NR_geteuid),
  #endif
-@@ -178,6 +181,9 @@ static const struct sock_filter preauth_insns[] = {
- #ifdef __NR_gettimeofday
- 	SC_ALLOW(__NR_gettimeofday),
+@@ -190,6 +193,9 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_getuid32
+ 	SC_ALLOW(__NR_getuid32),
  #endif
 +#if defined(__NR_ipc) && defined(__s390__)
 +	SC_ALLOW(__NR_ipc),

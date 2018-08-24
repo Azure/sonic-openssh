@@ -27,12 +27,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef WITH_SELINUX
-#include "key.h"
-#include "hostfile.h"
-#include "auth.h"
-#endif
-
 #include "log.h"
 #include "xmalloc.h"
 #include "port-linux.h"

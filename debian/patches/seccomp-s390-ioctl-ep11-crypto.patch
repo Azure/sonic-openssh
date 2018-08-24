@@ -1,4 +1,4 @@
-From ea67bc97339c9a507343e4a1f5fb867f678fbe1d Mon Sep 17 00:00:00 2001
+From 16a47fc4b04977a14f44dd433c8da1499fa80671 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 13:33:30 -0300
 Subject: Enable specific ioctl call for EP11 crypto card (s390)
@@ -19,10 +19,10 @@ Patch-Name: seccomp-s390-ioctl-ep11-crypto.patch
  1 file changed, 2 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index e86aa2c91..98062f152 100644
+index bcea77997..f216ba353 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
-@@ -250,6 +250,8 @@ static const struct sock_filter preauth_insns[] = {
+@@ -253,6 +253,8 @@ static const struct sock_filter preauth_insns[] = {
  	SC_ALLOW_ARG(__NR_ioctl, 1, Z90STAT_STATUS_MASK),
  	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSAMODEXPO),
  	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSACRT),

@@ -1,4 +1,4 @@
-/* $OpenBSD: gss-genr.c,v 1.24 2016/09/12 01:22:38 deraadt Exp $ */
+/* $OpenBSD: gss-genr.c,v 1.26 2018/07/10 09:13:30 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
@@ -37,11 +37,11 @@
 #include <unistd.h>
 
 #include "xmalloc.h"
-#include "buffer.h"
+#include "ssherr.h"
+#include "sshbuf.h"
 #include "log.h"
 #include "ssh2.h"
 #include "cipher.h"
-#include "key.h"
 #include "kex.h"
 #include <openssl/evp.h>
 
@@ -69,6 +69,21 @@ ssh_gssapi_oid_table_ok(void) {
 	return (gss_enc2oid != NULL);
 }
 
+/* sshbuf_get for gss_buffer_desc */
+int
+ssh_gssapi_get_buffer_desc(struct sshbuf *b, gss_buffer_desc *g)
+{
+	int r;
+	u_char *p;
+	size_t len;
+
+	if ((r = sshbuf_get_string(b, &p, &len)) != 0)
+		return r;
+	g->value = p;
+	g->length = len;
+	return 0;
+}
+
 /*
  * Return a list of the gss-group1-sha1 mechanisms supported by this program
  *
@@ -91,9 +106,9 @@ ssh_gssapi_client_mechanisms(const char *host, const char *client) {
 char *
 ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
     const char *host, const char *client) {
-	Buffer buf;
+	struct sshbuf *buf;
 	size_t i;
-	int oidpos, enclen;
+	int r, oidpos, enclen;
 	char *mechs, *encoded;
 	u_char digest[EVP_MAX_MD_SIZE];
 	char deroid[2];
@@ -109,7 +124,8 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	gss_enc2oid = xmalloc(sizeof(ssh_gss_kex_mapping) *
 	    (gss_supported->count + 1));
 
-	buffer_init(&buf);
+	if ((buf = sshbuf_new()) == NULL)
+		fatal("%s: sshbuf_new failed", __func__);
 
 	oidpos = 0;
 	for (i = 0; i < gss_supported->count; i++) {
@@ -130,20 +146,25 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 			enclen = __b64_ntop(digest, EVP_MD_size(evp_md),
 			    encoded, EVP_MD_size(evp_md) * 2);
 
-			if (oidpos != 0)
-				buffer_put_char(&buf, ',');
+			if (oidpos != 0) {
+				if ((r = sshbuf_put_u8(buf, ',')) != 0)
+					fatal("%s: buffer error: %s",
+					    __func__, ssh_err(r));
+			}
 
-			buffer_append(&buf, KEX_GSS_GEX_SHA1_ID,
-			    sizeof(KEX_GSS_GEX_SHA1_ID) - 1);
-			buffer_append(&buf, encoded, enclen);
-			buffer_put_char(&buf, ',');
-			buffer_append(&buf, KEX_GSS_GRP1_SHA1_ID, 
-			    sizeof(KEX_GSS_GRP1_SHA1_ID) - 1);
-			buffer_append(&buf, encoded, enclen);
-			buffer_put_char(&buf, ',');
-			buffer_append(&buf, KEX_GSS_GRP14_SHA1_ID,
-			    sizeof(KEX_GSS_GRP14_SHA1_ID) - 1);
-			buffer_append(&buf, encoded, enclen);
+			if ((r = sshbuf_put(buf, KEX_GSS_GEX_SHA1_ID,
+			    sizeof(KEX_GSS_GEX_SHA1_ID) - 1)) != 0 ||
+			    (r = sshbuf_put(buf, encoded, enclen)) != 0 ||
+			    (r = sshbuf_put_u8(buf, ',')) != 0 ||
+			    (r = sshbuf_put(buf, KEX_GSS_GRP1_SHA1_ID,
+			    sizeof(KEX_GSS_GRP1_SHA1_ID) - 1)) != 0 ||
+			    (r = sshbuf_put(buf, encoded, enclen)) != 0 ||
+			    (r = sshbuf_put_u8(buf, ',')) != 0 ||
+			    (r = sshbuf_put(buf, KEX_GSS_GRP14_SHA1_ID,
+			    sizeof(KEX_GSS_GRP14_SHA1_ID) - 1)) != 0 ||
+			    (r = sshbuf_put(buf, encoded, enclen)) != 0)
+				fatal("%s: buffer error: %s",
+				    __func__, ssh_err(r));
 
 			gss_enc2oid[oidpos].oid = &(gss_supported->elements[i]);
 			gss_enc2oid[oidpos].encoded = encoded;
@@ -153,11 +174,8 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	gss_enc2oid[oidpos].oid = NULL;
 	gss_enc2oid[oidpos].encoded = NULL;
 
-	buffer_put_char(&buf, '\0');
-
-	mechs = xmalloc(buffer_len(&buf));
-	buffer_get(&buf, mechs, buffer_len(&buf));
-	buffer_free(&buf);
+	if ((mechs = sshbuf_dup_string(buf)) == NULL)
+		fatal("%s: sshbuf_dup_string failed", __func__);
 
 	if (strlen(mechs) == 0) {
 		free(mechs);
@@ -249,10 +267,12 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 	OM_uint32 lmin;
 	gss_buffer_desc msg = GSS_C_EMPTY_BUFFER;
 	OM_uint32 ctx;
-	Buffer b;
+	struct sshbuf *b;
 	char *ret;
+	int r;
 
-	buffer_init(&b);
+	if ((b = sshbuf_new()) == NULL)
+		fatal("%s: sshbuf_new failed", __func__);
 
 	if (major_status != NULL)
 		*major_status = ctxt->major;
@@ -265,8 +285,9 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 		gss_display_status(&lmin, ctxt->major,
 		    GSS_C_GSS_CODE, ctxt->oid, &ctx, &msg);
 
-		buffer_append(&b, msg.value, msg.length);
-		buffer_put_char(&b, '\n');
+		if ((r = sshbuf_put(b, msg.value, msg.length)) != 0 ||
+		    (r = sshbuf_put_u8(b, '\n')) != 0)
+			fatal("%s: buffer error: %s", __func__, ssh_err(r));
 
 		gss_release_buffer(&lmin, &msg);
 	} while (ctx != 0);
@@ -276,16 +297,17 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 		gss_display_status(&lmin, ctxt->minor,
 		    GSS_C_MECH_CODE, ctxt->oid, &ctx, &msg);
 
-		buffer_append(&b, msg.value, msg.length);
-		buffer_put_char(&b, '\n');
+		if ((r = sshbuf_put(b, msg.value, msg.length)) != 0 ||
+		    (r = sshbuf_put_u8(b, '\n')) != 0)
+			fatal("%s: buffer error: %s", __func__, ssh_err(r));
 
 		gss_release_buffer(&lmin, &msg);
 	} while (ctx != 0);
 
-	buffer_put_char(&b, '\0');
-	ret = xmalloc(buffer_len(&b));
-	buffer_get(&b, ret, buffer_len(&b));
-	buffer_free(&b);
+	if ((r = sshbuf_put_u8(b, '\n')) != 0)
+		fatal("%s: buffer error: %s", __func__, ssh_err(r));
+	ret = xstrdup((const char *)sshbuf_ptr(b));
+	sshbuf_free(b);
 	return (ret);
 }
 
@@ -440,15 +462,18 @@ ssh_gssapi_checkmic(Gssctxt *ctx, gss_buffer_t gssbuf, gss_buffer_t gssmic)
 }
 
 void
-ssh_gssapi_buildmic(Buffer *b, const char *user, const char *service,
+ssh_gssapi_buildmic(struct sshbuf *b, const char *user, const char *service,
     const char *context)
 {
-	buffer_init(b);
-	buffer_put_string(b, session_id2, session_id2_len);
-	buffer_put_char(b, SSH2_MSG_USERAUTH_REQUEST);
-	buffer_put_cstring(b, user);
-	buffer_put_cstring(b, service);
-	buffer_put_cstring(b, context);
+	int r;
+
+	sshbuf_reset(b);
+	if ((r = sshbuf_put_string(b, session_id2, session_id2_len)) != 0 ||
+	    (r = sshbuf_put_u8(b, SSH2_MSG_USERAUTH_REQUEST)) != 0 ||
+	    (r = sshbuf_put_cstring(b, user)) != 0 ||
+	    (r = sshbuf_put_cstring(b, service)) != 0 ||
+	    (r = sshbuf_put_cstring(b, context)) != 0)
+		fatal("%s: buffer error: %s", __func__, ssh_err(r));
 }
 
 int

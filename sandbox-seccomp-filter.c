@@ -169,29 +169,29 @@ static const struct sock_filter preauth_insns[] = {
 #if defined(__NR_flock) && defined(__s390__)
 	SC_ALLOW(__NR_flock),
 #endif
-#ifdef __NR_getpgid
-	SC_ALLOW(__NR_getpgid),
-#endif
-#ifdef __NR_getpid
-	SC_ALLOW(__NR_getpid),
-#endif
-#ifdef __NR_getuid
-	SC_ALLOW(__NR_getuid),
-#endif
-#ifdef __NR_getuid32
-	SC_ALLOW(__NR_getuid32),
-#endif
 #ifdef __NR_geteuid
 	SC_ALLOW(__NR_geteuid),
 #endif
 #ifdef __NR_geteuid32
 	SC_ALLOW(__NR_geteuid32),
 #endif
+#ifdef __NR_getpgid
+	SC_ALLOW(__NR_getpgid),
+#endif
+#ifdef __NR_getpid
+	SC_ALLOW(__NR_getpid),
+#endif
 #ifdef __NR_getrandom
 	SC_ALLOW(__NR_getrandom),
 #endif
 #ifdef __NR_gettimeofday
 	SC_ALLOW(__NR_gettimeofday),
+#endif
+#ifdef __NR_getuid
+	SC_ALLOW(__NR_getuid),
+#endif
+#ifdef __NR_getuid32
+	SC_ALLOW(__NR_getuid32),
 #endif
 #if defined(__NR_ipc) && defined(__s390__)
 	SC_ALLOW(__NR_ipc),
@@ -210,6 +210,9 @@ static const struct sock_filter preauth_insns[] = {
 #endif
 #ifdef __NR_munmap
 	SC_ALLOW(__NR_munmap),
+#endif
+#ifdef __NR_nanosleep
+	SC_ALLOW(__NR_nanosleep),
 #endif
 #ifdef __NR__newselect
 	SC_ALLOW(__NR__newselect),

@@ -1,3 +1,42 @@
+openssh (1:7.8p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 7.8 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh-keygen(1): Write OpenSSH format private keys by default instead of
+     using OpenSSL's PEM format.  The OpenSSH format, supported in OpenSSH
+     releases since 2014 and described in the PROTOCOL.key file in the
+     source distribution, offers substantially better protection against
+     offline password guessing and supports key comments in private keys.
+     If necessary, it is possible to write old PEM-style keys by adding "-m
+     PEM" to ssh-keygen's arguments when generating or updating a key.
+   * sshd(8): Remove internal support for S/Key multiple factor
+     authentication.  S/Key may still be used via PAM or BSD auth.
+   * ssh(1): Remove vestigial support for running ssh(1) as setuid.  This
+     used to be required for hostbased authentication and the (long gone)
+     rhosts-style authentication, but has not been necessary for a long
+     time.  Attempting to execute ssh as a setuid binary, or with uid !=
+     effective uid will now yield a fatal error at runtime.
+   * sshd(8): The semantics of PubkeyAcceptedKeyTypes and the similar
+     HostbasedAcceptedKeyTypes options have changed.  These now specify
+     signature algorithms that are accepted for their respective
+     authentication mechanism, where previously they specified accepted key
+     types.  This distinction matters when using the RSA/SHA2 signature
+     algorithms "rsa-sha2-256", "rsa-sha2-512" and their certificate
+     counterparts.  Configurations that override these options but omit
+     these algorithm names may cause unexpected authentication failures (no
+     action is required for configurations that accept the default for these
+     options).
+   * sshd(8): The precedence of session environment variables has changed.
+     ~/.ssh/environment and environment="..." options in authorized_keys
+     files can no longer override SSH_* variables set implicitly by sshd.
+   * ssh(1)/sshd(8): The default IPQoS used by ssh/sshd has changed.  They
+     will now use DSCP AF21 for interactive traffic and CS1 for bulk.  For a
+     detailed rationale, please see the commit message:
+     https://cvsweb.openbsd.org/src/usr.bin/ssh/readconf.c#rev1.284
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 24 Aug 2018 10:13:03 +0100
+
 openssh (1:7.6p1-1) unstable; urgency=medium
 
   OpenSSH 7.6 includes a number of changes that may affect existing
