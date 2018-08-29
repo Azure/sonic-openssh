@@ -500,6 +500,18 @@ REGRESS_INTEROP_CONCH=no
 if test -x "$CONCH" ; then
 	REGRESS_INTEROP_CONCH=yes
 fi
+case "$SCRIPT" in
+*conch*)	;;
+*)		REGRESS_INTEROP_CONCH=no
+esac
+
+if test "$REGRESS_INTEROP_CONCH" = "yes" ; then
+	# Convert rsa key to old format to work around
+	# https://twistedmatrix.com/trac/ticket/9515
+	cp $OBJ/rsa $OBJ/rsa_oldfmt
+	cp $OBJ/rsa.pub $OBJ/rsa_oldfmt.pub
+	${SSHKEYGEN} -p -N '' -m PEM -f $OBJ/rsa_oldfmt >/dev/null
+fi
 
 # If PuTTY is present and we are running a PuTTY test, prepare keys and
 # configuration
