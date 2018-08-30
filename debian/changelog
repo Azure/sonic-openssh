@@ -102,6 +102,8 @@ openssh (1:7.8p1-1) UNRELEASED; urgency=medium
     - sshd(8): Expose details of completed authentication to PAM auth
       modules via SSH_AUTH_INFO_0 in the PAM environment.
   * Switch debian/watch to HTTPS.
+  * Temporarily work around https://twistedmatrix.com/trac/ticket/9515 in
+    regression tests.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 24 Aug 2018 10:13:03 +0100
 
