@@ -1,4 +1,4 @@
-openssh (1:7.8p1-1) UNRELEASED; urgency=medium
+openssh (1:7.8p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-7.8, closes:
     #907534):
@@ -105,7 +105,7 @@ openssh (1:7.8p1-1) UNRELEASED; urgency=medium
   * Temporarily work around https://twistedmatrix.com/trac/ticket/9515 in
     regression tests.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 24 Aug 2018 10:13:03 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 30 Aug 2018 15:35:27 +0100
 
 openssh (1:7.7p1-4) unstable; urgency=high
 

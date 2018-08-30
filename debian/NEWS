@@ -1,4 +1,4 @@
-openssh (1:7.8p1-1) UNRELEASED; urgency=medium
+openssh (1:7.8p1-1) unstable; urgency=medium
 
   OpenSSH 7.8 includes a number of changes that may affect existing
   configurations:
@@ -35,7 +35,7 @@ openssh (1:7.8p1-1) UNRELEASED; urgency=medium
      detailed rationale, please see the commit message:
      https://cvsweb.openbsd.org/src/usr.bin/ssh/readconf.c#rev1.284
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 24 Aug 2018 10:13:03 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 30 Aug 2018 15:35:27 +0100
 
 openssh (1:7.6p1-1) unstable; urgency=medium
 
