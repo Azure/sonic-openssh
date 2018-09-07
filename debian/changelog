@@ -1,8 +1,5 @@
-openssh (1:6.7p1-5+deb8u6~1.gbpa2c11a) UNRELEASED-jessie-security; urgency=medium
+openssh (1:6.7p1-5+deb8u6) jessie-security; urgency=medium
 
-  ** SNAPSHOT build @a2c11ae2a39f6394a39398fd034889a9d7a7ebf4 **
-
-  [ Santiago Ruano Rincón ]
   * Fix CVE-2015-5352: Reject X11 connections after hard-coded Xauth cookie
     expiration time of 1200 seconds.
     (Closes: #790798)
@@ -15,21 +12,22 @@ openssh (1:6.7p1-5+deb8u6~1.gbpa2c11a) UNRELEASED-jessie-security; urgency=mediu
   * CVE-2016-10009: Untrusted search path vulnerability in ssh-agent.c in
     ssh-agent allows remote attackers to execute arbitrary local PKCS#11
     modules by leveraging control over a forwarded agent-socket.
-  * add split-allocation-out-of-sshbuf_reserve.patch, needed to address CVE-2016-10011
   * CVE-2016-10011: Possible local information disclosure by the effects of
     realloc on buffer contents
     (Closes: #848716)
-  * Lack of bounds check in the shared memory manager that could lead to local
-    privilege escalation
+    - add split-allocation-out-of-sshbuf_reserve.patch, required to address
+      the issue.
+  * CVE-2016-10012: Lack of bounds check in the shared memory manager that
+    could lead to local privilege escalation
     (Closes: #848717)
-  * CVE-2016-10708: privsep process chrashing via an out-of-sequence NEWKEYS
-    message
+  * CVE-2016-10708: privsep process chrashing via an out-of-sequence
+    NEWKEYS message
   * CVE-2016-1908: mishandling failed cookie generation for untrusted X11
     forwarding
   * CVE-2016-3115: shell-command restrictions bypass via crafted X11
     forwarding data
-  * CVE-2016-6515: not limit password lengths for password authentication that
-    may be used to DoS via crypt CPU consumption
+  * CVE-2016-6515: not limit password lengths for password authentication
+    that may be used to DoS via crypt CPU consumption
   * CVE-2017-15906: sftp-server.c flaw at handling zero-length files.
 
  -- Santiago Ruano Rincón <santiagorr@riseup.net>  Wed, 29 Aug 2018 12:01:36 +0200
