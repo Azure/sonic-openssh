@@ -1,4 +1,4 @@
-From 4d75300bdb447824c974febd3d04331755dde3ca Mon Sep 17 00:00:00 2001
+From 690051b3aa4ff72af57e4a82d640858357eef820 Mon Sep 17 00:00:00 2001
 From: Kurt Roeckx <kurt@roeckx.be>
 Date: Sun, 9 Feb 2014 16:10:14 +0000
 Subject: Don't check the status field of the OpenSSL version
@@ -23,7 +23,7 @@ Patch-Name: no-openssl-version-status.patch
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/openbsd-compat/openssl-compat.c b/openbsd-compat/openssl-compat.c
-index 259fccbec..aaa953f2d 100644
+index 8b4a36274..ea0b0c9fb 100644
 --- a/openbsd-compat/openssl-compat.c
 +++ b/openbsd-compat/openssl-compat.c
 @@ -34,7 +34,7 @@

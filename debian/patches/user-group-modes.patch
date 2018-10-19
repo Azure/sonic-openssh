@@ -1,4 +1,4 @@
-From 840f43066f9cdf5f6bb07992aca1c5f43be8eb80 Mon Sep 17 00:00:00 2001
+From 7b931d36ad36a93d2b1811858ca29408ec44ecae Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -51,10 +51,10 @@ index 57296e1f6..546aa0495 100644
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
 diff --git a/auth.c b/auth.c
-index 80eb78c48..ad25631a5 100644
+index d8e6b4a3d..9d1d453f1 100644
 --- a/auth.c
 +++ b/auth.c
-@@ -469,8 +469,7 @@ check_key_in_hostfiles(struct passwd *pw, struct sshkey *key, const char *host,
+@@ -473,8 +473,7 @@ check_key_in_hostfiles(struct passwd *pw, struct sshkey *key, const char *host,
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -65,10 +65,10 @@ index 80eb78c48..ad25631a5 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index ae4d29b84..2f3dbda0c 100644
+index bdc06fdb3..5159e6692 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -57,8 +57,9 @@
+@@ -58,8 +58,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -79,7 +79,7 @@ index ae4d29b84..2f3dbda0c 100644
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -1024,6 +1025,55 @@ percent_expand(const char *string, ...)
+@@ -1028,6 +1029,55 @@ percent_expand(const char *string, ...)
  #undef EXPAND_MAX_KEYS
  }
  
@@ -135,7 +135,7 @@ index ae4d29b84..2f3dbda0c 100644
  int
  tun_open(int tun, int mode, char **ifname)
  {
-@@ -1782,8 +1832,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -1786,8 +1836,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		snprintf(err, errlen, "%s is not a regular file", buf);
  		return -1;
  	}
@@ -145,7 +145,7 @@ index ae4d29b84..2f3dbda0c 100644
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -1798,8 +1847,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -1802,8 +1851,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) < 0 ||
@@ -156,10 +156,10 @@ index ae4d29b84..2f3dbda0c 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.h b/misc.h
-index 6be289fd2..213c3abb7 100644
+index 31b207a8d..aaf966e65 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -167,6 +167,8 @@ int	 safe_path_fd(int, const char *, struct passwd *,
+@@ -168,6 +168,8 @@ int	 safe_path_fd(int, const char *, struct passwd *,
  char	*read_passphrase(const char *, int);
  int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
  
@@ -169,10 +169,10 @@ index 6be289fd2..213c3abb7 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index 3fd0fe7b7..3ed6dfb54 100644
+index 052d4b1ac..6b01f20d2 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1795,8 +1795,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -1820,8 +1820,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index 3fd0fe7b7..3ed6dfb54 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index b20908a5e..cb0fdd50e 100644
+index 7760c3075..81f29af43 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1475,6 +1475,8 @@ The file format and configuration options are described in
+@@ -1485,6 +1485,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index b20908a5e..cb0fdd50e 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 86ada128e..03341a229 100644
+index 54e143c93..7d55fa820 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1813,6 +1813,8 @@ The format of this file is described above.
+@@ -1835,6 +1835,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not accessible by others.

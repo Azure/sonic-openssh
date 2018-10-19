@@ -1,4 +1,4 @@
-From 905ffae23105d59b013aac809da6195d231b0395 Mon Sep 17 00:00:00 2001
+From a18385c6866da4d69f46b64626ae5d60b4cf4a66 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2018-08-24
+Last-Update: 2018-10-19
 
 Patch-Name: debian-banner.patch
 ---
@@ -19,10 +19,10 @@ Patch-Name: debian-banner.patch
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/servconf.c b/servconf.c
-index e49984a81..bb43a649c 100644
+index 6caf1db38..c5dd617ef 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -181,6 +181,7 @@ initialize_server_options(ServerOptions *options)
+@@ -182,6 +182,7 @@ initialize_server_options(ServerOptions *options)
  	options->fingerprint_hash = -1;
  	options->disable_forwarding = -1;
  	options->expose_userauth_info = -1;
@@ -30,7 +30,7 @@ index e49984a81..bb43a649c 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -413,6 +414,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -417,6 +418,8 @@ fill_default_server_options(ServerOptions *options)
  		options->disable_forwarding = 0;
  	if (options->expose_userauth_info == -1)
  		options->expose_userauth_info = 0;
@@ -39,7 +39,7 @@ index e49984a81..bb43a649c 100644
  
  	assemble_algorithms(options);
  
-@@ -500,6 +503,7 @@ typedef enum {
+@@ -504,6 +507,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain,
@@ -47,15 +47,15 @@ index e49984a81..bb43a649c 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -656,6 +660,7 @@ static struct {
- 	{ "disableforwarding", sDisableForwarding, SSHCFG_ALL },
+@@ -661,6 +665,7 @@ static struct {
  	{ "exposeauthinfo", sExposeAuthInfo, SSHCFG_ALL },
  	{ "rdomain", sRDomain, SSHCFG_ALL },
+ 	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2164,6 +2169,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -2173,6 +2178,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -67,10 +67,10 @@ index e49984a81..bb43a649c 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 9b117fe27..76098119b 100644
+index 3b76da816..4e3c54042 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -211,6 +211,8 @@ typedef struct {
+@@ -212,6 +212,8 @@ typedef struct {
  	int	fingerprint_hash;
  	int	expose_userauth_info;
  	u_int64_t timing_secret;
@@ -80,7 +80,7 @@ index 9b117fe27..76098119b 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshd.c b/sshd.c
-index ffd3dad6a..698593605 100644
+index 9481272fc..d7e77d343 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -384,7 +384,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
@@ -94,10 +94,10 @@ index ffd3dad6a..698593605 100644
  	    options.version_addendum);
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 0fbbccbde..96a69ab55 100644
+index e7e55dd71..37e6be38f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -532,6 +532,11 @@ or
+@@ -543,6 +543,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

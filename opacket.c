@@ -80,7 +80,7 @@ ssh_packet_put_raw(struct ssh *ssh, const void *buf, u_int len)
 
 #ifdef WITH_OPENSSL
 void
-ssh_packet_put_bignum2(struct ssh *ssh, BIGNUM * value)
+ssh_packet_put_bignum2(struct ssh *ssh, const BIGNUM * value)
 {
 	int r;
 

@@ -169,6 +169,9 @@ static const struct sock_filter preauth_insns[] = {
 #if defined(__NR_flock) && defined(__s390__)
 	SC_ALLOW(__NR_flock),
 #endif
+#ifdef __NR_futex
+	SC_ALLOW(__NR_futex),
+#endif
 #ifdef __NR_geteuid
 	SC_ALLOW(__NR_geteuid),
 #endif

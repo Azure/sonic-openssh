@@ -39,11 +39,12 @@
 #include "xmalloc.h"
 #include "ssherr.h"
 #include "sshbuf.h"
+#include "sshkey.h"
 #include "log.h"
 #include "ssh2.h"
 #include "cipher.h"
 #include "kex.h"
-#include <openssl/evp.h>
+#include "digest.h"
 
 #include "ssh-gss.h"
 
@@ -110,10 +111,9 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	size_t i;
 	int r, oidpos, enclen;
 	char *mechs, *encoded;
-	u_char digest[EVP_MAX_MD_SIZE];
+	u_char digest[SSH_DIGEST_MAX_LENGTH];
 	char deroid[2];
-	const EVP_MD *evp_md = EVP_md5();
-	EVP_MD_CTX md;
+	struct ssh_digest_ctx *md;
 
 	if (gss_enc2oid != NULL) {
 		for (i = 0; gss_enc2oid[i].encoded != NULL; i++)
@@ -135,16 +135,19 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 			deroid[0] = SSH_GSS_OIDTYPE;
 			deroid[1] = gss_supported->elements[i].length;
 
-			EVP_DigestInit(&md, evp_md);
-			EVP_DigestUpdate(&md, deroid, 2);
-			EVP_DigestUpdate(&md,
+			if ((md = ssh_digest_start(SSH_DIGEST_MD5)) == NULL ||
+			    ssh_digest_update(md, deroid, 2) != 0 ||
+			    ssh_digest_update(md,
 			    gss_supported->elements[i].elements,
-			    gss_supported->elements[i].length);
-			EVP_DigestFinal(&md, digest, NULL);
+			    gss_supported->elements[i].length) != 0 ||
+			    ssh_digest_final(md, digest, sizeof(digest)) != 0)
+				fatal("%s: digest failed", __func__);
 
-			encoded = xmalloc(EVP_MD_size(evp_md) * 2);
-			enclen = __b64_ntop(digest, EVP_MD_size(evp_md),
-			    encoded, EVP_MD_size(evp_md) * 2);
+			encoded = xmalloc(ssh_digest_bytes(SSH_DIGEST_MD5)
+			    * 2);
+			enclen = __b64_ntop(digest,
+			    ssh_digest_bytes(SSH_DIGEST_MD5), encoded,
+			    ssh_digest_bytes(SSH_DIGEST_MD5) * 2);
 
 			if (oidpos != 0) {
 				if ((r = sshbuf_put_u8(buf, ',')) != 0)

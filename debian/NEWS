@@ -1,3 +1,16 @@
+openssh (1:7.9p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 7.9 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1), sshd(8): the setting of the new CASignatureAlgorithms option
+     bans the use of DSA keys as certificate authorities.
+   * sshd(8): the authentication success/failure log message has changed
+     format slightly.  It now includes the certificate fingerprint
+     (previously it included only key ID and CA key fingerprint).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 19 Oct 2018 21:34:47 +0100
+
 openssh (1:7.8p1-1) unstable; urgency=medium
 
   OpenSSH 7.8 includes a number of changes that may affect existing

@@ -56,6 +56,7 @@ kexgss_client(struct ssh *ssh) {
 	DH *dh; 
 	BIGNUM *dh_server_pub = NULL;
 	BIGNUM *shared_secret = NULL;
+	const BIGNUM *pub_key, *dh_p, *dh_g;
 	BIGNUM *p = NULL;
 	BIGNUM *g = NULL;	
 	u_char *kbuf;
@@ -120,6 +121,8 @@ kexgss_client(struct ssh *ssh) {
 	
 	/* Step 1 - e is dh->pub_key */
 	dh_gen_key(dh, ssh->kex->we_need * 8);
+	DH_get0_key(dh, &pub_key, NULL);
+	DH_get0_pqg(dh, &dh_p, NULL, &dh_g);
 
 	/* This is f, we initialise it now to make life easier */
 	dh_server_pub = BN_new();
@@ -167,7 +170,7 @@ kexgss_client(struct ssh *ssh) {
 				packet_start(SSH2_MSG_KEXGSS_INIT);
 				packet_put_string(send_tok.value,
 				    send_tok.length);
-				packet_put_bignum2(dh->pub_key);
+				packet_put_bignum2(pub_key);
 				first = 0;
 			} else {
 				packet_start(SSH2_MSG_KEXGSS_CONTINUE);
@@ -276,7 +279,7 @@ kexgss_client(struct ssh *ssh) {
 		    sshbuf_ptr(ssh->kex->my), sshbuf_len(ssh->kex->my),
 		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
-		    dh->pub_key,	/* e */
+		    pub_key,		/* e */
 		    dh_server_pub,	/* f */
 		    shared_secret,	/* K */
 		    hash, &hashlen
@@ -291,8 +294,8 @@ kexgss_client(struct ssh *ssh) {
 		    sshbuf_ptr(ssh->kex->peer), sshbuf_len(ssh->kex->peer),
 		    (serverhostkey ? serverhostkey : empty), slen,
  		    min, nbits, max,
-		    dh->p, dh->g,
-		    dh->pub_key,
+		    dh_p, dh_g,
+		    pub_key,
 		    dh_server_pub,
 		    shared_secret,
 		    hash, &hashlen
