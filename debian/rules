@@ -1,5 +1,9 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+
+include /usr/share/dpkg/default.mk
+
 # Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
@@ -19,10 +23,6 @@ else
 	-j$(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
 endif
 
-DEB_HOST_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-DEB_HOST_ARCH      ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
   CC := gcc
   PKG_CONFIG = pkg-config
@@ -32,29 +32,18 @@ else
   RUN_TESTS :=
 endif
 
-DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
-
-# Take account of old dpkg-architecture output.
-ifeq ($(DEB_HOST_ARCH_OS),)
-  DEB_HOST_ARCH_OS := $(subst -gnu,,$(shell dpkg-architecture -qDEB_HOST_GNU_SYSTEM))
-  ifeq ($(DEB_HOST_ARCH_OS),gnu)
-    DEB_HOST_ARCH_OS := hurd
-  endif
-endif
-
 # Change the version string to reflect distribution
-DISTRIBUTION := $(shell dpkg-vendor --query vendor)
-SSH_EXTRAVERSION := $(DISTRIBUTION)-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
+SSH_EXTRAVERSION := $(DEB_VENDOR)-$(shell echo '$(DEB_VERSION)' | sed -e 's/.*-//')
 
-DISTRIBUTOR := $(shell if dpkg-vendor --derives-from Ubuntu 2>/dev/null; then echo Ubuntu; else echo Debian; fi)
-ifeq ($(DISTRIBUTOR),Ubuntu)
+UBUNTU := $(call dpkg_vendor_derives_from Ubuntu)
+ifeq ($(UBUNTU),yes)
 DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 else
 DEFAULT_PATH := /usr/local/bin:/usr/bin:/bin:/usr/games
 endif
 SUPERUSER_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ifeq ($(DISTRIBUTOR),Ubuntu)
+ifeq ($(UBUNTU),yes)
 server_recommends := ssh-import-id
 else
 server_recommends :=
@@ -105,8 +94,6 @@ confflags += --with-default-path=$(DEFAULT_PATH) --with-superuser-path=$(SUPERUS
 confflags_udeb += --with-default-path=/usr/local/bin:/usr/bin:/bin --with-superuser-path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Compiler flags.
-export DEB_BUILD_MAINT_OPTIONS := hardening=+all
-include /usr/share/dpkg/buildflags.mk
 cflags := $(CPPFLAGS) $(CFLAGS)
 cflags += -DSSH_EXTRAVERSION=\"$(SSH_EXTRAVERSION)\"
 cflags_udeb := -Os
