@@ -249,6 +249,27 @@ options related to it are now deprecated and should be removed from
 The Protocol option is also no longer needed, although it is silently
 ignored rather than deprecated.
 
+if-up hook removed
+------------------
+
+openssh-server previously shipped an if-up hook that restarted sshd when a
+network interface came up.  This generally caused more problems than it
+solved: for instance, it means that sshd stops listening briefly while being
+restarted, which can cause problems in some environments, particularly
+automated tests.
+
+The only known situation where the if-up hook was useful was when
+sshd_config was changed to add ListenAddress entries for particular IP
+addresses, overriding the default of listening on all addresses, and the
+system is one that often roams between networks.  In such a situation, it is
+better to remove ListenAddress entries from sshd_config (restoring it to the
+default behaviour) and instead use firewall rules to restrict incoming SSH
+connections to only the desired interfaces or addresses.
+
+For further discussion, see:
+
+  https://bugs.launchpad.net/bugs/1674330
+
 -- 
 Matthew Vernon <matthew@debian.org>
 Colin Watson <cjwatson@debian.org>

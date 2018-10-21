@@ -55,6 +55,11 @@ openssh (1:7.9p1-1) UNRELEASED; urgency=medium
   * Remove dh_builddeb override to use xz compression; this has been the
     default since dpkg 1.17.0.
   * Simplify debian/rules using /usr/share/dpkg/default.mk.
+  * Remove /etc/network/if-up.d/openssh-server, as it causes more problems
+    than it solves (thanks, Christian Ehrhardt, Andreas Hasenack, and David
+    Britton; closes: #789532, LP: #1037738, #1674330, #1718227).  Add an
+    "if-up hook removed" section to README.Debian documenting the corner
+    case that may need configuration adjustments.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 19 Oct 2018 21:34:47 +0100
 
