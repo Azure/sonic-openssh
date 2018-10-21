@@ -1,4 +1,4 @@
-openssh (1:7.9p1-1) UNRELEASED; urgency=medium
+openssh (1:7.9p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-7.9):
     - ssh(1), sshd(8): allow most port numbers to be specified using service
@@ -61,7 +61,7 @@ openssh (1:7.9p1-1) UNRELEASED; urgency=medium
     "if-up hook removed" section to README.Debian documenting the corner
     case that may need configuration adjustments.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 19 Oct 2018 21:34:47 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 21 Oct 2018 10:39:24 +0100
 
 openssh (1:7.8p1-1) unstable; urgency=medium
 
