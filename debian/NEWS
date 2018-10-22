@@ -1,4 +1,4 @@
-openssh (1:7.9p1-1) UNRELEASED; urgency=medium
+openssh (1:7.9p1-1) unstable; urgency=medium
 
   OpenSSH 7.9 includes a number of changes that may affect existing
   configurations:
@@ -9,7 +9,7 @@ openssh (1:7.9p1-1) UNRELEASED; urgency=medium
      format slightly.  It now includes the certificate fingerprint
      (previously it included only key ID and CA key fingerprint).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 19 Oct 2018 21:34:47 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 21 Oct 2018 10:39:24 +0100
 
 openssh (1:7.8p1-1) unstable; urgency=medium
 
