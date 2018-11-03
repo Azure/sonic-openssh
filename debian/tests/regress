@@ -3,6 +3,7 @@ set -ex
 
 if [ "$(id -un)" != openssh-tests ]; then
 	TMP="$ADTTMP/user"
+	CREATED_RUN_SSHD=false
 	STARTED_HAVEGED=false
 
 	cleanup () {
@@ -23,6 +24,10 @@ if [ "$(id -un)" != openssh-tests ]; then
 		if id openssh-tests >/dev/null 2>&1; then
 			deluser --remove-home openssh-tests
 		fi
+
+		if $CREATED_RUN_SSHD; then
+			rm -rf /run/sshd
+		fi
 	}
 	trap cleanup EXIT
 
@@ -34,6 +39,14 @@ EOF
 	mkdir -p "$TMP"
 	cp -a . "$TMP/tree"
 	chown -R openssh-tests:openssh-tests "$TMP"
+
+	# Depending on how the environment is configured, our test
+	# dependency on openssh-server may not actually started sshd and
+	# thus may not have caused /run/sshd to be created.
+	if [ ! -d /run/sshd ]; then
+		mkdir -m755 /run/sshd
+		CREATED_RUN_SSHD=:
+	fi
 
 	# If we're running in a container, haveged may not have started
 	# automatically.
