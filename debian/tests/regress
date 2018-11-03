@@ -1,5 +1,5 @@
 #! /bin/sh
-set -ex
+set -e
 
 if [ "$(id -un)" != openssh-tests ]; then
 	TMP="$ADTTMP/user"
@@ -92,7 +92,6 @@ annotate-output +%H:%M:%S.%N make -C regress \
 	BUILDDIR="$BUILDDIR" \
 	OBJ="$BUILDDIR/regress" \
 	SUDO=sudo \
-	TEST_SHELL='sh -x' \
 	TEST_SSH_SFTPSERVER=/usr/lib/openssh/sftp-server \
 	TEST_SSH_PLINK=plink \
 	TEST_SSH_PUTTYGEN=puttygen \
