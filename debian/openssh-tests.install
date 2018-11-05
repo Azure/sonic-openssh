@@ -1,0 +1,5 @@
+regress /usr/lib/openssh
+debian/build-deb/regress /usr/lib/openssh
+
+debian/build-deb/config.h /usr/lib/openssh/regress
+debian/run-tests /usr/lib/openssh/regress

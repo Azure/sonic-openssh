@@ -130,6 +130,8 @@ override_dh_auto_configure-indep:
 
 override_dh_auto_build-arch:
 	$(MAKE) -C debian/build-deb $(PARALLEL) ASKPASS_PROGRAM='/usr/bin/ssh-askpass'
+	$(MAKE) -C debian/build-deb regress-prep
+	$(MAKE) -C debian/build-deb $(PARALLEL) regress-binaries
 ifeq ($(filter noudeb,$(DEB_BUILD_PROFILES)),)
 	$(MAKE) -C debian/build-udeb $(PARALLEL) ASKPASS_PROGRAM='/usr/bin/ssh-askpass' ssh scp sftp sshd ssh-keygen
 endif
@@ -142,8 +144,6 @@ override_dh_auto_build-indep:
 
 override_dh_auto_test-arch:
 ifeq ($(RUN_TESTS),yes)
-	$(MAKE) -C debian/build-deb regress-prep
-	$(MAKE) -C debian/build-deb $(PARALLEL) regress-binaries
 	$(MAKE) -C debian/build-deb/regress \
 		.OBJDIR="$(CURDIR)/debian/build-deb/regress" \
 		.CURDIR="$(CURDIR)/regress" \

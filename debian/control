@@ -153,6 +153,22 @@ Description: secure shell (SSH) sftp server module, for SFTP access from remote 
  Newer versions of the draft will not be supported, though some features
  are individually implemented as extensions.
 
+Package: openssh-tests
+Priority: optional
+Architecture: any
+Depends: openssh-client (= ${binary:Version}),
+         openssh-server (= ${binary:Version}),
+         openssh-sftp-server (= ${binary:Version}),
+         openssl,
+         putty-tools (>= 0.67-2),
+         python-twisted-conch (>= 1:15.5.0-1),
+         ${misc:Depends},
+         ${shlibs:Depends},
+Description: OpenSSH regression tests
+ This package provides OpenSSH's regression test suite.  It is mainly
+ intended for use with the autopkgtest system, though can also be run
+ directly using /usr/lib/openssh/regress/run-tests.
+ 
 Package: ssh
 Priority: optional
 Architecture: all
