@@ -3,6 +3,10 @@ openssh (1:7.9p1-3) UNRELEASED; urgency=medium
   * Be more specific about what files to install in openssh-tests, to avoid
     installing a symlink into the build tree.
   * Re-export debian/upstream/signing-key.asc without extra signatures.
+  * Restore direct test dependencies on openssl, putty-tools, and
+    python-twisted-conch; these are really only indirect dependencies via
+    openssh-tests, but including them means that this package will be
+    retested when they change.
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 15 Nov 2018 00:47:48 +0000
 

@@ -3,5 +3,8 @@ Restrictions: needs-root allow-stderr
 Depends: devscripts,
          haveged,
          openssh-tests,
+         openssl,
+         putty-tools,
+         python-twisted-conch,
          sudo,
          sysvinit-utils,
