@@ -168,7 +168,7 @@ Description: OpenSSH regression tests
  This package provides OpenSSH's regression test suite.  It is mainly
  intended for use with the autopkgtest system, though can also be run
  directly using /usr/lib/openssh/regress/run-tests.
- 
+
 Package: ssh
 Priority: optional
 Architecture: all
