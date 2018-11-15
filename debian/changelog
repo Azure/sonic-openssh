@@ -1,3 +1,10 @@
+openssh (1:7.9p1-3) UNRELEASED; urgency=medium
+
+  * Be more specific about what files to install in openssh-tests, to avoid
+    installing a symlink into the build tree.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 15 Nov 2018 00:47:48 +0000
+
 openssh (1:7.9p1-2) unstable; urgency=medium
 
   * Add GitLab CI configuration.
