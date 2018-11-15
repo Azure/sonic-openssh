@@ -1,3 +1,11 @@
+openssh (1:7.9p1-4) UNRELEASED; urgency=medium
+
+  * Fix Ubuntu detection in debian/rules, since the documentation comment
+    for dpkg_vendor_derives_from is wrong (thanks, Jeremy Bicha; see
+    #913816).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 15 Nov 2018 15:49:52 +0000
+
 openssh (1:7.9p1-3) unstable; urgency=medium
 
   * Be more specific about what files to install in openssh-tests, to avoid
