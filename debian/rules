@@ -35,7 +35,7 @@ endif
 # Change the version string to reflect distribution
 SSH_EXTRAVERSION := $(DEB_VENDOR)-$(shell echo '$(DEB_VERSION)' | sed -e 's/.*-//')
 
-UBUNTU := $(shell dpkg-vendor --derives-from Ubuntu && echo yes || echo no)
+UBUNTU := $(shell $(call dpkg_vendor_derives_from,Ubuntu))
 ifeq ($(UBUNTU),yes)
 DEFAULT_PATH := /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 else
