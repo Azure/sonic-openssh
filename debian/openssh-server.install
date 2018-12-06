@@ -1,5 +1,6 @@
 #! /usr/bin/dh-exec
 
+etc/ssh/moduli
 usr/sbin/sshd
 usr/share/man/man5/authorized_keys.5
 usr/share/man/man5/sshd_config.5

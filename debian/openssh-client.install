@@ -1,6 +1,5 @@
 #! /usr/bin/dh-exec
 
-etc/ssh/moduli
 etc/ssh/ssh_config
 usr/bin/scp
 usr/bin/sftp

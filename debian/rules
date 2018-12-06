@@ -178,7 +178,7 @@ endif
 	# Remove version control tags to avoid unnecessary conffile
 	# resolution steps for administrators.
 	sed -i '/\$$OpenBSD:/d' \
-		debian/openssh-client/etc/ssh/moduli \
+		debian/openssh-server/etc/ssh/moduli \
 		debian/openssh-client/etc/ssh/ssh_config
 
 # We'd like to use dh_install --fail-missing here, but that doesn't work
