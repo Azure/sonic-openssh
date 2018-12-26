@@ -7,9 +7,6 @@ server=debian/openssh-server.substvars
 
 libssl_version="$(dpkg-query -W libssl-dev 2>/dev/null | cut -f2)"
 if [ -z "$libssl_version" ]; then
-	libssl_version="$(dpkg-query -W libssl1.0-dev 2>/dev/null | cut -f2)"
-fi
-if [ -z "$libssl_version" ]; then
 	echo "Can't find libssl-dev version; leaving dependencies alone."
 	exit 0
 fi
