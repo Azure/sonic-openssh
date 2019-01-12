@@ -24,3 +24,4 @@ restore-authorized_keys2.patch
 seccomp-s390-flock-ipc.patch
 seccomp-s390-ioctl-ep11-crypto.patch
 conch-old-privkey-format.patch
+scp-disallow-dot-or-empty-filename.patch

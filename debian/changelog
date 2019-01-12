@@ -4,6 +4,8 @@ openssh (1:7.9p1-5) UNRELEASED; urgency=medium
     only used by sshd (closes: #858050).
   * Drop obsolete alternate build-dependency on libssl1.0-dev (closes:
     #917342).
+  * CVE-2018-20685: Apply upstream scp patch to disallow empty incoming
+    filename or ones that refer to the current directory (closes: #919101).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 06 Dec 2018 18:16:30 +0000
 
