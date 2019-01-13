@@ -1,4 +1,4 @@
-openssh (1:7.9p1-5) UNRELEASED; urgency=medium
+openssh (1:7.9p1-5) unstable; urgency=high
 
   * Move /etc/ssh/moduli to openssh-server, since it's reasonably large and
     only used by sshd (closes: #858050).
@@ -7,7 +7,7 @@ openssh (1:7.9p1-5) UNRELEASED; urgency=medium
   * CVE-2018-20685: Apply upstream scp patch to disallow empty incoming
     filename or ones that refer to the current directory (closes: #919101).
 
- -- Colin Watson <cjwatson@debian.org>  Thu, 06 Dec 2018 18:16:30 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sun, 13 Jan 2019 11:22:45 +0000
 
 openssh (1:7.9p1-4) unstable; urgency=medium
 
