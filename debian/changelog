@@ -1,3 +1,11 @@
+openssh (1:7.4p1-10+deb9u4) stretch-security; urgency=high
+
+  * Non-maintainer upload by the Security Team
+  * CVE-2018-15473: fix username enumeration issue, initially reported
+    by Dariusz Tytko and Michal Sajdak (Closes: #906236)
+
+ -- Sebastien Delafond <seb@debian.org>  Tue, 21 Aug 2018 05:14:18 +0200
+
 openssh (1:7.4p1-10+deb9u3) stretch; urgency=medium
 
   * CVE-2017-15906: sftp-server(8): In read-only mode, sftp-server was
