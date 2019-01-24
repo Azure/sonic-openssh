@@ -101,7 +101,7 @@ sftpio(void *_bwlimit, size_t amount)
 {
 	struct bwlimit *bwlimit = (struct bwlimit *)_bwlimit;
 
-	refresh_progress_meter();
+	refresh_progress_meter(0);
 	if (bwlimit != NULL)
 		bandwidth_limit(bwlimit, amount);
 	return 0;
