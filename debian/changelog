@@ -1,4 +1,4 @@
-openssh (1:7.4p1-10+deb9u5) UNRELEASED; urgency=high
+openssh (1:7.4p1-10+deb9u5) stretch; urgency=high
 
   * Non-maintainer upload by the Security Team.
   * CVE-2018-20685: disallow empty filenames or ones that refer to the current
@@ -7,7 +7,7 @@ openssh (1:7.4p1-10+deb9u5) UNRELEASED; urgency=high
   * CVE-2019-6111: check in scp client that filenames sent during
     remote->local directory copies satisfy the wildcards specified by the user
 
- -- Yves-Alexis Perez <corsac@debian.org>  Fri, 08 Feb 2019 15:25:14 +0100
+ -- Yves-Alexis Perez <corsac@debian.org>  Fri, 08 Feb 2019 15:25:55 +0100
 
 openssh (1:7.4p1-10+deb9u4) stretch-security; urgency=high
 
