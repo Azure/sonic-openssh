@@ -25,3 +25,5 @@ seccomp-s390-flock-ipc.patch
 seccomp-s390-ioctl-ep11-crypto.patch
 conch-old-privkey-format.patch
 scp-disallow-dot-or-empty-filename.patch
+sanitize-scp-filenames-via-snmprintf.patch
+have-progressmeter-force-update-at-beginning-and-end-transfer.patch
