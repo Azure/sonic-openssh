@@ -39,3 +39,7 @@ winscp-dhgex-compat.patch
 dash-dash-before-hostname.patch
 CVE-2017-15906.patch
 upstream-delay-bailout-for-invalid-authenticating-user.patch
+scp-disallow-dot-or-empty-filename.patch
+sanitize-scp-filenames-via-snmprintf.patch
+have-progressmeter-force-update-at-beginning-and-end-transfer.patch
+check-filenames-in-scp-client.patch
