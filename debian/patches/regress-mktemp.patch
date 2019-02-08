@@ -12,11 +12,11 @@ Last-Update: 2017-01-03
 
 Patch-Name: regress-mktemp.patch
 ---
- Makefile.in           |  5 +++++
+ Makefile.in           |  5 ++++
  regress/forwarding.sh |  3 ++-
- regress/mkdtemp.c     | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ regress/mkdtemp.c     | 59 +++++++++++++++++++++++++++++++++++++++++++
  regress/multiplex.sh  |  3 ++-
- regress/test-exec.sh  | 11 ++++++++++
+ regress/test-exec.sh  | 11 ++++++++
  5 files changed, 79 insertions(+), 2 deletions(-)
  create mode 100644 regress/mkdtemp.c
 

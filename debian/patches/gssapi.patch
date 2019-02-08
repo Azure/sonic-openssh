@@ -21,37 +21,37 @@ Last-Updated: 2017-01-16
 
 Patch-Name: gssapi.patch
 ---
- ChangeLog.gssapi | 113 +++++++++++++++++++
+ ChangeLog.gssapi | 113 ++++++++++++++++
  Makefile.in      |   3 +-
  auth-krb5.c      |  17 ++-
- auth.c           |  96 +---------------
- auth2-gss.c      |  48 +++++++-
+ auth.c           |  96 +-------------
+ auth2-gss.c      |  48 ++++++-
  auth2.c          |   2 +
- canohost.c       |  93 +++++++++++++++
+ canohost.c       |  93 +++++++++++++
  canohost.h       |   3 +
  clientloop.c     |  15 ++-
  config.h.in      |   6 +
  configure.ac     |  24 ++++
- gss-genr.c       | 275 +++++++++++++++++++++++++++++++++++++++++++-
- gss-serv-krb5.c  |  85 ++++++++++++--
- gss-serv.c       | 184 +++++++++++++++++++++++++++---
- kex.c            |  19 ++++
- kex.h            |  14 +++
- kexgssc.c        | 338 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
- kexgsss.c        | 295 ++++++++++++++++++++++++++++++++++++++++++++++++
- monitor.c        | 115 +++++++++++++++++--
+ gss-genr.c       | 275 +++++++++++++++++++++++++++++++++++++-
+ gss-serv-krb5.c  |  85 +++++++++++-
+ gss-serv.c       | 184 ++++++++++++++++++++++++--
+ kex.c            |  19 +++
+ kex.h            |  14 ++
+ kexgssc.c        | 338 +++++++++++++++++++++++++++++++++++++++++++++++
+ kexgsss.c        | 295 +++++++++++++++++++++++++++++++++++++++++
+ monitor.c        | 115 ++++++++++++++--
  monitor.h        |   3 +
- monitor_wrap.c   |  47 +++++++-
+ monitor_wrap.c   |  47 ++++++-
  monitor_wrap.h   |   4 +-
- readconf.c       |  42 +++++++
+ readconf.c       |  42 ++++++
  readconf.h       |   5 +
- servconf.c       |  28 ++++-
+ servconf.c       |  28 +++-
  servconf.h       |   2 +
- ssh-gss.h        |  41 ++++++-
+ ssh-gss.h        |  41 +++++-
  ssh_config       |   2 +
- ssh_config.5     |  32 ++++++
- sshconnect2.c    | 131 ++++++++++++++++++++-
- sshd.c           | 112 +++++++++++++++++-
+ ssh_config.5     |  32 +++++
+ sshconnect2.c    | 131 +++++++++++++++++-
+ sshd.c           | 112 +++++++++++++++-
  sshd_config      |   2 +
  sshd_config.5    |  10 ++
  sshkey.c         |   3 +-

@@ -22,9 +22,9 @@ Last-Update: 2014-10-07
 
 Patch-Name: restore-tcp-wrappers.patch
 ---
- configure.ac | 57 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ configure.ac | 57 ++++++++++++++++++++++++++++++++++++++++++++++++++++
  sshd.8       |  7 +++++++
- sshd.c       | 25 +++++++++++++++++++++++++
+ sshd.c       | 25 +++++++++++++++++++++++
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac

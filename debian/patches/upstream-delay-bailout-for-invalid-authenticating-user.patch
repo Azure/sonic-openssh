@@ -1,4 +1,4 @@
-From c4ca1497658e0508e8595ad74978c07bc92a18e3 Mon Sep 17 00:00:00 2001
+From c9113ca0fb8730e256df7729fc17767a905c706c Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Tue, 31 Jul 2018 03:10:27 +0000
 Subject: upstream: delay bailout for invalid authenticating user
@@ -13,24 +13,17 @@ OpenBSD-Commit-ID: b4891882fbe413f230fe8ac8a37349b03bd0b70d
 
 Origin: backport, http://anongit.mindrot.org/openssh.git/commit/?id=74287f5df9966a0648b4a68417451dd18f079ab8
 Bug-Debian: https://bugs.debian.org/906236
-
 Last-Update: 2018-08-21
 
 Patch-Name: upstream-delay-bailout-for-invalid-authenticating-user.patch
 ---
- auth2-gss.c           |  9 ++++++---
- auth2-hostbased.c     |  9 +++++----
- auth2-pubkey.c        | 22 ++++++++++++++--------
- 3 files changed, 25 insertions(+), 15 deletions(-)
-
-commit 2a406637f4bdc9ad0e6002cd69200a58c56fae79
-Author: Sébastien Delafond <sdelafond@gmail.com>
-Date:   Tue Aug 21 05:54:48 2018 +0200
-
-    CVE-2018-15473
+ auth2-gss.c       |  9 ++++++---
+ auth2-hostbased.c |  9 +++++----
+ auth2-pubkey.c    | 21 ++++++++++++++-------
+ 3 files changed, 25 insertions(+), 14 deletions(-)
 
 diff --git a/auth2-gss.c b/auth2-gss.c
-index 3b5036d..460cf98 100644
+index 3b5036df..460cf98a 100644
 --- a/auth2-gss.c
 +++ b/auth2-gss.c
 @@ -102,9 +102,6 @@ userauth_gssapi(Authctxt *authctxt)
@@ -57,7 +50,7 @@ index 3b5036d..460cf98 100644
  		if (ctxt != NULL)
  			ssh_gssapi_delete_ctx(&ctxt);
 diff --git a/auth2-hostbased.c b/auth2-hostbased.c
-index 1b3c3b2..2fa94d2 100644
+index 1b3c3b20..2fa94d22 100644
 --- a/auth2-hostbased.c
 +++ b/auth2-hostbased.c
 @@ -66,10 +66,6 @@ userauth_hostbased(Authctxt *authctxt)
@@ -84,7 +77,7 @@ index 1b3c3b2..2fa94d2 100644
  	    authctxt->service;
  	buffer_init(&b);
 diff --git a/auth2-pubkey.c b/auth2-pubkey.c
-index add7713..40aae5b 100644
+index add77136..40aae5b2 100644
 --- a/auth2-pubkey.c
 +++ b/auth2-pubkey.c
 @@ -79,16 +79,12 @@ userauth_pubkey(Authctxt *authctxt)
