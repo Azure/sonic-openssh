@@ -1,4 +1,4 @@
-openssh (1:7.9p1-6) UNRELEASED; urgency=medium
+openssh (1:7.9p1-6) unstable; urgency=medium
 
   * CVE-2019-6109: Apply upstream patches to sanitize scp filenames via
     snmprintf (closes: #793412).
@@ -6,7 +6,7 @@ openssh (1:7.9p1-6) UNRELEASED; urgency=medium
     filenames sent during remote->local directory copies satisfy the
     wildcard specified by the user.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 08 Feb 2019 15:41:25 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 08 Feb 2019 16:26:35 +0000
 
 openssh (1:7.9p1-5) unstable; urgency=high
 
