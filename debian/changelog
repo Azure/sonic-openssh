@@ -2,6 +2,9 @@ openssh (1:7.9p1-6) UNRELEASED; urgency=medium
 
   * CVE-2019-6109: Apply upstream patches to sanitize scp filenames via
     snmprintf (closes: #793412).
+  * CVE-2019-6111: Apply upstream patch to check in scp client that
+    filenames sent during remote->local directory copies satisfy the
+    wildcard specified by the user.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 08 Feb 2019 15:41:25 +0000
 
