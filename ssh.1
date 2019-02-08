@@ -753,10 +753,6 @@ Protocol 1 is restricted to using only RSA keys,
 but protocol 2 may use any.
 The HISTORY section of
 .Xr ssl 8
-(on non-OpenBSD systems, see
-.nh
-http://www.openbsd.org/cgi\-bin/man.cgi?query=ssl&sektion=8#HISTORY)
-.hy
 contains a brief discussion of the DSA and RSA algorithms.
 .Pp
 The file
@@ -1346,8 +1342,6 @@ The file format and configuration options are described in
 .Xr ssh_config 5 .
 Because of the potential for abuse, this file must have strict permissions:
 read/write for the user, and not writable by others.
-It may be group-writable provided that the group in question contains only
-the user.
 .Pp
 .It Pa ~/.ssh/environment
 Contains additional definitions for environment variables; see
@@ -1458,7 +1452,6 @@ if an error occurred.
 .Xr sftp 1 ,
 .Xr ssh-add 1 ,
 .Xr ssh-agent 1 ,
-.Xr ssh-argv0 1 ,
 .Xr ssh-keygen 1 ,
 .Xr ssh-keyscan 1 ,
 .Xr tun 4 ,

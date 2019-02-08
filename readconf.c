@@ -38,8 +38,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <pwd.h>
-#include <grp.h>
 #ifdef HAVE_UTIL_H
 #include <util.h>
 #endif
@@ -144,8 +142,6 @@ typedef enum {
 	oClearAllForwardings, oNoHostAuthenticationForLocalhost,
 	oEnableSSHKeysign, oRekeyLimit, oVerifyHostKeyDNS, oConnectTimeout,
 	oAddressFamily, oGssAuthentication, oGssDelegateCreds,
-	oGssTrustDns, oGssKeyEx, oGssClientIdentity, oGssRenewalRekey,
-	oGssServerIdentity, 
 	oServerAliveInterval, oServerAliveCountMax, oIdentitiesOnly,
 	oSendEnv, oControlPath, oControlMaster, oControlPersist,
 	oHashKnownHosts,
@@ -155,7 +151,6 @@ typedef enum {
 	oCanonicalDomains, oCanonicalizeHostname, oCanonicalizeMaxDots,
 	oCanonicalizeFallbackLocal, oCanonicalizePermittedCNAMEs,
 	oStreamLocalBindMask, oStreamLocalBindUnlink,
-	oProtocolKeepAlives, oSetupTimeOut,
 	oIgnoredUnknownOption, oDeprecated, oUnsupported
 } OpCodes;
 
@@ -177,7 +172,6 @@ static struct {
 	{ "passwordauthentication", oPasswordAuthentication },
 	{ "kbdinteractiveauthentication", oKbdInteractiveAuthentication },
 	{ "kbdinteractivedevices", oKbdInteractiveDevices },
-	{ "useblacklistedkeys", oDeprecated },
 	{ "rsaauthentication", oRSAAuthentication },
 	{ "pubkeyauthentication", oPubkeyAuthentication },
 	{ "dsaauthentication", oPubkeyAuthentication },		    /* alias */
@@ -191,19 +185,10 @@ static struct {
 	{ "afstokenpassing", oUnsupported },
 #if defined(GSSAPI)
 	{ "gssapiauthentication", oGssAuthentication },
-	{ "gssapikeyexchange", oGssKeyEx },
 	{ "gssapidelegatecredentials", oGssDelegateCreds },
-	{ "gssapitrustdns", oGssTrustDns },
-	{ "gssapiclientidentity", oGssClientIdentity },
-	{ "gssapiserveridentity", oGssServerIdentity },
-	{ "gssapirenewalforcesrekey", oGssRenewalRekey },
 #else
 	{ "gssapiauthentication", oUnsupported },
-	{ "gssapikeyexchange", oUnsupported },
 	{ "gssapidelegatecredentials", oUnsupported },
-	{ "gssapitrustdns", oUnsupported },
-	{ "gssapiclientidentity", oUnsupported },
-	{ "gssapirenewalforcesrekey", oUnsupported },
 #endif
 	{ "fallbacktorsh", oDeprecated },
 	{ "usersh", oDeprecated },
@@ -281,8 +266,6 @@ static struct {
 	{ "streamlocalbindmask", oStreamLocalBindMask },
 	{ "streamlocalbindunlink", oStreamLocalBindUnlink },
 	{ "ignoreunknown", oIgnoreUnknown },
-	{ "protocolkeepalives", oProtocolKeepAlives },
-	{ "setuptimeout", oSetupTimeOut },
 
 	{ NULL, oBadOption }
 };
@@ -882,28 +865,8 @@ parse_time:
 		intptr = &options->gss_authentication;
 		goto parse_flag;
 
-	case oGssKeyEx:
-		intptr = &options->gss_keyex;
-		goto parse_flag;
-
 	case oGssDelegateCreds:
 		intptr = &options->gss_deleg_creds;
-		goto parse_flag;
-
-	case oGssTrustDns:
-		intptr = &options->gss_trust_dns;
-		goto parse_flag;
-
-	case oGssClientIdentity:
-		charptr = &options->gss_client_identity;
-		goto parse_string;
-
-	case oGssServerIdentity:
-		charptr = &options->gss_server_identity;
-		goto parse_string;
-
-	case oGssRenewalRekey:
-		intptr = &options->gss_renewal_rekey;
 		goto parse_flag;
 
 	case oBatchMode:
@@ -1276,8 +1239,6 @@ parse_int:
 		goto parse_flag;
 
 	case oServerAliveInterval:
-	case oProtocolKeepAlives: /* Debian-specific compatibility alias */
-	case oSetupTimeOut:	  /* Debian-specific compatibility alias */
 		intptr = &options->server_alive_interval;
 		goto parse_time;
 
@@ -1518,7 +1479,8 @@ read_config_file(const char *filename, struct passwd *pw, const char *host,
 
 		if (fstat(fileno(f), &sb) == -1)
 			fatal("fstat %s: %s", filename, strerror(errno));
-		if (!secure_permissions(&sb, getuid()))
+		if (((sb.st_uid != 0 && sb.st_uid != getuid()) ||
+		    (sb.st_mode & 022) != 0))
 			fatal("Bad owner or permissions on %s", filename);
 	}
 
@@ -1576,12 +1538,7 @@ initialize_options(Options * options)
 	options->pubkey_authentication = -1;
 	options->challenge_response_authentication = -1;
 	options->gss_authentication = -1;
-	options->gss_keyex = -1;
 	options->gss_deleg_creds = -1;
-	options->gss_trust_dns = -1;
-	options->gss_renewal_rekey = -1;
-	options->gss_client_identity = NULL;
-	options->gss_server_identity = NULL;
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
 	options->kbd_interactive_devices = NULL;
@@ -1640,7 +1597,7 @@ initialize_options(Options * options)
 	options->tun_remote = -1;
 	options->local_command = NULL;
 	options->permit_local_command = -1;
-	options->use_roaming = 0;
+	options->use_roaming = -1;
 	options->visual_host_key = -1;
 	options->ip_qos_interactive = -1;
 	options->ip_qos_bulk = -1;
@@ -1681,7 +1638,7 @@ fill_default_options(Options * options)
 	if (options->forward_x11 == -1)
 		options->forward_x11 = 0;
 	if (options->forward_x11_trusted == -1)
-		options->forward_x11_trusted = 1;
+		options->forward_x11_trusted = 0;
 	if (options->forward_x11_timeout == -1)
 		options->forward_x11_timeout = 1200;
 	if (options->exit_on_forward_failure == -1)
@@ -1704,14 +1661,8 @@ fill_default_options(Options * options)
 		options->challenge_response_authentication = 1;
 	if (options->gss_authentication == -1)
 		options->gss_authentication = 0;
-	if (options->gss_keyex == -1)
-		options->gss_keyex = 0;
 	if (options->gss_deleg_creds == -1)
 		options->gss_deleg_creds = 0;
-	if (options->gss_trust_dns == -1)
-		options->gss_trust_dns = 0;
-	if (options->gss_renewal_rekey == -1)
-		options->gss_renewal_rekey = 0;
 	if (options->password_authentication == -1)
 		options->password_authentication = 1;
 	if (options->kbd_interactive_authentication == -1)
@@ -1797,13 +1748,8 @@ fill_default_options(Options * options)
 		options->rekey_interval = 0;
 	if (options->verify_host_key_dns == -1)
 		options->verify_host_key_dns = 0;
-	if (options->server_alive_interval == -1) {
-		/* in batch mode, default is 5mins */
-		if (options->batch_mode == 1)
-			options->server_alive_interval = 300;
-		else
-			options->server_alive_interval = 0;
-	}
+	if (options->server_alive_interval == -1)
+		options->server_alive_interval = 0;
 	if (options->server_alive_count_max == -1)
 		options->server_alive_count_max = 3;
 	if (options->control_master == -1)
@@ -1822,7 +1768,8 @@ fill_default_options(Options * options)
 		options->tun_remote = SSH_TUNID_ANY;
 	if (options->permit_local_command == -1)
 		options->permit_local_command = 0;
-	options->use_roaming = 0;
+	if (options->use_roaming == -1)
+		options->use_roaming = 1;
 	if (options->visual_host_key == -1)
 		options->visual_host_key = 0;
 	if (options->ip_qos_interactive == -1)

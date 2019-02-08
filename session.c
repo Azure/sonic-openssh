@@ -93,7 +93,6 @@
 #include "kex.h"
 #include "monitor_wrap.h"
 #include "sftp.h"
-#include "consolekit.h"
 
 #if defined(KRB5) && defined(USE_AFS)
 #include <kafs.h>
@@ -1144,9 +1143,6 @@ do_setup_env(Session *s, const char *shell)
 #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
 	char *path = NULL;
 #endif
-#ifdef USE_CONSOLEKIT
-	const char *ckcookie = NULL;
-#endif /* USE_CONSOLEKIT */
 
 	/* Initialize the environment. */
 	envsize = 100;
@@ -1291,17 +1287,12 @@ do_setup_env(Session *s, const char *shell)
 		child_set_env(&env, &envsize, "KRB5CCNAME",
 		    s->authctxt->krb5_ccname);
 #endif
-#ifdef USE_CONSOLEKIT
-	ckcookie = PRIVSEP(consolekit_register(s, s->display));
-	if (ckcookie)
-		child_set_env(&env, &envsize, "XDG_SESSION_COOKIE", ckcookie);
-#endif /* USE_CONSOLEKIT */
 #ifdef USE_PAM
 	/*
 	 * Pull in any environment variables that may have
 	 * been set by PAM.
 	 */
-	if (options.use_pam && !options.use_login) {
+	if (options.use_pam) {
 		char **p;
 
 		p = fetch_pam_child_environment();
@@ -1495,7 +1486,7 @@ safely_chroot(const char *path, uid_t uid)
 
 /* Set login name, uid, gid, and groups. */
 void
-do_setusercontext(struct passwd *pw, const char *role)
+do_setusercontext(struct passwd *pw)
 {
 	char *chroot_path, *tmp;
 #ifdef USE_LIBIAF
@@ -1526,7 +1517,7 @@ do_setusercontext(struct passwd *pw, const char *role)
 		endgrent();
 #endif
 
-		platform_setusercontext_post_groups(pw, role);
+		platform_setusercontext_post_groups(pw);
 
 		if (options.chroot_directory != NULL &&
 		    strcasecmp(options.chroot_directory, "none") != 0) {
@@ -1685,7 +1676,7 @@ do_child(Session *s, const char *command)
 
 	/* Force a password change */
 	if (s->authctxt->force_pwchange) {
-		do_setusercontext(pw, s->authctxt->role);
+		do_setusercontext(pw);
 		child_close_fds();
 		do_pwchange(s);
 		exit(1);
@@ -1712,7 +1703,7 @@ do_child(Session *s, const char *command)
 		/* When PAM is enabled we rely on it to do the nologin check */
 		if (!options.use_pam)
 			do_nologin(pw);
-		do_setusercontext(pw, s->authctxt->role);
+		do_setusercontext(pw);
 		/*
 		 * PAM session modules in do_setusercontext may have
 		 * generated messages, so if this in an interactive
@@ -2123,7 +2114,7 @@ session_pty_req(Session *s)
 	tty_parse_modes(s->ttyfd, &n_bytes);
 
 	if (!use_privsep)
-		pty_setowner(s->pw, s->tty, s->authctxt->role);
+		pty_setowner(s->pw, s->tty);
 
 	/* Set window size from the packet. */
 	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
@@ -2358,10 +2349,6 @@ session_pty_cleanup2(Session *s)
 		return;
 
 	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
-
-#ifdef USE_CONSOLEKIT
-	consolekit_unregister(s);
-#endif /* USE_CONSOLEKIT */
 
 	/* Record that the user has logged out. */
 	if (s->pid != 0)

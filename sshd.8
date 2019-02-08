@@ -67,10 +67,7 @@ over an insecure network.
 .Nm
 listens for connections from clients.
 It is normally started at boot from
-.Pa /etc/init.d/ssh
-(or
-.Pa /etc/init/ssh.conf
-on systems using the Upstart init daemon).
+.Pa /etc/rc .
 It forks a new
 daemon for each incoming connection.
 The forked daemons handle
@@ -854,18 +851,12 @@ the user's home directory becomes accessible.
 This file should be writable only by the user, and need not be
 readable by anyone else.
 .Pp
-.It Pa /etc/hosts.allow
-.It Pa /etc/hosts.deny
-Access controls that should be enforced by tcp-wrappers are defined here.
-Further details are described in
-.Xr hosts_access 5 .
-.Pp
 .It Pa /etc/hosts.equiv
 This file is for host-based authentication (see
 .Xr ssh 1 ) .
 It should only be writable by root.
 .Pp
-.It Pa /etc/ssh/moduli
+.It Pa /etc/moduli
 Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange".
 The file format is described in
 .Xr moduli 5 .
@@ -963,7 +954,7 @@ The content of this file is not sensitive; it can be world-readable.
 .Xr ssh-keygen 1 ,
 .Xr ssh-keyscan 1 ,
 .Xr chroot 2 ,
-.Xr hosts_access 5 ,
+.Xr login.conf 5 ,
 .Xr moduli 5 ,
 .Xr sshd_config 5 ,
 .Xr inetd 8 ,

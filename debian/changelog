@@ -1,3 +1,45 @@
+openssh (1:6.7p1-5+deb8u6) jessie-security; urgency=medium
+
+  * Fix CVE-2015-5352: Reject X11 connections after hard-coded Xauth cookie
+    expiration time of 1200 seconds.
+    (Closes: #790798)
+  * CVE-2015-5600: MaxAuthTries limit bypass via duplicates in
+    KbdInteractiveDevices
+    (Closes: #793616)
+  * CVE-2015-6563: Privilege separation weakness in PAM support
+    (Closes: #795711)
+  * CVE-2015-6564: use-after-free in PAM support
+  * CVE-2016-10009: Untrusted search path vulnerability in ssh-agent.c in
+    ssh-agent allows remote attackers to execute arbitrary local PKCS#11
+    modules by leveraging control over a forwarded agent-socket.
+  * CVE-2016-10011: Possible local information disclosure by the effects of
+    realloc on buffer contents
+    (Closes: #848716)
+    - add split-allocation-out-of-sshbuf_reserve.patch, required to address
+      the issue.
+  * CVE-2016-10012: Lack of bounds check in the shared memory manager that
+    could lead to local privilege escalation
+    (Closes: #848717)
+  * CVE-2016-10708: privsep process chrashing via an out-of-sequence
+    NEWKEYS message
+  * CVE-2016-1908: mishandling failed cookie generation for untrusted X11
+    forwarding
+  * CVE-2016-3115: shell-command restrictions bypass via crafted X11
+    forwarding data
+  * CVE-2016-6515: not limit password lengths for password authentication
+    that may be used to DoS via crypt CPU consumption
+  * CVE-2017-15906: sftp-server.c flaw at handling zero-length files.
+
+ -- Santiago Ruano Rincón <santiagorr@riseup.net>  Wed, 29 Aug 2018 12:01:36 +0200
+
+openssh (1:6.7p1-5+deb8u5) jessie-security; urgency=high
+
+  * CVE-2018-15473: Prevent a user enumeration vulnerability by delaying the
+    bailout for invalid authenticating users until after the packet containing
+    the request has been fully parsed. (closes: #906236)
+
+ -- Chris Lamb <lamby@debian.org>  Tue, 21 Aug 2018 18:04:27 +0100
+
 openssh (1:6.7p1-5+deb8u4) jessie; urgency=medium
 
   * Test configuration before starting or reloading sshd under systemd
