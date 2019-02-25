@@ -4,6 +4,9 @@ openssh (1:7.9p1-7) UNRELEASED; urgency=medium
     libpam-systemd (closes: #923199).  (I've retained libpam-systemd as an
     alternative for a while to avoid backporting accidents, although it can
     be removed later.)
+  * Pass "--exec /usr/sbin/sshd" to start-stop-daemon on stop as well as
+    start and pass "--chuid 0:0" on start, to avoid problems with non-root
+    groups leaking into the ownership of /run/sshd.pid (closes: #922365).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 25 Feb 2019 16:26:28 +0000
 
