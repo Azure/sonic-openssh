@@ -29,3 +29,4 @@ sanitize-scp-filenames-via-snmprintf.patch
 have-progressmeter-force-update-at-beginning-and-end-transfer.patch
 check-filenames-in-scp-client.patch
 fix-key-type-check.patch
+request-rsa-sha2-cert-signatures.patch

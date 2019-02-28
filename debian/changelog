@@ -3,6 +3,9 @@ openssh (1:7.9p1-8) UNRELEASED; urgency=medium
   * Apply upstream patch to fix bug in HostbasedAcceptedKeyTypes and
     PubkeyAcceptedKeyTypes options in the case where only RSA-SHA2 signature
     types were specified.
+  * Apply upstream patch to request RSA-SHA2 signatures for
+    rsa-sha2-{256|512}-cert-v01@openssh.com cert algorithms (closes:
+    #923419).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 28 Feb 2019 10:33:32 +0000
 
