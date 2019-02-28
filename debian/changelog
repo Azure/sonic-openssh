@@ -7,6 +7,8 @@ openssh (1:7.9p1-8) UNRELEASED; urgency=medium
   * Apply upstream patch to request RSA-SHA2 signatures for
     rsa-sha2-{256|512}-cert-v01@openssh.com cert algorithms (closes:
     #923419).
+  * Move moduli(5) manual page to openssh-server to go with /etc/ssh/moduli;
+    forgotten in 1:7.9p1-5.
 
   [ Dominik George ]
   * Correctly handle conffile move to openssh-server (closes: #919344).
