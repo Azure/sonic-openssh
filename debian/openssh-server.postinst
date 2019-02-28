@@ -148,6 +148,16 @@ if [ "$action" = configure ]; then
 	    # restart it under systemd.
 	    start-stop-daemon --stop --quiet --oknodo --pidfile /run/sshd.pid --exec /usr/sbin/sshd || true
 	fi
+	if dpkg --compare-versions "$2" lt-nl 1:7.9p1-5 && \
+	   [ -f /etc/ssh/moduli.dpkg-bak ]; then
+	    # Handle /etc/ssh/moduli being moved from openssh-client to
+	    # openssh-server.  If there were no user modifications, then we
+	    # don't need to do anything special here; but if there were,
+	    # then the dpkg-maintscript-helper calls from openssh-client's
+	    # maintainer scripts will have saved the old file as .dpkg-bak,
+	    # which we now move back into place.
+	    mv /etc/ssh/moduli.dpkg-bak /etc/ssh/moduli
+	fi
 fi
 
 #DEBHELPER#
