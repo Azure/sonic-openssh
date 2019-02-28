@@ -1,3 +1,11 @@
+openssh (1:7.9p1-8) UNRELEASED; urgency=medium
+
+  * Apply upstream patch to fix bug in HostbasedAcceptedKeyTypes and
+    PubkeyAcceptedKeyTypes options in the case where only RSA-SHA2 signature
+    types were specified.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 28 Feb 2019 10:33:32 +0000
+
 openssh (1:7.9p1-7) unstable; urgency=medium
 
   * Recommend "default-logind | logind | libpam-systemd" rather than just
