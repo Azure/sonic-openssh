@@ -1,3 +1,12 @@
+openssh (1:7.4p1-10+deb9u6) stretch-security; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * Apply upstream patch to make scp handle shell-style brace expansions
+    when checking that filenames sent by the server match what the client
+    requested (closes: #923486).
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Fri, 01 Mar 2019 17:19:28 +0100
+
 openssh (1:7.4p1-10+deb9u5) stretch; urgency=high
 
   * Non-maintainer upload by the Security Team.
