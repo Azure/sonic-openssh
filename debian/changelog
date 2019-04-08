@@ -1,3 +1,11 @@
+openssh (1:7.9p1-10) UNRELEASED; urgency=medium
+
+  * Temporarily revert IPQoS defaults to pre-7.8 values until issues with
+    "iptables -m tos" and VMware have been fixed (closes: #923879, #926229;
+    LP: #1822370).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 08 Apr 2019 10:57:05 +0100
+
 openssh (1:7.9p1-9) unstable; urgency=medium
 
   * Apply upstream patch to make scp handle shell-style brace expansions

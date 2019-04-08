@@ -31,3 +31,4 @@ check-filenames-in-scp-client.patch
 fix-key-type-check.patch
 request-rsa-sha2-cert-signatures.patch
 scp-handle-braces.patch
+revert-ipqos-defaults.patch
