@@ -1,4 +1,4 @@
-/* $OpenBSD: scp.c,v 1.197 2018/06/01 04:31:48 dtucker Exp $ */
+/* $OpenBSD: scp.c,v 1.204 2019/02/10 11:15:52 djm Exp $ */
 /*
  * scp - secure remote copy.  This is basically patched BSD rcp which
  * uses ssh to do the data transfer (instead of using rcmd).
@@ -409,6 +409,8 @@ main(int argc, char **argv)
 	/* Ensure that fds 0, 1 and 2 are open or directed to /dev/null */
 	sanitise_stdfd();
 
+	seed_rng();
+
 	msetlocale();
 
 	/* Copy argv, because we modify it */
@@ -432,7 +434,7 @@ main(int argc, char **argv)
 
 	fflag = Tflag = tflag = 0;
 	while ((ch = getopt(argc, argv,
-	    "dfl:prtTvBCc:i:P:q12346S:o:F:")) != -1) {
+	    "dfl:prtTvBCc:i:P:q12346S:o:F:J:")) != -1) {
 		switch (ch) {
 		/* User-visible flags. */
 		case '1':
@@ -454,6 +456,7 @@ main(int argc, char **argv)
 		case 'c':
 		case 'i':
 		case 'F':
+		case 'J':
 			addargs(&remote_remote_args, "-%c", ch);
 			addargs(&remote_remote_args, "%s", optarg);
 			addargs(&args, "-%c", ch);
@@ -1604,8 +1607,9 @@ void
 usage(void)
 {
 	(void) fprintf(stderr,
-	    "usage: scp [-346BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]\n"
-	    "           [-l limit] [-o ssh_option] [-P port] [-S program] source ... target\n");
+	    "usage: scp [-346BCpqrTv] [-c cipher] [-F ssh_config] [-i identity_file]\n"
+	    "            [-J destination] [-l limit] [-o ssh_option] [-P port]\n"
+	    "            [-S program] source ... target\n");
 	exit(1);
 }
 

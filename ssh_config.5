@@ -33,8 +33,8 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.\" $OpenBSD: ssh_config.5,v 1.286 2018/10/03 06:38:35 djm Exp $
-.Dd $Mdocdate: October 3 2018 $
+.\" $OpenBSD: ssh_config.5,v 1.292 2019/03/01 02:16:47 djm Exp $
+.Dd $Mdocdate: March 1 2019 $
 .Dt SSH_CONFIG 5
 .Os
 .Sh NAME
@@ -155,6 +155,7 @@ or the single token
 which always matches.
 The available criteria keywords are:
 .Cm canonical ,
+.Cm final ,
 .Cm exec ,
 .Cm host ,
 .Cm originalhost ,
@@ -164,12 +165,15 @@ and
 The
 .Cm all
 criteria must appear alone or immediately after
-.Cm canonical .
+.Cm canonical
+or
+.Cm final .
 Other criteria may be combined arbitrarily.
 All criteria but
-.Cm all
+.Cm all ,
+.Cm canonical ,
 and
-.Cm canonical
+.Cm final
 require an argument.
 Criteria may be negated by prepending an exclamation mark
 .Pq Sq !\& .
@@ -179,9 +183,23 @@ The
 keyword matches only when the configuration file is being re-parsed
 after hostname canonicalization (see the
 .Cm CanonicalizeHostname
-option.)
+option).
 This may be useful to specify conditions that work with canonical host
 names only.
+.Pp
+The
+.Cm final
+keyword requests that the configuration be re-parsed (regardless of whether
+.Cm CanonicalizeHostname
+is enabled), and matches only during this final pass.
+If
+.Cm CanonicalizeHostname
+is enabled, then
+.Cm canonical
+and
+.Cm final
+match during the same pass.
+.Pp
 The
 .Cm exec
 keyword executes the specified command under the user's shell.
@@ -757,42 +775,67 @@ The default is
 Specifies whether user authentication based on GSSAPI is allowed.
 The default is
 .Cm no .
-.It Cm GSSAPIKeyExchange
-Specifies whether key exchange based on GSSAPI may be used. When using
-GSSAPI key exchange the server need not have a host key.
-The default is
-.Cm no .
 .It Cm GSSAPIClientIdentity
-If set, specifies the GSSAPI client identity that ssh should use when 
-connecting to the server. The default is unset, which means that the default 
+If set, specifies the GSSAPI client identity that ssh should use when
+connecting to the server. The default is unset, which means that the default
 identity will be used.
-.It Cm GSSAPIServerIdentity
-If set, specifies the GSSAPI server identity that ssh should expect when 
-connecting to the server. The default is unset, which means that the
-expected GSSAPI server identity will be determined from the target
-hostname.
 .It Cm GSSAPIDelegateCredentials
 Forward (delegate) credentials to the server.
 The default is
 .Cm no .
-.It Cm GSSAPIRenewalForcesRekey
-If set to 
-.Cm yes
-then renewal of the client's GSSAPI credentials will force the rekeying of the
-ssh connection. With a compatible server, this can delegate the renewed 
-credentials to a session on the server.
+.It Cm GSSAPIKeyExchange
+Specifies whether key exchange based on GSSAPI may be used. When using
+GSSAPI key exchange the server need not have a host key.
 The default is
-.Cm no .
+.Dq no .
+.It Cm GSSAPIRenewalForcesRekey
+If set to
+.Dq yes
+then renewal of the client's GSSAPI credentials will force the rekeying of the
+ssh connection. With a compatible server, this will delegate the renewed
+credentials to a session on the server.
+.Pp
+Checks are made to ensure that credentials are only propagated when the new
+credentials match the old ones on the originating client and where the
+receiving server still has the old set in its cache.
+.Pp
+The default is
+.Dq no .
+.Pp
+For this to work
+.Cm GSSAPIKeyExchange
+needs to be enabled in the server and also used by the client.
+.It Cm GSSAPIServerIdentity
+If set, specifies the GSSAPI server identity that ssh should expect when
+connecting to the server. The default is unset, which means that the
+expected GSSAPI server identity will be determined from the target
+hostname.
 .It Cm GSSAPITrustDns
-Set to 
-.Cm yes
+Set to
+.Dq yes
 to indicate that the DNS is trusted to securely canonicalize
-the name of the host being connected to. If 
-.Cm no ,
+the name of the host being connected to. If
+.Dq no ,
 the hostname entered on the
 command line will be passed untouched to the GSSAPI library.
 The default is
-.Cm no .
+.Dq no .
+.It Cm GSSAPIKexAlgorithms
+The list of key exchange algorithms that are offered for GSSAPI
+key exchange. Possible values are
+.Bd -literal -offset 3n
+gss-gex-sha1-,
+gss-group1-sha1-,
+gss-group14-sha1-,
+gss-group14-sha256-,
+gss-group16-sha512-,
+gss-nistp256-sha256-,
+gss-curve25519-sha256-
+.Ed
+.Pp
+The default is
+.Dq gss-gex-sha1-,gss-group14-sha1- .
+This option only applies to protocol version 2 connections using GSSAPI.
 .It Cm HashKnownHosts
 Indicates that
 .Xr ssh 1
@@ -1094,7 +1137,6 @@ ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,
 diffie-hellman-group-exchange-sha256,
 diffie-hellman-group16-sha512,
 diffie-hellman-group18-sha512,
-diffie-hellman-group-exchange-sha1,
 diffie-hellman-group14-sha256,
 diffie-hellman-group14-sha1
 .Ed
@@ -1217,11 +1259,13 @@ or
 .Cm no
 (the default).
 .It Cm PKCS11Provider
-Specifies which PKCS#11 provider to use.
-The argument to this keyword is the PKCS#11 shared library
+Specifies which PKCS#11 provider to use or
+.Cm none
+to indicate that no provider should be used (the default).
+The argument to this keyword is a path to the PKCS#11 shared library
 .Xr ssh 1
-should use to communicate with a PKCS#11 token providing the user's
-private RSA key.
+should use to communicate with a PKCS#11 token providing keys for user
+authentication.
 .It Cm Port
 Specifies the port number to connect on the remote host.
 The default is 22.
@@ -1299,6 +1343,12 @@ Note that this option will compete with the
 .Cm ProxyCommand
 option - whichever is specified first will prevent later instances of the
 other from taking effect.
+.Pp
+Note also that the configuration for the destination host (either supplied
+via the command-line or the configuration file) is not generally applied
+to jump hosts.
+.Pa ~/.ssh/config
+should be used if specific configuration is required for jump hosts.
 .It Cm ProxyUseFdpass
 Specifies that
 .Cm ProxyCommand
@@ -1852,7 +1902,7 @@ This is the per-user configuration file.
 The format of this file is described above.
 This file is used by the SSH client.
 Because of the potential for abuse, this file must have strict permissions:
-read/write for the user, and not accessible by others.
+read/write for the user, and not writable by others.
 It may be group-writable provided that the group in question contains only
 the user.
 .It Pa /etc/ssh/ssh_config

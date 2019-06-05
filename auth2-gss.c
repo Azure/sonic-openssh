@@ -54,7 +54,7 @@ static int input_gssapi_mic(int type, u_int32_t plen, struct ssh *ssh);
 static int input_gssapi_exchange_complete(int type, u_int32_t plen, struct ssh *ssh);
 static int input_gssapi_errtok(int, u_int32_t, struct ssh *);
 
-/* 
+/*
  * The 'gssapi_keyex' userauth mechanism.
  */
 static int
@@ -62,7 +62,7 @@ userauth_gsskeyex(struct ssh *ssh)
 {
 	Authctxt *authctxt = ssh->authctxt;
 	int r, authenticated = 0;
-	struct sshbuf *b;
+	struct sshbuf *b = NULL;
 	gss_buffer_desc mic, gssbuf;
 	u_char *p;
 	size_t len;
@@ -70,8 +70,10 @@ userauth_gsskeyex(struct ssh *ssh)
 	if ((r = sshpkt_get_string(ssh, &p, &len)) != 0 ||
 	    (r = sshpkt_get_end(ssh)) != 0)
 		fatal("%s: %s", __func__, ssh_err(r));
+
 	if ((b = sshbuf_new()) == NULL)
 		fatal("%s: sshbuf_new failed", __func__);
+
 	mic.value = p;
 	mic.length = len;
 
@@ -83,11 +85,11 @@ userauth_gsskeyex(struct ssh *ssh)
 	gssbuf.length = sshbuf_len(b);
 
 	/* gss_kex_context is NULL with privsep, so we can't check it here */
-	if (!GSS_ERROR(PRIVSEP(ssh_gssapi_checkmic(gss_kex_context, 
+	if (!GSS_ERROR(PRIVSEP(ssh_gssapi_checkmic(gss_kex_context,
 	    &gssbuf, &mic))))
 		authenticated = PRIVSEP(ssh_gssapi_userok(authctxt->user,
-		    authctxt->pw));
-	
+		    authctxt->pw, 1));
+
 	sshbuf_free(b);
 	free(mic.value);
 
@@ -301,7 +303,7 @@ input_gssapi_exchange_complete(int type, u_int32_t plen, struct ssh *ssh)
 		fatal("%s: %s", __func__, ssh_err(r));
 
 	authenticated = PRIVSEP(ssh_gssapi_userok(authctxt->user,
-	    authctxt->pw));
+	    authctxt->pw, 1));
 
 	if ((!use_privsep || mm_is_monitor()) &&
 	    (displayname = ssh_gssapi_displayname()) != NULL)
@@ -347,8 +349,8 @@ input_gssapi_mic(int type, u_int32_t plen, struct ssh *ssh)
 	gssbuf.length = sshbuf_len(b);
 
 	if (!GSS_ERROR(PRIVSEP(ssh_gssapi_checkmic(gssctxt, &gssbuf, &mic))))
-		authenticated = 
-		    PRIVSEP(ssh_gssapi_userok(authctxt->user, authctxt->pw));
+		authenticated = PRIVSEP(ssh_gssapi_userok(authctxt->user,
+		    authctxt->pw, 0));
 	else
 		logit("GSSAPI MIC check failed");
 

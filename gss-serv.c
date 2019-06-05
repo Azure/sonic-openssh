@@ -51,12 +51,9 @@
 
 extern ServerOptions options;
 
-extern ServerOptions options;
-
 static ssh_gssapi_client gssapi_client =
-    { GSS_C_EMPTY_BUFFER, GSS_C_EMPTY_BUFFER,
-    GSS_C_NO_CREDENTIAL, GSS_C_NO_NAME,  NULL,
-    {NULL, NULL, NULL, NULL, NULL}, 0, 0};
+    { GSS_C_EMPTY_BUFFER, GSS_C_EMPTY_BUFFER, GSS_C_NO_CREDENTIAL,
+    GSS_C_NO_NAME, NULL, {NULL, NULL, NULL, NULL, NULL}, 0, 0};
 
 ssh_gssapi_mech gssapi_null_mech =
     { NULL, NULL, {0, NULL}, NULL, NULL, NULL, NULL, NULL};
@@ -151,7 +148,8 @@ ssh_gssapi_server_mechanisms(void) {
 	if (supported_oids == NULL)
 		ssh_gssapi_prepare_supported_oids();
 	return (ssh_gssapi_kex_mechs(supported_oids,
-	    &ssh_gssapi_server_check_mech, NULL, NULL));
+	    &ssh_gssapi_server_check_mech, NULL, NULL,
+	    options.gss_kex_algorithms));
 }
 
 /* Unprivileged */
@@ -160,7 +158,7 @@ ssh_gssapi_server_check_mech(Gssctxt **dum, gss_OID oid, const char *data,
     const char *dummy) {
 	Gssctxt *ctx = NULL;
 	int res;
- 
+
 	res = !GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctx, oid)));
 	ssh_gssapi_delete_ctx(&ctx);
 
@@ -317,21 +315,21 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
 			return GSS_S_COMPLETE;
 		}
 
-		if ((ctx->major = gss_inquire_cred_by_mech(&ctx->minor, 
-		    ctx->client_creds, ctx->oid, &new_name, 
+		if ((ctx->major = gss_inquire_cred_by_mech(&ctx->minor,
+		    ctx->client_creds, ctx->oid, &new_name,
 		    NULL, NULL, NULL))) {
 			ssh_gssapi_error(ctx);
 			return (ctx->major);
 		}
 
-		ctx->major = gss_compare_name(&ctx->minor, client->name, 
+		ctx->major = gss_compare_name(&ctx->minor, client->name,
 		    new_name, &equal);
 
 		if (GSS_ERROR(ctx->major)) {
 			ssh_gssapi_error(ctx);
 			return (ctx->major);
 		}
- 
+
 		if (!equal) {
 			debug("Rekeyed credentials have different name");
 			return GSS_S_COMPLETE;
@@ -343,7 +341,7 @@ ssh_gssapi_getclient(Gssctxt *ctx, ssh_gssapi_client *client)
 		gss_release_cred(&ctx->minor, &client->creds);
 		client->name = new_name;
 		client->creds = ctx->client_creds;
-        	ctx->client_creds = GSS_C_NO_CREDENTIAL;
+		ctx->client_creds = GSS_C_NO_CREDENTIAL;
 		client->updated = 1;
 		return GSS_S_COMPLETE;
 	}
@@ -434,9 +432,11 @@ ssh_gssapi_do_child(char ***envp, u_int *envsizep)
 
 /* Privileged */
 int
-ssh_gssapi_userok(char *user, struct passwd *pw)
+ssh_gssapi_userok(char *user, struct passwd *pw, int kex)
 {
 	OM_uint32 lmin;
+
+	(void) kex; /* used in privilege separation */
 
 	if (gssapi_client.exportedname.length == 0 ||
 	    gssapi_client.exportedname.value == NULL) {
@@ -462,7 +462,7 @@ ssh_gssapi_userok(char *user, struct passwd *pw)
 	return (0);
 }
 
-/* These bits are only used for rekeying. The unpriviledged child is running 
+/* These bits are only used for rekeying. The unpriviledged child is running
  * as the user, the monitor is root.
  *
  * In the child, we want to :
@@ -473,7 +473,7 @@ ssh_gssapi_userok(char *user, struct passwd *pw)
 /* Stuff for PAM */
 
 #ifdef USE_PAM
-static int ssh_gssapi_simple_conv(int n, const struct pam_message **msg, 
+static int ssh_gssapi_simple_conv(int n, const struct pam_message **msg,
     struct pam_response **resp, void *data)
 {
 	return (PAM_CONV_ERR);
@@ -483,18 +483,18 @@ static int ssh_gssapi_simple_conv(int n, const struct pam_message **msg,
 void
 ssh_gssapi_rekey_creds(void) {
 	int ok;
-	int ret;
 #ifdef USE_PAM
+	int ret;
 	pam_handle_t *pamh = NULL;
 	struct pam_conv pamconv = {ssh_gssapi_simple_conv, NULL};
 	char *envstr;
 #endif
 
-	if (gssapi_client.store.filename == NULL && 
+	if (gssapi_client.store.filename == NULL &&
 	    gssapi_client.store.envval == NULL &&
 	    gssapi_client.store.envvar == NULL)
 		return;
- 
+
 	ok = PRIVSEP(ssh_gssapi_update_creds(&gssapi_client.store));
 
 	if (!ok)
@@ -517,7 +517,7 @@ ssh_gssapi_rekey_creds(void) {
 	if (ret)
 		return;
 
-	xasprintf(&envstr, "%s=%s", gssapi_client.store.envvar, 
+	xasprintf(&envstr, "%s=%s", gssapi_client.store.envvar,
 	    gssapi_client.store.envval);
 
 	ret = pam_putenv(pamh, envstr);
@@ -527,7 +527,7 @@ ssh_gssapi_rekey_creds(void) {
 #endif
 }
 
-int 
+int
 ssh_gssapi_update_creds(ssh_gssapi_ccache *store) {
 	int ok = 0;
 

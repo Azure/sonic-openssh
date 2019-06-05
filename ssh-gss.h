@@ -70,7 +70,15 @@
 #define SSH2_MSG_KEXGSS_GROUP				41
 #define KEX_GSS_GRP1_SHA1_ID				"gss-group1-sha1-"
 #define KEX_GSS_GRP14_SHA1_ID				"gss-group14-sha1-"
+#define KEX_GSS_GRP14_SHA256_ID			"gss-group14-sha256-"
+#define KEX_GSS_GRP16_SHA512_ID			"gss-group16-sha512-"
 #define KEX_GSS_GEX_SHA1_ID				"gss-gex-sha1-"
+#define KEX_GSS_NISTP256_SHA256_ID			"gss-nistp256-sha256-"
+#define KEX_GSS_C25519_SHA256_ID			"gss-curve25519-sha256-"
+
+#define        GSS_KEX_DEFAULT_KEX \
+	KEX_GSS_GEX_SHA1_ID "," \
+	KEX_GSS_GRP14_SHA1_ID
 
 typedef struct {
 	char *filename;
@@ -126,6 +134,7 @@ OM_uint32 ssh_gssapi_test_oid_supported(OM_uint32 *, gss_OID, int *);
 
 struct sshbuf;
 int ssh_gssapi_get_buffer_desc(struct sshbuf *, gss_buffer_desc *);
+int ssh_gssapi_sshpkt_get_buffer_desc(struct ssh *, gss_buffer_desc *);
 
 OM_uint32 ssh_gssapi_import_name(Gssctxt *, const char *);
 OM_uint32 ssh_gssapi_init_ctx(Gssctxt *, int,
@@ -145,16 +154,16 @@ OM_uint32 ssh_gssapi_client_identity(Gssctxt *, const char *);
 int ssh_gssapi_credentials_updated(Gssctxt *);
 
 /* In the server */
-typedef int ssh_gssapi_check_fn(Gssctxt **, gss_OID, const char *, 
+typedef int ssh_gssapi_check_fn(Gssctxt **, gss_OID, const char *,
     const char *);
-char *ssh_gssapi_client_mechanisms(const char *, const char *);
+char *ssh_gssapi_client_mechanisms(const char *, const char *, const char *);
 char *ssh_gssapi_kex_mechs(gss_OID_set, ssh_gssapi_check_fn *, const char *,
-    const char *);
+    const char *, const char *);
 gss_OID ssh_gssapi_id_kex(Gssctxt *, char *, int);
-int ssh_gssapi_server_check_mech(Gssctxt **,gss_OID, const char *, 
+int ssh_gssapi_server_check_mech(Gssctxt **,gss_OID, const char *,
     const char *);
 OM_uint32 ssh_gssapi_server_ctx(Gssctxt **, gss_OID);
-int ssh_gssapi_userok(char *name, struct passwd *);
+int ssh_gssapi_userok(char *name, struct passwd *, int kex);
 OM_uint32 ssh_gssapi_checkmic(Gssctxt *, gss_buffer_t, gss_buffer_t);
 void ssh_gssapi_do_child(char ***, u_int *);
 void ssh_gssapi_cleanup_creds(void);

@@ -1,4 +1,4 @@
-From a18385c6866da4d69f46b64626ae5d60b4cf4a66 Mon Sep 17 00:00:00 2001
+From 085c44daefaee16df97e1b2a0967b2140cc86de0 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,21 +8,60 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2018-10-19
+Last-Update: 2019-06-05
 
 Patch-Name: debian-banner.patch
 ---
+ kex.c         | 5 +++--
+ kex.h         | 2 +-
  servconf.c    | 9 +++++++++
  servconf.h    | 2 ++
+ sshconnect.c  | 2 +-
  sshd.c        | 3 ++-
  sshd_config.5 | 5 +++++
- 4 files changed, 18 insertions(+), 1 deletion(-)
+ 7 files changed, 23 insertions(+), 5 deletions(-)
 
+diff --git a/kex.c b/kex.c
+index be354206d..bbb7a2340 100644
+--- a/kex.c
++++ b/kex.c
+@@ -1168,7 +1168,7 @@ send_error(struct ssh *ssh, char *msg)
+  */
+ int
+ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+-    const char *version_addendum)
++    int debian_banner, const char *version_addendum)
+ {
+ 	int remote_major, remote_minor, mismatch;
+ 	size_t len, i, n;
+@@ -1186,7 +1186,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+ 	if (version_addendum != NULL && *version_addendum == '\0')
+ 		version_addendum = NULL;
+ 	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
+-	   PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
++	   PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
++	    debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
+ 	    version_addendum == NULL ? "" : " ",
+ 	    version_addendum == NULL ? "" : version_addendum)) != 0) {
+ 		error("%s: sshbuf_putf: %s", __func__, ssh_err(r));
+diff --git a/kex.h b/kex.h
+index 2d5f1d4ed..39f67bbc1 100644
+--- a/kex.h
++++ b/kex.h
+@@ -195,7 +195,7 @@ char	*kex_names_cat(const char *, const char *);
+ int	 kex_assemble_names(char **, const char *, const char *);
+ int	 kex_gss_names_valid(const char *);
+ 
+-int	 kex_exchange_identification(struct ssh *, int, const char *);
++int	 kex_exchange_identification(struct ssh *, int, int, const char *);
+ 
+ struct kex *kex_new(void);
+ int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 6caf1db38..c5dd617ef 100644
+index c01e0690e..8d2bced52 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -182,6 +182,7 @@ initialize_server_options(ServerOptions *options)
+@@ -184,6 +184,7 @@ initialize_server_options(ServerOptions *options)
  	options->fingerprint_hash = -1;
  	options->disable_forwarding = -1;
  	options->expose_userauth_info = -1;
@@ -30,7 +69,7 @@ index 6caf1db38..c5dd617ef 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -417,6 +418,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -437,6 +438,8 @@ fill_default_server_options(ServerOptions *options)
  		options->disable_forwarding = 0;
  	if (options->expose_userauth_info == -1)
  		options->expose_userauth_info = 0;
@@ -39,7 +78,7 @@ index 6caf1db38..c5dd617ef 100644
  
  	assemble_algorithms(options);
  
-@@ -504,6 +507,7 @@ typedef enum {
+@@ -523,6 +526,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain,
@@ -47,7 +86,7 @@ index 6caf1db38..c5dd617ef 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -661,6 +665,7 @@ static struct {
+@@ -682,6 +686,7 @@ static struct {
  	{ "exposeauthinfo", sExposeAuthInfo, SSHCFG_ALL },
  	{ "rdomain", sRDomain, SSHCFG_ALL },
  	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
@@ -55,7 +94,7 @@ index 6caf1db38..c5dd617ef 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2173,6 +2178,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -2211,6 +2216,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -67,10 +106,10 @@ index 6caf1db38..c5dd617ef 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 3b76da816..4e3c54042 100644
+index a476d5220..986093ffa 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -212,6 +212,8 @@ typedef struct {
+@@ -214,6 +214,8 @@ typedef struct {
  	int	fingerprint_hash;
  	int	expose_userauth_info;
  	u_int64_t timing_secret;
@@ -79,22 +118,35 @@ index 3b76da816..4e3c54042 100644
  }       ServerOptions;
  
  /* Information about the incoming connection as used by Match */
+diff --git a/sshconnect.c b/sshconnect.c
+index 0b6f6af4b..1183ffe0e 100644
+--- a/sshconnect.c
++++ b/sshconnect.c
+@@ -1287,7 +1287,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+ 	lowercase(host);
+ 
+ 	/* Exchange protocol version identification strings with the server. */
+-	if (kex_exchange_identification(ssh, timeout_ms, NULL) != 0)
++	if (kex_exchange_identification(ssh, timeout_ms, 1, NULL) != 0)
+ 		cleanup_exit(255); /* error already logged */
+ 
+ 	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index 9481272fc..d7e77d343 100644
+index e3e96426e..1e7ece588 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -384,7 +384,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
- 	char remote_version[256];	/* Must be at least as big as buf. */
+@@ -2160,7 +2160,8 @@ main(int ac, char **av)
+ 	if (!debug_flag)
+ 		alarm(options.login_grace_time);
  
- 	xasprintf(&server_version_string, "SSH-%d.%d-%.100s%s%s\r\n",
--	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
-+	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
-+	    options.debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
- 	    *options.version_addendum == '\0' ? "" : " ",
- 	    options.version_addendum);
+-	if (kex_exchange_identification(ssh, -1, options.version_addendum) != 0)
++	if (kex_exchange_identification(ssh, -1, options.debian_banner,
++	    options.version_addendum) != 0)
+ 		cleanup_exit(255); /* error already logged */
  
+ 	ssh_packet_set_nonblocking(ssh);
 diff --git a/sshd_config.5 b/sshd_config.5
-index e7e55dd71..37e6be38f 100644
+index 2ef671d1b..addea54a0 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -543,6 +543,11 @@ or

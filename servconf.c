@@ -1,5 +1,5 @@
 
-/* $OpenBSD: servconf.c,v 1.342 2018/09/20 23:40:16 djm Exp $ */
+/* $OpenBSD: servconf.c,v 1.350 2019/03/25 22:33:44 djm Exp $ */
 /*
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
  *                    All rights reserved
@@ -64,6 +64,7 @@
 #include "auth.h"
 #include "myproposal.h"
 #include "digest.h"
+#include "ssh-gss.h"
 
 static void add_listen_addr(ServerOptions *, const char *,
     const char *, int);
@@ -128,6 +129,7 @@ initialize_server_options(ServerOptions *options)
 	options->gss_cleanup_creds = -1;
 	options->gss_strict_acceptor = -1;
 	options->gss_store_rekey = -1;
+	options->gss_kex_algorithms = NULL;
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
 	options->challenge_response_authentication = -1;
@@ -224,26 +226,40 @@ assemble_algorithms(ServerOptions *o)
 }
 
 static void
-array_append(const char *file, const int line, const char *directive,
-    char ***array, u_int *lp, const char *s)
+array_append2(const char *file, const int line, const char *directive,
+    char ***array, int **iarray, u_int *lp, const char *s, int i)
 {
 
 	if (*lp >= INT_MAX)
 		fatal("%s line %d: Too many %s entries", file, line, directive);
+
+	if (iarray != NULL) {
+		*iarray = xrecallocarray(*iarray, *lp, *lp + 1,
+		    sizeof(**iarray));
+		(*iarray)[*lp] = i;
+	}
 
 	*array = xrecallocarray(*array, *lp, *lp + 1, sizeof(**array));
 	(*array)[*lp] = xstrdup(s);
 	(*lp)++;
 }
 
+static void
+array_append(const char *file, const int line, const char *directive,
+    char ***array, u_int *lp, const char *s)
+{
+	array_append2(file, line, directive, array, NULL, lp, s, 0);
+}
+
 void
 servconf_add_hostkey(const char *file, const int line,
-    ServerOptions *options, const char *path)
+    ServerOptions *options, const char *path, int userprovided)
 {
 	char *apath = derelativise_path(path);
 
-	array_append(file, line, "HostKey",
-	    &options->host_key_files, &options->num_host_key_files, apath);
+	array_append2(file, line, "HostKey",
+	    &options->host_key_files, &options->host_key_file_userprovided,
+	    &options->num_host_key_files, apath, userprovided);
 	free(apath);
 }
 
@@ -271,16 +287,16 @@ fill_default_server_options(ServerOptions *options)
 	if (options->num_host_key_files == 0) {
 		/* fill default hostkeys for protocols */
 		servconf_add_hostkey("[default]", 0, options,
-		    _PATH_HOST_RSA_KEY_FILE);
+		    _PATH_HOST_RSA_KEY_FILE, 0);
 #ifdef OPENSSL_HAS_ECC
 		servconf_add_hostkey("[default]", 0, options,
-		    _PATH_HOST_ECDSA_KEY_FILE);
+		    _PATH_HOST_ECDSA_KEY_FILE, 0);
 #endif
 		servconf_add_hostkey("[default]", 0, options,
-		    _PATH_HOST_ED25519_KEY_FILE);
+		    _PATH_HOST_ED25519_KEY_FILE, 0);
 #ifdef WITH_XMSS
 		servconf_add_hostkey("[default]", 0, options,
-		    _PATH_HOST_XMSS_KEY_FILE);
+		    _PATH_HOST_XMSS_KEY_FILE, 0);
 #endif /* WITH_XMSS */
 	}
 	/* No certificates by default */
@@ -348,6 +364,10 @@ fill_default_server_options(ServerOptions *options)
 		options->gss_strict_acceptor = 1;
 	if (options->gss_store_rekey == -1)
 		options->gss_store_rekey = 0;
+#ifdef GSSAPI
+	if (options->gss_kex_algorithms == NULL)
+		options->gss_kex_algorithms = strdup(GSS_KEX_DEFAULT_KEX);
+#endif
 	if (options->password_authentication == -1)
 		options->password_authentication = 1;
 	if (options->kbd_interactive_authentication == -1)
@@ -465,7 +485,6 @@ fill_default_server_options(ServerOptions *options)
 		options->compression = 0;
 	}
 #endif
-
 }
 
 /* Keyword tokens. */
@@ -494,7 +513,7 @@ typedef enum {
 	sHostKeyAlgorithms,
 	sClientAliveInterval, sClientAliveCountMax, sAuthorizedKeysFile,
 	sGssAuthentication, sGssCleanupCreds, sGssStrictAcceptor,
-	sGssKeyEx, sGssStoreRekey,
+	sGssKeyEx, sGssKexAlgorithms, sGssStoreRekey,
 	sAcceptEnv, sSetEnv, sPermitTunnel,
 	sMatch, sPermitOpen, sPermitListen, sForceCommand, sChrootDirectory,
 	sUsePrivilegeSeparation, sAllowAgentForwarding,
@@ -574,6 +593,7 @@ static struct {
 	{ "gssapistrictacceptorcheck", sGssStrictAcceptor, SSHCFG_GLOBAL },
 	{ "gssapikeyexchange", sGssKeyEx, SSHCFG_GLOBAL },
 	{ "gssapistorecredentialsonrekey", sGssStoreRekey, SSHCFG_GLOBAL },
+	{ "gssapikexalgorithms", sGssKexAlgorithms, SSHCFG_GLOBAL },
 #else
 	{ "gssapiauthentication", sUnsupported, SSHCFG_ALL },
 	{ "gssapicleanupcredentials", sUnsupported, SSHCFG_GLOBAL },
@@ -581,6 +601,7 @@ static struct {
 	{ "gssapistrictacceptorcheck", sUnsupported, SSHCFG_GLOBAL },
 	{ "gssapikeyexchange", sUnsupported, SSHCFG_GLOBAL },
 	{ "gssapistorecredentialsonrekey", sUnsupported, SSHCFG_GLOBAL },
+	{ "gssapikexalgorithms", sUnsupported, SSHCFG_GLOBAL },
 #endif
 	{ "gssusesessionccache", sUnsupported, SSHCFG_GLOBAL },
 	{ "gssapiusesessioncredcache", sUnsupported, SSHCFG_GLOBAL },
@@ -723,7 +744,7 @@ derelativise_path(const char *path)
 	if (strcasecmp(path, "none") == 0)
 		return xstrdup("none");
 	expanded = tilde_expand_filename(path, getuid());
-	if (*expanded == '/')
+	if (path_absolute(expanded))
 		return expanded;
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		fatal("%s: getcwd: %s", __func__, strerror(errno));
@@ -885,7 +906,7 @@ process_permitopen_list(struct ssh *ssh, ServerOpCodes opcode,
 {
 	u_int i;
 	int port;
-	char *host, *arg, *oarg;
+	char *host, *arg, *oarg, ch;
 	int where = opcode == sPermitOpen ? FORWARD_LOCAL : FORWARD_REMOTE;
 	const char *what = lookup_opcode_name(opcode);
 
@@ -903,8 +924,9 @@ process_permitopen_list(struct ssh *ssh, ServerOpCodes opcode,
 	/* Otherwise treat it as a list of permitted host:port */
 	for (i = 0; i < num_opens; i++) {
 		oarg = arg = xstrdup(opens[i]);
-		host = hpdelim(&arg);
-		if (host == NULL)
+		ch = '\0';
+		host = hpdelim2(&arg, &ch);
+		if (host == NULL || ch == '/')
 			fatal("%s: missing host in %s", __func__, what);
 		host = cleanhostname(host);
 		if (arg == NULL || ((port = permitopen_port(arg)) < 0))
@@ -930,12 +952,11 @@ process_permitopen(struct ssh *ssh, ServerOptions *options)
 }
 
 struct connection_info *
-get_connection_info(int populate, int use_dns)
+get_connection_info(struct ssh *ssh, int populate, int use_dns)
 {
-	struct ssh *ssh = active_state; /* XXX */
 	static struct connection_info ci;
 
-	if (!populate)
+	if (ssh == NULL || !populate)
 		return &ci;
 	ci.host = auth_get_canonical_hostname(ssh, use_dns);
 	ci.address = ssh_remote_ipaddr(ssh);
@@ -1056,7 +1077,7 @@ match_cfg_line(char **condition, int line, struct connection_info *ci)
 			}
 			if (ci->user == NULL)
 				match_test_missing_fatal("User", "user");
-			if (match_pattern_list(ci->user, arg, 0) != 1)
+			if (match_usergroup_pattern_list(ci->user, arg) != 1)
 				result = 0;
 			else
 				debug("user %.100s matched 'User %.100s' at "
@@ -1222,7 +1243,7 @@ process_server_config_line(ServerOptions *options, char *line,
     const char *filename, int linenum, int *activep,
     struct connection_info *connectinfo)
 {
-	char *cp, ***chararrayptr, **charptr, *arg, *arg2, *p;
+	char ch, *cp, ***chararrayptr, **charptr, *arg, *arg2, *p;
 	int cmdline = 0, *intptr, value, value2, n, port;
 	SyslogFacility *log_facility_ptr;
 	LogLevel *log_level_ptr;
@@ -1322,8 +1343,10 @@ process_server_config_line(ServerOptions *options, char *line,
 			port = 0;
 			p = arg;
 		} else {
-			p = hpdelim(&arg);
-			if (p == NULL)
+			arg2 = NULL;
+			ch = '\0';
+			p = hpdelim2(&arg, &ch);
+			if (p == NULL || ch == '/')
 				fatal("%s line %d: bad address:port usage",
 				    filename, linenum);
 			p = cleanhostname(p);
@@ -1376,8 +1399,10 @@ process_server_config_line(ServerOptions *options, char *line,
 		if (!arg || *arg == '\0')
 			fatal("%s line %d: missing file name.",
 			    filename, linenum);
-		if (*activep)
-			servconf_add_hostkey(filename, linenum, options, arg);
+		if (*activep) {
+			servconf_add_hostkey(filename, linenum,
+			    options, arg, 1);
+		}
 		break;
 
 	case sHostKeyAgent:
@@ -1504,6 +1529,18 @@ process_server_config_line(ServerOptions *options, char *line,
 	case sGssStoreRekey:
 		intptr = &options->gss_store_rekey;
 		goto parse_flag;
+
+	case sGssKexAlgorithms:
+		arg = strdelim(&cp);
+		if (!arg || *arg == '\0')
+			fatal("%.200s line %d: Missing argument.",
+			    filename, linenum);
+		if (!kex_gss_names_valid(arg))
+			fatal("%.200s line %d: Bad GSSAPI KexAlgorithms '%s'.",
+			    filename, linenum, arg ? arg : "<NONE>");
+		if (*activep && options->gss_kex_algorithms == NULL)
+			options->gss_kex_algorithms = xstrdup(arg);
+		break;
 
 	case sPasswordAuthentication:
 		intptr = &options->password_authentication;
@@ -1957,8 +1994,9 @@ process_server_config_line(ServerOptions *options, char *line,
 				xasprintf(&arg2, "*:%s", arg);
 			} else {
 				arg2 = xstrdup(arg);
-				p = hpdelim(&arg);
-				if (p == NULL) {
+				ch = '\0';
+				p = hpdelim2(&arg, &ch);
+				if (p == NULL || ch == '/') {
 					fatal("%s line %d: missing host in %s",
 					    filename, linenum,
 					    lookup_opcode_name(opcode));
@@ -2593,10 +2631,11 @@ dump_config(ServerOptions *o)
 #endif
 #ifdef GSSAPI
 	dump_cfg_fmtint(sGssAuthentication, o->gss_authentication);
-	dump_cfg_fmtint(sGssKeyEx, o->gss_keyex);
 	dump_cfg_fmtint(sGssCleanupCreds, o->gss_cleanup_creds);
+	dump_cfg_fmtint(sGssKeyEx, o->gss_keyex);
 	dump_cfg_fmtint(sGssStrictAcceptor, o->gss_strict_acceptor);
 	dump_cfg_fmtint(sGssStoreRekey, o->gss_store_rekey);
+	dump_cfg_string(sGssKexAlgorithms, o->gss_kex_algorithms);
 #endif
 	dump_cfg_fmtint(sPasswordAuthentication, o->password_authentication);
 	dump_cfg_fmtint(sKbdInteractiveAuthentication,

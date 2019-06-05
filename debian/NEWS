@@ -1,3 +1,17 @@
+openssh (1:8.0p1-1) unstable; urgency=medium
+
+  OpenSSH 8.0 includes a number of changes that may affect existing
+  configurations:
+
+   * sshd(8): Remove support for obsolete "host/port" syntax.
+     Slash-separated host/port was added in 2001 as an alternative to
+     host:port syntax for the benefit of IPv6 users.  These days there are
+     established standards for this like [::1]:22 and the slash syntax is
+     easily mistaken for CIDR notation, which OpenSSH supports for some
+     things.  Remove the slash notation from ListenAddress and PermitOpen.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 05 Jun 2019 07:09:47 +0100
+
 openssh (1:7.9p1-1) unstable; urgency=medium
 
   OpenSSH 7.9 includes a number of changes that may affect existing

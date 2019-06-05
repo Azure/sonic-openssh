@@ -202,7 +202,7 @@ ssh_gssapi_krb5_storecreds(ssh_gssapi_client *client)
 }
 
 int
-ssh_gssapi_krb5_updatecreds(ssh_gssapi_ccache *store, 
+ssh_gssapi_krb5_updatecreds(ssh_gssapi_ccache *store,
     ssh_gssapi_client *client)
 {
 	krb5_ccache ccache = NULL;
@@ -211,14 +211,14 @@ ssh_gssapi_krb5_updatecreds(ssh_gssapi_ccache *store,
 	krb5_error_code problem;
 	OM_uint32 maj_status, min_status;
 
-   	if ((problem = krb5_cc_resolve(krb_context, store->envval, &ccache))) {
+	if ((problem = krb5_cc_resolve(krb_context, store->envval, &ccache))) {
                 logit("krb5_cc_resolve(): %.100s",
                     krb5_get_err_text(krb_context, problem));
                 return 0;
-       	}
-	
+	}
+
 	/* Find out who the principal in this cache is */
-	if ((problem = krb5_cc_get_principal(krb_context, ccache, 
+	if ((problem = krb5_cc_get_principal(krb_context, ccache,
 	    &principal))) {
 		logit("krb5_cc_get_principal(): %.100s",
 		    krb5_get_err_text(krb_context, problem));

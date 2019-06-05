@@ -1,4 +1,4 @@
-/* $OpenBSD: readconf.h,v 1.128 2018/09/20 03:30:44 djm Exp $ */
+/* $OpenBSD: readconf.h,v 1.129 2018/11/23 05:08:07 djm Exp $ */
 
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
@@ -46,6 +46,7 @@ typedef struct {
 	int	gss_renewal_rekey;	/* Credential renewal forces rekey */
 	char    *gss_client_identity;   /* Principal to initiate GSSAPI with */
 	char    *gss_server_identity;   /* GSSAPI target principal */
+	char    *gss_kex_algorithms;	/* GSSAPI kex methods to be offered by client. */
 	int     password_authentication;	/* Try password
 						 * authentication. */
 	int     kbd_interactive_authentication; /* Try keyboard-interactive auth. */
@@ -190,7 +191,7 @@ typedef struct {
 
 #define SSHCONF_CHECKPERM	1  /* check permissions on config file */
 #define SSHCONF_USERCONF	2  /* user provided config file not system */
-#define SSHCONF_POSTCANON	4  /* After hostname canonicalisation */
+#define SSHCONF_FINAL		4  /* Final pass over config, after canon. */
 #define SSHCONF_NEVERMATCH	8  /* Match/Host never matches; internal only */
 
 #define SSH_UPDATE_HOSTKEYS_NO	0
@@ -208,7 +209,7 @@ void	 fill_default_options_for_canonicalization(Options *);
 int	 process_config_line(Options *, struct passwd *, const char *,
     const char *, char *, const char *, int, int *, int);
 int	 read_config_file(const char *, struct passwd *, const char *,
-    const char *, Options *, int);
+    const char *, Options *, int, int *);
 int	 parse_forward(struct Forward *, const char *, int, int);
 int	 parse_jump(const char *, Options *, int);
 int	 parse_ssh_uri(const char *, char **, char **, int *);

@@ -33,8 +33,8 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 .\" THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.\" $OpenBSD: sshd_config.5,v 1.282 2018/09/20 03:28:06 djm Exp $
-.Dd $Mdocdate: September 20 2018 $
+.\" $OpenBSD: sshd_config.5,v 1.284 2019/03/22 20:58:34 jmc Exp $
+.Dd $Mdocdate: March 22 2019 $
 .Dt SSHD_CONFIG 5
 .Os
 .Sh NAME
@@ -674,16 +674,16 @@ The default is
 Specifies whether user authentication based on GSSAPI is allowed.
 The default is
 .Cm no .
-.It Cm GSSAPIKeyExchange
-Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange
-doesn't rely on ssh keys to verify host identity.
-The default is
-.Cm no .
 .It Cm GSSAPICleanupCredentials
 Specifies whether to automatically destroy the user's credentials cache
 on logout.
 The default is
 .Cm yes .
+.It Cm GSSAPIKeyExchange
+Specifies whether key exchange based on GSSAPI is allowed. GSSAPI key exchange
+doesn't rely on ssh keys to verify host identity.
+The default is
+.Cm no .
 .It Cm GSSAPIStrictAcceptorCheck
 Determines whether to be strict about the identity of the GSSAPI acceptor
 a client authenticates against.
@@ -699,10 +699,30 @@ This facility is provided to assist with operation on multi homed machines.
 The default is
 .Cm yes .
 .It Cm GSSAPIStoreCredentialsOnRekey
-Controls whether the user's GSSAPI credentials should be updated following a 
-successful connection rekeying. This option can be used to accepted renewed 
+Controls whether the user's GSSAPI credentials should be updated following a
+successful connection rekeying. This option can be used to accepted renewed
 or updated credentials from a compatible client. The default is
-.Cm no .
+.Dq no .
+.Pp
+For this to work
+.Cm GSSAPIKeyExchange
+needs to be enabled in the server and also used by the client.
+.It Cm GSSAPIKexAlgorithms
+The list of key exchange algorithms that are accepted by GSSAPI
+key exchange. Possible values are
+.Bd -literal -offset 3n
+gss-gex-sha1-,
+gss-group1-sha1-,
+gss-group14-sha1-,
+gss-group14-sha256-,
+gss-group16-sha512-,
+gss-nistp256-sha256-,
+gss-curve25519-sha256-
+.Ed
+.Pp
+The default is
+.Dq gss-gex-sha1-,gss-group14-sha1- .
+This option only applies to protocol version 2 connections using GSSAPI.
 .It Cm HostbasedAcceptedKeyTypes
 Specifies the key types that will be accepted for hostbased authentication
 as a list of comma-separated patterns.
@@ -1118,7 +1138,7 @@ and
 .Cm RDomain
 representing the
 .Xr rdomain 4
-on which the connection was received.)
+on which the connection was received).
 .Pp
 The match patterns may consist of single entries or comma-separated
 lists and may use the wildcard and negation operators described in the
@@ -1271,7 +1291,7 @@ Note also that
 .Xr ssh 1
 will request a listen host of
 .Dq localhost
-if no listen host was specifically requested, and this this name is
+if no listen host was specifically requested, and this name is
 treated differently to explicit localhost addresses of
 .Dq 127.0.0.1
 and

@@ -1,4 +1,4 @@
-From 1d2a55436d4b556269f42ad5f7e16608b5a8ed74 Mon Sep 17 00:00:00 2001
+From 9c01e0ae9889c05bfe68b2f1f1c5e5019e63ff0b Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Thu, 30 Aug 2018 00:58:56 +0100
 Subject: Work around conch interoperability failure
@@ -18,7 +18,7 @@ Patch-Name: conch-old-privkey-format.patch
  3 files changed, 16 insertions(+), 3 deletions(-)
 
 diff --git a/regress/Makefile b/regress/Makefile
-index 647b4a049..6e462a4f6 100644
+index 925edf71a..6fdfcc8ca 100644
 --- a/regress/Makefile
 +++ b/regress/Makefile
 @@ -110,8 +110,9 @@ CLEANFILES=	*.core actual agent-key.* authorized_keys_${USERNAME} \
@@ -47,10 +47,10 @@ index 199d863a0..c7df19fd4 100644
  	    127.0.0.1 "cat ${DATA}" 2>/dev/null | cat > ${COPY}
  	if [ $? -ne 0 ]; then
 diff --git a/regress/test-exec.sh b/regress/test-exec.sh
-index 40d46e3cd..1bbd47f25 100644
+index b8e2009de..08338121b 100644
 --- a/regress/test-exec.sh
 +++ b/regress/test-exec.sh
-@@ -504,6 +504,18 @@ REGRESS_INTEROP_CONCH=no
+@@ -500,6 +500,18 @@ REGRESS_INTEROP_CONCH=no
  if test -x "$CONCH" ; then
  	REGRESS_INTEROP_CONCH=yes
  fi

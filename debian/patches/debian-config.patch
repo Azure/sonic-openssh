@@ -1,4 +1,4 @@
-From a433d9baa031d7136a8cf3e3807ebff83a3a8634 Mon Sep 17 00:00:00 2001
+From ebd590550bb09fe129b103994d53143788683d05 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -39,10 +39,10 @@ Patch-Name: debian-config.patch
  6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 6b01f20d2..661b8bf40 100644
+index cd60007f8..f35bde6e6 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2000,7 +2000,7 @@ fill_default_options(Options * options)
+@@ -2028,7 +2028,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -52,10 +52,10 @@ index 6b01f20d2..661b8bf40 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index ad1ed0f86..1bcc8edab 100644
+index 8d2b08a29..4e298cb56 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -782,6 +782,16 @@ directive in
+@@ -795,6 +795,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -72,7 +72,7 @@ index ad1ed0f86..1bcc8edab 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -790,6 +800,17 @@ Enables trusted X11 forwarding.
+@@ -803,6 +813,17 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -91,7 +91,7 @@ index ad1ed0f86..1bcc8edab 100644
  Send log information using the
  .Xr syslog 3
 diff --git a/ssh_config b/ssh_config
-index bcb9f153d..1b676fb2c 100644
+index 1ff999b68..6dd6ecf87 100644
 --- a/ssh_config
 +++ b/ssh_config
 @@ -17,9 +17,10 @@
@@ -106,7 +106,7 @@ index bcb9f153d..1b676fb2c 100644
  #   PasswordAuthentication yes
  #   HostbasedAuthentication no
  #   GSSAPIAuthentication no
-@@ -46,3 +47,6 @@
+@@ -45,3 +46,6 @@
  #   VisualHostKey no
  #   ProxyCommand ssh -q -W %h:%p gateway.example.com
  #   RekeyLimit 1G 1h
@@ -114,7 +114,7 @@ index bcb9f153d..1b676fb2c 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index a91355726..1a8e24bd1 100644
+index 39535c4f8..a27631ae9 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
@@ -140,7 +140,7 @@ index a91355726..1a8e24bd1 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -699,11 +715,12 @@ elapsed.
+@@ -717,11 +733,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,
@@ -204,7 +204,7 @@ index 2c48105f8..ed8272f6d 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 23f71fd1d..ba50a30f1 100644
+index f995e4ab0..c0c4ebd66 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,28 @@ Arguments may optionally be enclosed in double quotes

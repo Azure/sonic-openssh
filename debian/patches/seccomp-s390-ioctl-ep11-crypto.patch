@@ -1,4 +1,4 @@
-From 9ce189b9f22890421b7f8d3f49a39186d3ce3e14 Mon Sep 17 00:00:00 2001
+From 9d4508c5c1d6466c662befcb26aff09f41966102 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 13:33:30 -0300
 Subject: Enable specific ioctl call for EP11 crypto card (s390)
