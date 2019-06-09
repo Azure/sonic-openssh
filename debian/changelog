@@ -1,4 +1,4 @@
-openssh (1:8.0p1-1) UNRELEASED; urgency=medium
+openssh (1:8.0p1-1) experimental; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-8.0, closes:
     #927792):
@@ -124,7 +124,7 @@ openssh (1:8.0p1-1) UNRELEASED; urgency=medium
   * Apply upstream patch to fix the utimensat regression tests when not
     using the compatibility implementation.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 05 Jun 2019 07:09:47 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 09 Jun 2019 22:47:27 +0100
 
 openssh (1:7.9p1-10) unstable; urgency=medium
 

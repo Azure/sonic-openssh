@@ -1,4 +1,4 @@
-openssh (1:8.0p1-1) unstable; urgency=medium
+openssh (1:8.0p1-1) experimental; urgency=medium
 
   OpenSSH 8.0 includes a number of changes that may affect existing
   configurations:
@@ -10,7 +10,7 @@ openssh (1:8.0p1-1) unstable; urgency=medium
      easily mistaken for CIDR notation, which OpenSSH supports for some
      things.  Remove the slash notation from ListenAddress and PermitOpen.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 05 Jun 2019 07:09:47 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 09 Jun 2019 22:47:27 +0100
 
 openssh (1:7.9p1-1) unstable; urgency=medium
 
