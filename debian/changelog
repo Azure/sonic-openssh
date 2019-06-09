@@ -121,6 +121,8 @@ openssh (1:8.0p1-1) UNRELEASED; urgency=medium
     - Enable gssapi-keyex authentication without gssapi-with-mic.
     - Allow querying for GSSAPI key exchange algorithms from ssh (-Q
       kex-gss).
+  * Apply upstream patch to fix the utimensat regression tests when not
+    using the compatibility implementation.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 05 Jun 2019 07:09:47 +0100
 
