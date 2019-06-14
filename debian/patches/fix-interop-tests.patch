@@ -1,0 +1,71 @@
+From 440ef75890c282e75534689cd4e0d3938279b8e0 Mon Sep 17 00:00:00 2001
+From: Colin Watson <cjwatson@debian.org>
+Date: Fri, 14 Jun 2019 11:57:15 +0100
+Subject: Fix interop tests for recent regress changes
+
+A recent regress change (2a9b3a2ce411d16cda9c79ab713c55f65b0ec257 in
+portable) broke the PuTTY and Twisted Conch interop tests, because the
+key they want to use is now called ssh-rsa rather than rsa.  Fix them.
+
+Forwarded: https://bugzilla.mindrot.org/show_bug.cgi?id=3020
+Last-Update: 2019-06-14
+
+Patch-Name: fix-interop-tests.patch
+---
+ regress/Makefile         |  5 +++--
+ regress/conch-ciphers.sh |  2 +-
+ regress/test-exec.sh     | 10 +++++-----
+ 3 files changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/regress/Makefile b/regress/Makefile
+index 925edf71a..781400fd0 100644
+--- a/regress/Makefile
++++ b/regress/Makefile
+@@ -113,8 +113,9 @@ CLEANFILES=	*.core actual agent-key.* authorized_keys_${USERNAME} \
+ 		rsa1 rsa1-agent rsa1-agent.pub rsa1.pub rsa_ssh2_cr.prv \
+ 		rsa_ssh2_crnl.prv scp-ssh-wrapper.exe \
+ 		scp-ssh-wrapper.scp setuid-allowed sftp-server.log \
+-		sftp-server.sh sftp.log ssh-log-wrapper.sh ssh.log \
+-		ssh_config ssh_config.* ssh_proxy ssh_proxy_bak \
++		sftp-server.sh sftp.log ssh-log-wrapper.sh \
++		ssh-rsa_oldfmt \
++		ssh.log ssh_config ssh_config.* ssh_proxy ssh_proxy_bak \
+ 		ssh_proxy_envpass sshd.log sshd_config sshd_config_minimal \
+ 		sshd_config.orig sshd_proxy sshd_proxy.* sshd_proxy_bak \
+ 		sshd_proxy_orig t10.out t10.out.pub t12.out t12.out.pub \
+diff --git a/regress/conch-ciphers.sh b/regress/conch-ciphers.sh
+index 199d863a0..51e3b705f 100644
+--- a/regress/conch-ciphers.sh
++++ b/regress/conch-ciphers.sh
+@@ -16,7 +16,7 @@ for c in aes256-ctr aes256-cbc aes192-ctr aes192-cbc aes128-ctr aes128-cbc \
+ 	rm -f ${COPY}
+ 	# XXX the 2nd "cat" seems to be needed because of buggy FD handling
+ 	# in conch
+-	${CONCH} --identity $OBJ/rsa --port $PORT --user $USER  -e none \
++	${CONCH} --identity $OBJ/ssh-rsa --port $PORT --user $USER -e none \
+ 	    --known-hosts $OBJ/known_hosts --notty --noagent --nox11 -n \
+ 	    127.0.0.1 "cat ${DATA}" 2>/dev/null | cat > ${COPY}
+ 	if [ $? -ne 0 ]; then
+diff --git a/regress/test-exec.sh b/regress/test-exec.sh
+index b8e2009de..efde6a173 100644
+--- a/regress/test-exec.sh
++++ b/regress/test-exec.sh
+@@ -527,13 +527,13 @@ if test "$REGRESS_INTEROP_PUTTY" = "yes" ; then
+ 	    >> $OBJ/authorized_keys_$USER
+ 
+ 	# Convert rsa2 host key to PuTTY format
+-	cp $OBJ/rsa $OBJ/rsa_oldfmt
+-	${SSHKEYGEN} -p -N '' -m PEM -f $OBJ/rsa_oldfmt >/dev/null
+-	${SRC}/ssh2putty.sh 127.0.0.1 $PORT $OBJ/rsa_oldfmt > \
++	cp $OBJ/ssh-rsa $OBJ/ssh-rsa_oldfmt
++	${SSHKEYGEN} -p -N '' -m PEM -f $OBJ/ssh-rsa_oldfmt >/dev/null
++	${SRC}/ssh2putty.sh 127.0.0.1 $PORT $OBJ/ssh-rsa_oldfmt > \
+ 	    ${OBJ}/.putty/sshhostkeys
+-	${SRC}/ssh2putty.sh 127.0.0.1 22 $OBJ/rsa_oldfmt >> \
++	${SRC}/ssh2putty.sh 127.0.0.1 22 $OBJ/ssh-rsa_oldfmt >> \
+ 	    ${OBJ}/.putty/sshhostkeys
+-	rm -f $OBJ/rsa_oldfmt
++	rm -f $OBJ/ssh-rsa_oldfmt
+ 
+ 	# Setup proxied session
+ 	mkdir -p ${OBJ}/.putty/sessions

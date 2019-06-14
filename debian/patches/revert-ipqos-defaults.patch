@@ -1,4 +1,4 @@
-From 7d50f9e5be88179325983a1f58c9d51bb58f025a Mon Sep 17 00:00:00 2001
+From 907bd73e8b0d031a96a0f800c0f6cef03ff1fcc4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 8 Apr 2019 10:46:29 +0100
 Subject: Revert "upstream: Update default IPQoS in ssh(1), sshd(8) to DSCP
