@@ -113,8 +113,9 @@ CLEANFILES=	*.core actual agent-key.* authorized_keys_${USERNAME} \
 		rsa1 rsa1-agent rsa1-agent.pub rsa1.pub rsa_ssh2_cr.prv \
 		rsa_ssh2_crnl.prv scp-ssh-wrapper.exe \
 		scp-ssh-wrapper.scp setuid-allowed sftp-server.log \
-		sftp-server.sh sftp.log ssh-log-wrapper.sh ssh.log \
-		ssh_config ssh_config.* ssh_proxy ssh_proxy_bak \
+		sftp-server.sh sftp.log ssh-log-wrapper.sh \
+		ssh-rsa_oldfmt \
+		ssh.log ssh_config ssh_config.* ssh_proxy ssh_proxy_bak \
 		ssh_proxy_envpass sshd.log sshd_config sshd_config_minimal \
 		sshd_config.orig sshd_proxy sshd_proxy.* sshd_proxy_bak \
 		sshd_proxy_orig t10.out t10.out.pub t12.out t12.out.pub \
