@@ -1,8 +1,8 @@
-openssh (1:8.0p1-2) UNRELEASED; urgency=medium
+openssh (1:8.0p1-2) experimental; urgency=medium
 
   * Fix interop tests for recent regress changes.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 14 Jun 2019 12:05:23 +0100
+ -- Colin Watson <cjwatson@debian.org>  Fri, 14 Jun 2019 14:32:12 +0100
 
 openssh (1:8.0p1-1) experimental; urgency=medium
 
