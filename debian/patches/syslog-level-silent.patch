@@ -1,5 +1,5 @@
-From 0646a0cd5ea893cf822113d4f10c501540c18e40 Mon Sep 17 00:00:00 2001
-From: Jonathan David Amery <jdamery@ysolde.ucam.org>
+From e9dd9cd95fe8fe2da9b114a1546a90634b3ce4be Mon Sep 17 00:00:00 2001
+From: Natalie Amery <nmamery@chiark.greenend.org.uk>
 Date: Sun, 9 Feb 2014 16:09:54 +0000
 Subject: "LogLevel SILENT" compatibility
 

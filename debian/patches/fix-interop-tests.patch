@@ -1,4 +1,4 @@
-From 440ef75890c282e75534689cd4e0d3938279b8e0 Mon Sep 17 00:00:00 2001
+From 42519a0f32765726ccd18a14aa6e877413a69662 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Fri, 14 Jun 2019 11:57:15 +0100
 Subject: Fix interop tests for recent regress changes
