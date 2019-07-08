@@ -1,8 +1,8 @@
-openssh (1:8.0p1-3) UNRELEASED; urgency=medium
+openssh (1:8.0p1-3) unstable; urgency=medium
 
   * Upload to unstable.
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 08 Jul 2019 17:08:27 +0100
+ -- Colin Watson <cjwatson@debian.org>  Mon, 08 Jul 2019 17:19:37 +0100
 
 openssh (1:8.0p1-2) experimental; urgency=medium
 
