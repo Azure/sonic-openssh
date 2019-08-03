@@ -4,6 +4,7 @@ Priority: standard
 Maintainer: Debian OpenSSH Maintainers <debian-ssh@lists.debian.org>
 Build-Depends: autotools-dev,
                debhelper (>= 9.20160709~),
+               debhelper-compat (= 9),
                dh-autoreconf,
                dh-exec,
                dpkg-dev (>= 1.16.1~),

@@ -1,3 +1,9 @@
+openssh (1:8.0p1-4) UNRELEASED; urgency=medium
+
+  * Use debhelper-compat instead of debian/compat.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 03 Aug 2019 12:49:17 +0100
+
 openssh (1:8.0p1-3) unstable; urgency=medium
 
   * Upload to unstable.
