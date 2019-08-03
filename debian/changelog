@@ -1,4 +1,4 @@
-openssh (1:8.0p1-4) UNRELEASED; urgency=medium
+openssh (1:8.0p1-4) unstable; urgency=medium
 
   * Use debhelper-compat instead of debian/compat.
   * debian/*.apport:
@@ -7,7 +7,7 @@ openssh (1:8.0p1-4) UNRELEASED; urgency=medium
     - Fix flake8 errors.
   * Run regression tests against the Python 3 version of Twisted Conch.
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 03 Aug 2019 12:49:17 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sat, 03 Aug 2019 13:33:24 +0100
 
 openssh (1:8.0p1-3) unstable; urgency=medium
 
