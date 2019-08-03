@@ -12,6 +12,7 @@ the full text of the license.
 
 from apport.hookutils import root_command_output
 
+
 def add_info(report, ui):
     response = ui.yesno("The contents of your /etc/ssh/sshd_config file "
                         "may help developers diagnose your bug more "
@@ -19,8 +20,8 @@ def add_info(report, ui):
                         "information.  Do you want to include it in your "
                         "bug report?")
 
-    if response == None: # user cancelled
+    if response == None:  # user cancelled
         raise StopIteration
 
-    elif response == True:
+    elif response:
         report['SSHDConfig'] = root_command_output(['/usr/sbin/sshd', '-T'])

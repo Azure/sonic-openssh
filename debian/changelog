@@ -4,6 +4,7 @@ openssh (1:8.0p1-4) UNRELEASED; urgency=medium
   * debian/*.apport:
     - Remove #! lines.
     - Avoid star imports.
+    - Fix flake8 errors.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 03 Aug 2019 12:49:17 +0100
 
