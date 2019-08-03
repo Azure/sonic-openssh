@@ -10,7 +10,11 @@ option) any later version.  See http://www.gnu.org/copyleft/gpl.html for
 the full text of the license.
 '''
 
-from apport.hookutils import *
+from apport.hookutils import (
+    attach_conffiles,
+    attach_related_packages,
+    command_output,
+)
 
 def add_info(report, ui):
     response = ui.yesno("The contents of your /etc/ssh/ssh_config file "
