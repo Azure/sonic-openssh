@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 '''apport hook for openssh-client
 
 (c) 2010 Canonical Ltd.

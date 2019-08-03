@@ -1,6 +1,7 @@
 openssh (1:8.0p1-4) UNRELEASED; urgency=medium
 
   * Use debhelper-compat instead of debian/compat.
+  * Remove #! lines from apport hooks.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 03 Aug 2019 12:49:17 +0100
 
