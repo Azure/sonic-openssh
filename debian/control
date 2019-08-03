@@ -163,7 +163,7 @@ Depends: openssh-client (= ${binary:Version}),
          openssh-sftp-server (= ${binary:Version}),
          openssl,
          putty-tools (>= 0.67-2),
-         python-twisted-conch (>= 1:15.5.0-1),
+         python3-twisted,
          ${misc:Depends},
          ${shlibs:Depends},
 Description: OpenSSH regression tests
