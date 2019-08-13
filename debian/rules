@@ -106,7 +106,7 @@ confflags += --with-ldflags='$(strip -Wl,--as-needed $(LDFLAGS))'
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
-	dh $@ --with=autoreconf,systemd
+	dh $@ --with=autoreconf,systemd,runit
 
 autoreconf:
 	autoreconf -f -i
