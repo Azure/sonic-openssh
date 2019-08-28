@@ -1,8 +1,8 @@
-openssh (1:8.0p1-6) UNRELEASED; urgency=medium
+openssh (1:8.0p1-6) unstable; urgency=medium
 
   * Only run dh_runit on openssh-server (closes: #935936).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 28 Aug 2019 10:17:55 +0100
+ -- Colin Watson <cjwatson@debian.org>  Wed, 28 Aug 2019 10:53:18 +0100
 
 openssh (1:8.0p1-5) unstable; urgency=medium
 
