@@ -212,6 +212,9 @@ endif
 override_dh_installpam: debian/openssh-server.sshd.pam
 	dh_installpam --name sshd
 
+override_dh_runit:
+	dh_runit -popenssh-server
+
 override_dh_fixperms-arch:
 	dh_fixperms
 	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
