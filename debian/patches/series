@@ -27,3 +27,4 @@ fix-interop-tests.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch
 fix-utimensat-test.patch
+seccomp-handle-shm.patch
