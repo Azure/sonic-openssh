@@ -1,3 +1,11 @@
+openssh (1:7.9p1-10+deb10u1) UNRELEASED; urgency=medium
+
+  * Apply upstream patch to deny (non-fatally) shmget/shmat/shmdt in preauth
+    privsep child, coping with changes in OpenSSL 1.1.1d that broke OpenSSH
+    on Linux kernels before 3.19 (closes: #941663).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 05 Oct 2019 22:32:31 +0100
+
 openssh (1:7.9p1-10) unstable; urgency=medium
 
   * Temporarily revert IPQoS defaults to pre-7.8 values until issues with
