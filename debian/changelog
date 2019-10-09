@@ -75,6 +75,8 @@ openssh (1:8.1p1-1) UNRELEASED; urgency=medium
       heap allocators.
     - sshd(8): In the Linux seccomp-bpf sandbox, allow the s390-specific
       ioctl for ECC hardware support.
+  * Re-enable hardening on hppa, since the corresponding GCC bug is
+    apparently fixed.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 09 Oct 2019 23:18:42 +0100
 
