@@ -1,4 +1,4 @@
-From a85bb8a31b789276d5edb0c34023ce833a402b00 Mon Sep 17 00:00:00 2001
+From cfc30ca51eba79f9f725c22528e3bfec036aa927 Mon Sep 17 00:00:00 2001
 From: Eduardo Barretto <ebarretto@linux.vnet.ibm.com>
 Date: Tue, 9 May 2017 10:53:04 -0300
 Subject: Allow flock and ipc syscall for s390 architecture
@@ -22,10 +22,10 @@ Patch-Name: seccomp-s390-flock-ipc.patch
  1 file changed, 6 insertions(+)
 
 diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
-index 5edbc6946..d4bc20828 100644
+index b5cda70bb..2f6b0d55b 100644
 --- a/sandbox-seccomp-filter.c
 +++ b/sandbox-seccomp-filter.c
-@@ -166,6 +166,9 @@ static const struct sock_filter preauth_insns[] = {
+@@ -194,6 +194,9 @@ static const struct sock_filter preauth_insns[] = {
  #ifdef __NR_exit_group
  	SC_ALLOW(__NR_exit_group),
  #endif
@@ -35,7 +35,7 @@ index 5edbc6946..d4bc20828 100644
  #ifdef __NR_futex
  	SC_ALLOW(__NR_futex),
  #endif
-@@ -193,6 +196,9 @@ static const struct sock_filter preauth_insns[] = {
+@@ -221,6 +224,9 @@ static const struct sock_filter preauth_insns[] = {
  #ifdef __NR_getuid32
  	SC_ALLOW(__NR_getuid32),
  #endif

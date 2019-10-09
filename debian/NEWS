@@ -1,3 +1,16 @@
+openssh (1:8.1p1-1) UNRELEASED; urgency=medium
+
+  OpenSSH 8.1 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh-keygen(1): when acting as a CA and signing certificates with an RSA
+     key, default to using the rsa-sha2-512 signature algorithm.
+     Certificates signed by RSA keys will therefore be incompatible with
+     OpenSSH versions prior to 7.2 unless the default is overridden (using
+     "ssh-keygen -t ssh-rsa -s ...").
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 09 Oct 2019 23:18:42 +0100
+
 openssh (1:8.0p1-1) experimental; urgency=medium
 
   OpenSSH 8.0 includes a number of changes that may affect existing

@@ -1,4 +1,4 @@
-From 0a938d856d024bfff79fac63e65df382ffa444a4 Mon Sep 17 00:00:00 2001
+From 4eb06adf69f21f387e4f2d29dad01b2ca1303094 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index be354206d..bbb7a2340 100644
+index 65ed6af02..f450bc2c7 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1168,7 +1168,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1221,7 +1221,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,7 +34,7 @@ index be354206d..bbb7a2340 100644
  {
  	int remote_major, remote_minor, mismatch;
  	size_t len, i, n;
-@@ -1186,7 +1186,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1239,7 +1239,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
@@ -45,10 +45,10 @@ index be354206d..bbb7a2340 100644
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		error("%s: sshbuf_putf: %s", __func__, ssh_err(r));
 diff --git a/kex.h b/kex.h
-index 2d5f1d4ed..39f67bbc1 100644
+index fe7141414..938dca03b 100644
 --- a/kex.h
 +++ b/kex.h
-@@ -195,7 +195,7 @@ char	*kex_names_cat(const char *, const char *);
+@@ -194,7 +194,7 @@ char	*kex_names_cat(const char *, const char *);
  int	 kex_assemble_names(char **, const char *, const char *);
  int	 kex_gss_names_valid(const char *);
  
@@ -58,7 +58,7 @@ index 2d5f1d4ed..39f67bbc1 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index c01e0690e..8d2bced52 100644
+index 73b93c636..5576098a5 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -184,6 +184,7 @@ initialize_server_options(ServerOptions *options)
@@ -94,7 +94,7 @@ index c01e0690e..8d2bced52 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2211,6 +2216,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -2217,6 +2222,10 @@ process_server_config_line(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -106,7 +106,7 @@ index c01e0690e..8d2bced52 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index a476d5220..986093ffa 100644
+index 29329ba1f..d5ad19065 100644
 --- a/servconf.h
 +++ b/servconf.h
 @@ -214,6 +214,8 @@ typedef struct {
@@ -119,10 +119,10 @@ index a476d5220..986093ffa 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 0b6f6af4b..1183ffe0e 100644
+index 41e75a275..27daef74f 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1287,7 +1287,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+@@ -1291,7 +1291,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
  	lowercase(host);
  
  	/* Exchange protocol version identification strings with the server. */
@@ -132,10 +132,10 @@ index 0b6f6af4b..1183ffe0e 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index e3e96426e..1e7ece588 100644
+index ea8beacb4..4e8ff0662 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2160,7 +2160,8 @@ main(int ac, char **av)
+@@ -2165,7 +2165,8 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -146,10 +146,10 @@ index e3e96426e..1e7ece588 100644
  
  	ssh_packet_set_nonblocking(ssh);
 diff --git a/sshd_config.5 b/sshd_config.5
-index 2ef671d1b..addea54a0 100644
+index eec224158..46537f177 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -543,6 +543,11 @@ or
+@@ -545,6 +545,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

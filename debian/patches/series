@@ -22,9 +22,5 @@ systemd-readiness.patch
 debian-config.patch
 restore-authorized_keys2.patch
 seccomp-s390-flock-ipc.patch
-seccomp-s390-ioctl-ep11-crypto.patch
-fix-interop-tests.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch
-fix-utimensat-test.patch
-seccomp-handle-shm.patch

@@ -1,4 +1,4 @@
-From d9eede9b2c86ddaccb35477f2904bfbdf223ffd4 Mon Sep 17 00:00:00 2001
+From 7abde40896668ce9debfe056c7dabc6a70ef7da4 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -39,10 +39,10 @@ Patch-Name: debian-config.patch
  6 files changed, 77 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index cd60007f8..f35bde6e6 100644
+index 16d2729dd..253574ce0 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2028,7 +2028,7 @@ fill_default_options(Options * options)
+@@ -2037,7 +2037,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -52,7 +52,7 @@ index cd60007f8..f35bde6e6 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index 8d2b08a29..4e298cb56 100644
+index 24530e511..fd495da2c 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -795,6 +795,16 @@ directive in
@@ -114,7 +114,7 @@ index 1ff999b68..6dd6ecf87 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index 39535c4f8..a27631ae9 100644
+index 4b42aab9d..d27655e15 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,22 @@ Since the first obtained value for each parameter is used, more
@@ -140,7 +140,7 @@ index 39535c4f8..a27631ae9 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -717,11 +733,12 @@ elapsed.
+@@ -721,11 +737,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,
@@ -204,7 +204,7 @@ index 2c48105f8..ed8272f6d 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index f995e4ab0..c0c4ebd66 100644
+index 270805060..02e29cb6f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,28 @@ Arguments may optionally be enclosed in double quotes

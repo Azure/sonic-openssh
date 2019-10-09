@@ -1,4 +1,4 @@
-From 21e3ff3ab4791d3c94bd775da66cde29797fcb36 Mon Sep 17 00:00:00 2001
+From 3131e3bb3c56a6c6ee8cb9d68f542af04cd9e8ff Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -31,10 +31,10 @@ Patch-Name: selinux-role.patch
  15 files changed, 99 insertions(+), 32 deletions(-)
 
 diff --git a/auth.h b/auth.h
-index bf393e755..8f13bdf48 100644
+index becc672b5..5da9fe75f 100644
 --- a/auth.h
 +++ b/auth.h
-@@ -65,6 +65,7 @@ struct Authctxt {
+@@ -63,6 +63,7 @@ struct Authctxt {
  	char		*service;
  	struct passwd	*pw;		/* set if 'valid' */
  	char		*style;
@@ -43,10 +43,10 @@ index bf393e755..8f13bdf48 100644
  	/* Method lists for multiple authentication */
  	char		**auth_methods;	/* modified from server config */
 diff --git a/auth2.c b/auth2.c
-index 7417eafa4..d60e7f1f2 100644
+index 1c217268c..92a6bcaf4 100644
 --- a/auth2.c
 +++ b/auth2.c
-@@ -267,7 +267,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -265,7 +265,7 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  {
  	Authctxt *authctxt = ssh->authctxt;
  	Authmethod *m = NULL;
@@ -55,7 +55,7 @@ index 7417eafa4..d60e7f1f2 100644
  	int r, authenticated = 0;
  	double tstart = monotime_double();
  
-@@ -281,8 +281,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -279,8 +279,13 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  	debug("userauth-request for user %s service %s method %s", user, service, method);
  	debug("attempt %d failures %d", authctxt->attempt, authctxt->failures);
  
@@ -69,7 +69,7 @@ index 7417eafa4..d60e7f1f2 100644
  
  	if (authctxt->attempt++ == 0) {
  		/* setup auth context */
-@@ -309,8 +314,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
+@@ -307,8 +312,9 @@ input_userauth_request(int type, u_int32_t seq, struct ssh *ssh)
  		    use_privsep ? " [net]" : "");
  		authctxt->service = xstrdup(service);
  		authctxt->style = style ? xstrdup(style) : NULL;
@@ -81,7 +81,7 @@ index 7417eafa4..d60e7f1f2 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index 0766d6ef5..5f84e880d 100644
+index bead9e204..04db44c9c 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
@@ -177,7 +177,7 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index 8e4c1c1f8..6b3a6251c 100644
+index fdca39a6a..933ce9a3d 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -364,10 +364,10 @@ mm_auth2_read_banner(void)
@@ -231,11 +231,11 @@ index 8e4c1c1f8..6b3a6251c 100644
  int
  mm_auth_password(struct ssh *ssh, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 69164a8c0..3d0e32d48 100644
+index 92dda574b..0f09dba09 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
-@@ -44,7 +44,8 @@ int mm_is_monitor(void);
- DH *mm_choose_dh(int, int, int);
+@@ -46,7 +46,8 @@ DH *mm_choose_dh(int, int, int);
+ #endif
  int mm_sshkey_sign(struct ssh *, struct sshkey *, u_char **, size_t *,
      const u_char *, size_t, const char *, u_int compat);
 -void mm_inform_authserv(char *, char *);
@@ -328,10 +328,10 @@ index 3c22a854d..c88129428 100644
  void ssh_selinux_setfscreatecon(const char *);
  #endif
 diff --git a/platform.c b/platform.c
-index 41acc9370..35654ea51 100644
+index 44ba71dc5..2defe9425 100644
 --- a/platform.c
 +++ b/platform.c
-@@ -142,7 +142,7 @@ platform_setusercontext(struct passwd *pw)
+@@ -143,7 +143,7 @@ platform_setusercontext(struct passwd *pw)
   * called if sshd is running as root.
   */
  void
@@ -340,7 +340,7 @@ index 41acc9370..35654ea51 100644
  {
  #if !defined(HAVE_LOGIN_CAP) && defined(USE_PAM)
  	/*
-@@ -183,7 +183,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
+@@ -184,7 +184,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
  	}
  #endif /* HAVE_SETPCRED */
  #ifdef WITH_SELINUX
@@ -363,7 +363,7 @@ index ea4f9c584..60d72ffe7 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index ac3d9d19d..d87ea4d44 100644
+index f1a47f766..df7d7cf55 100644
 --- a/session.c
 +++ b/session.c
 @@ -1356,7 +1356,7 @@ safely_chroot(const char *path, uid_t uid)
@@ -425,7 +425,7 @@ index ce59dabd9..675c91146 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 46870d3b5..e3e96426e 100644
+index 4e32fd10d..ea8beacb4 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -594,7 +594,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
@@ -438,7 +438,7 @@ index 46870d3b5..e3e96426e 100644
   skip:
  	/* It is safe now to apply the key state */
 diff --git a/sshpty.c b/sshpty.c
-index 4da84d05f..676ade50e 100644
+index bce09e255..308449b37 100644
 --- a/sshpty.c
 +++ b/sshpty.c
 @@ -162,7 +162,7 @@ pty_change_window_size(int ptyfd, u_int row, u_int col,
@@ -450,7 +450,7 @@ index 4da84d05f..676ade50e 100644
  {
  	struct group *grp;
  	gid_t gid;
-@@ -184,7 +184,7 @@ pty_setowner(struct passwd *pw, const char *tty)
+@@ -186,7 +186,7 @@ pty_setowner(struct passwd *pw, const char *tty)
  		    strerror(errno));
  
  #ifdef WITH_SELINUX

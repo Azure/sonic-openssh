@@ -144,11 +144,7 @@ override_dh_auto_build-indep:
 
 override_dh_auto_test-arch:
 ifeq ($(RUN_TESTS),yes)
-	$(MAKE) -C debian/build-deb/regress \
-		.OBJDIR="$(CURDIR)/debian/build-deb/regress" \
-		.CURDIR="$(CURDIR)/regress" \
-		unit
-	$(MAKE) -C debian/build-deb compat-tests
+	$(MAKE) -C debian/build-deb unit compat-tests
 	$(MAKE) -C debian/keygen-test
 endif
 

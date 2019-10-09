@@ -1,4 +1,4 @@
-#	$OpenBSD: conch-ciphers.sh,v 1.3 2013/05/17 04:29:14 dtucker Exp $
+#	$OpenBSD: conch-ciphers.sh,v 1.4 2019/07/05 04:12:46 dtucker Exp $
 #	Placed in the Public Domain.
 
 tid="conch ciphers"
