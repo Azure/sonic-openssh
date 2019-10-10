@@ -1,4 +1,4 @@
-openssh (1:8.1p1-1) UNRELEASED; urgency=medium
+openssh (1:8.1p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-8.1):
     - ssh(1), sshd(8), ssh-agent(1): Add protection for private keys at rest
@@ -78,7 +78,7 @@ openssh (1:8.1p1-1) UNRELEASED; urgency=medium
   * Re-enable hardening on hppa, since the corresponding GCC bug is
     apparently fixed.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 09 Oct 2019 23:18:42 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 10 Oct 2019 10:23:19 +0100
 
 openssh (1:8.0p1-7) unstable; urgency=medium
 
