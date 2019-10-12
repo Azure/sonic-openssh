@@ -158,6 +158,9 @@ static const struct sock_filter preauth_insns[] = {
 #ifdef __NR_shmdt
 	SC_DENY(__NR_shmdt, EACCES),
 #endif
+#ifdef __NR_ipc
+	SC_DENY(__NR_ipc, EACCES),
+#endif
 
 	/* Syscalls to permit */
 #ifdef __NR_brk
@@ -204,9 +207,6 @@ static const struct sock_filter preauth_insns[] = {
 #endif
 #ifdef __NR_getuid32
 	SC_ALLOW(__NR_getuid32),
-#endif
-#if defined(__NR_ipc) && defined(__s390__)
-	SC_ALLOW(__NR_ipc),
 #endif
 #ifdef __NR_madvise
 	SC_ALLOW(__NR_madvise),
