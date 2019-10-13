@@ -1,4 +1,4 @@
-openssh (1:8.1p1-1) UNRELEASED; urgency=medium
+openssh (1:8.1p1-1) unstable; urgency=medium
 
   OpenSSH 8.1 includes a number of changes that may affect existing
   configurations:
@@ -9,7 +9,7 @@ openssh (1:8.1p1-1) UNRELEASED; urgency=medium
      OpenSSH versions prior to 7.2 unless the default is overridden (using
      "ssh-keygen -t ssh-rsa -s ...").
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 09 Oct 2019 23:18:42 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 10 Oct 2019 10:23:19 +0100
 
 openssh (1:8.0p1-1) experimental; urgency=medium
 
