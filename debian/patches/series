@@ -21,6 +21,5 @@ gnome-ssh-askpass2-icon.patch
 systemd-readiness.patch
 debian-config.patch
 restore-authorized_keys2.patch
-seccomp-s390-flock-ipc.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch

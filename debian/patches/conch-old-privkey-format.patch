@@ -1,4 +1,4 @@
-From 46352085d71fe406537828a1cee3c2ce896eccb9 Mon Sep 17 00:00:00 2001
+From bbce4380e516e8bfed1ae09af0bc3661e427794a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Thu, 30 Aug 2018 00:58:56 +0100
 Subject: Work around conch interoperability failure
