@@ -132,6 +132,7 @@ Breaks: openssh-server (<< 1:6.5p1-5),
 Replaces: openssh-server (<< 1:6.5p1-5),
 Enhances: openssh-server,
           ssh-server,
+Multi-Arch: foreign
 Description: secure shell (SSH) sftp server module, for SFTP access from remote machines
  This is the portable version of OpenSSH, a free implementation of
  the Secure Shell protocol as specified by the IETF secsh working
@@ -168,6 +169,7 @@ Depends: openssh-client (= ${binary:Version}),
          python3-twisted,
          ${misc:Depends},
          ${shlibs:Depends},
+Multi-Arch: foreign
 Description: OpenSSH regression tests
  This package provides OpenSSH's regression test suite.  It is mainly
  intended for use with the autopkgtest system, though can also be run
@@ -180,6 +182,7 @@ Pre-Depends: dpkg (>= 1.17.5),
 Depends: openssh-client (>= ${binary:Version}),
          openssh-server (>= ${binary:Version}),
          ${misc:Depends},
+Multi-Arch: foreign
 Description: secure shell client and server (metapackage)
  This metapackage is a convenient way to install both the OpenSSH client
  and the OpenSSH server. It provides nothing in and of itself, so you
@@ -195,6 +198,7 @@ Depends: openssh-client | ssh (>= 1:1.2pre7-4),
          ${shlibs:Depends},
 Replaces: ssh (<< 1:3.5p1-3),
 Provides: ssh-askpass,
+Multi-Arch: foreign
 Description: interactive X program to prompt users for a passphrase for ssh-add
  This has been split out of the main openssh-client package so that
  openssh-client does not need to depend on GTK+.
