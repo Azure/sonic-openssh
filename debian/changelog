@@ -1,3 +1,10 @@
+openssh (1:8.1p1-3) UNRELEASED; urgency=medium
+
+  * Drop suggestion of rssh, since it's been removed (see
+    https://bugs.debian.org/923691).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 16 Dec 2019 15:40:12 +0000
+
 openssh (1:8.1p1-2) unstable; urgency=medium
 
   * Drop "Allow flock and ipc syscall for s390 architecture" patch for now;
