@@ -1,4 +1,4 @@
-openssh (1:8.1p1-3) UNRELEASED; urgency=medium
+openssh (1:8.1p1-3) unstable; urgency=medium
 
   [ Colin Watson ]
   * Drop suggestion of rssh, since it's been removed (see
@@ -7,7 +7,7 @@ openssh (1:8.1p1-3) UNRELEASED; urgency=medium
   [ Steve Langasek ]
   * Don't build openssh-tests on Ubuntu i386 (closes: #948466).
 
- -- Colin Watson <cjwatson@debian.org>  Mon, 16 Dec 2019 15:40:12 +0000
+ -- Colin Watson <cjwatson@debian.org>  Thu, 09 Jan 2020 00:29:58 +0000
 
 openssh (1:8.1p1-2) unstable; urgency=medium
 
