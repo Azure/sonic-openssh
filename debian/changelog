@@ -1,7 +1,11 @@
 openssh (1:8.1p1-3) UNRELEASED; urgency=medium
 
+  [ Colin Watson ]
   * Drop suggestion of rssh, since it's been removed (see
     https://bugs.debian.org/923691).
+
+  [ Steve Langasek ]
+  * Don't build openssh-tests on Ubuntu i386 (closes: #948466).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 16 Dec 2019 15:40:12 +0000
 
