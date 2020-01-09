@@ -1,3 +1,10 @@
+openssh (1:8.1p1-4) UNRELEASED; urgency=medium
+
+  * Apply upstream patch to stop using 2020 as a future date in regress
+    tests.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 09 Jan 2020 11:40:46 +0000
+
 openssh (1:8.1p1-3) unstable; urgency=medium
 
   [ Colin Watson ]
