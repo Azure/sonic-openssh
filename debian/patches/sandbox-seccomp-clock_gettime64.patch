@@ -1,0 +1,30 @@
+From 93e9440bae1818746e0cc7f2543001db9d0ea1ea Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 7 Jan 2020 16:26:45 -0800
+Subject: seccomp: Allow clock_gettime64() in sandbox.
+
+This helps sshd accept connections on mips platforms with
+upcoming glibc ( 2.31 )
+
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=b110cefdfbf5a20f49b774a55062d6ded2fb6e22
+Last-Update: 2020-01-11
+
+Patch-Name: sandbox-seccomp-clock_gettime64.patch
+---
+ sandbox-seccomp-filter.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index 3ef30c9d5..999c46c9f 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -248,6 +248,9 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_clock_nanosleep_time64
+ 	SC_ALLOW(__NR_clock_nanosleep_time64),
+ #endif
++#ifdef __NR_clock_gettime64
++	SC_ALLOW(__NR_clock_gettime64),
++#endif
+ #ifdef __NR__newselect
+ 	SC_ALLOW(__NR__newselect),
+ #endif

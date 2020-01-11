@@ -1,0 +1,31 @@
+From c80d266f4aed7224261b192b8e31ac87dc070cba Mon Sep 17 00:00:00 2001
+From: Darren Tucker <dtucker@dtucker.net>
+Date: Wed, 13 Nov 2019 23:19:35 +1100
+Subject: seccomp: Allow clock_nanosleep() in sandbox.
+
+seccomp: Allow clock_nanosleep() to make OpenSSH working with latest
+glibc.  Patch from Jakub Jelen <jjelen@redhat.com> via bz #3093.
+
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=b1c82f4b8adf3f42476d8a1f292df33fb7aa1a56
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=546274a6f89489d2e6be8a8b62f2bb63c87a61fd
+Last-Update: 2020-01-11
+
+Patch-Name: sandbox-seccomp-clock_nanosleep.patch
+---
+ sandbox-seccomp-filter.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index b5cda70bb..be2397671 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -242,6 +242,9 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_nanosleep
+ 	SC_ALLOW(__NR_nanosleep),
+ #endif
++#ifdef __NR_clock_nanosleep
++	SC_ALLOW(__NR_clock_nanosleep),
++#endif
+ #ifdef __NR__newselect
+ 	SC_ALLOW(__NR__newselect),
+ #endif
