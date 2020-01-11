@@ -1,0 +1,33 @@
+From 489e04f2c23327dd95981327d8757144a4e574af Mon Sep 17 00:00:00 2001
+From: Jeremy Drake <github@jdrake.com>
+Date: Fri, 11 Oct 2019 18:31:05 -0700
+Subject: Deny (non-fatal) ipc in preauth privsep child.
+
+As noted in openssh/openssh-portable#149, i386 does not have have
+_NR_shmget etc.  Instead, it has a single ipc syscall (see man 2 ipc,
+https://linux.die.net/man/2/ipc).  Add this syscall, if present, to the
+list of syscalls that seccomp will deny non-fatally.
+
+Bug-Debian: https://bugs.debian.org/946242
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=30f704ebc0e9e32b3d12f5d9e8c1b705fdde2c89
+Last-Update: 2020-01-11
+
+Patch-Name: sandbox-seccomp-ipc.patch
+---
+ sandbox-seccomp-filter.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index 999c46c9f..0914e48ba 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -177,6 +177,9 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_shmdt
+ 	SC_DENY(__NR_shmdt, EACCES),
+ #endif
++#ifdef __NR_ipc
++	SC_DENY(__NR_ipc, EACCES),
++#endif
+ 
+ 	/* Syscalls to permit */
+ #ifdef __NR_brk

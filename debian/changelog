@@ -2,6 +2,9 @@ openssh (1:8.1p1-5) UNRELEASED; urgency=medium
 
   * Apply upstream patches to allow clock_nanosleep() and variants in the
     seccomp sandbox, fixing failures with glibc 2.31.
+  * Apply upstream patch to deny (non-fatally) ipc in the seccomp sandbox,
+    fixing failures with OpenSSL 1.1.1d and Linux < 3.19 on some
+    architectures (closes: #946242).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 11 Jan 2020 23:27:35 +0000
 
