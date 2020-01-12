@@ -1,3 +1,13 @@
+openssh (1:7.9p1-10+deb10u2) UNRELEASED; urgency=medium
+
+  * Apply upstream patch to deny (non-fatally) ipc in the seccomp sandbox,
+    fixing failures with OpenSSL 1.1.1d and Linux < 3.19 on some
+    architectures (closes: #946242).  Note that this also drops the previous
+    change to allow ipc on s390, since upstream has security concerns with
+    that and it doesn't currently seem to be needed.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 12 Jan 2020 00:06:36 +0000
+
 openssh (1:7.9p1-10+deb10u1) buster-security; urgency=high
 
   * Apply upstream patch to deny (non-fatally) shmget/shmat/shmdt in preauth
