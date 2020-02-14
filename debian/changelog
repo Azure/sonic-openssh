@@ -1,3 +1,10 @@
+openssh (1:8.1p1-6) UNRELEASED; urgency=medium
+
+  * Add more historical md5sums of /etc/ssh/sshd_config between 1:7.4p1-1
+    and 1:7.7p1-4 inclusive (closes: #951220).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 14 Feb 2020 18:43:44 +0000
+
 openssh (1:8.1p1-5) unstable; urgency=medium
 
   * Apply upstream patches to allow clock_nanosleep() and variants in the
