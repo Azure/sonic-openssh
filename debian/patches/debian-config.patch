@@ -1,4 +1,4 @@
-From 7abde40896668ce9debfe056c7dabc6a70ef7da4 Mon Sep 17 00:00:00 2001
+From 9a713cd4bbaef5ad4f1d28c1718fb6960ac257b3 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -26,17 +26,17 @@ Document all of this.
 
 Author: Russ Allbery <rra@debian.org>
 Forwarded: not-needed
-Last-Update: 2017-10-04
+Last-Update: 2020-02-19
 
 Patch-Name: debian-config.patch
 ---
  readconf.c    |  2 +-
- ssh.1         | 21 +++++++++++++++++++++
+ ssh.1         | 24 ++++++++++++++++++++++++
  ssh_config    |  6 +++++-
  ssh_config.5  | 19 ++++++++++++++++++-
  sshd_config   | 16 ++++++++++------
  sshd_config.5 | 22 ++++++++++++++++++++++
- 6 files changed, 77 insertions(+), 9 deletions(-)
+ 6 files changed, 80 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
 index 16d2729dd..253574ce0 100644
@@ -52,7 +52,7 @@ index 16d2729dd..253574ce0 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index 24530e511..fd495da2c 100644
+index 24530e511..44a00d525 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -795,6 +795,16 @@ directive in
@@ -72,14 +72,17 @@ index 24530e511..fd495da2c 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -803,6 +813,17 @@ Enables trusted X11 forwarding.
+@@ -803,6 +813,20 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
-+(Debian-specific: This option does nothing in the default configuration: it
-+is equivalent to
-+.Dq Cm ForwardX11Trusted No yes ,
-+which is the default as described above.
++(Debian-specific: In the default configuration, this option is equivalent to
++.Fl X ,
++since
++.Cm ForwardX11Trusted
++defaults to
++.Dq yes
++as described above.
 +Set the
 +.Cm ForwardX11Trusted
 +option to

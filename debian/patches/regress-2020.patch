@@ -1,4 +1,4 @@
-From df3ad29af495185aa9b051028ae94b965a4b1659 Mon Sep 17 00:00:00 2001
+From 7ee24da2b84bf463dd5e8611479fa7a5acaa40e4 Mon Sep 17 00:00:00 2001
 From: "djm@openbsd.org" <djm@openbsd.org>
 Date: Fri, 3 Jan 2020 03:02:26 +0000
 Subject: upstream: what bozo decided to use 2020 as a future date in a regress

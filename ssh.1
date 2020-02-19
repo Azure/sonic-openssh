@@ -813,10 +813,13 @@ Enables trusted X11 forwarding.
 Trusted X11 forwardings are not subjected to the X11 SECURITY extension
 controls.
 .Pp
-(Debian-specific: This option does nothing in the default configuration: it
-is equivalent to
-.Dq Cm ForwardX11Trusted No yes ,
-which is the default as described above.
+(Debian-specific: In the default configuration, this option is equivalent to
+.Fl X ,
+since
+.Cm ForwardX11Trusted
+defaults to
+.Dq yes
+as described above.
 Set the
 .Cm ForwardX11Trusted
 option to

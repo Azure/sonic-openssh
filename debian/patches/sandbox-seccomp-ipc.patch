@@ -1,4 +1,4 @@
-From 489e04f2c23327dd95981327d8757144a4e574af Mon Sep 17 00:00:00 2001
+From 2e128b223e8e73ace57a0726130bfbcf920d0f9e Mon Sep 17 00:00:00 2001
 From: Jeremy Drake <github@jdrake.com>
 Date: Fri, 11 Oct 2019 18:31:05 -0700
 Subject: Deny (non-fatal) ipc in preauth privsep child.

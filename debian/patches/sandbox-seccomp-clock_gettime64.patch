@@ -1,4 +1,4 @@
-From 93e9440bae1818746e0cc7f2543001db9d0ea1ea Mon Sep 17 00:00:00 2001
+From ba675f490d681365db5a4e4ea6419e8690da6f30 Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
 Date: Tue, 7 Jan 2020 16:26:45 -0800
 Subject: seccomp: Allow clock_gettime64() in sandbox.

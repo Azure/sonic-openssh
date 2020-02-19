@@ -1,4 +1,4 @@
-From c80d266f4aed7224261b192b8e31ac87dc070cba Mon Sep 17 00:00:00 2001
+From cb38e55b8af8756b2d6d6f6a1c1a5f949e15b980 Mon Sep 17 00:00:00 2001
 From: Darren Tucker <dtucker@dtucker.net>
 Date: Wed, 13 Nov 2019 23:19:35 +1100
 Subject: seccomp: Allow clock_nanosleep() in sandbox.
