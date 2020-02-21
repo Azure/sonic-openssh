@@ -98,7 +98,7 @@ openssh (1:8.2p1-1) UNRELEASED; urgency=medium
     - sshd_config(5): Document the sntrup4591761x25519-sha512@tinyssh.org
       key exchange algorithm.
   * Add more historical md5sums of /etc/ssh/sshd_config between 1:7.4p1-1
-    and 1:7.7p1-4 inclusive (closes: #951220).
+    and 1:7.8p1-1 inclusive (closes: #951220).
   * ssh(1): Explain that -Y is equivalent to -X in the default configuration
     (closes: #951640).
   * Include /etc/ssh/ssh_config.d/*.conf from /etc/ssh/ssh_config and
