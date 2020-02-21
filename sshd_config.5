@@ -65,6 +65,8 @@ which are not the default in
 .Pp
 .Bl -bullet -offset indent -compact
 .It
+.Cm Include /etc/ssh/sshd_config.d/*.conf
+.It
 .Cm ChallengeResponseAuthentication No no
 .It
 .Cm X11Forwarding No yes
@@ -77,6 +79,11 @@ which are not the default in
 .It
 .Cm UsePAM No yes
 .El
+.Pp
+.Pa /etc/ssh/sshd_config.d/*.conf
+files are included at the start of the configuration file, so options set
+there will override those in
+.Pa /etc/ssh/sshd_config.
 .Pp
 The possible
 keywords and their meanings are as follows (note that

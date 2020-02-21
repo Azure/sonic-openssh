@@ -80,12 +80,19 @@ which are not the default in
 .Pp
 .Bl -bullet -offset indent -compact
 .It
+.Cm Include /etc/ssh/ssh_config.d/*.conf
+.It
 .Cm SendEnv No LANG LC_*
 .It
 .Cm HashKnownHosts No yes
 .It
 .Cm GSSAPIAuthentication No yes
 .El
+.Pp
+.Pa /etc/ssh/ssh_config.d/*.conf
+files are included at the start of the system-wide configuration file, so
+options set there will override those in
+.Pa /etc/ssh/ssh_config.
 .Pp
 The file contains keyword-argument pairs, one per line.
 Lines starting with

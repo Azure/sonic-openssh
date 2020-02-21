@@ -57,7 +57,7 @@ fe396d52df77f1fbf710591d4dbf3311
 #
 # This obviously leaves something to be desired in terms of maintainability.
 #
-# The following covers up to 1:7.7p1-4, including everything except the
+# The following covers up to 1:7.8p1-1, including everything except the
 # latest version of sshd_config.  It should be extended any time sshd_config
 # changes.
 
@@ -90,3 +90,9 @@ cc873ab3ccc9cf3a3830c3c0728c0d0b
 2d0b1d2719c01b15457401fd97d607ed
 8ce930e15835a8f46285315ed0da7f4a
 8a71a3620605f21ac3ef16fd5d23f76a
+
+# From 1:7.8p1-1:
+55570f990ec9c3b8d19c19ab4d0b8eb8
+0b8a28dca5cdbace0cd85fcd7794cba8
+18df1377273c4d51d4c03c9adc31021f
+63284e767f6ccf2375ef80507c564797
