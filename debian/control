@@ -175,6 +175,7 @@ Architecture: any
 Depends: openssh-client (= ${binary:Version}),
          openssh-server (= ${binary:Version}),
          openssh-sftp-server (= ${binary:Version}),
+         openssh-sk-helper (= ${binary:Version}),
          openssl,
          putty-tools (>= 0.67-2),
          python3-twisted,
