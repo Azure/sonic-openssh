@@ -1,4 +1,39 @@
+Portable OpenSSH with GSSAPI Key Exchange patches
+=================================================
+
+Currently, there are two branches with gssapi key exchange related
+patches:
+
+ * fedora/master: Changes that are shipped in Fedora
+ * debian/master: Changes that are shipped in Debian
+
+The target is to converge to a shared repository with single master
+branch from where we could build releases for both OSes.
+
+
+What is in:
+
+ * The original patch implementing missing parts of RFC4462 by Simon Wilkinson
+   adapted to the current OpenSSH versions and with several fixes
+ * New methods for GSSAPI Kex from IETF draft [1] from Jakub Jelen
+
+
+Missing kerberos-related parts:
+
+ * .k5login and .kusers support available in Fedora [2] [3].
+ * Improved handling of kerberos ccache location [4]
+
+
+[1] https://tools.ietf.org/html/draft-ietf-curdle-gss-keyex-sha2-08
+[2] https://src.fedoraproject.org/rpms/openssh/blob/master/f/openssh-6.6p1-kuserok.patch
+[3] https://src.fedoraproject.org/rpms/openssh/blob/master/f/openssh-6.6p1-GSSAPIEnablek5users.patch
+[4] https://bugzilla.mindrot.org/show_bug.cgi?id=2775
+
+-------------------------------------------------------------------------------
+
 # Portable OpenSSH
+
+[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/openssh.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:openssh)
 
 OpenSSH is a complete implementation of the SSH protocol (version 2) for secure remote login, command execution and file transfer. It includes a client ``ssh`` and server ``sshd``, file transfer utilities ``scp`` and ``sftp`` as well as tools for key generation (``ssh-keygen``), run-time key storage (``ssh-agent``) and a number of supporting programs.
 
@@ -25,14 +60,16 @@ Stable release tarballs are available from a number of [download mirrors](https:
 
 ### Dependencies
 
-Portable OpenSSH is built using autoconf and make. It requires a working C compiler, standard library and headers, as well as [zlib](https://www.zlib.net/) and ``libcrypto`` from either [LibreSSL](https://www.libressl.org/) or [OpenSSL](https://www.openssl.org) to build. Certain platforms and build-time options may require additional dependencies.
+Portable OpenSSH is built using autoconf and make. It requires a working C compiler, standard library and headers, and [zlib](https://www.zlib.net/). ``libcrypto`` from either [LibreSSL](https://www.libressl.org/) or [OpenSSL](https://www.openssl.org) may also be used, but OpenSSH may be built without it supporting a subset of crypto algorithms.
+
+FIDO security token support need [libfido2](https://github.com/Yubico/libfido2) and its dependencies. Also, certain platforms and build-time options may require additional dependencies, see README.platform for details.
 
 ### Building a release
 
 Releases include a pre-built copy of the ``configure`` script and may be built using:
 
 ```
-tar zxvf openssh-X.Y.tar.gz
+tar zxvf openssh-X.YpZ.tar.gz
 cd openssh
 ./configure # [options]
 make && make tests
@@ -64,6 +101,7 @@ Flag | Meaning
 ``--with-libedit`` | Enable [libedit](https://www.thrysoee.dk/editline/) support for sftp.
 ``--with-kerberos5`` | Enable Kerberos/GSSAPI support. Both [Heimdal](https://www.h5l.org/) and [MIT](https://web.mit.edu/kerberos/) Kerberos implementations are supported.
 ``--with-selinux`` | Enable [SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux) support.
+``--with-security-key-builtin`` | Include built-in support for U2F/FIDO2 security keys. This requires [libfido2](https://github.com/Yubico/libfido2) be installed.
 
 ## Development
 

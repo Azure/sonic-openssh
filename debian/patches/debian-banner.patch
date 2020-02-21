@@ -1,4 +1,4 @@
-From 4eb06adf69f21f387e4f2d29dad01b2ca1303094 Mon Sep 17 00:00:00 2001
+From 7d20d00ea24ec0c3fffacc80ab271d0699d198c6 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2019-06-05
+Last-Update: 2020-02-21
 
 Patch-Name: debian-banner.patch
 ---
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 23 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index 65ed6af02..f450bc2c7 100644
+index f638942d3..2abfbb95a 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1221,7 +1221,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1226,7 +1226,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,7 +34,7 @@ index 65ed6af02..f450bc2c7 100644
  {
  	int remote_major, remote_minor, mismatch;
  	size_t len, i, n;
-@@ -1239,7 +1239,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1244,7 +1244,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
@@ -58,10 +58,10 @@ index fe7141414..938dca03b 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 73b93c636..5576098a5 100644
+index bf3cd84a4..7bbc25c2e 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -184,6 +184,7 @@ initialize_server_options(ServerOptions *options)
+@@ -194,6 +194,7 @@ initialize_server_options(ServerOptions *options)
  	options->fingerprint_hash = -1;
  	options->disable_forwarding = -1;
  	options->expose_userauth_info = -1;
@@ -69,32 +69,32 @@ index 73b93c636..5576098a5 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -437,6 +438,8 @@ fill_default_server_options(ServerOptions *options)
- 		options->disable_forwarding = 0;
- 	if (options->expose_userauth_info == -1)
+@@ -468,6 +469,8 @@ fill_default_server_options(ServerOptions *options)
  		options->expose_userauth_info = 0;
+ 	if (options->sk_provider == NULL)
+ 		options->sk_provider = xstrdup("internal");
 +	if (options->debian_banner == -1)
 +		options->debian_banner = 1;
  
  	assemble_algorithms(options);
  
-@@ -523,6 +526,7 @@ typedef enum {
+@@ -556,6 +559,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
- 	sExposeAuthInfo, sRDomain,
+ 	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
 +	sDebianBanner,
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -682,6 +686,7 @@ static struct {
- 	{ "exposeauthinfo", sExposeAuthInfo, SSHCFG_ALL },
+@@ -719,6 +723,7 @@ static struct {
  	{ "rdomain", sRDomain, SSHCFG_ALL },
  	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
+ 	{ "securitykeyprovider", sSecurityKeyProvider, SSHCFG_GLOBAL },
 +	{ "debianbanner", sDebianBanner, SSHCFG_GLOBAL },
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2217,6 +2222,10 @@ process_server_config_line(ServerOptions *options, char *line,
+@@ -2382,6 +2387,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -106,23 +106,23 @@ index 73b93c636..5576098a5 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 29329ba1f..d5ad19065 100644
+index 3f47ea25e..3fa05fcac 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -214,6 +214,8 @@ typedef struct {
- 	int	fingerprint_hash;
+@@ -221,6 +221,8 @@ typedef struct {
  	int	expose_userauth_info;
  	u_int64_t timing_secret;
+ 	char   *sk_provider;
 +
 +	int	debian_banner;
  }       ServerOptions;
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 41e75a275..27daef74f 100644
+index b796d3c8a..9f2412e0d 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1291,7 +1291,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+@@ -1292,7 +1292,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
  	lowercase(host);
  
  	/* Exchange protocol version identification strings with the server. */
@@ -132,10 +132,10 @@ index 41e75a275..27daef74f 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index ea8beacb4..4e8ff0662 100644
+index 65916fc6d..da876a900 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2165,7 +2165,8 @@ main(int ac, char **av)
+@@ -2187,7 +2187,8 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -146,10 +146,10 @@ index ea8beacb4..4e8ff0662 100644
  
  	ssh_packet_set_nonblocking(ssh);
 diff --git a/sshd_config.5 b/sshd_config.5
-index eec224158..46537f177 100644
+index ebd09f891..c926f584c 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -545,6 +545,11 @@ or
+@@ -542,6 +542,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

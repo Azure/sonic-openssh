@@ -1,4 +1,4 @@
-From 19f1d075a06f4d3c9b440d7272272569d8bb0a17 Mon Sep 17 00:00:00 2001
+From 3309e464e5ae6c940ddd584eed4d2d403f4c168c Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -51,10 +51,10 @@ index 7a10210b6..587f53721 100644
  			    pw->pw_name, buf);
  			auth_debug_add("Bad file modes for %.200s", buf);
 diff --git a/auth.c b/auth.c
-index 47c27773c..fc0c05bae 100644
+index 687c57b42..aed3c13ac 100644
 --- a/auth.c
 +++ b/auth.c
-@@ -473,8 +473,7 @@ check_key_in_hostfiles(struct passwd *pw, struct sshkey *key, const char *host,
+@@ -474,8 +474,7 @@ check_key_in_hostfiles(struct passwd *pw, struct sshkey *key, const char *host,
  		user_hostfile = tilde_expand_filename(userfile, pw->pw_uid);
  		if (options.strict_modes &&
  		    (stat(user_hostfile, &st) == 0) &&
@@ -65,10 +65,10 @@ index 47c27773c..fc0c05bae 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index 88833d7ff..42eeb425a 100644
+index 3a31d5c18..073d3be19 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -59,8 +59,9 @@
+@@ -61,8 +61,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
@@ -79,7 +79,7 @@ index 88833d7ff..42eeb425a 100644
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -1112,6 +1113,55 @@ percent_expand(const char *string, ...)
+@@ -1124,6 +1125,55 @@ percent_expand(const char *string, ...)
  #undef EXPAND_MAX_KEYS
  }
  
@@ -135,7 +135,7 @@ index 88833d7ff..42eeb425a 100644
  int
  tun_open(int tun, int mode, char **ifname)
  {
-@@ -1869,8 +1919,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -1909,8 +1959,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		snprintf(err, errlen, "%s is not a regular file", buf);
  		return -1;
  	}
@@ -145,7 +145,7 @@ index 88833d7ff..42eeb425a 100644
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -1885,8 +1934,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -1925,8 +1974,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) == -1 ||
@@ -156,12 +156,12 @@ index 88833d7ff..42eeb425a 100644
  			    "bad ownership or modes for directory %s", buf);
  			return -1;
 diff --git a/misc.h b/misc.h
-index bcc34f980..869895d3a 100644
+index 4a05db2da..5db594b91 100644
 --- a/misc.h
 +++ b/misc.h
-@@ -181,6 +181,8 @@ int	opt_match(const char **opts, const char *term);
- char	*read_passphrase(const char *, int);
- int	 ask_permission(const char *, ...) __attribute__((format(printf, 1, 2)));
+@@ -188,6 +188,8 @@ struct notifier_ctx *notify_start(int, const char *, ...)
+ 	__attribute__((format(printf, 2, 3)));
+ void	notify_complete(struct notifier_ctx *);
  
 +int	 secure_permissions(struct stat *st, uid_t uid);
 +
@@ -169,10 +169,10 @@ index bcc34f980..869895d3a 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index 09787c0e5..16d2729dd 100644
+index 2399208f8..7f251dd4a 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1855,8 +1855,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -1902,8 +1902,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index 09787c0e5..16d2729dd 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 26940ad55..20e4c4efa 100644
+index db5c65bc7..cf991e4ee 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1484,6 +1484,8 @@ The file format and configuration options are described in
+@@ -1506,6 +1506,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index 26940ad55..20e4c4efa 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index bc04d8d02..2c74b57c0 100644
+index 3079db19b..e61a0fd43 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1907,6 +1907,8 @@ The format of this file is described above.
+@@ -1952,6 +1952,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.

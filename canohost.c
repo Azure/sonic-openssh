@@ -60,7 +60,7 @@ remote_hostname(struct ssh *ssh)
 	if (getpeername(ssh_packet_get_connection_in(ssh),
 	    (struct sockaddr *)&from, &fromlen) == -1) {
 		debug("getpeername failed: %.100s", strerror(errno));
-		return strdup(ntop);
+		return xstrdup(ntop);
 	}
 
 	ipv64_normalise_mapped(&from, &fromlen);
@@ -72,7 +72,7 @@ remote_hostname(struct ssh *ssh)
 	if (getnameinfo((struct sockaddr *)&from, fromlen, name, sizeof(name),
 	    NULL, 0, NI_NAMEREQD) != 0) {
 		/* Host name not found.  Use ip address. */
-		return strdup(ntop);
+		return xstrdup(ntop);
 	}
 
 	/*
@@ -87,7 +87,7 @@ remote_hostname(struct ssh *ssh)
 		logit("Nasty PTR record \"%s\" is set up for %s, ignoring",
 		    name, ntop);
 		freeaddrinfo(ai);
-		return strdup(ntop);
+		return xstrdup(ntop);
 	}
 
 	/* Names are stored in lowercase. */
@@ -108,7 +108,7 @@ remote_hostname(struct ssh *ssh)
 	if (getaddrinfo(name, NULL, &hints, &aitop) != 0) {
 		logit("reverse mapping checking getaddrinfo for %.700s "
 		    "[%s] failed.", name, ntop);
-		return strdup(ntop);
+		return xstrdup(ntop);
 	}
 	/* Look for the address from the list of addresses. */
 	for (ai = aitop; ai; ai = ai->ai_next) {
@@ -123,9 +123,9 @@ remote_hostname(struct ssh *ssh)
 		/* Address not found for the host name. */
 		logit("Address %.100s maps to %.600s, but this does not "
 		    "map back to the address.", ntop, name);
-		return strdup(ntop);
+		return xstrdup(ntop);
 	}
-	return strdup(name);
+	return xstrdup(name);
 }
 
 void

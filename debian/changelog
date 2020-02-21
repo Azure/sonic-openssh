@@ -1,11 +1,108 @@
-openssh (1:8.1p1-6) UNRELEASED; urgency=medium
+openssh (1:8.2p1-1) UNRELEASED; urgency=medium
 
+  * New upstream release (https://www.openssh.com/txt/release-8.2, closes:
+    #951582):
+    - ssh(1), sshd(8), ssh-keygen(1): this release removes the "ssh-rsa"
+      (RSA/SHA1) algorithm from those accepted for certificate signatures
+      (i.e. the client and server CASignatureAlgorithms option) and will use
+      the rsa-sha2-512 signature algorithm by default when the ssh-keygen(1)
+      CA signs new certificates.
+    - ssh(1), sshd(8): Remove diffie-hellman-group14-sha1 from the default
+      key exchange proposal for both the client and server.
+    - ssh-keygen(1): The command-line options related to the generation and
+      screening of safe prime numbers used by the
+      diffie-hellman-group-exchange-* key exchange algorithms have changed.
+      Most options have been folded under the -O flag.
+    - sshd(8): The sshd listener process title visible to ps(1) has changed
+      to include information about the number of connections that are
+      currently attempting authentication and the limits configured by
+      MaxStartups.
+    - Add support for FIDO/U2F hardware authenticators.
+    - ssh-keygen(1): Add a "no-touch-required" option when generating
+      FIDO-hosted keys, that disables their default behaviour of requiring a
+      physical touch/tap on the token during authentication.  Note: not all
+      tokens support disabling the touch requirement.
+    - sshd(8): Add a sshd_config PubkeyAuthOptions directive that collects
+      miscellaneous public key authentication-related options for sshd(8).
+      At present it supports only a single option "no-touch-required".  This
+      causes sshd to skip its default check for FIDO/U2F keys that the
+      signature was authorised by a touch or press event on the token
+      hardware.
+    - ssh(1), sshd(8), ssh-keygen(1): Add a "no-touch-required" option for
+      authorized_keys and a similar extension for certificates.  This option
+      disables the default requirement that FIDO key signatures attest that
+      the user touched their key to authorize them, mirroring the similar
+      PubkeyAuthOptions sshd_config option.
+    - ssh-keygen(1): Add support for the writing the FIDO attestation
+      information that is returned when new keys are generated via the "-O
+      write-attestation=/path" option.  FIDO attestation certificates may be
+      used to verify that a FIDO key is hosted in trusted hardware.  OpenSSH
+      does not currently make use of this information, beyond optionally
+      writing it to disk.
+    - Add support for FIDO2 resident keys.
+    - sshd(8): Add an Include sshd_config keyword that allows including
+      additional configuration files via glob(3) patterns (closes: #631189).
+    - ssh(1)/sshd(8): Make the LE (low effort) DSCP code point available via
+      the IPQoS directive.
+    - ssh(1): When AddKeysToAgent=yes is set and the key contains no
+      comment, add the key to the agent with the key's path as the comment.
+    - ssh-keygen(1), ssh-agent(1): Expose PKCS#11 key labels and X.509
+      subjects as key comments, rather than simply listing the PKCS#11
+      provider library path.
+    - ssh-keygen(1): Allow PEM export of DSA and ECDSA keys.
+    - sshd(8): When clients get denied by MaxStartups, send a notification
+      prior to the SSH2 protocol banner according to RFC4253 section 4.2
+      (closes: #275458).
+    - ssh(1), ssh-agent(1): When invoking the $SSH_ASKPASS prompt program,
+      pass a hint to the program to describe the type of desired prompt.
+      The possible values are "confirm" (indicating that a yes/no
+      confirmation dialog with no text entry should be shown), "none" (to
+      indicate an informational message only), or blank for the original
+      ssh-askpass behaviour of requesting a password/phrase.
+    - ssh(1): Allow forwarding a different agent socket to the path
+      specified by $SSH_AUTH_SOCK, by extending the existing ForwardAgent
+      option to accepting an explicit path or the name of an environment
+      variable in addition to yes/no.
+    - ssh-keygen(1): Add a new signature operations "find-principals" to
+      look up the principal associated with a signature from an
+      allowed-signers file.
+    - sshd(8): Expose the number of currently-authenticating connections
+      along with the MaxStartups limit in the process title visible to "ps".
+    - sshd(8): Make ClientAliveCountMax=0 have sensible semantics: it will
+      now disable connection killing entirely rather than the current
+      behaviour of instantly killing the connection after the first liveness
+      test regardless of success.
+    - sshd(8): Clarify order of AllowUsers / DenyUsers vs AllowGroups /
+      DenyGroups in the sshd(8) manual page.
+    - sshd(8): Better describe HashKnownHosts in the manual page.
+    - sshd(8): Clarify that that permitopen=/PermitOpen do no name or
+      address translation in the manual page.
+    - sshd(8): Allow the UpdateHostKeys feature to function when multiple
+      known_hosts files are in use.  When updating host keys, ssh will now
+      search subsequent known_hosts files, but will add updated host keys to
+      the first specified file only.
+    - All: Replace all calls to signal(2) with a wrapper around
+      sigaction(2).  This wrapper blocks all other signals during the
+      handler preventing races between handlers, and sets SA_RESTART which
+      should reduce the potential for short read/write operations.
+    - sftp(1): Fix a race condition in the SIGCHILD handler that could turn
+      in to a kill(-1).
+    - sshd(8): Fix a case where valid (but extremely large) SSH channel IDs
+      were being incorrectly rejected.
+    - ssh(1): When checking host key fingerprints as answers to new hostkey
+      prompts, ignore whitespace surrounding the fingerprint itself.
+    - All: Wait for file descriptors to be readable or writeable during
+      non-blocking connect, not just readable.  Prevents a timeout when the
+      server doesn't immediately send a banner (e.g. multiplexers like
+      sslh).
+    - sshd_config(5): Document the sntrup4591761x25519-sha512@tinyssh.org
+      key exchange algorithm.
   * Add more historical md5sums of /etc/ssh/sshd_config between 1:7.4p1-1
     and 1:7.7p1-4 inclusive (closes: #951220).
   * ssh(1): Explain that -Y is equivalent to -X in the default configuration
     (closes: #951640).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 14 Feb 2020 18:43:44 +0000
+ -- Colin Watson <cjwatson@debian.org>  Fri, 21 Feb 2020 12:11:52 +0000
 
 openssh (1:8.1p1-5) unstable; urgency=medium
 

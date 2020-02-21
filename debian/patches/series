@@ -23,8 +23,3 @@ debian-config.patch
 restore-authorized_keys2.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch
-regress-2020.patch
-sandbox-seccomp-clock_nanosleep.patch
-sandbox-seccomp-clock_nanosleep_time64.patch
-sandbox-seccomp-clock_gettime64.patch
-sandbox-seccomp-ipc.patch

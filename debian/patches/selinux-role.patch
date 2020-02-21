@@ -1,4 +1,4 @@
-From 3131e3bb3c56a6c6ee8cb9d68f542af04cd9e8ff Mon Sep 17 00:00:00 2001
+From b108c6bbe4b3691600a272b27fa24d9080018db7 Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -9,7 +9,7 @@ SELinux maintainer, so we'll keep it until we have something better.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1641
 Bug-Debian: http://bugs.debian.org/394795
-Last-Update: 2019-06-05
+Last-Update: 2020-02-21
 
 Patch-Name: selinux-role.patch
 ---
@@ -81,10 +81,10 @@ index 1c217268c..92a6bcaf4 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index bead9e204..04db44c9c 100644
+index ebf76c7f9..947fdfadc 100644
 --- a/monitor.c
 +++ b/monitor.c
-@@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
+@@ -118,6 +118,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
  int mm_answer_pwnamallow(struct ssh *, int, struct sshbuf *);
  int mm_answer_auth2_read_banner(struct ssh *, int, struct sshbuf *);
  int mm_answer_authserv(struct ssh *, int, struct sshbuf *);
@@ -92,7 +92,7 @@ index bead9e204..04db44c9c 100644
  int mm_answer_authpassword(struct ssh *, int, struct sshbuf *);
  int mm_answer_bsdauthquery(struct ssh *, int, struct sshbuf *);
  int mm_answer_bsdauthrespond(struct ssh *, int, struct sshbuf *);
-@@ -197,6 +198,7 @@ struct mon_table mon_dispatch_proto20[] = {
+@@ -198,6 +199,7 @@ struct mon_table mon_dispatch_proto20[] = {
      {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
      {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
      {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
@@ -100,7 +100,7 @@ index bead9e204..04db44c9c 100644
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -819,6 +821,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -820,6 +822,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
  
  	/* Allow service/style information on the auth context */
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -108,7 +108,7 @@ index bead9e204..04db44c9c 100644
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  
  #ifdef USE_PAM
-@@ -852,16 +855,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -853,16 +856,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
  	monitor_permit_authentications(1);
  
  	if ((r = sshbuf_get_cstring(m, &authctxt->service, NULL)) != 0 ||
@@ -154,7 +154,7 @@ index bead9e204..04db44c9c 100644
  	return (0);
  }
  
-@@ -1528,7 +1557,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -1554,7 +1583,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -177,7 +177,7 @@ index 2b1a2d590..4d87284aa 100644
  
  struct ssh;
 diff --git a/monitor_wrap.c b/monitor_wrap.c
-index fdca39a6a..933ce9a3d 100644
+index 6edb509a3..b49c268d3 100644
 --- a/monitor_wrap.c
 +++ b/monitor_wrap.c
 @@ -364,10 +364,10 @@ mm_auth2_read_banner(void)
@@ -231,13 +231,13 @@ index fdca39a6a..933ce9a3d 100644
  int
  mm_auth_password(struct ssh *ssh, char *password)
 diff --git a/monitor_wrap.h b/monitor_wrap.h
-index 92dda574b..0f09dba09 100644
+index 485590c18..370b08e17 100644
 --- a/monitor_wrap.h
 +++ b/monitor_wrap.h
-@@ -46,7 +46,8 @@ DH *mm_choose_dh(int, int, int);
+@@ -47,7 +47,8 @@ DH *mm_choose_dh(int, int, int);
  #endif
  int mm_sshkey_sign(struct ssh *, struct sshkey *, u_char **, size_t *,
-     const u_char *, size_t, const char *, u_int compat);
+     const u_char *, size_t, const char *, const char *, u_int compat);
 -void mm_inform_authserv(char *, char *);
 +void mm_inform_authserv(char *, char *, char *);
 +void mm_inform_authrole(char *);
@@ -363,10 +363,10 @@ index ea4f9c584..60d72ffe7 100644
  char *platform_krb5_get_principal_name(const char *);
  int platform_sys_dir_uid(uid_t);
 diff --git a/session.c b/session.c
-index f1a47f766..df7d7cf55 100644
+index 06a33442a..871799590 100644
 --- a/session.c
 +++ b/session.c
-@@ -1356,7 +1356,7 @@ safely_chroot(const char *path, uid_t uid)
+@@ -1360,7 +1360,7 @@ safely_chroot(const char *path, uid_t uid)
  
  /* Set login name, uid, gid, and groups. */
  void
@@ -375,7 +375,7 @@ index f1a47f766..df7d7cf55 100644
  {
  	char uidstr[32], *chroot_path, *tmp;
  
-@@ -1384,7 +1384,7 @@ do_setusercontext(struct passwd *pw)
+@@ -1388,7 +1388,7 @@ do_setusercontext(struct passwd *pw)
  		endgrent();
  #endif
  
@@ -384,7 +384,7 @@ index f1a47f766..df7d7cf55 100644
  
  		if (!in_chroot && options.chroot_directory != NULL &&
  		    strcasecmp(options.chroot_directory, "none") != 0) {
-@@ -1525,7 +1525,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
+@@ -1529,7 +1529,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
  
  	/* Force a password change */
  	if (s->authctxt->force_pwchange) {
@@ -393,7 +393,7 @@ index f1a47f766..df7d7cf55 100644
  		child_close_fds(ssh);
  		do_pwchange(s);
  		exit(1);
-@@ -1543,7 +1543,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
+@@ -1547,7 +1547,7 @@ do_child(struct ssh *ssh, Session *s, const char *command)
  	/* When PAM is enabled we rely on it to do the nologin check */
  	if (!options.use_pam)
  		do_nologin(pw);
@@ -402,7 +402,7 @@ index f1a47f766..df7d7cf55 100644
  	/*
  	 * PAM session modules in do_setusercontext may have
  	 * generated messages, so if this in an interactive
-@@ -1942,7 +1942,7 @@ session_pty_req(struct ssh *ssh, Session *s)
+@@ -1946,7 +1946,7 @@ session_pty_req(struct ssh *ssh, Session *s)
  		sshpkt_fatal(ssh, r, "%s: parse packet", __func__);
  
  	if (!use_privsep)
@@ -425,10 +425,10 @@ index ce59dabd9..675c91146 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 4e32fd10d..ea8beacb4 100644
+index 62dc55cf2..65916fc6d 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -594,7 +594,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
+@@ -595,7 +595,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)
  	reseed_prngs();
  
  	/* Drop privileges */
