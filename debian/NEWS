@@ -20,7 +20,7 @@ openssh (1:8.2p1-1) unstable; urgency=medium
      exploitation of chosen-prefix collisions in this context challenging,
      as the attacker does not have full control over the prefix that
      actually gets signed. Nonetheless, SHA1 is now a demonstrably broken
-     algorithm and futher improvements in attacks are highly likely.
+     algorithm and further improvements in attacks are highly likely.
 
      OpenSSH releases prior to 7.2 do not support the newer RSA/SHA2
      algorithms and will refuse to accept certificates signed by an OpenSSH
