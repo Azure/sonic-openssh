@@ -1,3 +1,9 @@
+openssh (1:8.2p1-3) UNRELEASED; urgency=medium
+
+  * Reupload with -sa to work around confusion with 1:8.2p1-1 being in NEW.
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 23 Feb 2020 13:28:26 +0000
+
 openssh (1:8.2p1-2) unstable; urgency=medium
 
   * Move ssh-sk-helper into openssh-client rather than shipping it in a
