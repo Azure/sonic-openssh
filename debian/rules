@@ -185,10 +185,8 @@ override_dh_install-indep:
 	dh_install
 
 override_dh_installdocs:
-	dh_installdocs \
-		-Nopenssh-server -Nopenssh-sftp-server -Nopenssh-sk-helper
-	dh_installdocs \
-		-popenssh-server -popenssh-sftp-server -popenssh-sk-helper \
+	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server
+	dh_installdocs -popenssh-server -popenssh-sftp-server \
 		--link-doc=openssh-client
 	# Avoid breaking dh_installexamples later.
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client

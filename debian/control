@@ -35,10 +35,11 @@ Depends: adduser (>= 3.10),
          passwd,
          ${misc:Depends},
          ${shlibs:Depends},
-Recommends: openssh-sk-helper,
-            xauth,
+Recommends: xauth,
 Conflicts: sftp,
-Replaces: ssh,
+Breaks: openssh-sk-helper
+Replaces: openssh-sk-helper,
+          ssh,
           ssh-krb5,
 Suggests: keychain,
           libpam-ssh,
@@ -159,23 +160,12 @@ Description: secure shell (SSH) sftp server module, for SFTP access from remote 
  Newer versions of the draft will not be supported, though some features
  are individually implemented as extensions.
 
-Package: openssh-sk-helper
-Priority: optional
-Architecture: any
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
-Multi-Arch: foreign
-Description: OpenSSH helper for FIDO authenticator support
- This package provides ssh-sk-helper, which is used by ssh-agent to access
- SSH keys provided by a FIDO authenticator for second-factor authentication.
-
 Package: openssh-tests
 Priority: optional
 Architecture: any
 Depends: openssh-client (= ${binary:Version}),
          openssh-server (= ${binary:Version}),
          openssh-sftp-server (= ${binary:Version}),
-         openssh-sk-helper (= ${binary:Version}),
          openssl,
          putty-tools (>= 0.67-2),
          python3-twisted,
