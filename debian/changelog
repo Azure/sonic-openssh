@@ -1,3 +1,9 @@
+openssh (1:8.2p1-4) UNRELEASED; urgency=medium
+
+  * Add /etc/ssh/ssh_config.d/ to openssh-client.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 24 Feb 2020 10:18:34 +0000
+
 openssh (1:8.2p1-3) unstable; urgency=medium
 
   * Reupload with -sa to work around confusion with 1:8.2p1-1 being in NEW.
