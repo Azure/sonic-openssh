@@ -1,6 +1,7 @@
 openssh (1:8.2p1-4) UNRELEASED; urgency=medium
 
   * Add /etc/ssh/ssh_config.d/ to openssh-client.
+  * Add /etc/ssh/sshd_config.d/ to openssh-server (closes: #952427).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 24 Feb 2020 10:18:34 +0000
 
