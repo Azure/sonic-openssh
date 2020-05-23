@@ -1,3 +1,9 @@
+openssh (1:8.2p1-5) UNRELEASED; urgency=medium
+
+  * Fix or suppress various shellcheck errors under debian/.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 23 May 2020 12:46:19 +0100
+
 openssh (1:8.2p1-4) unstable; urgency=medium
 
   * Add /etc/ssh/ssh_config.d/ to openssh-client.
