@@ -1,4 +1,4 @@
-From 39fe318a4b572deeb3f7d03e55d319c0ab112a28 Mon Sep 17 00:00:00 2001
+From 34bf12a8e8fcc7720168dac307ef9388af93b947 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -44,10 +44,10 @@ index ef0de0850..149846c8c 100644
  .Sh SEE ALSO
  .Xr ssh-keygen 1 ,
 diff --git a/ssh-keygen.1 b/ssh-keygen.1
-index 7af564297..d6a7870e0 100644
+index 059c1b034..45866f931 100644
 --- a/ssh-keygen.1
 +++ b/ssh-keygen.1
-@@ -196,9 +196,7 @@ key in
+@@ -197,9 +197,7 @@ key in
  .Pa ~/.ssh/id_ed25519_sk
  or
  .Pa ~/.ssh/id_rsa .
@@ -58,7 +58,7 @@ index 7af564297..d6a7870e0 100644
  .Pp
  Normally this program generates the key and asks for a file in which
  to store the private key.
-@@ -261,9 +259,7 @@ If
+@@ -262,9 +260,7 @@ If
  .Fl f
  has also been specified, its argument is used as a prefix to the
  default path for the resulting host key files.
@@ -69,7 +69,7 @@ index 7af564297..d6a7870e0 100644
  .It Fl a Ar rounds
  When saving a private key, this option specifies the number of KDF
  (key derivation function) rounds used.
-@@ -783,7 +779,7 @@ option.
+@@ -787,7 +783,7 @@ option.
  Valid generator values are 2, 3, and 5.
  .Pp
  Screened DH groups may be installed in
@@ -78,7 +78,7 @@ index 7af564297..d6a7870e0 100644
  It is important that this file contains moduli of a range of bit lengths and
  that both ends of a connection share common moduli.
  .Pp
-@@ -1154,7 +1150,7 @@ on all machines
+@@ -1158,7 +1154,7 @@ on all machines
  where the user wishes to log in using public key authentication.
  There is no need to keep the contents of this file secret.
  .Pp
@@ -88,10 +88,10 @@ index 7af564297..d6a7870e0 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index cf991e4ee..17b0e984f 100644
+index a80be8efe..566fdba6b 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -887,6 +887,10 @@ implements public key authentication protocol automatically,
+@@ -890,6 +890,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8
@@ -133,10 +133,10 @@ index 730520231..5ce0ea4fa 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index c926f584c..25f4b8117 100644
+index 753ceda10..c27f99937 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -387,8 +387,7 @@ Certificates signed using other algorithms will not be accepted for
+@@ -385,8 +385,7 @@ Certificates signed using other algorithms will not be accepted for
  public key or host-based authentication.
  .It Cm ChallengeResponseAuthentication
  Specifies whether challenge-response authentication is allowed (e.g. via

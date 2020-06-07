@@ -1,4 +1,4 @@
-From 31d42cd8624f29508f772447e617ab043a6487d9 Mon Sep 17 00:00:00 2001
+From 7e3de67f8447064d6963e8299653d8e01baaef1e Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Tue, 7 Oct 2014 13:22:41 +0100
 Subject: Restore TCP wrappers support
@@ -28,10 +28,10 @@ Patch-Name: restore-tcp-wrappers.patch
  3 files changed, 89 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index efafb6bd8..cee7cbc51 100644
+index d98e6f74a..812b7218f 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1556,6 +1556,62 @@ else
+@@ -1558,6 +1558,62 @@ else
  	AC_MSG_RESULT([no])
  fi
  
@@ -94,7 +94,7 @@ index efafb6bd8..cee7cbc51 100644
  # Check whether user wants to use ldns
  LDNS_MSG="no"
  AC_ARG_WITH(ldns,
-@@ -5413,6 +5469,7 @@ echo "                       PAM support: $PAM_MSG"
+@@ -5479,6 +5535,7 @@ echo "                       PAM support: $PAM_MSG"
  echo "                   OSF SIA support: $SIA_MSG"
  echo "                 KerberosV support: $KRB5_MSG"
  echo "                   SELinux support: $SELINUX_MSG"
@@ -128,7 +128,7 @@ index c5f8987d2..730520231 100644
  .Xr moduli 5 ,
  .Xr sshd_config 5 ,
 diff --git a/sshd.c b/sshd.c
-index d92f03aaf..62dc55cf2 100644
+index 02fca5c28..e96d90809 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -124,6 +124,13 @@
@@ -145,7 +145,7 @@ index d92f03aaf..62dc55cf2 100644
  /* Re-exec fds */
  #define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
  #define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2)
-@@ -2138,6 +2145,24 @@ main(int ac, char **av)
+@@ -2132,6 +2139,24 @@ main(int ac, char **av)
  #ifdef SSH_AUDIT_EVENTS
  	audit_connection_from(remote_ip, remote_port);
  #endif

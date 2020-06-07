@@ -1,4 +1,4 @@
-From 8086961f9f4ad834e9c3b09b6e2c80273be1c506 Mon Sep 17 00:00:00 2001
+From 08ca1225e6979fc6b5b6e7f85ce5cb0ac5cc7405 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -43,10 +43,10 @@ Patch-Name: debian-config.patch
  6 files changed, 98 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 7f251dd4a..e82024678 100644
+index 5bf0afbb4..87b0dc62a 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2087,7 +2087,7 @@ fill_default_options(Options * options)
+@@ -2111,7 +2111,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -56,10 +56,10 @@ index 7f251dd4a..e82024678 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index b33a8049f..a8967c2f8 100644
+index 5a31b5dde..035823da3 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -809,6 +809,16 @@ directive in
+@@ -812,6 +812,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -76,7 +76,7 @@ index b33a8049f..a8967c2f8 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -817,6 +827,20 @@ Enables trusted X11 forwarding.
+@@ -820,6 +830,20 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -123,7 +123,7 @@ index 1ff999b68..8a55237b9 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index c6eaa63e7..34dc2d51b 100644
+index dd8241df1..aac3fabb7 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more
@@ -229,7 +229,7 @@ index 2c48105f8..459c1b230 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 25f4b8117..e8271be74 100644
+index c27f99937..b38025dbf 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes

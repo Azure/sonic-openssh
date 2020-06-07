@@ -1,4 +1,4 @@
-/* $OpenBSD: sshconnect2.c,v 1.320 2020/02/06 22:48:23 djm Exp $ */
+/* $OpenBSD: sshconnect2.c,v 1.321 2020/04/17 03:38:47 djm Exp $ */
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
  * Copyright (c) 2008 Damien Miller.  All rights reserved.
@@ -215,12 +215,18 @@ ssh_kex2(struct ssh *ssh, char *host, struct sockaddr *hostaddr, u_short port)
 		 * client to the key exchange algorithm proposal */
 		orig = myproposal[PROPOSAL_KEX_ALGS];
 
-		if (options.gss_server_identity)
+		if (options.gss_server_identity) {
 			gss_host = xstrdup(options.gss_server_identity);
-		else if (options.gss_trust_dns)
+		} else if (options.gss_trust_dns) {
 			gss_host = remote_hostname(ssh);
-		else
+			/* Fall back to specified host if we are using proxy command
+			 * and can not use DNS on that socket */
+			if (strcmp(gss_host, "UNKNOWN") == 0) {
+				gss_host = xstrdup(host);
+			}
+		} else {
 			gss_host = xstrdup(host);
+		}
 
 		gss = ssh_gssapi_client_mechanisms(gss_host,
 		    options.gss_client_identity, options.gss_kex_algorithms);
@@ -786,12 +792,18 @@ userauth_gssapi(struct ssh *ssh)
 	gss_OID mech = NULL;
 	char *gss_host;
 
-	if (options.gss_server_identity)
+	if (options.gss_server_identity) {
 		gss_host = xstrdup(options.gss_server_identity);
-	else if (options.gss_trust_dns)
+	} else if (options.gss_trust_dns) {
 		gss_host = remote_hostname(ssh);
-	else
+		/* Fall back to specified host if we are using proxy command
+		 * and can not use DNS on that socket */
+		if (strcmp(gss_host, "UNKNOWN") == 0) {
+			gss_host = authctxt->host;
+		}
+	} else {
 		gss_host = xstrdup(authctxt->host);
+	}
 
 	/* Try one GSSAPI method at a time, rather than sending them all at
 	 * once. */
@@ -1803,7 +1815,7 @@ pubkey_prepare(Authctxt *authctxt)
 		found = 0;
 		TAILQ_FOREACH(id2, &files, next) {
 			if (id2->key == NULL ||
-			    (id2->key->flags & SSHKEY_FLAG_EXT) == 0)
+			    (id2->key->flags & SSHKEY_FLAG_EXT) != 0)
 				continue;
 			if (sshkey_equal(id->key, id2->key)) {
 				TAILQ_REMOVE(&files, id, next);

@@ -1,4 +1,4 @@
-From a14ddfc3f607b0bf29046bfb4b26a6d827fa58c7 Mon Sep 17 00:00:00 2001
+From 0402bdf307736b3afae8c80c84f04b0295990c45 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:11 +0000
 Subject: Document that HashKnownHosts may break tab-completion
@@ -13,7 +13,7 @@ Patch-Name: doc-hash-tab-completion.patch
  1 file changed, 3 insertions(+)
 
 diff --git a/ssh_config.5 b/ssh_config.5
-index e61a0fd43..c6eaa63e7 100644
+index d814147d4..dd8241df1 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -848,6 +848,9 @@ Note that existing names and addresses in known hosts files

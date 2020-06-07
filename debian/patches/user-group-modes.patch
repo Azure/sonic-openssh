@@ -1,4 +1,4 @@
-From 3309e464e5ae6c940ddd584eed4d2d403f4c168c Mon Sep 17 00:00:00 2001
+From cb72edd9757c469f3b5dc9cde374715ae8b54509 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -27,7 +27,7 @@ Patch-Name: user-group-modes.patch
  7 files changed, 63 insertions(+), 13 deletions(-)
 
 diff --git a/auth-rhosts.c b/auth-rhosts.c
-index 7a10210b6..587f53721 100644
+index e81321b49..3bcc73766 100644
 --- a/auth-rhosts.c
 +++ b/auth-rhosts.c
 @@ -260,8 +260,7 @@ auth_rhosts2(struct passwd *pw, const char *client_user, const char *hostname,
@@ -65,7 +65,7 @@ index 687c57b42..aed3c13ac 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index 3a31d5c18..073d3be19 100644
+index 554ceb0b1..75fe4dfea 100644
 --- a/misc.c
 +++ b/misc.c
 @@ -61,8 +61,9 @@
@@ -169,10 +169,10 @@ index 4a05db2da..5db594b91 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index 2399208f8..7f251dd4a 100644
+index 431243193..5bf0afbb4 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -1902,8 +1902,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -1926,8 +1926,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index 2399208f8..7f251dd4a 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index db5c65bc7..cf991e4ee 100644
+index 7a3ba31ab..a80be8efe 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1506,6 +1506,8 @@ The file format and configuration options are described in
+@@ -1509,6 +1509,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index db5c65bc7..cf991e4ee 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 3079db19b..e61a0fd43 100644
+index 85ab7447f..d814147d4 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1952,6 +1952,8 @@ The format of this file is described above.
+@@ -1957,6 +1957,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
