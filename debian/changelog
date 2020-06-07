@@ -1,6 +1,5 @@
-openssh (1:8.3p1-1) UNRELEASED; urgency=medium
+openssh (1:8.3p1-1) unstable; urgency=medium
 
-  * Fix or suppress various shellcheck errors under debian/.
   * New upstream release (https://www.openssh.com/txt/release-8.3):
     - [SECURITY] scp(1): when receiving files, scp(1) could become
       desynchronised if a utimes(2) system call failed.  This could allow
@@ -79,11 +78,12 @@ openssh (1:8.3p1-1) UNRELEASED; urgency=medium
       yes".
     - Enable SHA2-based GSSAPI key exchange methods by default as RFC 8732
       was published.
+  * Fix or suppress various shellcheck errors under debian/.
   * Use AUTOPKGTEST_TMP rather than the deprecated ADTTMP.
   * Apply upstream patch to fix the handling of Port directives after
     Include (closes: #962035, LP: #1876320).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 07 Jun 2020 10:25:54 +0100
+ -- Colin Watson <cjwatson@debian.org>  Sun, 07 Jun 2020 13:44:04 +0100
 
 openssh (1:8.2p1-4) unstable; urgency=medium
 
