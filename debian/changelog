@@ -80,6 +80,8 @@ openssh (1:8.3p1-1) UNRELEASED; urgency=medium
     - Enable SHA2-based GSSAPI key exchange methods by default as RFC 8732
       was published.
   * Use AUTOPKGTEST_TMP rather than the deprecated ADTTMP.
+  * Apply upstream patch to fix the handling of Port directives after
+    Include (closes: #962035, LP: #1876320).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 07 Jun 2020 10:25:54 +0100
 
