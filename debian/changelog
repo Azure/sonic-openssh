@@ -1,4 +1,4 @@
-openssh (1:8.4p1-1) UNRELEASED; urgency=medium
+openssh (1:8.4p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-8.4):
     - [SECURITY] ssh-agent(1): restrict ssh-agent from signing web
@@ -126,7 +126,7 @@ openssh (1:8.4p1-1) UNRELEASED; urgency=medium
     - Detect the Frankenstein monster of Linux/X32 and allow the sandbox to
       function there.
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 18 Oct 2020 12:07:48 +0100
+ -- Colin Watson <cjwatson@debian.org>  Tue, 20 Oct 2020 14:15:17 +0100
 
 openssh (1:8.3p1-1) unstable; urgency=medium
 
