@@ -106,7 +106,7 @@ ifeq ($(shell dpkg-vendor --is Ubuntu && echo yes) $(DEB_HOST_ARCH), yes i386)
 endif
 
 %:
-	dh $@ --with=autoreconf,systemd,runit $(BUILD_PACKAGES)
+	dh $@ --with=autoreconf,systemd $(BUILD_PACKAGES)
 
 autoreconf:
 	autoreconf -f -i
