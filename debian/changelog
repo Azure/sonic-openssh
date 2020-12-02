@@ -1,9 +1,9 @@
-openssh (1:8.4p1-3) UNRELEASED; urgency=medium
+openssh (1:8.4p1-3) unstable; urgency=medium
 
   * Backport from upstream:
     - Fix `EOF: command not found` error in ssh-copy-id (closes: #975540).
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 02 Dec 2020 10:29:12 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 02 Dec 2020 10:32:23 +0000
 
 openssh (1:8.4p1-2) unstable; urgency=medium
 
