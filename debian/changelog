@@ -1,8 +1,8 @@
-openssh (1:8.4p1-4) UNRELEASED; urgency=medium
+openssh (1:8.4p1-4) unstable; urgency=medium
 
   * Avoid using libmd's <sha2.h> even if it's installed (closes: #982705).
 
- -- Colin Watson <cjwatson@debian.org>  Sun, 14 Feb 2021 12:52:34 +0000
+ -- Colin Watson <cjwatson@debian.org>  Mon, 15 Feb 2021 10:25:17 +0000
 
 openssh (1:8.4p1-3) unstable; urgency=medium
 
