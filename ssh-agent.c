@@ -581,6 +581,7 @@ process_add_identity(SocketEntry *e)
 				goto err;
 			}
 			free(ext_name);
+			ext_name = NULL;
 			break;
 		default:
 			error("%s: Unknown constraint %d", __func__, ctype);
