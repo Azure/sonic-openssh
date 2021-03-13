@@ -1,8 +1,8 @@
-openssh (1:8.4p1-5) UNRELEASED; urgency=medium
+openssh (1:8.4p1-5) unstable; urgency=high
 
   * CVE-2021-28041: Fix double free in ssh-agent(1) (closes: #984940).
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 13 Mar 2021 09:37:26 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 13 Mar 2021 09:59:40 +0000
 
 openssh (1:8.4p1-4) unstable; urgency=medium
 
