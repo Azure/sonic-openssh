@@ -1,3 +1,10 @@
+openssh (1:8.4p1-6) UNRELEASED; urgency=medium
+
+  * Rename ssh group to _ssh (closes: #990456).  It's only used by
+    ssh-agent.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 03 Jul 2021 23:59:17 +0100
+
 openssh (1:8.4p1-5) unstable; urgency=high
 
   * CVE-2021-28041: Fix double free in ssh-agent(1) (closes: #984940).
