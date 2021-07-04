@@ -28,7 +28,7 @@ update_ssh_group_name() {
 	# locally-created user accounts.  Since this only exists as an
 	# otherwise-empty group to which ssh-agent is installed setgid, it's
 	# easy to rename.
-	if getent group ssh >/dev/null; then
+	if getent group ssh >/dev/null && ! getent group _ssh >/dev/null; then
 		groupmod -n _ssh ssh
 	fi
 }
