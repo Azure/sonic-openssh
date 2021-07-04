@@ -2,6 +2,7 @@ openssh (1:8.4p1-6) UNRELEASED; urgency=medium
 
   * Rename ssh group to _ssh (closes: #990456).  It's only used by
     ssh-agent.
+  * debian/tests/regress: Don't fail cleanup if haveged isn't running.
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 03 Jul 2021 23:59:17 +0100
 

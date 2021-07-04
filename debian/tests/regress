@@ -13,7 +13,7 @@ if [ "$(id -un)" != openssh-tests ]; then
 				systemctl disable haveged || true
 				systemctl stop haveged || true
 			else
-				start-stop-daemon --stop --quiet \
+				start-stop-daemon --stop --quiet --oknodo \
 					--retry=TERM/30/KILL/5 \
 					--pidfile "$AUTOPKGTEST_TMP/haveged.pid" \
 					--name haveged
