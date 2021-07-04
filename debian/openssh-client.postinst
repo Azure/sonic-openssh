@@ -35,7 +35,7 @@ update_ssh_group_name() {
 
 set_ssh_agent_permissions() {
 	if ! getent group _ssh >/dev/null; then
-		addgroup --system --quiet _ssh
+		addgroup --system --quiet --force-badname _ssh
 	fi
 	if ! dpkg-statoverride --list /usr/bin/ssh-agent >/dev/null; then
 		chgrp _ssh /usr/bin/ssh-agent
