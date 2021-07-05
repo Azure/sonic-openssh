@@ -8,4 +8,5 @@ EnvironmentFile=-/etc/default/ssh
 ExecStart=-/usr/sbin/sshd -i $SSHD_OPTS
 StandardInput=socket
 RuntimeDirectory=sshd
+RuntimeDirectoryPreserve=yes
 RuntimeDirectoryMode=0755
