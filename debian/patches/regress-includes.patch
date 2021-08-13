@@ -1,0 +1,127 @@
+From 2162a13f07d50e14e386f473530cc1558d39a9df Mon Sep 17 00:00:00 2001
+From: Darren Tucker <dtucker@dtucker.net>
+Date: Wed, 11 Aug 2021 09:21:09 +1000
+Subject: Add includes.h to compat tests.
+
+On platforms where closefrom returns void (eg glibc>=2.34) the prototype
+for closefrom in its compat tests would cause compile errors.  Remove
+this and have the tests pull in the compat headers in the same way as
+the main code.  bz#3336.
+
+Origin: upstream, https://anongit.mindrot.org/openssh.git/commit/?id=419aa01123db5ff5dbc68b2376ef23b222862338
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=3336
+Bug-Debian: https://bugs.debian.org/992134
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1939751
+Last-Update: 2021-08-13
+
+Patch-Name: regress-includes.patch
+---
+ openbsd-compat/regress/Makefile.in      | 2 +-
+ openbsd-compat/regress/closefromtest.c  | 4 ++--
+ openbsd-compat/regress/opensslvertest.c | 2 ++
+ openbsd-compat/regress/snprintftest.c   | 2 ++
+ openbsd-compat/regress/strduptest.c     | 2 ++
+ openbsd-compat/regress/strtonumtest.c   | 2 ++
+ openbsd-compat/regress/utimensattest.c  | 2 ++
+ 7 files changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/openbsd-compat/regress/Makefile.in b/openbsd-compat/regress/Makefile.in
+index c5aae61e2..dd8cdc4b7 100644
+--- a/openbsd-compat/regress/Makefile.in
++++ b/openbsd-compat/regress/Makefile.in
+@@ -7,7 +7,7 @@ VPATH=@srcdir@
+ CC=@CC@
+ LD=@LD@
+ CFLAGS=@CFLAGS@
+-CPPFLAGS=-I. -I.. -I$(srcdir) -I$(srcdir)/.. @CPPFLAGS@ @DEFS@
++CPPFLAGS=-I. -I.. -I../.. -I$(srcdir) -I$(srcdir)/.. -I$(srcdir)/../.. @CPPFLAGS@ @DEFS@
+ EXEEXT=@EXEEXT@
+ LIBCOMPAT=../libopenbsd-compat.a
+ LIBS=@LIBS@
+diff --git a/openbsd-compat/regress/closefromtest.c b/openbsd-compat/regress/closefromtest.c
+index 82ffeb9a7..7a69fb2b1 100644
+--- a/openbsd-compat/regress/closefromtest.c
++++ b/openbsd-compat/regress/closefromtest.c
+@@ -14,6 +14,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "includes.h"
++
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
+@@ -24,8 +26,6 @@
+ 
+ #define NUM_OPENS 10
+ 
+-int closefrom(int);
+-
+ void
+ fail(char *msg)
+ {
+diff --git a/openbsd-compat/regress/opensslvertest.c b/openbsd-compat/regress/opensslvertest.c
+index 58474873d..669396d9f 100644
+--- a/openbsd-compat/regress/opensslvertest.c
++++ b/openbsd-compat/regress/opensslvertest.c
+@@ -14,6 +14,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "includes.h"
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
+diff --git a/openbsd-compat/regress/snprintftest.c b/openbsd-compat/regress/snprintftest.c
+index 6dc2e222a..a3134db1c 100644
+--- a/openbsd-compat/regress/snprintftest.c
++++ b/openbsd-compat/regress/snprintftest.c
+@@ -17,6 +17,8 @@
+ 
+ #define BUFSZ 2048
+ 
++#include "includes.h"
++
+ #include <sys/types.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+diff --git a/openbsd-compat/regress/strduptest.c b/openbsd-compat/regress/strduptest.c
+index 7f6d779be..8a3ccf771 100644
+--- a/openbsd-compat/regress/strduptest.c
++++ b/openbsd-compat/regress/strduptest.c
+@@ -14,6 +14,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "includes.h"
++
+ #include <stdlib.h>
+ #include <string.h>
+ 
+diff --git a/openbsd-compat/regress/strtonumtest.c b/openbsd-compat/regress/strtonumtest.c
+index 50ca5bd22..46bd2b916 100644
+--- a/openbsd-compat/regress/strtonumtest.c
++++ b/openbsd-compat/regress/strtonumtest.c
+@@ -17,6 +17,8 @@
+ 
+ /* OPENBSD ORIGINAL: regress/lib/libc/strtonum/strtonumtest.c */
+ 
++#include "includes.h"
++
+ #include <limits.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+diff --git a/openbsd-compat/regress/utimensattest.c b/openbsd-compat/regress/utimensattest.c
+index 24312e5d8..bbc66c485 100644
+--- a/openbsd-compat/regress/utimensattest.c
++++ b/openbsd-compat/regress/utimensattest.c
+@@ -14,6 +14,8 @@
+  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  */
+ 
++#include "includes.h"
++
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
