@@ -6,6 +6,7 @@ openssh (1:8.4p1-6) UNRELEASED; urgency=medium
   * debian/tests/regress: Don't fail cleanup if haveged isn't running.
   * Backport from upstream:
     - Add includes.h to compat tests (closes: #992134, LP: #1939751).
+  * Use "command -v" in maintainer scripts rather than "which".
 
   [ Athos Ribeiro ]
   * d/systemd/ssh@.service: preserve the systemd managed runtime directory to
