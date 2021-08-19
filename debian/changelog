@@ -1,4 +1,4 @@
-openssh (1:8.4p1-6) UNRELEASED; urgency=medium
+openssh (1:8.4p1-6) unstable; urgency=medium
 
   [ Colin Watson ]
   * Rename ssh group to _ssh (closes: #990456).  It's only used by
@@ -13,7 +13,7 @@ openssh (1:8.4p1-6) UNRELEASED; urgency=medium
     ensure parallel processes will not disrupt one another when halting
     (LP: #1905285) (closes: #934663)
 
- -- Colin Watson <cjwatson@debian.org>  Sat, 03 Jul 2021 23:59:17 +0100
+ -- Colin Watson <cjwatson@debian.org>  Thu, 19 Aug 2021 11:04:01 +0100
 
 openssh (1:8.4p1-5) unstable; urgency=high
 
