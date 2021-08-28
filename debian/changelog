@@ -1,3 +1,9 @@
+openssh (1:8.4p1-7) UNRELEASED; urgency=medium
+
+  * debian/upstream/signing-key.asc: Update from upstream.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 28 Aug 2021 12:42:23 +0100
+
 openssh (1:8.4p1-6) unstable; urgency=medium
 
   [ Colin Watson ]
