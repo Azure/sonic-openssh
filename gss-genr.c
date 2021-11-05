@@ -1,4 +1,4 @@
-/* $OpenBSD: gss-genr.c,v 1.26 2018/07/10 09:13:30 djm Exp $ */
+/* $OpenBSD: gss-genr.c,v 1.28 2021/01/27 10:05:28 djm Exp $ */
 
 /*
  * Copyright (c) 2001-2009 Simon Wilkinson. All rights reserved.
@@ -48,9 +48,6 @@
 #include "packet.h"
 
 #include "ssh-gss.h"
-
-extern u_char *session_id2;
-extern u_int session_id2_len;
 
 typedef struct {
 	char *encoded;
@@ -144,7 +141,7 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	    (gss_supported->count + 1));
 
 	if ((buf = sshbuf_new()) == NULL)
-		fatal("%s: sshbuf_new failed", __func__);
+		fatal_f("sshbuf_new failed");
 
 	oidpos = 0;
 	s = cp = xstrdup(kex);
@@ -161,8 +158,7 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 			        gss_supported->elements[i].elements,
 			        gss_supported->elements[i].length)) != 0 ||
 			    (r = ssh_digest_final(md, digest, sizeof(digest))) != 0)
-				fatal("%s: digest failed: %s", __func__,
-				    ssh_err(r));
+				fatal_fr(r, "digest failed");
 			ssh_digest_free(md);
 			md = NULL;
 
@@ -177,12 +173,10 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 				(p = strsep(&cp, ","))) {
 				if (sshbuf_len(buf) != 0 &&
 				    (r = sshbuf_put_u8(buf, ',')) != 0)
-					fatal("%s: sshbuf_put_u8 error: %s",
-					    __func__, ssh_err(r));
+					fatal_fr(r, "sshbuf_put_u8 error");
 				if ((r = sshbuf_put(buf, p, strlen(p))) != 0 ||
 				    (r = sshbuf_put(buf, encoded, enclen)) != 0)
-					fatal("%s: sshbuf_put error: %s",
-					    __func__, ssh_err(r));
+					fatal_fr(r, "sshbuf_put error");
 			}
 
 			gss_enc2oid[oidpos].oid = &(gss_supported->elements[i]);
@@ -195,7 +189,7 @@ ssh_gssapi_kex_mechs(gss_OID_set gss_supported, ssh_gssapi_check_fn *check,
 	gss_enc2oid[oidpos].encoded = NULL;
 
 	if ((mechs = sshbuf_dup_string(buf)) == NULL)
-		fatal("%s: sshbuf_dup_string failed", __func__);
+		fatal_f("sshbuf_dup_string failed");
 
 	sshbuf_free(buf);
 
@@ -295,7 +289,7 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 	int r;
 
 	if ((b = sshbuf_new()) == NULL)
-		fatal("%s: sshbuf_new failed", __func__);
+		fatal_f("sshbuf_new failed");
 
 	if (major_status != NULL)
 		*major_status = ctxt->major;
@@ -310,7 +304,7 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 
 		if ((r = sshbuf_put(b, msg.value, msg.length)) != 0 ||
 		    (r = sshbuf_put_u8(b, '\n')) != 0)
-			fatal("%s: buffer error: %s", __func__, ssh_err(r));
+			fatal_fr(r, "assemble GSS_CODE");
 
 		gss_release_buffer(&lmin, &msg);
 	} while (ctx != 0);
@@ -322,13 +316,13 @@ ssh_gssapi_last_error(Gssctxt *ctxt, OM_uint32 *major_status,
 
 		if ((r = sshbuf_put(b, msg.value, msg.length)) != 0 ||
 		    (r = sshbuf_put_u8(b, '\n')) != 0)
-			fatal("%s: buffer error: %s", __func__, ssh_err(r));
+			fatal_fr(r, "assemble MECH_CODE");
 
 		gss_release_buffer(&lmin, &msg);
 	} while (ctx != 0);
 
 	if ((r = sshbuf_put_u8(b, '\n')) != 0)
-		fatal("%s: buffer error: %s", __func__, ssh_err(r));
+		fatal_fr(r, "assemble newline");
 	ret = xstrdup((const char *)sshbuf_ptr(b));
 	sshbuf_free(b);
 	return (ret);
@@ -486,17 +480,17 @@ ssh_gssapi_checkmic(Gssctxt *ctx, gss_buffer_t gssbuf, gss_buffer_t gssmic)
 
 void
 ssh_gssapi_buildmic(struct sshbuf *b, const char *user, const char *service,
-    const char *context)
+    const char *context, const struct sshbuf *session_id)
 {
 	int r;
 
 	sshbuf_reset(b);
-	if ((r = sshbuf_put_string(b, session_id2, session_id2_len)) != 0 ||
+	if ((r = sshbuf_put_stringb(b, session_id)) != 0 ||
 	    (r = sshbuf_put_u8(b, SSH2_MSG_USERAUTH_REQUEST)) != 0 ||
 	    (r = sshbuf_put_cstring(b, user)) != 0 ||
 	    (r = sshbuf_put_cstring(b, service)) != 0 ||
 	    (r = sshbuf_put_cstring(b, context)) != 0)
-		fatal("%s: buffer error: %s", __func__, ssh_err(r));
+		fatal_fr(r, "assemble buildmic");
 }
 
 int

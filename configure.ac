@@ -18,8 +18,19 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([ssh.c])
 AC_LANG([C])
 
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC([cc gcc])
+
+# XXX relax this after reimplementing logit() etc.
+AC_MSG_CHECKING([if $CC supports C99-style variadic macros])
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+int f(int a, int b, int c) { return a + b + c; }
+#define F(a, ...) f(a, __VA_ARGS__)
+]], [[return F(1, 2, -3);]])],
+	[ AC_MSG_RESULT([yes]) ],
+	[ AC_MSG_ERROR([*** OpenSSH requires support for C99-style variadic macros]) ]
+)
+
 AC_CANONICAL_HOST
 AC_C_BIGENDIAN
 
@@ -284,6 +295,26 @@ typedef void foo(const char *, ...) __attribute__((format(printf, 1, 2)));]],
     [ AC_MSG_RESULT([no])
       AC_DEFINE(NO_ATTRIBUTE_ON_PROTOTYPE_ARGS, 1,
 	 [compiler does not accept __attribute__ on prototype args]) ]
+)
+
+AC_MSG_CHECKING([if compiler supports variable length arrays])
+AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM([[#include <stdlib.h>]],
+    [[ int i; for (i=0; i<3; i++){int a[i]; a[i-1]=0;} exit(0); ]])],
+    [ AC_MSG_RESULT([yes])
+      AC_DEFINE(VARIABLE_LENGTH_ARRAYS, [1],
+	 [compiler supports variable length arrays]) ],
+    [ AC_MSG_RESULT([no]) ]
+)
+
+AC_MSG_CHECKING([if compiler accepts variable declarations after code])
+AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM([[#include <stdlib.h>]],
+    [[ int a; a = 1; int b = 1; exit(a-b); ]])],
+    [ AC_MSG_RESULT([yes])
+      AC_DEFINE(VARIABLE_DECLARATION_AFTER_CODE, [1],
+	 [compiler variable declarations after code]) ],
+    [ AC_MSG_RESULT([no]) ]
 )
 
 if test "x$no_attrib_nonnull" != "x1" ; then
@@ -1449,6 +1480,10 @@ AC_CHECK_FUNCS([fmt_scaled scan_scaled login logout openpty updwtmp logwtmp])
 AC_SEARCH_LIBS([inet_ntop], [resolv nsl])
 AC_SEARCH_LIBS([gethostbyname], [resolv nsl])
 
+# Some Linux distribtions ship the BSD libc hashing functions in
+# separate libraries.
+AC_SEARCH_LIBS([SHA256Update], [md bsd])
+
 # "Particular Function Checks"
 # see https://www.gnu.org/software/autoconf/manual/autoconf-2.69/html_node/Particular-Functions.html
 AC_FUNC_STRFTIME
@@ -1864,6 +1899,7 @@ AC_CHECK_FUNCS([ \
 	err \
 	errx \
 	explicit_bzero \
+	explicit_memset \
 	fchmod \
 	fchmodat \
 	fchown \
@@ -1899,6 +1935,7 @@ AC_CHECK_FUNCS([ \
 	llabs \
 	localtime_r \
 	login_getcapbool \
+	login_getpwclass \
 	md5_crypt \
 	memmem \
 	memmove \
@@ -1911,6 +1948,7 @@ AC_CHECK_FUNCS([ \
 	pledge \
 	poll \
 	prctl \
+	pselect \
 	pstat \
 	raise \
 	readpassphrase \
@@ -2061,7 +2099,7 @@ AC_SEARCH_LIBS([clock_gettime], [rt],
 
 dnl check if we need -D_REENTRANT for localtime_r declaration.
 AC_CHECK_DECL([localtime_r], [],
-	[ saved_CPPFLAGS="$CFLAGS"
+	[ saved_CPPFLAGS="$CPPFLAGS"
 	  CPPFLAGS="$CPPFLAGS -D_REENTRANT"
 	  unset ac_cv_have_decl_localtime_r
 	  AC_CHECK_DECL([localtime_r], [],
@@ -2354,34 +2392,6 @@ if test "x$ac_cv_func_getpeereid" != "xyes" -a "x$ac_cv_func_getpeerucred" != "x
 		], [AC_MSG_RESULT([no])
 		NO_PEERCHECK=1
         ])
-fi
-
-dnl see whether mkstemp() requires XXXXXX
-if test "x$ac_cv_func_mkdtemp" = "xyes" ; then
-AC_MSG_CHECKING([for (overly) strict mkstemp])
-AC_RUN_IFELSE(
-	[AC_LANG_PROGRAM([[
-#include <stdlib.h>
-#include <unistd.h>
-	]], [[
-	char template[]="conftest.mkstemp-test";
-	if (mkstemp(template) == -1)
-		exit(1);
-	unlink(template);
-	exit(0);
-	]])],
-	[
-		AC_MSG_RESULT([no])
-	],
-	[
-		AC_MSG_RESULT([yes])
-		AC_DEFINE([HAVE_STRICT_MKSTEMP], [1], [Silly mkstemp()])
-	],
-	[
-		AC_MSG_RESULT([yes])
-		AC_DEFINE([HAVE_STRICT_MKSTEMP])
-	]
-)
 fi
 
 dnl make sure that openpty does not reacquire controlling terminal
@@ -2952,6 +2962,7 @@ if test "x$openssl" = "xyes" ; then
 		EVP_CIPHER_CTX_iv \
 		EVP_CIPHER_CTX_iv_noconst \
 		EVP_CIPHER_CTX_get_iv \
+		EVP_CIPHER_CTX_get_updated_iv \
 		EVP_CIPHER_CTX_set_iv \
 		RSA_get0_crt_params \
 		RSA_get0_factors \
@@ -3743,7 +3754,7 @@ if test ! -z "$SONY" ; then
   LIBS="$LIBS -liberty";
 fi
 
-# Check for  long long datatypes
+# Check for long long datatypes
 AC_CHECK_TYPES([long long, unsigned long long, long double])
 
 # Check datatype sizes
@@ -3751,6 +3762,16 @@ AC_CHECK_SIZEOF([short int])
 AC_CHECK_SIZEOF([int])
 AC_CHECK_SIZEOF([long int])
 AC_CHECK_SIZEOF([long long int])
+AC_CHECK_SIZEOF([time_t], [], [[
+    #include <sys/types.h>
+    #ifdef HAVE_SYS_TIME_H
+    # include <sys/time.h>
+    #endif
+    #ifdef HAVE_TIME_H
+    # include <time.h>
+    #endif
+	]]
+)
 
 # Sanity check long long for some platforms (AIX)
 if test "x$ac_cv_sizeof_long_long_int" = "x4" ; then
@@ -4052,7 +4073,7 @@ AC_CHECK_TYPES([intmax_t, uintmax_t], , , [
 
 TYPE_SOCKLEN_T
 
-AC_CHECK_TYPES([sig_atomic_t], , , [#include <signal.h>])
+AC_CHECK_TYPES([sig_atomic_t, sighandler_t], , , [#include <signal.h>])
 AC_CHECK_TYPES([fsblkcnt_t, fsfilcnt_t], , , [
 #include <sys/types.h>
 #ifdef HAVE_SYS_BITYPES_H
@@ -4229,8 +4250,6 @@ if test "x$ac_cv_have_struct_addrinfo" = "xyes" ; then
 		[define if you have struct addrinfo data type])
 fi
 
-AC_HEADER_TIME
-
 AC_CACHE_CHECK([for struct timeval], ac_cv_have_struct_timeval, [
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ #include <sys/time.h> ]],
 	[[ struct timeval tv; tv.tv_sec = 1;]])],
@@ -4245,15 +4264,11 @@ fi
 
 AC_CACHE_CHECK([for struct timespec], ac_cv_have_struct_timespec, [
 	AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
-    #ifdef TIME_WITH_SYS_TIME
+    #ifdef HAVE_SYS_TIME_H
     # include <sys/time.h>
+    #endif
+    #ifdef HAVE_TIME_H
     # include <time.h>
-    #else
-    # ifdef HAVE_SYS_TIME_H
-    #  include <sys/time.h>
-    # else
-    #  include <time.h>
-    # endif
     #endif
 	]],
 	[[ struct timespec ts; ts.tv_sec = 1;]])],
@@ -4665,22 +4680,30 @@ AC_ARG_WITH([kerberos5],
 		AC_DEFINE([KRB5], [1], [Define if you want Kerberos 5 support])
 		KRB5_MSG="yes"
 
-		AC_PATH_TOOL([KRB5CONF], [krb5-config],
-			     [$KRB5ROOT/bin/krb5-config],
-			     [$KRB5ROOT/bin:$PATH])
-		if test -x $KRB5CONF ; then
-			K5CFLAGS="`$KRB5CONF --cflags`"
-			K5LIBS="`$KRB5CONF --libs`"
+		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
+		use_pkgconfig_for_krb5=
+		if test "x$PKGCONFIG" != "xno"; then
+			AC_MSG_CHECKING([if $PKGCONFIG knows about kerberos5])
+			if "$PKGCONFIG" krb5; then
+				AC_MSG_RESULT([yes])
+				use_pkgconfig_for_krb5=yes
+			else
+				AC_MSG_RESULT([no])
+			fi
+		fi
+		if test "x$use_pkgconfig_for_krb5" = "xyes"; then
+			K5CFLAGS=`$PKGCONFIG --cflags krb5`
+			K5LIBS=`$PKGCONFIG --libs krb5`
 			CPPFLAGS="$CPPFLAGS $K5CFLAGS"
 
 			AC_MSG_CHECKING([for gssapi support])
-			if $KRB5CONF | grep gssapi >/dev/null ; then
+			if "$PKGCONFIG" krb5-gssapi; then
 				AC_MSG_RESULT([yes])
 				AC_DEFINE([GSSAPI], [1],
 					[Define this if you want GSSAPI
 					support in the version 2 protocol])
-				GSSCFLAGS="`$KRB5CONF --cflags gssapi`"
-				GSSLIBS="`$KRB5CONF --libs gssapi`"
+				GSSCFLAGS="`$PKGCONFIG --cflags krb5-gssapi`"
+				GSSLIBS="`$PKGCONFIG --libs krb5-gssapi`"
 				CPPFLAGS="$CPPFLAGS $GSSCFLAGS"
 			else
 				AC_MSG_RESULT([no])
@@ -4695,51 +4718,82 @@ AC_ARG_WITH([kerberos5],
 				[AC_MSG_RESULT([no])
 			])
 		else
-			CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include"
-			LDFLAGS="$LDFLAGS -L${KRB5ROOT}/lib"
-			AC_MSG_CHECKING([whether we are using Heimdal])
-			AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ #include <krb5.h>
-				]], [[ char *tmp = heimdal_version; ]])],
+			AC_PATH_TOOL([KRB5CONF], [krb5-config],
+				     [$KRB5ROOT/bin/krb5-config],
+				     [$KRB5ROOT/bin:$PATH])
+			if test -x $KRB5CONF ; then
+				K5CFLAGS="`$KRB5CONF --cflags`"
+				K5LIBS="`$KRB5CONF --libs`"
+				CPPFLAGS="$CPPFLAGS $K5CFLAGS"
+
+				AC_MSG_CHECKING([for gssapi support])
+				if $KRB5CONF | grep gssapi >/dev/null ; then
+					AC_MSG_RESULT([yes])
+					AC_DEFINE([GSSAPI], [1],
+						[Define this if you want GSSAPI
+						support in the version 2 protocol])
+					GSSCFLAGS="`$KRB5CONF --cflags gssapi`"
+					GSSLIBS="`$KRB5CONF --libs gssapi`"
+					CPPFLAGS="$CPPFLAGS $GSSCFLAGS"
+				else
+					AC_MSG_RESULT([no])
+				fi
+				AC_MSG_CHECKING([whether we are using Heimdal])
+				AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ #include <krb5.h>
+					]], [[ char *tmp = heimdal_version; ]])],
 					[ AC_MSG_RESULT([yes])
-					 AC_DEFINE([HEIMDAL])
-					 K5LIBS="-lkrb5"
-					 K5LIBS="$K5LIBS -lcom_err -lasn1"
-					 AC_CHECK_LIB([roken], [net_write],
-					   [K5LIBS="$K5LIBS -lroken"])
-					 AC_CHECK_LIB([des], [des_cbc_encrypt],
-					   [K5LIBS="$K5LIBS -ldes"])
-				       ], [ AC_MSG_RESULT([no])
-					 K5LIBS="-lkrb5 -lk5crypto -lcom_err"
-			])
-			AC_SEARCH_LIBS([dn_expand], [resolv])
-
-			AC_CHECK_LIB([gssapi_krb5], [gss_init_sec_context],
-				[ AC_DEFINE([GSSAPI])
-				  GSSLIBS="-lgssapi_krb5" ],
-				[ AC_CHECK_LIB([gssapi], [gss_init_sec_context],
-					[ AC_DEFINE([GSSAPI])
-					  GSSLIBS="-lgssapi" ],
-					[ AC_CHECK_LIB([gss], [gss_init_sec_context],
-						[ AC_DEFINE([GSSAPI])
-						  GSSLIBS="-lgss" ],
-						AC_MSG_WARN([Cannot find any suitable gss-api library - build may fail]))
-					])
+					AC_DEFINE([HEIMDAL], [1],
+					[Define this if you are using the Heimdal
+					version of Kerberos V5]) ],
+					[AC_MSG_RESULT([no])
 				])
+			else
+				CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include"
+				LDFLAGS="$LDFLAGS -L${KRB5ROOT}/lib"
+				AC_MSG_CHECKING([whether we are using Heimdal])
+				AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[ #include <krb5.h>
+					]], [[ char *tmp = heimdal_version; ]])],
+						[ AC_MSG_RESULT([yes])
+						 AC_DEFINE([HEIMDAL])
+						 K5LIBS="-lkrb5"
+						 K5LIBS="$K5LIBS -lcom_err -lasn1"
+						 AC_CHECK_LIB([roken], [net_write],
+						   [K5LIBS="$K5LIBS -lroken"])
+						 AC_CHECK_LIB([des], [des_cbc_encrypt],
+						   [K5LIBS="$K5LIBS -ldes"])
+					       ], [ AC_MSG_RESULT([no])
+						 K5LIBS="-lkrb5 -lk5crypto -lcom_err"
+				])
+				AC_SEARCH_LIBS([dn_expand], [resolv])
 
-			AC_CHECK_HEADER([gssapi.h], ,
-				[ unset ac_cv_header_gssapi_h
-				  CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include/gssapi"
-				  AC_CHECK_HEADERS([gssapi.h], ,
-					AC_MSG_WARN([Cannot find any suitable gss-api header - build may fail])
-				  )
-				]
-			)
+				AC_CHECK_LIB([gssapi_krb5], [gss_init_sec_context],
+					[ AC_DEFINE([GSSAPI])
+					  GSSLIBS="-lgssapi_krb5" ],
+					[ AC_CHECK_LIB([gssapi], [gss_init_sec_context],
+						[ AC_DEFINE([GSSAPI])
+						  GSSLIBS="-lgssapi" ],
+						[ AC_CHECK_LIB([gss], [gss_init_sec_context],
+							[ AC_DEFINE([GSSAPI])
+							  GSSLIBS="-lgss" ],
+							AC_MSG_WARN([Cannot find any suitable gss-api library - build may fail]))
+						])
+					])
 
-			oldCPP="$CPPFLAGS"
-			CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include/gssapi"
-			AC_CHECK_HEADER([gssapi_krb5.h], ,
-					[ CPPFLAGS="$oldCPP" ])
+				AC_CHECK_HEADER([gssapi.h], ,
+					[ unset ac_cv_header_gssapi_h
+					  CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include/gssapi"
+					  AC_CHECK_HEADERS([gssapi.h], ,
+						AC_MSG_WARN([Cannot find any suitable gss-api header - build may fail])
+					  )
+					]
+				)
 
+				oldCPP="$CPPFLAGS"
+				CPPFLAGS="$CPPFLAGS -I${KRB5ROOT}/include/gssapi"
+				AC_CHECK_HEADER([gssapi_krb5.h], ,
+						[ CPPFLAGS="$oldCPP" ])
+
+			fi
 		fi
 		if test -n "${rpath_opt}" ; then
 			LDFLAGS="$LDFLAGS ${rpath_opt}${KRB5ROOT}/lib"

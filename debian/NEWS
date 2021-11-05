@@ -1,3 +1,80 @@
+openssh (1:8.7p1-1) unstable; urgency=medium
+
+  OpenSSH 8.7 includes a number of changes that may affect existing
+  configurations:
+
+   * scp(1): this release changes the behaviour of remote to remote copies
+     (e.g. "scp host-a:/path host-b:") to transfer through the local host by
+     default. This was previously available via the -3 flag. This mode
+     avoids the need to expose credentials on the origin hop, avoids
+     triplicate interpretation of filenames by the shell (by the local
+     system, the copy origin and the destination) and, in conjunction with
+     the SFTP support for scp(1) mentioned below, allows use of all
+     authentication methods to the remote hosts (previously, only
+     non-interactive methods could be used). A -R flag has been added to
+     select the old behaviour.
+
+   * ssh(1)/sshd(8): both the client and server are now using a stricter
+     configuration file parser. The new parser uses more shell-like rules
+     for quotes, space and escape characters. It is also more strict in
+     rejecting configurations that include options lacking arguments.
+     Previously some options (e.g. DenyUsers) could appear on a line with no
+     subsequent arguments. This release will reject such configurations. The
+     new parser will also reject configurations with unterminated quotes and
+     multiple '=' characters after the option name.
+
+   * ssh(1): when using SSHFP DNS records for host key verification, ssh(1)
+     will verify all matching records instead of just those with the
+     specific signature type requested. This may cause host key verification
+     problems if stale SSHFP records of a different or legacy signature type
+     exist alongside other records for a particular host. bz#3322
+
+   * ssh-keygen(1): when generating a FIDO key and specifying an explicit
+     attestation challenge (using -Ochallenge), the challenge will now be
+     hashed by the builtin security key middleware. This removes the
+     (undocumented) requirement that challenges be exactly 32 bytes in
+     length and matches the expectations of libfido2.
+
+   * sshd(8): environment="..." directives in authorized_keys files are now
+     first-match-wins and limited to 1024 discrete environment variable
+     names.
+
+  OpenSSH 8.5 includes a number of changes that may affect existing
+  configurations:
+
+   * ssh(1), sshd(8): this release changes the first-preference signature
+     algorithm from ECDSA to ED25519.
+
+   * ssh(1), sshd(8): set the TOS/DSCP specified in the configuration for
+     interactive use prior to TCP connect. The connection phase of the SSH
+     session is time-sensitive and often explicitly interactive.  The
+     ultimate interactive/bulk TOS/DSCP will be set after authentication
+     completes.
+
+   * ssh(1), sshd(8): remove the pre-standardization cipher
+     rijndael-cbc@lysator.liu.se. It is an alias for aes256-cbc before it
+     was standardized in RFC4253 (2006), has been deprecated and disabled by
+     default since OpenSSH 7.2 (2016) and was only briefly documented in
+     ssh.1 in 2001.
+
+   * ssh(1), sshd(8): update/replace the experimental post-quantum hybrid
+     key exchange method based on Streamlined NTRU Prime coupled with
+     X25519.
+
+     The previous sntrup4591761x25519-sha512@tinyssh.org method is replaced
+     with sntrup761x25519-sha512@openssh.com. Per its designers, the
+     sntrup4591761 algorithm was superseded almost two years ago by
+     sntrup761.
+
+     (note this both the updated method and the one that it replaced are
+     disabled by default)
+
+   * ssh(1): disable CheckHostIP by default. It provides insignificant
+     benefits while making key rotation significantly more difficult,
+     especially for hosts behind IP-based load-balancers.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 05 Nov 2021 23:03:08 +0000
+
 openssh (1:8.4p1-1) unstable; urgency=medium
 
   OpenSSH 8.4 includes a number of changes that may affect existing

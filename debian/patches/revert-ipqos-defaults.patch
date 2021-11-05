@@ -1,4 +1,4 @@
-From 3728919292c05983372954d27426f7d966813139 Mon Sep 17 00:00:00 2001
+From 8788aa0d9e7dd6c7876b1de6ae0aaff4c8088d9e Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 8 Apr 2019 10:46:29 +0100
 Subject: Revert "upstream: Update default IPQoS in ssh(1), sshd(8) to DSCP
@@ -24,10 +24,10 @@ Patch-Name: revert-ipqos-defaults.patch
  4 files changed, 8 insertions(+), 12 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index e676b6be6..c60df5602 100644
+index b5dd53747..8d85ea8b6 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2298,9 +2298,9 @@ fill_default_options(Options * options)
+@@ -2647,9 +2647,9 @@ fill_default_options(Options * options)
  	if (options->visual_host_key == -1)
  		options->visual_host_key = 0;
  	if (options->ip_qos_interactive == -1)
@@ -38,12 +38,12 @@ index e676b6be6..c60df5602 100644
 +		options->ip_qos_bulk = IPTOS_THROUGHPUT;
  	if (options->request_tty == -1)
  		options->request_tty = REQUEST_TTY_AUTO;
- 	if (options->proxy_use_fdpass == -1)
+ 	if (options->session_type == -1)
 diff --git a/servconf.c b/servconf.c
-index f9eb778d6..98afcfcec 100644
+index a074e9a72..14abe8342 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -453,9 +453,9 @@ fill_default_server_options(ServerOptions *options)
+@@ -437,9 +437,9 @@ fill_default_server_options(ServerOptions *options)
  	if (options->permit_tun == -1)
  		options->permit_tun = SSH_TUNMODE_NO;
  	if (options->ip_qos_interactive == -1)
@@ -56,10 +56,10 @@ index f9eb778d6..98afcfcec 100644
  		options->version_addendum = xstrdup("");
  	if (options->fwd_opts.streamlocal_bind_mask == (mode_t)-1)
 diff --git a/ssh_config.5 b/ssh_config.5
-index 6d6c59521..080d289a7 100644
+index fbc5c583e..ca32e6ca5 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -1156,11 +1156,9 @@ If one argument is specified, it is used as the packet class unconditionally.
+@@ -1208,11 +1208,9 @@ If one argument is specified, it is used as the packet class unconditionally.
  If two values are specified, the first is automatically selected for
  interactive sessions and the second for non-interactive sessions.
  The default is
@@ -74,10 +74,10 @@ index 6d6c59521..080d289a7 100644
  .It Cm KbdInteractiveAuthentication
  Specifies whether to use keyboard-interactive authentication.
 diff --git a/sshd_config.5 b/sshd_config.5
-index 472001dd1..a555e7ec3 100644
+index 19788e0f0..878eacc16 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -925,11 +925,9 @@ If one argument is specified, it is used as the packet class unconditionally.
+@@ -935,11 +935,9 @@ If one argument is specified, it is used as the packet class unconditionally.
  If two values are specified, the first is automatically selected for
  interactive sessions and the second for non-interactive sessions.
  The default is

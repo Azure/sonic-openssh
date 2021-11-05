@@ -1,4 +1,4 @@
-From 6353ee79cc71ef33a0a34d2d769a5fe327f6260d Mon Sep 17 00:00:00 2001
+From c114732384dc3b79a2fe4d931b2ce1bf67d28dbb Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -8,7 +8,7 @@ initial protocol handshake, for those scared by package-versioning.patch.
 
 Bug-Debian: http://bugs.debian.org/562048
 Forwarded: not-needed
-Last-Update: 2020-06-07
+Last-Update: 2021-11-05
 
 Patch-Name: debian-banner.patch
 ---
@@ -22,10 +22,10 @@ Patch-Name: debian-banner.patch
  7 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/kex.c b/kex.c
-index ce7bb5b3b..763c45536 100644
+index 111bce4aa..b1c78272a 100644
 --- a/kex.c
 +++ b/kex.c
-@@ -1225,7 +1225,7 @@ send_error(struct ssh *ssh, char *msg)
+@@ -1230,7 +1230,7 @@ send_error(struct ssh *ssh, char *msg)
   */
  int
  kex_exchange_identification(struct ssh *ssh, int timeout_ms,
@@ -34,21 +34,21 @@ index ce7bb5b3b..763c45536 100644
  {
  	int remote_major, remote_minor, mismatch, oerrno = 0;
  	size_t len, i, n;
-@@ -1243,7 +1243,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
+@@ -1248,7 +1248,8 @@ kex_exchange_identification(struct ssh *ssh, int timeout_ms,
  	if (version_addendum != NULL && *version_addendum == '\0')
  		version_addendum = NULL;
  	if ((r = sshbuf_putf(our_version, "SSH-%d.%d-%.100s%s%s\r\n",
--	   PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
-+	   PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
+-	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2, SSH_RELEASE,
++	    PROTOCOL_MAJOR_2, PROTOCOL_MINOR_2,
 +	    debian_banner ? SSH_RELEASE : SSH_RELEASE_MINIMUM,
  	    version_addendum == NULL ? "" : " ",
  	    version_addendum == NULL ? "" : version_addendum)) != 0) {
  		oerrno = errno;
 diff --git a/kex.h b/kex.h
-index fe7141414..938dca03b 100644
+index 0677208ae..41346ff4b 100644
 --- a/kex.h
 +++ b/kex.h
-@@ -194,7 +194,7 @@ char	*kex_names_cat(const char *, const char *);
+@@ -193,7 +193,7 @@ char	*kex_names_cat(const char *, const char *);
  int	 kex_assemble_names(char **, const char *, const char *);
  int	 kex_gss_names_valid(const char *);
  
@@ -58,10 +58,10 @@ index fe7141414..938dca03b 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 21abe41ac..f9eb778d6 100644
+index 48e2012d7..a074e9a72 100644
 --- a/servconf.c
 +++ b/servconf.c
-@@ -195,6 +195,7 @@ initialize_server_options(ServerOptions *options)
+@@ -199,6 +199,7 @@ initialize_server_options(ServerOptions *options)
  	options->fingerprint_hash = -1;
  	options->disable_forwarding = -1;
  	options->expose_userauth_info = -1;
@@ -69,7 +69,7 @@ index 21abe41ac..f9eb778d6 100644
  }
  
  /* Returns 1 if a string option is unset or set to "none" or 0 otherwise. */
-@@ -469,6 +470,8 @@ fill_default_server_options(ServerOptions *options)
+@@ -453,6 +454,8 @@ fill_default_server_options(ServerOptions *options)
  		options->expose_userauth_info = 0;
  	if (options->sk_provider == NULL)
  		options->sk_provider = xstrdup("internal");
@@ -78,7 +78,7 @@ index 21abe41ac..f9eb778d6 100644
  
  	assemble_algorithms(options);
  
-@@ -548,6 +551,7 @@ typedef enum {
+@@ -531,6 +534,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
@@ -86,7 +86,7 @@ index 21abe41ac..f9eb778d6 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -712,6 +716,7 @@ static struct {
+@@ -701,6 +705,7 @@ static struct {
  	{ "rdomain", sRDomain, SSHCFG_ALL },
  	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
  	{ "securitykeyprovider", sSecurityKeyProvider, SSHCFG_GLOBAL },
@@ -94,7 +94,7 @@ index 21abe41ac..f9eb778d6 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2402,6 +2407,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2480,6 +2485,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -106,10 +106,10 @@ index 21abe41ac..f9eb778d6 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index f10908e5b..4afdf24d0 100644
+index 413413e94..f2d9b46fc 100644
 --- a/servconf.h
 +++ b/servconf.h
-@@ -227,6 +227,8 @@ typedef struct {
+@@ -232,6 +232,8 @@ typedef struct {
  	int	expose_userauth_info;
  	u_int64_t timing_secret;
  	char   *sk_provider;
@@ -119,10 +119,10 @@ index f10908e5b..4afdf24d0 100644
  
  /* Information about the incoming connection as used by Match */
 diff --git a/sshconnect.c b/sshconnect.c
-index 3ae20b74e..bab3916d8 100644
+index 061868f2a..883e8debc 100644
 --- a/sshconnect.c
 +++ b/sshconnect.c
-@@ -1296,7 +1296,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
+@@ -1560,7 +1560,7 @@ ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
  	lowercase(host);
  
  	/* Exchange protocol version identification strings with the server. */
@@ -132,10 +132,10 @@ index 3ae20b74e..bab3916d8 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index 38d281ab4..50f2726bf 100644
+index e6f313d32..30b79da7f 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2232,7 +2232,7 @@ main(int ac, char **av)
+@@ -2228,7 +2228,7 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -145,10 +145,10 @@ index 38d281ab4..50f2726bf 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 6457620bb..33dc0c675 100644
+index 23ecb0de9..074f5125f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
-@@ -540,6 +540,11 @@ or
+@@ -546,6 +546,11 @@ or
  .Cm no .
  The default is
  .Cm yes .

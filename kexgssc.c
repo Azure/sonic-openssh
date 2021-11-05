@@ -96,7 +96,7 @@ kexgss_client(struct ssh *ssh)
 		r = kex_c25519_keypair(kex);
 		break;
 	default:
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal_f("Unexpected KEX type %d", kex->kex_type);
 	}
 	if (r != 0)
 		return r;
@@ -284,7 +284,7 @@ kexgss_client(struct ssh *ssh)
 	    server_blob,
 	    shared_secret,
 	    hash, &hashlen)) != 0)
-		fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+		fatal_f("Unexpected KEX type %d", kex->kex_type);
 
 	gssbuf.value = hash;
 	gssbuf.length = hashlen;
@@ -572,13 +572,6 @@ kexgssgex_client(struct ssh *ssh)
 		sshpkt_disconnect(ssh, "Hash's MIC didn't verify");
 
 	gss_release_buffer(&min_status, &msg_tok);
-
-	/* save session id */
-	if (kex->session_id == NULL) {
-		kex->session_id_len = hashlen;
-		kex->session_id = xmalloc(kex->session_id_len);
-		memcpy(kex->session_id, hash, kex->session_id_len);
-	}
 
 	if (kex->gss_deleg_creds)
 		ssh_gssapi_credentials_updated(ctxt);

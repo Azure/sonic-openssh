@@ -89,12 +89,12 @@ kexgss_server(struct ssh *ssh)
 		free(mechs);
 	}
 
-	debug2("%s: Identifying %s", __func__, kex->name);
+	debug2_f("Identifying %s", kex->name);
 	oid = ssh_gssapi_id_kex(NULL, kex->name, kex->kex_type);
 	if (oid == GSS_C_NO_OID)
 	   fatal("Unknown gssapi mechanism");
 
-	debug2("%s: Acquiring credentials", __func__);
+	debug2_f("Acquiring credentials");
 
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, oid))))
 		fatal("Unable to acquire credentials for the server");
@@ -129,7 +129,7 @@ kexgss_server(struct ssh *ssh)
 				    &shared_secret);
 				break;
 			default:
-				fatal("%s: Unexpected KEX type %d", __func__, kex->kex_type);
+				fatal_f("Unexpected KEX type %d", kex->kex_type);
 			}
 			if (r != 0)
 				goto out;
@@ -285,12 +285,12 @@ kexgssgex_server(struct ssh *ssh)
 		if ((mechs = ssh_gssapi_server_mechanisms()))
 			free(mechs);
 
-	debug2("%s: Identifying %s", __func__, kex->name);
+	debug2_f("Identifying %s", kex->name);
 	oid = ssh_gssapi_id_kex(NULL, kex->name, kex->kex_type);
 	if (oid == GSS_C_NO_OID)
 	   fatal("Unknown gssapi mechanism");
 
-	debug2("%s: Acquiring credentials", __func__);
+	debug2_f("Acquiring credentials");
 
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, oid))))
 		fatal("Unable to acquire credentials for the server");
