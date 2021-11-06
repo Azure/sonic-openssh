@@ -69,6 +69,10 @@ endif
 # https://bugs.debian.org/982705.
 confflags += ac_cv_header_sha2_h=false
 
+# Configure without closefrom to avoid chroot failures; see
+# https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1944621
+confflags += ac_cv_func_closefrom=no
+
 # Everything above here is common to the deb and udeb builds.
 confflags_udeb := $(confflags)
 
