@@ -232,6 +232,8 @@ openssh (1:8.7p1-1) UNRELEASED; urgency=medium
     - sshd(8): remove debug message from sigchld handler that could cause
       deadlock on some platforms.
     - Sync contrib/ssh-copy-id with upstream.
+  * Remove OpenBSD-specific rdomain references from sshd_config(5) (closes:
+    #998069).
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 05 Nov 2021 23:03:08 +0000
 

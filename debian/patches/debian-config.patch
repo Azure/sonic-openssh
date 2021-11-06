@@ -1,4 +1,4 @@
-From 2640854d4be79e0ab89fcbd726a7a30f166260a1 Mon Sep 17 00:00:00 2001
+From ca1a34e36601a8af6dd6bc9c331b13fa04a503bb Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -229,7 +229,7 @@ index f91d293c0..845c62034 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 7de981b04..19788e0f0 100644
+index 5585773a0..20477b641 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes
