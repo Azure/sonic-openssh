@@ -238,6 +238,13 @@ openssh (1:8.7p1-1) UNRELEASED; urgency=medium
     #997030).
   * Build-depend on libelogind-dev as an alternative to libsystemd-dev on
     Linux (thanks, Svante Signell; closes: #997035).
+  * Backport from upstream:
+    - CVE-2021-41617 (closes: #995130): sshd(8) from OpenSSH 6.2 through 8.7
+      failed to correctly initialise supplemental groups when executing an
+      AuthorizedKeysCommand or AuthorizedPrincipalsCommand, where a
+      AuthorizedKeysCommandUser or AuthorizedPrincipalsCommandUser directive
+      has been set to run the command as a different user. Instead these
+      commands would inherit the groups that sshd(8) was started with.
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 05 Nov 2021 23:03:08 +0000
 
