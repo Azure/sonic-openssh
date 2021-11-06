@@ -134,6 +134,12 @@ enum
 # endif
 #endif /* HOST_NAME_MAX */
 
+#ifndef MAXHOSTNAMELEN
+# if defined(_POSIX_HOST_NAME_MAX)
+#  define MAXHOSTNAMELEN _POSIX_HOST_NAME_MAX
+# endif
+#endif /* MAXHOSTNAMELEN */
+
 #if defined(HAVE_DECL_MAXSYMLINKS) && HAVE_DECL_MAXSYMLINKS == 0
 # define MAXSYMLINKS 5
 #endif
