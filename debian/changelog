@@ -1,4 +1,4 @@
-openssh (1:8.7p1-1) UNRELEASED; urgency=medium
+openssh (1:8.7p1-1) unstable; urgency=medium
 
   * debian/upstream/signing-key.asc: Update from upstream.
   * New upstream release (https://www.openssh.com/releasenotes.html#8.7p1):
@@ -249,7 +249,7 @@ openssh (1:8.7p1-1) UNRELEASED; urgency=medium
     glibc 2.34's fallback_closefrom function (thanks, William 'jawn-smith'
     Wilson; LP: #1944621).
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 05 Nov 2021 23:03:08 +0000
+ -- Colin Watson <cjwatson@debian.org>  Sat, 06 Nov 2021 12:23:47 +0000
 
 openssh (1:8.4p1-6) unstable; urgency=medium
 
