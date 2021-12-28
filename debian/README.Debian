@@ -191,10 +191,15 @@ you can run:
   systemctl stop ssh.service
   systemctl start ssh.socket
 
-To make this permanent:
+After doing this, if you want to make this permanent:
 
-  systemctl disable ssh.service
+  systemctl mask ssh.service
   systemctl enable ssh.socket
+
+("systemctl disable ssh.service" would also work, but masking avoids
+accidentally attempting to start ssh.service either manually or via tools
+such as needrestart, which can leave you without a running sshd; see
+https://bugs.debian.org/1002591.)
 
 This may be appropriate in environments where minimal footprint is critical
 (e.g. cloud guests).  Be aware that this bypasses MaxStartups, and systemd's
