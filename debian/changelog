@@ -327,7 +327,7 @@ openssh (1:8.4p1-1) unstable; urgency=medium
       generating a FIDO resident key.
     - ssh-keygen(1): the format of the attestation information optionally
       recorded when a FIDO key is generated has changed. It now includes the
-      authenticator data needed to validate attestation signatures. 
+      authenticator data needed to validate attestation signatures.
     - The API between OpenSSH and the FIDO token middleware has changed and
       the SSH_SK_VERSION_MAJOR version has been incremented as a result.
       Third-party middleware libraries must support the current API version
