@@ -7,7 +7,7 @@ usr/share/man/man5/moduli.5
 usr/share/man/man5/sshd_config.5
 usr/share/man/man8/sshd.8
 
-sshd_config => usr/share/openssh/sshd_config
+etc/ssh/sshd_config => usr/share/openssh/sshd_config
 debian/openssh-server.ucf-md5sum => usr/share/openssh/sshd_config.md5sum
 
 debian/openssh-server.ufw.profile => etc/ufw/applications.d/openssh-server
