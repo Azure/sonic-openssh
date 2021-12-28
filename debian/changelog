@@ -6,6 +6,7 @@ openssh (1:8.7p1-3) UNRELEASED; urgency=medium
   * Upgrade to debhelper v13.
   * debian/copyright: Use HTTPS in Source field.
   * Update renamed Lintian tag name in Lintian override.
+  * debian/watch: Upgrade to version 4.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 28 Dec 2021 18:02:27 +0000
 
