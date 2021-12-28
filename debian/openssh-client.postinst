@@ -9,10 +9,7 @@ umask 022
 create_alternatives() {
 # Create alternatives for the various r* tools.
 # Make sure we don't change existing alternatives that a user might have
-# changed, but clean up after some old alternatives that mistakenly pointed
-# rlogin and rcp to ssh.
-	update-alternatives --quiet --remove rlogin /usr/bin/ssh
-	update-alternatives --quiet --remove rcp /usr/bin/ssh
+# changed.
 	for cmd in rsh rlogin rcp; do
 		scmd="s${cmd#r}"
 		if ! update-alternatives --display "$cmd" 2>/dev/null | \
