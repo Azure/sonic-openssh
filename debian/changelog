@@ -12,6 +12,7 @@ openssh (1:8.7p1-3) UNRELEASED; urgency=medium
     systems without a running sshd (closes: #1001320).
   * Remove maintainer script code for upgrades from before Debian 9.
   * Make the sysvinit script provide "ssh" as well as "sshd".
+  * Set Rules-Requires-Root: no.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 28 Dec 2021 18:02:27 +0000
 

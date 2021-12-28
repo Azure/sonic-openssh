@@ -24,6 +24,7 @@ Uploaders: Colin Watson <cjwatson@debian.org>,
 Homepage: http://www.openssh.com/
 Vcs-Git: https://salsa.debian.org/ssh-team/openssh.git
 Vcs-Browser: https://salsa.debian.org/ssh-team/openssh
+Rules-Requires-Root: no
 
 Package: openssh-client
 Architecture: any
