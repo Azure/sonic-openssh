@@ -1,4 +1,4 @@
-openssh (1:8.7p1-4) UNRELEASED; urgency=medium
+openssh (1:8.7p1-4) unstable; urgency=medium
 
   [ Daniel Baumann ]
   * Fix typo in openssh-client.alternatives (closes: #1002803).
@@ -6,7 +6,7 @@ openssh (1:8.7p1-4) UNRELEASED; urgency=medium
   [ Colin Watson ]
   * Further clarify socket activation instructions.
 
- -- Colin Watson <cjwatson@debian.org>  Wed, 29 Dec 2021 11:56:49 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 29 Dec 2021 12:08:38 +0000
 
 openssh (1:8.7p1-3) unstable; urgency=medium
 
