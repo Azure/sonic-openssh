@@ -1,4 +1,4 @@
-openssh (1:8.7p1-3) UNRELEASED; urgency=medium
+openssh (1:8.7p1-3) unstable; urgency=medium
 
   * Include unit test binaries in openssh-tests even if building with
     DEB_BUILD_OPTIONS=nocheck.
@@ -16,7 +16,7 @@ openssh (1:8.7p1-3) UNRELEASED; urgency=medium
   * Use dh_installalternatives.
   * Simplify some debhelper overrides slightly.
 
- -- Colin Watson <cjwatson@debian.org>  Tue, 28 Dec 2021 18:02:27 +0000
+ -- Colin Watson <cjwatson@debian.org>  Wed, 29 Dec 2021 01:12:00 +0000
 
 openssh (1:8.7p1-2) unstable; urgency=medium
 
