@@ -208,13 +208,11 @@ override_dh_installpam: debian/openssh-server.sshd.pam
 override_dh_runit:
 	dh_runit -popenssh-server
 
-override_dh_fixperms-arch:
-	dh_fixperms
+execute_after_dh_fixperms-arch:
 	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
 
 # Tighten libssl dependencies to match the check in entropy.c.
-override_dh_shlibdeps:
-	dh_shlibdeps
+execute_after_dh_shlibdeps:
 	debian/adjust-openssl-dependencies
 
 override_dh_gencontrol:
