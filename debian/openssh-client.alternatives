@@ -1,0 +1,20 @@
+Name: rsh
+Link: /usr/bin/rsh
+Alternative: /usr/bin/ssh
+Dependents:
+  /usr/share/man/man1/rsh.1.gz rsh.1.gz /usr/share/man/man1/ssh.1.gz
+Priority: 20
+
+Name: rlogin
+Link: /usr/bin/rlogin
+Alternative: /usr/bin/slogin
+Dependents:
+  /usr/share/man/man1/rlogin.1.gz rlogin.1.gz /usr/share/man/man1/slogin.1.gz
+Priority: 20
+
+Name: rcp
+Link: /usr/bin/rcp
+Alternative: /usr/bin/scp
+Dependents:
+  /usr/share/man/man1/rcp.1.gz rcp.1.gz /usr/share/man/man1/rcp.1.gz
+Priority: 20

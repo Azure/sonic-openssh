@@ -6,20 +6,6 @@ action="$1"
 umask 022
 
 
-create_alternatives() {
-# Create alternatives for the various r* tools.
-# Make sure we don't change existing alternatives that a user might have
-# changed.
-	for cmd in rsh rlogin rcp; do
-		scmd="s${cmd#r}"
-		if ! update-alternatives --display "$cmd" 2>/dev/null | \
-				grep -q "$scmd"; then
-			update-alternatives --quiet --install "/usr/bin/$cmd" "$cmd" "/usr/bin/$scmd" 20 \
-				--slave "/usr/share/man/man1/$cmd.1.gz" "$cmd.1.gz" "/usr/share/man/man1/$scmd.1.gz"
-		fi
-	done
-}
-
 update_ssh_group_name() {
 	# The _ssh group used to be called ssh, but that could clash with
 	# locally-created user accounts.  Since this only exists as an
@@ -42,7 +28,6 @@ set_ssh_agent_permissions() {
 
 
 if [ "$action" = configure ]; then
-	create_alternatives
 	if dpkg --compare-versions "$2" lt-nl 1:8.4p1-6~; then
 		update_ssh_group_name
 	fi

@@ -177,6 +177,10 @@ ifeq ($(filter noudeb,$(DEB_BUILD_PROFILES)),)
 		--sourcedir=debian/build-udeb
 endif
 
+	# This can't be done using dh_link, because it's needed earlier by
+	# dh_installalternatives.
+	ln -sf ssh debian/openssh-client/usr/bin/slogin
+
 override_dh_installdocs:
 	dh_installdocs -Nopenssh-server -Nopenssh-sftp-server
 	dh_installdocs -popenssh-server -popenssh-sftp-server \
