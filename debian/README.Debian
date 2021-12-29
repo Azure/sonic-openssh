@@ -198,8 +198,8 @@ After doing this, if you want to make this permanent:
 
 ("systemctl disable ssh.service" would also work, but masking avoids
 accidentally attempting to start ssh.service either manually or via tools
-such as needrestart, which can leave you without a running sshd; see
-https://bugs.debian.org/1002591.)
+such as needrestart, which can leave you with nothing listening on port 22;
+see https://bugs.debian.org/1002591.)
 
 This may be appropriate in environments where minimal footprint is critical
 (e.g. cloud guests).  Be aware that this bypasses MaxStartups, and systemd's
