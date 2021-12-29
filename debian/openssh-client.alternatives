@@ -16,5 +16,5 @@ Name: rcp
 Link: /usr/bin/rcp
 Alternative: /usr/bin/scp
 Dependents:
-  /usr/share/man/man1/rcp.1.gz rcp.1.gz /usr/share/man/man1/rcp.1.gz
+  /usr/share/man/man1/rcp.1.gz rcp.1.gz /usr/share/man/man1/scp.1.gz
 Priority: 20

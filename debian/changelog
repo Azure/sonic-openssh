@@ -1,3 +1,10 @@
+openssh (1:8.7p1-4) UNRELEASED; urgency=medium
+
+  [ Daniel Baumann ]
+  * Fix typo in openssh-client.alternatives (closes: #1002803).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 29 Dec 2021 11:56:49 +0000
+
 openssh (1:8.7p1-3) unstable; urgency=medium
 
   * Include unit test binaries in openssh-tests even if building with
