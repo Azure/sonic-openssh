@@ -1,4 +1,4 @@
-From 86865dca85a7b28b0825126d60e660943ec25cad Mon Sep 17 00:00:00 2001
+From dd58cfb8704fac2821ffa46a4f622ec4ceb38233 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Thu, 30 Aug 2018 00:58:56 +0100
 Subject: Work around conch interoperability failure
@@ -18,10 +18,10 @@ Patch-Name: conch-old-privkey-format.patch
  3 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/regress/Makefile b/regress/Makefile
-index 810d74ce5..5495745da 100644
+index 0b5ad45d7..2760b463d 100644
 --- a/regress/Makefile
 +++ b/regress/Makefile
-@@ -126,7 +126,7 @@ CLEANFILES=	*.core actual agent-key.* authorized_keys_${USERNAME} \
+@@ -127,7 +127,7 @@ CLEANFILES=	*.core actual agent-key.* authorized_keys_${USERNAME} \
  		rsa_ssh2_crnl.prv scp-ssh-wrapper.exe \
  		scp-ssh-wrapper.scp setuid-allowed sftp-server.log \
  		sftp-server.sh sftp.log ssh-log-wrapper.sh ssh.log \
@@ -44,10 +44,10 @@ index 6678813a2..6ff5da20b 100644
  	    127.0.0.1 "cat ${DATA}" 2>/dev/null | cat > ${COPY}
  	if [ $? -ne 0 ]; then
 diff --git a/regress/test-exec.sh b/regress/test-exec.sh
-index db6d6161a..c87084029 100644
+index 415422ef5..2b93cdd4a 100644
 --- a/regress/test-exec.sh
 +++ b/regress/test-exec.sh
-@@ -621,6 +621,18 @@ REGRESS_INTEROP_CONCH=no
+@@ -629,6 +629,18 @@ REGRESS_INTEROP_CONCH=no
  if test -x "$CONCH" ; then
  	REGRESS_INTEROP_CONCH=yes
  fi

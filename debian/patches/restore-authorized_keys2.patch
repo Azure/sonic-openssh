@@ -1,4 +1,4 @@
-From cc5cbbfac67aa09c373a298afe22a26e94648a59 Mon Sep 17 00:00:00 2001
+From eff9c84cbf01aac622a31100d13e939956c1323a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 5 Mar 2017 02:02:11 +0000
 Subject: Restore reading authorized_keys2 by default

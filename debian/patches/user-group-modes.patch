@@ -1,4 +1,4 @@
-From de489c3b8a4c2b8dacd78a4563acc1b0cef5b1b9 Mon Sep 17 00:00:00 2001
+From 940a00b1942664945623209c3e701ce95d1ee4ac Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:09:58 +0000
 Subject: Allow harmless group-writability
@@ -13,18 +13,18 @@ default.
 
 Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=1060
 Bug-Debian: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=314347
-Last-Update: 2019-10-09
+Last-Update: 2022-02-11
 
 Patch-Name: user-group-modes.patch
 ---
  auth-rhosts.c |  6 ++----
  auth.c        |  3 +--
- misc.c        | 58 ++++++++++++++++++++++++++++++++++++++++++++++-----
+ misc.c        | 57 ++++++++++++++++++++++++++++++++++++++++++++++-----
  misc.h        |  2 ++
  readconf.c    |  3 +--
  ssh.1         |  2 ++
  ssh_config.5  |  2 ++
- 7 files changed, 63 insertions(+), 13 deletions(-)
+ 7 files changed, 62 insertions(+), 13 deletions(-)
 
 diff --git a/auth-rhosts.c b/auth-rhosts.c
 index 0bc4d424c..2f82c578c 100644
@@ -65,21 +65,21 @@ index 704dc2e7e..0cc0e830c 100644
  			    "bad owner or modes for %.200s",
  			    pw->pw_name, user_hostfile);
 diff --git a/misc.c b/misc.c
-index b8d1040d1..4e167209c 100644
+index 0134d6949..4c5f7a6ad 100644
 --- a/misc.c
 +++ b/misc.c
-@@ -55,8 +55,9 @@
+@@ -55,9 +55,9 @@
  #include <netdb.h>
  #ifdef HAVE_PATHS_H
  # include <paths.h>
--#include <pwd.h>
- #endif
-+#include <pwd.h>
-+#include <grp.h>
++#endif
+ #include <pwd.h>
+ #include <grp.h>
+-#endif
  #ifdef SSH_TUN_OPENBSD
  #include <net/if.h>
  #endif
-@@ -1353,6 +1354,55 @@ percent_dollar_expand(const char *string, ...)
+@@ -1354,6 +1354,55 @@ percent_dollar_expand(const char *string, ...)
  	return ret;
  }
  
@@ -135,7 +135,7 @@ index b8d1040d1..4e167209c 100644
  int
  tun_open(int tun, int mode, char **ifname)
  {
-@@ -2162,8 +2212,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -2163,8 +2212,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		snprintf(err, errlen, "%s is not a regular file", buf);
  		return -1;
  	}
@@ -145,7 +145,7 @@ index b8d1040d1..4e167209c 100644
  		snprintf(err, errlen, "bad ownership or modes for file %s",
  		    buf);
  		return -1;
-@@ -2178,8 +2227,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
+@@ -2179,8 +2227,7 @@ safe_path(const char *name, struct stat *stp, const char *pw_dir,
  		strlcpy(buf, cp, sizeof(buf));
  
  		if (stat(buf, &st) == -1 ||
@@ -169,10 +169,10 @@ index 2e2dca54b..cf621c6ee 100644
  #define MAXIMUM(a, b)	(((a) > (b)) ? (a) : (b))
  #define ROUNDUP(x, y)   ((((x)+((y)-1))/(y))*(y))
 diff --git a/readconf.c b/readconf.c
-index ff71c5b5b..5642b4230 100644
+index 12cfcca5d..bba13b590 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2297,8 +2297,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
+@@ -2310,8 +2310,7 @@ read_config_file_depth(const char *filename, struct passwd *pw,
  
  		if (fstat(fileno(f), &sb) == -1)
  			fatal("fstat %s: %s", filename, strerror(errno));
@@ -183,10 +183,10 @@ index ff71c5b5b..5642b4230 100644
  	}
  
 diff --git a/ssh.1 b/ssh.1
-index 37718f28b..3c82caf75 100644
+index 67ea50aa4..afe8c1aea 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -1549,6 +1549,8 @@ The file format and configuration options are described in
+@@ -1558,6 +1558,8 @@ The file format and configuration options are described in
  .Xr ssh_config 5 .
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.
@@ -196,10 +196,10 @@ index 37718f28b..3c82caf75 100644
  .It Pa ~/.ssh/environment
  Contains additional definitions for environment variables; see
 diff --git a/ssh_config.5 b/ssh_config.5
-index 8476925f2..c692a9fb1 100644
+index 1232e35bb..8483715f7 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -2220,6 +2220,8 @@ The format of this file is described above.
+@@ -2222,6 +2222,8 @@ The format of this file is described above.
  This file is used by the SSH client.
  Because of the potential for abuse, this file must have strict permissions:
  read/write for the user, and not writable by others.

@@ -1,4 +1,4 @@
-From 6b6100617f19456584dbe1f202057184e0f4a178 Mon Sep 17 00:00:00 2001
+From 415c2e44fa2d43d329f0403fd521cb9c5523d3aa Mon Sep 17 00:00:00 2001
 From: Kurt Roeckx <kurt@roeckx.be>
 Date: Sun, 9 Feb 2014 16:10:14 +0000
 Subject: Don't check the status field of the OpenSSL version

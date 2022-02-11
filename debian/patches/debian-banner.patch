@@ -1,4 +1,4 @@
-From c114732384dc3b79a2fe4d931b2ce1bf67d28dbb Mon Sep 17 00:00:00 2001
+From 9221739b560b3d3bb39105659db87a3a3c51eae2 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -58,7 +58,7 @@ index 0677208ae..41346ff4b 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 48e2012d7..a074e9a72 100644
+index 26093f735..b0cd40ca4 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -199,6 +199,7 @@ initialize_server_options(ServerOptions *options)
@@ -78,7 +78,7 @@ index 48e2012d7..a074e9a72 100644
  
  	assemble_algorithms(options);
  
-@@ -531,6 +534,7 @@ typedef enum {
+@@ -530,6 +533,7 @@ typedef enum {
  	sStreamLocalBindMask, sStreamLocalBindUnlink,
  	sAllowStreamLocalForwarding, sFingerprintHash, sDisableForwarding,
  	sExposeAuthInfo, sRDomain, sPubkeyAuthOptions, sSecurityKeyProvider,
@@ -86,7 +86,7 @@ index 48e2012d7..a074e9a72 100644
  	sDeprecated, sIgnore, sUnsupported
  } ServerOpCodes;
  
-@@ -701,6 +705,7 @@ static struct {
+@@ -700,6 +704,7 @@ static struct {
  	{ "rdomain", sRDomain, SSHCFG_ALL },
  	{ "casignaturealgorithms", sCASignatureAlgorithms, SSHCFG_ALL },
  	{ "securitykeyprovider", sSecurityKeyProvider, SSHCFG_GLOBAL },
@@ -94,7 +94,7 @@ index 48e2012d7..a074e9a72 100644
  	{ NULL, sBadOption, 0 }
  };
  
-@@ -2480,6 +2485,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -2479,6 +2484,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  			*charptr = xstrdup(arg);
  		break;
  
@@ -145,7 +145,7 @@ index e6f313d32..30b79da7f 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 23ecb0de9..074f5125f 100644
+index a25cd94a7..04ba1bab7 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -546,6 +546,11 @@ or

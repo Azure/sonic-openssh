@@ -1,4 +1,4 @@
-From c4af34cf50a847a8fdf1f167a37d2e3cfd374a60 Mon Sep 17 00:00:00 2001
+From 1a3df8d733f3026c7d27526d55b47c2809ceecbe Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -89,10 +89,10 @@ index f83f515f6..c7420842a 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index 3c82caf75..1e5a93c1e 100644
+index afe8c1aea..834d39384 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -911,6 +911,10 @@ implements public key authentication protocol automatically,
+@@ -920,6 +920,10 @@ implements public key authentication protocol automatically,
  using one of the DSA, ECDSA, Ed25519 or RSA algorithms.
  The HISTORY section of
  .Xr ssl 8
@@ -104,7 +104,7 @@ index 3c82caf75..1e5a93c1e 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index f89114916..7310ad58c 100644
+index 9c5c01e9d..e31b339dd 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -64,7 +64,7 @@ over an insecure network.
@@ -116,7 +116,7 @@ index f89114916..7310ad58c 100644
  It forks a new
  daemon for each incoming connection.
  The forked daemons handle
-@@ -914,7 +914,7 @@ This file is for host-based authentication (see
+@@ -919,7 +919,7 @@ This file is for host-based authentication (see
  .Xr ssh 1 ) .
  It should only be writable by root.
  .Pp
@@ -125,7 +125,7 @@ index f89114916..7310ad58c 100644
  Contains Diffie-Hellman groups used for the "Diffie-Hellman Group Exchange"
  key exchange method.
  The file format is described in
-@@ -1012,7 +1012,6 @@ The content of this file is not sensitive; it can be world-readable.
+@@ -1017,7 +1017,6 @@ The content of this file is not sensitive; it can be world-readable.
  .Xr ssh-keyscan 1 ,
  .Xr chroot 2 ,
  .Xr hosts_access 5 ,
@@ -134,7 +134,7 @@ index f89114916..7310ad58c 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 074f5125f..5585773a0 100644
+index 04ba1bab7..368782d6e 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -914,9 +914,6 @@ for interactive sessions and

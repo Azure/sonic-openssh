@@ -1,4 +1,4 @@
-From 92e6ce6c8f87d0ba1777a3c9e2d05cf7f759a4e2 Mon Sep 17 00:00:00 2001
+From f114bda297b71007b873baa41fd5569a0104fec0 Mon Sep 17 00:00:00 2001
 From: Michael Biebl <biebl@debian.org>
 Date: Mon, 21 Dec 2015 16:08:47 +0000
 Subject: Add systemd readiness notification support
@@ -14,10 +14,10 @@ Patch-Name: systemd-readiness.patch
  2 files changed, 33 insertions(+)
 
 diff --git a/configure.ac b/configure.ac
-index a9c1a9470..01d49664d 100644
+index 5f9747fcb..ba8814dd5 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -4833,6 +4833,29 @@ AC_ARG_WITH([kerberos5],
+@@ -4831,6 +4831,29 @@ AC_ARG_WITH([kerberos5],
  AC_SUBST([GSSLIBS])
  AC_SUBST([K5LIBS])
  
@@ -47,7 +47,7 @@ index a9c1a9470..01d49664d 100644
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -5647,6 +5670,7 @@ echo "                   libldns support: $LDNS_MSG"
+@@ -5645,6 +5668,7 @@ echo "                   libldns support: $LDNS_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
  echo "         Solaris privilege support: $SPP_MSG"

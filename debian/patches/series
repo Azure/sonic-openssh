@@ -24,5 +24,3 @@ restore-authorized_keys2.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch
 maxhostnamelen.patch
-initgroups-before-setresgid.patch
-ssh-keygen-find-principals-null-deref.patch

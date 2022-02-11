@@ -1,4 +1,4 @@
-From ca1a34e36601a8af6dd6bc9c331b13fa04a503bb Mon Sep 17 00:00:00 2001
+From 23cf5efee5e646d6fce05abe3879166fb06fea4a Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:18 +0000
 Subject: Various Debian-specific configuration changes
@@ -43,10 +43,10 @@ Patch-Name: debian-config.patch
  6 files changed, 98 insertions(+), 9 deletions(-)
 
 diff --git a/readconf.c b/readconf.c
-index 5642b4230..b5dd53747 100644
+index bba13b590..aa356aa60 100644
 --- a/readconf.c
 +++ b/readconf.c
-@@ -2497,7 +2497,7 @@ fill_default_options(Options * options)
+@@ -2524,7 +2524,7 @@ fill_default_options(Options * options)
  	if (options->forward_x11 == -1)
  		options->forward_x11 = 0;
  	if (options->forward_x11_trusted == -1)
@@ -56,10 +56,10 @@ index 5642b4230..b5dd53747 100644
  		options->forward_x11_timeout = 1200;
  	/*
 diff --git a/ssh.1 b/ssh.1
-index b0850dbfd..adf12614c 100644
+index 719e02ec3..9957b47ef 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -833,6 +833,16 @@ directive in
+@@ -842,6 +842,16 @@ directive in
  .Xr ssh_config 5
  for more information.
  .Pp
@@ -76,7 +76,7 @@ index b0850dbfd..adf12614c 100644
  .It Fl x
  Disables X11 forwarding.
  .Pp
-@@ -841,6 +851,20 @@ Enables trusted X11 forwarding.
+@@ -850,6 +860,20 @@ Enables trusted X11 forwarding.
  Trusted X11 forwardings are not subjected to the X11 SECURITY extension
  controls.
  .Pp
@@ -123,7 +123,7 @@ index 52aae8692..09a17cf18 100644
 +    HashKnownHosts yes
 +    GSSAPIAuthentication yes
 diff --git a/ssh_config.5 b/ssh_config.5
-index b7215b59f..fbc5c583e 100644
+index 63407ef0e..a0c71ec2c 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
 @@ -71,6 +71,29 @@ Since the first obtained value for each parameter is used, more
@@ -156,7 +156,7 @@ index b7215b59f..fbc5c583e 100644
  The file contains keyword-argument pairs, one per line.
  Lines starting with
  .Ql #
-@@ -791,11 +814,12 @@ elapsed.
+@@ -796,11 +819,12 @@ elapsed.
  .It Cm ForwardX11Trusted
  If this option is set to
  .Cm yes ,
@@ -229,7 +229,7 @@ index f91d293c0..845c62034 100644
  # Example of overriding settings on a per-user basis
  #Match User anoncvs
 diff --git a/sshd_config.5 b/sshd_config.5
-index 5585773a0..20477b641 100644
+index 368782d6e..e345d09ca 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -56,6 +56,35 @@ Arguments may optionally be enclosed in double quotes

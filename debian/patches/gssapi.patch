@@ -1,4 +1,4 @@
-From 6406d38911ab70fe2fb0c433d05087cf81602bd8 Mon Sep 17 00:00:00 2001
+From fdafa4a7dd59f41f79999c323a288802e9bc898c Mon Sep 17 00:00:00 2001
 From: Simon Wilkinson <simon@sxw.org.uk>
 Date: Sun, 9 Feb 2014 16:09:48 +0000
 Subject: GSSAPI key exchange support
@@ -476,7 +476,7 @@ index 26d62855a..0cadc9f18 100644
  int		 get_peer_port(int);
  char		*get_local_ipaddr(int);
 diff --git a/clientloop.c b/clientloop.c
-index bfcd50c26..d9166f914 100644
+index da14d1507..d784ddc9a 100644
 --- a/clientloop.c
 +++ b/clientloop.c
 @@ -112,6 +112,10 @@
@@ -511,10 +511,10 @@ index bfcd50c26..d9166f914 100644
  		client_process_net_input(ssh, readset);
  
 diff --git a/configure.ac b/configure.ac
-index 01e7d2a4f..9883d3ec6 100644
+index 413913a7c..29de0ef0f 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -708,6 +708,30 @@ main() { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
+@@ -709,6 +709,30 @@ main() { if (NSVersionOfRunTimeLibrary("System") >= (60 << 16))
  	    [Use tunnel device compatibility to OpenBSD])
  	AC_DEFINE([SSH_TUN_PREPEND_AF], [1],
  	    [Prepend the address family to IP tunnel traffic])
@@ -3013,7 +3013,7 @@ index a163b67d2..f51bcca05 100644
  
  #ifdef USE_PAM
 diff --git a/readconf.c b/readconf.c
-index 03369a086..96fce4b81 100644
+index bcca6ed47..dc7ece377 100644
 --- a/readconf.c
 +++ b/readconf.c
 @@ -67,6 +67,7 @@
@@ -3103,7 +3103,7 @@ index 03369a086..96fce4b81 100644
  	case oBatchMode:
  		intptr = &options->batch_mode;
  		goto parse_flag;
-@@ -2306,7 +2357,13 @@ initialize_options(Options * options)
+@@ -2333,7 +2384,13 @@ initialize_options(Options * options)
  	options->fwd_opts.streamlocal_bind_unlink = -1;
  	options->pubkey_authentication = -1;
  	options->gss_authentication = -1;
@@ -3117,7 +3117,7 @@ index 03369a086..96fce4b81 100644
  	options->password_authentication = -1;
  	options->kbd_interactive_authentication = -1;
  	options->kbd_interactive_devices = NULL;
-@@ -2463,8 +2520,18 @@ fill_default_options(Options * options)
+@@ -2490,8 +2547,18 @@ fill_default_options(Options * options)
  		options->pubkey_authentication = 1;
  	if (options->gss_authentication == -1)
  		options->gss_authentication = 0;
@@ -3136,7 +3136,7 @@ index 03369a086..96fce4b81 100644
  	if (options->password_authentication == -1)
  		options->password_authentication = 1;
  	if (options->kbd_interactive_authentication == -1)
-@@ -3246,7 +3313,14 @@ dump_client_config(Options *o, const char *host)
+@@ -3282,7 +3349,14 @@ dump_client_config(Options *o, const char *host)
  	dump_cfg_fmtint(oGatewayPorts, o->fwd_opts.gateway_ports);
  #ifdef GSSAPI
  	dump_cfg_fmtint(oGssAuthentication, o->gss_authentication);
@@ -3152,7 +3152,7 @@ index 03369a086..96fce4b81 100644
  	dump_cfg_fmtint(oHashKnownHosts, o->hash_known_hosts);
  	dump_cfg_fmtint(oHostbasedAuthentication, o->hostbased_authentication);
 diff --git a/readconf.h b/readconf.h
-index f7d53b067..794ddd500 100644
+index f24719f98..00895ad83 100644
 --- a/readconf.h
 +++ b/readconf.h
 @@ -39,7 +39,13 @@ typedef struct {
@@ -3170,7 +3170,7 @@ index f7d53b067..794ddd500 100644
  						 * authentication. */
  	int     kbd_interactive_authentication; /* Try keyboard-interactive auth. */
 diff --git a/servconf.c b/servconf.c
-index a765e4e05..909dd33ac 100644
+index b2fbf0b2a..d78fbb67a 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -70,6 +70,7 @@
@@ -3212,7 +3212,7 @@ index a765e4e05..909dd33ac 100644
  	if (options->password_authentication == -1)
  		options->password_authentication = 1;
  	if (options->kbd_interactive_authentication == -1)
-@@ -506,6 +518,7 @@ typedef enum {
+@@ -505,6 +517,7 @@ typedef enum {
  	sHostKeyAlgorithms, sPerSourceMaxStartups, sPerSourceNetBlockSize,
  	sClientAliveInterval, sClientAliveCountMax, sAuthorizedKeysFile,
  	sGssAuthentication, sGssCleanupCreds, sGssStrictAcceptor,
@@ -3220,7 +3220,7 @@ index a765e4e05..909dd33ac 100644
  	sAcceptEnv, sSetEnv, sPermitTunnel,
  	sMatch, sPermitOpen, sPermitListen, sForceCommand, sChrootDirectory,
  	sUsePrivilegeSeparation, sAllowAgentForwarding,
-@@ -587,12 +600,22 @@ static struct {
+@@ -586,12 +599,22 @@ static struct {
  #ifdef GSSAPI
  	{ "gssapiauthentication", sGssAuthentication, SSHCFG_ALL },
  	{ "gssapicleanupcredentials", sGssCleanupCreds, SSHCFG_GLOBAL },
@@ -3243,7 +3243,7 @@ index a765e4e05..909dd33ac 100644
  	{ "passwordauthentication", sPasswordAuthentication, SSHCFG_ALL },
  	{ "kbdinteractiveauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL },
  	{ "challengeresponseauthentication", sKbdInteractiveAuthentication, SSHCFG_ALL }, /* alias */
-@@ -1576,6 +1599,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -1575,6 +1598,10 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		intptr = &options->gss_authentication;
  		goto parse_flag;
  
@@ -3254,7 +3254,7 @@ index a765e4e05..909dd33ac 100644
  	case sGssCleanupCreds:
  		intptr = &options->gss_cleanup_creds;
  		goto parse_flag;
-@@ -1584,6 +1611,22 @@ process_server_config_line_depth(ServerOptions *options, char *line,
+@@ -1583,6 +1610,22 @@ process_server_config_line_depth(ServerOptions *options, char *line,
  		intptr = &options->gss_strict_acceptor;
  		goto parse_flag;
  
@@ -3277,7 +3277,7 @@ index a765e4e05..909dd33ac 100644
  	case sPasswordAuthentication:
  		intptr = &options->password_authentication;
  		goto parse_flag;
-@@ -2892,6 +2935,10 @@ dump_config(ServerOptions *o)
+@@ -2891,6 +2934,10 @@ dump_config(ServerOptions *o)
  #ifdef GSSAPI
  	dump_cfg_fmtint(sGssAuthentication, o->gss_authentication);
  	dump_cfg_fmtint(sGssCleanupCreds, o->gss_cleanup_creds);
@@ -3455,10 +3455,10 @@ index a8af117d2..6303ce185 100644
  
  #endif /* _SSH_GSS_H */
 diff --git a/ssh.1 b/ssh.1
-index 77502515b..37718f28b 100644
+index 7efb23828..67ea50aa4 100644
 --- a/ssh.1
 +++ b/ssh.1
-@@ -521,7 +521,13 @@ For full details of the options listed below, and their possible values, see
+@@ -530,7 +530,13 @@ For full details of the options listed below, and their possible values, see
  .It GatewayPorts
  .It GlobalKnownHostsFile
  .It GSSAPIAuthentication
@@ -3472,7 +3472,7 @@ index 77502515b..37718f28b 100644
  .It HashKnownHosts
  .It Host
  .It HostbasedAcceptedAlgorithms
-@@ -598,6 +604,8 @@ flag),
+@@ -607,6 +613,8 @@ flag),
  (supported message integrity codes),
  .Ar kex
  (key exchange algorithms),
@@ -3482,10 +3482,10 @@ index 77502515b..37718f28b 100644
  (key types),
  .Ar key-cert
 diff --git a/ssh.c b/ssh.c
-index 533a6aa99..582cbac8c 100644
+index e6fe80909..519b7a23c 100644
 --- a/ssh.c
 +++ b/ssh.c
-@@ -774,6 +774,8 @@ main(int ac, char **av)
+@@ -775,6 +775,8 @@ main(int ac, char **av)
  			else if (strcmp(optarg, "kex") == 0 ||
  			    strcasecmp(optarg, "KexAlgorithms") == 0)
  				cp = kex_alg_list('\n');
@@ -3494,7 +3494,7 @@ index 533a6aa99..582cbac8c 100644
  			else if (strcmp(optarg, "key") == 0)
  				cp = sshkey_alg_list(0, 0, 0, '\n');
  			else if (strcmp(optarg, "key-cert") == 0)
-@@ -801,8 +803,8 @@ main(int ac, char **av)
+@@ -802,8 +804,8 @@ main(int ac, char **av)
  			} else if (strcmp(optarg, "help") == 0) {
  				cp = xstrdup(
  				    "cipher\ncipher-auth\ncompression\nkex\n"
@@ -3519,10 +3519,10 @@ index 842ea866c..52aae8692 100644
  #   CheckHostIP yes
  #   AddressFamily any
 diff --git a/ssh_config.5 b/ssh_config.5
-index cd0eea867..7f8756e03 100644
+index 170125a0e..2bac0a755 100644
 --- a/ssh_config.5
 +++ b/ssh_config.5
-@@ -828,10 +828,67 @@ The default is
+@@ -833,10 +833,67 @@ The default is
  Specifies whether user authentication based on GSSAPI is allowed.
  The default is
  .Cm no .
@@ -3941,7 +3941,7 @@ index c423eba1b..f91d293c0 100644
  # Set this to 'yes' to enable PAM authentication, account processing,
  # and session processing. If this is enabled, PAM authentication will
 diff --git a/sshd_config.5 b/sshd_config.5
-index 69d55206a..a2e8daef2 100644
+index a8d0545c3..6076df94f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -650,6 +650,11 @@ Specifies whether to automatically destroy the user's credentials cache
