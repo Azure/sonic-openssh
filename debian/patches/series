@@ -24,3 +24,4 @@ restore-authorized_keys2.patch
 conch-old-privkey-format.patch
 revert-ipqos-defaults.patch
 maxhostnamelen.patch
+conch-ssh-rsa.patch

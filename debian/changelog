@@ -16,6 +16,8 @@ openssh (1:8.8p1-1) UNRELEASED; urgency=medium
     - A number of documentation and manual improvements.
     - ssh(1)/sshd(8): some fixes to the pselect(2) replacement compatibility
       code.
+  * Work around missing RSA SHA-2 signature support in conch until the
+    upstream fix lands in Debian.
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 15 Feb 2022 17:02:56 +0000
 

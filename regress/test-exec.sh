@@ -640,6 +640,10 @@ if test "$REGRESS_INTEROP_CONCH" = "yes" ; then
 	cp $OBJ/ssh-rsa $OBJ/ssh-rsa_oldfmt
 	cp $OBJ/ssh-rsa.pub $OBJ/ssh-rsa_oldfmt.pub
 	${SSHKEYGEN} -p -N '' -m PEM -f $OBJ/ssh-rsa_oldfmt >/dev/null
+	# Work around missing support for RSA SHA-2 signatures:
+	# https://twistedmatrix.com/trac/ticket/9765
+	echo HostKeyAlgorithms +ssh-rsa >> $OBJ/sshd_config
+	echo PubkeyAcceptedAlgorithms +ssh-rsa >> $OBJ/sshd_config
 fi
 
 # If PuTTY is present, new enough and we are running a PuTTY test, prepare
