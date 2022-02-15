@@ -629,6 +629,17 @@ REGRESS_INTEROP_CONCH=no
 if test -x "$CONCH" ; then
 	REGRESS_INTEROP_CONCH=yes
 fi
+case "$SCRIPT" in
+*conch*)	;;
+*)		REGRESS_INTEROP_CONCH=no
+esac
+
+if test "$REGRESS_INTEROP_CONCH" = "yes" ; then
+	# Work around missing support for RSA SHA-2 signatures:
+	# https://twistedmatrix.com/trac/ticket/9765
+	echo HostKeyAlgorithms +ssh-rsa >> $OBJ/sshd_config
+	echo PubkeyAcceptedAlgorithms +ssh-rsa >> $OBJ/sshd_config
+fi
 
 # If PuTTY is present, new enough and we are running a PuTTY test, prepare
 # keys and configuration.
