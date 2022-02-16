@@ -635,11 +635,6 @@ case "$SCRIPT" in
 esac
 
 if test "$REGRESS_INTEROP_CONCH" = "yes" ; then
-	# Convert rsa key to old format to work around
-	# https://twistedmatrix.com/trac/ticket/9515
-	cp $OBJ/ssh-rsa $OBJ/ssh-rsa_oldfmt
-	cp $OBJ/ssh-rsa.pub $OBJ/ssh-rsa_oldfmt.pub
-	${SSHKEYGEN} -p -N '' -m PEM -f $OBJ/ssh-rsa_oldfmt >/dev/null
 	# Work around missing support for RSA SHA-2 signatures:
 	# https://twistedmatrix.com/trac/ticket/9765
 	echo HostKeyAlgorithms +ssh-rsa >> $OBJ/sshd_config
